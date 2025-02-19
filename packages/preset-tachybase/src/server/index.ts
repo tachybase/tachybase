@@ -83,6 +83,7 @@ export class PresetTachyBase extends Plugin {
     ['ai-chat', '0.23.8', false],
     ['department', '0.23.22', false],
     ['workflow-analysis', '0.23.41', false],
+    ['api-logs', '0.23.41', false],
   ];
 
   get localPlugins() {

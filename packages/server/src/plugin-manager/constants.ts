@@ -75,18 +75,10 @@ export const EXTERNAL = [
   '@dnd-kit/sortable',
   '@dnd-kit/utilities',
 
-  // formily 相关
+  // 内置类库 相关
   '@tachybase/components',
   '@tachybase/requirejs',
   '@tachybase/schema',
-  '@formily/core',
-  '@formily/react',
-  '@formily/json-schema',
-  '@formily/path',
-  '@formily/validator',
-  '@formily/shared',
-  '@formily/reactive',
-  '@formily/reactive-react',
 
   // utils
   'dayjs',

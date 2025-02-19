@@ -99,16 +99,6 @@ const external = [
   '@dnd-kit/sortable',
   '@dnd-kit/utilities',
 
-  // formily 相关
-  '@formily/core',
-  '@formily/react',
-  '@formily/json-schema',
-  '@formily/path',
-  '@formily/validator',
-  '@formily/shared',
-  '@formily/reactive',
-  '@formily/reactive-react',
-
   // utils
   'dayjs',
   'mysql2',

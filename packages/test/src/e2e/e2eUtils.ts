@@ -1,5 +1,6 @@
+import { uid } from '@tachybase/schema';
+
 import { faker } from '@faker-js/faker';
-import { uid } from '@formily/shared';
 import { test as base, expect, Page, request } from '@playwright/test';
 import _ from 'lodash';
 
@@ -513,7 +514,7 @@ const _test = base.extend<ExtendUtils>({
 
 export const test = Object.assign(_test, {
   /** 只运行在 postgres 数据库中 */
-  pgOnly: process.env.DB_DIALECT == 'postgres' ? _test : _test.skip,
+  pgOnly: process.env.DB_DIALECT === 'postgres' ? _test : _test.skip,
 });
 
 const getStorageItem = (key: string, storageState: any) => {

@@ -4,6 +4,7 @@
     "lib": ["ESNext", "DOM.Iterable", "DOM"],
     "jsx": "react-jsx",
     "target": "ESNext",
+    "useDefineForClassFields": false,
     "noEmit": false,
     "skipLibCheck": true,
 

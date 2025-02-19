@@ -4,7 +4,7 @@ import { vi } from 'vitest';
 
 import { createEditFormBlockUISchema } from '../createEditFormBlockUISchema';
 
-vi.mock('@formily/shared', () => ({
+vi.mock('@tachybase/schema', () => ({
   uid: () => 'uniqueId',
 }));
 

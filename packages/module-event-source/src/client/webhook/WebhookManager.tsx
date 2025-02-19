@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ExtendCollectionsProvider,
   SchemaComponent,
   TableBlockProvider,
   useCollectionRecordData,
+  useCompile,
   useDataBlockResource,
+  usePlugin,
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
@@ -15,12 +17,14 @@ import {
   ExecutionStatusColumn,
   OpenDrawer,
 } from '@tachybase/module-workflow/client';
-import { ISchema, useForm } from '@tachybase/schema';
+import { ISchema, useField, useForm } from '@tachybase/schema';
 
-import { Button, Space } from 'antd';
+import { Button, Space, Tag, Typography } from 'antd';
 
-import { lang } from '../locale';
+import ModuleEventSourceClient from '..';
+import { lang, tval } from '../locale';
 import { dispatchers } from './collections/dispatchers';
+import { TypeContainer } from './components/TypeContainer';
 
 // TODO
 export const ExecutionResourceProvider = ({ params, filter = {}, ...others }) => {
@@ -83,77 +87,20 @@ const properties = {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
     'x-collection-field': 'webhooks.type',
-    'x-component-props': {},
   },
-  resourceName: {
-    type: 'string',
+  options: {
+    type: 'object',
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.resourceName',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
-          },
+    'x-reactions': {
+      dependencies: ['type'],
+      fulfill: {
+        schema: {
+          'x-component-props': '{{ useTypeOptions($deps[0]) }}',
         },
       },
-    ],
-    'x-component-props': {},
-  },
-  triggerOnAssociation: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.triggerOnAssociation',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
-  },
-  actionName: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.actionName',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource"}}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
-  },
-  eventName: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden: '{{ $deps[0] !== "databaseEvent" && $deps[0] !== "applicationEvent" }}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
+    },
+    'x-collection-field': 'webhooks.options',
   },
   code: {
     type: 'string',
@@ -163,6 +110,21 @@ const properties = {
       tooltip: 'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
     },
     'x-collection-field': 'webhooks.code',
+  },
+  effectConfig: {
+    title: tval('Effect config'),
+    type: 'string',
+    'x-component': 'CodeMirror',
+    'x-component-props': {
+      options: {
+        readOnly: true,
+      },
+    },
+    'x-decorator': 'FormItem',
+    'x-decorator-props': {
+      tooltip: tval('The real effect of the server, not the preset configuration'),
+    },
+    'x-collection-field': 'webhooks.effectConfig',
   },
 };
 
@@ -614,6 +576,31 @@ const schema: ISchema = {
                 },
               },
             },
+            effectColumn: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+              },
+              properties: {
+                effect: {
+                  type: 'boolean',
+                  'x-collection-field': 'webhooks.effect',
+                  'x-component': 'CollectionField',
+                  'x-component-props': {
+                    ellipsis: true,
+                  },
+                  'x-read-pretty': true,
+                  'x-decorator': null,
+                  'x-decorator-props': {
+                    labelStyle: {
+                      display: 'none',
+                    },
+                  },
+                },
+              },
+            },
             actionColumn: {
               type: 'void',
               title: '{{ t("Actions") }}',
@@ -644,6 +631,36 @@ const schema: ISchema = {
 };
 
 export const WebhookManager = () => {
+  const plugin = usePlugin(ModuleEventSourceClient);
+  const typeList = [];
+  for (const type of plugin.triggers.getKeys()) {
+    typeList.push({
+      label: plugin.triggers.get(type).title,
+      description: plugin.triggers.get(type).description,
+      value: type,
+    });
+  }
+
+  const useTypeOptions = (type) => {
+    return {
+      options: plugin.triggers?.get(type)?.options,
+    };
+  };
+
+  const useTriggersOptions = () => {
+    const compile = useCompile();
+    const result = Array.from(plugin.triggers.getEntities())
+      .map(([value, { title, ...options }]) => ({
+        value,
+        label: compile(title),
+        color: 'gold',
+        options,
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+    console.log('result', result);
+    return result;
+  };
+
   return (
     <ExtendCollectionsProvider collections={[dispatchers]}>
       <SchemaComponent
@@ -651,6 +668,8 @@ export const WebhookManager = () => {
         schema={schema}
         scope={{
           useTestActionProps,
+          useTriggersOptions,
+          useTypeOptions,
           ExecutionRetryAction,
         }}
         components={{
@@ -660,6 +679,7 @@ export const WebhookManager = () => {
           ExecutionLink,
           WorkflowSelect,
           CodeMirror,
+          TypeContainer,
         }}
       />
     </ExtendCollectionsProvider>
