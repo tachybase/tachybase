@@ -28,15 +28,15 @@ export default {
         region: {
           title: `{{t("Region", { ns: "${NAMESPACE}" })}}`,
           type: 'string',
-          'x-decorator': 'TextAreaWithGlobalScope',
-          'x-component': 'Input',
+          'x-decorator': 'FormItem',
+          'x-component': 'TextAreaWithGlobalScope',
           required: true,
         },
         accessKeyId: {
           title: `{{t("AccessKey ID", { ns: "${NAMESPACE}" })}}`,
           type: 'string',
-          'x-decorator': 'TextAreaWithGlobalScope',
-          'x-component': 'Input',
+          'x-decorator': 'FormItem',
+          'x-component': 'TextAreaWithGlobalScope',
           required: true,
         },
         accessKeySecret: {
