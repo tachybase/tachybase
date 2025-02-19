@@ -263,7 +263,7 @@ export function AfterSuccess() {
   const ctx = useActionContext();
   const openMode = findSchema(ctx.fieldSchema);
   const component = fieldSchema.parent.parent['x-component'];
-  const schema = { ...(afterSuccessSchema as any) };
+  const schema = { ...(afterSuccessSchema(t) as any) };
   if (
     ((!openMode || openMode === 'page') && (component as string).includes('Form')) ||
     !(component as string).includes('Form')

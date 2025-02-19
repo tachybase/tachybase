@@ -3,10 +3,11 @@ import { BlockInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
 import { useCustomRequestsResource } from '../hooks/useCustomRequestsResource';
+import { useTranslation } from '../locale';
 
 export const CustomRequestInitializer: React.FC<any> = (props) => {
   const customRequestsResource = useCustomRequestsResource();
-
+  const { t } = useTranslation();
   const schema = {
     title: '{{ t("Custom request") }}',
     'x-component': 'CustomRequestAction',
@@ -19,7 +20,7 @@ export const CustomRequestInitializer: React.FC<any> = (props) => {
       onSuccess: {
         manualClose: false,
         redirecting: false,
-        successMessage: '{{t("Request success")}}',
+        successMessage: t('Request success'),
       },
     },
   };

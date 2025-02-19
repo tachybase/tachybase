@@ -64,7 +64,7 @@ export const customizeCustomRequestActionSettings = new SchemaSettings({
     },
     {
       name: 'afterSuccessfulSubmission',
-      Component: AfterSuccess,
+      Component: AfterSuccess, // 加下载配置,动态设置返回
     },
     {
       name: 'request settings',

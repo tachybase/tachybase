@@ -57,6 +57,9 @@ export const useCustomizeRequestActionProps = () => {
               data: formValues,
             },
           },
+          headers: {
+            'X-Response-Type': onSuccess?.down ? 'blob' : 'json',
+          },
         })) as any;
         const headerContentType = res.headers.getContentType();
         if (onSuccess?.down) {
