@@ -116,7 +116,6 @@ export const collectionWorkflows = {
         default: false,
       } as ISchema,
     },
-
     {
       type: 'number',
       name: 'allExecuted',
@@ -164,6 +163,28 @@ export const collectionWorkflows = {
           },
         },
         'x-read-pretty': true,
+      },
+    },
+    {
+      name: 'color',
+      type: 'string',
+      interface: 'color',
+      uiSchema: {
+        title: '{{t("Color")}}',
+        type: 'string',
+        'x-component': 'ColorPicker',
+        required: true,
+      },
+    },
+    {
+      name: 'icon',
+      type: 'string',
+      interface: 'icon',
+      uiSchema: {
+        title: '{{t("Icon")}}',
+        type: 'string',
+        'x-component': 'IconPicker',
+        required: true,
       },
     },
   ],
