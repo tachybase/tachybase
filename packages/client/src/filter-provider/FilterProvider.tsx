@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useEffect, useRef } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef } from 'react';
 import { useField, useFieldSchema } from '@tachybase/schema';
 
 import { uniqBy } from 'lodash';
@@ -80,6 +80,12 @@ export const FilterBlockProvider = ({ children }) => {
   return <FilterContext.Provider value={{ dataBlocks, setDataBlocks }}>{children}</FilterContext.Provider>;
 };
 
+// 用于通知 FilterBlockProvider 中的数据卡片更新
+const ContextFilterCollector = React.createContext({ changeCount: 0 });
+export const ProviderContextFilterCollector = ContextFilterCollector.Provider;
+export function useContextFilterCollector() {
+  return useContext(ContextFilterCollector);
+}
 /**
  * 用于收集当前页面中的数据卡片的信息，用于在过滤卡片中使用
  * @param param0
@@ -94,12 +100,16 @@ export const DataBlockCollector = ({
 }) => {
   const collection = useCollection_deprecated();
   const { recordDataBlocks, removeDataBlock } = useFilterBlock();
-  const { service } = useBlockRequestContext();
+  const ctx = useBlockRequestContext();
+  const service = ctx.service;
+
   const field = useField();
   const fieldSchema = useFieldSchema();
   const associatedFields = useAssociatedFields();
   const container = useRef(null);
   const dataLoadingMode = useDataLoadingMode();
+  const [changeCount, setChangeCount] = React.useState(0);
+  console.log('%c Line:112 🥒 changeCount', 'font-size:18px;color:#6ec1c2;background:#f5ce50', changeCount);
 
   const shouldApplyFilter =
     field.decoratorType !== 'FilterFormBlockProvider' &&
@@ -110,7 +120,7 @@ export const DataBlockCollector = ({
     recordDataBlocks({
       uid: fieldSchema['x-uid'],
       title: field.componentProps.title,
-      doFilter: service.runAsync,
+      doFilter: service?.runAsync,
       collection,
       associatedFields,
       foreignKeyFields: collection.foreignKeyFields as ForeignKeyField[],
@@ -143,7 +153,10 @@ export const DataBlockCollector = ({
   }, [associatedFields, collection, dataLoadingMode, field, fieldSchema, params?.filter, recordDataBlocks, service]);
 
   useEffect(() => {
-    if (shouldApplyFilter) addBlockToDataBlocks();
+    if (shouldApplyFilter) {
+      addBlockToDataBlocks();
+      setChangeCount((prev) => prev++);
+    }
   }, [params.filter, service, dataLoadingMode, shouldApplyFilter, addBlockToDataBlocks]);
 
   useEffect(() => {
@@ -152,7 +165,11 @@ export const DataBlockCollector = ({
     };
   }, []);
 
-  return <div ref={container}>{children}</div>;
+  return (
+    <div ref={container}>
+      <ProviderContextFilterCollector value={{ changeCount }}>{children}</ProviderContextFilterCollector>
+    </div>
+  );
 };
 
 /**
