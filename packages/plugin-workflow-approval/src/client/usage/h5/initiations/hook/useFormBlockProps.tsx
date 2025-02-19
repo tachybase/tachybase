@@ -17,10 +17,7 @@ export function useFormBlockProps() {
   const { editable } = ApprovalStatusEnums.find((value) => value.value === approval.status);
 
   const needEditable =
-    (isResubmit || editable) &&
-    approval?.latestExecutionId === id &&
-    approval?.createdById === data?.data.id &&
-    workflow.enabled;
+    (isResubmit || editable) && approval?.latestExecutionId === id && approval?.createdById === data?.data.id;
 
   useEffect(() => {
     if (!approval) {
