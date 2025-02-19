@@ -8,7 +8,7 @@ import {
   useRecord,
 } from '@tachybase/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { isURL } from '@tachybase/utils/client';
+import { isURL, parse } from '@tachybase/utils/client';
 
 import { App } from 'antd';
 import { saveAs } from 'file-saver';
@@ -56,6 +56,7 @@ export const useCustomizeRequestActionProps = () => {
               appends: service.params[0]?.appends,
               data: formValues,
             },
+            successMessage: onSuccess.successMessage,
           },
           headers: {
             'X-Response-Type': onSuccess?.down ? 'blob' : 'json',
@@ -78,7 +79,6 @@ export const useCustomizeRequestActionProps = () => {
         if (xAction === 'customize:form:request') {
           setVisible?.(false);
         }
-
         if (actionSchema?.['x-component-props']?.showData) {
           modal.confirm({
             title: 'Test Data',
@@ -90,9 +90,13 @@ export const useCustomizeRequestActionProps = () => {
           if (!onSuccess?.successMessage) {
             return;
           }
+          let messageStr = parse(onSuccess?.successMessage)({ res });
+          if (typeof messageStr !== 'string') {
+            messageStr = JSON.stringify(messageStr);
+          }
           if (onSuccess?.manualClose) {
             modal.success({
-              title: compile(onSuccess?.successMessage),
+              title: messageStr,
               onOk: async () => {
                 if (onSuccess?.redirecting && onSuccess?.redirectTo) {
                   if (isURL(onSuccess.redirectTo)) {
@@ -104,7 +108,7 @@ export const useCustomizeRequestActionProps = () => {
               },
             });
           } else {
-            message.success(compile(onSuccess?.successMessage));
+            message.success(messageStr);
             if (onSuccess?.redirecting && onSuccess?.redirectTo) {
               if (isURL(onSuccess.redirectTo)) {
                 window.location.href = onSuccess.redirectTo;
