@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { getGroupData } from 'packages/plugin-block-charts/src/client/chart/antd/tools/getGroupData';
 import { ModelStatic } from 'sequelize';
 
 import { Model } from './model';
