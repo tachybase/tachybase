@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
 import { Field, Schema, useField, useFieldSchema } from '@tachybase/schema';
 
 import { omit } from 'lodash';
@@ -9,6 +9,7 @@ import { useApp } from '../../application';
 import { useBlockRequestContext } from '../../block-provider/BlockProvider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
 import { useResourceActionContext } from '../../collection-manager/ResourceActionProvider';
+import { useCollection, useCollectionManager } from '../../data-source';
 import { useDataSourceKey } from '../../data-source/data-source/DataSourceProvider';
 import { useRecord } from '../../record-provider';
 import { SchemaComponentOptions, useDesignable } from '../../schema-component';
@@ -97,22 +98,33 @@ export const useACLRolesCheck = () => {
   const dataSourceName = useDataSourceKey();
   const { dataSources: dataSourcesAcl } = ctx?.data?.meta || {};
   const data = { ...ctx?.data?.data, ...omit(dataSourcesAcl?.[dataSourceName], 'snippets') };
-  const getActionAlias = (actionPath: string) => {
-    const actionName = actionPath.split(':').pop();
-    return data?.actionAlias?.[actionName] || actionName;
-  };
-  return {
-    data,
-    getActionAlias,
-    inResources: (resourceName: string) => {
+
+  const getActionAlias = useCallback(
+    (actionPath: string) => {
+      const actionName = actionPath.split(':').pop();
+      return data?.actionAlias?.[actionName] || actionName;
+    },
+    [data?.actionAlias],
+  );
+
+  const inResources = useCallback(
+    (resourceName: string) => {
       return data?.resources?.includes?.(resourceName);
     },
-    getResourceActionParams: (actionPath: string) => {
+    [data?.resources],
+  );
+
+  const getResourceActionParams = useCallback(
+    (actionPath: string) => {
       const [resourceName] = actionPath.split(':');
       const actionAlias = getActionAlias(actionPath);
       return data?.actions?.[`${resourceName}:${actionAlias}`] || data?.actions?.[actionPath];
     },
-    getStrategyActionParams: (actionPath: string) => {
+    [data?.actions, getActionAlias],
+  );
+
+  const getStrategyActionParams = useCallback(
+    (actionPath: string) => {
       const actionAlias = getActionAlias(actionPath);
       const strategyAction = data?.strategy?.actions?.find((action) => {
         const [value] = action.split(':');
@@ -120,6 +132,15 @@ export const useACLRolesCheck = () => {
       });
       return strategyAction ? {} : null;
     },
+    [data?.strategy?.actions, getActionAlias],
+  );
+
+  return {
+    data,
+    getActionAlias,
+    inResources,
+    getResourceActionParams,
+    getStrategyActionParams,
   };
 };
 
@@ -156,7 +177,8 @@ const useResourceName = () => {
 export function useACLRoleContext() {
   const { data, getActionAlias, inResources, getResourceActionParams, getStrategyActionParams } = useACLRolesCheck();
   const allowedActions = useAllowedActions();
-  const { getCollectionJoinField } = useCollectionManager_deprecated();
+  const cm = useCollectionManager();
+  // const { getCollectionJoinField } = useCollectionManager_deprecated();
   const verifyScope = (actionName: string, recordPkValue: any) => {
     const actionAlias = getActionAlias(actionName);
     if (!Array.isArray(allowedActions?.[actionAlias])) {
@@ -164,11 +186,11 @@ export function useACLRoleContext() {
     }
     return allowedActions[actionAlias].includes(recordPkValue);
   };
-  return {
-    ...data,
-    parseAction: (actionPath: string, options: any = {}) => {
+
+  const parseAction = useCallback(
+    (actionPath: string, options: any = {}) => {
       const [resourceName, actionName] = actionPath.split(':');
-      const targetResource = resourceName?.includes('.') && getCollectionJoinField(resourceName)?.target;
+      const targetResource = resourceName?.includes('.') && cm.getCollectionField(resourceName)?.target;
       if (!getIgnoreScope(options)) {
         const r = verifyScope(actionName, options.recordPkValue);
         if (r !== null) {
@@ -186,6 +208,12 @@ export function useACLRoleContext() {
       }
       return getStrategyActionParams(actionPath);
     },
+    [cm, data?.allowAll, getResourceActionParams, getStrategyActionParams, inResources, verifyScope],
+  );
+
+  return {
+    ...data,
+    parseAction,
   };
 }
 
@@ -213,14 +241,20 @@ export const useACLActionParamsContext = () => {
 };
 
 export const useRecordPkValue = () => {
-  const { getPrimaryKey } = useCollection_deprecated();
   const record = useRecord();
-  const primaryKey = getPrimaryKey();
+  const collection = useCollection();
+
+  if (!collection) {
+    return;
+  }
+
+  const primaryKey = collection.getPrimaryKey();
+
   return record?.[primaryKey];
 };
 
 export const ACLActionProvider = (props) => {
-  const { template, writableView } = useCollection_deprecated();
+  const collection = useCollection();
   const recordPkValue = useRecordPkValue();
   const resource = useResourceName();
   const { parseAction } = useACLRoleContext();
@@ -230,6 +264,12 @@ export const ACLActionProvider = (props) => {
   if (!actionPath && resource && schema['x-action']) {
     actionPath = `${resource}:${schema['x-action']}`;
   }
+
+  const params = useMemo(
+    () => parseAction(actionPath, { schema, recordPkValue }),
+    [parseAction, actionPath, schema, recordPkValue],
+  );
+
   if (!actionPath?.includes(':')) {
     actionPath = `${resource}:${actionPath}`;
   }
@@ -239,13 +279,13 @@ export const ACLActionProvider = (props) => {
   if (!resource) {
     return <>{props.children}</>;
   }
-  const params = parseAction(actionPath, { schema, recordPkValue });
+
   if (!params) {
     return <ACLActionParamsContext.Provider value={params}>{props.children}</ACLActionParamsContext.Provider>;
   }
   //视图表无编辑权限时不显示
   if (editablePath.includes(actionPath) || editablePath.includes(actionPath?.split(':')[1])) {
-    if (template !== 'view' || writableView) {
+    if ((collection && collection.template !== 'view') || collection?.writableView) {
       return <ACLActionParamsContext.Provider value={params}>{props.children}</ACLActionParamsContext.Provider>;
     }
     return null;
