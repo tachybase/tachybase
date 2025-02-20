@@ -5,6 +5,57 @@ import Database from '../database';
 import { appendChildCollectionNameAfterRepositoryFind } from '../listeners/append-child-collection-name-after-repository-find';
 import { OptionsParser } from '../options-parser';
 import { AdjacencyListRepository } from '../repositories/tree-repository/adjacency-list-repository';
+import SortParser from '../sort-parser';
+
+type IncludeType = {
+  association: string;
+  include?: IncludeType[];
+  [key: string]: any;
+};
+
+// 合并函数
+function mergeInclude(left: IncludeType[], right: IncludeType[]): IncludeType[] {
+  // 存储合并后的结果
+  const merged: IncludeType[] = [];
+
+  // 对左边的项进行遍历
+  left.forEach((baseItem) => {
+    // 查找右边中与 baseItem.association 相匹配的项
+    const updateItem = right.find((updateItem) => updateItem.association === baseItem.association);
+
+    // 如果找到匹配的项，进行合并
+    if (updateItem) {
+      // 合并 include，递归合并嵌套的 include
+      const mergedInclude =
+        baseItem.include?.map((baseInclude) => {
+          const updateInclude = updateItem.include
+            ? updateItem.include.find((item) => item.association === baseInclude.association)
+            : null;
+          return updateInclude ? mergeInclude([baseInclude], [updateInclude])[0] : baseInclude;
+        }) || [];
+
+      // 合并后的项
+      merged.push({
+        ...baseItem, // 合并 baseItem 的其他属性
+        ...updateItem, // 覆盖 baseItem 的属性
+        include: mergedInclude, // 合并后的 include
+      });
+    } else {
+      // 如果没有找到匹配项，则保留原始项
+      merged.push(baseItem);
+    }
+  });
+
+  // 对右边的项进行遍历，检查是否有 left 中没有的项
+  right.forEach((updateItem) => {
+    // 如果左边没有找到对应的项，则将其直接加入结果
+    if (!left.find((baseItem) => baseItem.association === updateItem.association)) {
+      merged.push(updateItem);
+    }
+  });
+
+  return merged;
+}
 
 interface EagerLoadingNode {
   model: ModelStatic<any>;
@@ -181,25 +232,13 @@ export class EagerLoadingTree {
           );
         });
 
-        // TODO: 此处需谨慎
-        const sortModelSet = new Set();
-        if (this.rootQueryOptions?.order) {
-          for (const order of this.rootQueryOptions.order) {
-            for (const field of order) {
-              if (field.as) {
-                sortModelSet.add(field.as);
-              }
-            }
-          }
-        }
-        const inCludeForSort = [];
-        for (const sortModel of sortModelSet) {
-          if (includeForFilter.find((v) => v.association === sortModel)) {
-            continue;
-          }
-          inCludeForSort.push({
-            association: sortModel,
-          });
+        let includeForSort = [];
+        let groupForSort = [];
+        if (this.rootQueryOptions?.sort) {
+          const sortParser = new SortParser(this.rootQueryOptions?.sort, node.model);
+          const res = sortParser.toSequelizeParams();
+          includeForSort = res.include;
+          groupForSort = res.group;
         }
 
         const isBelongsToAssociationOnly = (includes, model) => {
@@ -221,14 +260,17 @@ export class EagerLoadingTree {
           return true;
         };
 
-        const belongsToAssociationsOnly = isBelongsToAssociationOnly(includeForFilter, node.model);
+        // includeForFilter + includeForSort
+        const includeForAll = mergeInclude(includeForFilter, includeForSort);
+
+        const belongsToAssociationsOnly = isBelongsToAssociationOnly(includeForAll, node.model);
 
         if (belongsToAssociationsOnly) {
           instances = await node.model.findAll({
             ...this.rootQueryOptions,
             attributes: node.attributes,
             distinct: true,
-            include: includeForFilter.concat(inCludeForSort),
+            include: includeForAll,
             transaction,
           });
         } else {
@@ -238,15 +280,16 @@ export class EagerLoadingTree {
             throw new Error(`Model ${node.model.name} does not have primary key`);
           }
 
+          const group = [`${node.model.name}.${primaryKeyField}`].concat(groupForSort);
           // find all ids
           const ids = (
             await node.model.findAll({
               ...this.rootQueryOptions,
               includeIgnoreAttributes: false,
               attributes: [primaryKeyField],
-              group: `${node.model.name}.${primaryKeyField}`,
+              group,
               transaction,
-              include: includeForFilter.concat(inCludeForSort),
+              include: includeForAll,
             } as any)
           ).map((row) => {
             return { row, pk: row[primaryKeyField] };
@@ -264,6 +307,7 @@ export class EagerLoadingTree {
           instances = await node.model.findAll({
             ...findOptions,
             transaction,
+            include: includeForSort,
           });
         }
 
