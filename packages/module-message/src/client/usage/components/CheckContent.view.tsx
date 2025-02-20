@@ -15,7 +15,7 @@ export const ViewCheckContent = (props) => {
   const { schemaName } = record;
   const [reqRecord, setReqRecord] = useState({});
   const params = {
-    filter: {},
+    filterByTk: {},
   };
   const { run } = useRequest(
     {
@@ -32,10 +32,7 @@ export const ViewCheckContent = (props) => {
   );
   useEffect(() => {
     if (record?.dataKey && !Object.keys(reqRecord).length) {
-      params.filter = {
-        filterByTk: record.dataKey,
-      };
-      run();
+      (params.filterByTk = record.dataKey), run();
     }
   }, [record]);
   //目前如果没有dataKey 会默认加载相关表的另一条不相关数据  需要后续优化
