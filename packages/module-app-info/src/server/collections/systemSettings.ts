@@ -29,6 +29,12 @@ export default defineCollection({
       target: 'attachments',
     },
     {
+      type: 'hasMany',
+      name: 'appEntries',
+      target: 'appEntries',
+      foreignKey: 'appId',
+    },
+    {
       type: 'json',
       name: 'enabledLanguages',
       defaultValue: [],
