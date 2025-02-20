@@ -72,24 +72,26 @@ export class CloudLibrariesController {
     const { filterByTk } = ctx.action.params;
     const cloudRepo = ctx.db.getRepository('cloudLibraries');
     const effectRepo = ctx.db.getRepository('effectLibraries');
-    const cloudComponent = await cloudRepo.findOne({
-      filterByTk,
-    });
-    effectRepo.destroy({
-      filter: {
-        name: cloudComponent.name,
-        module: cloudComponent.module,
-      },
-    });
-    // if (code) {
-    //   const clientCode = this.compiler.toAmd(code);
-    //   const serverCode = this.compiler.toCjs(code);
-    //   const { db } = ctx;
-    //   const effectRepo = db.getRepository('effectLibraries');
-    //   // FIXME 这里可能不适合取客户端的数据
-
-    // }
-
-    await actions.destroy(ctx, next);
+    try {
+      await ctx.db.sequelize.transaction(async (transaction) => {
+        const cloudComponent = await cloudRepo.findOne({
+          filterByTk,
+          transaction,
+        });
+        await effectRepo.destroy({
+          filter: {
+            name: cloudComponent.name,
+            module: cloudComponent.module,
+          },
+          transaction,
+        });
+        await cloudRepo.destroy({
+          filterByTk,
+          transaction,
+        });
+      });
+    } catch (error) {
+      console.error('Error deleting cloud component:', error);
+    }
   }
 }
