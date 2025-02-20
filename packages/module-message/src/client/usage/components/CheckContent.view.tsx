@@ -3,6 +3,7 @@ import {
   RecordProvider,
   RemoteSchemaComponent,
   SchemaComponentContext,
+  useCollectionManager,
   useRequest,
   useSchemaComponentContext,
 } from '@tachybase/client';
@@ -14,6 +15,8 @@ export const ViewCheckContent = (props) => {
   const context = useSchemaComponentContext();
   const { schemaName } = record;
   const [reqRecord, setReqRecord] = useState({});
+  const cm = useCollectionManager();
+  const collection = cm.getCollection(record.collectionName);
   const params = {
     filter: {},
   };
@@ -32,15 +35,15 @@ export const ViewCheckContent = (props) => {
   );
   useEffect(() => {
     if (record && !record?.colletionRecord) {
-      if (record?.collectionId) {
+      if (record?.dataKey) {
         params.filter = {
-          id: record.collectionId,
+          [collection.filterTargetKey]: record.dataKey,
         };
       }
       run();
     }
   }, [record]);
-  //目前如果没有collectionId 会默认加载相关表的另一条不相关数据  需要后续优化
+  //目前如果没有dataKey 会默认加载相关表的另一条不相关数据  需要后续优化
   return (
     Object.keys(reqRecord).length && (
       <RecordProvider record={{ record, ...reqRecord }}>

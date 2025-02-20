@@ -68,9 +68,9 @@ export default {
       type: 'string',
     },
     {
-      name: 'collectionId',
-      type: 'bigInt',
-      interface: 'integer',
+      name: 'dataKey',
+      type: 'string',
+      interface: 'input',
     },
     {
       name: 'jsonContent',

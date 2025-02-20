@@ -1,3 +1,4 @@
+import { parseCollectionName } from '@tachybase/data-source';
 import { UiSchemaRepository } from '@tachybase/module-ui-schema';
 import { Instruction, JOB_STATUS } from '@tachybase/module-workflow';
 
@@ -51,6 +52,10 @@ export default class ApprovalCarbonCopyInstruction extends Instruction {
 
         // 构造好数据后, 依次通知审批人审批
         for (const userId of targetPersonList) {
+          const [dataSourceName] = parseCollectionName(approval.collectionName);
+          const collection = this.workflow.app.dataSourceManager.dataSources
+            .get(dataSourceName)
+            .collectionManager.getCollection(approval.collectionName);
           const message = {
             userId,
             title: '{{t("Approval Carbon Copy", { ns: "@tachybase/plugin-workflow-approval" })}}',
@@ -58,7 +63,7 @@ export default class ApprovalCarbonCopyInstruction extends Instruction {
             jsonContent: approval.summary,
             collectionName: approval.collectionName,
             schemaName: node.config.showCarbonCopyDetail,
-            collectionId: approval.data.id,
+            dataKey: approval.data[collection.filterTargetKey],
           };
           this.workflow.app.messageManager.sendMessage(+userId, message);
         }
