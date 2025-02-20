@@ -297,6 +297,7 @@ export const approvals = {
         collectionName: approval.collectionName,
         jsonContent: approval.summary,
         schemaName: approval.workflow?.config.applyDetail,
+        collectionId: approval.data.id,
       };
 
       context.app.messageManager.sendMessage(+userId, message);

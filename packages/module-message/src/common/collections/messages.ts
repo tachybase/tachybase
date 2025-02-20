@@ -68,6 +68,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'collectionId',
+      type: 'bigInt',
+      interface: 'integer',
+    },
+    {
       name: 'jsonContent',
       interface: 'input',
       type: 'jsonb',

@@ -58,6 +58,7 @@ export default class ApprovalCarbonCopyInstruction extends Instruction {
             jsonContent: approval.summary,
             collectionName: approval.collectionName,
             schemaName: node.config.showCarbonCopyDetail,
+            collectionId: approval.data.id,
           };
           this.workflow.app.messageManager.sendMessage(+userId, message);
         }
