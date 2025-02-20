@@ -447,14 +447,16 @@ export const table = {
                   'x-acl-action': 'cloudLibraries:destroy',
                   'x-decorator': 'ACLActionProvider',
                   'x-component': 'Action.Link',
+                  'x-visible': '{{ !($record.enabled) }}',
                   'x-component-props': {
                     confirm: {
                       title: 'Delete',
-                      content: 'Arxe you sure you want to delete it?',
+                      content: 'Are you sure you want to delete it?',
                     },
                   },
                   'x-use-component-props': 'useComponentDestroyProps',
                 },
+                // TODO: 云组件导出按钮
                 // export: {
                 //   type: 'void',
                 //   title: 'Export',
