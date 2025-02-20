@@ -40,6 +40,7 @@ export const ViewCheckContent = (props) => {
       run();
     }
   }, [record]);
+  //目前如果没有collectionId 会默认加载相关表的另一条不相关数据  需要后续优化
   return (
     Object.keys(reqRecord).length && (
       <RecordProvider record={{ record, ...reqRecord }}>
