@@ -17,6 +17,7 @@ import {
   useRecord,
 } from '@tachybase/client';
 import { action, uid, useForm } from '@tachybase/schema';
+import { getPickerFormat } from '@tachybase/utils/client';
 
 import { useTranslation } from 'react-i18next';
 
@@ -223,6 +224,7 @@ export const ConfigurationTable = () => {
           interfaces,
           enableInherits: database?.dialect === 'postgres',
           isPG: database?.dialect === 'postgres',
+          getPickerFormat,
         }}
       />
     </SchemaComponentContext.Provider>
