@@ -3,7 +3,6 @@ import {
   RecordProvider,
   RemoteSchemaComponent,
   SchemaComponentContext,
-  useCollectionManager,
   useRequest,
   useSchemaComponentContext,
 } from '@tachybase/client';
@@ -15,8 +14,6 @@ export const ViewCheckContent = (props) => {
   const context = useSchemaComponentContext();
   const { schemaName } = record;
   const [reqRecord, setReqRecord] = useState({});
-  const cm = useCollectionManager();
-  const collection = cm.getCollection(record.collectionName);
   const params = {
     filter: {},
   };
@@ -34,12 +31,10 @@ export const ViewCheckContent = (props) => {
     },
   );
   useEffect(() => {
-    if (record && !record?.colletionRecord) {
-      if (record?.dataKey) {
-        params.filter = {
-          [collection.filterTargetKey]: record.dataKey,
-        };
-      }
+    if (record?.dataKey && !Object.keys(reqRecord).length) {
+      params.filter = {
+        filterByTk: record.dataKey,
+      };
       run();
     }
   }, [record]);
