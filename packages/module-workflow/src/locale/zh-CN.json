@@ -354,6 +354,7 @@
   "Trigger type": "触发方式",
   "Trigger variables": "触发器变量",
   "Trigger workflow": "触发工作流",
+  "Trigger workflow?": "是否执行工作流",
   "Triggered at": "触发时间",
   "Triggered but still waiting in queue to execute.": "已触发但仍在队列中等待执行。",
   "Triggered only if one of the selected fields changes. If unselected, it means that it will be triggered when any field changes. When record is added or deleted, any field is considered to have been changed.": "只有被选中的某个字段发生变动时才会触发。如果不选择，则表示任何字段变动时都会触发。新增或删除数据时，任意字段都被认为发生变动。",

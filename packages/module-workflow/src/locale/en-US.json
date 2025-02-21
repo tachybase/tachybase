@@ -279,6 +279,7 @@
   "Trigger type": "Trigger type",
   "Trigger variables": "Trigger variables",
   "Trigger workflow": "Trigger workflow",
+  "Trigger workflow?": "Trigger workflow?",
   "Triggered at": "Triggered at",
   "Triggered only if one of the selected fields changes. If unselected, it means that it will be triggered when any field changes. When record is added or deleted, any field is considered to have been changed.": "Triggered only if one of the selected fields changes. If unselected, it means that it will be triggered when any field changes. When record is added or deleted, any field is considered to have been changed.",
   "True": "True",
