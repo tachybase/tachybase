@@ -1,10 +1,19 @@
 import type { DataSourceManager } from '../data-source';
-import type { CollectionFieldInterface, CollectionFieldInterfaceFactory } from './CollectionFieldInterface';
+import type {
+  CollectionFieldInterface,
+  CollectionFieldInterfaceComponentOption,
+  CollectionFieldInterfaceFactory,
+} from './CollectionFieldInterface';
+
+interface ActionType {
+  type: 'addComponentOption';
+  data: any;
+}
 
 export class CollectionFieldInterfaceManager {
   protected collectionFieldInterfaceInstances: Record<string, CollectionFieldInterface> = {};
   protected collectionFieldGroups: Record<string, { label: string; order?: number }> = {};
-
+  protected actionList: Record<string, ActionType[]> = {};
   constructor(
     fieldInterfaceClasses: CollectionFieldInterfaceFactory[],
     fieldInterfaceGroups: Record<string, { label: string; order?: number }>,
@@ -18,6 +27,12 @@ export class CollectionFieldInterfaceManager {
     const newCollectionFieldInterfaces = fieldInterfaceClasses.reduce((acc, Interface) => {
       const instance = new Interface(this);
       acc[instance.name] = instance;
+      if (Array.isArray(this.actionList[instance.name])) {
+        this.actionList[instance.name].forEach((item) => {
+          instance[item.type](item.data);
+        });
+        this.actionList[instance.name] = undefined;
+      }
       return acc;
     }, {});
 
@@ -49,5 +64,17 @@ export class CollectionFieldInterfaceManager {
   }
   getFieldInterfaceGroup(name: string) {
     return this.collectionFieldGroups[name];
+  }
+
+  addFieldInterfaceComponentOption(interfaceName: string, componentOption: CollectionFieldInterfaceComponentOption) {
+    const fieldInterface = this.getFieldInterface(interfaceName);
+    if (!fieldInterface) {
+      if (!this.actionList[interfaceName]) {
+        this.actionList[interfaceName] = [];
+      }
+      this.actionList[interfaceName].push({ type: 'addComponentOption', data: componentOption });
+      return;
+    }
+    fieldInterface.addComponentOption(componentOption);
   }
 }
