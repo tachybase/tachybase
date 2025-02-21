@@ -399,6 +399,7 @@
   "Withdraw": "撤回",
   "Withdrawn": "撤回",
   "Workflow": "工作流",
+  "Workflow on your action failed, please contact the administrator": "工作流执行失败, 请联系管理员",
   "Workflow todos": "工作流待办",
   "Workflow will be triggered before deleting succeeded.": "删除成功之前触发工作流。",
   "Workflow will be triggered before or after submitting succeeded based on workflow type.": "工作流会基于其类型在提交成功之前或之后触发。",
