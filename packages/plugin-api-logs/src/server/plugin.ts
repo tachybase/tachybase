@@ -9,12 +9,6 @@ import { handleCreate, handleDestroy, handleUpdate } from './hooks';
   Controllers: [ApiLogsController],
 })
 export class PluginApiLogsServer extends Plugin {
-  async afterAdd() {
-    if (!isMainThread) {
-      this.addApiListener();
-    }
-  }
-
   async beforeLoad() {
     if (isMainThread) {
       this.addApiListener();
