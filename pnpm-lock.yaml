@@ -122,6 +122,9 @@ importers:
       vitest:
         specifier: ^3.0.5
         version: 3.0.5(@types/debug@4.1.12)(@types/node@20.17.10)(jsdom@24.1.1(canvas@2.11.2(encoding@0.1.13)))(less@4.2.1)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0)(tsx@4.19.2)
+      xlsx:
+        specifier: ^0.18.5
+        version: 0.18.5
 
   apps/app-rs:
     dependencies:

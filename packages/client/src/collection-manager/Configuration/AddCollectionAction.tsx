@@ -179,13 +179,11 @@ export const AddCollectionAction = (props) => {
       },
       onClick: (info) => {
         if (info.key === 'import') {
-          console.log('import', importRef.current);
           // 打开上传文件的弹窗
           importRef.current?.showModal();
           return;
         }
         if (info.key === 'importXlsx') {
-          console.log('importXlsx', importxlsxRef.current);
           // 打开上传文件的弹窗
           importxlsxRef.current?.showModal();
           return;
