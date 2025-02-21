@@ -125,7 +125,7 @@ export const usePropsAPIRegular = () => {
 
       modal.confirm({
         title: lang('Confirm', { ns: 'core' }),
-        content: lang('Trigger workflow?', { ns: 'core' }),
+        content: lang('Trigger workflow?'),
         async onOk() {
           if (bindWorkflow) {
             const params = {

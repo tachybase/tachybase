@@ -101,7 +101,7 @@ export const dispatchers: CollectionOptions = {
         'x-component': 'CodeMirror',
         'x-component-props': {
           defaultValue:
-            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// const { changed, data, error } = await ctx.getChanged(); can get changed fields and raw data\n// ctx.body to pass your data to workflow or to client who invoke this.\n// ctx.body = ctx.action.params.values',
+            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// const { changed, data, error } = await ctx.getChanged(); can get changed fields and raw data\n// ctx.body to pass your data to workflow or to client who invoke this.\n// ctx.body = ctx.action.params.values\n// ctx.body=ctx.model',
         },
       } as ISchema,
     },
