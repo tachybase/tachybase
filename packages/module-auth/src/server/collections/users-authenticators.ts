@@ -15,6 +15,13 @@ export default defineCollection({
   updatedBy: true,
   logging: true,
   fields: [
+    {
+      name: 'id',
+      type: 'bigInt',
+      autoIncrement: true,
+      primaryKey: true,
+      allowNull: false,
+    },
     /**
      * uuid:
      * Unique user id of the authentication method, such as wechat openid, phone number, etc.
