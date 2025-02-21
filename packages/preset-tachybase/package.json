@@ -69,6 +69,7 @@
     "@tachybase/plugin-field-markdown-vditor": "workspace:*",
     "@tachybase/plugin-field-sequence": "workspace:*",
     "@tachybase/plugin-field-snapshot": "workspace:*",
+    "@tachybase/plugin-full-text-search": "workspace:*",
     "@tachybase/plugin-i18n-editor": "workspace:*",
     "@tachybase/plugin-log-viewer": "workspace:*",
     "@tachybase/plugin-mock-collections": "workspace:*",
