@@ -5,6 +5,7 @@ import {
   useCollectionManager_deprecated,
   useResourceActionContext,
 } from '@tachybase/client';
+import { uid } from '@tachybase/schema';
 
 import { InboxOutlined } from '@ant-design/icons';
 import { App, Button, Drawer, message, Modal, Spin, Upload, UploadFile, UploadProps } from 'antd';
@@ -15,54 +16,12 @@ import { createXlsxCollectionSchema } from './XlsxCollectionSchema';
 
 const { Dragger } = Upload;
 
-// function useUploadProps(props: UploadProps): any {
-//   const onChange = (param) => {
-//     props.onChange?.(param);
-//   };
-//   const api = useAPIClient();
-
-//   return {
-//     ...props,
-//     customRequest({ action, data, file, filename, headers, onError, onProgress, onSuccess, withCredentials }) {
-//       const formData = new FormData();
-//       if (data) {
-//         Object.keys(data).forEach((key) => {
-//           formData.append(key, data[key]);
-//         });
-//       }
-//       formData.append(filename, file);
-//       // eslint-disable-next-line promise/catch-or-return
-//       api.axios
-//         .post(action, formData, {
-//           withCredentials,
-//           headers,
-//           onUploadProgress: ({ total, loaded }) => {
-//             onProgress({ percent: Math.round((loaded / total) * 100).toFixed(2) }, file);
-//           },
-//         })
-//         .then(({ data }) => {
-//           onSuccess(data, file);
-//         })
-//         .catch(onError)
-//         .finally(() => { });
-
-//       return {
-//         abort() {
-//           console.log('upload progress is aborted.');
-//         },
-//       };
-//     },
-
-//     onChange,
-//   };
-// }
-
 const ImportUpload = (props: any) => {
   const { t } = useTranslation();
   const { refreshCM } = useCollectionManager_deprecated();
   const { close } = props;
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [filedata, setFileData] = useState([]);
+  const [filedata, setFileData] = useState({});
   const [collectionDrawer, setCollectionDrawer] = useState(false);
   const {
     refresh,
@@ -75,6 +34,62 @@ const ImportUpload = (props: any) => {
 
   const onCollectionDrawerClose = () => {
     setCollectionDrawer(false);
+  };
+
+  // 判断函数，根据字段值的类型给出类型字符串
+  const inferType = (values, header) => {
+    if (header.toLowerCase().includes('id')) {
+      return 'integer';
+    }
+    const types = values.map((value) => {
+      if (typeof value === 'boolean') {
+        return 'boolean';
+      }
+      if (typeof value === 'number') {
+        if (Number.isInteger(value)) {
+          return 'integer';
+        }
+        return 'float';
+      }
+      if (typeof value === 'string') {
+        try {
+          // 判断是否为有效的 JSON 字符串
+          JSON.parse(value);
+          return 'json'; // 如果能解析为 JSON，返回 json
+        } catch {
+          return 'string'; // 否则认为是字符串
+        }
+      }
+      return 'string'; // 默认返回字符串
+    });
+
+    // 如果所有类型一致，则返回第一个类型，否则返回 null
+    const uniqueTypes = [...new Set(types)];
+    if (uniqueTypes.length === 1) {
+      return uniqueTypes[0];
+    }
+    return null; // 类型不一致返回 null
+  };
+
+  // 判断接口类型，选择适合的界面控件
+  const inferInterface = (type, header) => {
+    if (header.toLowerCase().includes('id')) {
+      return 'id';
+    }
+    switch (type) {
+      case 'json':
+        return 'json';
+      case 'boolean':
+        return 'checkbox';
+      case 'string':
+        return 'input';
+      case 'integer':
+        return 'integer';
+      case 'float':
+        return 'float';
+      default:
+        return null; // 返回 null，因为该列的数据类型不一致
+    }
   };
 
   const handleFileUpload = (file) => {
@@ -90,19 +105,41 @@ const ImportUpload = (props: any) => {
 
       // 转换为 JSON 格式
       const jsonData: Array<any[]> = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-      console.log('%c Line:92 🥛 jsonData', 'color:#ed9ec7', jsonData);
       if (jsonData.length === 0) return;
       const headers = jsonData[0];
       const rows = jsonData.slice(1);
 
-      const transposedData = headers.map((header, colIndex) => ({
-        title: header,
-        value: rows.map((row, rowIndex) => ({
-          [rowIndex]: row[colIndex] ?? null,
-        })),
-      }));
+      // 构建 fields 数组
+      const fields = headers.map((header, index) => {
+        const columnValues = rows.map((row) => row[index]); // 获取该列所有的值
+        const type = inferType(columnValues, header); // 获取该列类型
+        const interfaceType = type ? inferInterface(type, header) : null;
 
-      setFileData(transposedData);
+        return {
+          name: header,
+          key: `f_${uid()}`,
+          type: type, // 如果类型不一致则为 null
+          interface: interfaceType,
+        };
+      });
+
+      // 格式化数据部分（保持原样）
+      const data = rows.map((row) => {
+        return headers.reduce((acc, header, index) => {
+          const value = row[index];
+          acc[header] = value; // 保持原值
+          return acc;
+        }, {});
+      });
+
+      // 组合成最终输出的 FileData
+      const fileData = {
+        fields: fields, // fields 数组
+        data: data, // 数据
+      };
+
+      // 设置文件数据
+      setFileData(fileData);
     };
     reader.readAsBinaryString(file);
   };
