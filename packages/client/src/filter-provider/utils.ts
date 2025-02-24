@@ -65,6 +65,7 @@ export const useSupportedBlocks = (filterBlockType: FilterBlockType) => {
   const fieldSchema = useFieldSchema();
   const collection = useCollection_deprecated();
   const { getAllCollectionsInheritChain } = useCollectionManager_deprecated();
+
   // Form 和 Collapse 仅支持同表的数据卡片
   if (filterBlockType === FilterBlockType.FORM || filterBlockType === FilterBlockType.COLLAPSE) {
     return getDataBlocks().filter((block) => {

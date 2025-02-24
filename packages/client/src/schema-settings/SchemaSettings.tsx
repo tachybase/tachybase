@@ -663,6 +663,7 @@ export const SchemaSettingsConnectDataBlocks: FC<SchemaSettingsConnectDataBlocks
   if (!inProvider) {
     return null;
   }
+
   const Content = dataBlocks.map((block) => {
     const title = `${compile(block.collection.title)} #${block.uid.slice(0, 4)}`;
     const onHover = () => {

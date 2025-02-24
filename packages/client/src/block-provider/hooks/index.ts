@@ -495,7 +495,6 @@ export const useFilterBlockActionProps = () => {
   const { getCollectionJoinField } = useCollectionManager_deprecated();
 
   actionField.data = actionField.data || {};
-
   return {
     async onClick() {
       const { targets = [], uid } = findFilterTargets(fieldSchema);
