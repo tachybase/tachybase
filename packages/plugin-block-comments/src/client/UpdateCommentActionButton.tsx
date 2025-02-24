@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useACLActionParamsContext, useDesignable } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 
@@ -13,17 +13,29 @@ export function UpdateCommentActionButton() {
 
   useEffect(() => {
     const current = field.address.slice(0, field.address.length - 2);
-    field.form.setFieldState(current.concat('content'), (f) => {
-      f.pattern = enable ? 'editable' : 'readPretty';
+
+    field.form.setFieldState(current.concat('content'), (prevState) => {
+      prevState.pattern = enable ? 'editable' : 'readPretty';
     });
-    field.form.setFieldState(current, (f) => {
-      f.componentProps = { ...f.componentProps, editing: enable, setEditing: setEnable };
+
+    field.form.setFieldState(current, (prevState) => {
+      prevState.componentProps = {
+        ...prevState.componentProps,
+        editing: enable,
+        setEditing: setEnable,
+      };
     });
   }, [enable, field.address, field.form]);
 
-  return !designable && (field?.data?.hidden || !acl) ? null : (
+  if (!designable && (field?.data?.hidden || !acl)) {
+    return null;
+  }
+
+  return (
     <a
-      style={{ fontSize: 14 }}
+      style={{
+        fontSize: 14,
+      }}
       onClick={() => {
         setEnable(true);
       }}
