@@ -1,5 +1,6 @@
 import fs from 'fs';
 import http from 'http';
+import { Readable } from 'node:stream';
 import { Context, Next } from '@tachybase/actions';
 import { appendArrayColumn } from '@tachybase/evaluators';
 import { Gateway } from '@tachybase/server';
@@ -8,6 +9,34 @@ import { parse } from '@tachybase/utils';
 import axios from 'axios';
 
 import CustomRequestPlugin from '../plugin';
+
+/**
+ * 将可读流转换为字符串或 JSON
+ * @param stream ReadableStream (Node.js Readable)
+ * @param contentType 响应头中的 Content-Type（可选）
+ * @returns Promise<StreamResult>
+ */
+export async function streamToStringOrJson(stream: Readable): Promise<string | object> {
+  return new Promise((resolve, reject) => {
+    let rawData = '';
+
+    stream.on('data', (chunk) => {
+      rawData += chunk.toString(); // 读取 Buffer 转字符串
+    });
+
+    stream.on('end', () => {
+      // 判断是否为 JSON
+      try {
+        resolve(JSON.parse(rawData));
+      } catch (e) {
+        resolve(rawData);
+        reject(new Error('Invalid JSON response'));
+      }
+    });
+
+    stream.on('error', (err) => reject(err));
+  });
+}
 
 const getHeaders = (headers: Record<string, any>) => {
   return Object.keys(headers).reduce((hds, key) => {
@@ -175,9 +204,10 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
     if (axios.isAxiosError(err)) {
       ctx.status = err.response?.status || 500;
       ctx.body = err.response?.data || { message: err.message };
+      const body = await streamToStringOrJson(ctx.body);
       this.logger.error(
-        `action-custom-request:send:${filterByTk} error. status: ${ctx.status}, body: ${
-          typeof ctx.body === 'string' ? ctx.body : JSON.stringify(ctx.body)
+        `custom-request:send:${filterByTk} error. status: ${ctx.status}, body: ${
+          typeof body === 'string' ? body : JSON.stringify(body)
         }`,
       );
     } else {

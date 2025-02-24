@@ -165,6 +165,7 @@ export class OmniTrigger extends Trigger {
       return;
     }
 
+    // TODO: 此处如果执行错误应该怎么办
     return this.trigger(context);
   };
 
