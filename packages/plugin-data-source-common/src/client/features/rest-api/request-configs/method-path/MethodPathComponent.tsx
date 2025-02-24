@@ -3,6 +3,7 @@ import { FormProvider, useCollectionRecord, useSchemaComponentContext } from '@t
 import { createForm, SchemaOptionsContext } from '@tachybase/schema';
 
 import lodash from 'lodash';
+import { useParams } from 'react-router-dom';
 
 import { useContextRequestInfo } from '../../contexts/RequestForm.context';
 import { ViewFieldMethod } from './FieldMethod.view';
@@ -13,6 +14,7 @@ export const MethodPathComponent = (props) => {
   const { form, actionKey, requestActionForm } = useContextRequestInfo();
   const scCtx: any = useSchemaComponentContext();
   const { path, method } = data?.actions?.[actionKey] || {};
+  const { name: dataSourceKey } = useParams();
 
   const setFormValue = lodash.debounce(async (value, label) => {
     const { actions } = form?.values || {};
@@ -40,7 +42,7 @@ export const MethodPathComponent = (props) => {
     <FormProvider form={props?.actionForm ? initialForm : requestActionForm}>
       <ViewFieldMethod method={method} setFormValue={setFormValue} />
       <SchemaOptionsContext.Provider value={scCtx}>
-        <ViewFieldPath path={path} setFormValue={setFormValue} dataSourceKey={data.dataSourceKey} />
+        <ViewFieldPath path={path} setFormValue={setFormValue} dataSourceKey={dataSourceKey} />
       </SchemaOptionsContext.Provider>
     </FormProvider>
   );

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/sdk",
-  "version": "0.23.45",
+  "version": "0.23.49",
   "license": "Apache-2.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -13,6 +13,6 @@
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.22.0",
-    "vitest": "^1.6.0"
+    "vitest": "^3.0.5"
   }
 }

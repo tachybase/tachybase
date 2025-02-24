@@ -15,6 +15,7 @@
     "resolveJsonModule": true,
     "declaration": true,
     "downlevelIteration": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "emitDeclarationOnly": true
   }
 }

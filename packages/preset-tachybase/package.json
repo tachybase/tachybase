@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.23.45",
+  "version": "0.23.49",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "scripts": {
@@ -41,6 +41,7 @@
     "@tachybase/plugin-adapter-remix": "workspace:*",
     "@tachybase/plugin-ai-chat": "workspace:*",
     "@tachybase/plugin-api-keys": "workspace:*",
+    "@tachybase/plugin-api-logs": "workspace:*",
     "@tachybase/plugin-audit-logs": "workspace:*",
     "@tachybase/plugin-auth-cas": "workspace:*",
     "@tachybase/plugin-auth-dingtalk": "workspace:*",
@@ -68,6 +69,7 @@
     "@tachybase/plugin-field-markdown-vditor": "workspace:*",
     "@tachybase/plugin-field-sequence": "workspace:*",
     "@tachybase/plugin-field-snapshot": "workspace:*",
+    "@tachybase/plugin-full-text-search": "workspace:*",
     "@tachybase/plugin-i18n-editor": "workspace:*",
     "@tachybase/plugin-log-viewer": "workspace:*",
     "@tachybase/plugin-mock-collections": "workspace:*",

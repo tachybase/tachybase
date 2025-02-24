@@ -1,6 +1,6 @@
 import { createCreateFormBlockUISchema, CreateFormBlockUISchemaOptions } from '../createCreateFormBlockUISchema';
 
-vi.mock('@formily/shared', () => {
+vi.mock('@tachybase/schema', () => {
   return {
     uid: () => 'mocked-uid',
   };

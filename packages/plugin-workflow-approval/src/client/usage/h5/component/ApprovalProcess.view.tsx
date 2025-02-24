@@ -6,7 +6,8 @@ import { dayjs } from '@tachybase/utils/client';
 import { Space, Steps, Tag } from 'antd-mobile';
 import _ from 'lodash';
 
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS, ApprovalStatusEnums, approvalStatusOptions } from '../constants';
+import { approvalStatusEnums } from '../../../common/constants/approval-initiation-status-options';
+import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS, approvalStatusOptions } from '../constants';
 import { useContextApprovalExecution } from '../context/ApprovalExecution';
 import { ContextWithActionEnabled } from '../context/WithActionEnabled';
 import { lang, usePluginTranslation, useTranslation } from '../locale';
@@ -156,7 +157,7 @@ const getStepsResult = (result, t) => {
         status['color'] = 'default';
       } else {
         const approvalStatus = approvalStatusOptions.find((option) => option.value === value.status);
-        const approvalActionStatus = ApprovalStatusEnums.find((option) => option.value === value.status);
+        const approvalActionStatus = approvalStatusEnums.find((option) => option.value === value.status);
         if (value.nodeId) {
           status['label'] = approvalStatus?.label || approvalActionStatus?.label;
           status['color'] = approvalStatus?.color || approvalActionStatus?.color || 'default';
