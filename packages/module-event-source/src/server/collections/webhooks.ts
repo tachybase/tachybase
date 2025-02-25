@@ -6,6 +6,10 @@ export default defineCollection({
     group: 'required',
   },
   model: 'EventSourceModel',
+  createdAt: true,
+  updatedAt: true,
+  createdBy: true,
+  updatedBy: true,
   fields: [
     {
       name: 'name',
