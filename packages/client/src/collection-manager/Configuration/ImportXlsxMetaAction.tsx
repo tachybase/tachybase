@@ -1,8 +1,10 @@
 import React, { useImperativeHandle, useMemo, useState } from 'react';
 import {
+  RecordProvider,
   SchemaComponent,
   useAPIClient,
   useCollectionManager_deprecated,
+  useCollectionParentRecordData,
   useResourceActionContext,
 } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
@@ -12,7 +14,7 @@ import { App, Button, Drawer, message, Modal, Spin, Upload, UploadFile, UploadPr
 import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
 
-import { createXlsxCollectionSchema } from './XlsxCollectionSchema';
+import { createXlsxCollectionSchema, FieldsConfigure } from './XlsxCollectionSchema';
 
 const { Dragger } = Upload;
 
@@ -23,6 +25,7 @@ const ImportUpload = (props: any) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [filedata, setFileData] = useState({});
   const [collectionDrawer, setCollectionDrawer] = useState(false);
+  const parentRecordData = useCollectionParentRecordData();
   const {
     refresh,
     state: { category },
@@ -40,6 +43,13 @@ const ImportUpload = (props: any) => {
   const inferType = (values, header) => {
     if (header.toLowerCase().includes('id')) {
       return 'integer';
+    }
+    if (
+      header.toLowerCase().includes('date') ||
+      header.toLowerCase().includes('时间') ||
+      header.toLowerCase().includes('日期')
+    ) {
+      return 'date';
     }
     const types = values.map((value) => {
       if (typeof value === 'boolean') {
@@ -87,6 +97,8 @@ const ImportUpload = (props: any) => {
         return 'integer';
       case 'float':
         return 'float';
+      case 'date':
+        return 'datetime';
       default:
         return null; // 返回 null，因为该列的数据类型不一致
     }
@@ -114,10 +126,11 @@ const ImportUpload = (props: any) => {
         const columnValues = rows.map((row) => row[index]); // 获取该列所有的值
         const type = inferType(columnValues, header); // 获取该列类型
         const interfaceType = type ? inferInterface(type, header) : null;
+        const fieldsName = `f_${uid()}`;
 
         return {
-          name: header,
-          key: `f_${uid()}`,
+          title: header,
+          name: fieldsName,
           type: type, // 如果类型不一致则为 null
           interface: interfaceType,
         };
@@ -127,7 +140,8 @@ const ImportUpload = (props: any) => {
       const data = rows.map((row) => {
         return headers.reduce((acc, header, index) => {
           const value = row[index];
-          acc[header] = value; // 保持原值
+          const fieldsName = fields[index].name;
+          acc[fieldsName] = value; // 保持原值
           return acc;
         }, {});
       });
@@ -137,7 +151,6 @@ const ImportUpload = (props: any) => {
         fields: fields, // fields 数组
         data: data, // 数据
       };
-
       // 设置文件数据
       setFileData(fileData);
     };
@@ -159,7 +172,7 @@ const ImportUpload = (props: any) => {
     fileList,
   };
 
-  const xlsxCollectionSchema = useMemo(() => createXlsxCollectionSchema(fileList, filedata), [fileList, filedata]);
+  const xlsxCollectionSchema = createXlsxCollectionSchema(fileList, filedata);
 
   return (
     <>
@@ -172,15 +185,17 @@ const ImportUpload = (props: any) => {
       <Button type="primary" onClick={showCollectionDrawer} disabled={fileList.length === 0} style={{ marginTop: 16 }}>
         Upload
       </Button>
-      <Drawer
-        title="创建数据表"
-        closable={false}
-        onClose={onCollectionDrawerClose}
-        open={collectionDrawer}
-        width={'70%'}
-      >
-        <SchemaComponent schema={xlsxCollectionSchema} />
-      </Drawer>
+      <RecordProvider record={filedata} parent={parentRecordData}>
+        <Drawer
+          title="创建数据表"
+          closable={false}
+          onClose={onCollectionDrawerClose}
+          open={collectionDrawer}
+          width={'70%'}
+        >
+          <SchemaComponent schema={xlsxCollectionSchema} components={{ FieldsConfigure }} />
+        </Drawer>
+      </RecordProvider>
     </>
   );
 };

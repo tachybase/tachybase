@@ -1,88 +1,139 @@
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { ArrayField, observer, uid, useField, useForm } from '@tachybase/schema';
-import { Alert, Cascader, Input, Select, Spin, Switch, Table, Tag, Tooltip } from 'antd';
-import { useTranslation } from 'react-i18next';
-import { useCompile } from '../../schema-component';
-import { useFieldInterfaceOptions } from './interfaces';
-import React from 'react';
-import { CollectionFieldOptions, DataSourceManager, isTitleField, useDataSourceManager } from '@tachybase/client';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  IField,
+  isTitleField,
+  RecordProvider,
+  useAPIClient,
+  useBlockRequestContext,
+  useCollectionManager_deprecated,
+  useDataBlockRequest,
+  useDataBlockResource,
+  useDataSourceManager,
+  useRequest,
+} from '@tachybase/client';
+import { ArrayTable } from '@tachybase/components';
+import { ArrayField, ISchema, observer, uid, useField, useForm } from '@tachybase/schema';
 
-export const createXlsxCollectionSchema = (filelist, filedata) => ({
-  type: 'void',
-  properties: {
-    [uid()]: {
-      type: 'void',
-      'x-component': 'FormV2',
-      'x-use-component-props': 'useFormBlockProps',
-      properties: {
-        title: {
-          type: 'string',
-          default: filelist[0]?.name.replace(/\.[^/.]+$/, ''),
-          title: '{{ t("Collection display name") }}',
-          required: true,
-          'x-decorator': 'FormItem',
-          'x-component': 'Input',
-        },
-        name: {
-          type: 'string',
-          title: '{{t("Collection name")}}',
-          default: '{{ useNewId("t_") }}',
-          required: true,
-          // 'x-disabled': '{{ !createOnly }}',
-          'x-decorator': 'FormItem',
-          'x-component': 'Input',
-          'x-validator': 'uid',
-          description:
-            "{{t('Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter.')}}",
-        },
-        category: {
-          title: '{{t("Categories")}}',
-          type: 'hasMany',
-          name: 'category',
-          'x-decorator': 'FormItem',
-          'x-component': 'Select',
-          'x-component-props': {
-            mode: 'multiple',
+import { Alert, Cascader, Input, Select, Space, Spin, Switch, Table, Tag, Tooltip } from 'antd';
+import { cloneDeep, omit, set } from 'lodash';
+import { useTranslation } from 'react-i18next';
+
+import { ActionContextProvider, SchemaComponent, useActionContext, useCompile } from '../../schema-component';
+import { useCancelAction, useUpdateAction } from '../action-hooks';
+import useDialect from '../hooks/useDialect';
+import * as components from './components';
+import { useFieldInterfaceOptions } from './interfaces';
+
+export const createXlsxCollectionSchema = (filelist, filedata) => {
+  return {
+    type: 'void',
+    properties: {
+      [uid()]: {
+        type: 'void',
+        'x-component': 'FormV2',
+        'x-use-component-props': 'useFormBlockProps',
+        properties: {
+          action: {
+            type: 'void',
+            'x-component': 'ActionBar',
+            'x-component-props': {
+              layout: 'one-column',
+              style: {
+                justifyContent: 'right',
+              },
+            },
+            properties: {
+              // cancel: {
+              //   title: 'Cancel',
+              //   'x-component': 'Action',
+              //   'x-component-props': {
+              //     useAction: '{{ useCancel }}',
+              //   },
+              // },
+              submit: {
+                title: '{{t("Submit")}}',
+                'x-component': 'Action',
+                'x-component-props': {
+                  type: 'primary',
+                  htmlType: 'submit',
+                  // useAction: '{{ useSaveValues }}',
+                },
+                'x-use-component-props': xlsxImportAction,
+              },
+            },
           },
-          'x-reactions': ['{{useAsyncDataSource(loadCategories)}}'],
-        },
-        description: {
-          title: '{{t("Description")}}',
-          type: 'string',
-          name: 'description',
-          'x-decorator': 'FormItem',
-          'x-component': 'Input.TextArea',
-        },
-        // presetFields: {
-        //   title: '{{t("Preset fields")}}',
-        //   type: 'void',
-        //   'x-decorator': 'FormItem',
-        //   'x-visible': '{{ createOnly }}',
-        //   'x-component': PresetFields,
-        // },
-        fields: {
-          type: 'array',
-          title: '{{t("Fields")}}',
-          'x-decorator': 'FormItem',
-          'x-component': FieldsConfigure,
-          'x-component-props': {
-            filedata,
-            // setFileData
+          title: {
+            type: 'string',
+            default: filelist[0]?.name.replace(/\.[^/.]+$/, ''),
+            title: '{{ t("Collection display name") }}',
+            required: true,
+            'x-decorator': 'FormItem',
+            'x-component': 'Input',
           },
-          required: true,
+          name: {
+            type: 'string',
+            title: '{{t("Collection name")}}',
+            default: '{{ useNewId("t_") }}',
+            required: true,
+            // 'x-disabled': '{{ !createOnly }}',
+            'x-decorator': 'FormItem',
+            'x-component': 'Input',
+            'x-validator': 'uid',
+            description:
+              "{{t('Randomly generated and can be modified. Support letters, numbers and underscores, must start with an letter.')}}",
+          },
+          category: {
+            title: '{{t("Categories")}}',
+            type: 'hasMany',
+            name: 'category',
+            'x-decorator': 'FormItem',
+            'x-component': 'Select',
+            'x-component-props': {
+              mode: 'multiple',
+            },
+            'x-reactions': ['{{useAsyncDataSource(loadCategories)}}'],
+          },
+          description: {
+            title: '{{t("Description")}}',
+            type: 'string',
+            name: 'description',
+            'x-decorator': 'FormItem',
+            'x-component': 'Input.TextArea',
+          },
+          // presetFields: {
+          //   title: '{{t("Preset fields")}}',
+          //   type: 'void',
+          //   'x-decorator': 'FormItem',
+          //   'x-visible': '{{ createOnly }}',
+          //   'x-component': PresetFields,
+          // },
+          fields: {
+            type: 'array',
+            title: '{{t("Fields")}}',
+            'x-decorator': 'FormItem',
+            'x-component': 'FieldsConfigure',
+            'x-component-props': {
+              filedata,
+            },
+            required: true,
+          },
+          table: {
+            type: 'void',
+            title: '{{t("Preview")}}',
+            'x-decorator': 'FormItem',
+            'x-component': PreviewTable,
+            'x-component-props': {
+              filedata,
+              // setFileData
+            },
+          },
         },
-        // table: {
-        //   type: 'void',
-        //   title: '{{t("Preview")}}',
-        //   'x-decorator': 'FormItem',
-        //   'x-component': PreviewTable,
-        // },
       },
     },
-  },
-});
+  };
+};
 
-const FieldsConfigure = observer(
+export const FieldsConfigure = observer(
   (props: any) => {
     const { filedata } = props;
     const dm = useDataSourceManager();
@@ -99,9 +150,8 @@ const FieldsConfigure = observer(
     };
 
     const handleTitleChange = (checked, field) => {
-      // 如果开启当前字段的标题，则设置为选中的字段
       if (checked) {
-        setSelectedTitleField(field.key);
+        setSelectedTitleField(field.name);
       } else {
         // 如果关闭当前字段的标题，则取消选中
         setSelectedTitleField(null);
@@ -116,22 +166,21 @@ const FieldsConfigure = observer(
     );
 
     const isTitleField = (field) => {
-      
       return !field.isForeignKey && getInterface(field.interface)?.titleUsable;
     };
 
     const getOptions = (type) => {
       const InterfaceOptions = getInterfaceOptions(initOptions, type);
-      const options = InterfaceOptions.map(group => ({
+      const options = InterfaceOptions.map((group) => ({
         label: <span>{compile(group.label)}</span>,
         title: group.key,
-        options: group.children.map(item => ({
+        options: group.children.map((item) => ({
           label: <span>{compile(item.label)}</span>,
           value: item.name,
         })),
       }));
       return options;
-    }
+    };
 
     const getInterfaceOptions = (data, type) => {
       const interfaceOptions = [];
@@ -154,13 +203,13 @@ const FieldsConfigure = observer(
     const columns = [
       {
         title: t('Field display name'),
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'title',
+        key: 'title',
         render: (text: string, record: any, index: number) => {
           const field = fields[index];
           return (
             <Input
-              value={field.name || text}
+              value={field.title || text}
               onChange={(e) => handleFieldChange({ ...field, name: e.target.value }, index)}
             />
           );
@@ -168,17 +217,11 @@ const FieldsConfigure = observer(
       },
       {
         title: t('Field name'),
-        dataIndex: 'key',
-        key: 'key',
+        dataIndex: 'name',
+        key: 'name',
         render: (text: string, record: any, index: number) => {
           const field = fields[index];
-          return (
-            <Input
-              value={field.key || text}
-              variant="borderless"
-              disabled={true}
-            />
-          );
+          return <Input value={field.name || text} variant="borderless" disabled={true} />;
         },
       },
       {
@@ -196,7 +239,8 @@ const FieldsConfigure = observer(
                 { value: 'boolean', label: <span>boolean</span> },
                 { value: 'integer', label: <span>integer</span> },
                 { value: 'float', label: <span>float</span> },
-                { value: 'json', label: <span>json</span> }
+                { value: 'json', label: <span>json</span> },
+                { value: 'date', label: <span>date</span> },
               ]}
             />
           );
@@ -228,21 +272,44 @@ const FieldsConfigure = observer(
         render: function Render(_, record: any, index: any) {
           const field = fields[index];
           return isTitleField(field) ? (
-            <Tooltip title={t('Default title for each record')} placement="right" overlayInnerStyle={{ textAlign: 'center' }}>
+            <Tooltip
+              title={t('Default title for each record')}
+              placement="right"
+              overlayInnerStyle={{ textAlign: 'center' }}
+            >
               <Switch
                 aria-label={`switch-title-field-${field.name}`}
                 size="small"
-                checked={field.key === selectedTitleField}
+                checked={field.name === selectedTitleField}
                 onChange={(checked) => handleTitleChange(checked, field)}
-              // onChange={handleChange}
               />
             </Tooltip>
           ) : null;
         },
       },
+      {
+        title: t('Descriptio'),
+        dataIndex: 'description',
+        key: 'description',
+        render: (text: string, record: any, index: number) => {
+          const field = fields[index];
+          return <Input.TextArea value={field.description} variant="borderless" disabled={true} />;
+        },
+      },
+      {
+        title: t('Actions'),
+        dataIndex: 'actions',
+        key: 'actions',
+        render: (text: string, record: any, index: number) => {
+          const field = fields[index];
+          return (
+            <Space size="middle">
+              <EditFieldAction record={field} {...props} />
+            </Space>
+          );
+        },
+      },
     ];
-
-
 
     return (
       <Table
@@ -252,10 +319,271 @@ const FieldsConfigure = observer(
         dataSource={fields}
         scroll={{ y: 300 }}
         pagination={false}
-        rowClassName="editable-row"
+        // rowClassName="editable-row"
         rowKey="uid"
+        {...props}
       />
     );
   },
   { displayName: 'FieldsConfigure' },
 );
+
+const useUpdateCollectionField = () => {
+  const form = useForm();
+  const { run } = useUpdateAction();
+  const { refreshCM } = useCollectionManager_deprecated();
+  return {
+    async run() {
+      await form.submit();
+      const options = form?.values?.uiSchema?.enum?.slice() || [];
+      form.setValuesIn(
+        'uiSchema.enum',
+        options.map((option) => {
+          return {
+            value: uid(),
+            ...option,
+          };
+        }),
+      );
+      await run();
+      await refreshCM();
+    },
+  };
+};
+
+export const EditFieldAction = (props) => {
+  const { scope, getContainer, record, parentItem: parentRecord, children, ...otherProps } = props;
+  const { getInterface, collections, getCollection } = useCollectionManager_deprecated();
+  const [visible, setVisible] = useState(false);
+  const [schema, setSchema] = useState({});
+  const api = useAPIClient();
+  const { t } = useTranslation();
+  const compile = useCompile();
+  const [data, setData] = useState<any>({ record });
+  const { isDialect } = useDialect();
+
+  const currentCollections = useMemo(() => {
+    return collections.map((v) => {
+      return {
+        label: compile(v.title),
+        value: v.name,
+      };
+    });
+  }, []);
+
+  return (
+    <RecordProvider record={record} parent={parentRecord}>
+      <ActionContextProvider value={{ visible, setVisible }}>
+        <a
+          {...otherProps}
+          onClick={async () => {
+            setData(record);
+            const interfaceConf = getInterface(record.interface);
+            const defaultValues: any = cloneDeep(record) || {};
+            if (!defaultValues?.reverseField) {
+              defaultValues.autoCreateReverseField = false;
+              defaultValues.reverseField = interfaceConf?.default?.reverseField;
+              set(defaultValues.reverseField, 'name', record.name);
+              set(defaultValues, 'uiSchema.title', record.title);
+            }
+            const schema = getSchema(
+              {
+                ...interfaceConf,
+                default: defaultValues,
+              },
+              record,
+              compile,
+              getContainer,
+            );
+            setSchema(schema);
+            setVisible(true);
+          }}
+        >
+          {children || t('Edit')}
+        </a>
+        <SchemaComponent
+          schema={schema}
+          components={{ ...components, ArrayTable }}
+          scope={{
+            getContainer,
+            useUpdateCollectionField,
+            useCancelAction,
+            showReverseFieldConfig: !data?.reverseField,
+            collections: currentCollections,
+            isDialect,
+            disabledJSONB: true,
+            // scopeKeyOptions,
+            createMainOnly: true,
+            ...scope,
+          }}
+        />
+      </ActionContextProvider>
+    </RecordProvider>
+  );
+};
+
+const getSchema = (schema: IField, record: any, compile, getContainer): ISchema => {
+  if (!schema) {
+    return;
+  }
+  const properties = cloneDeep(schema.properties) as any;
+  if (properties?.name) {
+    properties.name['x-disabled'] = true;
+  }
+  if (schema.hasDefaultValue === true) {
+    properties['defaultValue'] = cloneDeep(schema.default) || {};
+    properties.defaultValue.required = false;
+    properties['defaultValue']['title'] = compile('{{ t("Default value") }}');
+    properties['defaultValue']['x-decorator'] = 'FormItem';
+    properties['defaultValue']['x-reactions'] = [
+      {
+        dependencies: [
+          'uiSchema.x-component-props.gmt',
+          'uiSchema.x-component-props.showTime',
+          'uiSchema.x-component-props.dateFormat',
+          'uiSchema.x-component-props.timeFormat',
+        ],
+        fulfill: {
+          state: {
+            componentProps: {
+              gmt: '{{$deps[0]}}',
+              showTime: '{{$deps[1]}}',
+              dateFormat: '{{$deps[2]}}',
+              timeFormat: '{{$deps[3]}}',
+            },
+          },
+        },
+      },
+      {
+        dependencies: ['primaryKey', 'unique', 'autoIncrement'],
+        when: '{{$deps[0]||$deps[1]||$deps[2]}}',
+        fulfill: {
+          state: {
+            hidden: true,
+            value: undefined,
+          },
+        },
+        otherwise: {
+          state: {
+            hidden: false,
+          },
+        },
+      },
+    ];
+  }
+
+  return {
+    type: 'object',
+    properties: {
+      [uid()]: {
+        type: 'void',
+        'x-component': 'Action.Drawer',
+        'x-component-props': {
+          getContainer: getContainer,
+        },
+        'x-decorator': 'Form',
+        'x-decorator-props': {
+          useValues(options) {
+            return useRequest(
+              () =>
+                Promise.resolve({
+                  data: cloneDeep(omit(schema.default, ['uiSchema.rawTitle'])),
+                }),
+              options,
+            );
+          },
+        },
+        title: `${compile(record.title)} - ${compile('{{ t("Edit field") }}')}`,
+        properties: {
+          summary: {
+            type: 'void',
+            'x-component': 'FieldSummary',
+            'x-component-props': {
+              schemaKey: schema.name,
+            },
+          },
+          // @ts-ignore
+          ...properties,
+          description: {
+            type: 'string',
+            title: '{{t("Description")}}',
+            'x-decorator': 'FormItem',
+            'x-component': 'Input.TextArea',
+          },
+          footer: {
+            type: 'void',
+            'x-component': 'Action.Drawer.Footer',
+            properties: {
+              action1: {
+                title: '{{ t("Cancel") }}',
+                'x-component': 'Action',
+                'x-component-props': {
+                  useAction: '{{ useCancelAction }}',
+                },
+              },
+              action2: {
+                title: '{{ t("Submit") }}',
+                'x-component': 'Action',
+                'x-component-props': {
+                  type: 'primary',
+                  useAction: '{{ useUpdateCollectionField }}',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
+};
+
+const PreviewTable = observer(
+  (props: any) => {
+    const { filedata } = props;
+    const { t } = useTranslation();
+    // const [fields, setFields] = useState(filedata.fields);
+
+    const columns = filedata.fields.map((field) => ({
+      title: field.title,
+      dataIndex: field.name,
+      key: field.name,
+      render: (text) => text,
+      width: 200,
+    }));
+
+    return (
+      <Table
+        bordered
+        size="small"
+        columns={columns}
+        dataSource={filedata.data}
+        scroll={{ y: 300, x: 'max-content' }}
+        pagination={false}
+        // rowClassName="editable-row"
+        rowKey="name"
+      />
+    );
+  },
+  { displayName: 'PreviewTable' },
+);
+
+const xlsxImportAction = () => {
+  const form = useForm();
+  const ctx = useActionContext();
+
+  // const { setVisible } = useActionContext();
+  // const { service } = useDataBlockRequest();
+  // const resource = useDataBlockResource();
+  // const { t } = useTranslation();
+  // const [modalIns, element] = useModal();
+  return {
+    async onClick() {
+      // await form.submit();
+      // const response = await resource.create({
+      //   values: form.values,
+      // });
+      console.log('%c Line:586 🍖 form.values', 'color:#4fff4B', form);
+      console.log('%c Line:576 🍖 ctx', 'color:#ea7e5c', ctx);
+    },
+  };
+};
