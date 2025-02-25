@@ -204,12 +204,7 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
     if (axios.isAxiosError(err)) {
       ctx.status = err.response?.status || 500;
       ctx.body = err.response?.data || { message: err.message };
-      const body = await streamToStringOrJson(ctx.body);
-      this.logger.error(
-        `custom-request:send:${filterByTk} error. status: ${ctx.status}, body: ${
-          typeof body === 'string' ? body : JSON.stringify(body)
-        }`,
-      );
+      this.logger.error(`custom-request:send:${filterByTk} error. status: ${ctx.status}, body: `, ctx.body);
     } else {
       this.logger.error(
         `action-custom-request:send:${filterByTk} error. status: ${ctx.status}, message: ${err.message}`,
