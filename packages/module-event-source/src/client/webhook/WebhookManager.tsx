@@ -387,8 +387,6 @@ const schema: ISchema = {
         action: 'list',
         params: {
           pageSize: 20,
-          appends: ['updatedBy'],
-          sort: ['-createdAt'],
         },
         rowKey: 'id',
         showIndex: true,
@@ -418,11 +416,6 @@ const schema: ISchema = {
               'x-component-props': {
                 icon: 'FilterOutlined',
               },
-              'x-align': 'left',
-            },
-            fuzzySearch: {
-              type: 'void',
-              'x-component': 'FuzzySearchInput',
               'x-align': 'left',
             },
             refresh: {
@@ -484,7 +477,6 @@ const schema: ISchema = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 50,
-                sorter: true,
               },
               properties: {
                 name: {
@@ -542,7 +534,7 @@ const schema: ISchema = {
                   'x-read-pretty': true,
                   'x-decorator': 'OpenDrawer',
                   'x-decorator-props': {
-                    component: ({ children, onClick }) => {
+                    component: function Com({ children, onClick }) {
                       const webhook = useCollectionRecordData();
                       return (
                         <Space size="small">
@@ -568,7 +560,6 @@ const schema: ISchema = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 20,
-                sorter: true,
               },
               properties: {
                 type: {
@@ -591,7 +582,6 @@ const schema: ISchema = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 20,
-                sorter: true,
               },
               properties: {
                 effect: {
@@ -608,49 +598,6 @@ const schema: ISchema = {
                       display: 'none',
                     },
                   },
-                },
-              },
-            },
-            updatedAt: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              'x-component-props': {
-                sorter: true,
-                width: 20,
-                align: 'center',
-                style: {
-                  display: 'grid',
-                  placeItems: 'center',
-                },
-              },
-              properties: {
-                updatedAt: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
-            updatedBy: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              'x-component-props': {
-                sorter: true,
-                width: 20,
-                align: 'center',
-                style: {
-                  display: 'grid',
-                  placeItems: 'center',
-                },
-              },
-              properties: {
-                updatedBy: {
-                  type: 'string',
-                  'x-collection-field': 'webhooks.updatedBy',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
                 },
               },
             },

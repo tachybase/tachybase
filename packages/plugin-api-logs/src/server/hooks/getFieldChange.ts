@@ -78,9 +78,12 @@ function getDiffKeyExceptAfter(before: any, after: any, path = ''): string[] {
 }
 
 /** 获得真正变动的数据库字段 */
-export async function getChanged(ctx): Promise<{ changed?: string[]; data?: any; error: Error }> {
+export async function getChanged(ctx, filterByTk): Promise<{ changed?: string[]; data?: any; error: Error }> {
   try {
     const params = lodash.cloneDeep(ctx.action.params) as ActionParams;
+    if (!filterByTk) {
+      filterByTk = params.filterByTk;
+    }
     const repo = ctx.db.getRepository(ctx.action.resourceName);
     const fieldsObj: Record<string, IField> = {};
     const app = ctx.app as Application;
@@ -104,11 +107,19 @@ export async function getChanged(ctx): Promise<{ changed?: string[]; data?: any;
         continue;
       }
     }
+    const info = await repo.findOne({
+      filterByTk,
+      appends: [...appendSet],
+    });
+    const another = await repo.findOne({
+      filter: {
+        id: filterByTk,
+      },
+      appends: [...appendSet],
+    });
     let dataBefore = (
       await repo.findOne({
-        filter: {
-          id: params.filterByTk,
-        },
+        filterByTk,
         appends: [...appendSet],
       })
     ).toJSON();
@@ -126,9 +137,7 @@ export async function getChanged(ctx): Promise<{ changed?: string[]; data?: any;
 
     dataBefore = (
       await repo.findOne({
-        filter: {
-          id: params.filterByTk,
-        },
+        filterByTk,
         appends: [...appendSet],
       })
     ).toJSON();

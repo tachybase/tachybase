@@ -1,13 +1,17 @@
+import { Context } from '@tachybase/actions';
 import { Application } from '@tachybase/server';
 
-export async function handleCreate(ctx) {
+export async function handleCreate(ctx: Context, next) {
+  await next();
   const { actionName, resourceName, params } = ctx.action;
   const currentTime = new Date().toISOString();
   const apilogsRepo = ctx.db.getRepository('apiLogs');
   const currentUserId = ctx.auth?.user.id;
-  const currentRecordId = params.filterByTk;
+
   const app = ctx.app as Application;
   const collection = app.mainDataSource.collectionManager.getCollection(ctx.action.resourceName);
+
+  const currentRecordId = ctx.body?.[collection.filterTargetKey];
   const changes = [];
   const changed = params.values;
   if (changed) {
@@ -26,24 +30,15 @@ export async function handleCreate(ctx) {
   if (!changes.length) {
     return;
   }
-  try {
-    await apilogsRepo.create({
-      values: {
-        action: actionName,
-        createdAt: currentTime,
-        collectionName: resourceName,
-        recordId: currentRecordId,
-        userId: currentUserId,
-        changes,
-      },
-    });
-  } catch (error) {
-    ctx.logger.error('Failed to create API log:', {
-      error,
+  apilogsRepo.create({
+    values: {
       action: actionName,
-      resourceName,
+      createdAt: currentTime,
+      collectionName: resourceName,
       recordId: currentRecordId,
-    });
-    throw new Error(`Failed to create API log: ${error.message}`);
-  }
+      userId: currentUserId,
+      changes,
+    },
+    hooks: false,
+  });
 }

@@ -20,7 +20,6 @@
   "Sync": "Sync",
   "Test": "Test",
   "The real effect of the server, not the preset configuration": "The real effect of the server, not the preset configuration",
-  "Updated at": "Updated at",
   "get user input and original data changes before operation, but the workflow is triggered after the resource operation, which is commonly used for specific association changes, etc.": "get user input and original data changes before operation, but the workflow is triggered after the resource operation, which is commonly used for specific association changes, etc.",
   "get user input and original data changes before operation, but the workflow is triggered before the resource operation, which is commonly used for data verification, etc.": "get user input and original data changes before operation, but the workflow is triggered before the resource operation, which is commonly used for data verification, etc.",
   "用于创建自定义请求,for creating custom requests, try not to duplicate with other requests": "for creating custom requests, try not to duplicate with other requests"

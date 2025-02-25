@@ -37,7 +37,6 @@
   "Trigger on association": "关联时触发",
   "TriggerOnAssociation": "关联时触发",
   "Type": "类型",
-  "Updated at": "更新于",
   "applicationEvent": "应用事件",
   "databaseEvent": "数据库事件",
   "for creating custom requests, try not to duplicate with other requests": "用于创建自定义请求,尽量不要和其他请求重复",

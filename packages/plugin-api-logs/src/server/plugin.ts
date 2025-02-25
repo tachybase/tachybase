@@ -27,15 +27,13 @@ export class PluginApiLogsServer extends Plugin {
           return next();
         }
         if (actionName === 'update') {
-          handleUpdate(ctx);
+          return await handleUpdate(ctx, next);
+        } else if (actionName === 'create') {
+          return await handleCreate(ctx, next);
+        } else if (actionName === 'destroy') {
+          return await handleDestroy(ctx, next);
         }
-        if (actionName === 'create') {
-          handleCreate(ctx);
-        }
-        if (actionName === 'destroy') {
-          handleDestroy(ctx);
-        }
-        await next();
+        return next();
       },
       { tag: 'apiLogs', after: 'acl', before: 'dataSource' },
     );
