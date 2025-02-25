@@ -420,6 +420,11 @@ const schema: ISchema = {
               },
               'x-align': 'left',
             },
+            fuzzySearch: {
+              type: 'void',
+              'x-component': 'FuzzySearchInput',
+              'x-align': 'left',
+            },
             refresh: {
               type: 'void',
               title: '{{ t("Refresh") }}',
