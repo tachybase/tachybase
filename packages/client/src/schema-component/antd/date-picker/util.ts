@@ -1,6 +1,14 @@
-import { dayjs, getDefaultFormat, str2moment, toGmt, toLocal, type Dayjs } from '@tachybase/utils/client';
+import {
+  dayjs,
+  getDefaultFormat,
+  getPickerFormat,
+  str2moment,
+  toGmt,
+  toLocal,
+  type Dayjs,
+} from '@tachybase/utils/client';
 
-const toStringByPicker = (value, picker, timezone: 'gmt' | 'local') => {
+const toStringByPicker = (value, picker = 'date', timezone: 'gmt' | 'local') => {
   if (!dayjs.isDayjs(value)) return value;
   if (timezone === 'local') {
     const offset = new Date().getTimezoneOffset();
@@ -46,7 +54,7 @@ export interface Moment2strOptions {
 }
 
 export const moment2str = (value?: Dayjs | null, options: Moment2strOptions = {}) => {
-  const { showTime, gmt, picker, utc = true } = options;
+  const { showTime, gmt, picker = 'date', utc = true } = options;
   if (!value) {
     return value;
   }
@@ -60,24 +68,56 @@ export const moment2str = (value?: Dayjs | null, options: Moment2strOptions = {}
   if (typeof gmt === 'boolean') {
     return gmt ? toGmtByPicker(value, picker) : toLocalByPicker(value, picker);
   }
-  return toGmtByPicker(value, picker);
+  return toLocalByPicker(value, picker);
+};
+
+const handleChangeOnFilter = (value, picker, showTime) => {
+  const format = showTime ? 'YYYY-MM-DD HH:mm:ss' : getPickerFormat(picker);
+  if (value) {
+    return dayjs(value).format(format);
+  }
+  return value;
+};
+export const handleDateChangeOnForm = (value, dateOnly, utc, picker, showTime, gmt) => {
+  const format = showTime ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD';
+  if (!value) {
+    return value;
+  }
+  if (dateOnly) {
+    return dayjs(value).startOf(picker).format('YYYY-MM-DD');
+  }
+  if (utc) {
+    if (gmt) {
+      return toGmt(value);
+    }
+    if (picker !== 'date') {
+      return dayjs(value).startOf(picker).toISOString();
+    }
+    const formattedDate = dayjs(value).format(format);
+    return dayjs(formattedDate).toISOString();
+  }
+  if (showTime) {
+    return dayjs(value).format(format);
+  }
+  return dayjs(value).startOf(picker).format(format);
 };
 
 export const mapDatePicker = function () {
   return (props: any) => {
-    const format = getDefaultFormat(props) as any;
+    const { dateOnly, showTime, picker = 'date', utc, gmt, underFilter } = props;
+    const format = getDefaultFormat(props);
     const onChange = props.onChange;
-
     return {
       ...props,
       format: format,
       value: str2moment(props.value, props),
-      onChange: (value: Dayjs | null) => {
+      onChange: (value: Dayjs | null, dateString) => {
         if (onChange) {
-          if (!props.showTime && value) {
-            value = value.startOf('day');
+          if (underFilter) {
+            onChange(handleChangeOnFilter(value, picker, showTime));
+          } else {
+            onChange(handleDateChangeOnForm(value, dateOnly, utc, picker, showTime, gmt));
           }
-          onChange(moment2str(value, props));
         }
       },
     };
@@ -88,18 +128,26 @@ export const mapRangePicker = function () {
   return (props: any) => {
     const format = getDefaultFormat(props) as any;
     const onChange = props.onChange;
-
+    const { dateOnly, showTime, picker = 'date', utc, gmt, underFilter } = props;
     return {
       ...props,
       format: format,
       value: str2moment(props.value, props),
       onChange: (value: Dayjs[]) => {
         if (onChange) {
-          onChange(
-            value
-              ? [moment2str(getRangeStart(value[0], props), props), moment2str(getRangeEnd(value[1], props), props)]
-              : [],
-          );
+          if (underFilter) {
+            onChange(
+              value
+                ? [handleChangeOnFilter(value[0], picker, showTime), handleChangeOnFilter(value[1], picker, showTime)]
+                : [],
+            );
+          } else {
+            onChange(
+              value
+                ? [moment2str(getRangeStart(value[0], props), props), moment2str(getRangeEnd(value[1], props), props)]
+                : [],
+            );
+          }
         }
       },
     } as any;
@@ -134,32 +182,95 @@ const getEnd = (offset: any, unit: any) => {
     .endOf(unit);
 };
 
-export const getDateRanges = () => {
+export const getDateRanges = (props?: {
+  /** 日期是否是 UTC 格式 */
+  utc?: boolean;
+  /** 如果为 true 则返回的值是一个字符串 */
+  shouldBeString?: boolean;
+}) => {
+  if (props?.shouldBeString) {
+    const toString = (date) => {
+      if (Array.isArray(date)) {
+        return date.map((d) => moment2str(d, { utc: props?.utc }));
+      }
+      return moment2str(date, { utc: props?.utc });
+    };
+    return {
+      now: () => toString(dayjs()),
+      today: (params?: any) => withParams(toString([getStart(0, 'day'), getEnd(0, 'day')]), params),
+      yesterday: (params?: any) => withParams(toString([getStart(-1, 'day'), getEnd(-1, 'day')]), params),
+      tomorrow: (params?: any) => withParams(toString([getStart(1, 'day'), getEnd(1, 'day')]), params),
+      thisWeek: (params?: any) => withParams(toString([getStart(0, 'isoWeek'), getEnd(0, 'isoWeek')]), params),
+      lastWeek: (params?: any) => withParams(toString([getStart(-1, 'isoWeek'), getEnd(-1, 'isoWeek')]), params),
+      nextWeek: (params?: any) => withParams(toString([getStart(1, 'isoWeek'), getEnd(1, 'isoWeek')]), params),
+      thisIsoWeek: (params?: any) => withParams(toString([getStart(0, 'isoWeek'), getEnd(0, 'isoWeek')]), params),
+      lastIsoWeek: (params?: any) => withParams(toString([getStart(-1, 'isoWeek'), getEnd(-1, 'isoWeek')]), params),
+      nextIsoWeek: (params?: any) => withParams(toString([getStart(1, 'isoWeek'), getEnd(1, 'isoWeek')]), params),
+      thisMonth: (params?: any) => withParams(toString([getStart(0, 'month'), getEnd(0, 'month')]), params),
+      lastMonth: (params?: any) => withParams(toString([getStart(-1, 'month'), getEnd(-1, 'month')]), params),
+      nextMonth: (params?: any) => withParams(toString([getStart(1, 'month'), getEnd(1, 'month')]), params),
+      thisQuarter: (params?: any) => withParams(toString([getStart(0, 'quarter'), getEnd(0, 'quarter')]), params),
+      lastQuarter: (params?: any) => withParams(toString([getStart(-1, 'quarter'), getEnd(-1, 'quarter')]), params),
+      nextQuarter: (params?: any) => withParams(toString([getStart(1, 'quarter'), getEnd(1, 'quarter')]), params),
+      thisYear: (params?: any) => withParams(toString([getStart(0, 'year'), getEnd(0, 'year')]), params),
+      lastYear: (params?: any) => withParams(toString([getStart(-1, 'year'), getEnd(-1, 'year')]), params),
+      nextYear: (params?: any) => withParams(toString([getStart(1, 'year'), getEnd(1, 'year')]), params),
+      last7Days: (params?: any) => withParams(toString([getStart(-6, 'days'), getEnd(0, 'days')]), params),
+      next7Days: (params?: any) => withParams(toString([getStart(1, 'day'), getEnd(7, 'days')]), params),
+      last30Days: (params?: any) => withParams(toString([getStart(-29, 'days'), getEnd(0, 'days')]), params),
+      next30Days: (params?: any) => withParams(toString([getStart(1, 'day'), getEnd(30, 'days')]), params),
+      last90Days: (params?: any) => withParams(toString([getStart(-89, 'days'), getEnd(0, 'days')]), params),
+      next90Days: (params?: any) => withParams(toString([getStart(1, 'day'), getEnd(90, 'days')]), params),
+    };
+  }
+
   return {
     now: () => dayjs().toISOString(),
-    today: () => [getStart(0, 'day'), getEnd(0, 'day')],
-    yesterday: () => [getStart(-1, 'day'), getEnd(-1, 'day')],
-    tomorrow: () => [getStart(1, 'day'), getEnd(1, 'day')],
-    thisWeek: () => [getStart(0, 'isoWeek'), getEnd(0, 'isoWeek')],
-    lastWeek: () => [getStart(-1, 'isoWeek'), getEnd(-1, 'isoWeek')],
-    nextWeek: () => [getStart(1, 'isoWeek'), getEnd(1, 'isoWeek')],
-    thisIsoWeek: () => [getStart(0, 'isoWeek'), getEnd(0, 'isoWeek')],
-    lastIsoWeek: () => [getStart(-1, 'isoWeek'), getEnd(-1, 'isoWeek')],
-    nextIsoWeek: () => [getStart(1, 'isoWeek'), getEnd(1, 'isoWeek')],
-    thisMonth: () => [getStart(0, 'month'), getEnd(0, 'month')],
-    lastMonth: () => [getStart(-1, 'month'), getEnd(-1, 'month')],
-    nextMonth: () => [getStart(1, 'month'), getEnd(1, 'month')],
-    thisQuarter: () => [getStart(0, 'quarter'), getEnd(0, 'quarter')],
-    lastQuarter: () => [getStart(-1, 'quarter'), getEnd(-1, 'quarter')],
-    nextQuarter: () => [getStart(1, 'quarter'), getEnd(1, 'quarter')],
-    thisYear: () => [getStart(0, 'year'), getEnd(0, 'year')],
-    lastYear: () => [getStart(-1, 'year'), getEnd(-1, 'year')],
-    nextYear: () => [getStart(1, 'year'), getEnd(1, 'year')],
-    last7Days: () => [getStart(-6, 'days'), getEnd(0, 'days')],
-    next7Days: () => [getStart(1, 'day'), getEnd(7, 'days')],
-    last30Days: () => [getStart(-29, 'days'), getEnd(0, 'days')],
-    next30Days: () => [getStart(1, 'day'), getEnd(30, 'days')],
-    last90Days: () => [getStart(-89, 'days'), getEnd(0, 'days')],
-    next90Days: () => [getStart(1, 'day'), getEnd(90, 'days')],
+    today: (params?: any) => withParams([getStart(0, 'day'), getEnd(0, 'day')], params),
+    yesterday: (params?: any) => withParams([getStart(-1, 'day'), getEnd(-1, 'day')], params),
+    tomorrow: (params?: any) => withParams([getStart(1, 'day'), getEnd(1, 'day')], params),
+    thisWeek: (params?: any) => withParams([getStart(0, 'isoWeek'), getEnd(0, 'isoWeek')], params),
+    lastWeek: (params?: any) => withParams([getStart(-1, 'isoWeek'), getEnd(-1, 'isoWeek')], params),
+    nextWeek: (params?: any) => withParams([getStart(1, 'isoWeek'), getEnd(1, 'isoWeek')], params),
+    thisIsoWeek: (params?: any) => withParams([getStart(0, 'isoWeek'), getEnd(0, 'isoWeek')], params),
+    lastIsoWeek: (params?: any) => withParams([getStart(-1, 'isoWeek'), getEnd(-1, 'isoWeek')], params),
+    nextIsoWeek: (params?: any) => withParams([getStart(1, 'isoWeek'), getEnd(1, 'isoWeek')], params),
+    thisMonth: (params?: any) => withParams([getStart(0, 'month'), getEnd(0, 'month')], params),
+    lastMonth: (params?: any) => withParams([getStart(-1, 'month'), getEnd(-1, 'month')], params),
+    nextMonth: (params?: any) => withParams([getStart(1, 'month'), getEnd(1, 'month')], params),
+    thisQuarter: (params?: any) => withParams([getStart(0, 'quarter'), getEnd(0, 'quarter')], params),
+    lastQuarter: (params?: any) => withParams([getStart(-1, 'quarter'), getEnd(-1, 'quarter')], params),
+    nextQuarter: (params?: any) => withParams([getStart(1, 'quarter'), getEnd(1, 'quarter')], params),
+    thisYear: (params?: any) => withParams([getStart(0, 'year'), getEnd(0, 'year')], params),
+    lastYear: (params?: any) => withParams([getStart(-1, 'year'), getEnd(-1, 'year')], params),
+    nextYear: (params?: any) => withParams([getStart(1, 'year'), getEnd(1, 'year')], params),
+    last7Days: (params?: any) => withParams([getStart(-6, 'days'), getEnd(0, 'days')], params),
+    next7Days: (params?: any) => withParams([getStart(1, 'day'), getEnd(7, 'days')], params),
+    last30Days: (params?: any) => withParams([getStart(-29, 'days'), getEnd(0, 'days')], params),
+    next30Days: (params?: any) => withParams([getStart(1, 'day'), getEnd(30, 'days')], params),
+    last90Days: (params?: any) => withParams([getStart(-89, 'days'), getEnd(0, 'days')], params),
+    next90Days: (params?: any) => withParams([getStart(1, 'day'), getEnd(90, 'days')], params),
   };
 };
+
+function withParams(value: any[], params: { fieldOperator?: string; isParsingVariable?: boolean }) {
+  if (params?.isParsingVariable && params?.fieldOperator && params.fieldOperator !== '$dateBetween') {
+    return value[0];
+  }
+
+  return value;
+}
+
+export function inferPickerType(dateString: string): 'year' | 'month' | 'quarter' | 'date' {
+  if (/^\d{4}$/.test(dateString)) {
+    return 'year';
+  } else if (/^\d{4}-\d{2}$/.test(dateString)) {
+    return 'month';
+  } else if (/^\d{4}Q[1-4]$/.test(dateString)) {
+    return 'quarter';
+  } else if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+    return 'date';
+  } else {
+    return 'date';
+  }
+}
