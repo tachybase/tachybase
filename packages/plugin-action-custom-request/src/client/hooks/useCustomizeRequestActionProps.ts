@@ -98,7 +98,7 @@ export const useCustomizeRequestActionProps = () => {
               },
             });
           } else {
-            message.success(messageStr);
+            message.success(compile(messageStr));
             if (onSuccess?.redirecting && onSuccess?.redirectTo) {
               if (isURL(onSuccess.redirectTo)) {
                 window.location.href = onSuccess.redirectTo;
