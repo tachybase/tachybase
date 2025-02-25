@@ -77,6 +77,6 @@ async function insertDestoryValues(db: Database, records: insertDestroyValueType
   const apilogsRepo = db.getRepository('apiLogs');
   await apilogsRepo.createMany({
     records,
-    individualHooks: false,
+    hooks: false,
   });
 }

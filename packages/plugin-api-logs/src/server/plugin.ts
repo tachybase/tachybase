@@ -1,4 +1,5 @@
 import { isMainThread } from 'node:worker_threads';
+import { Context } from '@tachybase/actions';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import { ApiLogsController } from './actions/apiLogsController';
@@ -9,6 +10,8 @@ import { handleCreate, handleDestroy, handleUpdate } from './hooks';
   Controllers: [ApiLogsController],
 })
 export class PluginApiLogsServer extends Plugin {
+  apiFilter: ApiFilter;
+
   async beforeLoad() {
     if (isMainThread) {
       this.addApiListener();
@@ -16,14 +19,14 @@ export class PluginApiLogsServer extends Plugin {
   }
 
   async addApiListener() {
-    const apiFilter = new ApiFilter(this.db);
+    this.apiFilter = new ApiFilter(this.db);
     this.app.on('afterStart', async () => {
-      await apiFilter.load();
+      await this.apiFilter.load();
     });
     this.app.resourcer.use(
-      async (ctx, next) => {
+      async (ctx: Context, next) => {
         const { actionName, resourceName, params } = ctx.action;
-        if (!apiFilter.check(resourceName, actionName)) {
+        if (!this.apiFilter.check(resourceName, actionName)) {
           return next();
         }
         if (actionName === 'update') {
