@@ -406,6 +406,7 @@ function WorkflowSelectComponent({
               sync: props.filterSync === undefined ? undefined : props.filterSync,
               key: props.filterKey === undefined ? undefined : props.filterKey,
             },
+            sort: ['-updatedAt'],
           },
         }}
         optionFilter={optionFilter}
