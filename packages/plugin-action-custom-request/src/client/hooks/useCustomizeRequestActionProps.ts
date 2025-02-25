@@ -107,6 +107,8 @@ export const useCustomizeRequestActionProps = () => {
               }
             }
           }
+        } else {
+          message.success(t('Request success'));
         }
       } finally {
         actionField.data.loading = false;
