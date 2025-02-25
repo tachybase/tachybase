@@ -1,4 +1,5 @@
 import { isMainThread } from 'node:worker_threads';
+import { Context } from '@tachybase/actions';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import { ApiLogsController } from './actions/apiLogsController';
@@ -9,39 +10,36 @@ import { handleCreate, handleDestroy, handleUpdate } from './hooks';
   Controllers: [ApiLogsController],
 })
 export class PluginApiLogsServer extends Plugin {
-  async beforeLoad() {
-    if (isMainThread) {
-      this.addApiListener();
-    }
-  }
+  apiFilter: ApiFilter;
 
   async addApiListener() {
-    const apiFilter = new ApiFilter(this.db);
+    this.apiFilter = new ApiFilter(this.db);
     this.app.on('afterStart', async () => {
-      await apiFilter.load();
+      await this.apiFilter.load();
     });
     this.app.resourcer.use(
-      async (ctx, next) => {
+      async (ctx: Context, next) => {
         const { actionName, resourceName, params } = ctx.action;
-        if (!apiFilter.check(resourceName, actionName)) {
+        if (!this.apiFilter.check(resourceName, actionName)) {
           return next();
         }
         if (actionName === 'update') {
-          handleUpdate(ctx);
+          return await handleUpdate(ctx, next);
+        } else if (actionName === 'create') {
+          return await handleCreate(ctx, next);
+        } else if (actionName === 'destroy') {
+          return await handleDestroy(ctx, next);
         }
-        if (actionName === 'create') {
-          handleCreate(ctx);
-        }
-        if (actionName === 'destroy') {
-          handleDestroy(ctx);
-        }
-        await next();
+        return next();
       },
       { tag: 'apiLogs', after: 'acl', before: 'dataSource' },
     );
   }
 
   async load() {
+    if (isMainThread) {
+      this.addApiListener();
+    }
     this.app.acl.registerSnippet({
       name: `pm.system-services.apiLogsConfig`,
       actions: ['apiLogsConfig:*'],
