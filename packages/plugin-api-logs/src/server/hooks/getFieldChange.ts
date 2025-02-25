@@ -107,16 +107,12 @@ export async function getChanged(ctx, filterByTk): Promise<{ changed?: string[];
         continue;
       }
     }
-    const info = await repo.findOne({
-      filterByTk,
-      appends: [...appendSet],
-    });
-    const another = await repo.findOne({
-      filter: {
-        id: filterByTk,
-      },
-      appends: [...appendSet],
-    });
+    let dataBefore = (
+      await repo.findOne({
+        filterByTk,
+        appends: [...appendSet],
+      })
+    ).toJSON();
     let dataBefore = (
       await repo.findOne({
         filterByTk,
