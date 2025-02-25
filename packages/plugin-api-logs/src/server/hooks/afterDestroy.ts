@@ -34,7 +34,7 @@ async function handleGetInsertValues(ctx, tk: string, insertValues: insertDestro
     const values = await getInsertValues(ctx, tk);
     insertValues.push(values);
   } catch (error) {
-    this.app.logger.error('handleDestroy error, getInsertValues: ', {
+    ctx.app.logger.error('handleDestroy error, getInsertValues: ', {
       param: ctx.action.params,
       error,
     });
