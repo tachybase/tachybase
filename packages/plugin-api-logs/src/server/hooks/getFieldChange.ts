@@ -113,12 +113,6 @@ export async function getChanged(ctx, filterByTk): Promise<{ changed?: string[];
         appends: [...appendSet],
       })
     ).toJSON();
-    let dataBefore = (
-      await repo.findOne({
-        filterByTk,
-        appends: [...appendSet],
-      })
-    ).toJSON();
 
     const lostKeys = getLostKey(dataBefore, params.values);
     for (const lostKey of lostKeys) {
