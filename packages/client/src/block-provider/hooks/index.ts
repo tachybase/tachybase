@@ -545,7 +545,7 @@ export const useFilterBlockActionProps = () => {
               block.defaultFilter,
               filter.customFilter,
               prevMergedFilter,
-              block.service.params?.[0].filter,
+              block.service.params?.[0]?.filter,
             ]);
             prevMergedFilter = mergedFilter;
             if (block.dataLoadingMode === 'manual' && _.isEmpty(mergedFilter)) {
