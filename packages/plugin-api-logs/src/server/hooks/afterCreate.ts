@@ -13,7 +13,10 @@ export async function handleCreate(ctx: Context, next) {
 
   const currentRecordId = ctx.body?.[collection.filterTargetKey];
   const changes = [];
-  const changed = params.values;
+  const changed = {
+    ...(params.values || {}),
+    [collection.filterTargetKey]: currentRecordId,
+  };
   if (changed) {
     Object.keys(changed).forEach((key: string) => {
       const field = collection.findField((field) => {

@@ -12,12 +12,6 @@ import { handleCreate, handleDestroy, handleUpdate } from './hooks';
 export class PluginApiLogsServer extends Plugin {
   apiFilter: ApiFilter;
 
-  async beforeLoad() {
-    if (isMainThread) {
-      this.addApiListener();
-    }
-  }
-
   async addApiListener() {
     this.apiFilter = new ApiFilter(this.db);
     this.app.on('afterStart', async () => {
@@ -43,6 +37,9 @@ export class PluginApiLogsServer extends Plugin {
   }
 
   async load() {
+    if (isMainThread) {
+      this.addApiListener();
+    }
     this.app.acl.registerSnippet({
       name: `pm.system-services.apiLogsConfig`,
       actions: ['apiLogsConfig:*'],
