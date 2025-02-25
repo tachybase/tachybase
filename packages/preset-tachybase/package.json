@@ -17,6 +17,7 @@
     "@tachybase/module-collection": "workspace:*",
     "@tachybase/module-cron": "workspace:*",
     "@tachybase/module-data-source": "workspace:*",
+    "@tachybase/module-env-secrets": "workspace:*",
     "@tachybase/module-error-handler": "workspace:*",
     "@tachybase/module-event-source": "workspace:*",
     "@tachybase/module-file": "workspace:*",

@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Action,
   actionSettingsItems,
   SchemaSettings,
   SchemaSettingsActionModalItem,
   useCollection_deprecated,
+  useDesignable,
   useRequest,
 } from '@tachybase/client';
 import { ArrayItems } from '@tachybase/components';
@@ -23,8 +24,15 @@ export function CustomRequestSettingsItem() {
   const { name } = useCollection_deprecated();
   const fieldSchema = useFieldSchema();
   const customRequestsResource = useCustomRequestsResource();
-  const { message } = App.useApp();
   const { data, refresh } = useGetCustomRequest();
+  const { dn } = useDesignable();
+  const initialValues = useMemo(() => {
+    const values = { ...data?.data?.options };
+    if (values.data && typeof values.data !== 'string') {
+      values.data = JSON.stringify(values.data, null, 2);
+    }
+    return values;
+  }, [data?.data?.options]);
 
   return (
     <>
@@ -36,9 +44,7 @@ export function CustomRequestSettingsItem() {
         beforeOpen={() => !data && refresh()}
         scope={{ useCustomRequestVariableOptions }}
         schema={CustomRequestConfigurationFieldsSchema}
-        initialValues={{
-          ...data?.data?.options,
-        }}
+        initialValues={initialValues}
         onSubmit={async (config) => {
           const { ...requestSettings } = config;
           await customRequestsResource.updateOrCreate({
@@ -51,8 +57,8 @@ export function CustomRequestSettingsItem() {
             },
             filterKeys: ['key'],
           });
+          dn.refresh();
           refresh();
-          return message.success(t('Saved successfully'));
         }}
       />
     </>

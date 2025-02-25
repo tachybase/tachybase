@@ -41,11 +41,13 @@ import { Request } from 'zeromq';
 
 import packageJson from '../package.json';
 import { createACL } from './acl';
+import AesEncryptor from './aes-encryptor';
 import { AppCommand } from './app-command';
 import { AppSupervisor } from './app-supervisor';
 import { createCacheManager } from './cache';
 import { registerCli } from './commands';
 import { CronJobManager } from './cron/cron-job-manager';
+import { Environment } from './environment';
 import { ApplicationNotInstall } from './errors/application-not-install';
 import {
   createAppProxy,
@@ -256,6 +258,18 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
    */
   get maintainingMessage() {
     return this._maintainingMessage;
+  }
+
+  private _env: Environment;
+
+  get environment() {
+    return this._env;
+  }
+
+  protected _aesEncryptor: AesEncryptor;
+
+  get aesEncryptor() {
+    return this._aesEncryptor;
   }
 
   protected _cronJobManager: CronJobManager;
@@ -529,6 +543,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
         await oldDb.close();
       }
     }
+
+    this._aesEncryptor = await AesEncryptor.create(this);
 
     this._cacheManager = await createCacheManager(this, this.options.cacheManager);
 
@@ -1072,6 +1088,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     this.createMainDataSource(options);
 
+    this._env = new Environment();
     this._cronJobManager = new CronJobManager(this);
 
     this._cli = this.createCLI();
