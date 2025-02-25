@@ -122,5 +122,39 @@ export const dispatchers: CollectionOptions = {
         default: false,
       } as ISchema,
     },
+    {
+      name: 'updatedAt',
+      type: 'date',
+      interface: 'updatedAt',
+      uiSchema: {
+        type: 'datetime',
+        title: tval('Updated at'),
+        'x-component': 'DatePicker',
+        'x-component-props': {
+          showTime: true,
+        },
+      },
+    },
+    {
+      name: 'updatedBy',
+      type: 'belongsTo',
+      interface: 'updatedBy',
+      target: 'users',
+      targetKey: 'id',
+      foreignKey: 'updatedById',
+      collectionName: 'webhooks',
+      uiSchema: {
+        type: 'object',
+        title: '{{t("Last updated by")}}',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          fieldNames: {
+            value: 'id',
+            label: 'nickname',
+          },
+        },
+        'x-read-pretty': true,
+      },
+    },
   ],
 };
