@@ -4362,6 +4362,21 @@ importers:
         specifier: ^0.17.10
         version: 0.17.10
 
+  packages/plugin-validator:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+
   packages/plugin-workflow-analysis:
     dependencies:
       '@tachybase/actions':
