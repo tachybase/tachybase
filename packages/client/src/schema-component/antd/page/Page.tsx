@@ -25,8 +25,9 @@ import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
 import { ErrorFallback } from '../error-fallback';
 import FixedBlock from './FixedBlock';
+import { useStyles } from './Page.style';
 import { PageDesigner, PageTabDesigner } from './PageTabDesigner';
-import { useStyles } from './style';
+import { getStyles } from './style';
 
 export const Page = (props) => {
   const { children, ...others } = props;
@@ -44,8 +45,8 @@ export const Page = (props) => {
     [fieldSchema.properties, searchParams],
   );
   const [height, setHeight] = useState(0);
-  const { wrapSSR, hashId, componentCls } = useStyles();
   const aclStyles = useAClStyles();
+  const { wrapSSR, hashId, componentCls } = getStyles();
 
   useEffect(() => {
     if (!title) {
@@ -147,6 +148,8 @@ const PageHeader = (props) => {
 const TabFooter = (props) => {
   const { activeKey, setLoading, setSearchParams, hiddenScrollArea, options, theme, items } = props;
 
+  const { styles } = useStyles();
+
   // react18  tab 动画会卡顿，所以第一个 tab 时，动画禁用，后面的 tab 才启用
   const [hasMounted, setHasMounted] = useState(false);
 
@@ -167,6 +170,8 @@ const TabFooter = (props) => {
   return (
     <DndContext>
       <Tabs
+        className={styles.tabFooterClass}
+        type="card"
         size={'small'}
         animated={hasMounted}
         activeKey={activeKey}

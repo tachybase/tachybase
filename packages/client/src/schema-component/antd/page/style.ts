@@ -1,6 +1,6 @@
 import { genStyleHook } from './../__builtins__';
 
-export const useStyles = genStyleHook('tb-page', (token) => {
+export const getStyles = genStyleHook('tb-page', (token) => {
   const { componentCls } = token;
 
   return {
