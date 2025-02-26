@@ -1,4 +1,5 @@
 import { Context } from '@tachybase/actions';
+import { Processor } from '@tachybase/module-workflow';
 
 import { EventSourceModel } from '../model/EventSourceModel';
 import { WebhookController } from '../webhooks/webhooks';
@@ -39,7 +40,11 @@ export class CustomActionTrigger extends EventSourceTrigger {
       }
       const { code, workflowKey } = this.eventMap.get(id);
       const body = await new WebhookController().action(ctx, { code });
-      await new WebhookController().triggerWorkflow(ctx, { workflowKey }, body);
+      const res = await new WebhookController().triggerWorkflow(ctx, { workflowKey }, body);
+      const lastSavedJob = (<Processor>res).lastSavedJob;
+      if (lastSavedJob.get('status') < 0) {
+        ctx.throw(500, lastSavedJob.get('result'));
+      }
     });
     app.acl.allow(resourceName, actionName, 'loggedIn');
   }

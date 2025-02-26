@@ -391,25 +391,34 @@ export default class PluginWorkflowServer extends Plugin {
 
   private async createExecution(workflow: WorkflowModel, context, options): Promise<ExecutionModel | null> {
     const { transaction = await this.db.sequelize.transaction() } = options;
+    const sameTransaction = options.transaction === transaction;
     const trigger = this.triggers.get(workflow.type);
     const valid = await trigger.validateEvent(workflow, context, { ...options, transaction });
     if (!valid) {
-      if (!options.transaction) {
+      if (!sameTransaction) {
         await transaction.commit();
       }
       return null;
     }
 
-    const execution = await workflow.createExecution(
-      {
-        context,
-        key: workflow.key,
-        status: EXECUTION_STATUS.QUEUEING,
-        parentNode: options.parentNode || null,
-        parentId: options.parent ? options.parent.id : null,
-      },
-      { transaction },
-    );
+    let execution;
+    try {
+      execution = await workflow.createExecution(
+        {
+          context,
+          key: workflow.key,
+          status: EXECUTION_STATUS.QUEUEING,
+          parentNode: options.parentNode || null,
+          parentId: options.parent ? options.parent.id : null,
+        },
+        { transaction },
+      );
+    } catch (err) {
+      if (!sameTransaction) {
+        await transaction.rollback();
+      }
+      throw err;
+    }
 
     this.getLogger(workflow.id).info(`execution of workflow ${workflow.id} created as ${execution.id}`);
 
@@ -431,7 +440,7 @@ export default class PluginWorkflowServer extends Plugin {
       },
     );
 
-    if (!options.transaction) {
+    if (!sameTransaction) {
       await transaction.commit();
     }
 
