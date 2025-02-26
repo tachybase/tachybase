@@ -22,7 +22,7 @@ const ImportUpload = (props: any) => {
   const { t } = useTranslation();
   const { refreshCM } = useCollectionManager_deprecated();
   const { close } = props;
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFile] = useState<UploadFile[]>([]);
   const [filedata, setFileData] = useState({});
   const [collectionDrawer, setCollectionDrawer] = useState(false);
   const parentRecordData = useCollectionParentRecordData();
@@ -162,11 +162,11 @@ const ImportUpload = (props: any) => {
       const index = fileList.indexOf(file);
       const newFileList = fileList.slice();
       newFileList.splice(index, 1);
-      setFileList(newFileList);
+      setFile(newFileList);
     },
     beforeUpload: (file) => {
       handleFileUpload(file);
-      setFileList([...fileList, file]);
+      setFile([file]);
       return false;
     },
     fileList,
@@ -185,17 +185,15 @@ const ImportUpload = (props: any) => {
       <Button type="primary" onClick={showCollectionDrawer} disabled={fileList.length === 0} style={{ marginTop: 16 }}>
         Upload
       </Button>
-      <RecordProvider record={filedata} parent={parentRecordData}>
-        <Drawer
-          title="创建数据表"
-          closable={false}
-          onClose={onCollectionDrawerClose}
-          open={collectionDrawer}
-          width={'70%'}
-        >
-          <SchemaComponent schema={xlsxCollectionSchema} components={{ FieldsConfigure }} />
-        </Drawer>
-      </RecordProvider>
+      <Drawer
+        title="创建数据表"
+        closable={false}
+        onClose={onCollectionDrawerClose}
+        open={collectionDrawer}
+        width={'70%'}
+      >
+        <SchemaComponent schema={xlsxCollectionSchema} components={{ FieldsConfigure }} />
+      </Drawer>
     </>
   );
 };

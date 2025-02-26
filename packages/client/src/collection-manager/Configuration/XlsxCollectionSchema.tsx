@@ -6,13 +6,16 @@ import {
   useAPIClient,
   useBlockRequestContext,
   useCollectionManager_deprecated,
+  useCollectionRecord,
   useDataBlockRequest,
   useDataBlockResource,
   useDataSourceManager,
   useRequest,
+  useResourceActionContext,
+  useResourceContext,
 } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
-import { ArrayField, ISchema, observer, uid, useField, useForm } from '@tachybase/schema';
+import { ArrayField, FormContext, ISchema, observer, uid, useField, useForm } from '@tachybase/schema';
 
 import { Alert, Cascader, Input, Select, Space, Spin, Switch, Table, Tag, Tooltip } from 'antd';
 import { cloneDeep, omit, set } from 'lodash';
@@ -142,6 +145,7 @@ export const FieldsConfigure = observer(
     const initOptions = useFieldInterfaceOptions();
     const compile = useCompile();
     const [selectedTitleField, setSelectedTitleField] = useState<string | null>(null);
+    const form = useForm();
 
     const handleFieldChange = (updatedField: any, index: number) => {
       const updatedFieldData = [...fields];
@@ -210,7 +214,7 @@ export const FieldsConfigure = observer(
           return (
             <Input
               value={field.title || text}
-              onChange={(e) => handleFieldChange({ ...field, name: e.target.value }, index)}
+              onChange={(e) => handleFieldChange({ ...field, title: e.target.value }, index)}
             />
           );
         },
@@ -304,12 +308,20 @@ export const FieldsConfigure = observer(
           const field = fields[index];
           return (
             <Space size="middle">
-              <EditFieldAction record={field} {...props} />
+              <EditFieldAction
+                record={field}
+                onEditComplete={(updatedField) => handleFieldChange(updatedField, index)}
+                {...props}
+              />
             </Space>
           );
         },
       },
     ];
+
+    useEffect(() => {
+      form.setValuesIn('fields', fields);
+    }, [fields]);
 
     return (
       <Table
@@ -319,7 +331,7 @@ export const FieldsConfigure = observer(
         dataSource={fields}
         scroll={{ y: 300 }}
         pagination={false}
-        // rowClassName="editable-row"
+        rowClassName="row"
         rowKey="uid"
         {...props}
       />
@@ -328,25 +340,25 @@ export const FieldsConfigure = observer(
   { displayName: 'FieldsConfigure' },
 );
 
-const useUpdateCollectionField = () => {
+const setUpdateCollectionField = () => {
   const form = useForm();
-  const { run } = useUpdateAction();
-  const { refreshCM } = useCollectionManager_deprecated();
+  const ctx = useActionContext();
+  const { refresh } = useResourceActionContext();
+  // const { resource, targetKey } = useResourceContext();
+  // const { [targetKey]: filterByTk } = useRecord();
+  // const { run } = useUpdateAction();
+  // const { refreshCM } = useCollectionManager_deprecated();
   return {
-    async run() {
+    async onClick() {
       await form.submit();
-      const options = form?.values?.uiSchema?.enum?.slice() || [];
-      form.setValuesIn(
-        'uiSchema.enum',
-        options.map((option) => {
-          return {
-            value: uid(),
-            ...option,
-          };
-        }),
-      );
-      await run();
-      await refreshCM();
+      const values = cloneDeep(form.values);
+      if (values.autoCreateReverseField) {
+      } else {
+        delete values.reverseField;
+      }
+      delete values.autoCreateReverseField;
+      refresh();
+      console.log('%c Line:340 🧀 form', 'color:#2eafb0', form);
     },
   };
 };
@@ -406,7 +418,6 @@ export const EditFieldAction = (props) => {
           components={{ ...components, ArrayTable }}
           scope={{
             getContainer,
-            useUpdateCollectionField,
             useCancelAction,
             showReverseFieldConfig: !data?.reverseField,
             collections: currentCollections,
@@ -514,20 +525,20 @@ const getSchema = (schema: IField, record: any, compile, getContainer): ISchema 
             type: 'void',
             'x-component': 'Action.Drawer.Footer',
             properties: {
-              action1: {
-                title: '{{ t("Cancel") }}',
-                'x-component': 'Action',
-                'x-component-props': {
-                  useAction: '{{ useCancelAction }}',
-                },
-              },
+              // action1: {
+              //   title: '{{ t("Cancel") }}',
+              //   'x-component': 'Action',
+              //   'x-component-props': {
+              //     useAction: '{{ useCancelAction }}',
+              //   },
+              // },
               action2: {
                 title: '{{ t("Submit") }}',
                 'x-component': 'Action',
                 'x-component-props': {
                   type: 'primary',
-                  useAction: '{{ useUpdateCollectionField }}',
                 },
+                'x-use-component-props': setUpdateCollectionField,
               },
             },
           },
@@ -570,20 +581,46 @@ const PreviewTable = observer(
 const xlsxImportAction = () => {
   const form = useForm();
   const ctx = useActionContext();
+  const field = useField();
+  const record = useCollectionRecord();
+  const api = useAPIClient();
 
-  // const { setVisible } = useActionContext();
-  // const { service } = useDataBlockRequest();
-  // const resource = useDataBlockResource();
-  // const { t } = useTranslation();
-  // const [modalIns, element] = useModal();
   return {
     async onClick() {
-      // await form.submit();
-      // const response = await resource.create({
-      //   values: form.values,
-      // });
-      console.log('%c Line:586 🍖 form.values', 'color:#4fff4B', form);
-      console.log('%c Line:576 🍖 ctx', 'color:#ea7e5c', ctx);
+      console.log('%c Line:586 🍖 form.values', 'color:#4fff4B', form.values);
+
+      field.data = field.data || {};
+      field.data.loading = true;
+      try {
+        await form.submit();
+        const values = cloneDeep(form.values);
+        // if (schema?.events?.beforeSubmit) {
+        //   schema.events.beforeSubmit(values);
+        // }
+        if (!values.autoCreateReverseField) {
+          delete values.reverseField;
+        }
+        delete values.autoCreateReverseField;
+        api.resource('collections').create({
+          values: {
+            logging: true,
+            ...values,
+          },
+        });
+        // await resource.create({
+        //   values: {
+        //     logging: true,
+        //     ...values,
+        //   },
+        // });
+        ctx.setVisible(false);
+        await form.reset();
+        field.data.loading = false;
+        // refresh();
+        // await refreshCM();
+      } catch (error) {
+        field.data.loading = false;
+      }
     },
   };
 };
