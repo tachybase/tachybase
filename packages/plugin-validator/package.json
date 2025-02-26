@@ -1,0 +1,19 @@
+{
+  "name": "@tachybase/plugin-validator",
+  "displayName": "Data validator",
+  "version": "0.23.49",
+  "description": "Before formal data operation, verify the legality and integrity of data types.",
+  "keywords": [
+    "Security"
+  ],
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  },
+  "description.zh-CN": "在正式数据操作之前验证数据类型合法性和完整性",
+  "displayName.zh-CN": "数据验证器"
+}
