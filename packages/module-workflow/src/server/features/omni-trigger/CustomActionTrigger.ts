@@ -126,7 +126,10 @@ export class OmniTrigger extends Trigger {
       }
       if (processor.execution.status < EXECUTION_STATUS.STARTED) {
         if (lastNode?.type !== 'end') {
-          return context.throw(500, 'Workflow on your action failed, please contact the administrator');
+          return context.throw(
+            500,
+            context.t('Workflow on your action failed, please contact the administrator', { ns: 'workflow' }),
+          );
         }
         const err = new CustomActionInterceptionError('Request is intercepted by workflow');
         err.status = 400;
@@ -162,6 +165,7 @@ export class OmniTrigger extends Trigger {
       return;
     }
 
+    // TODO: 此处如果执行错误应该怎么办
     return this.trigger(context);
   };
 

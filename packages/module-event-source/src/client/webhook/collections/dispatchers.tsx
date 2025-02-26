@@ -101,7 +101,7 @@ export const dispatchers: CollectionOptions = {
         'x-component': 'CodeMirror',
         'x-component-props': {
           defaultValue:
-            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// const { changed, data, error } = await ctx.getChanged(); can get changed fields and raw data\n// ctx.body to pass your data to workflow or to client who invoke this.\n// ctx.body = ctx.action.params.values',
+            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// const { changed, data, error } = await ctx.getChanged(); can get changed fields and raw data\n// ctx.body to pass your data to workflow or to client who invoke this.\n// ctx.body = ctx.action.params.values\n// ctx.body=ctx.model',
         },
       } as ISchema,
     },
@@ -121,6 +121,40 @@ export const dispatchers: CollectionOptions = {
         'x-decorator': 'FormItem',
         default: false,
       } as ISchema,
+    },
+    {
+      name: 'updatedAt',
+      type: 'date',
+      interface: 'updatedAt',
+      uiSchema: {
+        type: 'datetime',
+        title: tval('Updated at'),
+        'x-component': 'DatePicker',
+        'x-component-props': {
+          showTime: true,
+        },
+      },
+    },
+    {
+      name: 'updatedBy',
+      type: 'belongsTo',
+      interface: 'updatedBy',
+      target: 'users',
+      targetKey: 'id',
+      foreignKey: 'updatedById',
+      collectionName: 'webhooks',
+      uiSchema: {
+        type: 'object',
+        title: '{{t("Last updated by")}}',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          fieldNames: {
+            value: 'id',
+            label: 'nickname',
+          },
+        },
+        'x-read-pretty': true,
+      },
     },
   ],
 };

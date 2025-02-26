@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from '@tachybase/client';
 import { connect, mapProps, mapReadPretty } from '@tachybase/schema';
 import { dayjs } from '@tachybase/utils/client';
@@ -21,10 +21,19 @@ export const MDatePicker = connect(
       onChange(value);
       setVisible(false);
     };
+
+    const validDate = useMemo(() => {
+      const dayjsDate = dayjs(dateValue);
+      if (dayjsDate.isValid()) {
+        const date = dayjsDate.toDate();
+        return date;
+      }
+    }, [dateValue]);
+
     return (
       <>
         <Button onClick={openPicker}>{dateValueShow}</Button>
-        <DatePicker visible={visible} value={dateValue} onClose={closePicker} onConfirm={selectDateValue} />
+        <DatePicker visible={visible} value={validDate} onClose={closePicker} onConfirm={selectDateValue} />
       </>
     );
   },
@@ -37,4 +46,5 @@ export const MDatePicker = connect(
     return <div>{changeProps.value}</div>;
   }),
 );
+
 export default MDatePicker;

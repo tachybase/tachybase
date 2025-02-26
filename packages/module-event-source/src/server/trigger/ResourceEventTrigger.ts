@@ -54,7 +54,6 @@ export class ResourceEventTrigger extends EventSourceTrigger {
   }
 
   private getMatchList(list: EventSourceModel[], resourceName: string, actionName: string): EventSourceModel[] {
-    let targetResource = resourceName || '';
     const matchList = [];
     // 优先按照options.sort 从小到大排序，再按照id从小到大排序
     list.sort((a, b) => {
@@ -65,7 +64,7 @@ export class ResourceEventTrigger extends EventSourceTrigger {
       return a.id - b.id;
     });
     for (const item of list) {
-      targetResource = item.options.resourceName;
+      let targetResource = resourceName || '';
       if (item.options.triggerOnAssociation) {
         const parts = resourceName.split('.');
         if (parts.length === 2) {
@@ -73,7 +72,7 @@ export class ResourceEventTrigger extends EventSourceTrigger {
           targetResource = collection?.name;
         }
       }
-      if (targetResource === resourceName && item.options.actionName === actionName) {
+      if (item.options.resourceName === targetResource && item.options.actionName === actionName) {
         matchList.push(item);
       }
     }

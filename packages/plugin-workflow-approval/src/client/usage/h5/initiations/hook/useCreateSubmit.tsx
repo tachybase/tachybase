@@ -35,6 +35,7 @@ export function useCreateSubmit() {
             data: from.values,
             status: typeof args?.approvalStatus !== 'undefined' ? args?.approvalStatus : status,
             workflowId: isResubmit ? workflow.id : workflowId,
+            workflowKey: workflow.key,
           },
         });
         if (res.status === 200) {

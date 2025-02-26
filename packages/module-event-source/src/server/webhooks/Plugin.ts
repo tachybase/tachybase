@@ -5,7 +5,7 @@ import { Registry } from '@tachybase/utils';
 import { EVENT_SOURCE_COLLECTION, EVENT_SOURCE_REALTIME } from '../constants';
 import { EventSourceModel } from '../model/EventSourceModel';
 import { AppEventTrigger } from '../trigger/AppEventTrigger';
-import { CustomActionTrigger } from '../trigger/CustionActionTrigger';
+import { CustomActionTrigger } from '../trigger/CustomctionTrigger';
 import { DatabaseEventTrigger } from '../trigger/DatabaseEventTrigger';
 import { ResourceEventTrigger } from '../trigger/ResourceEventTrigger';
 import { EventSourceTrigger } from '../trigger/Trigger';
