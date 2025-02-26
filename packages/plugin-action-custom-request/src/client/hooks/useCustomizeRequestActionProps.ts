@@ -86,7 +86,7 @@ export const useCustomizeRequestActionProps = () => {
           }
           if (onSuccess?.manualClose) {
             modal.success({
-              title: messageStr,
+              title: compile(messageStr),
               onOk: async () => {
                 if (onSuccess?.redirecting && onSuccess?.redirectTo) {
                   if (isURL(onSuccess.redirectTo)) {
