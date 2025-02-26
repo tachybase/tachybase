@@ -13,7 +13,7 @@ export async function handleUpdate(ctx: Context, next) {
   const changes = [];
   const { changed, data: dataBefore } = await getChanged(ctx, params.filterByTk);
   if (!changed) {
-    return;
+    return next();
   }
   changed.forEach((key: string) => {
     const field = collection.findField((field) => {
@@ -39,7 +39,7 @@ export async function handleUpdate(ctx: Context, next) {
     }
   });
   if (!changes.length) {
-    return;
+    return next();
   }
   await next();
   apilogsRepo.create({
