@@ -47,11 +47,6 @@ export const Page = (props) => {
   const { wrapSSR, hashId, componentCls } = useStyles();
   const aclStyles = useAClStyles();
 
-  const handleErrors = (error) => {
-    window?.Sentry?.captureException(error);
-    console.error(error);
-  };
-
   useEffect(() => {
     if (!title) {
       setTitle(t(fieldSchema.title));
@@ -63,31 +58,28 @@ export const Page = (props) => {
       <div className={`${componentCls} ${hashId} ${aclStyles.styles}`}>
         <PageDesigner title={fieldSchema.title || title} />
         <PageHeader
-          {...{
-            disablePageHeader,
-            enablePageTabs,
-            setHeight,
-            activeKey,
-            setLoading,
-            setSearchParams,
-            title,
-          }}
+          disablePageHeader={disablePageHeader}
+          enablePageTabs={enablePageTabs}
+          activeKey={activeKey}
+          title={title}
           fieldSchema={fieldSchema}
           parentProps={others}
+          setHeight={setHeight}
+          setLoading={setLoading}
+          setSearchParams={setSearchParams}
         />
-        <div className="tb-page-wrapper">
-          <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleErrors}>
-            <PageContent {...{ loading, disablePageHeader, enablePageTabs, fieldSchema, activeKey, height }}>
-              {children}
-            </PageContent>
-          </ErrorBoundary>
-        </div>
+        <PageContentComponent
+          loading={loading}
+          disablePageHeader={disablePageHeader}
+          enablePageTabs={enablePageTabs}
+          fieldSchema={fieldSchema}
+          activeKey={activeKey}
+          height={height}
+        />
       </div>
     </FilterBlockProvider>,
   );
 };
-
-Page.displayName = 'Page';
 
 const PageHeader = (props) => {
   const {
@@ -126,6 +118,7 @@ const PageHeader = (props) => {
       setHasMounted(true);
     });
   }, []);
+
   return (
     <div
       ref={(ref) => {
@@ -140,32 +133,47 @@ const PageHeader = (props) => {
           // 如果标题为空的时候会导致 PageHeader 不渲染，所以这里设置一个空白字符，然后再设置高度为 0
           title={pageHeaderTitle || ' '}
           {...parentProps}
+          extra={!enablePageTabs && !hiddenScrollArea && <ScrollArea />}
           footer={
             enablePageTabs && (
-              <DndContext>
-                <Tabs
-                  size={'small'}
-                  animated={hasMounted}
-                  activeKey={activeKey}
-                  onTabClick={(activeKey) => {
-                    setLoading(true);
-                    setSearchParams([['tab', activeKey]]);
-                    setTimeout(() => {
-                      setLoading(false);
-                    }, 50);
-                  }}
-                  tabBarExtraContent={
-                    <TabBarExtraContent hiddenScrollArea={hiddenScrollArea} options={options} theme={theme} />
-                  }
-                  items={items}
-                />
-              </DndContext>
+              <TabFooter
+                hasMounted={hasMounted}
+                activeKey={activeKey}
+                setLoading={setLoading}
+                setSearchParams={setSearchParams}
+                hiddenScrollArea={hiddenScrollArea}
+                options={options}
+                theme={theme}
+                items={items}
+              />
             )
           }
-          extra={!enablePageTabs && !hiddenScrollArea && <ScrollArea />}
         />
       )}
     </div>
+  );
+};
+
+const TabFooter = (props) => {
+  const { hasMounted, activeKey, setLoading, setSearchParams, hiddenScrollArea, options, theme, items } = props;
+
+  return (
+    <DndContext>
+      <Tabs
+        size={'small'}
+        animated={hasMounted}
+        activeKey={activeKey}
+        onTabClick={(activeKey) => {
+          setLoading(true);
+          setSearchParams([['tab', activeKey]]);
+          setTimeout(() => {
+            setLoading(false);
+          }, 50);
+        }}
+        tabBarExtraContent={<TabBarExtraContent hiddenScrollArea={hiddenScrollArea} options={options} theme={theme} />}
+        items={items}
+      />
+    </DndContext>
   );
 };
 
@@ -247,6 +255,21 @@ const TabBarExtraContent = (props) => {
           {t('Add tab')}
         </Button>
       )}
+    </div>
+  );
+};
+
+const PageContentComponent = (props) => {
+  const handleErrors = (error) => {
+    window?.Sentry?.captureException(error);
+    console.error(error);
+  };
+
+  return (
+    <div className="tb-page-wrapper">
+      <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleErrors}>
+        <PageContent {...props} />
+      </ErrorBoundary>
     </div>
   );
 };
