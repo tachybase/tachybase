@@ -40,6 +40,7 @@ export const PageTabDesigner = ({ schema }) => {
     fieldSchema['x-settings'] || 'PageTabSettings',
     fieldSchema['x-settings-props'],
   );
+
   if (!designable) {
     return null;
   }
