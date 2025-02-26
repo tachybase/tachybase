@@ -4364,9 +4364,18 @@ importers:
 
   packages/plugin-validator:
     dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/data-source':
+        specifier: workspace:*
+        version: link:../data-source
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -4739,6 +4748,9 @@ importers:
       '@tachybase/plugin-theme-editor':
         specifier: workspace:*
         version: link:../plugin-theme-editor
+      '@tachybase/plugin-validator':
+        specifier: workspace:*
+        version: link:../plugin-validator
       '@tachybase/plugin-workflow-analysis':
         specifier: workspace:*
         version: link:../plugin-workflow-analysis
