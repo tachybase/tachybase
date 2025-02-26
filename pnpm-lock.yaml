@@ -540,8 +540,8 @@ importers:
         specifier: ^7.21.2
         version: 7.21.2(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ctrl/tinycolor':
-        specifier: ^3.6.1
-        version: 3.6.1
+        specifier: ^4.1.0
+        version: 4.1.0
       '@dnd-kit/accessibility':
         specifier: ^3.1.1
         version: 3.1.1(react@18.3.1)
@@ -3342,8 +3342,8 @@ importers:
         specifier: ^5.5.2
         version: 5.5.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@ctrl/tinycolor':
-        specifier: ^3.6.1
-        version: 3.6.1
+        specifier: ^4.1.0
+        version: 4.1.0
       '@tachybase/components':
         specifier: workspace:*
         version: link:../components
@@ -4329,8 +4329,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)
       '@ctrl/tinycolor':
-        specifier: ^3.6.1
-        version: 3.6.1
+        specifier: ^4.1.0
+        version: 4.1.0
       '@types/lodash':
         specifier: 4.17.13
         version: 4.17.13
@@ -6410,6 +6410,10 @@ packages:
   '@ctrl/tinycolor@3.6.1':
     resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
     engines: {node: '>=10'}
+
+  '@ctrl/tinycolor@4.1.0':
+    resolution: {integrity: sha512-WyOx8cJQ+FQus4Mm4uPIZA64gbk3Wxh0so5Lcii0aJifqwoVOlfFtorjLE0Hen4OYyHZMXDWqMmaQemBhgxFRQ==}
+    engines: {node: '>=14'}
 
   '@cypress/request@3.0.7':
     resolution: {integrity: sha512-LzxlLEMbBOPYB85uXrDqvD4MgcenjRBLIns3zyhx7vTPj/0u2eQhzXvPiGcaJrV38Q9dbkExWp6cOHPJ+EtFYg==}
@@ -20496,6 +20500,8 @@ snapshots:
     optional: true
 
   '@ctrl/tinycolor@3.6.1': {}
+
+  '@ctrl/tinycolor@4.1.0': {}
 
   '@cypress/request@3.0.7':
     dependencies:
