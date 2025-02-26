@@ -8,7 +8,6 @@ import {
 import { Field, RecursionField, useField } from '@tachybase/schema';
 
 import { Button } from 'antd';
-import jsxRuntime from 'react/jsx-runtime';
 
 import { useTranslation } from './locale';
 import { styles } from './styles';
@@ -18,21 +17,29 @@ export function CommentSubmit() {
   const field = useField<Field>();
   const updateUI = useCallback(
     (content) => {
-      field.setValue({ ...field.value, content });
+      field.setValue({
+        ...field.value,
+        content,
+      });
     },
     [field],
   );
+
   const { t } = useTranslation();
   const { wrapSSR, componentCls, hashId } = styles();
-  const h = useMemo(() => {
+
+  const haveContent = useMemo(() => {
     return field.value?.content?.trim().length > 0;
   }, [field.value]);
+
   const { resource, service } = useBlockRequestContext();
+
   const onClick = useCallback(async () => {
     await resource.create({ values: field.value });
     updateUI('');
     service.refresh();
   }, [resource, field, service, updateUI]);
+
   const { createAble } = useComment();
   const acl = useACLActionParamsContext();
   const { designable } = useDesignable();
@@ -41,38 +48,33 @@ export function CommentSubmit() {
   const props = useMemo(() => {
     return fields.find((field) => field.name === 'content')?.uiSchema?.['x-component-props'];
   }, [fields]);
-  return !createAble || isHidden
-    ? null
-    : wrapSSR(
-        jsxRuntime.jsxs('div', {
-          style: { marginTop: 10 },
-          className: `${componentCls} ${hashId}`,
-          children: [
-            jsxRuntime.jsx(RecursionField, {
-              basePath: field.address,
-              name: 'content',
-              schema: {
-                type: 'string',
-                'x-component': 'MarkdownVditor',
-                'x-component-props': {
-                  ...props,
-                  onChange: (u) => {
-                    updateUI(u);
-                  },
-                },
-                'x-read-pretty': false,
-                'x-read-only': false,
-                name: 'content',
-              },
-            }),
-            jsxRuntime.jsx(Button, {
-              disabled: !h,
-              onClick,
-              type: 'primary',
-              style: { marginTop: 10 },
-              children: t('Comment'),
-            }),
-          ],
-        }),
-      );
+
+  if (!createAble || isHidden) {
+    return null;
+  }
+
+  return wrapSSR(
+    <div style={{ marginTop: 10 }} className={`${componentCls} ${hashId}`}>
+      <RecursionField
+        basePath={field.address}
+        name={'content'}
+        schema={{
+          name: 'content',
+          type: 'string',
+          'x-component': 'MarkdownVditor',
+          'x-component-props': {
+            ...props,
+            onChange: (params) => {
+              updateUI(params);
+            },
+          },
+          'x-read-pretty': false,
+          'x-read-only': false,
+        }}
+      />
+      <Button style={{ marginTop: 10 }} type="primary" disabled={!haveContent} onClick={onClick}>
+        {t('Comment')}
+      </Button>
+    </div>,
+  );
 }
