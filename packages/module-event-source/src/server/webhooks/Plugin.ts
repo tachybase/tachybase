@@ -1,5 +1,5 @@
 import { Context, Next } from '@tachybase/actions';
-import { Plugin } from '@tachybase/server';
+import { Gateway, Plugin, WSServer } from '@tachybase/server';
 import { Registry } from '@tachybase/utils';
 
 import { EVENT_SOURCE_COLLECTION, EVENT_SOURCE_REALTIME } from '../constants';
@@ -13,6 +13,10 @@ import { WebhookController } from './webhooks';
 
 export class PluginWebhook extends Plugin {
   triggers: Registry<EventSourceTrigger> = new Registry();
+  ws: WSServer;
+
+  refreshRealTime: boolean = EVENT_SOURCE_REALTIME;
+  changed: boolean = false;
 
   async beforeLoad() {
     this.app.db.registerModels({
@@ -21,6 +25,9 @@ export class PluginWebhook extends Plugin {
   }
 
   async load() {
+    const gateway = Gateway.getInstance();
+    this.ws = gateway['wsServer'];
+
     this.app.resourcer.define({
       name: 'webhooks',
       actions: {
@@ -45,6 +52,7 @@ export class PluginWebhook extends Plugin {
                 model.effect = trigger.getEffect(model);
               }
             });
+            ctx.body.changed = this.changed;
           } else if (actionName === 'get') {
             const model = ctx.body as EventSourceModel;
             const trigger = this.triggers.get(model.type);
@@ -57,11 +65,11 @@ export class PluginWebhook extends Plugin {
       { tag: 'webhooks-show-effect' },
     );
 
-    this.triggers.register('resource', new CustomActionTrigger(this.app, EVENT_SOURCE_REALTIME));
-    this.triggers.register('beforeResource', new ResourceEventTrigger(this.app, EVENT_SOURCE_REALTIME));
-    this.triggers.register('afterResource', new ResourceEventTrigger(this.app, EVENT_SOURCE_REALTIME));
-    this.triggers.register('applicationEvent', new AppEventTrigger(this.app, EVENT_SOURCE_REALTIME));
-    this.triggers.register('databaseEvent', new DatabaseEventTrigger(this.app, EVENT_SOURCE_REALTIME));
+    this.triggers.register('resource', new CustomActionTrigger(this.app, this.refreshRealTime));
+    this.triggers.register('beforeResource', new ResourceEventTrigger(this.app, this.refreshRealTime));
+    this.triggers.register('afterResource', new ResourceEventTrigger(this.app, this.refreshRealTime));
+    this.triggers.register('applicationEvent', new AppEventTrigger(this.app, this.refreshRealTime));
+    this.triggers.register('databaseEvent', new DatabaseEventTrigger(this.app, this.refreshRealTime));
 
     await this.db.sync();
     await this.loadEventSources();
@@ -88,6 +96,7 @@ export class PluginWebhook extends Plugin {
     this.db.on(`${EVENT_SOURCE_COLLECTION}.afterCreate`, async (model: EventSourceModel) => {
       const trigger = this.triggers.get(model.type);
       if (!trigger?.getRealTimeRefresh()) {
+        this.changed = true;
         return;
       }
       if (model.enabled) {
@@ -95,6 +104,16 @@ export class PluginWebhook extends Plugin {
         trigger.workSetAdd(model.id);
         trigger.effectConfigSet(model.id, model.toJSON());
       }
+      this.ws.sendToConnectionsByTag('app', this.app.name, {
+        type: 'maintaining',
+        payload: {
+          message: `finish create: ${model.name}`,
+          code: 'APP_COMMANDING',
+          command: {
+            name: 'refreshEventSource',
+          },
+        },
+      });
     });
 
     this.db.on(`${EVENT_SOURCE_COLLECTION}.beforeUpdate`, async (model: EventSourceModel, options) => {
@@ -112,10 +131,21 @@ export class PluginWebhook extends Plugin {
     this.db.on(`${EVENT_SOURCE_COLLECTION}.afterUpdate`, async (model: EventSourceModel, options) => {
       const trigger = this.triggers.get(model.type);
       if (!trigger?.getRealTimeRefresh()) {
+        this.changed = true;
         return;
       }
       trigger.effectConfigSet(model.id, model.toJSON());
       await trigger.afterUpdate(model);
+      this.ws.sendToConnectionsByTag('app', this.app.name, {
+        type: 'maintaining',
+        payload: {
+          message: `update successfully: ${model.name}`,
+          code: 'APP_COMMANDING',
+          command: {
+            name: 'refreshEventSource',
+          },
+        },
+      });
       // 修改了type的情况
       if (options.values.type && options.values.type !== model.type) {
         await trigger.afterCreate(model);
@@ -132,10 +162,21 @@ export class PluginWebhook extends Plugin {
     this.db.on(`${EVENT_SOURCE_COLLECTION}.afterDestroy`, async (model: EventSourceModel) => {
       const trigger = this.triggers.get(model.type);
       if (!trigger?.getRealTimeRefresh()) {
+        this.changed = true;
         return;
       }
       await trigger.afterDestroy(model);
       trigger.workSetDelete(model.id);
+      this.ws.sendToConnectionsByTag('app', this.app.name, {
+        type: 'maintaining',
+        payload: {
+          message: `destroy successfully: ${model.name}`,
+          code: 'APP_COMMANDING',
+          command: {
+            name: 'refreshEventSource',
+          },
+        },
+      });
     });
   }
 }

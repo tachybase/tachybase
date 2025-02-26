@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ExtendCollectionsProvider,
   SchemaComponent,
@@ -19,7 +19,7 @@ import {
 } from '@tachybase/module-workflow/client';
 import { ISchema, useField, useForm } from '@tachybase/schema';
 
-import { Button, Space, Tag, Typography } from 'antd';
+import { Alert, Button, Space, Tag, Typography } from 'antd';
 
 import ModuleEventSourceClient from '..';
 import { lang, tval } from '../locale';
@@ -467,6 +467,21 @@ const schema: ISchema = {
             },
           },
         },
+        alert: {
+          type: 'void',
+          'x-component': 'Alert',
+          'x-component-props': {
+            message: tval('配置已变动,请点击右上角重启,或者配置服务的时候EVENT_SOURCE_REALTIME=1实时启动'),
+            type: 'warning',
+            showIcon: true,
+          },
+          'x-use-component-props': (props) => {
+            return {
+              message: '123',
+            };
+          },
+          // 'x-visible': '{{ useGetAlertVisible() }}',
+        },
         table: {
           type: 'array',
           'x-component': 'TableV2',
@@ -710,7 +725,6 @@ export const WebhookManager = () => {
         options,
       }))
       .sort((a, b) => a.label.localeCompare(b.label));
-    console.log('result', result);
     return result;
   };
 
@@ -726,6 +740,7 @@ export const WebhookManager = () => {
           ExecutionRetryAction,
         }}
         components={{
+          Alert,
           ExecutionStatusColumn,
           ExecutionResourceProvider,
           OpenDrawer,
