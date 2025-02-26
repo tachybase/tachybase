@@ -110,15 +110,6 @@ const PageHeader = (props) => {
     label: <TabItem schema={schema} />,
   }));
 
-  // react18  tab 动画会卡顿，所以第一个 tab 时，动画禁用，后面的 tab 才启用
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setHasMounted(true);
-    });
-  }, []);
-
   return (
     <div
       ref={(ref) => {
@@ -137,7 +128,6 @@ const PageHeader = (props) => {
           footer={
             enablePageTabs && (
               <TabFooter
-                hasMounted={hasMounted}
                 activeKey={activeKey}
                 setLoading={setLoading}
                 setSearchParams={setSearchParams}
@@ -155,7 +145,24 @@ const PageHeader = (props) => {
 };
 
 const TabFooter = (props) => {
-  const { hasMounted, activeKey, setLoading, setSearchParams, hiddenScrollArea, options, theme, items } = props;
+  const { activeKey, setLoading, setSearchParams, hiddenScrollArea, options, theme, items } = props;
+
+  // react18  tab 动画会卡顿，所以第一个 tab 时，动画禁用，后面的 tab 才启用
+  const [hasMounted, setHasMounted] = useState(false);
+
+  const handleTabClick = (activeKey) => {
+    setLoading(true);
+    setSearchParams([['tab', activeKey]]);
+    setTimeout(() => {
+      setLoading(false);
+    }, 50);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHasMounted(true);
+    });
+  }, []);
 
   return (
     <DndContext>
@@ -163,15 +170,9 @@ const TabFooter = (props) => {
         size={'small'}
         animated={hasMounted}
         activeKey={activeKey}
-        onTabClick={(activeKey) => {
-          setLoading(true);
-          setSearchParams([['tab', activeKey]]);
-          setTimeout(() => {
-            setLoading(false);
-          }, 50);
-        }}
-        tabBarExtraContent={<TabBarExtraContent hiddenScrollArea={hiddenScrollArea} options={options} theme={theme} />}
         items={items}
+        onTabClick={handleTabClick}
+        tabBarExtraContent={<TabBarExtraContent theme={theme} hiddenScrollArea={hiddenScrollArea} options={options} />}
       />
     </DndContext>
   );
@@ -199,6 +200,20 @@ const TabBarExtraContent = (props) => {
   const dn = useDesignable();
   const { t } = useTranslation();
   const { getAriaLabel } = useGetAriaLabelOfSchemaInitializer();
+  const handleAddTab = async () => {
+    const values = await FormDialog(t('Add tab'), () => <AddTabForm options={options} />, theme).open({
+      initialValues: {},
+    });
+    const { title, icon } = values;
+    dn.insertBeforeEnd({
+      type: 'void',
+      title,
+      'x-icon': icon,
+      'x-component': 'Grid',
+      'x-initializer': 'page:addBlock',
+      properties: {},
+    });
+  };
 
   return (
     <div className="tb-tabs-wrapper">
@@ -209,53 +224,41 @@ const TabBarExtraContent = (props) => {
           icon={<PlusOutlined />}
           className={'addTabBtn'}
           type={'dashed'}
-          onClick={async () => {
-            const values = await FormDialog(
-              t('Add tab'),
-              () => {
-                return (
-                  <SchemaComponentOptions scope={options.scope} components={{ ...options.components }}>
-                    <FormLayout layout={'vertical'}>
-                      <SchemaComponent
-                        schema={{
-                          properties: {
-                            title: {
-                              title: t('Tab name'),
-                              'x-component': 'Input',
-                              'x-decorator': 'FormItem',
-                              required: true,
-                            },
-                            icon: {
-                              title: t('Icon'),
-                              'x-component': 'IconPicker',
-                              'x-decorator': 'FormItem',
-                            },
-                          },
-                        }}
-                      />
-                    </FormLayout>
-                  </SchemaComponentOptions>
-                );
-              },
-              theme,
-            ).open({
-              initialValues: {},
-            });
-            const { title, icon } = values;
-            dn.insertBeforeEnd({
-              type: 'void',
-              title,
-              'x-icon': icon,
-              'x-component': 'Grid',
-              'x-initializer': 'page:addBlock',
-              properties: {},
-            });
-          }}
+          onClick={handleAddTab}
         >
           {t('Add tab')}
         </Button>
       )}
     </div>
+  );
+};
+
+const AddTabForm = (props) => {
+  const { options } = props;
+  const { t } = useTranslation();
+
+  return (
+    <SchemaComponentOptions scope={options.scope} components={{ ...options.components }}>
+      <FormLayout layout={'vertical'}>
+        <SchemaComponent
+          schema={{
+            properties: {
+              title: {
+                title: t('Tab name'),
+                'x-component': 'Input',
+                'x-decorator': 'FormItem',
+                required: true,
+              },
+              icon: {
+                title: t('Icon'),
+                'x-component': 'IconPicker',
+                'x-decorator': 'FormItem',
+              },
+            },
+          }}
+        />
+      </FormLayout>
+    </SchemaComponentOptions>
   );
 };
 
