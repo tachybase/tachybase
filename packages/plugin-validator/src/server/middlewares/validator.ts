@@ -6,7 +6,6 @@ import { dayjs } from '@tachybase/utils';
 
 export async function validator(ctx: Context, next: Next) {
   const { resourceName, actionName } = ctx.action.params;
-  // TODO: 如果是非main数据库也跳过
   if (!resourceName || !actionName) {
     return next();
   }
