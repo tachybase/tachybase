@@ -165,7 +165,11 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
 
   try {
     const res = await axios({ ...axiosRequestConfig, responseType: 'stream' });
-    ctx.set('Content-Type', `${res.headers['content-type']}`);
+    if (ctx.req.headers['x-response-type'] === 'blob') {
+      ctx.set('Content-Type', 'application/octet-stream');
+    } else {
+      ctx.set('Content-Type', `${res.headers['content-type']}`);
+    }
     ctx.set('Content-disposition', `${res.headers['content-disposition']}`);
     this.logger.info(`action-custom-request:send:${filterByTk} success`);
 
