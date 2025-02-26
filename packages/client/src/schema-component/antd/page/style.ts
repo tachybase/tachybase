@@ -1,6 +1,6 @@
 import { genStyleHook } from './../__builtins__';
 
-export const useStyles = genStyleHook('tb-page', (token) => {
+export const getStyles = genStyleHook('tb-page', (token) => {
   const { componentCls } = token;
 
   return {
@@ -124,12 +124,6 @@ export const useStyles = genStyleHook('tb-page', (token) => {
         paddingBottom: 0,
         overflowX: 'hidden',
         overflowY: 'scroll',
-      },
-
-      '.tb-tabs-wrapper': {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
       },
     },
   };
