@@ -9,7 +9,10 @@
   "main": "dist/server/index.js",
   "dependencies": {},
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
