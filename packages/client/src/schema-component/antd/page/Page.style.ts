@@ -2,10 +2,10 @@ import { createStyles } from 'antd-style';
 
 export const useStyles = createStyles(({ css, token }) => {
   return {
-    tabFooterClass: css`
-      .ant-tabs-nav-list {
+    tabComponentClass: css`
+      .ant-tabs-nav-wrap.ant-tabs-nav-wrap {
+        flex: none;
       }
-
       .ant-tabs-tab.ant-tabs-tab {
         border: none;
         background-color: #ffffff;
@@ -17,6 +17,13 @@ export const useStyles = createStyles(({ css, token }) => {
         text-shadow: none;
         background-color: var(--tb-box-bg);
       }
+    `,
+
+    tabWrapper: css`
+      flex: 1;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
     `,
   };
 });

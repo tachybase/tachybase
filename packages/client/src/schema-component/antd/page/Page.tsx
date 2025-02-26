@@ -128,7 +128,7 @@ const PageHeader = (props) => {
           extra={!enablePageTabs && !hiddenScrollArea && <ScrollArea />}
           footer={
             enablePageTabs && (
-              <TabFooter
+              <TabComponent
                 activeKey={activeKey}
                 setLoading={setLoading}
                 setSearchParams={setSearchParams}
@@ -145,7 +145,7 @@ const PageHeader = (props) => {
   );
 };
 
-const TabFooter = (props) => {
+const TabComponent = (props) => {
   const { activeKey, setLoading, setSearchParams, hiddenScrollArea, options, theme, items } = props;
 
   const { styles } = useStyles();
@@ -170,7 +170,7 @@ const TabFooter = (props) => {
   return (
     <DndContext>
       <Tabs
-        className={styles.tabFooterClass}
+        className={styles.tabComponentClass}
         type="card"
         size={'small'}
         animated={hasMounted}
@@ -205,6 +205,7 @@ const TabBarExtraContent = (props) => {
   const dn = useDesignable();
   const { t } = useTranslation();
   const { getAriaLabel } = useGetAriaLabelOfSchemaInitializer();
+  const { styles } = useStyles();
   const handleAddTab = async () => {
     const values = await FormDialog(t('Add tab'), () => <AddTabForm options={options} />, theme).open({
       initialValues: {},
@@ -221,8 +222,7 @@ const TabBarExtraContent = (props) => {
   };
 
   return (
-    <div className="tb-tabs-wrapper">
-      {!hiddenScrollArea && <ScrollArea />}
+    <div className={styles.tabWrapper}>
       {dn.designable && (
         <Button
           aria-label={getAriaLabel('tabs')}
@@ -234,6 +234,7 @@ const TabBarExtraContent = (props) => {
           {t('Add tab')}
         </Button>
       )}
+      {!hiddenScrollArea && <ScrollArea />}
     </div>
   );
 };

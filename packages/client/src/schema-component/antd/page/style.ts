@@ -125,12 +125,6 @@ export const getStyles = genStyleHook('tb-page', (token) => {
         overflowX: 'hidden',
         overflowY: 'scroll',
       },
-
-      '.tb-tabs-wrapper': {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-      },
     },
   };
 });
