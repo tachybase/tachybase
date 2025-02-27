@@ -76,7 +76,9 @@ export const Page = (props) => {
           fieldSchema={fieldSchema}
           activeKey={activeKey}
           height={height}
-        />
+        >
+          {children}
+        </PageContentComponent>
       </div>
     </FilterBlockProvider>,
   );
@@ -269,6 +271,7 @@ const AddTabForm = (props) => {
 };
 
 const PageContentComponent = (props) => {
+  console.log('%c Line:272 🥥 props', 'font-size:18px;color:#e41a6a;background:#465975', props);
   const handleErrors = (error) => {
     window?.Sentry?.captureException(error);
     console.error(error);
@@ -290,7 +293,6 @@ const PageContent = (props) => {
   if (loading) {
     return;
   }
-
   if (!disablePageHeader && enablePageTabs) {
     return fieldSchema.mapProperties((schema) => {
       if (schema.name !== activeKey) {
@@ -311,7 +313,6 @@ const PageContent = (props) => {
       );
     });
   }
-
   return (
     <FixedBlock height={`calc(${height}px + 46px + ${token.marginLG}px * 2)`}>
       <div className={`pageWithFixedBlockCss tb-page-content`}>{children}</div>
