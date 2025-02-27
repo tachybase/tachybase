@@ -3,10 +3,17 @@ import {
   ExtendCollectionsProvider,
   SchemaComponent,
   TableBlockProvider,
+  useBlockRequestContext,
+  useCollectionRecord,
   useCollectionRecordData,
+  useCollections,
   useCompile,
+  useDataBlock,
+  useDataBlockRequest,
   useDataBlockResource,
   usePlugin,
+  useTableBlockContext,
+  withDynamicSchemaProps,
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
@@ -19,7 +26,7 @@ import {
 } from '@tachybase/module-workflow/client';
 import { ISchema, useField, useForm } from '@tachybase/schema';
 
-import { Alert, Button, Space, Tag, Typography } from 'antd';
+import { Alert as AntdAlert, Button, Space, Tag, Typography } from 'antd';
 
 import ModuleEventSourceClient from '..';
 import { lang, tval } from '../locale';
@@ -470,17 +477,12 @@ const schema: ISchema = {
         alert: {
           type: 'void',
           'x-component': 'Alert',
+          'x-use-component-props': 'useShowAlertProps',
           'x-component-props': {
             message: tval('配置已变动,请点击右上角重启,或者配置服务的时候EVENT_SOURCE_REALTIME=1实时启动'),
             type: 'warning',
             showIcon: true,
           },
-          'x-use-component-props': (props) => {
-            return {
-              message: '123',
-            };
-          },
-          // 'x-visible': '{{ useGetAlertVisible() }}',
         },
         table: {
           type: 'array',
@@ -698,6 +700,18 @@ const schema: ISchema = {
   },
 };
 
+const useShowAlertProps = (props) => {
+  const service: any = useDataBlockRequest();
+  const isChanged = service?.data?.meta?.changed;
+
+  return {
+    style: {
+      ...props.style,
+      visibility: isChanged ? 'visible' : 'hidden',
+    },
+  };
+};
+
 export const WebhookManager = () => {
   const plugin = usePlugin(ModuleEventSourceClient);
   const typeList = [];
@@ -738,9 +752,10 @@ export const WebhookManager = () => {
           useTriggersOptions,
           useTypeOptions,
           ExecutionRetryAction,
+          useShowAlertProps,
         }}
         components={{
-          Alert,
+          Alert: withDynamicSchemaProps(AntdAlert),
           ExecutionStatusColumn,
           ExecutionResourceProvider,
           OpenDrawer,
