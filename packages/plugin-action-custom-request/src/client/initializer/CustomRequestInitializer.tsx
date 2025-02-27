@@ -1,6 +1,11 @@
 import React from 'react';
-import { BlockInitializer, useSchemaInitializerItem } from '@tachybase/client';
-import { uid } from '@tachybase/schema';
+import {
+  BlockInitializer,
+  SchemaInitializerItem,
+  useSchemaInitializer,
+  useSchemaInitializerItem,
+} from '@tachybase/client';
+import { merge, uid } from '@tachybase/schema';
 
 import { useCustomRequestsResource } from '../hooks/useCustomRequestsResource';
 import { useTranslation } from '../locale';
@@ -26,19 +31,23 @@ export const CustomRequestInitializer: React.FC<any> = (props) => {
   };
 
   const itemConfig = useSchemaInitializerItem();
+  const { insert } = useSchemaInitializer();
   return (
-    <BlockInitializer
+    <SchemaInitializerItem
       {...itemConfig}
-      item={itemConfig}
-      onClick={async (s) => {
+      onClick={async () => {
+        const s = merge(schema || {}, itemConfig.schema || {});
+        itemConfig?.schemaInitialize?.(s);
+
         // create a custom request
         await customRequestsResource.create({
           values: {
             key: s['x-uid'],
           },
         });
+
+        insert(s);
       }}
-      schema={schema}
     />
   );
 };
