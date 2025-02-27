@@ -67,11 +67,6 @@ export const getStyles = genStyleHook('tb-page', (token) => {
         height: 0,
       },
 
-      '.addTabBtn': {
-        borderColor: 'var(--colorSettings)',
-        color: 'var(--colorSettings)',
-      },
-
       '.designerCss': {
         position: 'relative',
         '&:hover': { '> .general-schema-designer': { display: 'block' } },

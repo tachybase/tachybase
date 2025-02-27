@@ -5,6 +5,7 @@ import { Schema, SchemaOptionsContext, useFieldSchema } from '@tachybase/schema'
 import { PlusOutlined } from '@ant-design/icons';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { Button, Tabs } from 'antd';
+import { cx } from 'antd-style';
 import classNames from 'classnames';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
@@ -224,19 +225,21 @@ const TabBarExtraContent = (props) => {
   };
 
   return (
-    <div className={styles.tabWrapper}>
+    <div
+      className={cx(styles.tabWrapper, {
+        designable: dn.designable,
+      })}
+    >
       {dn.designable && (
         <Button
+          className="add-tab-btn"
+          type="text"
           aria-label={getAriaLabel('tabs')}
           icon={<PlusOutlined />}
-          className={'addTabBtn'}
-          type={'dashed'}
           onClick={handleAddTab}
-        >
-          {t('Add tab')}
-        </Button>
+        />
       )}
-      {!hiddenScrollArea && <ScrollArea />}
+      {!hiddenScrollArea && <ScrollArea className="scroll-area-extra-content" />}
     </div>
   );
 };
@@ -271,7 +274,6 @@ const AddTabForm = (props) => {
 };
 
 const PageContentComponent = (props) => {
-  console.log('%c Line:272 🥥 props', 'font-size:18px;color:#e41a6a;background:#465975', props);
   const handleErrors = (error) => {
     window?.Sentry?.captureException(error);
     console.error(error);

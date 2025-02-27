@@ -17,13 +17,23 @@ export const useStyles = createStyles(({ css, token }) => {
         text-shadow: none;
         background-color: var(--tb-box-bg);
       }
+      .ant-tabs-extra-content {
+        flex: 1;
+      }
     `,
 
     tabWrapper: css`
-      flex: 1;
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+
+      &.designable {
+        justify-content: space-between;
+      }
+
+      .scroll-area-extra-content {
+        align-self: flex-end;
+      }
     `,
   };
 });
