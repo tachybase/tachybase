@@ -239,6 +239,9 @@ const getProps = (app: Application) => {
       'pm.remove': {
         title: 'Removing plugin',
       },
+      refreshEventSource: {
+        title: 'Refreshing event source',
+      },
     };
     return { ...props, ...commands[app.error?.command?.name] };
   }

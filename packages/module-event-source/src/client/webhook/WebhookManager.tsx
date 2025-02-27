@@ -1,12 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ExtendCollectionsProvider,
   SchemaComponent,
   TableBlockProvider,
+  useBlockRequestContext,
+  useCollectionRecord,
   useCollectionRecordData,
+  useCollections,
   useCompile,
+  useDataBlock,
+  useDataBlockRequest,
   useDataBlockResource,
   usePlugin,
+  useTableBlockContext,
+  withDynamicSchemaProps,
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
@@ -19,7 +26,7 @@ import {
 } from '@tachybase/module-workflow/client';
 import { ISchema, useField, useForm } from '@tachybase/schema';
 
-import { Button, Space, Tag, Typography } from 'antd';
+import { Alert as AntdAlert, Button, Space, Tag, Typography } from 'antd';
 
 import ModuleEventSourceClient from '..';
 import { lang, tval } from '../locale';
@@ -467,6 +474,18 @@ const schema: ISchema = {
             },
           },
         },
+        alert: {
+          type: 'void',
+          'x-component': 'Alert',
+          'x-use-component-props': 'useShowAlertProps',
+          'x-component-props': {
+            message: tval(
+              'configuration has changed, please click the restart in the upper right corner, or configure the service with EVENT_SOURCE_REALTIME=1 to start in real time',
+            ),
+            type: 'warning',
+            showIcon: true,
+          },
+        },
         table: {
           type: 'array',
           'x-component': 'TableV2',
@@ -683,6 +702,18 @@ const schema: ISchema = {
   },
 };
 
+const useShowAlertProps = (props) => {
+  const service: any = useDataBlockRequest();
+  const isChanged = service?.data?.meta?.changed;
+
+  return {
+    style: {
+      ...props.style,
+      visibility: isChanged ? 'visible' : 'hidden',
+    },
+  };
+};
+
 export const WebhookManager = () => {
   const plugin = usePlugin(ModuleEventSourceClient);
   const typeList = [];
@@ -710,7 +741,6 @@ export const WebhookManager = () => {
         options,
       }))
       .sort((a, b) => a.label.localeCompare(b.label));
-    console.log('result', result);
     return result;
   };
 
@@ -724,8 +754,10 @@ export const WebhookManager = () => {
           useTriggersOptions,
           useTypeOptions,
           ExecutionRetryAction,
+          useShowAlertProps,
         }}
         components={{
+          Alert: withDynamicSchemaProps(AntdAlert),
           ExecutionStatusColumn,
           ExecutionResourceProvider,
           OpenDrawer,
