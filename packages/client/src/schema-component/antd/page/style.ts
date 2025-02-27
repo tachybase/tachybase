@@ -1,6 +1,6 @@
 import { genStyleHook } from './../__builtins__';
 
-export const useStyles = genStyleHook('tb-page', (token) => {
+export const getStyles = genStyleHook('tb-page', (token) => {
   const { componentCls } = token;
 
   return {
@@ -44,7 +44,6 @@ export const useStyles = genStyleHook('tb-page', (token) => {
 
       '.tb-page-header-wrapper': {
         zIndex: 10,
-        boxShadow: '1px 1px 10px 1px rgba(0, 0, 0, 0.1)',
       },
 
       '.pageHeaderCss': {
@@ -65,11 +64,6 @@ export const useStyles = genStyleHook('tb-page', (token) => {
       '.height0': {
         fontSize: 0,
         height: 0,
-      },
-
-      '.addTabBtn': {
-        borderColor: 'var(--colorSettings)',
-        color: 'var(--colorSettings)',
       },
 
       '.designerCss': {
@@ -124,12 +118,6 @@ export const useStyles = genStyleHook('tb-page', (token) => {
         paddingBottom: 0,
         overflowX: 'hidden',
         overflowY: 'scroll',
-      },
-
-      '.tb-tabs-wrapper': {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
       },
     },
   };

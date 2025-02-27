@@ -5,6 +5,7 @@ import { Schema, SchemaOptionsContext, useFieldSchema } from '@tachybase/schema'
 import { PlusOutlined } from '@ant-design/icons';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { Button, Tabs } from 'antd';
+import { cx } from 'antd-style';
 import classNames from 'classnames';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
@@ -25,8 +26,9 @@ import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
 import { ErrorFallback } from '../error-fallback';
 import FixedBlock from './FixedBlock';
+import { useStyles } from './Page.style';
 import { PageDesigner, PageTabDesigner } from './PageTabDesigner';
-import { useStyles } from './style';
+import { getStyles } from './style';
 
 export const Page = (props) => {
   const { children, ...others } = props;
@@ -44,13 +46,8 @@ export const Page = (props) => {
     [fieldSchema.properties, searchParams],
   );
   const [height, setHeight] = useState(0);
-  const { wrapSSR, hashId, componentCls } = useStyles();
   const aclStyles = useAClStyles();
-
-  const handleErrors = (error) => {
-    window?.Sentry?.captureException(error);
-    console.error(error);
-  };
+  const { wrapSSR, hashId, componentCls } = getStyles();
 
   useEffect(() => {
     if (!title) {
@@ -63,31 +60,30 @@ export const Page = (props) => {
       <div className={`${componentCls} ${hashId} ${aclStyles.styles}`}>
         <PageDesigner title={fieldSchema.title || title} />
         <PageHeader
-          {...{
-            disablePageHeader,
-            enablePageTabs,
-            setHeight,
-            activeKey,
-            setLoading,
-            setSearchParams,
-            title,
-          }}
+          disablePageHeader={disablePageHeader}
+          enablePageTabs={enablePageTabs}
+          activeKey={activeKey}
+          title={title}
           fieldSchema={fieldSchema}
           parentProps={others}
+          setHeight={setHeight}
+          setLoading={setLoading}
+          setSearchParams={setSearchParams}
         />
-        <div className="tb-page-wrapper">
-          <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleErrors}>
-            <PageContent {...{ loading, disablePageHeader, enablePageTabs, fieldSchema, activeKey, height }}>
-              {children}
-            </PageContent>
-          </ErrorBoundary>
-        </div>
+        <PageContentComponent
+          loading={loading}
+          disablePageHeader={disablePageHeader}
+          enablePageTabs={enablePageTabs}
+          fieldSchema={fieldSchema}
+          activeKey={activeKey}
+          height={height}
+        >
+          {children}
+        </PageContentComponent>
       </div>
     </FilterBlockProvider>,
   );
 };
-
-Page.displayName = 'Page';
 
 const PageHeader = (props) => {
   const {
@@ -118,14 +114,6 @@ const PageHeader = (props) => {
     label: <TabItem schema={schema} />,
   }));
 
-  // react18  tab 动画会卡顿，所以第一个 tab 时，动画禁用，后面的 tab 才启用
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setHasMounted(true);
-    });
-  }, []);
   return (
     <div
       ref={(ref) => {
@@ -140,32 +128,61 @@ const PageHeader = (props) => {
           // 如果标题为空的时候会导致 PageHeader 不渲染，所以这里设置一个空白字符，然后再设置高度为 0
           title={pageHeaderTitle || ' '}
           {...parentProps}
+          extra={!enablePageTabs && !hiddenScrollArea && <ScrollArea />}
           footer={
             enablePageTabs && (
-              <DndContext>
-                <Tabs
-                  size={'small'}
-                  animated={hasMounted}
-                  activeKey={activeKey}
-                  onTabClick={(activeKey) => {
-                    setLoading(true);
-                    setSearchParams([['tab', activeKey]]);
-                    setTimeout(() => {
-                      setLoading(false);
-                    }, 50);
-                  }}
-                  tabBarExtraContent={
-                    <TabBarExtraContent hiddenScrollArea={hiddenScrollArea} options={options} theme={theme} />
-                  }
-                  items={items}
-                />
-              </DndContext>
+              <TabComponent
+                activeKey={activeKey}
+                setLoading={setLoading}
+                setSearchParams={setSearchParams}
+                hiddenScrollArea={hiddenScrollArea}
+                options={options}
+                theme={theme}
+                items={items}
+              />
             )
           }
-          extra={!enablePageTabs && !hiddenScrollArea && <ScrollArea />}
         />
       )}
     </div>
+  );
+};
+
+const TabComponent = (props) => {
+  const { activeKey, setLoading, setSearchParams, hiddenScrollArea, options, theme, items } = props;
+
+  const { styles } = useStyles();
+
+  // react18  tab 动画会卡顿，所以第一个 tab 时，动画禁用，后面的 tab 才启用
+  const [hasMounted, setHasMounted] = useState(false);
+
+  const handleTabClick = (activeKey) => {
+    setLoading(true);
+    setSearchParams([['tab', activeKey]]);
+    setTimeout(() => {
+      setLoading(false);
+    }, 50);
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHasMounted(true);
+    });
+  }, []);
+
+  return (
+    <DndContext>
+      <Tabs
+        className={styles.tabComponentClass}
+        type="card"
+        size={'small'}
+        animated={hasMounted}
+        activeKey={activeKey}
+        items={items}
+        onTabClick={handleTabClick}
+        tabBarExtraContent={<TabBarExtraContent theme={theme} hiddenScrollArea={hiddenScrollArea} options={options} />}
+      />
+    </DndContext>
   );
 };
 
@@ -191,62 +208,82 @@ const TabBarExtraContent = (props) => {
   const dn = useDesignable();
   const { t } = useTranslation();
   const { getAriaLabel } = useGetAriaLabelOfSchemaInitializer();
+  const { styles } = useStyles();
+  const handleAddTab = async () => {
+    const values = await FormDialog(t('Add tab'), () => <AddTabForm options={options} />, theme).open({
+      initialValues: {},
+    });
+    const { title, icon } = values;
+    dn.insertBeforeEnd({
+      type: 'void',
+      title,
+      'x-icon': icon,
+      'x-component': 'Grid',
+      'x-initializer': 'page:addBlock',
+      properties: {},
+    });
+  };
 
   return (
-    <div className="tb-tabs-wrapper">
-      {!hiddenScrollArea && <ScrollArea />}
+    <div
+      className={cx(styles.tabWrapper, {
+        designable: dn.designable,
+      })}
+    >
       {dn.designable && (
         <Button
+          className="add-tab-btn"
+          type="text"
           aria-label={getAriaLabel('tabs')}
           icon={<PlusOutlined />}
-          className={'addTabBtn'}
-          type={'dashed'}
-          onClick={async () => {
-            const values = await FormDialog(
-              t('Add tab'),
-              () => {
-                return (
-                  <SchemaComponentOptions scope={options.scope} components={{ ...options.components }}>
-                    <FormLayout layout={'vertical'}>
-                      <SchemaComponent
-                        schema={{
-                          properties: {
-                            title: {
-                              title: t('Tab name'),
-                              'x-component': 'Input',
-                              'x-decorator': 'FormItem',
-                              required: true,
-                            },
-                            icon: {
-                              title: t('Icon'),
-                              'x-component': 'IconPicker',
-                              'x-decorator': 'FormItem',
-                            },
-                          },
-                        }}
-                      />
-                    </FormLayout>
-                  </SchemaComponentOptions>
-                );
-              },
-              theme,
-            ).open({
-              initialValues: {},
-            });
-            const { title, icon } = values;
-            dn.insertBeforeEnd({
-              type: 'void',
-              title,
-              'x-icon': icon,
-              'x-component': 'Grid',
-              'x-initializer': 'page:addBlock',
-              properties: {},
-            });
-          }}
-        >
-          {t('Add tab')}
-        </Button>
+          onClick={handleAddTab}
+        />
       )}
+      {!hiddenScrollArea && <ScrollArea className="scroll-area-extra-content" />}
+    </div>
+  );
+};
+
+const AddTabForm = (props) => {
+  const { options } = props;
+  const { t } = useTranslation();
+
+  return (
+    <SchemaComponentOptions scope={options.scope} components={{ ...options.components }}>
+      <FormLayout layout={'vertical'}>
+        <SchemaComponent
+          schema={{
+            properties: {
+              title: {
+                title: t('Tab name'),
+                'x-component': 'Input',
+                'x-decorator': 'FormItem',
+                required: true,
+              },
+              icon: {
+                title: t('Icon'),
+                'x-component': 'IconPicker',
+                'x-decorator': 'FormItem',
+              },
+            },
+          }}
+        />
+      </FormLayout>
+    </SchemaComponentOptions>
+  );
+};
+
+const PageContentComponent = (props) => {
+  const handleErrors = (error) => {
+    window?.Sentry?.captureException(error);
+    console.error(error);
+  };
+
+  return (
+    <div className="tb-page-wrapper">
+      <ErrorBoundary FallbackComponent={ErrorFallback} onError={handleErrors}>
+        <PageContent {...props} />
+      </ErrorBoundary>
     </div>
   );
 };
@@ -258,7 +295,6 @@ const PageContent = (props) => {
   if (loading) {
     return;
   }
-
   if (!disablePageHeader && enablePageTabs) {
     return fieldSchema.mapProperties((schema) => {
       if (schema.name !== activeKey) {
@@ -279,7 +315,6 @@ const PageContent = (props) => {
       );
     });
   }
-
   return (
     <FixedBlock height={`calc(${height}px + 46px + ${token.marginLG}px * 2)`}>
       <div className={`pageWithFixedBlockCss tb-page-content`}>{children}</div>
