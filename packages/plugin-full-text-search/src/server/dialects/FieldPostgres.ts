@@ -24,7 +24,7 @@ export class FieldPostgres extends FieldBase {
   }
 
   public date(params: handleFieldParams): any {
-    const { field, keyword, dateStr, timezone } = params;
+    const { field, keyword, dateStr, timezone, collectionName } = params;
     return {
       [Op.and]: [
         where(
@@ -33,7 +33,7 @@ export class FieldPostgres extends FieldBase {
             fn(
               'TIMEZONE',
               timezone, // 参数1：目标时区
-              fn('TIMEZONE', 'UTC', col(field)), // 参数2：UTC 转换后的字段
+              fn('TIMEZONE', 'UTC', col(`"${collectionName}"."${field}"`)), // 参数2：UTC 转换后的字段
             ),
             dateStr, // 参数3：格式化字符串
           ),
@@ -56,7 +56,7 @@ export class FieldPostgres extends FieldBase {
   }
 
   public number(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword } = params;
+    const { field, keyword, collectionName } = params;
     // keyword不是数字则不作为搜索条件
     if (isNaN(Number(keyword))) {
       return null;
@@ -64,7 +64,7 @@ export class FieldPostgres extends FieldBase {
     return {
       [Op.and]: [
         where(
-          literal(`CAST("${field}" AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
+          literal(`CAST("${collectionName}"."${field}" AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
           {
             [Op.like]: `%${escapeLike(keyword)}%`,
           },
