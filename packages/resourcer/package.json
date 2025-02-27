@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/resourcer",
-  "version": "0.23.53",
+  "version": "0.23.54",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
