@@ -96,7 +96,9 @@ export class PluginWebhook extends Plugin {
     this.db.on(`${EVENT_SOURCE_COLLECTION}.afterCreate`, async (model: EventSourceModel) => {
       const trigger = this.triggers.get(model.type);
       if (!trigger?.getRealTimeRefresh()) {
-        this.changed = true;
+        if (model.enabled) {
+          this.changed = true;
+        }
         return;
       }
       if (model.enabled) {
@@ -131,7 +133,12 @@ export class PluginWebhook extends Plugin {
     this.db.on(`${EVENT_SOURCE_COLLECTION}.afterUpdate`, async (model: EventSourceModel, options) => {
       const trigger = this.triggers.get(model.type);
       if (!trigger?.getRealTimeRefresh()) {
-        this.changed = true;
+        for (const key of ['enabled', 'type', 'options']) {
+          if (model.changed(key)) {
+            this.changed = true;
+            break;
+          }
+        }
         return;
       }
       trigger.effectConfigSet(model.id, model.toJSON());
@@ -162,7 +169,9 @@ export class PluginWebhook extends Plugin {
     this.db.on(`${EVENT_SOURCE_COLLECTION}.afterDestroy`, async (model: EventSourceModel) => {
       const trigger = this.triggers.get(model.type);
       if (!trigger?.getRealTimeRefresh()) {
-        this.changed = true;
+        if (model.enabled) {
+          this.changed = true;
+        }
         return;
       }
       await trigger.afterDestroy(model);
