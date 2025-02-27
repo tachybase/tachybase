@@ -10,7 +10,7 @@ import { handleCreate, handleDestroy, handleUpdate } from './hooks';
   Controllers: [ApiLogsController],
 })
 export class PluginApiLogsServer extends Plugin {
-  apiFilter: ApiFilter;
+  apiFilter: ApiFilter = null;
 
   async addApiListener() {
     this.apiFilter = new ApiFilter(this.db);
