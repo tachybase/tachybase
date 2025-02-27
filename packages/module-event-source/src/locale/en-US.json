@@ -21,7 +21,8 @@
   "Test": "Test",
   "The real effect of the server, not the preset configuration": "The real effect of the server, not the preset configuration",
   "Updated at": "Updated at",
+  "configuration has changed, please click the restart in the upper right corner, or configure the service with EVENT_SOURCE_REALTIME=1 to start in real time": "configuration has changed, please click the restart in the upper right corner, or configure the service with EVENT_SOURCE_REALTIME=1 to start in real time",
+  "for creating custom requests, try not to duplicate with other requests": "for creating custom requests, try not to duplicate with other requests",
   "get user input and original data changes before operation, but the workflow is triggered after the resource operation, which is commonly used for specific association changes, etc.": "get user input and original data changes before operation, but the workflow is triggered after the resource operation, which is commonly used for specific association changes, etc.",
-  "get user input and original data changes before operation, but the workflow is triggered before the resource operation, which is commonly used for data verification, etc.": "get user input and original data changes before operation, but the workflow is triggered before the resource operation, which is commonly used for data verification, etc.",
-  "用于创建自定义请求,for creating custom requests, try not to duplicate with other requests": "for creating custom requests, try not to duplicate with other requests"
+  "get user input and original data changes before operation, but the workflow is triggered before the resource operation, which is commonly used for data verification, etc.": "get user input and original data changes before operation, but the workflow is triggered before the resource operation, which is commonly used for data verification, etc."
 }

@@ -479,7 +479,9 @@ const schema: ISchema = {
           'x-component': 'Alert',
           'x-use-component-props': 'useShowAlertProps',
           'x-component-props': {
-            message: tval('配置已变动,请点击右上角重启,或者配置服务的时候EVENT_SOURCE_REALTIME=1实时启动'),
+            message: tval(
+              'configuration has changed, please click the restart in the upper right corner, or configure the service with EVENT_SOURCE_REALTIME=1 to start in real time',
+            ),
             type: 'warning',
             showIcon: true,
           },
