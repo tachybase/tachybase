@@ -1,8 +1,6 @@
 import { Context, Next } from '@tachybase/actions';
 import { Action, Controller } from '@tachybase/utils';
 
-import PluginApiLogsServer from '../plugin';
-
 @Controller('apiLogsConfig')
 export class ApiLogsController {
   @Action('tablesync', { acl: 'block' })
@@ -40,8 +38,8 @@ export class ApiLogsController {
     }
     try {
       await apiLogsRepo.createMany({ records: collectionsToInsert, hooks: false });
-      const plugin = ctx.app.pm.get(PluginApiLogsServer) as PluginApiLogsServer;
-      await plugin.apiFilter.load();
+      const plugin = ctx.app.pm.get('api-logs');
+      await plugin.apiFilter?.load();
     } catch (error) {
       ctx.throw(error?.response?.data?.error?.message || 'request error');
     }
