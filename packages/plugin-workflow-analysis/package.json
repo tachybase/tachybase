@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-analysis",
   "displayName": "Workflow analysis tool",
-  "version": "0.23.50",
+  "version": "0.23.51",
   "description": "Workflow Analysis Tool: Used for Time Consumption and Error Analysis",
   "main": "dist/server/index.js",
   "devDependencies": {
