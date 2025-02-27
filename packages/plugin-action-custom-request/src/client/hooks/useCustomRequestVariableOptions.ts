@@ -15,8 +15,8 @@ export const useCustomRequestVariableOptions = () => {
   }, [fieldsOptions, userFieldOptions]);
   const environmentVariables = useGlobalVariable('$env');
   return useMemo(() => {
-    return [
-      environmentVariables,
+    // 如果environmentVariables为空则返回不包含environmentVariables的数组,如果不为空则返回包含environmentVariables的数组
+    const list = [
       {
         name: 'currentRecord',
         title: t('Current record', { ns: 'core' }),
@@ -33,5 +33,9 @@ export const useCustomRequestVariableOptions = () => {
         children: null,
       },
     ];
+    if (environmentVariables) {
+      list.unshift(environmentVariables);
+    }
+    return list;
   }, [fields, userFields]);
 };
