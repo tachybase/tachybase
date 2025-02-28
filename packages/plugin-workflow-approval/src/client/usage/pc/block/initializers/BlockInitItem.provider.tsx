@@ -21,7 +21,7 @@ export const ProviderBlockInitItem = ({ children, ...props }) => {
     action,
     params: {
       pageSize: 20,
-      sort: ['-initAt'],
+      sort: ['-createdAt'],
       ...params,
       filter: record?.id
         ? {
