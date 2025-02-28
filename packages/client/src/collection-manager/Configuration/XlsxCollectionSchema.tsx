@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { SetStateAction, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
   IField,
   isTitleField,
@@ -10,12 +10,13 @@ import {
   useDataBlockRequest,
   useDataBlockResource,
   useDataSourceManager,
+  useRecord,
   useRequest,
   useResourceActionContext,
   useResourceContext,
 } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
-import { ArrayField, FormContext, ISchema, observer, uid, useField, useForm } from '@tachybase/schema';
+import { ArrayField, FormContext, ISchema, observer, uid, useEffectForm, useField, useForm } from '@tachybase/schema';
 
 import { Alert, Cascader, Input, Select, Space, Spin, Switch, Table, Tag, Tooltip } from 'antd';
 import { cloneDeep, omit, set } from 'lodash';
@@ -26,6 +27,28 @@ import { useCancelAction, useUpdateAction } from '../action-hooks';
 import useDialect from '../hooks/useDialect';
 import * as components from './components';
 import { useFieldInterfaceOptions } from './interfaces';
+
+interface FormValueProps {
+  value?: any;
+  setFormValue?: any;
+}
+
+export const FormValueContext = React.createContext<FormValueProps>({});
+export const useFormValueContext = () => React.useContext(FormValueContext);
+
+// const { setFormValue } = useFormValueContext
+
+// const [formValue, setFormValue] = useState(null)
+
+{
+  /* <FormValueContext.Provider value={{
+  value:formValue, 
+  
+  setFormValue}}> 
+<></>
+
+</FormValueContext.Provider> */
+}
 
 export const createXlsxCollectionSchema = (filelist, filedata) => {
   return {
@@ -113,23 +136,24 @@ export const createXlsxCollectionSchema = (filelist, filedata) => {
           fields: {
             type: 'array',
             title: '{{t("Fields")}}',
+            default: filedata.fields,
             'x-decorator': 'FormItem',
-            'x-component': 'FieldsConfigure',
+            'x-component': FieldsConfigure,
             'x-component-props': {
               filedata,
             },
             required: true,
           },
-          table: {
-            type: 'void',
-            title: '{{t("Preview")}}',
-            'x-decorator': 'FormItem',
-            'x-component': PreviewTable,
-            'x-component-props': {
-              filedata,
-              // setFileData
-            },
-          },
+          // table: {
+          //   type: 'void',
+          //   title: '{{t("Preview")}}',
+          //   'x-decorator': 'FormItem',
+          //   'x-component': PreviewTable,
+          //   'x-component-props': {
+          //     filedata,
+          //     // setFileData
+          //   },
+          // },
         },
       },
     },
@@ -141,25 +165,22 @@ export const FieldsConfigure = observer(
     const { filedata } = props;
     const dm = useDataSourceManager();
     const { t } = useTranslation();
-    const [fields, setFields] = useState(filedata.fields);
     const initOptions = useFieldInterfaceOptions();
     const compile = useCompile();
-    const [selectedTitleField, setSelectedTitleField] = useState<string | null>(null);
+    const [selectedTitleField, setSelectedTitleField] = useState<string | null>();
     const form = useForm();
+    const [formValue, setFormValue] = useState(filedata.fields);
 
     const handleFieldChange = (updatedField: any, index: number) => {
-      const updatedFieldData = [...fields];
+      const updatedFieldData = [...formValue];
       updatedFieldData[index] = updatedField;
-      setFields(updatedFieldData);
+      setFormValue(updatedFieldData);
     };
 
-    const handleTitleChange = (checked, field) => {
-      if (checked) {
-        setSelectedTitleField(field.name);
-      } else {
-        // 如果关闭当前字段的标题，则取消选中
-        setSelectedTitleField(null);
-      }
+    const handleTitleChange = (checked: boolean, field: any) => {
+      const newTitleField = checked ? field.name : null;
+      setSelectedTitleField(newTitleField);
+      form.setValuesIn('titleField', newTitleField);
     };
 
     const getInterface = useCallback(
@@ -210,11 +231,11 @@ export const FieldsConfigure = observer(
         dataIndex: 'title',
         key: 'title',
         render: (text: string, record: any, index: number) => {
-          const field = fields[index];
+          const field = formValue[index];
           return (
             <Input
-              value={field.title || text}
-              onChange={(e) => handleFieldChange({ ...field, title: e.target.value }, index)}
+              value={field.uiSchema.title || text}
+              onChange={(e) => handleFieldChange({ ...field, uiSchema: { title: e.target.value } }, index)}
             />
           );
         },
@@ -224,7 +245,7 @@ export const FieldsConfigure = observer(
         dataIndex: 'name',
         key: 'name',
         render: (text: string, record: any, index: number) => {
-          const field = fields[index];
+          const field = formValue[index];
           return <Input value={field.name || text} variant="borderless" disabled={true} />;
         },
       },
@@ -233,7 +254,7 @@ export const FieldsConfigure = observer(
         dataIndex: 'type',
         key: 'type',
         render: (text: string, record: any, index: number) => {
-          const field = fields[index];
+          const field = formValue[index];
           return (
             <Select
               value={field.type || text}
@@ -255,7 +276,7 @@ export const FieldsConfigure = observer(
         dataIndex: 'interface',
         key: 'interface',
         render: (text: string, record: any, index: number) => {
-          const field = fields[index];
+          const field = formValue[index];
           const options = getOptions(field.type);
           return (
             <Select
@@ -274,7 +295,7 @@ export const FieldsConfigure = observer(
         dataIndex: 'titleField',
         title: t('Title field'),
         render: function Render(_, record: any, index: any) {
-          const field = fields[index];
+          const field = formValue[index];
           return isTitleField(field) ? (
             <Tooltip
               title={t('Default title for each record')}
@@ -292,11 +313,11 @@ export const FieldsConfigure = observer(
         },
       },
       {
-        title: t('Descriptio'),
+        title: t('Description'),
         dataIndex: 'description',
         key: 'description',
         render: (text: string, record: any, index: number) => {
-          const field = fields[index];
+          const field = formValue[index];
           return <Input.TextArea value={field.description} variant="borderless" disabled={true} />;
         },
       },
@@ -305,12 +326,12 @@ export const FieldsConfigure = observer(
         dataIndex: 'actions',
         key: 'actions',
         render: (text: string, record: any, index: number) => {
-          const field = fields[index];
+          const field = formValue[index];
           return (
             <Space size="middle">
               <EditFieldAction
-                record={field}
-                onEditComplete={(updatedField) => handleFieldChange(updatedField, index)}
+                record={{ index, ...field }}
+                // handleUiSchemaChange={(e) => handleFieldChange({ ...field, uiSchema: e }, index)}
                 {...props}
               />
             </Space>
@@ -318,23 +339,50 @@ export const FieldsConfigure = observer(
         },
       },
     ];
+    const previewTablecolumns = formValue.map((field) => ({
+      title: field.uiSchema.title,
+      dataIndex: field.name,
+      key: field.name,
+      render: (text) => text,
+      width: 200,
+    }));
 
     useEffect(() => {
-      form.setValuesIn('fields', fields);
-    }, [fields]);
+      form.setValuesIn('fields', formValue);
+      console.log('%c Line:354 🍊 formValue', 'font-size:18px;color:#42b983;background:#f5ce50', formValue);
+      form.setValuesIn('collectionData', filedata.data);
+    }, [formValue]);
 
     return (
-      <Table
-        bordered
-        size="small"
-        columns={columns}
-        dataSource={fields}
-        scroll={{ y: 300 }}
-        pagination={false}
-        rowClassName="row"
-        rowKey="uid"
-        {...props}
-      />
+      <FormValueContext.Provider
+        value={{
+          value: formValue,
+          setFormValue,
+        }}
+      >
+        <Table
+          bordered
+          size="small"
+          columns={columns}
+          dataSource={formValue}
+          scroll={{ y: 300 }}
+          pagination={false}
+          rowClassName="row"
+          rowKey="uid"
+          style={{ marginBottom: '16px' }}
+          {...props}
+        />
+        <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>预览：</div>
+        <Table
+          bordered
+          size="small"
+          columns={previewTablecolumns}
+          dataSource={filedata.data}
+          scroll={{ y: 300, x: 'max-content' }}
+          pagination={false}
+          rowKey="name"
+        />
+      </FormValueContext.Provider>
     );
   },
   { displayName: 'FieldsConfigure' },
@@ -342,12 +390,17 @@ export const FieldsConfigure = observer(
 
 const setUpdateCollectionField = () => {
   const form = useForm();
-  const ctx = useActionContext();
   const { refresh } = useResourceActionContext();
-  // const { resource, targetKey } = useResourceContext();
-  // const { [targetKey]: filterByTk } = useRecord();
-  // const { run } = useUpdateAction();
-  // const { refreshCM } = useCollectionManager_deprecated();
+  const { value, setFormValue } = useFormValueContext();
+  const ctx = useActionContext();
+
+  const handleFieldChange = (index: number, updatedField: any) => {
+    const updatedFieldData = [...value];
+    updatedFieldData[index] = updatedField;
+    setFormValue(updatedFieldData);
+    ctx.setVisible(false);
+  };
+
   return {
     async onClick() {
       await form.submit();
@@ -357,14 +410,24 @@ const setUpdateCollectionField = () => {
         delete values.reverseField;
       }
       delete values.autoCreateReverseField;
-      refresh();
-      console.log('%c Line:340 🧀 form', 'color:#2eafb0', form);
+      const { index, ...updatedField } = values;
+      await handleFieldChange(index, updatedField);
+      // setFormValue(values);
+      // refresh();
     },
   };
 };
 
 export const EditFieldAction = (props) => {
-  const { scope, getContainer, record, parentItem: parentRecord, children, ...otherProps } = props;
+  const {
+    scope,
+    getContainer,
+    record,
+    parentItem: parentRecord,
+    children,
+    handleUiSchemaChange,
+    ...otherProps
+  } = props;
   const { getInterface, collections, getCollection } = useCollectionManager_deprecated();
   const [visible, setVisible] = useState(false);
   const [schema, setSchema] = useState({});
@@ -373,15 +436,6 @@ export const EditFieldAction = (props) => {
   const compile = useCompile();
   const [data, setData] = useState<any>({ record });
   const { isDialect } = useDialect();
-
-  const currentCollections = useMemo(() => {
-    return collections.map((v) => {
-      return {
-        label: compile(v.title),
-        value: v.name,
-      };
-    });
-  }, []);
 
   return (
     <RecordProvider record={record} parent={parentRecord}>
@@ -396,7 +450,7 @@ export const EditFieldAction = (props) => {
               defaultValues.autoCreateReverseField = false;
               defaultValues.reverseField = interfaceConf?.default?.reverseField;
               set(defaultValues.reverseField, 'name', record.name);
-              set(defaultValues, 'uiSchema.title', record.title);
+              set(defaultValues, 'uiSchema.title', record.uiSchema.title);
             }
             const schema = getSchema(
               {
@@ -420,7 +474,7 @@ export const EditFieldAction = (props) => {
             getContainer,
             useCancelAction,
             showReverseFieldConfig: !data?.reverseField,
-            collections: currentCollections,
+            // collections: currentCollections,
             isDialect,
             disabledJSONB: true,
             // scopeKeyOptions,
@@ -504,7 +558,7 @@ const getSchema = (schema: IField, record: any, compile, getContainer): ISchema 
             );
           },
         },
-        title: `${compile(record.title)} - ${compile('{{ t("Edit field") }}')}`,
+        title: `${compile(record.uiSchema.title)} - ${compile('{{ t("Edit field") }}')}`,
         properties: {
           summary: {
             type: 'void',
@@ -552,10 +606,8 @@ const PreviewTable = observer(
   (props: any) => {
     const { filedata } = props;
     const { t } = useTranslation();
-    // const [fields, setFields] = useState(filedata.fields);
-
-    const columns = filedata.fields.map((field) => ({
-      title: field.title,
+    const previewTablecolumns = filedata.fields.map((field) => ({
+      title: field.uiSchema.title,
       dataIndex: field.name,
       key: field.name,
       render: (text) => text,
@@ -566,11 +618,10 @@ const PreviewTable = observer(
       <Table
         bordered
         size="small"
-        columns={columns}
+        columns={previewTablecolumns}
         dataSource={filedata.data}
         scroll={{ y: 300, x: 'max-content' }}
         pagination={false}
-        // rowClassName="editable-row"
         rowKey="name"
       />
     );
@@ -582,42 +633,35 @@ const xlsxImportAction = () => {
   const form = useForm();
   const ctx = useActionContext();
   const field = useField();
-  const record = useCollectionRecord();
   const api = useAPIClient();
+  // const { collectionData, ...collections } = form.values
 
   return {
     async onClick() {
-      console.log('%c Line:586 🍖 form.values', 'color:#4fff4B', form.values);
-
       field.data = field.data || {};
       field.data.loading = true;
       try {
         await form.submit();
         const values = cloneDeep(form.values);
-        // if (schema?.events?.beforeSubmit) {
-        //   schema.events.beforeSubmit(values);
-        // }
-        if (!values.autoCreateReverseField) {
-          delete values.reverseField;
+        const { collectionData, ...collections } = values;
+        console.log('%c Line:644 🍬 collections', 'font-size:18px;color:#ed9ec7;background:#fca650', collections);
+        console.log('%c Line:644 🍤 collectionData', 'font-size:18px;color:#2eafb0;background:#3f7cff', collectionData);
+        if (!collections.autoCreateReverseField) {
+          delete collections.reverseField;
         }
-        delete values.autoCreateReverseField;
-        api.resource('collections').create({
+        delete collections.autoCreateReverseField;
+        await api.resource('collections').create({
           values: {
             logging: true,
-            ...values,
+            ...collections,
           },
         });
-        // await resource.create({
-        //   values: {
-        //     logging: true,
-        //     ...values,
-        //   },
-        // });
+        api.resource(`${collections.name}`).create({
+          values: collectionData,
+        });
         ctx.setVisible(false);
-        await form.reset();
+        // await form.reset();
         field.data.loading = false;
-        // refresh();
-        // await refreshCM();
       } catch (error) {
         field.data.loading = false;
       }

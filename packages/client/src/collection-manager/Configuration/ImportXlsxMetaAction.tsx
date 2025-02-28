@@ -14,7 +14,7 @@ import { App, Button, Drawer, message, Modal, Spin, Upload, UploadFile, UploadPr
 import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
 
-import { createXlsxCollectionSchema, FieldsConfigure } from './XlsxCollectionSchema';
+import { createXlsxCollectionSchema, FieldsConfigure, FormValueContext } from './XlsxCollectionSchema';
 
 const { Dragger } = Upload;
 
@@ -26,10 +26,11 @@ const ImportUpload = (props: any) => {
   const [filedata, setFileData] = useState({});
   const [collectionDrawer, setCollectionDrawer] = useState(false);
   const parentRecordData = useCollectionParentRecordData();
-  const {
-    refresh,
-    state: { category },
-  } = useResourceActionContext();
+  const [formValue, setFormValue] = useState(null);
+  // const {
+  //   refresh,
+  //   state: { category },
+  // } = useResourceActionContext();
 
   const showCollectionDrawer = () => {
     setCollectionDrawer(true);
@@ -42,24 +43,24 @@ const ImportUpload = (props: any) => {
   // 判断函数，根据字段值的类型给出类型字符串
   const inferType = (values, header) => {
     if (header.toLowerCase().includes('id')) {
-      return 'integer';
+      return 'string';
     }
-    if (
-      header.toLowerCase().includes('date') ||
-      header.toLowerCase().includes('时间') ||
-      header.toLowerCase().includes('日期')
-    ) {
-      return 'date';
-    }
+    // if (
+    //   header.toLowerCase().includes('date') ||
+    //   header.toLowerCase().includes('时间') ||
+    //   header.toLowerCase().includes('日期')
+    // ) {
+    //   return 'date';
+    // }
     const types = values.map((value) => {
-      if (typeof value === 'boolean') {
-        return 'boolean';
-      }
+      // if (typeof value === 'boolean') {
+      //   return 'boolean';
+      // }
       if (typeof value === 'number') {
         if (Number.isInteger(value)) {
           return 'integer';
         }
-        return 'float';
+        return 'number';
       }
       if (typeof value === 'string') {
         try {
@@ -72,13 +73,12 @@ const ImportUpload = (props: any) => {
       }
       return 'string'; // 默认返回字符串
     });
-
     // 如果所有类型一致，则返回第一个类型，否则返回 null
     const uniqueTypes = [...new Set(types)];
     if (uniqueTypes.length === 1) {
       return uniqueTypes[0];
     }
-    return null; // 类型不一致返回 null
+    return 'string';
   };
 
   // 判断接口类型，选择适合的界面控件
@@ -129,10 +129,13 @@ const ImportUpload = (props: any) => {
         const fieldsName = `f_${uid()}`;
 
         return {
-          title: header,
+          // title: header,
           name: fieldsName,
           type: type, // 如果类型不一致则为 null
           interface: interfaceType,
+          uiSchema: {
+            title: header,
+          },
         };
       });
 
@@ -146,7 +149,6 @@ const ImportUpload = (props: any) => {
         }, {});
       });
 
-      // 组合成最终输出的 FileData
       const fileData = {
         fields: fields, // fields 数组
         data: data, // 数据
@@ -185,15 +187,22 @@ const ImportUpload = (props: any) => {
       <Button type="primary" onClick={showCollectionDrawer} disabled={fileList.length === 0} style={{ marginTop: 16 }}>
         Upload
       </Button>
-      <Drawer
-        title="创建数据表"
-        closable={false}
-        onClose={onCollectionDrawerClose}
-        open={collectionDrawer}
-        width={'70%'}
+      <FormValueContext.Provider
+        value={{
+          value: formValue,
+          setFormValue,
+        }}
       >
-        <SchemaComponent schema={xlsxCollectionSchema} components={{ FieldsConfigure }} />
-      </Drawer>
+        <Drawer
+          title="创建数据表"
+          closable={false}
+          onClose={onCollectionDrawerClose}
+          open={collectionDrawer}
+          width={'70%'}
+        >
+          <SchemaComponent schema={xlsxCollectionSchema} components={{ FieldsConfigure }} />
+        </Drawer>
+      </FormValueContext.Provider>
     </>
   );
 };
