@@ -36,27 +36,17 @@ interface FormValueProps {
 export const FormValueContext = React.createContext<FormValueProps>({});
 export const useFormValueContext = () => React.useContext(FormValueContext);
 
-// const { setFormValue } = useFormValueContext
-
-// const [formValue, setFormValue] = useState(null)
-
-{
-  /* <FormValueContext.Provider value={{
-  value:formValue, 
-  
-  setFormValue}}> 
-<></>
-
-</FormValueContext.Provider> */
-}
-
 export const createXlsxCollectionSchema = (filelist, filedata) => {
   return {
-    type: 'void',
+    type: 'object',
     properties: {
       [uid()]: {
         type: 'void',
-        'x-component': 'FormV2',
+        'x-decorator': 'FormV2',
+        'x-component': 'Action.Drawer',
+        'x-component-props': {
+          width: '70%',
+        },
         'x-use-component-props': 'useFormBlockProps',
         properties: {
           action: {
@@ -69,13 +59,11 @@ export const createXlsxCollectionSchema = (filelist, filedata) => {
               },
             },
             properties: {
-              // cancel: {
-              //   title: 'Cancel',
-              //   'x-component': 'Action',
-              //   'x-component-props': {
-              //     useAction: '{{ useCancel }}',
-              //   },
-              // },
+              cancel: {
+                title: 'Cancel',
+                'x-component': 'Action',
+                'x-use-component-props': 'useCancelActionProps',
+              },
               submit: {
                 title: '{{t("Submit")}}',
                 'x-component': 'Action',
@@ -329,11 +317,7 @@ export const FieldsConfigure = observer(
           const field = formValue[index];
           return (
             <Space size="middle">
-              <EditFieldAction
-                record={{ index, ...field }}
-                // handleUiSchemaChange={(e) => handleFieldChange({ ...field, uiSchema: e }, index)}
-                {...props}
-              />
+              <EditFieldAction record={{ index, ...field }} {...props} />
             </Space>
           );
         },
@@ -349,7 +333,6 @@ export const FieldsConfigure = observer(
 
     useEffect(() => {
       form.setValuesIn('fields', formValue);
-      console.log('%c Line:354 🍊 formValue', 'font-size:18px;color:#42b983;background:#f5ce50', formValue);
       form.setValuesIn('collectionData', filedata.data);
     }, [formValue]);
 
@@ -579,13 +562,14 @@ const getSchema = (schema: IField, record: any, compile, getContainer): ISchema 
             type: 'void',
             'x-component': 'Action.Drawer.Footer',
             properties: {
-              // action1: {
-              //   title: '{{ t("Cancel") }}',
-              //   'x-component': 'Action',
-              //   'x-component-props': {
-              //     useAction: '{{ useCancelAction }}',
-              //   },
-              // },
+              action1: {
+                title: '{{ t("Cancel") }}',
+                'x-component': 'Action',
+                // 'x-component-props': {
+                //   useAction: '{{ useCancelAction }}',
+                // },
+                'x-use-component-props': 'useCancelActionProps',
+              },
               action2: {
                 title: '{{ t("Submit") }}',
                 'x-component': 'Action',
@@ -634,7 +618,6 @@ const xlsxImportAction = () => {
   const ctx = useActionContext();
   const field = useField();
   const api = useAPIClient();
-  // const { collectionData, ...collections } = form.values
 
   return {
     async onClick() {
@@ -644,8 +627,6 @@ const xlsxImportAction = () => {
         await form.submit();
         const values = cloneDeep(form.values);
         const { collectionData, ...collections } = values;
-        console.log('%c Line:644 🍬 collections', 'font-size:18px;color:#ed9ec7;background:#fca650', collections);
-        console.log('%c Line:644 🍤 collectionData', 'font-size:18px;color:#2eafb0;background:#3f7cff', collectionData);
         if (!collections.autoCreateReverseField) {
           delete collections.reverseField;
         }
@@ -660,7 +641,6 @@ const xlsxImportAction = () => {
           values: collectionData,
         });
         ctx.setVisible(false);
-        // await form.reset();
         field.data.loading = false;
       } catch (error) {
         field.data.loading = false;

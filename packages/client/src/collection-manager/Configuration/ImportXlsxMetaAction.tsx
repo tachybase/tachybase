@@ -1,5 +1,6 @@
 import React, { useImperativeHandle, useMemo, useState } from 'react';
 import {
+  ActionContextProvider,
   RecordProvider,
   SchemaComponent,
   useAPIClient,
@@ -25,8 +26,10 @@ const ImportUpload = (props: any) => {
   const [fileList, setFile] = useState<UploadFile[]>([]);
   const [filedata, setFileData] = useState({});
   const [collectionDrawer, setCollectionDrawer] = useState(false);
-  const parentRecordData = useCollectionParentRecordData();
-  const [formValue, setFormValue] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const [schema, setSchema] = useState({});
+  // const parentRecordData = useCollectionParentRecordData();
+  // const [formValue, setFormValue] = useState(null);
   // const {
   //   refresh,
   //   state: { category },
@@ -34,6 +37,7 @@ const ImportUpload = (props: any) => {
 
   const showCollectionDrawer = () => {
     setCollectionDrawer(true);
+    close();
   };
 
   const onCollectionDrawerClose = () => {
@@ -174,8 +178,6 @@ const ImportUpload = (props: any) => {
     fileList,
   };
 
-  const xlsxCollectionSchema = createXlsxCollectionSchema(fileList, filedata);
-
   return (
     <>
       <Dragger maxCount={1} {...importProps}>
@@ -184,32 +186,29 @@ const ImportUpload = (props: any) => {
         </p>
         <p className="ant-upload-text"> {t('Click or drag file to this area to upload')}</p>
       </Dragger>
-      <Button type="primary" onClick={showCollectionDrawer} disabled={fileList.length === 0} style={{ marginTop: 16 }}>
-        Upload
-      </Button>
-      <FormValueContext.Provider
-        value={{
-          value: formValue,
-          setFormValue,
-        }}
-      >
-        <Drawer
-          title="创建数据表"
-          closable={false}
-          onClose={onCollectionDrawerClose}
-          open={collectionDrawer}
-          width={'70%'}
+      <ActionContextProvider value={{ visible, setVisible }}>
+        <Button
+          type="primary"
+          onClick={async () => {
+            const xlsxCollectionSchema = createXlsxCollectionSchema(fileList, filedata);
+            setSchema(xlsxCollectionSchema);
+            setVisible(true);
+            close();
+          }}
+          disabled={fileList.length === 0}
+          style={{ marginTop: 16 }}
         >
-          <SchemaComponent schema={xlsxCollectionSchema} components={{ FieldsConfigure }} />
-        </Drawer>
-      </FormValueContext.Provider>
+          Upload
+        </Button>
+        <SchemaComponent schema={schema} components={{ FieldsConfigure }} />
+      </ActionContextProvider>
     </>
   );
 };
 
 export const ImportXlsxMetaAction = React.forwardRef((props, ref) => {
   const { t } = useTranslation();
-  const [dataTypes, setDataTypes] = useState<any[]>(['required']);
+  // const [dataTypes, setDataTypes] = useState<any[]>(['required']);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -223,7 +222,7 @@ export const ImportXlsxMetaAction = React.forwardRef((props, ref) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    setDataTypes(['required']);
+    // setDataTypes(['required']);
   };
   return (
     <>
