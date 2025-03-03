@@ -1,58 +1,42 @@
-import React, { useImperativeHandle, useMemo, useState } from 'react';
-import {
-  ActionContextProvider,
-  RecordProvider,
-  SchemaComponent,
-  useAPIClient,
-  useCollectionManager_deprecated,
-  useCollectionParentRecordData,
-  useResourceActionContext,
-} from '@tachybase/client';
+import React, { useImperativeHandle, useState } from 'react';
+import { ActionContextProvider, SchemaComponent } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
 import { InboxOutlined } from '@ant-design/icons';
-import { App, Button, Drawer, message, Modal, Spin, Upload, UploadFile, UploadProps } from 'antd';
+import { App, Button, Drawer, Spin, Upload, UploadFile, UploadProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
 
-import { createXlsxCollectionSchema, FieldsConfigure, FormValueContext } from './XlsxCollectionSchema';
+import { createXlsxCollectionSchema } from './XlsxCollectionSchema';
+import { xlsxImportAction } from './XlsxEditFieldAction';
+import { xlsxFieldsConfigure } from './xlsxFieldsConfigure';
+import { xlsxPreviewTable } from './xlsxPreviewTable';
 
 const { Dragger } = Upload;
 
 const ImportUpload = (props: any) => {
   const { t } = useTranslation();
-  const { refreshCM } = useCollectionManager_deprecated();
   const { close } = props;
   const [fileList, setFile] = useState<UploadFile[]>([]);
   const [filedata, setFileData] = useState({});
-  const [collectionDrawer, setCollectionDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
   const [schema, setSchema] = useState({});
 
-  // const showCollectionDrawer = () => {
-  //   setCollectionDrawer(true);
-  //   close();
-  // };
-
-  // const onCollectionDrawerClose = () => {
-  //   setCollectionDrawer(false);
-  // };
-
   const inferType = (values, header) => {
-    // const isPossibleId = values.every(value => /^\d+$/.test(value)); // 全是整数数字
-    // if (header.toLowerCase().includes('id')) {
-    //   if (isPossibleId) {
-    //     return 'integer';
-    //   }
-    //   return 'string';
-    // }
-    const isPossibleDate = values.every((value) => !isNaN(Date.parse(value))); // 全部可解析为 Date
+    const isDateHeader = /date|time|日期/i.test(header);
+    const isPossibleDate = isDateHeader && values.every((value) => !isNaN(Date.parse(value)));
     if (isPossibleDate) {
       return 'date';
     }
     const types = values.map((value) => {
-      if (typeof value === 'string' && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
-        return 'boolean';
+      if (value !== undefined && value !== null) {
+        const valueLower = value.toString().toLowerCase();
+        if (valueLower === 'true' || valueLower === '1' || valueLower === 'yes') {
+          return 'boolean';
+        }
+        if (valueLower === 'false' || valueLower === '0' || valueLower === 'no') {
+          return 'boolean';
+        }
       }
       const num = Number(value);
       if (!isNaN(num)) {
@@ -70,23 +54,16 @@ const ImportUpload = (props: any) => {
       return acc;
     }, {});
 
-    // 获取所有不同类型
     const uniqueTypes = Object.keys(typeCount);
 
-    // 如果有超过 1 种不同类型，返回 'string'
     if (uniqueTypes.length > 1) {
       return 'string';
     }
 
-    // 否则返回唯一的类型
     return uniqueTypes[0];
   };
 
-  // 判断接口类型，选择适合的界面控件
   const inferInterface = (type, header) => {
-    // if (header.toLowerCase().includes('id')) {
-    //   return 'id';
-    // }
     switch (type) {
       case 'json':
         return 'json';
@@ -107,16 +84,13 @@ const ImportUpload = (props: any) => {
 
   const handleFileUpload = (file) => {
     const reader = new FileReader();
-    // 当文件读取完成后
     reader.onload = async (e) => {
       const binaryStr = e.target.result; // 获取文件内容
       const workbook = XLSX.read(binaryStr, { type: 'binary' }); // 解析工作簿
 
-      // 获取第一个工作表
       const firstSheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[firstSheetName];
 
-      // 转换为 JSON 格式
       const jsonData: Array<any[]> = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       if (jsonData.length === 0) return;
       const headers = jsonData[0];
@@ -143,33 +117,28 @@ const ImportUpload = (props: any) => {
         try {
           switch (type) {
             case 'boolean':
-              // 判断字符串 'true' 或 'false'，并转换为布尔值
-              if (value.toLowerCase() === 'true') return true;
-              if (value.toLowerCase() === 'false') return false;
+              const valueLower = value.toString().toLowerCase();
+              if (valueLower === 'true' || valueLower === '1' || valueLower === 'yes') return true;
+              if (valueLower === 'false' || valueLower === '0' || valueLower === 'no') return false;
               throw new Error('Invalid boolean');
 
             case 'integer':
-              // 检查是否为整数，使用正则表达式
               if (!/^-?\d+$/.test(value)) throw new Error('Invalid integer');
               return parseInt(value, 10);
 
             case 'float':
-              // 检查是否为数字（包括浮动数），使用正则表达式
               if (!/^-?\d+(\.\d+)?$/.test(value)) throw new Error('Invalid number');
-              return Number(value); // 返回数字类型
+              return Number(value);
 
             case 'json':
-              // 尝试将字符串解析为 JSON
               return JSON.parse(value);
 
             case 'date':
-              // 检查是否为有效的日期字符串
               if (isNaN(Date.parse(value))) throw new Error('Invalid date');
-              return new Date(value); // 返回日期对象
+              return new Date(value);
 
             default:
-              // 默认返回字符串类型
-              return value; // 如果类型无法匹配，返回原始值（假设为字符串）
+              return value;
           }
         } catch (error) {
           throw new Error(`Type conversion error: ${error.message}`);
@@ -197,6 +166,7 @@ const ImportUpload = (props: any) => {
         fields: fields,
         data: convertedRows,
       };
+      console.log('%c Line:170 🍅 fileData', 'font-size:18px;color:#33a5ff;background:#ea7e5c', fileData);
 
       setFileData(fileData);
     };
@@ -238,9 +208,18 @@ const ImportUpload = (props: any) => {
           disabled={fileList.length === 0}
           style={{ marginTop: 16 }}
         >
-          Upload
+          {t('Upload')}
         </Button>
-        <SchemaComponent schema={schema} components={{ FieldsConfigure }} />
+        <SchemaComponent
+          schema={schema}
+          components={{
+            xlsxFieldsConfigure,
+          }}
+          scope={{
+            xlsxPreviewTable,
+            xlsxImportAction,
+          }}
+        />
       </ActionContextProvider>
     </>
   );
@@ -248,7 +227,6 @@ const ImportUpload = (props: any) => {
 
 export const ImportXlsxMetaAction = React.forwardRef((props, ref) => {
   const { t } = useTranslation();
-  // const [dataTypes, setDataTypes] = useState<any[]>(['required']);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -262,11 +240,10 @@ export const ImportXlsxMetaAction = React.forwardRef((props, ref) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
-    // setDataTypes(['required']);
   };
   return (
     <>
-      <Drawer title={t('Import xlsx')} footer={undefined} open={isModalOpen} onClose={handleCancel}>
+      <Drawer title={t('Import collection')} footer={undefined} open={isModalOpen} onClose={handleCancel}>
         <Spin spinning={loading}>
           <ImportUpload close={handleCancel} />
         </Spin>

@@ -482,6 +482,8 @@
   "ImageSearch": "图片搜索",
   "Import": "导入",
   "Import collection": "导入数据表",
+  "Import json collection": "导入json数据表",
+  "Import xlsx collection": "导入xlsx数据表",
   "Importable fields": "可导入字段",
   "In configuration": "配置中",
   "Index": "索引",

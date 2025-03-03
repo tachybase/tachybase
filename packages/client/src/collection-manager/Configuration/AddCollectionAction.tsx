@@ -16,7 +16,7 @@ import { useResourceActionContext, useResourceContext } from '../ResourceActionP
 import * as components from './components';
 import { TemplateSummary } from './components/TemplateSummary';
 import { ImportCollectionMetaAction } from './ImportCollectionMetaAction';
-import { ImportXlsxMetaAction } from './ImportXlsxMetaAction';
+import { ImportXlsxMetaAction } from './ImportXlsx/ImportXlsxMetaAction';
 
 const getSchema = (schema, category, compile): ISchema => {
   if (!schema) {
