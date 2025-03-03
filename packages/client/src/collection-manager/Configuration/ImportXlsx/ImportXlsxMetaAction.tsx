@@ -1,12 +1,12 @@
 import React, { useImperativeHandle, useState } from 'react';
-import { ActionContextProvider, SchemaComponent } from '@tachybase/client';
 import { uid } from '@tachybase/schema';
 
 import { InboxOutlined } from '@ant-design/icons';
-import { App, Button, Drawer, Spin, Upload, UploadFile, UploadProps } from 'antd';
+import { App, Button, Drawer, message, Spin, Upload, UploadFile, UploadProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
 
+import { ActionContextProvider, SchemaComponent } from '../../../schema-component';
 import { createXlsxCollectionSchema } from './XlsxCollectionSchema';
 import { xlsxImportAction } from './XlsxEditFieldAction';
 import { xlsxFieldsConfigure } from './xlsxFieldsConfigure';
@@ -116,11 +116,12 @@ const ImportUpload = (props: any) => {
       const parseValue = (value: string, type: string) => {
         try {
           switch (type) {
-            case 'boolean':
+            case 'boolean': {
               const valueLower = value.toString().toLowerCase();
               if (valueLower === 'true' || valueLower === '1' || valueLower === 'yes') return true;
               if (valueLower === 'false' || valueLower === '0' || valueLower === 'no') return false;
               throw new Error('Invalid boolean');
+            }
 
             case 'integer':
               if (!/^-?\d+$/.test(value)) throw new Error('Invalid integer');
@@ -155,7 +156,7 @@ const ImportUpload = (props: any) => {
               acc[fieldsName] = convertedValue;
             } catch (error) {
               acc[fieldsName] = null;
-              console.error(`Error parsing value for column "${header}" at row ${rowIndex + 1}:`, error.message);
+              message.error(`Error in column "${header}" at row ${rowIndex + 1}: ${error.message}`);
             }
           }
           return acc;
@@ -166,8 +167,6 @@ const ImportUpload = (props: any) => {
         fields: fields,
         data: convertedRows,
       };
-      console.log('%c Line:170 🍅 fileData', 'font-size:18px;color:#33a5ff;background:#ea7e5c', fileData);
-
       setFileData(fileData);
     };
     reader.readAsBinaryString(file);

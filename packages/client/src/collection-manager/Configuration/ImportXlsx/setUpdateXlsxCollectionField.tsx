@@ -1,9 +1,9 @@
-import { useActionContext } from '@tachybase/client';
 import { useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { cloneDeep } from 'lodash';
 
+import { useActionContext } from '../../../schema-component';
 import { useFormValueContext } from './xlsxFormValueContextProvider';
 
 export const setUpdateXlsxCollectionField = () => {
@@ -36,6 +36,10 @@ export const setUpdateXlsxCollectionField = () => {
       }
       delete values.autoCreateReverseField;
       const { index, ...updatedField } = values;
+      if (index < 0 || index >= value.length) {
+        message.error('Invalid field index');
+        return;
+      }
       await handleFieldChange(index, updatedField);
     },
   };

@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useCompile, useDataSourceManager, useFieldInterfaceOptions } from '@tachybase/client';
 import { observer, useForm } from '@tachybase/schema';
 
 import { Input, message, Select, Space, Switch, Table, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+import { useDataSourceManager } from '../../../data-source';
+import { useCompile } from '../../../schema-component';
+import { useFieldInterfaceOptions } from '../interfaces';
 import { xlsxFormValueContext } from './xlsxFormValueContextProvider';
 import { XlsxEditFieldAction } from './xlsxImportAction';
 

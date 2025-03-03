@@ -1,12 +1,11 @@
-import {
-  useActionContext,
-  useAPIClient,
-  useCollectionManager_deprecated,
-  useResourceActionContext,
-} from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
 import { cloneDeep } from 'lodash';
+
+import { useAPIClient } from '../../../api-client';
+import { useActionContext } from '../../../schema-component';
+import { useCollectionManager_deprecated } from '../../hooks';
+import { useResourceActionContext } from '../../ResourceActionProvider';
 
 export const xlsxImportAction = () => {
   const form = useForm();

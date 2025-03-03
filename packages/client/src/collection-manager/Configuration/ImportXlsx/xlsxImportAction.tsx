@@ -1,22 +1,17 @@
 import { useState } from 'react';
-import {
-  ActionContextProvider,
-  IField,
-  RecordProvider,
-  SchemaComponent,
-  useAPIClient,
-  useCancelAction,
-  useCollectionManager_deprecated,
-  useCompile,
-  useRequest,
-} from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
 import { ISchema, uid } from '@tachybase/schema';
 
 import { cloneDeep, omit, set } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { useAPIClient, useRequest } from '../../../api-client';
+import { RecordProvider } from '../../../record-provider';
+import { ActionContextProvider, SchemaComponent, useCompile } from '../../../schema-component';
+import { useCancelAction } from '../../action-hooks';
+import { useCollectionManager_deprecated } from '../../hooks';
 import useDialect from '../../hooks/useDialect';
+import { IField } from '../../interfaces/types';
 import * as components from '../components';
 import { setUpdateXlsxCollectionField } from './setUpdateXlsxCollectionField';
 

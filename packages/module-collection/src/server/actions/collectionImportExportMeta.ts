@@ -220,11 +220,5 @@ export const collectionImportExportMeta: ResourceOptions = {
       ctx.body = { count: createCount };
       await next();
     },
-    async importXlsxMeta(ctx: Context, next) {
-      const { file } = ctx;
-      const category = (ctx.request.body as { category?: string })?.category;
-
-      await next();
-    },
   },
 };
