@@ -271,7 +271,6 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
   };
 
   const handleOk = (method) => {
-    
     apiClient
       .request({
         url: 'backupFiles:create',
@@ -431,6 +430,7 @@ export const BackupAndRestoreList = () => {
   };
   const handleDownload = async (fileData) => {
     setDownloadTarget(fileData.name);
+    // TODO: 优化成断点续传下载
     const data = await apiClient.request({
       url: 'backupFiles:download',
       method: 'get',
@@ -438,6 +438,28 @@ export const BackupAndRestoreList = () => {
         filterByTk: fileData.name,
       },
       responseType: 'blob',
+      onDownloadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        const success = percentCompleted >= 100;
+        if (!success) {
+          notification.info({
+            key: 'downloadBackup',
+            message: (
+              <span>
+                {t('Downloading ') + percentCompleted + '%'} &nbsp; &nbsp;
+                <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+              </span>
+            ),
+            duration: 0,
+          });
+        } else {
+          notification.success({
+            key: 'downloadBackup',
+            message: <span>{t('Downloaded success!')}</span>,
+            duration: 1,
+          });
+        }
+      },
     });
     setDownloadTarget(false);
     const blob = new Blob([data.data]);
