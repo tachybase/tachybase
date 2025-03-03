@@ -18,7 +18,7 @@ import {
 import { ArrayTable } from '@tachybase/components';
 import { ArrayField, FormContext, ISchema, observer, uid, useEffectForm, useField, useForm } from '@tachybase/schema';
 
-import { Alert, Cascader, Input, Select, Space, Spin, Switch, Table, Tag, Tooltip } from 'antd';
+import { Alert, Cascader, Input, message, Select, Space, Spin, Switch, Table, Tag, Tooltip } from 'antd';
 import { cloneDeep, omit, set } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
@@ -70,7 +70,6 @@ export const createXlsxCollectionSchema = (filelist, filedata) => {
                 'x-component-props': {
                   type: 'primary',
                   htmlType: 'submit',
-                  // useAction: '{{ useSaveValues }}',
                 },
                 'x-use-component-props': xlsxImportAction,
               },
@@ -114,13 +113,6 @@ export const createXlsxCollectionSchema = (filelist, filedata) => {
             'x-decorator': 'FormItem',
             'x-component': 'Input.TextArea',
           },
-          // presetFields: {
-          //   title: '{{t("Preset fields")}}',
-          //   type: 'void',
-          //   'x-decorator': 'FormItem',
-          //   'x-visible': '{{ createOnly }}',
-          //   'x-component': PresetFields,
-          // },
           fields: {
             type: 'array',
             title: '{{t("Fields")}}',
@@ -132,16 +124,6 @@ export const createXlsxCollectionSchema = (filelist, filedata) => {
             },
             required: true,
           },
-          // table: {
-          //   type: 'void',
-          //   title: '{{t("Preview")}}',
-          //   'x-decorator': 'FormItem',
-          //   'x-component': PreviewTable,
-          //   'x-component-props': {
-          //     filedata,
-          //     // setFileData
-          //   },
-          // },
         },
       },
     },
@@ -151,18 +133,77 @@ export const createXlsxCollectionSchema = (filelist, filedata) => {
 export const FieldsConfigure = observer(
   (props: any) => {
     const { filedata } = props;
+    const { fields, data } = filedata;
     const dm = useDataSourceManager();
     const { t } = useTranslation();
     const initOptions = useFieldInterfaceOptions();
+
     const compile = useCompile();
     const [selectedTitleField, setSelectedTitleField] = useState<string | null>();
     const form = useForm();
-    const [formValue, setFormValue] = useState(filedata.fields);
+    const [formValue, setFormValue] = useState(fields);
 
     const handleFieldChange = (updatedField: any, index: number) => {
       const updatedFieldData = [...formValue];
       updatedFieldData[index] = updatedField;
       setFormValue(updatedFieldData);
+    };
+
+    const handleFieldTypeChange = (updatedField: any, index: number) => {
+      const { type, interface: currentInterface, uiSchema, name: dataIndex } = updatedField;
+      const updatedData = [...data];
+      let hasError = false;
+      const typeToInterface = {
+        json: 'json',
+        boolean: 'checkbox',
+        string: 'input',
+        integer: 'integer',
+        float: 'float',
+        date: 'datetime',
+      };
+      updatedField.interface = typeToInterface[type] || null;
+      updatedData.forEach((row, rowIndex) => {
+        try {
+          if (row[dataIndex] !== undefined) {
+            row[dataIndex] = parseValue(row[dataIndex], type);
+          }
+        } catch (error) {
+          hasError = true;
+          message.error(`Row ${rowIndex + 1}, Column ${uiSchema.title}: ${error.message}`);
+        }
+      });
+      if (!hasError) {
+        message.success(`字段 "${uiSchema.title}" 已成功转换为 ${type}`);
+        const updatedFieldData = [...formValue];
+        updatedFieldData[index] = updatedField;
+        setFormValue(updatedFieldData);
+      }
+    };
+
+    const parseValue = (value: string, type: string) => {
+      try {
+        switch (type) {
+          case 'boolean':
+            if (value.toLowerCase() === 'true') return true;
+            if (value.toLowerCase() === 'false') return false;
+            throw new Error('Invalid boolean');
+          case 'integer':
+            if (!/^-?\d+$/.test(value)) throw new Error('Invalid integer');
+            return parseInt(value, 10);
+          case 'float':
+            if (!/^-?\d+(\.\d+)?$/.test(value)) throw new Error('Invalid number');
+            return Number(value);
+          case 'json':
+            return JSON.parse(value);
+          case 'date':
+            if (isNaN(Date.parse(value))) throw new Error('Invalid date');
+            return new Date(value);
+          default:
+            return value; // string 直接返回
+        }
+      } catch (error) {
+        throw new Error(`Type conversion error: ${error.message}`);
+      }
     };
 
     const handleTitleChange = (checked: boolean, field: any) => {
@@ -246,7 +287,7 @@ export const FieldsConfigure = observer(
           return (
             <Select
               value={field.type || text}
-              onChange={(e) => handleFieldChange({ ...field, type: e }, index)}
+              onChange={(e) => handleFieldTypeChange({ ...field, type: e }, index)}
               options={[
                 { value: 'string', label: <span>string</span> },
                 { value: 'boolean', label: <span>boolean</span> },
@@ -265,13 +306,14 @@ export const FieldsConfigure = observer(
         key: 'interface',
         render: (text: string, record: any, index: number) => {
           const field = formValue[index];
+
           const options = getOptions(field.type);
           return (
             <Select
               aria-label={`field-interface-${field?.type}`}
               //@ts-ignore
               role="button"
-              defaultValue={field.interface}
+              value={field.interface}
               popupMatchSelectWidth={false}
               onChange={(e) => handleFieldChange({ ...field, interface: e }, index)}
               options={options}
@@ -379,6 +421,14 @@ const setUpdateCollectionField = () => {
 
   const handleFieldChange = (index: number, updatedField: any) => {
     const updatedFieldData = [...value];
+    if (updatedField.primaryKey) {
+      const existingPrimaryKey = updatedFieldData.find((field, i) => field.primaryKey === true && i !== index);
+
+      if (existingPrimaryKey) {
+        message.error(`已有主键字段: ${existingPrimaryKey.name}，请先取消其主键属性`);
+        return;
+      }
+    }
     updatedFieldData[index] = updatedField;
     setFormValue(updatedFieldData);
     ctx.setVisible(false);
@@ -618,6 +668,8 @@ const xlsxImportAction = () => {
   const ctx = useActionContext();
   const field = useField();
   const api = useAPIClient();
+  const { refresh } = useResourceActionContext();
+  const { refreshCM } = useCollectionManager_deprecated();
 
   return {
     async onClick() {
@@ -641,6 +693,8 @@ const xlsxImportAction = () => {
           values: collectionData,
         });
         ctx.setVisible(false);
+        refresh?.();
+        await refreshCM();
         field.data.loading = false;
       } catch (error) {
         field.data.loading = false;

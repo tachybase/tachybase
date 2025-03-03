@@ -28,68 +28,65 @@ const ImportUpload = (props: any) => {
   const [collectionDrawer, setCollectionDrawer] = useState(false);
   const [visible, setVisible] = useState(false);
   const [schema, setSchema] = useState({});
-  // const parentRecordData = useCollectionParentRecordData();
-  // const [formValue, setFormValue] = useState(null);
-  // const {
-  //   refresh,
-  //   state: { category },
-  // } = useResourceActionContext();
 
-  const showCollectionDrawer = () => {
-    setCollectionDrawer(true);
-    close();
-  };
+  // const showCollectionDrawer = () => {
+  //   setCollectionDrawer(true);
+  //   close();
+  // };
 
-  const onCollectionDrawerClose = () => {
-    setCollectionDrawer(false);
-  };
+  // const onCollectionDrawerClose = () => {
+  //   setCollectionDrawer(false);
+  // };
 
-  // 判断函数，根据字段值的类型给出类型字符串
   const inferType = (values, header) => {
-    if (header.toLowerCase().includes('id')) {
+    // const isPossibleId = values.every(value => /^\d+$/.test(value)); // 全是整数数字
+    // if (header.toLowerCase().includes('id')) {
+    //   if (isPossibleId) {
+    //     return 'integer';
+    //   }
+    //   return 'string';
+    // }
+    const isPossibleDate = values.every((value) => !isNaN(Date.parse(value))); // 全部可解析为 Date
+    if (isPossibleDate) {
+      return 'date';
+    }
+    const types = values.map((value) => {
+      if (typeof value === 'string' && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
+        return 'boolean';
+      }
+      const num = Number(value);
+      if (!isNaN(num)) {
+        return Number.isInteger(num) ? 'integer' : 'float';
+      }
+      try {
+        JSON.parse(value);
+        return 'json';
+      } catch {}
+      return 'string';
+    });
+
+    const typeCount = types.reduce((acc, type) => {
+      acc[type] = (acc[type] || 0) + 1;
+      return acc;
+    }, {});
+
+    // 获取所有不同类型
+    const uniqueTypes = Object.keys(typeCount);
+
+    // 如果有超过 1 种不同类型，返回 'string'
+    if (uniqueTypes.length > 1) {
       return 'string';
     }
-    // if (
-    //   header.toLowerCase().includes('date') ||
-    //   header.toLowerCase().includes('时间') ||
-    //   header.toLowerCase().includes('日期')
-    // ) {
-    //   return 'date';
-    // }
-    const types = values.map((value) => {
-      // if (typeof value === 'boolean') {
-      //   return 'boolean';
-      // }
-      if (typeof value === 'number') {
-        if (Number.isInteger(value)) {
-          return 'integer';
-        }
-        return 'number';
-      }
-      if (typeof value === 'string') {
-        try {
-          // 判断是否为有效的 JSON 字符串
-          JSON.parse(value);
-          return 'json'; // 如果能解析为 JSON，返回 json
-        } catch {
-          return 'string'; // 否则认为是字符串
-        }
-      }
-      return 'string'; // 默认返回字符串
-    });
-    // 如果所有类型一致，则返回第一个类型，否则返回 null
-    const uniqueTypes = [...new Set(types)];
-    if (uniqueTypes.length === 1) {
-      return uniqueTypes[0];
-    }
-    return 'string';
+
+    // 否则返回唯一的类型
+    return uniqueTypes[0];
   };
 
   // 判断接口类型，选择适合的界面控件
   const inferInterface = (type, header) => {
-    if (header.toLowerCase().includes('id')) {
-      return 'id';
-    }
+    // if (header.toLowerCase().includes('id')) {
+    //   return 'id';
+    // }
     switch (type) {
       case 'json':
         return 'json';
@@ -104,14 +101,14 @@ const ImportUpload = (props: any) => {
       case 'date':
         return 'datetime';
       default:
-        return null; // 返回 null，因为该列的数据类型不一致
+        return null;
     }
   };
 
   const handleFileUpload = (file) => {
     const reader = new FileReader();
     // 当文件读取完成后
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const binaryStr = e.target.result; // 获取文件内容
       const workbook = XLSX.read(binaryStr, { type: 'binary' }); // 解析工作簿
 
@@ -125,39 +122,82 @@ const ImportUpload = (props: any) => {
       const headers = jsonData[0];
       const rows = jsonData.slice(1);
 
-      // 构建 fields 数组
-      const fields = headers.map((header, index) => {
-        const columnValues = rows.map((row) => row[index]); // 获取该列所有的值
-        const type = inferType(columnValues, header); // 获取该列类型
-        const interfaceType = type ? inferInterface(type, header) : null;
-        const fieldsName = `f_${uid()}`;
+      const fields = await Promise.all(
+        headers.map(async (header, index) => {
+          const columnValues = rows.map((row) => row[index]);
+          const type = inferType(columnValues, header);
+          const interfaceType = type ? await inferInterface(type, header) : null;
+          const fieldsName = `f_${uid()}`;
+          return {
+            name: fieldsName,
+            type,
+            interface: interfaceType,
+            uiSchema: {
+              title: header,
+            },
+          };
+        }),
+      );
 
-        return {
-          // title: header,
-          name: fieldsName,
-          type: type, // 如果类型不一致则为 null
-          interface: interfaceType,
-          uiSchema: {
-            title: header,
-          },
-        };
-      });
+      const parseValue = (value: string, type: string) => {
+        try {
+          switch (type) {
+            case 'boolean':
+              // 判断字符串 'true' 或 'false'，并转换为布尔值
+              if (value.toLowerCase() === 'true') return true;
+              if (value.toLowerCase() === 'false') return false;
+              throw new Error('Invalid boolean');
 
-      // 格式化数据部分（保持原样）
-      const data = rows.map((row) => {
+            case 'integer':
+              // 检查是否为整数，使用正则表达式
+              if (!/^-?\d+$/.test(value)) throw new Error('Invalid integer');
+              return parseInt(value, 10);
+
+            case 'float':
+              // 检查是否为数字（包括浮动数），使用正则表达式
+              if (!/^-?\d+(\.\d+)?$/.test(value)) throw new Error('Invalid number');
+              return Number(value); // 返回数字类型
+
+            case 'json':
+              // 尝试将字符串解析为 JSON
+              return JSON.parse(value);
+
+            case 'date':
+              // 检查是否为有效的日期字符串
+              if (isNaN(Date.parse(value))) throw new Error('Invalid date');
+              return new Date(value); // 返回日期对象
+
+            default:
+              // 默认返回字符串类型
+              return value; // 如果类型无法匹配，返回原始值（假设为字符串）
+          }
+        } catch (error) {
+          throw new Error(`Type conversion error: ${error.message}`);
+        }
+      };
+
+      const convertedRows = rows.map((row, rowIndex) => {
         return headers.reduce((acc, header, index) => {
-          const value = row[index];
-          const fieldsName = fields[index].name;
-          acc[fieldsName] = value; // 保持原值
+          const fieldsName = fields[index]?.name;
+          const type = fields[index]?.type;
+          if (fieldsName && type) {
+            try {
+              const convertedValue = parseValue(row[index], type);
+              acc[fieldsName] = convertedValue;
+            } catch (error) {
+              acc[fieldsName] = null;
+              console.error(`Error parsing value for column "${header}" at row ${rowIndex + 1}:`, error.message);
+            }
+          }
           return acc;
         }, {});
       });
 
       const fileData = {
-        fields: fields, // fields 数组
-        data: data, // 数据
+        fields: fields,
+        data: convertedRows,
       };
-      // 设置文件数据
+
       setFileData(fileData);
     };
     reader.readAsBinaryString(file);
