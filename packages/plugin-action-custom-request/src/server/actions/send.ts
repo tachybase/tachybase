@@ -171,7 +171,13 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
     } else {
       ctx.set('Content-Type', `${res.headers['content-type']}`);
     }
-    ctx.set('Content-disposition', `${res.headers['content-disposition']}`);
+    if (res.headers['content-disposition']) {
+      ctx.set('Content-disposition', `${res.headers['content-disposition']}`);
+    } else if (ctx.req.headers['x-response-type'] === 'blob') {
+      // 从url最后获取文件名
+      const filename = new URL(requestUrl).pathname.split('/').pop() || '';
+      ctx.set('Content-Disposition', `attachment; filename="${filename}"`);
+    }
     this.logger.info(`action-custom-request:send:${filterByTk} success`);
 
     const readable = res.data as http.IncomingMessage;

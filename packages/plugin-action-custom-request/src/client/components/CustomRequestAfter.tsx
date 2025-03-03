@@ -26,7 +26,7 @@ const afterSuccessSchema: (t) => ISchema = (t) => {
       },
       downTitle: {
         title: '{{t("Setting Down Title")}}',
-        default: 'document.docx',
+        default: '{{ filename }}',
         'x-decorator': 'FormItem',
         'x-component': 'Input',
         'x-component-props': {},
