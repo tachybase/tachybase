@@ -25,7 +25,7 @@ export default defineCollection({
     },
     {
       type: 'string',
-      name: 'remote', //拉取远程仓库,为空表示使用本地仓库运行
+      name: 'remote', //拉取远程仓库,为空表示使用本地仓库运行,支持xxx/pull/123这样的pr格式
     },
     {
       type: 'string',
