@@ -27,7 +27,8 @@ import { useCompile, useDesignable } from '../../hooks';
 import { ErrorFallback } from '../error-fallback';
 import FixedBlock from './FixedBlock';
 import { useStyles } from './Page.style';
-import { PageDesigner, PageTabDesigner } from './PageTabDesigner';
+import { PageDesigner } from './PageDesigner';
+import { PageTabDesigner } from './PageTabDesigner';
 import { getStyles } from './style';
 
 export const Page = (props) => {
@@ -189,16 +190,19 @@ const TabComponent = (props) => {
 const TabItem = (props) => {
   const { schema } = props;
   const { t } = useTranslation();
+  const { styles } = useStyles();
 
   return (
     <SortableItem
       id={schema.name as string}
       schema={schema}
-      className={classNames('tb-action-link', 'designerCss', props.className)}
+      className={classNames('tb-action-link', 'designerCss', props.className, styles.tabItemClass)}
     >
       {schema['x-icon'] && <Icon style={{ marginRight: 8 }} type={schema['x-icon']} />}
       <span>{schema.title || t('Unnamed')}</span>
-      <PageTabDesigner schema={schema} />
+      <div className="tab-designer-wrapper">
+        <PageTabDesigner schema={schema} />
+      </div>
     </SortableItem>
   );
 };
