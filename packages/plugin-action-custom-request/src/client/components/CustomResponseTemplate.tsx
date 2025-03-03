@@ -14,6 +14,10 @@ export const CustomResponseTemplate: React.FC<{
       value: 'res.data',
       label: t('Response body'),
     },
+    {
+      value: 'filename',
+      label: t('Download file name'),
+    },
   ];
 
   return (
