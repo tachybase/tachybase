@@ -4,8 +4,8 @@ import { FieldBase } from './dialects/FieldBase';
 import { handleFieldParams, ProcessFieldParams } from './types';
 
 const fieldTypes = {
-  string: ['string', 'text', 'sequence', 'uid', 'integer', 'float'],
-  number: ['bigInt', 'double'],
+  string: ['string', 'text', 'sequence', 'uid'],
+  number: ['bigInt', 'double', 'integer', 'float'],
   date: ['date', 'datetime', 'timestamp'],
   json: ['json', 'jsonb'],
   array: ['array'],
