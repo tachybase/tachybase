@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-pdf",
-  "version": "0.23.55",
+  "version": "0.23.56",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-pdf"
