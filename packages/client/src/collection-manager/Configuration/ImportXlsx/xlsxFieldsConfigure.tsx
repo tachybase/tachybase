@@ -2,10 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import { observer, useForm } from '@tachybase/schema';
 
 import { Input, message, Select, Space, Switch, Table, Tooltip } from 'antd';
+import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { useDataSourceManager } from '../../../data-source';
 import { useCompile } from '../../../schema-component';
+import { useCollectionManager_deprecated } from '../../hooks';
 import { useFieldInterfaceOptions } from '../interfaces';
 import { xlsxFormValueContext } from './xlsxFormValueContextProvider';
 import { XlsxEditFieldAction } from './xlsxImportAction';
@@ -21,6 +23,17 @@ export const xlsxFieldsConfigure = observer(
     const [selectedTitleField, setSelectedTitleField] = useState<string | null>();
     const form = useForm();
     const [formValue, setFormValue] = useState(fields);
+    const { getInterface } = useCollectionManager_deprecated();
+
+    const getDefaultUiSchema = (interfaceType, title) => {
+      const interfaceConfig = getInterface(interfaceType) || {};
+      const interfaceConfigValues = cloneDeep(interfaceConfig) as any;
+      const defaultUiSchema = interfaceConfigValues?.default?.uiSchema || {};
+      return {
+        ...defaultUiSchema,
+        title,
+      };
+    };
 
     const handleFieldChange = (updatedField: any, index: number) => {
       const updatedFieldData = [...formValue];
@@ -28,8 +41,8 @@ export const xlsxFieldsConfigure = observer(
       setFormValue(updatedFieldData);
     };
 
-    const handleFieldTypeChange = (updatedField: any, index: number) => {
-      const { type, interface: currentInterface, uiSchema, name: dataIndex } = updatedField;
+    const handleFieldTypeChange = async (updatedField: any, index: number) => {
+      const { type, name: dataIndex, uiSchema } = updatedField;
       const updatedData = [...data];
       let hasError = false;
       const typeToInterface = {
@@ -40,7 +53,9 @@ export const xlsxFieldsConfigure = observer(
         float: 'float',
         date: 'datetime',
       };
-      updatedField.interface = typeToInterface[type] || null;
+      updatedField.interface = (await typeToInterface[type]) || null;
+      const currentUiSchema = await getDefaultUiSchema(updatedField.interface, uiSchema.title);
+      updatedField.uiSchema = currentUiSchema;
       updatedData.forEach((row, rowIndex) => {
         try {
           if (row[dataIndex] !== undefined) {
@@ -57,6 +72,14 @@ export const xlsxFieldsConfigure = observer(
         updatedFieldData[index] = updatedField;
         setFormValue(updatedFieldData);
       }
+    };
+
+    const handleFieldInterfaceChange = async (updatedField: any, index: number) => {
+      const currentUiSchema = await getDefaultUiSchema(updatedField.interface, updatedField.uiSchema.title);
+      updatedField.uiSchema = currentUiSchema;
+      const updatedFieldData = [...formValue];
+      updatedFieldData[index] = updatedField;
+      setFormValue(updatedFieldData);
     };
 
     const parseValue = (value: string, type: string) => {
@@ -93,13 +116,6 @@ export const xlsxFieldsConfigure = observer(
       setSelectedTitleField(newTitleField);
       form.setValuesIn('titleField', newTitleField);
     };
-
-    const getInterface = useCallback(
-      (name: string) => {
-        return dm?.collectionFieldInterfaceManager.getFieldInterface(name);
-      },
-      [dm],
-    );
 
     const isTitleField = (field) => {
       return !field.isForeignKey && getInterface(field.interface)?.titleUsable;
@@ -197,7 +213,7 @@ export const xlsxFieldsConfigure = observer(
               role="button"
               value={field.interface}
               popupMatchSelectWidth={false}
-              onChange={(e) => handleFieldChange({ ...field, interface: e }, index)}
+              onChange={(e) => handleFieldInterfaceChange({ ...field, interface: e }, index)}
               options={options}
             />
           );
@@ -273,6 +289,7 @@ export const xlsxFieldsConfigure = observer(
 
     useEffect(() => {
       form.setValuesIn('fields', formValue);
+
       form.setValuesIn('collectionData', filedata.data);
     }, [formValue]);
 

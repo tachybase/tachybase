@@ -11,9 +11,9 @@ export const setUpdateXlsxCollectionField = () => {
   const form = useForm();
   const { value, setFormValue } = useFormValueContext();
   const ctx = useActionContext();
+  const { t } = useTranslation();
 
   const handleFieldChange = (index: number, updatedField: any) => {
-    const { t } = useTranslation();
     const updatedFieldData = [...value];
     if (updatedField.primaryKey) {
       const existingPrimaryKey = updatedFieldData.find((field, i) => field.primaryKey === true && i !== index);
@@ -25,7 +25,6 @@ export const setUpdateXlsxCollectionField = () => {
     }
     updatedFieldData[index] = updatedField;
     setFormValue(updatedFieldData);
-    ctx.setVisible(false);
   };
 
   return {
@@ -42,7 +41,8 @@ export const setUpdateXlsxCollectionField = () => {
         message.error('Invalid field index');
         return;
       }
-      await handleFieldChange(index, updatedField);
+      handleFieldChange(index, updatedField);
+      ctx.setVisible(false);
     },
   };
 };

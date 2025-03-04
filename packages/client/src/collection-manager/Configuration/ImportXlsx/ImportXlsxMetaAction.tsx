@@ -3,10 +3,12 @@ import { uid } from '@tachybase/schema';
 
 import { InboxOutlined } from '@ant-design/icons';
 import { App, Button, Drawer, message, Spin, Upload, UploadFile, UploadProps } from 'antd';
+import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
 
 import { ActionContextProvider, SchemaComponent } from '../../../schema-component';
+import { useCollectionManager_deprecated } from '../../hooks';
 import { createXlsxCollectionSchema } from './XlsxCollectionSchema';
 import { xlsxImportAction } from './XlsxEditFieldAction';
 import { xlsxFieldsConfigure } from './xlsxFieldsConfigure';
@@ -17,6 +19,7 @@ const { Dragger } = Upload;
 const ImportUpload = (props: any) => {
   const { t } = useTranslation();
   const { close } = props;
+  const { getInterface } = useCollectionManager_deprecated();
   const [fileList, setFile] = useState<UploadFile[]>([]);
   const [filedata, setFileData] = useState({});
   const [visible, setVisible] = useState(false);
@@ -99,7 +102,10 @@ const ImportUpload = (props: any) => {
         headers.map(async (header, index) => {
           const columnValues = rows.map((row) => row[index]);
           const type = inferType(columnValues, header);
-          const interfaceType = type ? await inferInterface(type, header) : null;
+          const interfaceType = type ? inferInterface(type, header) : null;
+          const interfaceConfig = interfaceType ? getInterface(interfaceType) : null;
+          const interfaceConfigValues = cloneDeep(interfaceConfig) as any;
+          const defaultUiSchema = interfaceConfigValues?.default.uiSchema || {};
           const fieldsName = `f_${uid()}`;
           return {
             name: fieldsName,
@@ -107,6 +113,7 @@ const ImportUpload = (props: any) => {
             interface: interfaceType,
             uiSchema: {
               title: header,
+              ...defaultUiSchema,
             },
           };
         }),
