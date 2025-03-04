@@ -1,6 +1,8 @@
 import { useField, useForm } from '@tachybase/schema';
 
+import { message } from 'antd';
 import { cloneDeep } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import { useAPIClient } from '../../../api-client';
 import { useActionContext } from '../../../schema-component';
@@ -14,6 +16,7 @@ export const xlsxImportAction = () => {
   const api = useAPIClient();
   const { refresh } = useResourceActionContext();
   const { refreshCM } = useCollectionManager_deprecated();
+  const { t } = useTranslation();
 
   return {
     async onClick() {
@@ -42,6 +45,7 @@ export const xlsxImportAction = () => {
         field.data.loading = false;
       } catch (error) {
         field.data.loading = false;
+        message.error(t('Operation failed'));
       }
     },
   };

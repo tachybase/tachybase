@@ -52,7 +52,7 @@ export const xlsxFieldsConfigure = observer(
         }
       });
       if (!hasError) {
-        message.success(`字段 "${uiSchema.title}" 已成功转换为 ${type}`);
+        message.success(`${t('Fields')} "${uiSchema.title}"${t('Converted to')} ${type}`);
         const updatedFieldData = [...formValue];
         updatedFieldData[index] = updatedField;
         setFormValue(updatedFieldData);
@@ -78,7 +78,10 @@ export const xlsxFieldsConfigure = observer(
             if (isNaN(Date.parse(value))) throw new Error('Invalid date');
             return new Date(value);
           default:
-            return value; // string 直接返回
+            if (value === null || value === undefined || value === '') {
+              return '';
+            }
+            return value.toString();
         }
       } catch (error) {
         throw new Error(`Type conversion error: ${error.message}`);
@@ -244,13 +247,24 @@ export const xlsxFieldsConfigure = observer(
         },
       },
     ];
+
     const previewTablecolumns = formValue.map((field) => ({
       title: field.uiSchema.title,
       dataIndex: field.name,
       key: field.name,
-      render: (text: string) => {
+      render: (text) => {
         if (typeof text === 'boolean') {
           return text ? 'True' : 'False';
+        }
+        if (field.type === 'date' && text) {
+          return new Date(text).toLocaleString();
+        }
+        if (field.type === 'json' && text) {
+          try {
+            return typeof text === 'string' ? text : JSON.stringify(text, null, 2);
+          } catch (error) {
+            return 'Invalid JSON';
+          }
         }
         return text;
       },
@@ -281,14 +295,14 @@ export const xlsxFieldsConfigure = observer(
           style={{ marginBottom: '16px' }}
           {...props}
         />
-        <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>预览：</div>
+        <div style={{ fontWeight: 'bold', marginBottom: '10px' }}>{t('Preview')}:</div>
         <Table
           bordered
           size="small"
           columns={previewTablecolumns}
           dataSource={filedata.data}
           scroll={{ y: 300, x: 'max-content' }}
-          pagination={false}
+          // pagination={{ pageSize: 10 }}
           rowKey="name"
         />
       </xlsxFormValueContext.Provider>

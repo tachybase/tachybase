@@ -31,10 +31,10 @@ const ImportUpload = (props: any) => {
     const types = values.map((value) => {
       if (value !== undefined && value !== null) {
         const valueLower = value.toString().toLowerCase();
-        if (valueLower === 'true' || valueLower === '1' || valueLower === 'yes') {
+        if (valueLower === 'true' || valueLower === 'yes') {
           return 'boolean';
         }
-        if (valueLower === 'false' || valueLower === '0' || valueLower === 'no') {
+        if (valueLower === 'false' || valueLower === 'no') {
           return 'boolean';
         }
       }
@@ -53,7 +53,6 @@ const ImportUpload = (props: any) => {
       acc[type] = (acc[type] || 0) + 1;
       return acc;
     }, {});
-
     const uniqueTypes = Object.keys(typeCount);
 
     if (uniqueTypes.length > 1) {
@@ -118,11 +117,10 @@ const ImportUpload = (props: any) => {
           switch (type) {
             case 'boolean': {
               const valueLower = value.toString().toLowerCase();
-              if (valueLower === 'true' || valueLower === '1' || valueLower === 'yes') return true;
-              if (valueLower === 'false' || valueLower === '0' || valueLower === 'no') return false;
+              if (valueLower === 'true' || valueLower === 'yes') return true;
+              if (valueLower === 'false' || valueLower === 'no') return false;
               throw new Error('Invalid boolean');
             }
-
             case 'integer':
               if (!/^-?\d+$/.test(value)) throw new Error('Invalid integer');
               return parseInt(value, 10);
@@ -139,7 +137,10 @@ const ImportUpload = (props: any) => {
               return new Date(value);
 
             default:
-              return value;
+              if (value === null || value === undefined || value === '') {
+                return '';
+              }
+              return value.toString();
           }
         } catch (error) {
           throw new Error(`Type conversion error: ${error.message}`);
@@ -180,6 +181,14 @@ const ImportUpload = (props: any) => {
       setFile(newFileList);
     },
     beforeUpload: (file) => {
+      const isExcel =
+        file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+        file.name.endsWith('.xlsx') ||
+        file.name.endsWith('.xls');
+      if (!isExcel) {
+        message.error(t('You can only upload Excel files!'));
+        return Upload.LIST_IGNORE;
+      }
       handleFileUpload(file);
       setFile([file]);
       return false;

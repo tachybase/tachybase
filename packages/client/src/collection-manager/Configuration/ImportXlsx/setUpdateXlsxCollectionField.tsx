@@ -2,6 +2,7 @@ import { useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { cloneDeep } from 'lodash';
+import { useTranslation } from 'react-i18next';
 
 import { useActionContext } from '../../../schema-component';
 import { useFormValueContext } from './xlsxFormValueContextProvider';
@@ -12,12 +13,13 @@ export const setUpdateXlsxCollectionField = () => {
   const ctx = useActionContext();
 
   const handleFieldChange = (index: number, updatedField: any) => {
+    const { t } = useTranslation();
     const updatedFieldData = [...value];
     if (updatedField.primaryKey) {
       const existingPrimaryKey = updatedFieldData.find((field, i) => field.primaryKey === true && i !== index);
 
       if (existingPrimaryKey) {
-        message.error(`已有主键字段: ${existingPrimaryKey.name}，请先取消其主键属性`);
+        message.error(t('existingPrimaryKeyError', { name: existingPrimaryKey.name }));
         return;
       }
     }
