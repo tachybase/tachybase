@@ -5,6 +5,9 @@
   "dependencies": {
     "koa-proxies": "^0.12.4"
   },
+  "devDependencies": {
+    "koa": "^2.15.3"
+  },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",

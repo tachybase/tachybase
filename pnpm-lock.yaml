@@ -4047,6 +4047,10 @@ importers:
       koa-proxies:
         specifier: ^0.12.4
         version: 0.12.4(koa@2.15.3)
+    devDependencies:
+      koa:
+        specifier: ^2.15.3
+        version: 2.15.3
 
   packages/plugin-otp:
     dependencies:

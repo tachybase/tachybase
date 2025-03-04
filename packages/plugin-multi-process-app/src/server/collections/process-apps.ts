@@ -10,9 +10,16 @@ export default defineCollection({
   updatedBy: true,
   fields: [
     {
-      type: 'uid',
-      name: 'name', //数据库的表名
+      name: 'id',
+      type: 'bigInt',
+      autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
+      interface: 'id',
+    },
+    {
+      type: 'boolean',
+      name: 'enabled',
     },
     {
       type: 'string',
@@ -25,11 +32,11 @@ export default defineCollection({
     },
     {
       type: 'string',
-      name: 'remote', //拉取远程仓库,为空表示使用本地仓库运行,支持xxx/pull/123这样的pr格式
+      name: 'remote',
     },
     {
       type: 'string',
-      name: 'host',
+      name: 'branch',
     },
     {
       type: 'number',
@@ -39,9 +46,11 @@ export default defineCollection({
       type: 'number',
       name: 'pid',
     },
-    // {
-    //   type: 'boolean',
-    //   name: 'close',
-    // },
+  ],
+  indexes: [
+    {
+      unique: true,
+      fields: ['database'],
+    },
   ],
 });
