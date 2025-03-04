@@ -247,6 +247,9 @@ export const parseFieldAndAssociations = async (ctx: Context, next: Next) => {
 
 // 针对多对多添加{ through: { attributes: [] } }
 function addBelongsToManyThrough(include, collectionName, db) {
+  if (!include) {
+    return;
+  }
   const collection = db.getCollection(collectionName);
   if (!collection) {
     return;
