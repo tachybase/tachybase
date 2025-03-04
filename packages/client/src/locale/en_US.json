@@ -786,6 +786,7 @@
   "The field value cannot be less than ": "The field value cannot be less than ",
   "The field value is not an integer number": "The field value is not an integer number",
   "The full address is": "The full address is",
+  "The key in Antd, such as 'ApiOutlined', ignoring case": "The key in Antd, such as 'ApiOutlined', ignoring case",
   "The {{type}} \"{{name}}\" may have been deleted. Please remove this {{blockType}}.": "The {{type}} \"{{name}}\" may have been deleted. Please remove this {{blockType}}.",
   "Then": "Then",
   "There are no fullscreen blocks available at the current location": "There are no fullscreen blocks available at the current location",
