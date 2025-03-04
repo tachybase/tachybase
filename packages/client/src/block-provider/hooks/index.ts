@@ -584,6 +584,7 @@ export const useResetBlockActionProps = () => {
 
       form.reset();
       actionField.data.loading = true;
+      let prevMergedFilter = {};
       try {
         // 收集 filter 的值
         await Promise.all(
@@ -600,8 +601,8 @@ export const useResetBlockActionProps = () => {
             const storedFilter = block.service.params?.[1]?.filters || {};
 
             delete storedFilter[uid];
-            const mergedFilter = mergeFilter([...Object.values(storedFilter), block.defaultFilter]);
-
+            const mergedFilter = mergeFilter([...Object.values(storedFilter), block.defaultFilter, prevMergedFilter]);
+            prevMergedFilter = mergedFilter;
             return block.doFilter(
               {
                 ...param,
