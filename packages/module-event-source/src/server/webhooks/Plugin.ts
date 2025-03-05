@@ -133,7 +133,7 @@ export class PluginWebhook extends Plugin {
     this.db.on(`${EVENT_SOURCE_COLLECTION}.afterUpdate`, async (model: EventSourceModel, options) => {
       const trigger = this.triggers.get(model.type);
       if (!trigger?.getRealTimeRefresh()) {
-        for (const key of ['enabled', 'type', 'options']) {
+        for (const key of ['enabled', 'type', 'options', 'code', 'workflowKey']) {
           if (model.changed(key)) {
             this.changed = true;
             break;
