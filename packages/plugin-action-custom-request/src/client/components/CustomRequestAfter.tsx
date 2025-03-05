@@ -26,7 +26,7 @@ const afterSuccessSchema: (t) => ISchema = (t) => {
       },
       downTitle: {
         title: '{{t("Setting Down Title")}}',
-        default: 'document.docx',
+        default: '{{ filename }}',
         'x-decorator': 'FormItem',
         'x-component': 'Input',
         'x-component-props': {},
@@ -44,14 +44,14 @@ const afterSuccessSchema: (t) => ISchema = (t) => {
         'x-decorator': 'FormItem',
         'x-component': CustomResponseTemplate,
         'x-component-props': {},
-        'x-reactions': {
-          dependencies: ['down'],
-          fulfill: {
-            state: {
-              visible: '{{!$deps[0]}}',
-            },
-          },
-        },
+        // 'x-reactions': {
+        //   dependencies: ['down'],
+        //   fulfill: {
+        //     state: {
+        //       visible: '{{!$deps[0]}}',
+        //     },
+        //   },
+        // },
       },
       popupClose: {
         title: '{{t("Popup close method")}}',

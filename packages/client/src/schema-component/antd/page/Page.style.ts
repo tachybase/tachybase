@@ -35,5 +35,29 @@ export const useStyles = createStyles(({ css, token }) => {
         align-self: flex-end;
       }
     `,
+
+    tabItemClass: css`
+      position: relative;
+      &:hover {
+        .tab-designer-wrapper {
+          display: block;
+        }
+      }
+      .tab-designer-wrapper {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0 2px;
+        border-radius: 3px;
+        color: #000000;
+        background-color: #ffffff;
+
+        &:hover {
+          color: #ffffff;
+          background-color: var(--colorSettings);
+        }
+      }
+    `,
   };
 });

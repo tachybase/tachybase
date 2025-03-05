@@ -47,7 +47,7 @@ export const InternalRadioGroup: ComposedCheckbox = connect((props: any) => {
       {...props}
       onChange={(value) => {
         if (value.target.value !== 'null') {
-          props.onChange(value)();
+          props.onChange(value);
         } else {
           field['value'] = undefined;
         }

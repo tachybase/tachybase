@@ -16,6 +16,25 @@ import { useNavigate } from 'react-router-dom';
 
 import { useTranslation } from '../locale';
 
+// 从header提取下载文件名
+function getFilenameFromHeader(header) {
+  if (!header) return null;
+
+  // 匹配 filename="example.txt"
+  let match = header.match(/filename="([^"]+)"/i);
+  if (match) {
+    return match[1];
+  }
+
+  // 匹配 filename*=UTF-8''example%20file.txt
+  match = header.match(/filename\*=UTF-8''(.+)/i);
+  if (match) {
+    return decodeURIComponent(match[1]); // 解码 URL 编码的文件名
+  }
+
+  return null;
+}
+
 export const useCustomizeRequestActionProps = () => {
   const apiClient = useAPIClient();
   const navigate = useNavigate();
@@ -63,10 +82,11 @@ export const useCustomizeRequestActionProps = () => {
           },
         })) as any;
         const headerContentType = res.headers.getContentType();
+        let filename = getFilenameFromHeader(res.headers['content-disposition']);
         if (onSuccess?.down) {
           if (headerContentType === 'application/octet-stream') {
             const downTitle = onSuccess.downTitle;
-            saveAs(res.data, downTitle);
+            saveAs(res.data, parse(downTitle)({ filename: filename || '' }));
           } else {
             message.error(t('The current return type is not a document type'));
           }
@@ -80,7 +100,7 @@ export const useCustomizeRequestActionProps = () => {
           setVisible?.(false);
         }
         if (onSuccess?.successMessage) {
-          let messageStr = parse(onSuccess?.successMessage)({ res });
+          let messageStr = parse(onSuccess?.successMessage)({ res, filename });
           if (typeof messageStr !== 'string') {
             messageStr = JSON.stringify(messageStr);
           }
