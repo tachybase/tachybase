@@ -1,5 +1,4 @@
 import EventEmitter from 'node:events';
-import Database from '@tachybase/database';
 import { Action } from '@tachybase/resourcer';
 import { assign, getCurrentStacks, parseFilter, Toposort, ToposortOptions } from '@tachybase/utils';
 

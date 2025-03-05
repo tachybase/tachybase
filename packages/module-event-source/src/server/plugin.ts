@@ -12,7 +12,8 @@ export class ModuleEventSourceServer extends Plugin {
     this.addFeature(PluginWebhook);
   }
 
-  load() {
+  async load() {
+    // 给customEventSources添加权限
     this.app.acl.registerSnippet({
       name: 'pm.business-components.custom-event-source',
       actions: ['customEventSources:*'],
