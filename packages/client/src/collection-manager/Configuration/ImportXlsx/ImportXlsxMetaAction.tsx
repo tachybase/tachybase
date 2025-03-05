@@ -3,6 +3,7 @@ import { uid } from '@tachybase/schema';
 
 import { InboxOutlined } from '@ant-design/icons';
 import { App, Button, Drawer, message, Spin, Upload, UploadFile, UploadProps } from 'antd';
+import dayjs from 'dayjs';
 import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 import * as XLSX from 'xlsx';
@@ -27,7 +28,7 @@ const ImportUpload = (props: any) => {
 
   const inferType = (values, header) => {
     const isDateHeader = /date|time|日期/i.test(header);
-    const isPossibleDate = isDateHeader && values.every((value) => !isNaN(Date.parse(value)));
+    const isPossibleDate = isDateHeader && values.every((value) => dayjs(value).isValid());
     if (isPossibleDate) {
       return 'date';
     }
@@ -76,7 +77,7 @@ const ImportUpload = (props: any) => {
       case 'integer':
         return 'integer';
       case 'float':
-        return 'float';
+        return 'number';
       case 'date':
         return 'datetime';
       default:
@@ -89,15 +90,12 @@ const ImportUpload = (props: any) => {
     reader.onload = async (e) => {
       const binaryStr = e.target.result; // 获取文件内容
       const workbook = XLSX.read(binaryStr, { type: 'binary' }); // 解析工作簿
-
       const firstSheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[firstSheetName];
-
       const jsonData: Array<any[]> = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
       if (jsonData.length === 0) return;
       const headers = jsonData[0];
       const rows = jsonData.slice(1);
-
       const fields = await Promise.all(
         headers.map(async (header, index) => {
           const columnValues = rows.map((row) => row[index]);

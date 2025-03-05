@@ -50,7 +50,7 @@ export const xlsxFieldsConfigure = observer(
         boolean: 'checkbox',
         string: 'input',
         integer: 'integer',
-        float: 'float',
+        float: 'number',
         date: 'datetime',
       };
       updatedField.interface = (await typeToInterface[type]) || null;
@@ -291,6 +291,7 @@ export const xlsxFieldsConfigure = observer(
       form.setValuesIn('fields', formValue);
 
       form.setValuesIn('collectionData', filedata.data);
+      console.log('%c Line:294 🍔 filedata.data', 'font-size:18px;color:#42b983;background:#3f7cff', filedata.data);
     }, [formValue]);
 
     return (
