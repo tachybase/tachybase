@@ -74,6 +74,11 @@ export class PluginWebhook extends Plugin {
 
     await this.db.sync();
     await this.loadEventSources();
+
+    this.app.acl.registerSnippet({
+      name: 'pm.business-components.event-source',
+      actions: ['webhooks:*'],
+    });
   }
 
   async loadEventSources() {
