@@ -84,10 +84,10 @@ export async function getChanged(ctx, filterByTk): Promise<{ changed?: string[];
     if (!filterByTk) {
       filterByTk = params.filterByTk;
     }
-    const repo = ctx.db.getRepository(ctx.action.resourceName);
     const fieldsObj: Record<string, IField> = {};
     const app = ctx.app as Application;
     const collection = app.mainDataSource.collectionManager.getCollection(ctx.action.resourceName);
+    const repo = ctx.db.getRepository(collection.name);
     const fields = collection.getFields();
     for (const field of fields) {
       fieldsObj[field.options.name] = field;
