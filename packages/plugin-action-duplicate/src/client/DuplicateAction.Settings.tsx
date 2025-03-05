@@ -318,68 +318,57 @@ function DuplicationMode() {
 
 const schemaSettingsItems: SchemaSettingsItemType[] = [
   {
-    type: 'subMenu',
-    name: 'Customize',
-    children: [
-      {
-        name: 'editButton',
-        Component: ActionDesigner.ButtonEditor,
-        useComponentProps() {
-          const { buttonEditorProps } = useSchemaToolbar();
-          return buttonEditorProps;
-        },
-      },
-      {
-        name: 'linkageRules',
-        Component: SchemaSettingsLinkageRules,
-        useComponentProps() {
-          const { name } = useCollection_deprecated();
-          const { linkageRulesProps } = useSchemaToolbar();
-          return {
-            ...linkageRulesProps,
-            collectionName: name,
-          };
-        },
-      },
-      {
-        name: 'duplicationMode',
-        Component: DuplicationMode,
-        useVisible() {
-          const fieldSchema = useFieldSchema();
-          const isDuplicateAction = fieldSchema['x-action'] === 'duplicate';
-          return isDuplicateAction;
-        },
-      },
-      {
-        name: 'openMode',
-        Component: SchemaSettingOpenModeSchemaItems,
-        useComponentProps() {
-          const fieldSchema = useFieldSchema();
-          const isPopupAction = [
-            'create',
-            'update',
-            'view',
-            'customize:popup',
-            'duplicate',
-            'customize:create',
-          ].includes(fieldSchema['x-action'] || '');
+    name: 'editButton',
+    Component: ActionDesigner.ButtonEditor,
+    useComponentProps() {
+      const { buttonEditorProps } = useSchemaToolbar();
+      return buttonEditorProps;
+    },
+  },
+  {
+    name: 'linkageRules',
+    Component: SchemaSettingsLinkageRules,
+    useComponentProps() {
+      const { name } = useCollection_deprecated();
+      const { linkageRulesProps } = useSchemaToolbar();
+      return {
+        ...linkageRulesProps,
+        collectionName: name,
+      };
+    },
+  },
+  {
+    name: 'duplicationMode',
+    Component: DuplicationMode,
+    useVisible() {
+      const fieldSchema = useFieldSchema();
+      const isDuplicateAction = fieldSchema['x-action'] === 'duplicate';
+      return isDuplicateAction;
+    },
+  },
+  {
+    name: 'openMode',
+    Component: SchemaSettingOpenModeSchemaItems,
+    useComponentProps() {
+      const fieldSchema = useFieldSchema();
+      const isPopupAction = ['create', 'update', 'view', 'customize:popup', 'duplicate', 'customize:create'].includes(
+        fieldSchema['x-action'] || '',
+      );
 
-          return {
-            openMode: isPopupAction,
-            openSize: isPopupAction,
-          };
-        },
-      },
-      {
-        name: 'remove',
-        sort: 100,
-        Component: ActionDesigner.RemoveButton as any,
-        useComponentProps() {
-          const { removeButtonProps } = useSchemaToolbar();
-          return removeButtonProps;
-        },
-      },
-    ],
+      return {
+        openMode: isPopupAction,
+        openSize: isPopupAction,
+      };
+    },
+  },
+  {
+    name: 'remove',
+    sort: 100,
+    Component: ActionDesigner.RemoveButton as any,
+    useComponentProps() {
+      const { removeButtonProps } = useSchemaToolbar();
+      return removeButtonProps;
+    },
   },
 ];
 
