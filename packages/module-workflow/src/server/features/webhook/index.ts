@@ -1,1 +1,0 @@
-export { PluginWebhook } from './Plugin';

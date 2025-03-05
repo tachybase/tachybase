@@ -90,10 +90,10 @@ export function getChanged(ctx: Context): () => Promise<{ changed?: string[]; da
     try {
       const params = lodash.cloneDeep(ctx.action.params) as ActionParams;
       // const changedKeys = new Set(Object.keys(params.values));
-      const repo = ctx.db.getRepository(ctx.action.resourceName);
       const fieldsObj: Record<string, IField> = {};
       const app = ctx.app as Application;
       const c = app.mainDataSource.collectionManager.getCollection(ctx.action.resourceName);
+      const collectionRepo = ctx.db.getRepository(c.name);
       const fields = c.getFields();
       for (const field of fields) {
         fieldsObj[field.options.name] = field;
@@ -114,7 +114,7 @@ export function getChanged(ctx: Context): () => Promise<{ changed?: string[]; da
         }
       }
       let dataBefore = (
-        await repo.findOne({
+        await collectionRepo.findOne({
           filter: {
             id: params.filterByTk,
           },
@@ -134,7 +134,7 @@ export function getChanged(ctx: Context): () => Promise<{ changed?: string[]; da
       }
 
       dataBefore = (
-        await repo.findOne({
+        await collectionRepo.findOne({
           filter: {
             id: params.filterByTk,
           },
