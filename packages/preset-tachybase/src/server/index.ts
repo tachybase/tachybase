@@ -22,6 +22,7 @@ export class PresetTachyBase extends Plugin {
     'web',
     'worker-thread',
     'workflow',
+    'env-secrets',
   ];
 
   get builtInPlugins() {
@@ -49,7 +50,6 @@ export class PresetTachyBase extends Plugin {
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
     ['full-text-search', '0.23.24', true],
-    ['env-secrets', '0.23.45', true],
     // default disable
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],

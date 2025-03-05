@@ -13,14 +13,14 @@ export class PluginApiLogsServer extends Plugin {
   apiFilter: ApiFilter = null;
 
   async addApiListener() {
-    this.apiFilter = new ApiFilter(this.db);
     this.app.on('afterStart', async () => {
+      this.apiFilter = new ApiFilter(this.db);
       await this.apiFilter.load();
     });
     this.app.resourcer.use(
       async (ctx: Context, next) => {
         const { actionName, resourceName, params } = ctx.action;
-        if (!this.apiFilter.check(resourceName, actionName)) {
+        if (!this.apiFilter?.check(resourceName, actionName)) {
           return next();
         }
         if (actionName === 'update') {
