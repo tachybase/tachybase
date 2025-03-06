@@ -35,7 +35,7 @@ export function useCreateSubmit() {
             data: from.values,
             status: typeof args?.approvalStatus !== 'undefined' ? args?.approvalStatus : status,
             workflowId: isResubmit ? workflow.id : workflowId,
-            workflowKey: workflow.key,
+            workflowKey: isResubmit ? workflow.key : undefined, // 普通的创建,并不需要 key, 也拿不到 key
           },
         });
         if (res.status === 200) {
