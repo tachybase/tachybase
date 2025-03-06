@@ -101,5 +101,15 @@ export const SignInForm = (props: { authenticator: Authenticator }) => {
   const useBasicSignIn = () => {
     return useSignIn(name);
   };
-  return <SchemaComponent schema={passwordForm} scope={{ useBasicSignIn, allowSignUp, signUpLink, t }} />;
+  return (
+    <SchemaComponent
+      schema={passwordForm}
+      scope={{
+        useBasicSignIn,
+        allowSignUp,
+        signUpLink,
+        t,
+      }}
+    />
+  );
 };

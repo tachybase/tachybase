@@ -1,10 +1,12 @@
 import { Plugin } from '@tachybase/client';
 
-import { CustomAuthLayout } from './AuthLayout';
+import { CustomAuthLayout } from './components/CustomAuthLayout';
 
 export class PluginAuthPagesClient extends Plugin {
   async afterLoad() {
-    this.app.addComponents({ AuthLayout: CustomAuthLayout });
+    this.app.addComponents({
+      AuthLayout: CustomAuthLayout,
+    });
   }
 }
 
