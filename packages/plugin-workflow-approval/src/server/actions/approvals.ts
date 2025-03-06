@@ -9,7 +9,7 @@ import { getSummary } from '../tools';
 
 export const approvals = {
   async create(context, next) {
-    const { status, collectionName, data, workflowKey } = context.action.params.values ?? {};
+    const { status, collectionName, data, workflowId, workflowKey } = context.action.params.values ?? {};
     const [dataSourceName, cName] = parseCollectionName(collectionName);
     const dataSource = context.app.dataSourceManager.dataSources.get(dataSourceName);
     if (!dataSource) {
@@ -19,12 +19,21 @@ export const approvals = {
     if (!collection) {
       return context.throw(400, `Collection "${cName}" not found`);
     }
-    const workflow = await context.db.getRepository('workflows').findOne({
-      filter: {
-        key: workflowKey,
-        enabled: true,
-      },
-    });
+
+    // 如果能拿到 key, 说明是复制操作, 否则是新建操作;
+    let workflow;
+    if (workflowKey) {
+      workflow = await context.db.getRepository('workflows').findOne({
+        filter: {
+          key: workflowKey,
+          enabled: true,
+        },
+      });
+    } else {
+      workflow = await context.db.getRepository('workflows').findOne({
+        filterByTk: workflowId,
+      });
+    }
 
     /**
      * THINK:
