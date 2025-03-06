@@ -441,18 +441,44 @@ export function WorkflowConfig() {
   const buttonAction = fieldSchema['x-action'];
 
   const description = {
-    submit: t('Workflow will be triggered before or after submitting succeeded based on workflow type.', {
+    submit: t('Workflow will be triggered before or after submitting succeeded.', {
       ns: 'workflow',
     }),
-    'customize:save': t('Workflow will be triggered before or after submitting succeeded based on workflow type.', {
+    'customize:save': t('Workflow will be triggered before or after submitting succeeded.', {
       ns: 'workflow',
     }),
     'customize:triggerWorkflows': t(
       'Workflow will be triggered directly once the button clicked, without data saving.',
       { ns: 'workflow' },
     ),
-    destroy: t('Workflow will be triggered before deleting succeeded.', { ns: 'workflow' }),
+    destroy: t('Workflow will be triggered before or after submitting succeeded.', { ns: 'workflow' }),
   }[fieldSchema?.['x-action']];
+
+  let orderColumn = {};
+  // 暂定删除也可以指定顺序
+  if (['submit', 'customize:save', 'destroy'].includes(fieldSchema?.['x-action'])) {
+    orderColumn = {
+      order: {
+        type: 'void',
+        'x-component': 'ArrayTable.Column',
+        'x-component-props': {
+          title: t('Sequentially', { ns: 'workflow' }),
+        },
+        properties: {
+          order: {
+            type: 'string',
+            'x-decorator': 'FormItem',
+            'x-component': 'Select',
+            default: 'after',
+            enum: [
+              { label: t('After'), value: 'after' },
+              { label: t('Before'), value: 'before' },
+            ],
+          },
+        },
+      },
+    };
+  }
 
   return (
     <SchemaSettingsActionModalItem
@@ -541,6 +567,7 @@ export function WorkflowConfig() {
                       },
                     },
                   },
+                  ...orderColumn,
                   operations: {
                     type: 'void',
                     'x-component': 'ArrayTable.Column',

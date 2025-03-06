@@ -268,6 +268,24 @@ const useJumpDetails = () => {
   };
 };
 
+export function getAfterWorkflows(triggerWorkflows: any[]): string | undefined {
+  if (!triggerWorkflows?.length) {
+    return undefined;
+  }
+  return triggerWorkflows
+    .map((row) => [row.workflowKey, row.context].filter((row) => row && row.order !== 'before').join('!'))
+    .join(',');
+}
+
+export function getBeforeWorkflows(triggerWorkflows: any[]): string | undefined {
+  if (!triggerWorkflows?.length) {
+    return undefined;
+  }
+  return triggerWorkflows
+    .map((row) => [row.workflowKey, row.context].filter((row) => row && row.order === 'before').join('!'))
+    .join(',');
+}
+
 export const useCreateActionProps = () => {
   const record = useCollectionRecord();
   const form = useForm();
@@ -298,9 +316,8 @@ export const useCreateActionProps = () => {
           values: await collectValues(),
           filterKeys: filterKeys,
           // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
           updateAssociationValues,
         });
         actionField.data.loading = false;
@@ -433,9 +450,8 @@ export const useAssociationCreateActionProps = () => {
           },
           filterKeys: filterKeys,
           // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         });
         actionField.data.loading = false;
         actionField.data.data = data;
@@ -670,9 +686,8 @@ export const useCustomizeUpdateActionProps = () => {
         filterByTk,
         values: { ...assignedValues },
         // TODO(refactor): should change to inject by plugin
-        triggerWorkflows: triggerWorkflows?.length
-          ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-          : undefined,
+        triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+        beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
       });
       service?.refresh?.();
       if (!(resource instanceof TableFieldResource)) {
@@ -892,9 +907,8 @@ export const useUpdateActionProps = () => {
           ...data,
           updateAssociationValues,
           // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         });
         actionField.data.loading = false;
         __parent?.service?.refresh?.();
@@ -945,9 +959,8 @@ export const useDestroyActionProps = () => {
       await resource.destroy({
         filterByTk,
         // TODO(refactor): should change to inject by plugin
-        triggerWorkflows: triggerWorkflows?.length
-          ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-          : undefined,
+        triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+        beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         ...data,
       });
 

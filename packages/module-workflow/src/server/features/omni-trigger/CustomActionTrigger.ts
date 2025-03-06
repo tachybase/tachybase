@@ -148,8 +148,12 @@ export class OmniTrigger extends Trigger {
     const {
       resourceName,
       actionName,
-      params: { triggerWorkflows },
+      params: { triggerWorkflows, beforeWorkflows },
     } = context.action;
+
+    if (beforeWorkflows) {
+      this.trigger(context, beforeWorkflows);
+    }
 
     if (resourceName === 'workflows' && actionName === 'trigger') {
       return this.triggerAction(context, next);
@@ -166,11 +170,14 @@ export class OmniTrigger extends Trigger {
     }
 
     // TODO: 此处如果执行错误应该怎么办
-    return this.trigger(context);
+    return this.trigger(context, triggerWorkflows);
   };
 
-  private async trigger(context: Context) {
-    const { triggerWorkflows = '', values } = context.action.params;
+  private async trigger(context: Context, workflowList: string) {
+    if (!workflowList) {
+      return;
+    }
+    const { values } = context.action.params;
     const dataSourceHeader = context.get('x-data-source') || 'main';
 
     const { currentUser, currentRole } = context.state;
@@ -180,7 +187,7 @@ export class OmniTrigger extends Trigger {
       roleName: currentRole,
     };
 
-    const triggers = triggerWorkflows.split(',').map((trigger) => trigger.split('!'));
+    const triggers = workflowList.split(',').map((trigger) => trigger.split('!'));
     const workflowRepo = this.workflow.db.getRepository('workflows');
     const workflows = (
       await workflowRepo.find({
