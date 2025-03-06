@@ -271,7 +271,7 @@ export class PluginMultiAppManager extends Plugin {
           ctx.logger.error(error);
         }
       },
-      { tag: 'error-handling' },
+      { tag: 'error-handling', after: 'dataWrapping' },
     );
 
     for (const [key, action] of Object.entries(actions)) {
