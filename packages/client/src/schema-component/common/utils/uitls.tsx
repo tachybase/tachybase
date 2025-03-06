@@ -1,8 +1,11 @@
+import { dayjs, getPickerFormat } from '@tachybase/utils/client';
+
 import _, { every, findIndex, some } from 'lodash';
 
 import { VariableOption, VariablesContextType } from '../../../variables/types';
 import { isVariable } from '../../../variables/utils/isVariable';
 import { transformVariableValue } from '../../../variables/utils/transformVariableValue';
+import { inferPickerType } from '../../antd/date-picker/util';
 import { getJsonLogic } from '../../common/utils/logic';
 
 type VariablesCtx = {
@@ -70,10 +73,16 @@ export const conditionAnalyses = async ({
   ruleGroup,
   variables,
   localVariables,
+  variableNameOfLeftCondition,
 }: {
   ruleGroup;
   variables: VariablesContextType;
   localVariables: VariableOption[];
+  /**
+   * used to parse the variable name of the left condition value
+   * @default '$nForm'
+   */
+  variableNameOfLeftCondition?: string;
 }) => {
   const type = Object.keys(ruleGroup)[0] || '$and';
   const conditions = ruleGroup[type];
@@ -93,7 +102,7 @@ export const conditionAnalyses = async ({
     }
 
     const targetFieldArr = getTargetField(condition);
-    const targetVariableName = targetFieldToVariableString(targetFieldArr);
+    const targetVariableName = targetFieldToVariableString(targetFieldArr, variableNameOfLeftCondition);
 
     /**
      * NOTE: 因为联动规则, 添加的时候, 请求数据已经加入了相应的关联字段,
@@ -105,11 +114,22 @@ export const conditionAnalyses = async ({
 
       const targetCollectionField = await variables.getCollectionField(targetVariableName, localVariables);
 
+      let currentInputValue = transformVariableValue(targetValue, { targetCollectionField });
+      const comparisonValue = transformVariableValue(jsonlogic.value, { targetCollectionField });
+      if (
+        targetCollectionField?.type &&
+        ['datetime', 'date', 'dateOnly', 'datetimeNoTz', 'dateOnly', 'unixTimestamp'].includes(
+          targetCollectionField.type,
+        ) &&
+        currentInputValue
+      ) {
+        const picker = inferPickerType(comparisonValue);
+        const format = getPickerFormat(picker);
+        currentInputValue = dayjs(currentInputValue).format(format);
+      }
+
       const result = getJsonLogic().apply({
-        [operator]: [
-          transformVariableValue(targetValue, { targetCollectionField }),
-          transformVariableValue(jsonlogic.value, { targetCollectionField }),
-        ],
+        [operator]: [currentInputValue, comparisonValue],
       });
 
       results.push(result);
@@ -154,7 +174,7 @@ export const conditionAnalyses = async ({
  * @param targetField
  * @returns
  */
-export function targetFieldToVariableString(targetField: string[]) {
+function targetFieldToVariableString(targetField: string[], variableName = '$nForm') {
   // Action 中的联动规则虽然没有 form 上下文但是在这里也使用的是 `$nForm` 变量，这样实现更简单
-  return `{{ $nForm.${targetField.join('.')} }}`;
+  return `{{ ${variableName}.${targetField.join('.')} }}`;
 }

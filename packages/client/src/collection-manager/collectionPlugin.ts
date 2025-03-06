@@ -9,6 +9,7 @@ import {
   ColorFieldInterface,
   CreatedAtFieldInterface,
   CreatedByFieldInterface,
+  DateFieldInterface,
   DatetimeFieldInterface,
   EmailFieldInterface,
   IconFieldInterface,
@@ -162,6 +163,7 @@ export class CollectionPlugin extends Plugin {
       UUIDFieldInterface,
       NanoidFieldInterface,
       UnixTimestampFieldInterface,
+      DateFieldInterface,
     ]);
   }
 
