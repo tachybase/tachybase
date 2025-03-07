@@ -10,12 +10,14 @@ class PluginWorkflowAnalysisClient extends Plugin {
       icon: 'FileSearchOutlined',
       Component: ExecutionsProvider,
       sort: 99,
+      aclSnippet: 'pm.business-components.executionanalysis',
     });
     this.app.systemSettingsManager.add('business-components.jobanalysis', {
       title: `{{t("Jobs analysis", { ns: "${NAMESPACE}" })}}`,
       icon: 'FileSearchOutlined',
       Component: JobsProvider,
       sort: 100,
+      aclSnippet: 'pm.business-components.jobanalysis',
     });
   }
 }

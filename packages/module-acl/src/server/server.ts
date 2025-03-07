@@ -724,6 +724,22 @@ export class PluginACL extends Plugin {
       },
       { after: 'restApi', group: 'after' },
     );
+
+    this.db.on('afterUpdateCollection', async (collection) => {
+      if (collection.options.loadedFromCollectionManager || collection.options.asStrategyResource) {
+        this.app.acl.appendStrategyResource(collection.name);
+      }
+    });
+
+    this.db.on('afterDefineCollection', async (collection) => {
+      if (collection.options.loadedFromCollectionManager || collection.options.asStrategyResource) {
+        this.app.acl.appendStrategyResource(collection.name);
+      }
+    });
+
+    this.db.on('afterRemoveCollection', (collection) => {
+      this.app.acl.removeStrategyResource(collection.name);
+    });
   }
 
   async install() {

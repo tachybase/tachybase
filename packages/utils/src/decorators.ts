@@ -6,7 +6,7 @@ export interface ActionDef {
   actionName?: string;
   method?: string;
   options?: {
-    acl?: string;
+    acl?: 'loggedIn' | 'public' | 'private';
   };
 }
 
@@ -43,7 +43,7 @@ export function Controller(name: string) {
 export function Action(
   name: string,
   options?: {
-    acl?: string;
+    acl?: 'loggedIn' | 'public' | 'private';
   },
 ) {
   return function (_: any, context: ClassMethodDecoratorContext) {
@@ -59,7 +59,7 @@ export function Action(
         type: 'action',
         method: String(context.name),
         actionName: name,
-        options,
+        options: options || { acl: 'private' },
       });
     });
   };

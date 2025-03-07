@@ -18,11 +18,13 @@ export class PluginSettingsHelper {
       title: tval('Third-party integration configuration'),
       icon: 'ShareAltOutlined',
       Component: Configuration,
+      aclSnippet: 'pm.system-services.hera.token',
     });
     this.app.systemSettingsManager.add('system-services.' + 'hera.linkmanage', {
       title: tval('Link manager'),
       icon: 'ShareAltOutlined',
       Component: LinkManager,
+      aclSnippet: 'pm.system-services.hera.linkmanage',
     });
   }
 }

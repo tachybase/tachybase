@@ -27,6 +27,15 @@ export class PluginCoreServer extends Plugin {
     });
   }
 
-  async load() {}
+  async load() {
+    this.app.acl.registerSnippet({
+      name: 'pm.system-services.hera.linkmanage',
+      actions: ['link-manage:*'],
+    });
+    this.app.acl.registerSnippet({
+      name: 'pm.system-services.hera.token',
+      actions: ['token-configuration:*'],
+    });
+  }
 }
 export default PluginCoreServer;

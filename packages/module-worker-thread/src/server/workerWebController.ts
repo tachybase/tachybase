@@ -8,7 +8,7 @@ import { WorkerWebInfo } from './workerTypes';
 
 @Controller('worker_thread')
 export class WorkerWebController {
-  @Action('info', { acl: 'blocked' })
+  @Action('info', { acl: 'private' })
   async info(ctx: Context, next: Next) {
     const app = ctx.app as Application;
     if (!app.worker) {
@@ -29,9 +29,10 @@ export class WorkerWebController {
         env,
       };
     }
+    return next();
   }
 
-  @Action('preset', { acl: 'blocked' })
+  @Action('preset', { acl: 'private' })
   async preset(ctx: Context, next: Next) {
     const { count } = ctx.action.params.values;
     if (count < 0) {
@@ -48,14 +49,16 @@ export class WorkerWebController {
     ctx.body = {
       success: true,
     };
+    return next();
   }
 
-  @Action('restartAllForcely', { acl: 'blocked' })
+  @Action('restartAllForcely', { acl: 'private' })
   async resetAllForcely(ctx: Context, next: Next) {
     const app = ctx.app as Application;
     await app.worker.restartAllForcely();
     ctx.body = {
       success: true,
     };
+    return next();
   }
 }

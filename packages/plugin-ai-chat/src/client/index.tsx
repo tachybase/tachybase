@@ -15,6 +15,7 @@ export class PluginAiChatClient extends Plugin {
       icon: 'SettingOutlined',
       title: lang('AIchat settings'),
       Component: AIchatSettingsPane,
+      aclSnippet: 'pm.system-services.ai-settings',
     });
     this.schemaSettingsManager.add(AIchatBlockSettings);
     this.app.addComponents({ AiChatBlock });

@@ -17,7 +17,12 @@ export class PluginCronJobServer extends Plugin {
     });
   }
 
-  async load() {}
+  async load() {
+    this.app.acl.registerSnippet({
+      name: 'pm.system-services.cron',
+      actions: ['cronJobs:*'],
+    });
+  }
 
   async install() {}
 

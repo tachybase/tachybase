@@ -5,7 +5,16 @@ export class PluginWorkflowAnalysisServer extends Plugin {
 
   async beforeLoad() {}
 
-  async load() {}
+  async load() {
+    this.app.acl.registerSnippet({
+      name: 'pm.business-components.executionanalysis',
+      actions: ['executions:list'],
+    });
+    this.app.acl.registerSnippet({
+      name: 'pm.business-components.jobanalysis',
+      actions: ['jobs:list'],
+    });
+  }
 
   async install() {}
 

@@ -73,6 +73,7 @@ export class ModuleWeb extends Plugin {
     this.app.localeManager.setLocaleFn('cron', async (lang) => getCronLocale(lang));
     this.app.acl.allow('app', 'getLang');
     this.app.acl.allow('app', 'getInfo');
+    // TODO: 此处应该删掉,但是不确定其他地方是否有用到
     this.app.acl.allow('plugins', '*', 'public');
     this.app.acl.registerSnippet({
       name: 'app',

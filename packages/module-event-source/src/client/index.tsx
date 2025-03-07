@@ -40,6 +40,7 @@ export class ModuleEventSourceClient extends Plugin {
       title: tval('Custom event source'),
       icon: 'trigger',
       Component: CustomEventSourcePane,
+      aclSnippet: 'pm.business-components.custom-event-source',
     });
 
     this.app.systemSettingsManager.add('business-components.event-source', {
@@ -47,6 +48,7 @@ export class ModuleEventSourceClient extends Plugin {
       icon: 'trigger',
       Component: WebhookManager,
       sort: -100,
+      aclSnippet: 'pm.business-components.event-source',
     });
   }
 }

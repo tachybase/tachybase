@@ -36,14 +36,14 @@ export class AIChatController {
     }
     await next();
   }
-  @Action('get', { acl: 'priviate' })
+  @Action('get', { acl: 'private' })
   async getAIsetting(ctx: Context, next: Next) {
     const repo = ctx.db.getRepository('aisettings');
     const data = await repo.findOne();
     ctx.body = data;
     await next();
   }
-  @Action('set', { acl: 'priviate' })
+  @Action('set', { acl: 'private' })
   async setAIsetting(ctx: Context, next: () => Promise<any>) {
     const repo = ctx.db.getRepository('aisettings');
     const values = ctx.action.params.values;

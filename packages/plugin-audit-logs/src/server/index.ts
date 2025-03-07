@@ -45,6 +45,9 @@ export default class PluginActionLogs extends Plugin {
         plugin: this,
       },
     });
+
+    this.app.acl.allow('auditLogs', ['list', 'get'], 'loggedIn');
+    this.app.acl.allow('auditChanges', ['get'], 'loggedIn');
   }
 
   async handleSyncMessage(message: Readonly<any>): Promise<void> {
