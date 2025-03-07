@@ -158,8 +158,11 @@ export default class ApprovalTrigger extends Trigger {
     const {
       resourceName,
       actionName,
-      params: { triggerWorkflows },
+      params: { triggerWorkflows, beforeWorkflows },
     } = context.action;
+    if (beforeWorkflows) {
+      this.collectionTriggerAction(context, beforeWorkflows);
+    }
     if (resourceName === 'workflows' && actionName === 'trigger') {
       return this.workflowTriggerAction(context, next);
     }
@@ -167,7 +170,7 @@ export default class ApprovalTrigger extends Trigger {
     if (!triggerWorkflows || !['create', 'update'].includes(actionName)) {
       return;
     }
-    this.collectionTriggerAction(context);
+    this.collectionTriggerAction(context, triggerWorkflows);
   };
   constructor(workflow) {
     super(workflow);
@@ -228,11 +231,10 @@ export default class ApprovalTrigger extends Trigger {
       });
     });
   }
-  async collectionTriggerAction(context) {
-    const { triggerWorkflows = '' } = context.action.params;
+  async collectionTriggerAction(context, workflowList) {
     const dataSourceHeader = context.get('x-data-source') || 'main';
     const approvalRepo = this.workflow.db.getRepository('approvals');
-    const triggers = triggerWorkflows.split(',').map((trigger) => trigger.split('!'));
+    const triggers = workflowList.split(',').map((trigger) => trigger.split('!'));
     const triggersKeysMap = new Map(triggers);
     const workflows = Array.from(this.workflow.enabledCache.values()).filter(
       (item) => item.type === ApprovalTrigger.TYPE && triggersKeysMap.has(item.key),

@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import {
+  getAfterWorkflows,
+  getBeforeWorkflows,
   isVariable,
   transformVariableValue,
   useBlockRequestContext,
@@ -137,22 +139,14 @@ export const usePropsAPIRegular = () => {
             if (isUpdateSelected) {
               await resource.trigger({
                 filterByTk: selectedRecordKeys,
-                triggerWorkflows:
-                  triggerWorkflows && triggerWorkflows.length > 0
-                    ? triggerWorkflows
-                        .map((workflow) => [workflow.workflowKey, workflow.context].filter(Boolean).join('!'))
-                        .join(',')
-                    : [],
+                triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+                beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
               });
             } else {
               await resource.trigger({
                 filter,
-                triggerWorkflows:
-                  triggerWorkflows && triggerWorkflows.length > 0
-                    ? triggerWorkflows
-                        .map((workflow) => [workflow.workflowKey, workflow.context].filter(Boolean).join('!'))
-                        .join(',')
-                    : [],
+                triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+                beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
               });
             }
           }

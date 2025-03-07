@@ -1,4 +1,6 @@
 import {
+  getAfterWorkflows,
+  getBeforeWorkflows,
   useActionContext,
   useAPIClient,
   useBlockRequestContext,
@@ -40,9 +42,8 @@ export function useTriggerWorkflowsActionProps() {
           values,
           filterKeys: filterKeys,
           // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         });
         actionField.data.loading = false;
         actionField.data.data = data;
@@ -96,9 +97,8 @@ export function useRecordTriggerWorkflowsActionProps() {
         await api.resource('workflows').trigger({
           values: record,
           // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         });
         __parent?.service?.refresh?.();
         setVisible?.(false);

@@ -32,7 +32,7 @@ export class OmniTrigger extends Trigger {
         ctx.status = err.status;
       },
     );
-    workflow.app.resourcer.use(this.middleware, { tag: 'workflowTrigger', after: 'dataSource' });
+    workflow.app.resourcer.use(this.middleware, { tag: 'workflowTrigger', after: 'acl' });
   }
   triggerAction = async (context, next) => {
     const {
@@ -148,8 +148,12 @@ export class OmniTrigger extends Trigger {
     const {
       resourceName,
       actionName,
-      params: { triggerWorkflows },
+      params: { triggerWorkflows, beforeWorkflows },
     } = context.action;
+
+    if (beforeWorkflows) {
+      await this.trigger(context, beforeWorkflows, 'before');
+    }
 
     if (resourceName === 'workflows' && actionName === 'trigger') {
       return this.triggerAction(context, next);
@@ -166,11 +170,14 @@ export class OmniTrigger extends Trigger {
     }
 
     // TODO: 此处如果执行错误应该怎么办
-    return this.trigger(context);
+    return this.trigger(context, triggerWorkflows);
   };
 
-  private async trigger(context: Context) {
-    const { triggerWorkflows = '', values } = context.action.params;
+  private async trigger(context: Context, workflowList: string, order: 'after' | 'before' = 'after') {
+    if (!workflowList) {
+      return;
+    }
+    const { values } = context.action.params;
     const dataSourceHeader = context.get('x-data-source') || 'main';
 
     const { currentUser, currentRole } = context.state;
@@ -180,7 +187,7 @@ export class OmniTrigger extends Trigger {
       roleName: currentRole,
     };
 
-    const triggers = triggerWorkflows.split(',').map((trigger) => trigger.split('!'));
+    const triggers = workflowList.split(',').map((trigger) => trigger.split('!'));
     const workflowRepo = this.workflow.db.getRepository('workflows');
     const workflows = (
       await workflowRepo.find({
@@ -200,6 +207,11 @@ export class OmniTrigger extends Trigger {
       const trigger = triggers.find((trigger) => trigger[0] === workflow.key);
       const event = [workflow];
       if (context.action.resourceName !== 'workflows') {
+        if (order === 'before') {
+          event.push({ data: context.action.params, ...userInfo });
+          (workflow.sync ? syncGroup : asyncGroup).push(event);
+          continue;
+        }
         if (!context.body) {
           continue;
         }
