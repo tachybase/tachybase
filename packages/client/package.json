@@ -46,7 +46,7 @@
     "i18next": "23.16.8",
     "i18next-http-backend": "^2.7.1",
     "lodash": "4.17.21",
-    "lru-cache": "8.0.5",
+    "lru-cache": "11.0.2",
     "markdown-it": "13.0.2",
     "mathjs": "^10.6.4",
     "mitt": "^3.0.1",
