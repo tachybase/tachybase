@@ -273,7 +273,8 @@ export function getAfterWorkflows(triggerWorkflows: any[]): string | undefined {
     return undefined;
   }
   return triggerWorkflows
-    .map((row) => [row.workflowKey, row.context].filter((row) => row && row.order !== 'before').join('!'))
+    .filter((row) => row && row.order !== 'before')
+    .map((row) => [row.workflowKey, row.context].join('!'))
     .join(',');
 }
 
@@ -282,7 +283,8 @@ export function getBeforeWorkflows(triggerWorkflows: any[]): string | undefined 
     return undefined;
   }
   return triggerWorkflows
-    .map((row) => [row.workflowKey, row.context].filter((row) => row && row.order === 'before').join('!'))
+    .filter((row) => row && row.order === 'before')
+    .map((row) => [row.workflowKey, row.context].join('!'))
     .join(',');
 }
 

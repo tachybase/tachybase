@@ -32,7 +32,7 @@ export class OmniTrigger extends Trigger {
         ctx.status = err.status;
       },
     );
-    workflow.app.resourcer.use(this.middleware, { tag: 'workflowTrigger', after: 'dataSource' });
+    workflow.app.resourcer.use(this.middleware, { tag: 'workflowTrigger', after: 'acl' });
   }
   triggerAction = async (context, next) => {
     const {
@@ -152,7 +152,7 @@ export class OmniTrigger extends Trigger {
     } = context.action;
 
     if (beforeWorkflows) {
-      this.trigger(context, beforeWorkflows);
+      await this.trigger(context, beforeWorkflows, 'before');
     }
 
     if (resourceName === 'workflows' && actionName === 'trigger') {
@@ -173,7 +173,7 @@ export class OmniTrigger extends Trigger {
     return this.trigger(context, triggerWorkflows);
   };
 
-  private async trigger(context: Context, workflowList: string) {
+  private async trigger(context: Context, workflowList: string, order: 'after' | 'before' = 'after') {
     if (!workflowList) {
       return;
     }
@@ -207,6 +207,11 @@ export class OmniTrigger extends Trigger {
       const trigger = triggers.find((trigger) => trigger[0] === workflow.key);
       const event = [workflow];
       if (context.action.resourceName !== 'workflows') {
+        if (order === 'before') {
+          event.push({ data: context.action.params, ...userInfo });
+          (workflow.sync ? syncGroup : asyncGroup).push(event);
+          continue;
+        }
         if (!context.body) {
           continue;
         }
