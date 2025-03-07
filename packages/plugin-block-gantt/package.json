@@ -14,7 +14,7 @@
   "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
-    "@ctrl/tinycolor": "^3.6.1",
+    "@ctrl/tinycolor": "^4.1.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "antd": "5.22.5",
