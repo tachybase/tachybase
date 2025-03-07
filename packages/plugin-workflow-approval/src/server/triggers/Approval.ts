@@ -32,7 +32,6 @@ export default class ApprovalTrigger extends Trigger {
     const currentApprovalStatus = approval.status;
     const forbiddenList = [
       [APPROVAL_STATUS.SUBMITTED, APPROVAL_STATUS.DRAFT], // 撤回情况
-      [undefined, APPROVAL_STATUS.DRAFT], // 保存草稿情况
     ];
     const isForbiddenWhenStatusChange = forbiddenList.some(
       ([prev, curr]) => prev === previousApprovalStatus && curr === currentApprovalStatus,

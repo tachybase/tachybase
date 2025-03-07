@@ -34,7 +34,6 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
     if (process.env.__E2E__) {
       useSetAriaLabelForModal(visible);
     }
-    console.log('%c Line:41 🍧 styles.container', 'font-size:18px;color:#e41a6a;background:#7f2b82', styles.container);
 
     return (
       <Modal
