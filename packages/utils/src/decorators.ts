@@ -6,7 +6,7 @@ export interface ActionDef {
   actionName?: string;
   method?: string;
   options?: {
-    acl?: string;
+    acl?: 'loggedIn' | 'public' | 'private';
   };
 }
 

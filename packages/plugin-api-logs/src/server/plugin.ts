@@ -45,7 +45,6 @@ export class PluginApiLogsServer extends Plugin {
       actions: ['apiLogsConfig:*'],
     });
     this.app.acl.allow('apiLogs', ['list', 'get'], 'loggedIn');
-    this.app.acl.allow('apiLogs', ['apiLogsChanges'], 'loggedIn');
   }
 }
 
