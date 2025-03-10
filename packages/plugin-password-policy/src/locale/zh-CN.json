@@ -1,0 +1,7 @@
+{
+  "Lockout duration (seconds)": "锁定时间(秒)",
+  "Max invalid password sign-in attempts": "登录尝试次数",
+  "Max invalid password sign-in attempts interval (seconds)": "登录尝试最长周期",
+  "Password policy": "密码策略",
+  "User has been locked": "用户已经锁定"
+}
