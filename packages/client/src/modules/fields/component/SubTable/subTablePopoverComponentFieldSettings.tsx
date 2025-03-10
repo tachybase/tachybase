@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ArrayItems } from '@tachybase/components';
+import { useEffect, useMemo, useState } from 'react';
+import { ArrayItems, Switch } from '@tachybase/components';
 import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
 
 import { Empty } from 'antd';
@@ -270,207 +270,174 @@ export const allowAddNewData = {
 
 export const clickToSelect = {
   name: 'clicktoselect',
-  type: 'subMenu',
+  type: 'modal',
   useVisible() {
     const readPretty = useIsFieldReadPretty();
     const isAssociationField = useIsAssociationField();
     return !readPretty && isAssociationField;
   },
   useComponentProps() {
+    const { t } = useTranslation();
+    const field = useField<Field>();
+    const fieldSchema = useFieldSchema();
+    const { dn, refresh } = useDesignable();
+    const compile = useCompile();
+    const cm = useCollectionManager();
+    const [firstLevelValue, setFirstLevelValue] = useState(
+      fieldSchema['x-component-props']['quickAddField']?.value || 'none',
+    );
+    const options = cm.getCollection(fieldSchema['x-collection-field']);
+    // const defVal = fieldSchema['x-component-props']['quickAddField']?.value || 'none';
+    const isAddNewForm = useIsAddNewForm();
+
+    const fieldTabsOptions = options.fields
+      .map((item) => {
+        if (item.interface === 'm2o' || item.interface === 'select') {
+          return {
+            ...item,
+            label: compile(item.uiSchema?.title),
+            value: item.name,
+          };
+        }
+      })
+      .filter(Boolean);
+
+    fieldTabsOptions.unshift({
+      label: 'none',
+      value: 'none',
+    });
+    const Parentoptions = cm.getCollectionFields(`${fieldSchema['x-collection-field']}.${firstLevelValue}`);
+    const fieldParentTabsOptions = Parentoptions.map((item) => {
+      if (item.interface === 'm2o')
+        return {
+          ...item,
+          label: compile(item.uiSchema.title),
+          value: item.name,
+        };
+    }).filter(Boolean);
+    fieldParentTabsOptions.unshift({
+      label: t('none'),
+      value: 'none',
+    });
+    console.log(
+      '%c Line:319 🥕 fieldParentTabsOptions',
+      'font-size:18px;color:#42b983;background:#93c0a4',
+      fieldParentTabsOptions,
+    );
+    const defParentVal = fieldSchema['x-component-props']?.['quickAddParentCollection']?.value || 'none';
+
+    const schema = useMemo<ISchema>(() => {
+      return {
+        type: 'object',
+        title: t('Edit description'),
+        properties: {
+          isquickaddtabs: {
+            title: t('启用快速添加'),
+            type: 'boolean',
+            default: fieldSchema['x-component-props']?.isQuickAdd || false,
+            'x-decorator': 'FormItem',
+            'x-component': 'Switch',
+            'x-component-props': {},
+          },
+          firstLevelselection: {
+            title: t('Set Quick Add Tabs'),
+            default: firstLevelValue,
+            'x-decorator': 'FormItem',
+            'x-component': 'Select',
+            enum: fieldTabsOptions,
+            'x-reactions': [
+              {
+                dependencies: ['isquickaddtabs'],
+                fulfill: {
+                  state: {
+                    visible: '{{$deps[0] === true}}',
+                  },
+                },
+              },
+            ],
+            'x-component-props': {
+              onChange(value) {
+                setFirstLevelValue(value);
+              },
+            },
+            'x-use-component-props': () => {
+              return {};
+            },
+          },
+          secondLevelselection: {
+            title: t('Set Quick Add Parent Tabs'),
+            default: defParentVal,
+            enum: fieldParentTabsOptions,
+            'x-decorator': 'FormItem',
+            'x-component': 'Select',
+            'x-component-props': {},
+            'x-reactions': [
+              {
+                dependencies: ['firstLevelselection', 'isquickaddtabs'],
+                fulfill: {
+                  state: {
+                    visible: '{{$deps[0] !== "none" && $deps[1] === true}}',
+                    enum: fieldParentTabsOptions,
+                  },
+                },
+              },
+            ],
+          },
+        },
+      };
+    }, [firstLevelValue, fieldParentTabsOptions]);
+
     return {
-      title: 'Click to select',
+      components: {
+        Switch,
+      },
+      title: t('Is Quick Add Tabs'),
+      schema,
+      onSubmit: async ({ isquickaddtabs, firstLevelselection, secondLevelselection }) => {
+        const schema = {
+          ['x-uid']: fieldSchema['x-uid'],
+        };
+        field.componentProps['isQuickAdd'] = isquickaddtabs;
+        fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+        fieldSchema['x-component-props']['isQuickAdd'] = isquickaddtabs;
+        schema['x-component-props'] = fieldSchema['x-component-props'];
+        fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+        fieldSchema['x-component-props']['quickAddField'] = {
+          fieldInterface: fieldTabsOptions.find((item) => item.value === firstLevelselection)?.['interface'] || 'none',
+          value: firstLevelselection,
+        };
+        schema['x-component-props'] = fieldSchema['x-component-props'];
+        field.componentProps = field.componentProps || {};
+        field.componentProps['quickAddField'] = fieldSchema['x-component-props']['quickAddField'];
+
+        fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+        fieldSchema['x-component-props']['quickAddParentCollection'] = {
+          collectionField: `${fieldSchema['x-collection-field']}.${firstLevelValue}.${secondLevelselection}`,
+          value: secondLevelselection,
+        };
+        schema['x-component-props'] = fieldSchema['x-component-props'];
+        field.componentProps = field.componentProps || {};
+        field.componentProps['quickAddParentCollection'] = {
+          collectionField: `${fieldSchema['x-collection-field']}.${firstLevelValue}.${secondLevelselection}`,
+          value: secondLevelselection,
+        };
+
+        // 子表单状态不允许设置默认值
+        if (isSubMode(fieldSchema) && isAddNewForm) {
+          // @ts-ignore
+          schema.default = null;
+          fieldSchema.default = null;
+          field.setInitialValue(null);
+          field.setValue(null);
+        }
+
+        void dn.emit('patch', {
+          schema,
+        });
+        refresh();
+        dn.refresh();
+      },
     };
-  },
-  useChildren() {
-    // const [selectedFirstLevel, setSelectedFirstLevel] = useState('none');
-    // const [selectedSecondLevel, setSelectedSecondLevel] = useState('none');
-    const children = [
-      {
-        name: 'none',
-        type: 'item',
-        useVisible() {
-          const readPretty = useIsFieldReadPretty();
-          const isAssociationField = useIsAssociationField();
-          return !readPretty && isAssociationField;
-        },
-        useComponentProps() {
-          const { t } = useTranslation();
-          const field = useField<Field>();
-          const fieldSchema = useFieldSchema();
-          const { dn, refresh } = useDesignable();
-          return {
-            title: 'none',
-            onClick() {
-              debugger;
-              const schema = {
-                ['x-uid']: fieldSchema['x-uid'],
-              };
-              field.componentProps['isQuickAdd'] = false;
-              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-              fieldSchema['x-component-props']['isQuickAdd'] = false;
-              // fieldSchema['x-component-props']['quickAddField'] = 'none';
-              // fieldSchema['x-component-props']['quickAddParentCollection'] = 'none';
-              // setSelectedFirstLevel('none');
-              // setSelectedSecondLevel('none');
-              schema['x-component-props'] = fieldSchema['x-component-props'];
-
-              dn.emit('patch', {
-                schema,
-              });
-              refresh();
-            },
-          };
-        },
-      },
-      {
-        name: 'first-levelselection',
-        type: 'select',
-        useComponentProps() {
-          const { t } = useTranslation();
-          const field = useField<Field>();
-          const compile = useCompile();
-          const fieldSchema = useFieldSchema();
-          const cm = useCollectionManager();
-          const options = cm.getCollection(fieldSchema['x-collection-field']);
-          const defVal = fieldSchema['x-component-props']['quickAddField'] || 'none';
-          const { dn, refresh } = useDesignable();
-          const isAddNewForm = useIsAddNewForm();
-          const fieldTabsOptions = options.fields
-            .map((item) => {
-              if (item.interface === 'm2o' || item.interface === 'select') {
-                return {
-                  ...item,
-                  label: compile(item.uiSchema?.title),
-                  value: item.name,
-                };
-              }
-            })
-            .filter(Boolean);
-          fieldTabsOptions.unshift({
-            label: 'none',
-            value: 'none',
-          });
-          return {
-            title: t('First-level selection'),
-            options: fieldTabsOptions,
-            value: defVal,
-            onChange(mode) {
-              debugger;
-              const schema = {
-                ['x-uid']: fieldSchema['x-uid'],
-              };
-              if (mode === 'none') {
-              } else {
-                field.componentProps['isQuickAdd'] = true;
-                fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-                fieldSchema['x-component-props']['isQuickAdd'] = true;
-                schema['x-component-props'] = fieldSchema['x-component-props'];
-                refresh();
-              }
-
-              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-              fieldSchema['x-component-props']['quickAddField'] = {
-                fieldInterface: fieldTabsOptions.find((item) => item.value === mode)['interface'] || 'none',
-                value: mode,
-              };
-              schema['x-component-props'] = fieldSchema['x-component-props'];
-              field.componentProps = field.componentProps || {};
-              field.componentProps['quickAddField'] = fieldSchema['x-component-props']['quickAddField'];
-
-              // 子表单状态不允许设置默认值
-              if (isSubMode(fieldSchema) && isAddNewForm) {
-                // @ts-ignore
-                schema.default = null;
-                fieldSchema.default = null;
-                field.setInitialValue(null);
-                field.setValue(null);
-              }
-
-              void dn.emit('patch', {
-                schema,
-              });
-              dn.refresh();
-            },
-          };
-        },
-        // useVisible() {
-        //   const fieldSchema = useFieldSchema();
-        //   return fieldSchema['x-component-props']['isQuickAdd'];
-        // },
-      },
-      {
-        name: 'second-levelselection',
-        type: 'select',
-        useComponentProps() {
-          const { t } = useTranslation();
-          const field = useField<Field>();
-          const compile = useCompile();
-          const fieldSchema = useFieldSchema();
-          const cm = useCollectionManager();
-          const { value: quickField } = fieldSchema['x-component-props']?.['quickAddField'] || {};
-          const options = cm.getCollectionFields(`${fieldSchema['x-collection-field']}.${quickField}`);
-          const { dn, refresh } = useDesignable();
-          const isAddNewForm = useIsAddNewForm();
-          const fieldTabsOptions = options
-            .map((item) => {
-              if (item.interface === 'm2o')
-                return {
-                  ...item,
-                  label: compile(item.uiSchema.title),
-                  value: item.name,
-                };
-            })
-            .filter(Boolean);
-          fieldTabsOptions.unshift({
-            label: t('none'),
-            value: 'none',
-          });
-          const defValue = fieldSchema['x-component-props']?.['quickAddParentCollection']?.value || 'none';
-          return {
-            title: t('Second-level selection'),
-            options: fieldTabsOptions,
-            value: defValue,
-            onChange(mode) {
-              const schema = {
-                ['x-uid']: fieldSchema['x-uid'],
-              };
-              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-              fieldSchema['x-component-props']['quickAddParentCollection'] = {
-                collectionField: `${fieldSchema['x-collection-field']}.${quickField}.${mode}`,
-                value: mode,
-              };
-              schema['x-component-props'] = fieldSchema['x-component-props'];
-              field.componentProps = field.componentProps || {};
-              field.componentProps['quickAddParentCollection'] = {
-                collectionField: `${fieldSchema['x-collection-field']}.${quickField}.${mode}`,
-                value: mode,
-              };
-              // 子表单状态不允许设置默认值
-              if (isSubMode(fieldSchema) && isAddNewForm) {
-                // @ts-ignore
-                schema.default = null;
-                fieldSchema.default = null;
-                field.setInitialValue(null);
-                field.setValue(null);
-              }
-              void dn.emit('patch', {
-                schema,
-              });
-              dn.refresh();
-            },
-          };
-        },
-        useVisible() {
-          const fieldSchema = useFieldSchema();
-          return (
-            fieldSchema['x-component-props']['isQuickAdd'] &&
-            fieldSchema['x-component-props']['quickAddField'] &&
-            fieldSchema['x-component-props']['quickAddField'] !== 'none'
-          );
-        },
-      },
-    ];
-    return children;
   },
 };
 
@@ -496,13 +463,9 @@ export const clickToSelect = {
 //           ['x-uid']: fieldSchema['x-uid'],
 //         };
 //         field.componentProps['isQuickAdd'] = value;
-//         console.log("%c Line:494 🍺 field.componentProps['isQuickAdd']", "font-size:18px;color:#b03734;background:#ffdd4d", field.componentProps['isQuickAdd']);
 //         fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-//         console.log("%c Line:496 🍰 fieldSchema['x-component-props']", "font-size:18px;color:#ed9ec7;background:#465975", fieldSchema['x-component-props']);
 //         fieldSchema['x-component-props']['isQuickAdd'] = value;
-//         console.log("%c Line:498 🍺 fieldSchema['x-component-props']['isQuickAdd']", "font-size:18px;color:#2eafb0;background:#f5ce50", fieldSchema['x-component-props']['isQuickAdd']);
 //         schema['x-component-props'] = fieldSchema['x-component-props'];
-//         console.log("%c Line:499 🍿 schema['x-component-props']", "font-size:18px;color:#42b983;background:#ffdd4d", schema['x-component-props']);
 //         dn.emit('patch', {
 //           schema,
 //         });
