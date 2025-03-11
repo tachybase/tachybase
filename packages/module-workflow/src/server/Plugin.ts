@@ -231,6 +231,8 @@ export default class PluginWorkflowServer extends Plugin {
         'executions:retry',
         'flow_nodes:update',
         'flow_nodes:destroy',
+        'flow_nodes:moveUp',
+        'flow_nodes:moveDown',
       ],
     });
 
@@ -240,7 +242,7 @@ export default class PluginWorkflowServer extends Plugin {
     });
 
     this.app.acl.allow('workflows', ['trigger'], 'loggedIn');
-    this.app.acl.allow('flow_nodes', ['moveUp', 'moveDown'], 'loggedIn');
+    // this.app.acl.allow('flow_nodes', ['moveUp', 'moveDown'], 'loggedIn');
 
     db.on('workflows.beforeSave', this.onBeforeSave);
     db.on('workflows.afterSave', (model: WorkflowModel) => this.toggle(model));

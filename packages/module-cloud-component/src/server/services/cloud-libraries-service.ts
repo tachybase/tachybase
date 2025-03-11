@@ -183,5 +183,9 @@ export class CloudLibrariesService {
         },
       };
     });
+    this.app.acl.registerSnippet({
+      name: 'pm.business-components.cloud-component',
+      actions: ['cloudLibraries:*'],
+    });
   }
 }

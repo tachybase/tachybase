@@ -35,6 +35,7 @@ export class PluginWebhook extends Plugin {
         test: new WebhookController().test,
       },
     });
+    // TODO: 这个权限可能需要重新设计
     this.app.acl.allow('webhooks', ['trigger', 'test'], 'loggedIn');
 
     this.app.resourcer.use(
@@ -73,6 +74,11 @@ export class PluginWebhook extends Plugin {
 
     await this.db.sync();
     await this.loadEventSources();
+
+    this.app.acl.registerSnippet({
+      name: 'pm.business-components.event-source',
+      actions: ['webhooks:*'],
+    });
   }
 
   async loadEventSources() {

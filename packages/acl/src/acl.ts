@@ -85,6 +85,8 @@ export class ACL extends EventEmitter {
 
   public middlewareSourceMap: WeakMap<Function, string> = new WeakMap();
 
+  protected strategyResources: Set<string> | null = null;
+
   constructor() {
     super();
 
@@ -115,6 +117,25 @@ export class ACL extends EventEmitter {
     });
 
     this.addCoreMiddleware();
+  }
+
+  setStrategyResources(resources: Array<string> | null) {
+    this.strategyResources = new Set(resources);
+  }
+
+  getStrategyResources() {
+    return this.strategyResources ? [...this.strategyResources] : null;
+  }
+
+  appendStrategyResource(resource: string) {
+    if (!this.strategyResources) {
+      this.strategyResources = new Set();
+    }
+    this.strategyResources.add(resource);
+  }
+
+  removeStrategyResource(resource: string) {
+    this.strategyResources.delete(resource);
   }
 
   define(options: DefineOptions): ACLRole {
@@ -194,7 +215,7 @@ export class ACL extends EventEmitter {
   }
 
   can(options: CanArgs): CanResult | null {
-    const { role, resource, action } = options;
+    const { role, resource, action, ctx } = options;
     const aclRole = this.roles.get(role);
 
     if (!aclRole) {
@@ -247,7 +268,11 @@ export class ACL extends EventEmitter {
       return null;
     }
 
-    let roleStrategyParams = roleStrategy?.allow(resource, this.resolveActionAlias(action));
+    let roleStrategyParams;
+
+    if (this.strategyResources === null || this.strategyResources.has(resource)) {
+      roleStrategyParams = roleStrategy?.allow(resource, this.resolveActionAlias(action));
+    }
 
     if (!roleStrategyParams && snippetAllowed) {
       roleStrategyParams = {};
@@ -331,7 +356,7 @@ export class ACL extends EventEmitter {
       const { resourceName, actionName } = ctx.action;
 
       ctx.can = (options: Omit<CanArgs, 'role'>) => {
-        const canResult = acl.can({ role: roleName, ...options });
+        const canResult = acl.can({ role: roleName, ...options, ctx });
 
         return canResult;
       };
