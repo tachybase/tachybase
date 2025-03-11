@@ -4,13 +4,13 @@ import {
   SchemaSettingsModalItem,
   useBlockRequestContext,
   useDesignable,
+  useTranslation,
 } from '@tachybase/client';
 import { ArrayItems, FormItem, Space } from '@tachybase/components';
 import { connect, ISchema, useFieldSchema } from '@tachybase/schema';
 
 import { PullRequestOutlined } from '@ant-design/icons';
 
-import { useTranslation } from '../../locale';
 import { GroupBlockContext } from './GroupBlockInitializer';
 
 export const GroupBlockConfigure = connect((props) => {
