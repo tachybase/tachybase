@@ -1,4 +1,6 @@
 import {
+  getAfterWorkflows,
+  getBeforeWorkflows,
   useActionContext,
   useBlockRequestContext,
   useCollectValuesToSubmit,
@@ -37,11 +39,8 @@ export function useFormWorkflowCustomActionProps() {
           const result = await resource.trigger({
             values,
             filterByTk,
-            triggerWorkflows: triggerWorkflows?.length
-              ? triggerWorkflows
-                  .map((workflow) => [workflow.workflowKey, workflow.context].filter(Boolean).join('!'))
-                  .join(',')
-              : undefined,
+            triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+            beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
           });
           _field.data.data = result;
           __parent?.service?.refresh?.();
