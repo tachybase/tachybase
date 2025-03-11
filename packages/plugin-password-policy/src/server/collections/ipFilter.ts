@@ -1,6 +1,6 @@
 import { defineCollection } from '@tachybase/database';
 
-// 登录失败记录
+// ip黑白名单
 export default defineCollection({
   dumpRules: {
     group: 'user',

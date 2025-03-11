@@ -91,7 +91,7 @@ const schema: ISchema = {
   },
 };
 
-export const PasswordPolicyProvider = () => {
+export const PasswordPolicyForm = () => {
   return (
     <Card bordered={false}>
       <SchemaComponent

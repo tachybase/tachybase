@@ -225,7 +225,7 @@ importers:
         version: 2.4.2
       esbuild-register:
         specifier: ^3.6.0
-        version: 3.6.0(esbuild@0.24.2)
+        version: 3.6.0(esbuild@0.24.0)
       execa:
         specifier: ^5.1.1
         version: 5.1.1
@@ -4093,9 +4093,6 @@ importers:
 
   packages/plugin-password-policy:
     dependencies:
-      '@tachybase/actions':
-        specifier: workspace:*
-        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
@@ -4108,15 +4105,15 @@ importers:
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-i18next:
+        specifier: ^15.4.0
+        version: 15.4.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/plugin-prototype-game-runesweeper:
     dependencies:
@@ -26775,10 +26772,10 @@ snapshots:
 
   esbuild-plugin-file-path-extensions@2.1.4: {}
 
-  esbuild-register@3.6.0(esbuild@0.24.2):
+  esbuild-register@3.6.0(esbuild@0.24.0):
     dependencies:
       debug: 4.4.0(supports-color@5.5.0)
-      esbuild: 0.24.2
+      esbuild: 0.24.0
     transitivePeerDependencies:
       - supports-color
 
@@ -31420,7 +31417,7 @@ snapshots:
 
   react-i18next@15.4.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.26.0
+      '@babel/runtime': 7.26.9
       html-parse-stringify: 3.0.1
       i18next: 23.16.8
       react: 18.3.1

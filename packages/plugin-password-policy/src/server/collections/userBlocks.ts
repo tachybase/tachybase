@@ -1,27 +1,28 @@
 import { defineCollection } from '@tachybase/database';
 
-// 登录失败记录
 export default defineCollection({
   dumpRules: {
     group: 'user',
   },
-  name: 'signInFails',
+  name: 'userBlocks',
   createdAt: true,
-  updatedAt: false,
-  createdBy: false,
-  updatedBy: false,
+  updatedAt: true,
+  createdBy: true,
+  updatedBy: true,
   fields: [
     {
       type: 'bigInt',
       name: 'userId',
     },
     {
-      type: 'string',
-      name: 'ip',
+      type: 'date',
+      name: 'expireAt',
     },
     {
-      type: 'string',
-      name: 'address',
+      type: 'belongsTo',
+      name: 'users',
+      target: 'users',
+      foreignKey: 'userId',
     },
   ],
 });

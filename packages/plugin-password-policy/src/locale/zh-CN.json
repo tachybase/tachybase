@@ -1,7 +1,26 @@
 {
+  "Actions": "操作",
+  "Are you sure you want to unblock this user?": "确定要解除该用户的封禁吗？",
+  "Block Expires At": "封禁到期时间",
+  "Block New User": "封禁新用户",
+  "Block Until": "封禁至",
+  "Edit": "编辑",
+  "Edit Block": "编辑封禁",
+  "Email": "邮箱",
+  "Failed to load blocked users": "加载封禁用户列表失败",
+  "Failed to unblock user": "解除用户封禁失败",
+  "Failed to update user block": "更新用户封禁状态失败",
   "Lockout duration (seconds)": "锁定时间(秒)",
   "Max invalid password sign-in attempts": "登录尝试次数",
   "Max invalid password sign-in attempts interval (seconds)": "登录尝试最长周期",
+  "Nickname": "昵称",
   "Password policy": "密码策略",
-  "User has been locked": "用户已经锁定"
+  "Unblock": "解除封禁",
+  "Unblock User": "解除用户封禁",
+  "Updated At": "更新时间",
+  "User block updated successfully": "更新用户封禁状态成功",
+  "User has been locked": "用户已经锁定",
+  "User unblocked successfully": "已成功解除用户封禁",
+  "Username": "用户名",
+  "Username or Email": "用户名或邮箱"
 }

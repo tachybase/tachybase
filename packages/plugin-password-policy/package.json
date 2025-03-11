@@ -3,15 +3,17 @@
   "version": "0.23.58",
   "main": "dist/server/index.js",
   "dependencies": {
-    "antd": "5.22.5"
+    "antd": "5.22.5",
+    "react-i18next": "^15.4.0"
+  },
+  "devDependencies": {
+    "@types/dayjs": "^1.11.2"
   },
   "peerDependencies": {
-    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
   }
 }

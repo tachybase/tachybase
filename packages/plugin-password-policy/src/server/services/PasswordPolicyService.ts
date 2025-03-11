@@ -10,6 +10,7 @@ interface SignInFailConfig {
   windowSeconds: number; // 检查时间窗口（秒）
   maxAttempts: number; // 最大失败次数，0表示不启用防护
   blockSeconds: number; // 屏蔽时间（秒）
+  strictLock: boolean; // 是否严格控制使用
 }
 
 interface FailureRecord {
@@ -49,6 +50,7 @@ export class PasswordPolicyService {
       windowSeconds: config?.get('windowSeconds') || 300, // 默认5分钟
       maxAttempts: config?.get('maxAttempts') ?? 0, // 默认0，表示不启用防护
       blockSeconds: config?.get('blockSeconds') || 1800, // 默认30分钟
+      strictLock: config?.get('strictLock') || false, // 默认不严格控制当前用户使用
     };
 
     // 如果启用了防护，才进行初始化
@@ -76,11 +78,12 @@ export class PasswordPolicyService {
                 };
             const userRepository = ctx.db.getRepository('users');
             const user = await userRepository.findOne({
-              fields: ['id', 'blockExpireAt'],
+              fields: ['id'],
               filter,
+              appends: ['block'],
             });
             if (user) {
-              if (user.blockExpireAt && user.blockExpireAt > new Date()) {
+              if (user.block.expireAt && user.block.expireAt > new Date()) {
                 ctx.throw(400, ctx.t('User has been locked', { ns: NAMESPACE }));
               }
               // 抽一下通用的,或者用其他方式
@@ -151,21 +154,23 @@ export class PasswordPolicyService {
       const now = new Date();
 
       if (this.getRecentFailureCount(user.id) + 1 >= this.config.maxAttempts) {
-        if (!user.blockExpireAt || now > user.blockExpireAt) {
+        if (!user.block.expireAt || now > user.block.expireAt) {
           const blockExpireAt = new Date(now);
           blockExpireAt.setSeconds(blockExpireAt.getSeconds() + this.config.blockSeconds);
           await this.db.getRepository('users').update({
             filterByTk: user.id,
             values: {
-              blockExpireAt,
+              block: {
+                expireAt: blockExpireAt,
+              },
             },
           });
         }
-      } else if (user.blockExpireAt && now > user.blockExpireAt) {
+      } else if (user.block.expireAt && now > user.block.expireAt) {
         await this.db.getRepository('users').update({
           filterByTk: user.id,
           values: {
-            blockExpireAt: null,
+            block: null,
             signInFails: [],
           },
         });
@@ -220,7 +225,7 @@ export class PasswordPolicyService {
       await this.db.getRepository('users').update({
         filterByTk: userId,
         values: {
-          blockExpireAt: null,
+          block: null,
           signInFails: [],
         },
       });

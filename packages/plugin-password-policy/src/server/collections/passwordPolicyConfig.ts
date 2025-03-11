@@ -23,5 +23,9 @@ export default defineCollection({
       type: 'integer',
       name: 'blockSeconds', // 锁定时长:秒
     },
+    {
+      type: 'boolean',
+      name: 'strictLock', // 严格锁定,被锁定后限制使用,而不仅仅是限制登录
+    },
   ],
 });
