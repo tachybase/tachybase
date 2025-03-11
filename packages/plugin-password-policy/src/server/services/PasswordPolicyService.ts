@@ -4,6 +4,8 @@ import Database, { PasswordField } from '@tachybase/database';
 import { Application, Logger } from '@tachybase/server';
 import { App, Db, Inject, InjectLog, Service } from '@tachybase/utils';
 
+import { NAMESPACE } from '../../constants';
+
 interface SignInFailConfig {
   windowSeconds: number; // 检查时间窗口（秒）
   maxAttempts: number; // 最大失败次数，0表示不启用防护
@@ -66,10 +68,6 @@ export class PasswordPolicyService {
         const { resourceName, actionName } = ctx.action.params;
         if (resourceName === 'auth' && actionName === 'signIn') {
           const { account, password, email } = ctx.action.params.values;
-          if (!account) {
-            // TODO: 验证其他登录方式是否可用
-            return next();
-          }
           if (account && password) {
             const filter = email
               ? { email }
@@ -78,12 +76,12 @@ export class PasswordPolicyService {
                 };
             const userRepository = ctx.db.getRepository('users');
             const user = await userRepository.findOne({
-              attributes: ['id', 'blockExpireAt'],
+              fields: ['id', 'blockExpireAt'],
               filter,
             });
             if (user) {
               if (user.blockExpireAt && user.blockExpireAt > new Date()) {
-                ctx.throw(400, ctx.t('User has been locked', { ns: 'password-policy' }));
+                ctx.throw(400, ctx.t('User has been locked', { ns: NAMESPACE }));
               }
               // 抽一下通用的,或者用其他方式
               const field = userRepository.collection.getField<PasswordField>('password');
@@ -98,7 +96,8 @@ export class PasswordPolicyService {
             }
           }
         }
-        return next();
+        await next();
+        // TODO: 考虑针对其他方式登录
       },
       {
         tag: 'blockUserByPasswordPolicy',

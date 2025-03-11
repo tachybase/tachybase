@@ -4733,6 +4733,9 @@ importers:
       '@tachybase/plugin-otp':
         specifier: workspace:*
         version: link:../plugin-otp
+      '@tachybase/plugin-password-policy':
+        specifier: workspace:*
+        version: link:../plugin-password-policy
       '@tachybase/plugin-simple-cms':
         specifier: workspace:*
         version: link:../plugin-prototype-simple-cms
