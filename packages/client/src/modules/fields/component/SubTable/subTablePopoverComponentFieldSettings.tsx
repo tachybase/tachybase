@@ -423,7 +423,9 @@ export const clickToSelect = {
         }
 
         void dn.emit('patch', {
-          schema,
+          schema: {
+            'x-uid': fieldSchema['x-uid'],
+          },
         });
         refresh();
         dn.refresh();
