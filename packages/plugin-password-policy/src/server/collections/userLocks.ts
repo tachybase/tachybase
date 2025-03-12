@@ -4,7 +4,7 @@ export default defineCollection({
   dumpRules: {
     group: 'user',
   },
-  name: 'userBlocks',
+  name: 'userLocks',
   createdAt: true,
   updatedAt: true,
   createdBy: true,
@@ -13,6 +13,7 @@ export default defineCollection({
     {
       type: 'bigInt',
       name: 'userId',
+      unique: true,
     },
     {
       type: 'date',
@@ -23,13 +24,6 @@ export default defineCollection({
       name: 'user',
       target: 'users',
       foreignKey: 'userId',
-    },
-  ],
-  indexes: [
-    {
-      name: 'userId',
-      fields: ['userId'],
-      unique: true,
     },
   ],
 });

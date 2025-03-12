@@ -21,7 +21,7 @@ export default defineCollection({
     },
     {
       type: 'integer',
-      name: 'blockSeconds', // 锁定时长:秒
+      name: 'lockSeconds', // 锁定时长:秒
     },
     {
       type: 'boolean',

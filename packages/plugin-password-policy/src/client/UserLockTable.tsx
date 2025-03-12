@@ -1,7 +1,7 @@
 import React from 'react';
-import { ExtendCollectionsProvider, SchemaComponent } from '@tachybase/client';
+import { ExtendCollectionsProvider, SchemaComponent, useTranslation } from '@tachybase/client';
 
-import { userBlockCollection } from './collections/userBlocks';
+import { userLockCollection } from './collections/userLocks';
 import { tval } from './locale';
 
 const createForm = {
@@ -9,12 +9,12 @@ const createForm = {
   'x-acl-action-props': {
     skipScopeCheck: true,
   },
-  'x-acl-action': 'userBlocks:create',
+  'x-acl-action': 'userLocks:create',
   'x-decorator': 'FormBlockProvider',
   'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
   'x-decorator-props': {
     dataSource: 'main',
-    collection: 'userBlocks',
+    collection: 'userLocks',
   },
   'x-component': 'CardItem',
   properties: {
@@ -64,16 +64,16 @@ const createForm = {
                 filter: {
                   $or: [
                     {
-                      block: {
+                      lock: {
                         id: {
                           $notExists: true,
                         },
                       },
                     },
                     {
-                      block: {
+                      lock: {
                         expireAt: {
-                          $lt: new Date(),
+                          $lt: '{{ new Date() }}',
                         },
                       },
                     },
@@ -81,7 +81,7 @@ const createForm = {
                 },
                 pageSize: 20,
                 sort: ['-id'],
-                appends: ['block'],
+                appends: ['lock'],
               },
             },
             manual: false,
@@ -89,15 +89,14 @@ const createForm = {
         },
         expireAt: {
           type: 'string',
-          title: tval('Block Until'),
+          title: tval('Lock Until'),
           required: true,
           'x-component': 'DatePicker',
           'x-decorator': 'FormItem',
           'x-component-props': {
             showTime: true,
-            showNow: false,
             disabledDate: '{{ (current) => current && current < new Date() }}',
-            placeholder: tval('Please select block expiration time'),
+            placeholder: tval('Please select lock expiration time'),
           },
         },
       },
@@ -109,7 +108,7 @@ const create = {
   type: 'void',
   'x-action': 'create',
   'x-acl-action': 'create',
-  title: tval('Block New User'),
+  title: tval('Lock New User'),
   'x-component': 'Action',
   'x-decorator': 'ACLActionProvider',
   'x-component-props': {
@@ -124,7 +123,7 @@ const create = {
   properties: {
     drawer: {
       type: 'void',
-      title: tval('Block New User'),
+      title: tval('Lock New User'),
       'x-component': 'Action.Container',
       'x-component-props': {
         className: 'tb-action-popup',
@@ -164,7 +163,7 @@ const editAction = {
           'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
           'x-decorator-props': {
             dataSource: 'main',
-            collection: 'userBlocks',
+            collection: 'userLocks',
             action: 'get',
             useParams: '{{ useParamsFromRecord }}',
             params: {
@@ -225,13 +224,13 @@ const editAction = {
                 // },
                 expireAt: {
                   type: 'date',
-                  title: tval('Block Until'),
+                  title: tval('Lock Until'),
                   required: true,
                   'x-component': 'DatePicker',
                   'x-component-props': {
                     showTime: true,
                     disabledDate: '{{ (current) => current && current < new Date() }}',
-                    placeholder: tval('Please select block expiration time'),
+                    placeholder: tval('Please select lock expiration time'),
                   },
                   'x-decorator': 'FormItem',
                 },
@@ -247,20 +246,15 @@ const editAction = {
 const table = {
   type: 'void',
   'x-decorator': 'TableBlockProvider',
-  'x-acl-action': 'userBlocks:list',
+  'x-acl-action': 'userLocks:list',
   'x-use-decorator-props': 'useTableBlockDecoratorProps',
   'x-decorator-props': {
     dataSource: 'main',
-    collection: 'userBlocks',
+    collection: 'userLocks',
     action: 'list',
     params: {
       pageSize: 20,
       appends: ['user'],
-      filter: {
-        expireAt: {
-          $gt: new Date(),
-        },
-      },
     },
     rowKey: 'id',
     showIndex: true,
@@ -351,7 +345,7 @@ const table = {
           'x-component': 'TableV2.Column',
           properties: {
             updatedAt: {
-              'x-collection-field': 'userBlocks.updatedAt',
+              'x-collection-field': 'userLocks.updatedAt',
               'x-component': 'CollectionField',
               'x-component-props': {
                 ellipsis: true,
@@ -364,12 +358,12 @@ const table = {
         },
         expireAt: {
           type: 'void',
-          title: tval('Block Expires At'),
+          title: tval('Lock Expires At'),
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
           properties: {
             expireAt: {
-              'x-collection-field': 'userBlocks.expireAt',
+              'x-collection-field': 'userLocks.expireAt',
               'x-component': 'CollectionField',
               'x-component-props': {
                 ellipsis: true,
@@ -401,14 +395,14 @@ const table = {
                 edit: editAction,
                 destroy: {
                   type: 'void',
-                  title: tval('Unblock'),
+                  title: tval('Unlock'),
                   'x-action': 'destroy',
                   'x-component': 'Action.Link',
                   'x-component-props': {
                     danger: true,
                     confirm: {
-                      title: tval('Unblock User'),
-                      content: tval('Are you sure you want to unblock this user?'),
+                      title: tval('Unlock User'),
+                      content: tval('Are you sure you want to unlock this user?'),
                     },
                   },
                   'x-decorator': 'ACLActionProvider',
@@ -430,12 +424,12 @@ const schema = {
   },
 };
 
-export const UserBlockTable: React.FC = () => {
-  const scope = {};
+export const UserLockTable: React.FC = () => {
+  const { t } = useTranslation();
 
   return (
-    <ExtendCollectionsProvider collections={[userBlockCollection]}>
-      <SchemaComponent schema={schema} scope={scope} />
+    <ExtendCollectionsProvider collections={[userLockCollection]}>
+      <SchemaComponent schema={schema} />
     </ExtendCollectionsProvider>
   );
 };

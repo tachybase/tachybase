@@ -4,7 +4,7 @@
   "main": "dist/server/index.js",
   "dependencies": {
     "antd": "5.22.5",
-    "react-i18next": "^15.4.0"
+    "geoip-lite": "^1.4.9"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

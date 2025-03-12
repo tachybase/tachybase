@@ -66,7 +66,7 @@ const schema: ISchema = {
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
         },
-        blockSeconds: {
+        lockSeconds: {
           type: 'digit',
           title: tval('Lockout duration (seconds)'),
           'x-decorator': 'FormItem',

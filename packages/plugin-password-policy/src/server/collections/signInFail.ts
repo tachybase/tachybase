@@ -12,8 +12,15 @@ export default defineCollection({
   updatedBy: false,
   fields: [
     {
+      type: 'belongsTo',
+      name: 'user',
+      target: 'users',
+      foreignKey: 'userId',
+      onDelete: 'SET NULL',
+    },
+    {
       type: 'bigInt',
-      name: 'userId',
+      name: 'originUserId',
     },
     {
       type: 'string',

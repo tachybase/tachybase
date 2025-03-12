@@ -1,10 +1,11 @@
+import React from 'react';
 import { Plugin } from '@tachybase/client';
 
 import { tval } from './locale';
 import { PasswordPolicyForm } from './PasswordPolicyForm';
-import { UserBlockTable } from './UserBlockTable';
+import { UserLockTable } from './UserLockTable';
 
-export class PluginPasswordPolicy extends Plugin {
+export class ClientPlugin extends Plugin {
   async load() {
     this.app.systemSettingsManager.add('security.password-policy', {
       icon: 'SettingOutlined',
@@ -12,13 +13,14 @@ export class PluginPasswordPolicy extends Plugin {
       Component: PasswordPolicyForm,
       aclSnippet: `pm.security.password-policy`,
     });
+
     this.app.systemSettingsManager.add('security.user-lock', {
       icon: 'UserOutlined',
       title: tval('User lock'),
-      Component: UserBlockTable,
+      Component: UserLockTable,
       aclSnippet: `pm.security.user-lock`,
     });
   }
 }
 
-export default PluginPasswordPolicy;
+export default ClientPlugin;

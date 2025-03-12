@@ -3,21 +3,19 @@ import { extendCollection } from '@tachybase/database';
 export default extendCollection({
   name: 'users',
   fields: [
-    // {
-    //   type: 'date',
-    //   name: 'blockExpireAt',
-    // },
     {
       type: 'hasMany',
       name: 'signInFails',
       target: 'signInFails',
       foreignKey: 'userId',
+      onDelete: 'SET NULL',
     },
     {
       type: 'hasOne',
-      name: 'block',
-      target: 'userBlocks',
+      name: 'lock',
+      target: 'userLocks',
       foreignKey: 'userId',
+      onDelete: 'CASCADE',
     },
   ],
 });

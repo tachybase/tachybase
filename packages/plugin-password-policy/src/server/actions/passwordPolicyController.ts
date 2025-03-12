@@ -48,41 +48,4 @@ export class PasswordPolicyController {
     }
     return next();
   }
-
-  @Action('blockList')
-  async getBlockList(ctx: Context, next: Next) {
-    const { page = 1, pageSize = 20, filter } = ctx.action.params;
-    const repo = ctx.db.getRepository('users');
-    const blockUsers = await repo.find({
-      filter: {
-        $and: [
-          {
-            blockExpireAt: {
-              $gt: new Date(),
-            },
-          },
-          filter,
-        ],
-      },
-    });
-    ctx.body = blockUsers;
-    return next();
-  }
-
-  @Action('updateBlockUser')
-  async updateBlockUser(ctx: Context, next: Next) {
-    const {
-      filterByTk,
-      values: { blockExpireAt },
-    } = ctx.action.params;
-    const repo = ctx.db.getRepository('users');
-    const blockUsers = await repo.update({
-      filterByTk, // TODO: 判断还是user.id还是userId
-      values: {
-        blockExpireAt,
-      },
-    });
-    ctx.body = blockUsers;
-    return next();
-  }
 }
