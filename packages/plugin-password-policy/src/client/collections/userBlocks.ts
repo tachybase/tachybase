@@ -1,7 +1,7 @@
 import { CollectionOptions } from '@tachybase/client';
 
 export const userBlockCollection: CollectionOptions = {
-  name: 'password-policy',
+  name: 'userBlocks',
   fields: [
     {
       type: 'string',
@@ -14,17 +14,17 @@ export const userBlockCollection: CollectionOptions = {
         'x-read-pretty': true,
       },
     },
-    {
-      type: 'string',
-      name: 'nickname',
-      interface: 'input',
-      uiSchema: {
-        type: 'string',
-        title: '{{ t("Nickname") }}',
-        'x-component': 'Input',
-        'x-read-pretty': true,
-      },
-    },
+    // {
+    //   type: 'string',
+    //   name: 'nickname',
+    //   interface: 'input',
+    //   uiSchema: {
+    //     type: 'string',
+    //     title: '{{ t("Nickname") }}',
+    //     'x-component': 'Input',
+    //     'x-read-pretty': true,
+    //   },
+    // },
     {
       type: 'datetime',
       name: 'updatedAt',
@@ -41,7 +41,7 @@ export const userBlockCollection: CollectionOptions = {
     },
     {
       type: 'datetime',
-      name: 'blockExpireAt',
+      name: 'expireAt',
       interface: 'datetime',
       uiSchema: {
         type: 'string',
@@ -53,19 +53,19 @@ export const userBlockCollection: CollectionOptions = {
         'x-read-pretty': true,
       },
     },
-    {
-      type: 'string',
-      name: 'blockDuration',
-      interface: 'input',
-      uiSchema: {
-        type: 'string',
-        title: '{{ t("Block Duration") }}',
-        'x-component': 'Input',
-        'x-read-pretty': true,
-        'x-component-props': {
-          renderValue: '{{ renderBlockDuration }}',
-        },
-      },
-    },
+    // {
+    //   type: 'string',
+    //   name: 'blockDuration',
+    //   interface: 'input',
+    //   uiSchema: {
+    //     type: 'string',
+    //     title: '{{ t("Block Duration") }}',
+    //     'x-component': 'Input',
+    //     'x-read-pretty': true,
+    //     'x-component-props': {
+    //       renderValue: '{{ renderBlockDuration }}',
+    //     },
+    //   },
+    // },
   ],
 };

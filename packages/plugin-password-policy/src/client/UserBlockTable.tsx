@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ExtendCollectionsProvider,
   SchemaComponent,
   useActionContext,
   useAPIClient,
@@ -18,12 +19,12 @@ const createForm = {
   'x-acl-action-props': {
     skipScopeCheck: true,
   },
-  // 'x-acl-action': 'users:create',
+  'x-acl-action': 'userBlocks:create',
   'x-decorator': 'FormBlockProvider',
   'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
   'x-decorator-props': {
     dataSource: 'main',
-    collection: 'users',
+    collection: 'userBlocks',
   },
   'x-component': 'CardItem',
   properties: {
@@ -54,7 +55,7 @@ const createForm = {
             },
           },
         },
-        username: {
+        userId: {
           type: 'string',
           title: '{{ t("Username or Email") }}',
           required: true,
@@ -71,25 +72,32 @@ const createForm = {
               action: 'list',
               params: {
                 filter: {
-                  $or: [
-                    {
-                      blockExpireAt: null,
-                    },
-                    {
-                      blockExpireAt: {
-                        $lt: new Date(),
-                      },
-                    },
-                  ],
+                  // $or: [
+                  //   {
+                  //     block: {
+                  //       id: {
+                  //         $exists: false,
+                  //       },
+                  //     },
+                  //   },
+                  //   {
+                  //     block: {
+                  //       expireAt: {
+                  //         $lt: new Date(),
+                  //       },
+                  //     },
+                  //   },
+                  // ],
                 },
                 pageSize: 20,
-                sort: ['username'],
+                sort: ['-id'],
+                appends: ['block'],
               },
             },
             manual: false,
           },
         },
-        blockExpireAt: {
+        expireAt: {
           type: 'string',
           title: '{{ t("Block Until") }}',
           required: true,
@@ -112,14 +120,16 @@ const createForm = {
 
 const create = {
   type: 'void',
+  'x-action': 'create',
+  'x-acl-action': 'create',
   title: "{{t('Block New User')}}",
   'x-component': 'Action',
   'x-decorator': 'ACLActionProvider',
   'x-component-props': {
     openMode: 'drawer',
     type: 'primary',
+    // component: 'CreateRecordAction',
     icon: 'PlusOutlined',
-    useAction: '{{ useCreateAction }}',
   },
   'x-align': 'right',
   'x-acl-action-props': {
@@ -170,7 +180,7 @@ const editAction = {
           'x-decorator-props': {
             action: 'get',
             dataSource: 'main',
-            collection: userBlockCollection,
+            collection: 'userBlocks',
             useParams: '{{ useParamsFromRecord }}',
           },
           'x-component': 'CardItem',
@@ -259,13 +269,16 @@ const editAction = {
 const table = {
   type: 'void',
   'x-decorator': 'TableBlockProvider',
-  'x-acl-action': 'password-policy:blockList',
+  'x-acl-action': 'userBlocks:list',
   'x-use-decorator-props': 'useTableBlockDecoratorProps',
   'x-decorator-props': {
-    collection: userBlockCollection,
-    action: 'blockList',
+    // collection: 'cronJobs',
+    dataSource: 'main',
+    collection: 'userBlocks',
+    action: 'list',
     params: {
       pageSize: 20,
+      appends: ['users'],
     },
     rowKey: 'id',
     showIndex: true,
@@ -606,5 +619,9 @@ export const UserBlockTable: React.FC = () => {
     // useCreateFormValues
   };
 
-  return <SchemaComponent schema={schema} scope={scope} />;
+  return (
+    <ExtendCollectionsProvider collections={[userBlockCollection]}>
+      <SchemaComponent schema={schema} scope={scope} />
+    </ExtendCollectionsProvider>
+  );
 };

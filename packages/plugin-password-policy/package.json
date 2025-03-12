@@ -6,9 +6,6 @@
     "antd": "5.22.5",
     "react-i18next": "^15.4.0"
   },
-  "devDependencies": {
-    "@types/dayjs": "^1.11.2"
-  },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
