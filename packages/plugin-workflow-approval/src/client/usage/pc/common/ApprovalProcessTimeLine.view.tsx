@@ -80,7 +80,7 @@ export const Process = ({ dataSource }) => {
             <Tag color={status.color} style={{ marginLeft: '5px', fontSize: '12px' }}>
               {compile(status.label)}
             </Tag>
-            {`${dataItem.status === 0 ? '' : dayjs(dataItem.updatedAt).format('YYYY-MM-DD hh:mm:ss')}`}
+            {`${dataItem.status === 0 ? '' : dayjs(dataItem.updatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
           </div>
         </div>
       ),
