@@ -7,6 +7,7 @@
     "geoip-lite": "^1.4.9"
   },
   "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/schema": "workspace:*",

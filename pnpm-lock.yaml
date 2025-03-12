@@ -4093,6 +4093,9 @@ importers:
 
   packages/plugin-password-policy:
     dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client

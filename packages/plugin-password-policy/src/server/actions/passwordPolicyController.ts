@@ -3,7 +3,7 @@ import { Action, Controller, Inject } from '@tachybase/utils';
 
 import { PasswordPolicyService } from '../services/PasswordPolicyService';
 
-@Controller('password-policy')
+@Controller('passwordPolicy')
 export class PasswordPolicyController {
   @Inject(() => PasswordPolicyService)
   passwordPolicyService: PasswordPolicyService;

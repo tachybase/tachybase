@@ -3,7 +3,7 @@ import { Plugin } from '@tachybase/client';
 
 import { tval } from './locale';
 import { PasswordPolicyForm } from './PasswordPolicyForm';
-import { UserLockTable } from './UserLockTable';
+import { UserLockTable } from './UserLocksTable';
 
 export class ClientPlugin extends Plugin {
   async load() {

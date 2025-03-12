@@ -10,7 +10,7 @@ const usePasswordPolicyValues = () => {
   const api = useAPIClient();
   const { data } = useRequest(() =>
     api
-      .resource('password-policy')
+      .resource('passwordPolicy')
       .get()
       .then((res) => res.data?.data),
   );
@@ -30,7 +30,7 @@ const useSavePasswordPolicyValues = () => {
       await form.submit();
       try {
         await api.request({
-          url: 'password-policy:put',
+          url: 'passwordPolicy:put',
           method: 'post',
           data: form.values,
         });

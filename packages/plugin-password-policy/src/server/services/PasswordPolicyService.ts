@@ -49,7 +49,7 @@ export class PasswordPolicyService {
   private failureRecords: Map<number, FailureRecord[]> = new Map();
 
   // 缓存前缀
-  private readonly CACHE_PREFIX = 'password-policy';
+  private readonly CACHE_PREFIX = 'passwordPolicy';
 
   // 缓存过期时间（毫秒）
   private readonly CACHE_TTL = 5 * 60 * 1000; // 5分钟
