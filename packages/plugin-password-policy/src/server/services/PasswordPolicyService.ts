@@ -50,7 +50,7 @@ export class PasswordPolicyService {
       windowSeconds: config?.get('windowSeconds') || 300, // 默认5分钟
       maxAttempts: config?.get('maxAttempts') ?? 0, // 默认0，表示不启用防护
       blockSeconds: config?.get('blockSeconds') || 1800, // 默认30分钟
-      strictLock: config?.get('strictLock') || false, // 默认不严格控制当前用户使用
+      strictLock: config?.get('strictLock') || false, // 封禁时候禁止任意api
     };
 
     // 如果启用了防护，才进行初始化
@@ -83,15 +83,15 @@ export class PasswordPolicyService {
               appends: ['block'],
             });
             if (user) {
-              if (user.block.expireAt && user.block.expireAt > new Date()) {
-                ctx.throw(400, ctx.t('User has been locked', { ns: NAMESPACE }));
+              if (user.block?.expireAt && user.block.expireAt > new Date()) {
+                ctx.throw(403, ctx.t('User has been locked', { ns: NAMESPACE }));
               }
-              // 抽一下通用的,或者用其他方式
+              // TODO: 抽一下通用的,或者用其他方式
               const field = userRepository.collection.getField<PasswordField>('password');
               const valid = await field.verify(password, user.password);
               if (!valid) {
                 // 失败则需要记录
-                await this.recordFailedAttempt(user);
+                await this.recordFailedAttempt(user, ctx.ip);
               } else {
                 // 成功后重置
                 await this.resetFailedAttempts(user.id);
@@ -106,6 +106,26 @@ export class PasswordPolicyService {
         tag: 'blockUserByPasswordPolicy',
         before: 'auth',
       },
+    );
+
+    this.app.resourcer.use(
+      async (ctx: Context, next: Next) => {
+        if (this.config.strictLock && ctx.state.currentUser) {
+          const userRepository = ctx.db.getRepository('users');
+          const blockUser = await userRepository.findOne({
+            fields: ['id'],
+            filter: {
+              $and: [{ id: ctx.state.currentUser.id }, { block: { expireAt: { $gt: new Date() } } }],
+            },
+            appends: ['block'],
+          });
+          if (blockUser) {
+            ctx.throw(403, ctx.t('User has been locked', { ns: NAMESPACE }));
+          }
+        }
+        await next();
+      },
+      { tag: 'blockAllResource', after: 'auth', before: 'acl' },
     );
   }
 
@@ -144,7 +164,7 @@ export class PasswordPolicyService {
    * 记录登录失败
    * @param username 用户名
    */
-  public async recordFailedAttempt(user: any): Promise<void> {
+  public async recordFailedAttempt(user: any, ip?: string, address?: string): Promise<void> {
     // 如果未启用防护，直接返回
     if (this.config.maxAttempts === 0) {
       return;
@@ -154,7 +174,7 @@ export class PasswordPolicyService {
       const now = new Date();
 
       if (this.getRecentFailureCount(user.id) + 1 >= this.config.maxAttempts) {
-        if (!user.block.expireAt || now > user.block.expireAt) {
+        if (!user.block?.expireAt || now > user.block.expireAt) {
           const blockExpireAt = new Date(now);
           blockExpireAt.setSeconds(blockExpireAt.getSeconds() + this.config.blockSeconds);
           await this.db.getRepository('users').update({
@@ -166,7 +186,7 @@ export class PasswordPolicyService {
             },
           });
         }
-      } else if (user.block.expireAt && now > user.block.expireAt) {
+      } else if (user.block?.expireAt && now > user.block.expireAt) {
         await this.db.getRepository('users').update({
           filterByTk: user.id,
           values: {
@@ -179,11 +199,12 @@ export class PasswordPolicyService {
       const record = await this.db.getRepository('signInFails').create({
         values: {
           userId: user.id,
+          ip,
+          address,
           createdAt: now,
         },
       });
 
-      // 更新内存缓存
       const userRecords = this.failureRecords.get(user.id) || [];
       userRecords.push({
         userId: user.id,

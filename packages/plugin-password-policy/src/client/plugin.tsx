@@ -12,11 +12,11 @@ export class PluginPasswordPolicy extends Plugin {
       Component: PasswordPolicyForm,
       aclSnippet: `pm.security.password-policy`,
     });
-    this.app.systemSettingsManager.add('security.user-block', {
+    this.app.systemSettingsManager.add('security.user-lock', {
       icon: 'UserOutlined',
-      title: tval('User block'),
+      title: tval('User lock'),
       Component: UserBlockTable,
-      aclSnippet: `pm.security.user-bloc`,
+      aclSnippet: `pm.security.user-lock`,
     });
   }
 }

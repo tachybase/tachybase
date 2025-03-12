@@ -1,8 +1,11 @@
-import { CollectionOptions } from '@tachybase/client';
+import { CollectionOptions, useRecord } from '@tachybase/client';
+
+import { tval } from '../locale';
 
 export const userBlockCollection: CollectionOptions = {
   name: 'userBlocks',
   fields: [
+    // TODO: 搜索的时候会出bug
     {
       type: 'string',
       name: 'username',
@@ -10,28 +13,34 @@ export const userBlockCollection: CollectionOptions = {
       uiSchema: {
         type: 'string',
         title: '{{ t("Username") }}',
-        'x-component': 'Input',
         'x-read-pretty': true,
+        ['x-component']() {
+          const record = useRecord();
+          return record.user.username;
+        },
       },
     },
-    // {
-    //   type: 'string',
-    //   name: 'nickname',
-    //   interface: 'input',
-    //   uiSchema: {
-    //     type: 'string',
-    //     title: '{{ t("Nickname") }}',
-    //     'x-component': 'Input',
-    //     'x-read-pretty': true,
-    //   },
-    // },
+    {
+      type: 'string',
+      name: 'nickname',
+      interface: 'input',
+      uiSchema: {
+        type: 'string',
+        title: '{{ t("Nickname") }}',
+        'x-read-pretty': true,
+        ['x-component']() {
+          const record = useRecord();
+          return record.user.nickname;
+        },
+      },
+    },
     {
       type: 'datetime',
       name: 'updatedAt',
       interface: 'datetime',
       uiSchema: {
         type: 'string',
-        title: '{{ t("Updated At") }}',
+        title: tval('Updated At'),
         'x-component': 'DatePicker',
         'x-component-props': {
           showTime: true,
@@ -45,7 +54,7 @@ export const userBlockCollection: CollectionOptions = {
       interface: 'datetime',
       uiSchema: {
         type: 'string',
-        title: '{{ t("Block Expires At") }}',
+        title: tval('Block Expires At'),
         'x-component': 'DatePicker',
         'x-component-props': {
           showTime: true,
@@ -53,19 +62,5 @@ export const userBlockCollection: CollectionOptions = {
         'x-read-pretty': true,
       },
     },
-    // {
-    //   type: 'string',
-    //   name: 'blockDuration',
-    //   interface: 'input',
-    //   uiSchema: {
-    //     type: 'string',
-    //     title: '{{ t("Block Duration") }}',
-    //     'x-component': 'Input',
-    //     'x-read-pretty': true,
-    //     'x-component-props': {
-    //       renderValue: '{{ renderBlockDuration }}',
-    //     },
-    //   },
-    // },
   ],
 };

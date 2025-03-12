@@ -20,9 +20,16 @@ export default defineCollection({
     },
     {
       type: 'belongsTo',
-      name: 'users',
+      name: 'user',
       target: 'users',
       foreignKey: 'userId',
+    },
+  ],
+  indexes: [
+    {
+      name: 'userId',
+      fields: ['userId'],
+      unique: true,
     },
   ],
 });

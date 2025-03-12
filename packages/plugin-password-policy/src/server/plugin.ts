@@ -15,8 +15,12 @@ export class PluginPasswordPolicyServer extends Plugin {
 
   async load() {
     this.app.acl.registerSnippet({
-      name: `pm.business-components.${this.name}`,
+      name: `pm.security.password-policy`,
       actions: ['password-policy:*'],
+    });
+    this.app.acl.registerSnippet({
+      name: `pm.security.user-lock`,
+      actions: ['user-lock:*'],
     });
   }
 

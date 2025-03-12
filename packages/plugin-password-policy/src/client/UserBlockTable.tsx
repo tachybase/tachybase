@@ -1,18 +1,8 @@
 import React from 'react';
-import {
-  ExtendCollectionsProvider,
-  SchemaComponent,
-  useActionContext,
-  useAPIClient,
-  useRecord,
-  useRequest,
-  useTableBlockContext,
-} from '@tachybase/client';
-
-import { App } from 'antd';
-import { useTranslation } from 'react-i18next';
+import { ExtendCollectionsProvider, SchemaComponent } from '@tachybase/client';
 
 import { userBlockCollection } from './collections/userBlocks';
+import { tval } from './locale';
 
 const createForm = {
   type: 'void',
@@ -57,12 +47,12 @@ const createForm = {
         },
         userId: {
           type: 'string',
-          title: '{{ t("Username or Email") }}',
+          title: tval('Username or Email'),
           required: true,
           'x-component': 'RemoteSelect',
           'x-decorator': 'FormItem',
           'x-component-props': {
-            placeholder: '{{ t("Please enter username, nickname or email") }}',
+            placeholder: tval('Please enter username, nickname or email'),
             fieldNames: {
               label: 'nickname',
               value: 'id',
@@ -72,22 +62,22 @@ const createForm = {
               action: 'list',
               params: {
                 filter: {
-                  // $or: [
-                  //   {
-                  //     block: {
-                  //       id: {
-                  //         $exists: false,
-                  //       },
-                  //     },
-                  //   },
-                  //   {
-                  //     block: {
-                  //       expireAt: {
-                  //         $lt: new Date(),
-                  //       },
-                  //     },
-                  //   },
-                  // ],
+                  $or: [
+                    {
+                      block: {
+                        id: {
+                          $notExists: true,
+                        },
+                      },
+                    },
+                    {
+                      block: {
+                        expireAt: {
+                          $lt: new Date(),
+                        },
+                      },
+                    },
+                  ],
                 },
                 pageSize: 20,
                 sort: ['-id'],
@@ -99,18 +89,15 @@ const createForm = {
         },
         expireAt: {
           type: 'string',
-          title: '{{ t("Block Until") }}',
+          title: tval('Block Until'),
           required: true,
           'x-component': 'DatePicker',
           'x-decorator': 'FormItem',
           'x-component-props': {
             showTime: true,
-            disabledDate: '{{ (current) => current && current < new Date() }}',
             showNow: false,
-            placeholder: '{{ t("Please select block expiration time") }}',
-          },
-          'x-validator': {
-            minimum: '{{ new Date().toISOString() }}',
+            disabledDate: '{{ (current) => current && current < new Date() }}',
+            placeholder: tval('Please select block expiration time'),
           },
         },
       },
@@ -122,13 +109,12 @@ const create = {
   type: 'void',
   'x-action': 'create',
   'x-acl-action': 'create',
-  title: "{{t('Block New User')}}",
+  title: tval('Block New User'),
   'x-component': 'Action',
   'x-decorator': 'ACLActionProvider',
   'x-component-props': {
     openMode: 'drawer',
     type: 'primary',
-    // component: 'CreateRecordAction',
     icon: 'PlusOutlined',
   },
   'x-align': 'right',
@@ -138,7 +124,7 @@ const create = {
   properties: {
     drawer: {
       type: 'void',
-      title: '{{ t("Block New User") }}',
+      title: tval('Block New User'),
       'x-component': 'Action.Container',
       'x-component-props': {
         className: 'tb-action-popup',
@@ -152,8 +138,8 @@ const create = {
 
 const editAction = {
   type: 'void',
-  title: '{{ t("Edit") }}',
-  'x-action': 'updateBlockUser',
+  title: `{{ t("Edit") }}`,
+  'x-action': 'update',
   'x-component': 'Action.Link',
   'x-component-props': {
     openMode: 'drawer',
@@ -163,7 +149,7 @@ const editAction = {
   properties: {
     drawer: {
       type: 'void',
-      title: '{{ t("Edit") }}',
+      title: `{{ t("Edit") }}`,
       'x-component': 'Action.Container',
       'x-component-props': {
         className: 'tb-action-popup',
@@ -174,14 +160,16 @@ const editAction = {
           'x-acl-action-props': {
             skipScopeCheck: false,
           },
-          // 'x-acl-action': 'password-policy:update',
           'x-decorator': 'FormBlockProvider',
           'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
           'x-decorator-props': {
-            action: 'get',
             dataSource: 'main',
             collection: 'userBlocks',
+            action: 'get',
             useParams: '{{ useParamsFromRecord }}',
+            params: {
+              appends: ['user'],
+            },
           },
           'x-component': 'CardItem',
           properties: {
@@ -221,39 +209,29 @@ const editAction = {
                     },
                   },
                 },
-                username: {
-                  type: 'string',
-                  title: '{{ t("Username") }}',
-                  'x-component': 'Input',
-                  'x-decorator': 'FormItem',
-                  'x-component-props': {
-                    disabled: true,
-                  },
-                  'x-read-pretty': true,
-                },
-                nickname: {
-                  type: 'string',
-                  title: '{{ t("Nickname") }}',
-                  'x-component': 'Input',
-                  'x-decorator': 'FormItem',
-                  'x-component-props': {
-                    disabled: true,
-                  },
-                  'x-read-pretty': true,
-                },
-                blockExpireAt: {
-                  type: 'string',
-                  title: '{{ t("Block Until") }}',
+                // username: {
+                //   type: 'string',
+                //   title: '{{ t("Username") }}',
+                //   'x-component': 'CollectionField',
+                //   'x-read-pretty': true,
+                //   'x-decorator': 'FormItem',
+                // },
+                // nickname: {
+                //   type: 'string',
+                //   title: '{{ t("Nickname") }}',
+                //   'x-component': 'CollectionField',
+                //   'x-read-pretty': true,
+                //   'x-decorator': 'FormItem',
+                // },
+                expireAt: {
+                  type: 'date',
+                  title: tval('Block Until'),
                   required: true,
                   'x-component': 'DatePicker',
                   'x-component-props': {
                     showTime: true,
                     disabledDate: '{{ (current) => current && current < new Date() }}',
-                    showNow: false,
-                    placeholder: '{{ t("Please select block expiration time") }}',
-                  },
-                  'x-validator': {
-                    minimum: '{{ new Date().toISOString() }}',
+                    placeholder: tval('Please select block expiration time'),
                   },
                   'x-decorator': 'FormItem',
                 },
@@ -272,20 +250,29 @@ const table = {
   'x-acl-action': 'userBlocks:list',
   'x-use-decorator-props': 'useTableBlockDecoratorProps',
   'x-decorator-props': {
-    // collection: 'cronJobs',
     dataSource: 'main',
     collection: 'userBlocks',
     action: 'list',
     params: {
       pageSize: 20,
-      appends: ['users'],
+      appends: ['user'],
+      filter: {
+        expireAt: {
+          $gt: new Date(),
+        },
+      },
     },
     rowKey: 'id',
     showIndex: true,
     dragSort: false,
   },
   'x-component': 'CardItem',
-  'x-filter-targets': [],
+  'x-filter-targets': [
+    {
+      name: 'filter',
+      targetFields: ['user.username', 'user.nickname', 'expireAt'],
+    },
+  ],
   properties: {
     actions: {
       type: 'void',
@@ -296,9 +283,20 @@ const table = {
         },
       },
       properties: {
+        filter: {
+          type: 'void',
+          title: `{{ t("Filter") }}`,
+          'x-action': 'filter',
+          'x-component': 'Filter.Action',
+          'x-use-component-props': 'useFilterActionProps',
+          'x-component-props': {
+            icon: 'FilterOutlined',
+          },
+          'x-align': 'left',
+        },
         refresh: {
           type: 'void',
-          title: '{{ t("Refresh") }}',
+          title: `{{ t("Refresh") }}`,
           'x-action': 'refresh',
           'x-component': 'Action',
           'x-settings': 'actionSettings:refresh',
@@ -306,6 +304,7 @@ const table = {
             icon: 'ReloadOutlined',
           },
           'x-use-component-props': 'useRefreshActionProps',
+          'x-align': 'right',
         },
         create,
       },
@@ -327,18 +326,9 @@ const table = {
           'x-component': 'TableV2.Column',
           properties: {
             username: {
-              'x-collection-field': 'users.username',
+              type: 'string',
               'x-component': 'CollectionField',
-              'x-component-props': {
-                ellipsis: true,
-              },
               'x-read-pretty': true,
-              'x-decorator': null,
-              'x-decorator-props': {
-                labelStyle: {
-                  display: 'none',
-                },
-              },
             },
           },
         },
@@ -348,28 +338,20 @@ const table = {
           'x-component': 'TableV2.Column',
           properties: {
             nickname: {
-              'x-collection-field': 'users.nickname',
+              type: 'string',
               'x-component': 'CollectionField',
-              'x-component-props': {
-                ellipsis: true,
-              },
               'x-read-pretty': true,
-              'x-decorator': null,
-              'x-decorator-props': {
-                labelStyle: {
-                  display: 'none',
-                },
-              },
             },
           },
         },
         updatedAt: {
           type: 'void',
+          title: tval('Updated At'),
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
           properties: {
             updatedAt: {
-              'x-collection-field': 'users.updatedAt',
+              'x-collection-field': 'userBlocks.updatedAt',
               'x-component': 'CollectionField',
               'x-component-props': {
                 ellipsis: true,
@@ -377,21 +359,17 @@ const table = {
               },
               'x-read-pretty': true,
               'x-decorator': null,
-              'x-decorator-props': {
-                labelStyle: {
-                  display: 'none',
-                },
-              },
             },
           },
         },
-        blockExpireAt: {
+        expireAt: {
           type: 'void',
+          title: tval('Block Expires At'),
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
           properties: {
-            blockExpireAt: {
-              'x-collection-field': 'users.blockExpireAt',
+            expireAt: {
+              'x-collection-field': 'userBlocks.expireAt',
               'x-component': 'CollectionField',
               'x-component-props': {
                 ellipsis: true,
@@ -399,17 +377,12 @@ const table = {
               },
               'x-read-pretty': true,
               'x-decorator': null,
-              'x-decorator-props': {
-                labelStyle: {
-                  display: 'none',
-                },
-              },
             },
           },
         },
         actions: {
           type: 'void',
-          title: '{{ t("Actions") }}',
+          title: `{{ t("Actions") }}`,
           'x-action-column': 'actions',
           'x-decorator': 'TableV2.Column.ActionBar',
           'x-component': 'TableV2.Column',
@@ -426,16 +399,20 @@ const table = {
               },
               properties: {
                 edit: editAction,
-                delete: {
+                destroy: {
                   type: 'void',
-                  title: '{{ t("Unblock") }}',
+                  title: tval('Unblock'),
                   'x-action': 'destroy',
                   'x-component': 'Action.Link',
                   'x-component-props': {
-                    useAction: '{{ useUnblockAction }}',
                     danger: true,
+                    confirm: {
+                      title: tval('Unblock User'),
+                      content: tval('Are you sure you want to unblock this user?'),
+                    },
                   },
                   'x-decorator': 'ACLActionProvider',
+                  'x-use-component-props': 'useDestroyActionProps',
                 },
               },
             },
@@ -453,171 +430,8 @@ const schema = {
   },
 };
 
-const useBlockedUsers = (options = {}) => {
-  const api = useAPIClient();
-  return useRequest(
-    () =>
-      api.resource('users').list({
-        filter: {
-          blockExpireAt: {
-            $exists: true,
-            $ne: null,
-          },
-        },
-      }),
-    {
-      ...options,
-      manual: true,
-    },
-  );
-};
-
-const useUserSearch = () => {
-  const api = useAPIClient();
-  const { service } = useTableBlockContext();
-
-  return async (search) => {
-    if (!search || search.length < 2) return [];
-
-    try {
-      // 获取当前已封禁用户的列表
-      const blockedUsers = await service?.load();
-      const blockedUserIds = blockedUsers?.data?.map((user) => user.id) || [];
-
-      // 搜索未被封禁的用户
-      const { data } = await api.resource('users').list({
-        filter: {
-          $or: [
-            { username: { $like: `%${search}%` } },
-            { nickname: { $like: `%${search}%` } },
-            { email: { $like: `%${search}%` } },
-          ],
-          id: {
-            $notIn: blockedUserIds,
-          },
-          blockExpireAt: {
-            $exists: false,
-          },
-        },
-        fields: ['id', 'username', 'nickname', 'email'],
-        sort: ['username'],
-        pageSize: 20,
-      });
-
-      return data.map((user) => ({
-        label: `${user.username}${user.nickname ? ` (${user.nickname})` : ''}${user.email ? ` - ${user.email}` : ''}`,
-        value: user.username,
-      }));
-    } catch (error) {
-      console.error('Error searching users:', error);
-      return [];
-    }
-  };
-};
-
-const useCreateAction = () => {
-  const api = useAPIClient();
-  const { service } = useTableBlockContext();
-  const { setVisible } = useActionContext();
-
-  return {
-    async run(values) {
-      await api.resource('users').update({
-        filter: {
-          username: values.username,
-        },
-        values: {
-          blockExpireAt: values.blockExpireAt,
-        },
-      });
-      service?.refresh();
-      setVisible(false);
-    },
-  };
-};
-
-// const useEditAction = () => {
-//   const { t } = useTranslation();
-//   const api = useAPIClient();
-//   const record = useRecord();
-//   const { service } = useTableBlockContext();
-//   const { setVisible } = useActionContext();
-
-//   return {
-//     async run(values) {
-//       await api.resource('password-policy').updateBlockUser({
-//         filterByTk: record.id,
-//         values: {
-//           blockExpireAt: values.blockExpireAt
-//         }
-//       });
-//       service?.refresh();
-//       setVisible(false);
-//     },
-//     initialValues: {
-//       username: record.username,
-//       nickname: record.nickname,
-//       blockExpireAt: record.blockExpireAt
-//     }
-//   };
-// };
-
-const useUnblockAction = () => {
-  const { t } = useTranslation();
-  const api = useAPIClient();
-  const record = useRecord();
-  const { service } = useTableBlockContext();
-  const { modal } = App.useApp();
-
-  return {
-    async run() {
-      modal.confirm({
-        title: t('Unblock User'),
-        content: t('Are you sure you want to unblock this user?'),
-        async onOk() {
-          await api.resource('password-policy').updateBlockUser({
-            filterByTk: record.id,
-            values: {
-              blockExpireAt: null,
-            },
-          });
-          service?.refresh();
-        },
-      });
-    },
-  };
-};
-
-// const renderBlockDuration = (value, record) => {
-//   if (!record.blockExpireAt) return '';
-//   const now = new Date();
-//   const expireAt = new Date(record.blockExpireAt);
-//   const diff = expireAt.getTime() - now.getTime();
-//   if (diff <= 0) return '已过期';
-
-//   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-//   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
-//   if (days > 0) return `${days}天${hours}小时`;
-//   if (hours > 0) return `${hours}小时${minutes}分钟`;
-//   return `${minutes}分钟`;
-// };
-
-// const useCreateFormValues = () => {
-//   return {};
-// };
-
 export const UserBlockTable: React.FC = () => {
-  const scope = {
-    useBlockedUsers,
-    useCreateAction,
-    // useEditAction,
-    useUnblockAction,
-    useUserSearch,
-    // renderBlockDuration,
-    // useCreateFormValues
-  };
+  const scope = {};
 
   return (
     <ExtendCollectionsProvider collections={[userBlockCollection]}>

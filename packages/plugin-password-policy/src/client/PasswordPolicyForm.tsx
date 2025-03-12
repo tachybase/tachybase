@@ -72,6 +72,12 @@ const schema: ISchema = {
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
         },
+        strictLock: {
+          type: 'boolean',
+          title: tval('Can not access any api after locked'),
+          'x-decorator': 'FormItem',
+          'x-component': 'Checkbox',
+        },
         footer: {
           type: 'void',
           'x-component': 'ActionBar',
