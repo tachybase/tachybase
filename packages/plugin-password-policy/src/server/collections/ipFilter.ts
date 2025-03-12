@@ -5,23 +5,24 @@ export default defineCollection({
   dumpRules: {
     group: 'user',
   },
-  name: 'signInFails',
+  name: 'ipFilter',
   createdAt: true,
-  updatedAt: false,
-  createdBy: false,
-  updatedBy: false,
+  updatedAt: true,
+  createdBy: true,
+  updatedBy: true,
   fields: [
     {
-      type: 'bigInt',
-      name: 'userId',
+      type: 'text',
+      name: 'allowList', //换行分割,支持cidr 比如127.0.0.1/24这样
     },
     {
-      type: 'string',
-      name: 'ip',
+      type: 'text',
+      name: 'blockList', //换行分割
     },
     {
-      type: 'string',
-      name: 'address',
+      type: 'boolean',
+      name: 'allowFirst', //白名单优先还是黑名单优先
+      default: true,
     },
   ],
 });

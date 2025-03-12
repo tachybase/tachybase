@@ -59,7 +59,7 @@ export class PasswordPolicyService {
 
     this.app.on('afterStart', async () => {
       // 从配置中读取参数
-      const config = await this.db.getRepository('passwordPolicyConfig').findOne();
+      const config = await this.db.getRepository('passwordPolicy').findOne();
       await this.refreshConfig(config);
 
       // 初始化锁定用户缓存

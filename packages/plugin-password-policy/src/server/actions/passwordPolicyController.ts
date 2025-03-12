@@ -10,7 +10,7 @@ export class PasswordPolicyController {
 
   @Action('get')
   async getConfig(ctx: Context, next: Next) {
-    const repo = ctx.db.getRepository('passwordPolicyConfig');
+    const repo = ctx.db.getRepository('passwordPolicy');
     const data = await repo.findOne();
     ctx.body = data;
     return next();
@@ -22,7 +22,7 @@ export class PasswordPolicyController {
     let transaction;
     try {
       const transaction = await ctx.db.sequelize.transaction();
-      const repo = ctx.db.getRepository('passwordPolicyConfig');
+      const repo = ctx.db.getRepository('passwordPolicy');
       const existOne = await repo.findOne({
         transaction,
       });
