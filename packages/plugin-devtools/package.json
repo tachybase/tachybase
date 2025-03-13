@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-devtools",
   "displayName": "Devtools",
-  "version": "0.23.62",
+  "version": "0.23.63",
   "description": "Development tools for viewing API documentation, middleware, environment variables, events, and more",
   "main": "dist/server/index.js",
   "scripts": {
