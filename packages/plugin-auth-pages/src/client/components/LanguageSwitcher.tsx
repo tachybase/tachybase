@@ -1,36 +1,36 @@
-import { useState } from 'react';
-
-import { Dropdown, type MenuProps } from 'antd';
+import { useMemo } from 'react';
+import { locale, SelectWithTitle, useAPIClient, useSystemSettings, useTranslation } from '@tachybase/client';
 
 import { useStyles } from './LanguageSwitcher.style';
 
 export const LanguageSwitcher = () => {
   const { styles } = useStyles();
-  const [language, setLanguage] = useState('zh_CN'); // 默认语言为中文
-
-  const handleLanguageChange = (value) => {
-    setLanguage(value);
-    localStorage.setItem('TACHYBASE_LOCALE', value);
-    window.location.reload();
-  };
-
-  const items: MenuProps['items'] = [
-    {
-      key: 'zh_CN',
-      label: <span onClick={() => handleLanguageChange('zh_CN')}>简体中文</span>,
-    },
-    {
-      key: 'en_US',
-      label: <span onClick={() => handleLanguageChange('en_US')}>English</span>,
-    },
-  ];
+  const { t, i18n } = useTranslation();
+  const api = useAPIClient();
+  const { data } = useSystemSettings();
+  const enabledLanguages: string[] = useMemo(() => data?.data?.enabledLanguages || [], [data?.data?.enabledLanguages]);
 
   return (
-    <Dropdown menu={{ items }} placement="bottomRight">
-      <div className={styles.languageText}>
-        <span className="icon-globe"></span>
-        <span>{language === 'zh_CN' ? '简体中文' : 'English'}</span>
-      </div>
-    </Dropdown>
+    <SelectWithTitle
+      title={<span className={styles.iconGlobe}></span>}
+      defaultValue={i18n.language}
+      options={Object.keys(locale)
+        .filter((lang) => enabledLanguages.includes(lang))
+        .map((lang) => {
+          return {
+            label: locale[lang].label,
+            value: lang,
+          };
+        })}
+      onChange={async (lang) => {
+        await api.resource('users').updateProfile({
+          values: {
+            appLang: lang,
+          },
+        });
+        api.auth.setLocale(lang);
+        window.location.reload();
+      }}
+    />
   );
 };
