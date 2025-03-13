@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-online-user",
-  "version": "0.23.60",
+  "version": "0.23.61",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-online-user"
