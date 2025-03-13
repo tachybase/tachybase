@@ -40,8 +40,8 @@ export default class extends Instruction {
   type = 'updateorcreate';
   group = 'collection';
   icon = 'FileSyncOutlined';
-  color = '#f8f800';
-  description = `{{t("Update or create data, with the ability to assign values to fields using variables from upstream nodes.", { ns: "${NAMESPACE}" })}}`;
+  color = '#f6f66a';
+  description = `{{t("Update or create record, if no matching record is found, a new record will be created, with the ability to assign values to fields using variables from upstream nodes.", { ns: "${NAMESPACE}" })}}`;
   fieldset = {
     collection: {
       ...collection,

@@ -1,4 +1,5 @@
 import { parseCollectionName } from '@tachybase/data-source';
+import { Repository } from '@tachybase/database';
 import { Gateway } from '@tachybase/server';
 import { uid } from '@tachybase/utils';
 
@@ -11,19 +12,18 @@ import { Instruction } from '.';
 import { JOB_STATUS } from '../constants';
 import type Processor from '../Processor';
 import type { FlowNodeModel } from '../types';
+import { toJSON } from '../utils';
 
 export class UpdateOrCreateInstruction extends Instruction {
   async run(node: FlowNodeModel, input, processor: Processor) {
-    const { collection, params = {} } = node.config;
-
+    const { collection, params: { appends = [], ...params } = {} } = node.config;
     const [dataSourceName, collectionName] = parseCollectionName(collection);
 
-    const { repository } = this.workflow.app.dataSourceManager.dataSources
+    const { repository, filterTargetKey } = this.workflow.app.dataSourceManager.dataSources
       .get(dataSourceName)
       .collectionManager.getCollection(collectionName);
     const options = processor.getParsedValue(params, node.id);
-    options.filterKeys = repository.collection.filterTargetKey || 'id';
-    console.log('%c Line:26 🥕 options', 'font-size:18px;color:#6ec1c2;background:#fca650', options);
+    const transaction = this.workflow.useDataSourceTransaction(dataSourceName, processor.transaction);
     const c = this.workflow.app.dataSourceManager.dataSources
       .get(dataSourceName)
       .collectionManager.getCollection(collectionName);
@@ -186,19 +186,52 @@ export class UpdateOrCreateInstruction extends Instruction {
       }
     }
 
-    const result = await repository.updateOrCreate({
-      ...options,
-      context: {
-        stack: Array.from(new Set((processor.execution.context.stack ?? []).concat(processor.execution.id))),
-        state: processor.options?.httpContext?.state,
-      },
-      transaction: this.workflow.useDataSourceTransaction(dataSourceName, processor.transaction),
-    });
+    const instance = await (repository as Repository).findOne({ filter: options.filter, transaction });
 
-    return {
-      result: result.length ?? result,
-      status: JOB_STATUS.RESOLVED,
-    };
+    if (instance) {
+      const result = await (repository as Repository).update({
+        ...options,
+        context: {
+          stack: Array.from(new Set((processor.execution.context.stack ?? []).concat(processor.execution.id))),
+          state: processor.options?.httpContext?.state,
+        },
+        transaction,
+      });
+
+      return {
+        result: result.length ?? result,
+        status: JOB_STATUS.RESOLVED,
+      };
+    } else {
+      const created = await (repository as Repository).create({
+        ...options,
+        context: {
+          stack: Array.from(new Set((processor.execution.context.stack ?? []).concat(processor.execution.id))),
+          state: processor.options?.httpContext?.state,
+        },
+        transaction,
+      });
+
+      let result = created;
+      if (created && appends.length) {
+        const includeFields = appends.reduce((set, field) => {
+          set.add(field.split('.')[0]);
+          set.add(field);
+          return set;
+        }, new Set());
+        result = await repository.findOne({
+          filterByTk: created[filterTargetKey],
+          appends: Array.from(includeFields),
+          transaction,
+        });
+      }
+
+      return {
+        // NOTE: get() for non-proxied instance (#380)
+        result: toJSON(result),
+        status: JOB_STATUS.RESOLVED,
+      };
+    }
   }
 }
 
