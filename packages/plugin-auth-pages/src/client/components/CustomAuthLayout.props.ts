@@ -12,8 +12,8 @@ export function useProps() {
       }),
   );
 
-  const { data: systemSettingData } = systemSetttingResponse;
-  const { title } = systemSettingData;
+  const { data: systemSettingData } = systemSetttingResponse || {};
+  const { title } = systemSettingData || {};
 
   return {
     title,
