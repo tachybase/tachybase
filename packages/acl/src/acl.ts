@@ -353,7 +353,19 @@ export class ACL extends EventEmitter {
 
     return async function ACLMiddleware(ctx, next) {
       const roleName = ctx.state.currentRole || 'anonymous';
-      const { resourceName, actionName } = ctx.action;
+      const { resourceName: rawResourceName, actionName } = ctx.action;
+
+      let resourceName = rawResourceName;
+      if (rawResourceName.includes('.')) {
+        resourceName = rawResourceName.split('.').pop();
+      }
+
+      if (ctx.getCurrentRepository) {
+        const currentRepository = ctx.getCurrentRepository();
+        if (currentRepository && currentRepository.targetCollection) {
+          resourceName = ctx.getCurrentRepository().targetCollection.name;
+        }
+      }
 
       ctx.can = (options: Omit<CanArgs, 'role'>) => {
         const canResult = acl.can({ role: roleName, ...options, ctx });
