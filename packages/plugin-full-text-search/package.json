@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-full-text-search",
-  "version": "0.23.63",
+  "version": "0.23.64",
   "description": "Provides full text search capability",
   "main": "dist/server/index.js",
   "devDependencies": {
