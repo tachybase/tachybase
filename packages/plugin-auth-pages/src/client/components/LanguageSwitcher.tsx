@@ -10,18 +10,22 @@ export const LanguageSwitcher = () => {
   const { data } = useSystemSettings();
   const enabledLanguages: string[] = useMemo(() => data?.data?.enabledLanguages || [], [data?.data?.enabledLanguages]);
 
+  const options = useMemo(
+    () =>
+      Object.keys(locale)
+        .filter((lang) => enabledLanguages.includes(lang))
+        .map((lang) => ({
+          label: locale[lang].label,
+          value: lang,
+        })),
+    [locale, enabledLanguages],
+  );
+
   return (
     <SelectWithTitle
       title={<span className={styles.iconGlobe}></span>}
       defaultValue={i18n.language}
-      options={Object.keys(locale)
-        .filter((lang) => enabledLanguages.includes(lang))
-        .map((lang) => {
-          return {
-            label: locale[lang].label,
-            value: lang,
-          };
-        })}
+      options={options}
       onChange={async (lang) => {
         await api.resource('users').updateProfile({
           values: {
