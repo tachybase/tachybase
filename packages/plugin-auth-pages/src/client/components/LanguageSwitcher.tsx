@@ -10,16 +10,18 @@ export const LanguageSwitcher = () => {
 
   const handleLanguageChange = (value) => {
     setLanguage(value);
+    localStorage.setItem('TACHYBASE_LOCALE', value);
+    window.location.reload();
   };
 
   const items: MenuProps['items'] = [
     {
-      key: '1',
-      label: <span>简体中文</span>,
+      key: 'zh_CN',
+      label: <span onClick={() => handleLanguageChange('zh_CN')}>简体中文</span>,
     },
     {
-      key: '2',
-      label: <span>English</span>,
+      key: 'en_US',
+      label: <span onClick={() => handleLanguageChange('en_US')}>English</span>,
     },
   ];
 
