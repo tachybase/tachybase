@@ -5,7 +5,7 @@ import { useStyles } from './LanguageSwitcher.style';
 
 export const LanguageSwitcher = () => {
   const { styles } = useStyles();
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const api = useAPIClient();
   const { data } = useSystemSettings();
   const enabledLanguages: string[] = useMemo(() => data?.data?.enabledLanguages || [], [data?.data?.enabledLanguages]);
