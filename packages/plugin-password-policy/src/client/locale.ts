@@ -1,6 +1,6 @@
 import { i18n, tval as nTval } from '@tachybase/client';
 
-export const NAMESPACE = 'password-policy';
+import { NAMESPACE } from '../constants';
 
 export function usePluginTranslation(): any {
   return useTranslation();

@@ -33,7 +33,7 @@ interface GeoLocation {
 }
 
 @Service()
-export class PasswordPolicyService {
+export class PasswordAttemptService {
   @Db()
   db: Database;
 
@@ -49,7 +49,7 @@ export class PasswordPolicyService {
   private failureRecords: Map<number, FailureRecord[]> = new Map();
 
   // 缓存前缀
-  private readonly CACHE_PREFIX = 'passwordPolicy';
+  private readonly CACHE_PREFIX = 'passwordAttempt';
 
   // 缓存过期时间（毫秒）
   private readonly CACHE_TTL = 5 * 60 * 1000; // 5分钟
@@ -59,7 +59,7 @@ export class PasswordPolicyService {
 
     this.app.on('afterStart', async () => {
       // 从配置中读取参数
-      const config = await this.db.getRepository('passwordPolicy').findOne();
+      const config = await this.db.getRepository('passwordAttempt').findOne();
       await this.refreshConfig(config);
 
       // 初始化锁定用户缓存

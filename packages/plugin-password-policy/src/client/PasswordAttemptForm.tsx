@@ -10,7 +10,7 @@ const usePasswordPolicyValues = () => {
   const api = useAPIClient();
   const { data } = useRequest(() =>
     api
-      .resource('passwordPolicy')
+      .resource('passwordAttempt')
       .get()
       .then((res) => res.data?.data),
   );
@@ -30,7 +30,7 @@ const useSavePasswordPolicyValues = () => {
       await form.submit();
       try {
         await api.request({
-          url: 'passwordPolicy:put',
+          url: 'passwordAttempt:put',
           method: 'post',
           data: form.values,
         });
@@ -46,7 +46,7 @@ const useSavePasswordPolicyValues = () => {
 const schema: ISchema = {
   type: 'object',
   properties: {
-    passwordPolicy: {
+    passwordAttempt: {
       'x-component': 'FormV2',
       'x-use-component-props': 'usePasswordPolicyValues',
       type: 'void',
@@ -97,7 +97,7 @@ const schema: ISchema = {
   },
 };
 
-export const PasswordPolicyForm = () => {
+export const PasswordAttemptForm = () => {
   return (
     <Card bordered={false}>
       <SchemaComponent

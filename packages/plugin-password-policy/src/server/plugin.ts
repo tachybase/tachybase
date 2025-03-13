@@ -1,20 +1,20 @@
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import { IpFilterController } from './actions/IpFilterController';
-import { PasswordPolicyController } from './actions/PasswordPolicyController';
+import { PasswordAttemptController } from './actions/PasswordAttemptController';
 import { UserLocksController } from './actions/UserLocksController';
 import { IPFilterService } from './services/IPFilterService';
-import { PasswordPolicyService } from './services/PasswordPolicyService';
+import { PasswordAttemptService } from './services/PasswordAttemptService';
 
 @InjectedPlugin({
-  Controllers: [PasswordPolicyController, UserLocksController, IpFilterController],
-  Services: [PasswordPolicyService, IPFilterService],
+  Controllers: [PasswordAttemptController, UserLocksController, IpFilterController],
+  Services: [PasswordAttemptService, IPFilterService],
 })
 export class PluginPasswordPolicyServer extends Plugin {
   async load() {
     this.app.acl.registerSnippet({
-      name: `pm.security.password-policy`,
-      actions: ['passwordPolicy:*'],
+      name: `pm.security.password-attempt`,
+      actions: ['passwordAttempt:*'],
     });
     this.app.acl.registerSnippet({
       name: `pm.security.user-lock`,

@@ -5,7 +5,7 @@ export default defineCollection({
   dumpRules: {
     group: 'user',
   },
-  name: 'passwordPolicy',
+  name: 'passwordAttempt',
   createdAt: true,
   updatedAt: true,
   createdBy: true,

@@ -1,16 +1,16 @@
 import { Context, Next } from '@tachybase/actions';
 import { Action, Controller, Inject } from '@tachybase/utils';
 
-import { PasswordPolicyService } from '../services/PasswordPolicyService';
+import { PasswordAttemptService } from '../services/PasswordAttemptService';
 
-@Controller('passwordPolicy')
-export class PasswordPolicyController {
-  @Inject(() => PasswordPolicyService)
-  passwordPolicyService: PasswordPolicyService;
+@Controller('passwordAttempt')
+export class PasswordAttemptController {
+  @Inject(() => PasswordAttemptService)
+  passwordAttemptService: PasswordAttemptService;
 
   @Action('get')
   async getConfig(ctx: Context, next: Next) {
-    const repo = ctx.db.getRepository('passwordPolicy');
+    const repo = ctx.db.getRepository('passwordAttempt');
     const data = await repo.findOne();
     ctx.body = data;
     return next();
@@ -22,7 +22,7 @@ export class PasswordPolicyController {
     let transaction;
     try {
       const transaction = await ctx.db.sequelize.transaction();
-      const repo = ctx.db.getRepository('passwordPolicy');
+      const repo = ctx.db.getRepository('passwordAttempt');
       const existOne = await repo.findOne({
         transaction,
       });
@@ -40,7 +40,7 @@ export class PasswordPolicyController {
         });
       }
       await transaction.commit();
-      await this.passwordPolicyService.refreshConfig(data);
+      await this.passwordAttemptService.refreshConfig(data);
       ctx.body = data;
     } catch (err) {
       ctx.app.logger.error('put password policy config error', err);
