@@ -411,6 +411,18 @@ export default class extends Instruction {
       },
       required: true,
     },
+    remarks: {
+      type: 'string',
+      title: `{{t("Remarks", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormItem',
+      'x-component': 'Input.TextArea',
+      'x-component-props': {
+        autoSize: {
+          minRows: 3,
+        },
+        placeholder: `{{t("Input remarks", { ns: "${NAMESPACE}" })}}`,
+      },
+    },
   };
   options = [
     {

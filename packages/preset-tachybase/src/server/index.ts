@@ -22,6 +22,7 @@ export class PresetTachyBase extends Plugin {
     'web',
     'worker-thread',
     'workflow',
+    'env-secrets',
   ];
 
   get builtInPlugins() {
@@ -82,6 +83,8 @@ export class PresetTachyBase extends Plugin {
     ['workflow-approval', '0.22.37', false],
     ['ai-chat', '0.23.8', false],
     ['department', '0.23.22', false],
+    ['workflow-analysis', '0.23.41', false],
+    ['api-logs', '0.23.49', false],
   ];
 
   get localPlugins() {

@@ -1,4 +1,5 @@
-import { ApprovalNoticeStatusOptions, ApprovalStatusEnums, COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../constants';
+import { approvalStatusEnums } from '../../../common/constants/approval-initiation-status-options';
+import { ApprovalNoticeStatusOptions, COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../constants';
 import { NAMESPACE, tval } from '../locale';
 
 export const CollectionApprovalCarbonCopy = {
@@ -178,7 +179,7 @@ export const CollectionApprovalCarbonCopy = {
         type: 'number',
         title: '{{t("Status", { ns: "workflow" })}}',
         'x-component': 'Select',
-        enum: ApprovalStatusEnums,
+        enum: approvalStatusEnums,
       },
     },
   ],

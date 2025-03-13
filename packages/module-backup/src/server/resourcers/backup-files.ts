@@ -158,6 +158,13 @@ export default {
         throw new Error(`Backup file ${filterByTk} not found`);
       }
 
+      // 获取文件大小
+      const stats = fs.statSync(filePath); // 或者使用异步方式：const stats = await fs.promises.stat(filePath);
+      const fileSize = stats.size;
+
+      // 设置 Content-Length 头
+      ctx.set('Content-Length', fileSize);
+
       ctx.attachment(filePath);
       ctx.body = fs.createReadStream(filePath);
       await next();

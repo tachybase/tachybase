@@ -1,0 +1,23 @@
+{
+  "name": "@tachybase/plugin-workflow-analysis",
+  "displayName": "Workflow analysis tool",
+  "version": "0.23.61",
+  "description": "Workflow Analysis Tool: Used for Time Consumption and Error Analysis",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "@ant-design/icons": "^5.6.0",
+    "antd": "5.22.5",
+    "react-i18next": "^15.4.0",
+    "react-router-dom": "6.28.1"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/module-workflow": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
+  }
+}

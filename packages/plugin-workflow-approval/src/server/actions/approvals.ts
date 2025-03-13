@@ -9,7 +9,7 @@ import { getSummary } from '../tools';
 
 export const approvals = {
   async create(context, next) {
-    const { status, collectionName, data, workflowId } = context.action.params.values ?? {};
+    const { status, collectionName, data, workflowId, workflowKey } = context.action.params.values ?? {};
     const [dataSourceName, cName] = parseCollectionName(collectionName);
     const dataSource = context.app.dataSourceManager.dataSources.get(dataSourceName);
     if (!dataSource) {
@@ -19,12 +19,36 @@ export const approvals = {
     if (!collection) {
       return context.throw(400, `Collection "${cName}" not found`);
     }
-    const workflow = await context.db.getRepository('workflows').findOne({
-      filterByTk: workflowId,
-    });
-    if (!workflow?.enabled) {
+
+    // 如果能拿到 key, 说明是复制操作, 否则是新建操作;
+    let workflow;
+    if (workflowKey) {
+      workflow = await context.db.getRepository('workflows').findOne({
+        filter: {
+          key: workflowKey,
+          enabled: true,
+        },
+      });
+    } else {
+      workflow = await context.db.getRepository('workflows').findOne({
+        filterByTk: workflowId,
+      });
+    }
+
+    /**
+     * THINK:
+     * 前端传来 workflow 的信息
+     * 后端根据传来 workflow 的信息, 判断同 key 的是否有处于 enabled 状态的 workflow,
+     * 有的话继续, 没的话中断
+     * 并且因为处于 enabled 状态的 workflow, 如果有的话必然有且只有一个.
+     * 那么新建的工作流, 应该根据这个处于启用状态的工作流的配置去创建.
+     * 现有的逻辑是简单直接的, 默认前端传过来的必然是那个唯一的启用状态的配置, 不合适, 需要调整.
+     */
+
+    if (!workflow) {
       return context.throw(400, 'Current workflow not found or disabled, please refresh and try again');
     }
+
     if (status !== APPROVAL_STATUS.DRAFT) {
       context.action.mergeParams({
         values: {
@@ -58,6 +82,7 @@ export const approvals = {
         data: instance,
         dataKey: values[collection.filterTargetKey],
         workflowKey: workflow.key,
+        workflowId: workflow.id,
         applicantRoleName: context.state.currentRole,
         summary,
       },
@@ -274,6 +299,10 @@ export const approvals = {
 
     // 构造好审批数据后, 依次通知审批人审批
     for (const userId of assignees) {
+      const [dataSourceName] = parseCollectionName(approval.collectionName);
+      const collection = this.workflow.app.dataSourceManager.dataSources
+        .get(dataSourceName)
+        .collectionManager.getCollection(approval.collectionName);
       const message = {
         userId,
         title: `{{t("Approval", { ns: '${NAMESPACE}' })}}`,
@@ -281,6 +310,7 @@ export const approvals = {
         collectionName: approval.collectionName,
         jsonContent: approval.summary,
         schemaName: approval.workflow?.config.applyDetail,
+        dataKey: approval.data[collection.filterTargetKey],
       };
 
       context.app.messageManager.sendMessage(+userId, message);

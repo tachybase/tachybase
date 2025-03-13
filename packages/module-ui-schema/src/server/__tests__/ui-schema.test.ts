@@ -1,7 +1,6 @@
 import { Database } from '@tachybase/database';
+import { ISchema } from '@tachybase/schema';
 import { createMockServer, MockServer } from '@tachybase/test';
-
-import { ISchema } from '@formily/json-schema';
 
 import { UiSchemaRepository } from '..';
 

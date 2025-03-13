@@ -41,8 +41,10 @@ export class PluginAuthServer extends Plugin {
 
     // Set up auth manager and register preset auth type
     const storer = new Storer({
+      app: this.app,
       db: this.db,
       cache: this.cache,
+      authManager: this.app.authManager,
     });
     this.app.authManager.setStorer(storer);
 

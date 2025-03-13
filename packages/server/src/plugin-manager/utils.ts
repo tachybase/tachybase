@@ -521,7 +521,7 @@ export async function getCompatible(packageName: string) {
     const packageVersion = externalVersion[packageName];
     const globalPackageName = deps[packageName]
       ? packageName
-      : deps[packageName.split('/')[0]] // @tachybase and @formily
+      : deps[packageName.split('/')[0]] // @tachybase
         ? packageName.split('/')[0]
         : undefined;
 

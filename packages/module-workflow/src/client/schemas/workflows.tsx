@@ -602,6 +602,11 @@ export const workflowSchema: ISchema = {
               },
               'x-align': 'left',
             },
+            fuzzySearch: {
+              type: 'void',
+              'x-component': 'FuzzySearchInput',
+              'x-align': 'left',
+            },
             refresh: {
               type: 'void',
               title: '{{ t("Refresh") }}',
@@ -769,6 +774,7 @@ export const workflowSchema: ISchema = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
+                sorter: true,
                 width: 20,
                 align: 'center',
               },
@@ -786,6 +792,7 @@ export const workflowSchema: ISchema = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
+                sorter: true,
                 width: 20,
                 align: 'center',
                 style: {
@@ -819,6 +826,7 @@ export const workflowSchema: ISchema = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
+                sorter: true,
                 width: 20,
                 align: 'center',
                 style: {
@@ -839,6 +847,7 @@ export const workflowSchema: ISchema = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
+                sorter: true,
                 width: 20,
                 align: 'center',
                 style: {

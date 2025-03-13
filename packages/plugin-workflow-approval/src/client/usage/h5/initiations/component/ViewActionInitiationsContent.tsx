@@ -35,7 +35,7 @@ export const ViewActionInitiationsContent = () => {
       .request({
         url: 'workflows:list',
         params: {
-          pageSize: 9999,
+          paginate: false,
           filter: {
             type: { $eq: 'approval' },
             enabled: { $eq: true },

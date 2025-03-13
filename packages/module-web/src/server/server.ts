@@ -73,10 +73,11 @@ export class ModuleWeb extends Plugin {
     this.app.localeManager.setLocaleFn('cron', async (lang) => getCronLocale(lang));
     this.app.acl.allow('app', 'getLang');
     this.app.acl.allow('app', 'getInfo');
+    // TODO: 此处应该删掉,但是不确定其他地方是否有用到
     this.app.acl.allow('plugins', '*', 'public');
     this.app.acl.registerSnippet({
       name: 'app',
-      actions: ['app:restart', 'app:clearCache'],
+      actions: ['app:restart', 'app:refresh', 'app:clearCache'],
     });
     const dialect = this.app.db.sequelize.getDialect();
 
@@ -130,6 +131,10 @@ export class ModuleWeb extends Plugin {
         },
         async restart(ctx, next) {
           ctx.app.runAsCLI(['restart'], { from: 'user' });
+          await next();
+        },
+        async refresh(ctx, next) {
+          ctx.app.runCommand('refresh');
           await next();
         },
       },

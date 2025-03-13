@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-cloud-component",
   "displayName": "Cloud component",
-  "version": "0.23.40",
+  "version": "0.23.61",
   "description": "Cloud component",
   "main": "dist/server/index.js",
   "scripts": {

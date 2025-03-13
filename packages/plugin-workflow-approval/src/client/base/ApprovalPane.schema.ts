@@ -7,15 +7,14 @@ import {
   useDataBlockResource,
   useFilterByTk,
 } from '@tachybase/client';
-import { collectionWorkflows, getExecutionSchema } from '@tachybase/module-workflow/client';
+import { collectionWorkflows } from '@tachybase/module-workflow/client';
 import { ISchema, useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { saveAs } from 'file-saver';
 
 import { NAMESPACE, tval, useTranslation } from '../locale';
-
-const executionSchema = getExecutionSchema({ isShowActionClear: false });
+import { schemaExecution } from './Execution.schema';
 
 export const approvalFieldset: Record<string, ISchema> = {
   title: {
@@ -273,6 +272,11 @@ export const schemaApprovalPanne = {
               },
               'x-align': 'left',
             },
+            fuzzySearch: {
+              type: 'void',
+              'x-component': 'FuzzySearchInput',
+              'x-align': 'left',
+            },
             refresh: {
               type: 'void',
               title: '{{ t("Refresh") }}',
@@ -394,6 +398,9 @@ export const schemaApprovalPanne = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                sorter: true,
+              },
               properties: {
                 title: {
                   type: 'string',
@@ -419,6 +426,7 @@ export const schemaApprovalPanne = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
+                sorter: true,
                 width: 20,
               },
               properties: {
@@ -435,6 +443,7 @@ export const schemaApprovalPanne = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
+                sorter: true,
                 width: 20,
               },
               properties: {
@@ -453,8 +462,51 @@ export const schemaApprovalPanne = {
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
                   properties: {
-                    drawer: executionSchema,
+                    drawer: schemaExecution,
                   },
+                },
+              },
+            },
+            updatedAt: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                sorter: true,
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
+              properties: {
+                updatedAt: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            updatedBy: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                sorter: true,
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
+              properties: {
+                updatedBy: {
+                  type: 'string',
+                  'x-collection-field': 'workflows.updatedBy',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
                 },
               },
             },

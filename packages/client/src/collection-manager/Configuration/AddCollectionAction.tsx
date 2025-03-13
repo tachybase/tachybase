@@ -16,6 +16,7 @@ import { useResourceActionContext, useResourceContext } from '../ResourceActionP
 import * as components from './components';
 import { TemplateSummary } from './components/TemplateSummary';
 import { ImportCollectionMetaAction } from './ImportCollectionMetaAction';
+import { ImportXlsxMetaAction } from './ImportXlsx/ImportXlsxMetaAction';
 
 const getSchema = (schema, category, compile): ISchema => {
   if (!schema) {
@@ -150,6 +151,7 @@ export const AddCollectionAction = (props) => {
   const compile = useCompile();
   const { t } = useTranslation();
   const importRef = useRef<any>(null);
+  const importxlsxRef = useRef<any>(null);
 
   const items = useMemo(() => {
     const result = [];
@@ -177,9 +179,13 @@ export const AddCollectionAction = (props) => {
       },
       onClick: (info) => {
         if (info.key === 'import') {
-          console.log('import', importRef.current);
           // 打开上传文件的弹窗
           importRef.current?.showModal();
+          return;
+        }
+        if (info.key === 'importXlsx') {
+          // 打开上传文件的弹窗
+          importxlsxRef.current?.showModal();
           return;
         }
         const schema = getSchema(getTemplate(info.key), category, compile);
@@ -188,7 +194,7 @@ export const AddCollectionAction = (props) => {
       },
       items,
     };
-  }, [category, items, importRef]);
+  }, [category, items, importRef, importxlsxRef]);
 
   return (
     <RecordProvider record={record}>
@@ -215,6 +221,7 @@ export const AddCollectionAction = (props) => {
         />
       </ActionContextProvider>
       <ImportCollectionMetaAction ref={importRef} />
+      <ImportXlsxMetaAction ref={importxlsxRef} />
     </RecordProvider>
   );
 };

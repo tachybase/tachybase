@@ -1,5 +1,6 @@
 import fs from 'fs';
 import http from 'http';
+import { Readable } from 'node:stream';
 import { Context, Next } from '@tachybase/actions';
 import { appendArrayColumn } from '@tachybase/evaluators';
 import { Gateway } from '@tachybase/server';
@@ -127,6 +128,7 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
     },
     currentUser,
     currentTime: new Date().toISOString(),
+    $env: ctx.app.environment.getVariables(),
   };
 
   const getParsedValue = (value) => {
@@ -164,8 +166,18 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
 
   try {
     const res = await axios({ ...axiosRequestConfig, responseType: 'stream' });
-    ctx.set('Content-Type', `${res.headers['content-type']}`);
-    ctx.set('Content-disposition', `${res.headers['content-disposition']}`);
+    if (ctx.req.headers['x-response-type'] === 'blob') {
+      ctx.set('Content-Type', 'application/octet-stream');
+    } else {
+      ctx.set('Content-Type', `${res.headers['content-type']}`);
+    }
+    if (res.headers['content-disposition']) {
+      ctx.set('Content-disposition', `${res.headers['content-disposition']}`);
+    } else if (ctx.req.headers['x-response-type'] === 'blob') {
+      // 从url最后获取文件名
+      const filename = new URL(requestUrl).pathname.split('/').pop() || '';
+      ctx.set('Content-Disposition', `attachment; filename="${filename}"`);
+    }
     this.logger.info(`action-custom-request:send:${filterByTk} success`);
 
     const readable = res.data as http.IncomingMessage;
@@ -175,11 +187,7 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
     if (axios.isAxiosError(err)) {
       ctx.status = err.response?.status || 500;
       ctx.body = err.response?.data || { message: err.message };
-      this.logger.error(
-        `action-custom-request:send:${filterByTk} error. status: ${ctx.status}, body: ${
-          typeof ctx.body === 'string' ? ctx.body : JSON.stringify(ctx.body)
-        }`,
-      );
+      this.logger.error(`custom-request:send:${filterByTk} error. status: ${ctx.status}, body: `, ctx.body);
     } else {
       this.logger.error(
         `action-custom-request:send:${filterByTk} error. status: ${ctx.status}, message: ${err.message}`,

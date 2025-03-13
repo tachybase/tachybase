@@ -19,7 +19,7 @@ export function ApplyActionStatusProvider(props) {
   const { data } = useCurrentUserContext();
   const { isResubmit } = useResubmit();
   const isSameId = data.data.id === createdById;
-  const isEnabled = workflow.enabled;
+
   const isStatusDid = [
     APPROVAL_ACTION_STATUS.DRAFT,
     APPROVAL_ACTION_STATUS.RETURNED,
@@ -30,7 +30,7 @@ export function ApplyActionStatusProvider(props) {
     return null;
   }
 
-  if ((isSameId && isEnabled && isStatusDid) || (isSameId && isEnabled && isResubmit)) {
+  if (isSameId && (isStatusDid || isResubmit)) {
     return <ContextApprovalStatus.Provider value={value}>{children}</ContextApprovalStatus.Provider>;
   }
 

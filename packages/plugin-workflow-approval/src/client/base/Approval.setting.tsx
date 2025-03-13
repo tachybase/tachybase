@@ -1,15 +1,25 @@
-import React from 'react';
-import { WorkflowPane } from '@tachybase/module-workflow/client';
+import { ExecutionRetryAction, WorkflowPane } from '@tachybase/module-workflow/client';
 
 import { tval } from '../locale';
 import { schemaApprovalPanne as schema } from './ApprovalPane.schema';
+import { ColumnShowApprovalId } from './ColumnShowApprovalId';
 
-export const systemSettingName = 'system-approval';
+export const systemSettingName = 'workflow-approval';
 
 export const settingApproval = {
-  title: tval('Approval'),
+  title: tval('Approval flow'),
   icon: 'approval',
-  Component: () => <WorkflowPane schema={schema} />,
+  Component: () => (
+    <WorkflowPane
+      schema={schema}
+      components={{
+        ColumnShowApprovalId,
+      }}
+      scope={{
+        ExecutionRetryAction,
+      }}
+    />
+  ),
   aclSnippet: 'pm.workflow.workflows',
-  sort: 4,
+  sort: -10,
 };

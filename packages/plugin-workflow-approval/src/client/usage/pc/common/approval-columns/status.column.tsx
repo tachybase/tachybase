@@ -23,14 +23,12 @@ export const ColumnStatusComponent = (props) => {
   const omitProps = _.omit(props, ['value', 'record']);
   const compile = useCompile();
   const { t } = useTranslation();
-  const flow = useFlowContext();
   const { option = approvalStatusConfigObj[value] } = omitProps;
-  const { workflow, execution, job } = record ?? {};
+  const { execution, job } = record ?? {};
 
-  const isWorkFlowEnabled = workflow?.enabled || flow?.workflow?.enabled;
-  const isNeedShowUnprocessed = !isWorkFlowEnabled || execution?.stauts || job?.status;
+  const isNeedShowUnprocessed = execution?.status || job?.status;
 
-  if (isNeedShowUnprocessed && [APPROVAL_ACTION_STATUS.ASSIGNED, APPROVAL_ACTION_STATUS.PENDING].includes(value)) {
+  if ([APPROVAL_ACTION_STATUS.ASSIGNED, APPROVAL_ACTION_STATUS.PENDING].includes(value) && isNeedShowUnprocessed) {
     return <Tag>{t('Unprocessed')}</Tag>;
   }
 

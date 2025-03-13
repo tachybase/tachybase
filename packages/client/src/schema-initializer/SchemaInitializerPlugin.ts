@@ -64,6 +64,7 @@ import {
   customFormItemInitializers,
   recordBlockInitializers,
   subTableActionInitializers,
+  tabPaneInitializers,
   tabPaneInitializers_deprecated,
   tabPaneInitializersForBulkEditFormBlock,
   tabPaneInitializersForRecordBlock,
@@ -144,5 +145,6 @@ export class SchemaInitializerPlugin extends Plugin {
     this.app.schemaInitializerManager.add(tabPaneInitializersForRecordBlock);
     this.app.schemaInitializerManager.add(tabPaneInitializersForBulkEditFormBlock);
     this.app.schemaInitializerManager.add(menuItemInitializer);
+    this.app.schemaInitializerManager.add(tabPaneInitializers);
   }
 }

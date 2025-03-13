@@ -1,19 +1,15 @@
 import {
-  AfterSuccess,
   ButtonEditor,
-  IsDownLoad,
   RemoveButton,
   SchemaSettings,
   SchemaSettingsLinkageRules,
   SecondConFirm,
-  SettingDownTitle,
-  ShowData,
   useCollection,
   useSchemaToolbar,
 } from '@tachybase/client';
-import { useFieldSchema } from '@tachybase/schema';
 
 import { CustomRequestACL, CustomRequestSettingsItem } from './components/CustomRequestActionDesigner';
+import { CustomRequestAfter } from './components/CustomRequestAfter';
 
 export const customizeCustomRequestActionSettings = new SchemaSettings({
   name: 'actionSettings:customRequest',
@@ -46,25 +42,8 @@ export const customizeCustomRequestActionSettings = new SchemaSettings({
       Component: SecondConFirm,
     },
     {
-      name: 'isDownLoad',
-      Component: IsDownLoad,
-    },
-    {
-      name: 'settingDownTitle',
-      Component: SettingDownTitle,
-      useVisible() {
-        const fieldSchema = useFieldSchema();
-        const down = fieldSchema?.['x-action-settings']?.onSuccess?.down;
-        return down;
-      },
-    },
-    {
-      name: 'showData',
-      Component: ShowData,
-    },
-    {
       name: 'afterSuccessfulSubmission',
-      Component: AfterSuccess,
+      Component: CustomRequestAfter, // 加下载配置,动态设置返回
     },
     {
       name: 'request settings',

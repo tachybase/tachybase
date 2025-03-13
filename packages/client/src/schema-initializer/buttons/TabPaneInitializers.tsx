@@ -178,6 +178,11 @@ export const TabPaneInitializersForBulkEditFormBlock = (props) => {
   return <TabPaneInitializers {...props} isBulkEdit />;
 };
 
+const commonOptions = {
+  Component: TabPaneInitializers,
+  popover: false,
+};
+
 /**
  * @deprecated
  */
@@ -185,6 +190,11 @@ export const tabPaneInitializers_deprecated = new SchemaInitializer({
   name: 'TabPaneInitializers',
   Component: TabPaneInitializers,
   popover: false,
+});
+
+export const tabPaneInitializers = new SchemaInitializer({
+  name: 'popup:addTab',
+  ...commonOptions,
 });
 
 /**

@@ -28,6 +28,10 @@ export class PluginDataSourceManagerServer extends Plugin {
     [dataSourceKey: string]: DataSourceState;
   } = {};
 
+  renderJsonTemplate(template) {
+    return this.app.environment.renderJsonTemplate(template);
+  }
+
   async beforeLoad() {
     this.app.db.registerModels({
       DataSourcesCollectionModel,
@@ -80,7 +84,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         const klass = this.app.dataSourceManager.factory.getClass(type);
 
         try {
-          await klass.testConnection(dataSourceOptions);
+          await klass.testConnection(this.renderJsonTemplate(dataSourceOptions || {}));
         } catch (error) {
           throw new Error(`Test connection failed: ${error.message}`);
         }
@@ -169,6 +173,9 @@ export class PluginDataSourceManagerServer extends Plugin {
         status: dataSourceStatus,
         type: dataSourceModel.get('type'),
 
+        options: {
+          baseUrl: dataSourceModel.get('options')?.baseUrl,
+        },
         // @ts-ignore
         isDBInstance: !!dataSource?.collectionManager.db,
       };
@@ -268,7 +275,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         const klass = ctx.app.dataSourceManager.factory.getClass(type);
 
         try {
-          await klass.testConnection(options);
+          await klass.testConnection(this.renderJsonTemplate(options || {}));
         } catch (error) {
           throw new Error(`Test connection failed: ${error.message}`);
         }

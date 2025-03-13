@@ -66,7 +66,7 @@ export const defineConfig = (config = {}) => {
               '**/e2e/**',
               '**/__e2e__/**',
               '**/{vitest,commitlint}.config.*',
-              'packages/**/{sdk,client}/**/__tests__/**/*.{test,spec}.{ts,tsx}',
+              'packages/**/{sdk,client,schema}/**/__tests__/**/*.{test,spec}.{ts,tsx}',
             ],
             testTimeout: 300000,
             hookTimeout: 300000,
@@ -95,7 +95,7 @@ export const defineConfig = (config = {}) => {
             environment: 'jsdom',
             css: false,
             alias: tsConfigPathsToAlias(),
-            include: ['packages/**/{sdk,client}/**/__tests__/**/*.{test,spec}.{ts,tsx}'],
+            include: ['packages/**/{sdk,client,schema}/**/__tests__/**/*.{test,spec}.{ts,tsx}'],
             exclude: [
               '**/node_modules/**',
               '**/dist/**',

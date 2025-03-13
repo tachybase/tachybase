@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import {
+  getAfterWorkflows,
+  getBeforeWorkflows,
   isVariable,
   transformVariableValue,
   useBlockRequestContext,
@@ -54,17 +56,20 @@ export const usePropsAPIRegular = () => {
         duration: 0,
       });
     } else if (event.msg === 'progress') {
+      const current = event.current + 1;
+      const time = Math.floor((current / event.total) * 100) === 100 ? 3 : 0;
       notification.info({
         key: 'workflow:regular',
-        message: t('Processing...'),
-        description: <Progress percent={Math.floor((event.current / event.total) * 100)} />,
-        duration: 0,
+        message: `${t('Processing')}...`,
+        description: <Progress percent={Math.floor((current / event.total) * 100)} />,
+        duration: time,
       });
     } else if (event.msg === 'done') {
       notification.success({
         key: 'workflow:regular',
         message: t('Done'),
         description: <Progress percent={100} />,
+        duration: 3,
       });
       service.refresh();
     }
@@ -122,7 +127,7 @@ export const usePropsAPIRegular = () => {
 
       modal.confirm({
         title: lang('Confirm', { ns: 'core' }),
-        content: lang('Trigger workflow?', { ns: 'core' }),
+        content: lang('Trigger workflow?'),
         async onOk() {
           if (bindWorkflow) {
             const params = {
@@ -134,22 +139,14 @@ export const usePropsAPIRegular = () => {
             if (isUpdateSelected) {
               await resource.trigger({
                 filterByTk: selectedRecordKeys,
-                triggerWorkflows:
-                  triggerWorkflows && triggerWorkflows.length > 0
-                    ? triggerWorkflows
-                        .map((workflow) => [workflow.workflowKey, workflow.context].filter(Boolean).join('!'))
-                        .join(',')
-                    : [],
+                triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+                beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
               });
             } else {
               await resource.trigger({
                 filter,
-                triggerWorkflows:
-                  triggerWorkflows && triggerWorkflows.length > 0
-                    ? triggerWorkflows
-                        .map((workflow) => [workflow.workflowKey, workflow.context].filter(Boolean).join('!'))
-                        .join(',')
-                    : [],
+                triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+                beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
               });
             }
           }

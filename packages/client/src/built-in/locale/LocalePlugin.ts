@@ -2,10 +2,11 @@ import { setValidateLanguage } from '@tachybase/schema';
 
 import { App, ConfigProvider } from 'antd';
 import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
 
-import { loadConstrueLocale } from './loadConstrueLocale';
 import { Plugin } from '../../application/Plugin';
 import { dayjsLocale } from '../../locale';
+import { loadConstrueLocale } from './loadConstrueLocale';
 
 export class LocalePlugin extends Plugin {
   locales: any = {};
@@ -48,6 +49,12 @@ export class LocalePlugin extends Plugin {
       window['cronLocale'] = data?.data?.cron;
     } catch (error) {
       (() => {})();
+      // 如果错误码是401,跳转到signIn
+      if (error?.response?.status === 401) {
+        setTimeout(() => {
+          window.location.href = '/signIn';
+        }, 1_000);
+      }
       throw error;
     }
   }

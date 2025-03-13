@@ -15,7 +15,7 @@ export const TabApplicantType = observer((props) => {
   const { t } = useTranslation();
   useEffect(() => {
     api
-      .request({ url: 'users:list', params: { pageSize: 99999 } })
+      .request({ url: 'users:list', params: { paginate: false } })
       .then((res) => {
         const userData = res.data.data.map((item) => {
           return {

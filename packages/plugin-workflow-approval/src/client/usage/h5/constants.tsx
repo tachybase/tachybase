@@ -5,7 +5,6 @@ import { ISchema } from '@tachybase/schema';
 
 import {
   CheckOutlined,
-  ClockCircleOutlined,
   CloseOutlined,
   ExclamationOutlined,
   HourglassOutlined,
@@ -14,6 +13,7 @@ import {
   RedoOutlined,
 } from '@ant-design/icons';
 
+import { approvalStatusEnums } from '../../common/constants/approval-initiation-status-options';
 import { lang } from './locale';
 
 export const NOTICE_INSTRUCTION_NAMESPACE = 'notice';
@@ -88,7 +88,7 @@ export const ApprovalPriorityType = [
   { value: '3', label: '非常紧急', color: 'red' },
 ];
 
-export const ApprovalStatusEnumDict = ApprovalStatusEnums.reduce((e, t) => Object.assign(e, { [t.value]: t }), {});
+export const ApprovalStatusEnumDict = approvalStatusEnums.reduce((e, t) => Object.assign(e, { [t.value]: t }), {});
 export const JobStatusEnums = {
   [JOB_STATUS.PENDING]: { color: 'gold', label: `Pending` },
   [JOB_STATUS.RESOLVED]: { color: 'green', label: `Approved` },
