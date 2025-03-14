@@ -44,6 +44,7 @@ export class PluginApiLogsServer extends Plugin {
       name: `pm.system-services.apiLogsConfig`,
       actions: ['apiLogsConfig:*'],
     });
+    this.app.acl.allow('apiLogs', ['list', 'get'], 'loggedIn');
   }
 }
 

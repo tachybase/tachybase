@@ -34,6 +34,7 @@ import DestroyInstruction from './instructions/DestroyInstruction';
 import EndInstruction from './instructions/EndInstruction';
 import QueryInstruction from './instructions/QueryInstruction';
 import UpdateInstruction from './instructions/UpdateInstruction';
+import UpdateOrCreateInstruction from './instructions/UpdateOrCreateInstruction';
 import Processor from './Processor';
 import Trigger from './triggers';
 import CollectionTrigger from './triggers/CollectionTrigger';
@@ -189,6 +190,7 @@ export default class PluginWorkflowServer extends Plugin {
     this.registerInstruction('condition', ConditionInstruction);
     this.registerInstruction('end', EndInstruction);
     this.registerInstruction('create', CreateInstruction);
+    this.registerInstruction('updateorcreate', UpdateOrCreateInstruction);
     this.registerInstruction('destroy', DestroyInstruction);
     this.registerInstruction('query', QueryInstruction);
     this.registerInstruction('update', UpdateInstruction);
@@ -231,6 +233,8 @@ export default class PluginWorkflowServer extends Plugin {
         'executions:retry',
         'flow_nodes:update',
         'flow_nodes:destroy',
+        'flow_nodes:moveUp',
+        'flow_nodes:moveDown',
       ],
     });
 
@@ -240,7 +244,7 @@ export default class PluginWorkflowServer extends Plugin {
     });
 
     this.app.acl.allow('workflows', ['trigger'], 'loggedIn');
-    this.app.acl.allow('flow_nodes', ['moveUp', 'moveDown'], 'loggedIn');
+    // this.app.acl.allow('flow_nodes', ['moveUp', 'moveDown'], 'loggedIn');
 
     db.on('workflows.beforeSave', this.onBeforeSave);
     db.on('workflows.afterSave', (model: WorkflowModel) => this.toggle(model));

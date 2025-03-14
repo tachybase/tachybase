@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-multi-app",
   "displayName": "Multi-app manager",
-  "version": "0.23.58",
+  "version": "0.23.64",
   "description": "Dynamically create multiple apps without separate deployments.",
   "keywords": [
     "System management"

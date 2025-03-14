@@ -678,39 +678,6 @@ export class PluginACL extends Plugin {
       },
     );
 
-    // throw error when user has no fixed params permissions
-    this.app.acl.use(
-      async (ctx: any, next) => {
-        const action = ctx.permission?.can?.action;
-
-        if (action === 'destroy' && !ctx.action.resourceName.includes('.')) {
-          const repository = actionUtils.getRepositoryFromParams(ctx);
-
-          if (!repository) {
-            await next();
-            return;
-          }
-
-          // params after merge with fixed params
-          const filteredCount = await repository.count(ctx.permission.mergedParams);
-
-          // params user requested
-          const queryCount = await repository.count(ctx.permission.rawParams);
-
-          if (queryCount > filteredCount) {
-            ctx.throw(403, 'No permissions');
-            return;
-          }
-        }
-
-        await next();
-      },
-      {
-        after: 'core',
-        group: 'after',
-      },
-    );
-
     const withACLMeta = createWithACLMetaMiddleware();
 
     // append allowedActions to list & get response
@@ -722,8 +689,24 @@ export class PluginACL extends Plugin {
           ctx.logger.error(error);
         }
       },
-      { after: 'restApi', group: 'after' },
+      { after: 'dataSource', group: 'after' },
     );
+
+    this.db.on('afterUpdateCollection', async (collection) => {
+      if (collection.options.loadedFromCollectionManager || collection.options.asStrategyResource) {
+        this.app.acl.appendStrategyResource(collection.name);
+      }
+    });
+
+    this.db.on('afterDefineCollection', async (collection) => {
+      if (collection.options.loadedFromCollectionManager || collection.options.asStrategyResource) {
+        this.app.acl.appendStrategyResource(collection.name);
+      }
+    });
+
+    this.db.on('afterRemoveCollection', (collection) => {
+      this.app.acl.removeStrategyResource(collection.name);
+    });
   }
 
   async install() {

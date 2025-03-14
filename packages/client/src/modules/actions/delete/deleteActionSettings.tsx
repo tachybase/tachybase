@@ -1,7 +1,9 @@
+import { isValid, useFieldSchema } from '@tachybase/schema';
+
 import { useSchemaToolbar } from '../../../application';
 import { SchemaSettings } from '../../../application/schema-settings/SchemaSettings';
 import { useCollection_deprecated } from '../../../collection-manager';
-import { ButtonEditor, SecondConFirm } from '../../../schema-component/antd/action/Action.Designer';
+import { ButtonEditor, SecondConFirm, WorkflowConfig } from '../../../schema-component/antd/action/Action.Designer';
 import { SchemaSettingsLinkageRules } from '../../../schema-settings';
 
 export const deleteActionSettings = new SchemaSettings({
@@ -30,6 +32,14 @@ export const deleteActionSettings = new SchemaSettings({
     {
       name: 'secondConFirm',
       Component: SecondConFirm,
+    },
+    {
+      name: 'workflowConfig',
+      Component: WorkflowConfig,
+      useVisible() {
+        const fieldSchema = useFieldSchema();
+        return isValid(fieldSchema?.['x-action-settings']?.triggerWorkflows);
+      },
     },
     {
       name: 'delete',
