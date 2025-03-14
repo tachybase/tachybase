@@ -76,7 +76,7 @@ export default class PluginFileManager extends Plugin {
     });
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.storages`,
+      name: `pm.file-manager.storages`,
       actions: ['storages:*'],
     });
 

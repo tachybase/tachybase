@@ -135,6 +135,9 @@ export class PluginDataSourceManagerServer extends Plugin {
           }
 
           const items = lodash.get(ctx, dataPath);
+          if (!Array.isArray(items)) {
+            return;
+          }
 
           lodash.set(
             ctx,
@@ -158,7 +161,7 @@ export class PluginDataSourceManagerServer extends Plugin {
           );
         }
       },
-      { tag: 'processDataSourcesList' },
+      { tag: 'processDataSourcesList', before: 'dataWrapping' },
     );
 
     const plugin = this;
@@ -540,16 +543,8 @@ export class PluginDataSourceManagerServer extends Plugin {
     );
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}`,
-      actions: [
-        'dataSources:*',
-        'roles.dataSourceResources',
-        'collections:*',
-        'collections.fields:*',
-        'dbViews:*',
-        'collectionCategories:*',
-        'sqlCollection:*',
-      ],
+      name: 'pm.database-connections.collections',
+      actions: ['collections:*', 'collections.fields:*', 'collectionCategories:*'],
     });
 
     this.app.acl.allow('dataSources', 'listEnabled', 'loggedIn');

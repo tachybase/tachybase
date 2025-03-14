@@ -10,7 +10,7 @@ export class PluginLogViewerServer extends Plugin {
   async load() {
     this.app.resource(logger);
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.logger`,
+      name: 'pm.system-services.log-viewer',
       actions: ['logger:*'],
     });
   }

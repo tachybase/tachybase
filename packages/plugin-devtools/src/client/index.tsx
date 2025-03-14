@@ -57,17 +57,19 @@ export class PluginDevToolClient extends Plugin {
       title: lang('API Doc'),
       icon: 'BookOutlined',
       Component: SCDocumentation,
-      aclSnippet: 'pm.api-doc.documentation',
+      aclSnippet: 'pm.devtools.documentation',
     });
     this.app.systemSettingsManager.add('devtools.env', {
       title: lang('Environment'),
       icon: 'CodeOutlined',
       Component: ENVToolPane,
+      aclSnippet: 'pm.devtools.environment',
     });
     this.app.systemSettingsManager.add('devtools.middlewaresorder', {
       title: lang('Middlewares order'),
       icon: 'CodeOutlined',
       Component: MiddlewareToolPane,
+      aclSnippet: 'pm.devtools.middlewares',
     });
     this.app.systemSettingsManager.add('devtools.clientrouter', {
       title: lang('Client router'),

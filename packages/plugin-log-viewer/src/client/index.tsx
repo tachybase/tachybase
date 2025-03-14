@@ -9,6 +9,7 @@ export class PluginLogViewer extends Plugin {
       title: lang('Log Viewer'),
       icon: 'FileTextOutlined',
       Component: LogsDownloader,
+      aclSnippet: 'pm.system-services.log-viewer',
     });
   }
 }

@@ -54,7 +54,7 @@ export class PluginDevToolServer extends Plugin {
       actions: ['middlewares:*'],
     });
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.enviroment`,
+      name: `pm.${this.name}.environment`,
       actions: ['enviroment:*'],
     });
   }

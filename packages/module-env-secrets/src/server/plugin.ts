@@ -28,7 +28,7 @@ export class PluginEnvironmentVariablesServer extends Plugin {
   registerACL() {
     this.app.acl.allow('environmentVariables', 'list', 'loggedIn');
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}`,
+      name: `pm.system-services.env-secrets`,
       actions: ['environmentVariables:*', 'app:refresh'],
     });
   }

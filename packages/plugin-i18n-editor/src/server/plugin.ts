@@ -59,7 +59,7 @@ export class LocalizationManagementPlugin extends Plugin {
     });
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.localization`,
+      name: `pm.localization-management.localization`,
       actions: ['localization:*', 'localizationTexts:*', 'localizationTranslations:*'],
     });
 

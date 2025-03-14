@@ -27,7 +27,7 @@ export class ModuleUiSchema extends Plugin {
     this.registerRepository();
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.block-templates`,
+      name: `pm.ui-schema-storage.block-templates`,
       actions: ['uiSchemaTemplates:*'],
     });
 
