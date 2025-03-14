@@ -172,7 +172,7 @@ export class IPFilterService {
     // 添加IP检查中间件（全局，优先级高）
     this.app.resourcer.use(
       async (ctx: Context, next: Next) => {
-        const clientIP = ctx.ip;
+        const clientIP = ctx.state.clientIp;
 
         // 检查IP是否被允许访问
         const isAllowed = await this.isIPAllowed(clientIP);

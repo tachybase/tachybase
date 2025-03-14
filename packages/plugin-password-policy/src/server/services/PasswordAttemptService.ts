@@ -394,7 +394,7 @@ export class PasswordAttemptService {
               const valid = await field.verify(password, user.password);
               if (!valid) {
                 // 失败则需要记录
-                await this.recordFailedAttempt(user, ctx.ip);
+                await this.recordFailedAttempt(user, ctx.state.clientIp);
               } else {
                 // 成功后重置
                 await this.resetFailedAttempts(user.id);
