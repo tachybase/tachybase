@@ -183,6 +183,13 @@ export class PluginACL extends Plugin {
         'uiSchemas:getProperties',
         'roles.menuUiSchemas:*',
         'roles.users:*',
+        'dataSources.roles:*',
+        'dataSources:list',
+        'dataSources.rolesResourcesScopes:*',
+        'roles.dataSourcesCollections:*',
+        'roles.dataSourceResources:*',
+        'dataSourcesRolesResourcesScopes:*',
+        'rolesResourcesScopes:*',
       ],
     });
 
