@@ -6,6 +6,7 @@ import { SchemaSettingOptions } from '../application';
 import { useSchemaToolbar } from '../application/schema-toolbar';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../collection-manager';
 import { useDesignable } from '../schema-component';
+import { SchemaSettingsDefaultValue } from '../schema-settings/SchemaSettingsDefaultValue';
 
 export const generalSettingsItems: SchemaSettingOptions['items'] = [
   {
@@ -207,5 +208,9 @@ export const generalSettingsItems: SchemaSettingOptions['items'] = [
       const { required = true } = useSchemaToolbar();
       return !field.readPretty && fieldSchema['x-component'] !== 'FormField' && required;
     },
+  },
+  {
+    name: 'editDefaultValue',
+    Component: SchemaSettingsDefaultValue,
   },
 ];
