@@ -33,6 +33,10 @@ export class PasswordStrengthService {
       const config = await this.db.getRepository('passwordStrengthConfig').findOne();
       await this.refreshConfig(config);
     });
+
+    this.db.on('passwordStrengthConfig.afterSave', async (model) => {
+      await this.refreshConfig(model);
+    });
   }
 
   async refreshConfig(config) {
@@ -69,26 +73,15 @@ export class PasswordStrengthService {
               await this.validatePasswordHistory(ctx, values.password, values.id);
             }
           }
-        }
-
-        // 处理密码修改操作
-        if (resourceName === 'auth' && actionName === 'changePassword') {
+        } else if (resourceName === 'auth' && actionName === 'changePassword') {
+          // 修改密码
           const { newPassword } = ctx.action.params.values;
-          const userId = ctx.state.currentUser?.id;
 
-          if (newPassword && userId) {
-            const user = await this.db.getRepository('users').findOne({
-              filterByTk: userId,
-            });
+          // 验证密码强度
+          await this.validatePasswordStrength(ctx, newPassword, ctx.state.currentUser?.username);
 
-            // 验证密码强度
-            await this.validatePasswordStrength(ctx, newPassword, user?.username);
-
-            // 验证密码历史
-            if (this.config.historyCount > 0) {
-              await this.validatePasswordHistory(ctx, newPassword, userId);
-            }
-          }
+          // 验证密码历史
+          await this.validatePasswordHistory(ctx, newPassword, ctx.state.currentUser?.id);
         }
 
         await next();
@@ -108,7 +101,7 @@ export class PasswordStrengthService {
       },
       {
         tag: 'passwordStrengthValidator',
-        before: 'auth',
+        after: 'acl',
       },
     );
   }
@@ -136,11 +129,6 @@ export class PasswordStrengthService {
    * 验证密码强度
    */
   public async validatePasswordStrength(ctx: Context, password: string, username?: string): Promise<void> {
-    // 如果未启用强度验证，直接返回
-    if (this.config.strengthLevel === 0) {
-      return;
-    }
-
     try {
       // 检查密码长度
       if (password.length < this.config.minLength) {
@@ -157,49 +145,53 @@ export class PasswordStrengthService {
       if (this.config.notContainUsername && username && password.toLowerCase().includes(username.toLowerCase())) {
         ctx.throw(400, ctx.t('Password cannot contain username', { ns: NAMESPACE }));
       }
-
-      // 根据强度级别验证密码
-      const hasLowerCase = /[a-z]/.test(password);
-      const hasUpperCase = /[A-Z]/.test(password);
-      const hasDigit = /\d/.test(password);
-      const hasSymbol = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
-
-      switch (this.config.strengthLevel) {
-        case 1: // 必须包含字母和数字
-          if (!(hasLowerCase || hasUpperCase) || !hasDigit) {
-            ctx.throw(400, ctx.t('Password must contain both letters and numbers', { ns: NAMESPACE }));
-          }
-          break;
-        case 2: // 必须包含字母、数字和符号
-          if (!(hasLowerCase || hasUpperCase) || !hasDigit || !hasSymbol) {
-            ctx.throw(400, ctx.t('Password must contain letters, numbers, and symbols', { ns: NAMESPACE }));
-          }
-          break;
-        case 3: // 必须包含数字、大写和小写字母
-          if (!hasLowerCase || !hasUpperCase || !hasDigit) {
-            ctx.throw(400, ctx.t('Password must contain numbers, uppercase and lowercase letters', { ns: NAMESPACE }));
-          }
-          break;
-        case 4: // 必须包含数字、大写和小写字母、符号
-          if (!hasLowerCase || !hasUpperCase || !hasDigit || !hasSymbol) {
-            ctx.throw(
-              400,
-              ctx.t('Password must contain numbers, uppercase and lowercase letters, and symbols', { ns: NAMESPACE }),
-            );
-          }
-          break;
-        case 5: // 必须包含以下字符的其中3种：数字、大写字母、小写字母和特殊字符
-          const typesCount = [hasLowerCase, hasUpperCase, hasDigit, hasSymbol].filter(Boolean).length;
-          if (typesCount < 3) {
-            ctx.throw(
-              400,
-              ctx.t(
-                'Password must contain at least 3 of the following: numbers, uppercase letters, lowercase letters, and symbols',
-                { ns: NAMESPACE },
-              ),
-            );
-          }
-          break;
+      // 如果未启用强度验证，直接返回
+      if (this.config.strengthLevel > 0) {
+        // 根据强度级别验证密码
+        const hasLowerCase = /[a-z]/.test(password);
+        const hasUpperCase = /[A-Z]/.test(password);
+        const hasDigit = /\d/.test(password);
+        const hasSymbol = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password);
+        switch (this.config.strengthLevel) {
+          case 1: // 必须包含字母和数字
+            if (!(hasLowerCase || hasUpperCase) || !hasDigit) {
+              ctx.throw(400, ctx.t('Password must contain both letters and numbers', { ns: NAMESPACE }));
+            }
+            break;
+          case 2: // 必须包含字母、数字和符号
+            if (!(hasLowerCase || hasUpperCase) || !hasDigit || !hasSymbol) {
+              ctx.throw(400, ctx.t('Password must contain letters, numbers, and symbols', { ns: NAMESPACE }));
+            }
+            break;
+          case 3: // 必须包含数字、大写和小写字母
+            if (!hasLowerCase || !hasUpperCase || !hasDigit) {
+              ctx.throw(
+                400,
+                ctx.t('Password must contain numbers, uppercase and lowercase letters', { ns: NAMESPACE }),
+              );
+            }
+            break;
+          case 4: // 必须包含数字、大写和小写字母、符号
+            if (!hasLowerCase || !hasUpperCase || !hasDigit || !hasSymbol) {
+              ctx.throw(
+                400,
+                ctx.t('Password must contain numbers, uppercase and lowercase letters, and symbols', { ns: NAMESPACE }),
+              );
+            }
+            break;
+          case 5: // 必须包含以下字符的其中3种：数字、大写字母、小写字母和特殊字符
+            const typesCount = [hasLowerCase, hasUpperCase, hasDigit, hasSymbol].filter(Boolean).length;
+            if (typesCount < 3) {
+              ctx.throw(
+                400,
+                ctx.t(
+                  'Password must contain at least 3 of the following: numbers, uppercase letters, lowercase letters, and symbols',
+                  { ns: NAMESPACE },
+                ),
+              );
+            }
+            break;
+        }
       }
     } catch (error) {
       if (error.status === 400) {

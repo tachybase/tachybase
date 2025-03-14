@@ -4,6 +4,7 @@ import { createForm, ISchema, useForm } from '@tachybase/schema';
 
 import { App, Card } from 'antd';
 
+import { PasswordStrengthLevel } from '../constants';
 import { tval, useTranslation } from './locale';
 
 const usePasswordStrengthValues = () => {
@@ -11,18 +12,8 @@ const usePasswordStrengthValues = () => {
   const { data } = useRequest(() =>
     api
       .resource('passwordStrengthConfig')
-      .list({
-        pageSize: 1,
-      })
-      .then(
-        (res) =>
-          res.data?.[0] || {
-            minLength: 8,
-            strengthLevel: 0,
-            notContainUsername: false,
-            historyCount: 0,
-          },
-      ),
+      .get()
+      .then((res) => res.data?.data),
   );
   const form = createForm({
     values: data,
@@ -39,26 +30,14 @@ const useSavePasswordStrengthValues = () => {
     async run() {
       await form.submit();
       try {
-        const values = form.values;
-        const { data } = await api.resource('passwordStrengthConfig').list({
-          pageSize: 1,
+        await api.request({
+          url: 'passwordStrengthConfig:put',
+          method: 'post',
+          data: form.values,
         });
-
-        if (data.length > 0) {
-          // 更新现有配置
-          await api.resource('passwordStrengthConfig').update({
-            filterByTk: data[0].id,
-            values,
-          });
-        } else {
-          // 创建新配置
-          await api.resource('passwordStrengthConfig').create({
-            values,
-          });
-        }
-        message.success(t('Password strength settings saved successfully'));
+        message.success(t('Saved successfully'));
       } catch (error) {
-        message.error(t('Failed to save password strength settings'));
+        message.error(t('Failed to save settings'));
         throw error;
       }
     },
@@ -79,48 +58,46 @@ const schema: ISchema = {
           title: tval('Minimum Password Length'),
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
-          'x-component-props': {
-            min: 6,
-            max: 32,
-          },
-          default: 8,
-          required: true,
+          // 'x-component-props': {
+          //   min: 6,
+          //   max: 32,
+          // },
+          default: 0,
         },
         strengthLevel: {
           type: 'number',
           title: tval('Password Strength Requirements'),
           'x-decorator': 'FormItem',
-          'x-component': 'Radio.Group',
+          'x-component': 'Select',
           enum: [
             {
               label: tval('No restrictions'),
-              value: 0,
+              value: PasswordStrengthLevel.None,
             },
             {
               label: tval('Must contain letters and numbers'),
-              value: 1,
+              value: PasswordStrengthLevel.NumberAndLetter,
             },
             {
               label: tval('Must contain letters, numbers, and symbols'),
-              value: 2,
+              value: PasswordStrengthLevel.NumberAndLetterAndSymbol,
             },
             {
               label: tval('Must contain numbers, uppercase and lowercase letters'),
-              value: 3,
+              value: PasswordStrengthLevel.NumberAndLetterAndUpperAndLower,
             },
             {
               label: tval('Must contain numbers, uppercase and lowercase letters, and symbols'),
-              value: 4,
+              value: PasswordStrengthLevel.NumberAndLetterAndUpperAndLowerAndSymbol,
             },
             {
               label: tval(
                 'Must contain at least 3 of the following: numbers, uppercase letters, lowercase letters, and symbols',
               ),
-              value: 5,
+              value: PasswordStrengthLevel.NumberAndLetterAndUpperAndLowerAndSymbol3,
             },
           ],
           default: 0,
-          required: true,
         },
         notContainUsername: {
           type: 'boolean',
@@ -140,14 +117,13 @@ const schema: ISchema = {
             max: 24,
           },
           default: 0,
-          required: true,
         },
         footer: {
           type: 'void',
           'x-component': 'ActionBar',
           properties: {
             submit: {
-              title: '{{t("Save")}}',
+              title: '{{t("Submit")}}',
               'x-component': 'Action',
               'x-component-props': {
                 type: 'primary',

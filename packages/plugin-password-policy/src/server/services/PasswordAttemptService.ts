@@ -68,6 +68,9 @@ export class PasswordAttemptService {
       // 监听userLocks表的变动
       this.setupLockedUsersListener();
     });
+    this.db.on('passwordAttempt.afterSave', async (model) => {
+      await this.refreshConfig(model);
+    });
   }
 
   /**

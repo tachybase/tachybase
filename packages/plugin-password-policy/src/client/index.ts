@@ -25,7 +25,7 @@ export class PasswordPolicyClient extends Plugin {
 
     this.app.systemSettingsManager.add('security.ip-filter', {
       icon: 'GlobalOutlined',
-      title: tval('IP filter'),
+      title: tval('IP policy'),
       Component: IPFilterForm,
       aclSnippet: `pm.security.ip-filter`,
     });
