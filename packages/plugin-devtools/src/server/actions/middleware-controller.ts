@@ -47,7 +47,7 @@ const MiddlewareOrderResource = {
       mergedItems
         .filter((middleware) => middleware.belongto === 'resourcer-middlewares')
         .forEach((resourcerMiddleware) => {
-          const restAPIGroup = mergedItems.find((middleware) => middleware.group === 'restApi');
+          const restAPIGroup = mergedItems.find((middleware) => middleware.group === 'dataSource');
           if (restAPIGroup) {
             restAPIGroup.files.push(resourcerMiddleware);
           }

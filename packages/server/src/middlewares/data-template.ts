@@ -1,7 +1,7 @@
 import { Context } from '@tachybase/actions';
 import { traverseJSON } from '@tachybase/database';
 
-export const dateTemplate = async (ctx: Context, next) => {
+export const dataTemplate = async (ctx: Context, next) => {
   const { resourceName, actionName } = ctx.action;
   const { isTemplate, fields } = ctx.action.params;
 
