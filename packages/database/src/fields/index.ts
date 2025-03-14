@@ -4,6 +4,7 @@ import { BelongsToManyFieldOptions } from './belongs-to-many-field';
 import { BooleanFieldOptions } from './boolean-field';
 import { ContextFieldOptions } from './context-field';
 import { DateFieldOptions } from './date-field';
+import { DateOnlyFieldOptions } from './date-only-field';
 import { BaseFieldOptions } from './field';
 import { HasManyFieldOptions } from './has-many-field';
 import { HasOneFieldOptions } from './has-one-field';
@@ -50,6 +51,7 @@ export * from './uid-field';
 export * from './uuid-field';
 export * from './virtual-field';
 export * from './nanoid-field';
+export * from './date-only-field';
 
 export type FieldOptions =
   | BaseFieldOptions
@@ -70,6 +72,7 @@ export type FieldOptions =
   | SetFieldOptions
   | TimeFieldOptions
   | DateFieldOptions
+  | DateOnlyFieldOptions
   | UidFieldOptions
   | UUIDFieldOptions
   | NanoidFieldOptions
