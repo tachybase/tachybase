@@ -1,7 +1,7 @@
 name: Manual Build Tachybase Nightly
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
     inputs:
         docker_tag:
           description: 'The nightly Docker tag to publish (e.g., "1.0.0", "latest")'
