@@ -41,7 +41,7 @@ export class SystemSettingsPlugin extends Plugin {
     }
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.system-settings`,
+      name: `pm.system-settings.system-settings`,
       actions: ['systemSettings:put'],
     });
   }

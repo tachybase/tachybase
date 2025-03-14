@@ -53,59 +53,6 @@ export class PluginACL extends Plugin {
     this.associationFieldsActions[associationType] = value;
   }
 
-  registerAssociationFieldsActions() {
-    // if grant create action to role, it should
-    // also grant add action and association target's view action
-
-    this.registerAssociationFieldAction('hasOne', {
-      view: {
-        associationActions: ['list', 'get', 'view'],
-      },
-      create: {
-        associationActions: ['create', 'set'],
-      },
-      update: {
-        associationActions: ['update', 'remove', 'set'],
-      },
-    });
-
-    this.registerAssociationFieldAction('hasMany', {
-      view: {
-        associationActions: ['list', 'get', 'view'],
-      },
-      create: {
-        associationActions: ['create', 'set', 'add'],
-      },
-      update: {
-        associationActions: ['update', 'remove', 'set'],
-      },
-    });
-
-    this.registerAssociationFieldAction('belongsTo', {
-      view: {
-        associationActions: ['list', 'get', 'view'],
-      },
-      create: {
-        associationActions: ['create', 'set'],
-      },
-      update: {
-        associationActions: ['update', 'remove', 'set'],
-      },
-    });
-
-    this.registerAssociationFieldAction('belongsToMany', {
-      view: {
-        associationActions: ['list', 'get', 'view'],
-      },
-      create: {
-        associationActions: ['create', 'set', 'add'],
-      },
-      update: {
-        associationActions: ['update', 'remove', 'set', 'toggle'],
-      },
-    });
-  }
-
   async writeResourceToACL(resourceModel: RoleResourceModel, transaction) {
     await resourceModel.writeToACL({
       acl: this.acl,
@@ -221,8 +168,6 @@ export class PluginACL extends Plugin {
         };
       }
     });
-
-    this.registerAssociationFieldsActions();
 
     this.app.resourcer.define(availableActionResource);
     this.app.resourcer.define(roleCollectionsResource);
