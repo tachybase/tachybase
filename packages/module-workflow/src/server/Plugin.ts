@@ -34,6 +34,7 @@ import DestroyInstruction from './instructions/DestroyInstruction';
 import EndInstruction from './instructions/EndInstruction';
 import QueryInstruction from './instructions/QueryInstruction';
 import UpdateInstruction from './instructions/UpdateInstruction';
+import UpdateOrCreateInstruction from './instructions/UpdateOrCreateInstruction';
 import Processor from './Processor';
 import Trigger from './triggers';
 import CollectionTrigger from './triggers/CollectionTrigger';
@@ -189,6 +190,7 @@ export default class PluginWorkflowServer extends Plugin {
     this.registerInstruction('condition', ConditionInstruction);
     this.registerInstruction('end', EndInstruction);
     this.registerInstruction('create', CreateInstruction);
+    this.registerInstruction('updateorcreate', UpdateOrCreateInstruction);
     this.registerInstruction('destroy', DestroyInstruction);
     this.registerInstruction('query', QueryInstruction);
     this.registerInstruction('update', UpdateInstruction);
