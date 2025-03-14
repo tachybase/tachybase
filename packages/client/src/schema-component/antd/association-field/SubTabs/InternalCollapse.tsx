@@ -254,7 +254,7 @@ export const InternalTabs = observer((props) => {
                     });
                   }}
                 >
-                  {item.label}
+                  {item.label || null}
                 </div>
               ))}
           </div>
