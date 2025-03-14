@@ -86,6 +86,27 @@ calculators.register('notStartsWith', notStartsWith);
 calculators.register('endsWith', endsWith);
 calculators.register('notEndsWith', notEndsWith);
 
+function isEmpty(a) {
+  return a == null;
+}
+
+function isNotEmpty(a) {
+  return !isEmpty(a);
+}
+
+function isTrue(a) {
+  return a === true;
+}
+
+function isFalse(a) {
+  return a === false;
+}
+
+calculators.register('isEmpty', isEmpty);
+calculators.register('isNotEmpty', isNotEmpty);
+calculators.register('isTrue', isTrue);
+calculators.register('isFalse', isFalse);
+
 type CalculationItem = {
   calculator?: string;
   operands?: [any?, any?];
