@@ -332,6 +332,11 @@ export class BuiltInPlugin extends Plugin {
       icon: 'BlockOutlined',
       sort: -30,
     });
+    this.app.systemSettingsManager.add('security', {
+      title: this.t('Security'),
+      icon: 'SafetyOutlined',
+      sort: -20,
+    });
     this.app.systemSettingsManager.add('system-services', {
       title: this.t('System Services'),
       icon: 'CloudServerOutlined',
