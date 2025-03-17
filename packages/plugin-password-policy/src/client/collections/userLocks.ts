@@ -16,7 +16,7 @@ export const userLockCollection: CollectionOptions = {
         'x-read-pretty': true,
         ['x-component']() {
           const record = useRecord();
-          return record.user.username;
+          return record.user?.username;
         },
       },
     },
@@ -30,7 +30,7 @@ export const userLockCollection: CollectionOptions = {
         'x-read-pretty': true,
         ['x-component']() {
           const record = useRecord();
-          return record.user.nickname;
+          return record.user?.nickname;
         },
       },
     },
@@ -58,6 +58,26 @@ export const userLockCollection: CollectionOptions = {
         'x-component': 'DatePicker',
         'x-component-props': {
           showTime: true,
+        },
+        'x-read-pretty': true,
+      },
+    },
+    {
+      name: 'user',
+      type: 'belongsTo',
+      target: 'users',
+      targetKey: 'id',
+      foreignKey: 'userId',
+      interface: 'm2o',
+      uiSchema: {
+        type: 'object',
+        title: '{{t("User")}}',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          fieldNames: {
+            value: 'id',
+            label: 'nickname',
+          },
         },
         'x-read-pretty': true,
       },

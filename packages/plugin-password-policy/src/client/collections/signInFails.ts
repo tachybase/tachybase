@@ -67,5 +67,25 @@ export const signInFailsCollection: CollectionOptions = {
         'x-read-pretty': true,
       },
     },
+    {
+      name: 'user',
+      type: 'belongsTo',
+      target: 'users',
+      targetKey: 'id',
+      foreignKey: 'userId',
+      interface: 'm2o',
+      uiSchema: {
+        type: 'object',
+        title: '{{t("User")}}',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          fieldNames: {
+            value: 'id',
+            label: 'nickname',
+          },
+        },
+        'x-read-pretty': true,
+      },
+    },
   ],
 };
