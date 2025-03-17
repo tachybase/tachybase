@@ -10,7 +10,7 @@ function createWindow() {
     },
   });
 
-  win.loadURL('http://localhost:3000'); // 假设你的前端应用在这个端口运行
+  win.loadURL('http://localhost:3000');
 }
 
 app.whenReady().then(createWindow);
