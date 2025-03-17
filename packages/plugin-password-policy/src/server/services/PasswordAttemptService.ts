@@ -189,7 +189,9 @@ export class PasswordAttemptService {
       await this.db.getRepository('users').update({
         filterByTk: userId,
         values: {
-          signInFails: [],
+          signInFails: {
+            status: false,
+          },
         },
       });
 
@@ -441,6 +443,7 @@ export class PasswordAttemptService {
           createdAt: {
             $gt: cutoffTime,
           },
+          status: true,
         },
       });
 
@@ -490,21 +493,14 @@ export class PasswordAttemptService {
    * 记录登录失败
    * @param username 用户名
    */
-  public async recordFailedAttempt(user: any, ip?: string): Promise<void> {
-    // 如果未启用防护，直接返回
-    if (this.config.maxAttempts === 0) {
-      return;
-    }
-
+  public async recordFailedAttempt(user: any, ip: string): Promise<void> {
     try {
       const now = new Date();
-
-      // 获取地理位置信息
-      let geoLocation: GeoLocation = {};
-      if (ip) {
-        geoLocation = this.getGeoLocation(ip);
+      // 如果未启用防护，直接返回
+      if (this.config.maxAttempts === 0) {
+        await this.recordFailedAttemptToDb(user, ip, now, false);
+        return;
       }
-
       if (this.getRecentFailureCount(user.id) + 1 >= this.config.maxAttempts) {
         if (!user.lock?.expireAt || now > user.lock.expireAt) {
           const lockExpireAt = new Date(now);
@@ -534,7 +530,9 @@ export class PasswordAttemptService {
           filterByTk: user.id,
           values: {
             lock: null,
-            signInFails: [],
+            signInFails: {
+              status: false,
+            },
           },
         });
 
@@ -542,16 +540,7 @@ export class PasswordAttemptService {
         await this.app.cache.del(this.getUserLockCacheKey(user.id));
       }
 
-      const address = `${geoLocation.country || ''} ${geoLocation.region || ''} ${geoLocation.city || ''}`.trim();
-      const record = await this.db.getRepository('signInFails').create({
-        values: {
-          userId: user.id,
-          originUserId: user.id,
-          ip,
-          address,
-          createdAt: now,
-        },
-      });
+      const record = await this.recordFailedAttemptToDb(user, ip, now, true);
 
       const userRecords = this.failureRecords.get(user.id) || [];
       userRecords.push({
@@ -563,6 +552,24 @@ export class PasswordAttemptService {
       this.logger.error('Failed to record sign-in failure:', error);
       throw error;
     }
+  }
+
+  private async recordFailedAttemptToDb(user: any, ip: string, now: Date, recordUser = false): Promise<any> {
+    // 获取地理位置信息
+    let geoLocation: GeoLocation = {};
+    if (ip) {
+      geoLocation = this.getGeoLocation(ip);
+    }
+    const address = `${geoLocation.country || ''} ${geoLocation.region || ''} ${geoLocation.city || ''}`.trim();
+    return this.db.getRepository('signInFails').create({
+      values: {
+        userId: user.id,
+        status: recordUser,
+        ip,
+        address,
+        createdAt: now,
+      },
+    });
   }
 
   /**

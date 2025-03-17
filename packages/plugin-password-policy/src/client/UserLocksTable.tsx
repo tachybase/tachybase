@@ -261,12 +261,6 @@ const table = {
     dragSort: false,
   },
   'x-component': 'CardItem',
-  'x-filter-targets': [
-    {
-      name: 'filter',
-      targetFields: ['user.username', 'user.nickname', 'expireAt'],
-    },
-  ],
   properties: {
     actions: {
       type: 'void',
@@ -290,7 +284,7 @@ const table = {
         },
         refresh: {
           type: 'void',
-          title: `{{ t("Refresh") }}`,
+          title: '{{ t("Refresh") }}',
           'x-action': 'refresh',
           'x-component': 'Action',
           'x-settings': 'actionSettings:refresh',
@@ -425,8 +419,6 @@ const schema = {
 };
 
 export const UserLockTable: React.FC = () => {
-  const { t } = useTranslation();
-
   return (
     <ExtendCollectionsProvider collections={[userLockCollection]}>
       <SchemaComponent schema={schema} />

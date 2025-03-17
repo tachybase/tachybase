@@ -15,12 +15,14 @@ export default defineCollection({
       type: 'belongsTo',
       name: 'user',
       target: 'users',
+      targetField: 'id',
       foreignKey: 'userId',
       onDelete: 'SET NULL',
     },
     {
-      type: 'bigInt',
-      name: 'originUserId',
+      type: 'boolean',
+      name: 'status',
+      default: true,
     },
     {
       type: 'string',

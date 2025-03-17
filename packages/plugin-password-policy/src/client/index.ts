@@ -5,6 +5,7 @@ import { IPFilterForm } from './IPFilterForm';
 import { tval } from './locale';
 import { PasswordAttemptForm } from './PasswordAttemptForm';
 import PasswordStrengthSettingsPage from './PasswordStrengthSettingsForm';
+import { SignInFailsTable } from './SignInFailsTable';
 import { UserLockTable } from './UserLocksTable';
 
 export class PasswordPolicyClient extends Plugin {
@@ -34,6 +35,14 @@ export class PasswordPolicyClient extends Plugin {
       icon: 'LockOutlined',
       title: tval('Password strength'),
       Component: PasswordStrengthSettingsPage,
+      aclSnippet: `pm.security.password-strength`,
+    });
+
+    this.app.systemSettingsManager.add('security.sign-in-fails', {
+      icon: 'HistoryOutlined',
+      title: tval('Sign-in fails history'),
+      Component: SignInFailsTable,
+      aclSnippet: `pm.security.sign-in-fails`,
     });
   }
 }
