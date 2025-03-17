@@ -129,6 +129,12 @@ importers:
         specifier: ^0.18.5
         version: 0.18.5
 
+  apps/app-electron:
+    devDependencies:
+      electron:
+        specifier: ^35.0.2
+        version: 35.0.2
+
   apps/app-rs:
     dependencies:
       '@tachybase/client':
