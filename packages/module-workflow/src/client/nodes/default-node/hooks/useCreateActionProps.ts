@@ -13,13 +13,13 @@ export function useCreateActionProps() {
   const ctx = useActionContext();
 
   const { workflow, refresh } = useFlowContext() ?? {};
-  const { values } = useForm();
+  const form = useForm();
   const { upstream, branchIndex } = useContextNode();
 
   return {
     async onClick() {
       try {
-        const response = await fetch(values.file.url);
+        const response = await fetch(form.values.file.url);
         const jsonData = await response.json();
         if (workflow) {
           await api.resource('workflows.nodes', workflow.id).create({
@@ -34,6 +34,7 @@ export function useCreateActionProps() {
           ctx.setVisible(false);
           message.success(t('Operation succeeded'));
           refresh();
+          form.reset();
         }
       } catch (error) {
         ctx.setVisible(false);
