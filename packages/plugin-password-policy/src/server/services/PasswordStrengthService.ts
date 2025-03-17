@@ -42,7 +42,7 @@ export class PasswordStrengthService {
   async refreshConfig(config) {
     // 从配置中读取参数
     this.config = {
-      minLength: config?.get('minLength') || 8,
+      minLength: config?.get('minLength'),
       strengthLevel: config?.get('strengthLevel') || 0,
       notContainUsername: config?.get('notContainUsername') || false,
       historyCount: config?.get('historyCount') || 0,
@@ -131,7 +131,7 @@ export class PasswordStrengthService {
   public async validatePasswordStrength(ctx: Context, password: string, username?: string): Promise<void> {
     try {
       // 检查密码长度
-      if (password.length < this.config.minLength) {
+      if (this.config.minLength && password.length < this.config.minLength) {
         ctx.throw(
           400,
           ctx.t('Password must be at least {{length}} characters long', {

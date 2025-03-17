@@ -52,29 +52,49 @@ const schema: ISchema = {
       type: 'void',
       title: tval('Password policy'),
       properties: {
-        // 0表示不启用
         maxAttempts: {
           type: 'digit',
           title: tval('Max invalid password sign-in attempts'),
+          description: tval('Default value is 5. Set to 0 to disable.'),
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
+          'x-validator': {
+            required: true,
+          },
+          'x-component-props': {
+            min: 0,
+          },
         },
-        // TODO: 优化成后缀可以选择天/时/分/秒
         windowSeconds: {
           type: 'digit',
           title: tval('Max invalid password sign-in attempts interval (seconds)'),
+          description: tval('Default value is 300 seconds (5 minutes).'),
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
+          'x-validator': {
+            required: true,
+          },
+          'x-component-props': {
+            min: 1,
+          },
         },
         lockSeconds: {
           type: 'digit',
           title: tval('Lockout duration (seconds)'),
+          description: tval('Default value is 1800 seconds (30 minutes).'),
           'x-decorator': 'FormItem',
           'x-component': 'InputNumber',
+          'x-validator': {
+            required: true,
+          },
+          'x-component-props': {
+            min: 1,
+          },
         },
         strictLock: {
           type: 'boolean',
           title: tval('Can not access any api after locked'),
+          description: tval('Default value is off.'),
           'x-decorator': 'FormItem',
           'x-component': 'Checkbox',
         },

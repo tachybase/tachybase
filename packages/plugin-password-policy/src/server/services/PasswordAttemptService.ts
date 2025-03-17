@@ -6,7 +6,7 @@ import { App, Db, Inject, InjectLog, Service } from '@tachybase/utils';
 
 import * as geoip from 'geoip-lite';
 
-import { NAMESPACE } from '../../constants';
+import { LOCK_SECONDS, NAMESPACE, WINDOW_SECONDS } from '../../constants';
 
 interface SignInFailConfig {
   windowSeconds: number; // 检查时间窗口（秒）
@@ -186,12 +186,12 @@ export class PasswordAttemptService {
   private async clearUserFailRecords(userId: number): Promise<void> {
     try {
       // 从数据库中删除失败记录
-      await this.db.getRepository('users').update({
-        filterByTk: userId,
+      await this.db.getRepository('signInFails').update({
+        filter: {
+          userId,
+        },
         values: {
-          signInFails: {
-            status: false,
-          },
+          status: false,
         },
       });
 
@@ -352,9 +352,9 @@ export class PasswordAttemptService {
   async refreshConfig(config) {
     // 从配置中读取参数
     this.config = {
-      windowSeconds: config?.get('windowSeconds') || 300, // 默认5分钟
+      windowSeconds: config?.get('windowSeconds') || WINDOW_SECONDS, // 默认5分钟
       maxAttempts: config?.get('maxAttempts') ?? 0, // 默认0，表示不启用防护
-      lockSeconds: config?.get('lockSeconds') || 1800, // 默认30分钟
+      lockSeconds: config?.get('lockSeconds') || LOCK_SECONDS, // 默认30分钟
       strictLock: config?.get('strictLock') || false, // 锁定时候禁止任意api
     };
 

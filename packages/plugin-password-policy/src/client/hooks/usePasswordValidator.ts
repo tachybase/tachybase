@@ -14,7 +14,7 @@ interface PasswordConfig {
 export const usePasswordValidator = () => {
   const api = useAPIClient();
   const [config, setConfig] = useState<PasswordConfig>({
-    minLength: 8,
+    minLength: 0,
     strengthLevel: PasswordStrengthLevel.None,
     notContainUsername: false,
     historyCount: 0,
@@ -54,7 +54,7 @@ export const usePasswordValidator = () => {
     }
 
     // 检查密码长度
-    if (password.length < config.minLength) {
+    if (config.minLength && password.length < config.minLength) {
       return {
         valid: false,
         message: tval('Password must be at least {{length}} characters long').replace(
