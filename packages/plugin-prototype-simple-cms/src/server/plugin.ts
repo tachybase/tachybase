@@ -12,6 +12,10 @@ export class PluginHomePageServer extends Plugin {
 
   async install() {
     await Container.get(HomePageService).install();
+    this.app.acl.registerSnippet({
+      name: `pm.system-services.homepage`,
+      actions: ['home_page_presentations:*'],
+    });
   }
 
   async afterEnable() {}

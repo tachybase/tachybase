@@ -18,6 +18,7 @@ export class PluginHomePageClient extends Plugin {
       title: tval('Homepage config'),
       icon: 'HomeOutlined',
       Component: HomePageConfiguration,
+      aclSnippet: 'pm.system-services.homepage',
     });
   }
 }
