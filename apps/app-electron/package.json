@@ -1,12 +1,15 @@
 {
-  "name": "app-electron",
-  "version": "1.0.0",
+  "name": "@tachybase/app-electron",
+  "version": "0.23.64",
   "description": "",
   "keywords": [],
   "license": "ISC",
   "author": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^35.0.2"
   }
 }

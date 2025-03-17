@@ -9,8 +9,8 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-
-  win.loadURL('http://localhost:3000');
+  // TODO: 改成从环境变量中读取
+  win.loadURL('http://localhost:13005');
 }
 
 app.whenReady().then(createWindow);
