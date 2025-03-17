@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { css, Icon, useAPIClient, useCompile, usePlugin } from '@tachybase/client';
 
 import { MenuProps } from 'antd';
@@ -20,6 +20,8 @@ export function useProps(props) {
     () => getGroups(instructionList, { engine, workflow, upstream, branchIndex, compile }),
     [branchIndex, engine, instructionList, upstream, workflow],
   );
+
+  const [isShowUploadModal, setIsShowUploadModal] = useState(false);
 
   const onCreate = useCallback(
     async ({ keyPath }) => {
@@ -50,7 +52,14 @@ export function useProps(props) {
 
   const menu = useMemo<MenuProps>(() => {
     return {
-      onClick: onCreate,
+      onClick: (info) => {
+        const { keyPath } = info || {};
+        if (keyPath?.[0] === 'load') {
+          setIsShowUploadModal(true);
+        } else {
+          onCreate(info);
+        }
+      },
       items: groups,
     };
   }, [groups, onCreate]);
@@ -58,6 +67,8 @@ export function useProps(props) {
   return {
     workflow,
     menu,
+    isShowUploadModal,
+    setIsShowUploadModal,
   };
 }
 
@@ -86,6 +97,7 @@ const HotConfig = {
   key: 'hot',
   label: lang('Hot tools'),
 };
+
 const LoadConfig = {
   key: 'load',
   label: lang('Load'),
@@ -144,14 +156,14 @@ function getGroups(instructionList, { engine, workflow, upstream, branchIndex, c
     resultList.push(targetItem);
   }
 
-  resultList.push({
+  resultList.unshift({
     ...LoadConfig,
     type: 'group',
     children: [
       {
-        role: 'button',
-        'aria-label': 'load',
         key: 'load',
+        'aria-label': 'load',
+        role: 'button',
         label: lang('Upload node'),
         icon: renderNodeIcon('ToTopOutlined', '#ff92ca'),
       },
