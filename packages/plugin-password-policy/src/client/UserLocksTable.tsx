@@ -414,7 +414,7 @@ const table = {
 const schema = {
   type: 'void',
   properties: {
-    table,
+    userLocks: table,
   },
 };
 
