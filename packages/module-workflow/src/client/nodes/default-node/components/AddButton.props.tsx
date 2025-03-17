@@ -86,6 +86,10 @@ const HotConfig = {
   key: 'hot',
   label: lang('Hot tools'),
 };
+const LoadConfig = {
+  key: 'load',
+  label: lang('Load'),
+};
 
 /** 构造 工作流菜单 menu groups */
 function getGroups(instructionList, { engine, workflow, upstream, branchIndex, compile }) {
@@ -139,6 +143,20 @@ function getGroups(instructionList, { engine, workflow, upstream, branchIndex, c
 
     resultList.push(targetItem);
   }
+
+  resultList.push({
+    ...LoadConfig,
+    type: 'group',
+    children: [
+      {
+        role: 'button',
+        'aria-label': 'load',
+        key: 'load',
+        label: lang('Upload node'),
+        icon: renderNodeIcon('ToTopOutlined', '#ff92ca'),
+      },
+    ],
+  });
 
   // 将 hot 类的工具, 放在最前面
   resultList.unshift({
