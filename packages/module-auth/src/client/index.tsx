@@ -7,6 +7,7 @@ import { Authenticator as AuthenticatorType } from './authenticator';
 import { AuthProvider } from './AuthProvider';
 import { Options, SignInForm, SignUpForm } from './basic';
 import { AuthenticatorBind } from './bind/AuthenticatorBind';
+import { authCheckMiddleware } from './interceptors';
 import { NAMESPACE } from './locale';
 import { AuthLayout, SignInPage, SignUpPage } from './pages';
 import { Authenticator } from './settings/Authenticator';
@@ -79,6 +80,14 @@ export class PluginAuthClient extends Plugin {
       aclSnippet: `pm.security.token-policy`,
       icon: 'ApiOutlined',
       sort: 0,
+    });
+
+    const [fulfilled, rejected] = authCheckMiddleware({ app: this.app });
+    this.app.apiClient.axios.interceptors.response['handlers'].unshift({
+      fulfilled,
+      rejected,
+      synchronous: false,
+      runWhen: null,
     });
   }
 }

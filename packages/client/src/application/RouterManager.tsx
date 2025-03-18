@@ -1,19 +1,32 @@
-import React, { ComponentType } from 'react';
+/**
+ * This file is part of the NocoBase (R) project.
+ * Copyright (c) 2020-2024 NocoBase Co., Ltd.
+ * Authors: NocoBase Team.
+ *
+ * This project is dual-licensed under AGPL-3.0 and NocoBase Commercial License.
+ * For more information, please refer to: https://www.nocobase.com/agreement.
+ */
+
+import React, { ComponentType, createContext, useContext } from 'react';
 
 import { get, set } from 'lodash';
 import {
-  BrowserRouter,
   BrowserRouterProps,
-  HashRouter,
+  createBrowserRouter,
+  createHashRouter,
+  createMemoryRouter,
   HashRouterProps,
-  MemoryRouter,
   MemoryRouterProps,
+  Outlet,
   RouteObject,
-  useRoutes,
+  RouterProvider,
+  useRouteError,
 } from 'react-router-dom';
 
+import VariablesProvider from '../variables/VariablesProvider';
 import { Application } from './Application';
 import { BlankComponent, RouterContextCleaner } from './components';
+import { CustomRouterContextProvider } from './CustomRouterContextProvider';
 
 export interface BrowserRouterOptions extends Omit<BrowserRouterProps, 'children'> {
   type?: 'browser';
@@ -26,6 +39,7 @@ export interface MemoryRouterOptions extends Omit<MemoryRouterProps, 'children'>
 }
 export type RouterOptions = (HashRouterOptions | BrowserRouterOptions | MemoryRouterOptions) & {
   renderComponent?: RenderComponentType;
+  routes?: Record<string, RouteType>;
 };
 export type ComponentTypeAndString<T = any> = ComponentType<T> | string;
 export interface RouteType extends Omit<RouteObject, 'children' | 'Component'> {
@@ -37,10 +51,21 @@ export class RouterManager {
   protected routes: Record<string, RouteType> = {};
   protected options: RouterOptions;
   public app: Application;
+  private router;
+  get basename() {
+    return this.router.basename;
+  }
+  get state() {
+    return this.router.state;
+  }
+  get navigate() {
+    return this.router.navigate;
+  }
 
   constructor(options: RouterOptions = {}, app: Application) {
     this.options = options;
     this.app = app;
+    this.routes = options.routes || {};
   }
 
   /**
@@ -114,21 +139,49 @@ export class RouterManager {
   /**
    * @internal
    */
-  getRouterComponent() {
+  getRouterComponent(children?: React.ReactNode) {
     const { type = 'browser', ...opts } = this.options;
-    const Routers = {
-      hash: HashRouter,
-      browser: BrowserRouter,
-      memory: MemoryRouter,
+
+    const routerCreators = {
+      hash: createHashRouter,
+      browser: createBrowserRouter,
+      memory: createMemoryRouter,
     };
 
-    const ReactRouter = Routers[type];
+    const routes = this.getRoutesTree();
 
-    const RenderRoutes = () => {
-      const routes = this.getRoutesTree();
-      const element = useRoutes(routes);
-      return element;
+    const BaseLayoutContext = createContext<ComponentType>(null);
+
+    const Provider = () => {
+      const BaseLayout = useContext(BaseLayoutContext);
+      return (
+        <CustomRouterContextProvider>
+          <BaseLayout>
+            <VariablesProvider>
+              <Outlet />
+              {children}
+            </VariablesProvider>
+          </BaseLayout>
+        </CustomRouterContextProvider>
+      );
     };
+
+    // bubble up error to application error boundary
+    const ErrorElement = () => {
+      const error = useRouteError();
+      throw error;
+    };
+
+    this.router = routerCreators[type](
+      [
+        {
+          element: <Provider />,
+          errorElement: <ErrorElement />,
+          children: routes,
+        },
+      ],
+      opts,
+    );
 
     const RenderRouter = ({
       BaseLayout = BlankComponent,
@@ -137,13 +190,11 @@ export class RouterManager {
       children?: React.ReactNode;
     }) => {
       return (
-        <RouterContextCleaner>
-          <ReactRouter {...opts}>
-            <BaseLayout>
-              <RenderRoutes />
-            </BaseLayout>
-          </ReactRouter>
-        </RouterContextCleaner>
+        <BaseLayoutContext.Provider value={BaseLayout}>
+          <RouterContextCleaner>
+            <RouterProvider router={this.router} />
+          </RouterContextCleaner>
+        </BaseLayoutContext.Provider>
       );
     };
 
