@@ -2,7 +2,7 @@ import { Migration } from '@tachybase/server';
 
 export default class extends Migration {
   on = 'afterLoad'; // 'beforeLoad' or 'afterLoad'
-  appVersion = '<0.23.62';
+  appVersion = '<0.23.65';
 
   async up() {
     const isExisted = await this.pm.repository.findOne({
