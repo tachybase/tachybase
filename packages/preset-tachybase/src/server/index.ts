@@ -50,6 +50,7 @@ export class PresetTachyBase extends Plugin {
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
     ['full-text-search', '0.23.24', true],
+    ['auth-pages', '0.23.61', true],
     // default disable
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],
@@ -60,7 +61,6 @@ export class PresetTachyBase extends Plugin {
     ['auth-dingtalk', '0.21.76', false],
     ['auth-lark', '0.22.42', false],
     ['auth-oidc', '0.9.2', false],
-    ['auth-pages', '0.22.42', false],
     ['auth-saml', '0.8.1', false],
     ['auth-sms', '0.10.0', false],
     ['auth-wechat', '0.21.89', false],
