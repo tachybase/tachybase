@@ -27,11 +27,6 @@ export const LanguageSwitcher = () => {
       defaultValue={i18n.language}
       options={options}
       onChange={async (lang) => {
-        await api.resource('users').updateProfile({
-          values: {
-            appLang: lang,
-          },
-        });
         api.auth.setLocale(lang);
         window.location.reload();
       }}

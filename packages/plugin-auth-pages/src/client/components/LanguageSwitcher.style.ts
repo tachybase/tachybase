@@ -18,6 +18,7 @@ export const useStyles = createStyles(({ css, token }) => {
         no-repeat center center;
       background-size: contain;
       vertical-align: middle;
+      transform: translateX(15px);
     `,
   };
 });
