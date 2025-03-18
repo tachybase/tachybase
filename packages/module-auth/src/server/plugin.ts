@@ -71,7 +71,7 @@ export class PluginAuthServer extends Plugin {
     // register preset auth type
     this.app.authManager.registerTypes(presetAuthType, {
       auth: BasicAuth,
-      title: tval('Password', { ns: namespace }),
+      title: 'Password',
       getPublicOptions: (options) => {
         const usersCollection = this.db.getCollection('users');
         let signupForm = options?.public?.signupForm || [];
