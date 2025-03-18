@@ -20,7 +20,7 @@ export class MultiAppManagerPlugin extends Plugin {
       title: i18nText('Multi-app manager'),
       icon: 'AppstoreOutlined',
       Component: AppManager,
-      aclSnippet: 'pm.multi-app-manager.applications',
+      aclSnippet: 'pm.multi-app.applications',
     });
 
     const blockInitializers = this.app.schemaInitializerManager.get('page:addBlock');

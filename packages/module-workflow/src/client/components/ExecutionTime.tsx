@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useCollectionRecordData } from '@tachybase/client';
+import { Input, useCollectionRecordData } from '@tachybase/client';
 
 export function formatDuration(seconds: number): string {
   // 如果秒数大于等于 999 天的秒数，限制为 999 天
@@ -26,47 +26,76 @@ export function formatDuration(seconds: number): string {
   return result.trim();
 }
 
-export function ExecutionTime() {
-  const record = useCollectionRecordData();
-  const { createdAt, updatedAt, status } = record || {};
-  const [timeDifference, setTimeDifference] = useState<string>('');
+export function formatMsToDHS(milliseconds: number): string | undefined {
+  const TEN_MINUTES_MS = 600000;
+  const MILLISECONDS_IN_SECOND = 1000;
+  const SECONDS_IN_DAY = 24 * 60 * 60;
+  const maxDays = 999;
+  if (!milliseconds) {
+    return;
+  }
+  const seconds = milliseconds / MILLISECONDS_IN_SECOND;
+  const maxSeconds = maxDays * SECONDS_IN_DAY;
+  if (seconds >= maxSeconds) {
+    return `${maxDays} D`;
+  }
+
+  if (milliseconds < TEN_MINUTES_MS) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    const remainingMilliseconds = milliseconds % MILLISECONDS_IN_SECOND;
+
+    let result = `${remainingMilliseconds} ms`;
+
+    if (minutes > 0) {
+      result = `${minutes} m ${remainingSeconds} s ${remainingMilliseconds} ms`;
+    } else if (remainingSeconds > 0) {
+      result = `${remainingSeconds} s ${remainingMilliseconds} ms`;
+    }
+
+    return result;
+  }
+
+  const days = Math.floor(seconds / SECONDS_IN_DAY);
+  const hours = Math.floor((seconds % SECONDS_IN_DAY) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  let result = '';
+  if (days > 0) result += `${days} D `;
+  if (hours > 0 || days > 0) result += `${hours} h `;
+  if (minutes > 0 || hours > 0 || days > 0) result += `${minutes} m `;
+  if (seconds >= 60) {
+    result += `${Math.floor(remainingSeconds)} s`;
+  } else {
+    result += `${remainingSeconds} s`;
+  }
+  return result.trim();
+}
+
+export function getExecutionTime(executionCost: number, record?): string | undefined {
+  const getTimeDifference = () => {
+    const currentTime = Date.now();
+    const createdAtTime = new Date(record.createdAt).getTime();
+    return currentTime - createdAtTime;
+  };
+  const [displayValue, setDisplayValue] = useState(executionCost || getTimeDifference());
 
   useEffect(() => {
-    const createdAtDate = createdAt ? new Date(createdAt) : null;
-    const updatedAtDate = updatedAt ? new Date(updatedAt) : null;
+    let interval;
 
-    let intervalId: NodeJS.Timeout | null = null;
-
-    const updateDifference = () => {
-      let diffInSeconds = 0;
-
-      if (createdAtDate && !isNaN(createdAtDate.getTime())) {
-        const createdAtTime = createdAtDate.getTime();
-
-        if (status === 0) {
-          const currentTime = Date.now();
-          diffInSeconds = Math.max((currentTime - createdAtTime) / 1000, 0);
-        } else if (updatedAtDate && !isNaN(updatedAtDate.getTime())) {
-          const updatedAtTime = updatedAtDate.getTime();
-          diffInSeconds = Math.max((updatedAtTime - createdAtTime) / 1000, 0);
-        }
-
-        setTimeDifference(formatDuration(diffInSeconds));
-      } else {
-        setTimeDifference('Invalid timestamps');
-      }
-    };
-
-    updateDifference();
-
-    if (status === 0) {
-      intervalId = setInterval(updateDifference, 1000);
+    if (record.status === 0) {
+      interval = setInterval(() => {
+        setDisplayValue(getTimeDifference());
+      }, 1000);
+    } else {
+      setDisplayValue(executionCost);
     }
 
     return () => {
-      if (intervalId) clearInterval(intervalId);
+      if (interval) clearInterval(interval);
     };
-  }, [createdAt, updatedAt, status]);
+  }, [executionCost, record.status]);
 
-  return <div>{timeDifference}</div>;
+  return formatMsToDHS(displayValue);
 }

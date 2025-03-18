@@ -51,7 +51,11 @@ export const createCommentUISchema = ({
         'x-component': 'Comment.Submit',
         'x-acl-action': `${association || collectionName}:create`,
         'x-decorator': 'ACLCollectionProvider',
-        'x-decorator-props': { collection: collectionName, dataSource, association },
+        'x-decorator-props': {
+          collection: collectionName,
+          dataSource,
+          association,
+        },
       },
     },
   };

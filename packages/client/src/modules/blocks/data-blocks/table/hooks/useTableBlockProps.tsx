@@ -76,7 +76,10 @@ export const useTableBlockProps = () => {
             : [`-${sorter.field}`]
           : parentSortReal;
 
-      ctx.service.run({ ...ctx.service.params?.[0], page: current, pageSize, sort });
+      ctx.service.run(
+        { ...ctx.service.params[0], page: current, pageSize, sort },
+        { filters: ctx.service.params[1]?.filters },
+      );
     },
     onClickRow(record, setSelectedRow, selectedRow) {
       const { targets, uid } = findFilterTargets(fieldSchema);

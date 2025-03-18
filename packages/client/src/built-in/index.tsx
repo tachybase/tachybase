@@ -239,6 +239,9 @@ const getProps = (app: Application) => {
       'pm.remove': {
         title: 'Removing plugin',
       },
+      refreshEventSource: {
+        title: 'Refreshing event source',
+      },
     };
     return { ...props, ...commands[app.error?.command?.name] };
   }
@@ -328,6 +331,11 @@ export class BuiltInPlugin extends Plugin {
       title: this.t('Business Components'),
       icon: 'BlockOutlined',
       sort: -30,
+    });
+    this.app.systemSettingsManager.add('security', {
+      title: this.t('Security'),
+      icon: 'SafetyOutlined',
+      sort: -20,
     });
     this.app.systemSettingsManager.add('system-services', {
       title: this.t('System Services'),

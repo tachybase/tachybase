@@ -10,6 +10,7 @@ import { I18nextProvider } from 'react-i18next';
 import { Link, Navigate, NavLink } from 'react-router-dom';
 
 import { APIClient, APIClientProvider } from '../api-client';
+import { CollectionFieldInterfaceComponentOption } from '../data-source';
 import { CollectionField } from '../data-source/collection-field/CollectionField';
 import { DataSourceApplicationProvider } from '../data-source/components/DataSourceApplicationProvider';
 import { DataBlockProvider } from '../data-source/data-block/DataBlockProvider';
@@ -94,6 +95,7 @@ export class Application {
   public pluginContextMenu: PluginContextMenu;
   public AttachmentPreviewManager: AttachmentPreviewManager;
   public name: string;
+  public globalVars: Record<string, any> = {};
 
   loading = true;
   maintained = false;
@@ -353,5 +355,19 @@ export class Application {
     const root = createRoot(container);
     root.render(<App />);
     return root;
+  }
+  addFieldInterfaceComponentOption(fieldName: string, componentOption: CollectionFieldInterfaceComponentOption) {
+    return this.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption(
+      fieldName,
+      componentOption,
+    );
+  }
+
+  addGlobalVar(key: string, value: any) {
+    set(this.globalVars, key, value);
+  }
+
+  getGlobalVar(key) {
+    return get(this.globalVars, key);
   }
 }

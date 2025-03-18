@@ -4,7 +4,7 @@ import { css, EllipsisWithTooltip, Input, Variable } from '@tachybase/client';
 import { useVariableOptions } from '../../scopes/useVariableOptions';
 
 export const getSchemaFieldPath = (params) => {
-  const { t, path, setFormValue, scCtx } = params;
+  const { t, path, setFormValue, baseUrl } = params;
 
   return {
     name: 'path',
@@ -16,7 +16,7 @@ export const getSchemaFieldPath = (params) => {
       feedbackLayout: 'popover',
       addonBefore: (
         <EllipsisWithTooltip ellipsis>
-          <Input.ReadPretty value={scCtx?.dataSourceData?.data?.options?.baseUrl} />
+          <Input.ReadPretty value={baseUrl} />
         </EllipsisWithTooltip>
       ),
       validator: {

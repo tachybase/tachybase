@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-block-comments",
-  "version": "0.23.40",
+  "version": "0.23.64",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-comments"

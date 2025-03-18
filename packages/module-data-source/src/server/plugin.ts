@@ -28,6 +28,10 @@ export class PluginDataSourceManagerServer extends Plugin {
     [dataSourceKey: string]: DataSourceState;
   } = {};
 
+  renderJsonTemplate(template) {
+    return this.app.environment.renderJsonTemplate(template);
+  }
+
   async beforeLoad() {
     this.app.db.registerModels({
       DataSourcesCollectionModel,
@@ -80,7 +84,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         const klass = this.app.dataSourceManager.factory.getClass(type);
 
         try {
-          await klass.testConnection(dataSourceOptions);
+          await klass.testConnection(this.renderJsonTemplate(dataSourceOptions || {}));
         } catch (error) {
           throw new Error(`Test connection failed: ${error.message}`);
         }
@@ -131,6 +135,9 @@ export class PluginDataSourceManagerServer extends Plugin {
           }
 
           const items = lodash.get(ctx, dataPath);
+          if (!Array.isArray(items)) {
+            return;
+          }
 
           lodash.set(
             ctx,
@@ -154,7 +161,7 @@ export class PluginDataSourceManagerServer extends Plugin {
           );
         }
       },
-      { tag: 'processDataSourcesList' },
+      { tag: 'processDataSourcesList', before: 'dataWrapping' },
     );
 
     const plugin = this;
@@ -169,6 +176,9 @@ export class PluginDataSourceManagerServer extends Plugin {
         status: dataSourceStatus,
         type: dataSourceModel.get('type'),
 
+        options: {
+          baseUrl: dataSourceModel.get('options')?.baseUrl,
+        },
         // @ts-ignore
         isDBInstance: !!dataSource?.collectionManager.db,
       };
@@ -268,7 +278,7 @@ export class PluginDataSourceManagerServer extends Plugin {
         const klass = ctx.app.dataSourceManager.factory.getClass(type);
 
         try {
-          await klass.testConnection(options);
+          await klass.testConnection(this.renderJsonTemplate(options || {}));
         } catch (error) {
           throw new Error(`Test connection failed: ${error.message}`);
         }
@@ -533,16 +543,8 @@ export class PluginDataSourceManagerServer extends Plugin {
     );
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}`,
-      actions: [
-        'dataSources:*',
-        'roles.dataSourceResources',
-        'collections:*',
-        'collections.fields:*',
-        'dbViews:*',
-        'collectionCategories:*',
-        'sqlCollection:*',
-      ],
+      name: 'pm.database-connections.collections',
+      actions: ['collections:*', 'collections.fields:*', 'collectionCategories:*'],
     });
 
     this.app.acl.allow('dataSources', 'listEnabled', 'loggedIn');

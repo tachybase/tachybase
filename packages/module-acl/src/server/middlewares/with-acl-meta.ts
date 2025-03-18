@@ -21,7 +21,7 @@ function createWithACLMetaMiddleware() {
       return;
     }
 
-    const { resourceName, actionName } = ctx.action;
+    const { resourceName, actionName } = ctx.permission;
 
     if (!['list', 'get'].includes(actionName)) {
       return;
@@ -60,6 +60,7 @@ function createWithACLMetaMiddleware() {
             return db;
           },
         },
+        getCurrentRepository: ctx.getCurrentRepository,
         action: {
           actionName: action,
           name: action,
@@ -115,6 +116,11 @@ function createWithACLMetaMiddleware() {
 
       return listData.filter(Boolean).map((item) => item[primaryKeyField]);
     })();
+
+    // if all ids are empty, skip
+    if (ids.filter(Boolean).length === 0) {
+      return;
+    }
 
     const conditions = [];
 

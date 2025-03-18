@@ -37,7 +37,7 @@ export class MapPlugin extends Plugin {
     });
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.configuration`,
+      name: `pm.map.configuration`,
       actions: ['map-configuration:set'],
     });
 

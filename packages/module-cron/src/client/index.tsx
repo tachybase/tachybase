@@ -14,6 +14,7 @@ export class ModuleCronJobClient extends Plugin {
       icon: 'ScheduleOutlined',
       Component: CronJobsTable,
       sort: -15,
+      aclSnippet: 'pm.system-services.cron',
     });
   }
 }

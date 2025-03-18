@@ -2,7 +2,7 @@ import { Plugin } from '@tachybase/client';
 
 import { KitApprovalInstruction } from './instruction-approval/kit';
 import { KitCarbonCopy } from './instruction-carbon-copy/kit';
-import { KitApprovalTrigger } from './trigger-approval/plugin';
+import { KitApprovalTrigger } from './trigger-approval/kit';
 
 // 审批配置项-工作流触发器和节点
 export default class KitApprovalConfiguration extends Plugin {

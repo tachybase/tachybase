@@ -1,7 +1,7 @@
 import { createCalendarBlockUISchema } from '../schema-initializer/createCalendarBlockUISchema';
 
-vi.mock('@formily/shared', async () => {
-  const actual = await vi.importActual('@formily/shared');
+vi.mock('@tachybase/schema', async () => {
+  const actual = await vi.importActual('@tachybase/schema');
   return {
     ...actual,
     uid: () => 'mocked-uid',

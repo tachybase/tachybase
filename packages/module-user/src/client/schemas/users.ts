@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useActionContext, useCollectionRecordData, useRequest } from '@tachybase/client';
 import { ISchema, uid } from '@tachybase/schema';
 
 export const userCollection = {
@@ -213,11 +211,18 @@ const create: ISchema = {
                   'x-component': 'Input',
                   'x-validator': 'phone',
                   'x-decorator': 'FormItem',
+                  'x-component-props': {
+                    autocomplete: 'off',
+                  },
                   required: false,
                 },
                 password: {
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
+                  'x-component-props': {
+                    autocomplete: 'new-password',
+                  },
+
                   required: true,
                 },
                 roles: {
@@ -436,15 +441,21 @@ export const usersSchema: ISchema = {
                 actions: {
                   type: 'void',
                   'x-component': 'Space',
-                  'x-component-props': {
-                    split: '|',
-                  },
                   properties: {
                     update: {
                       type: 'void',
                       title: '{{t("Edit profile")}}',
-                      'x-decorator': 'ACLActionProvider',
+                      'x-acl-action-props': {
+                        skipScopeCheck: false,
+                      },
                       'x-acl-action': 'users:update',
+                      'x-decorator': 'FormBlockProvider',
+                      'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+                      'x-decorator-props': {
+                        action: 'get',
+                        dataSource: 'main',
+                        collection: 'users',
+                      },
                       'x-component': 'Action.Link',
                       'x-component-props': {
                         type: 'primary',
@@ -453,23 +464,8 @@ export const usersSchema: ISchema = {
                         drawer: {
                           type: 'void',
                           'x-component': 'Action.Drawer',
-                          'x-decorator': 'Form',
-                          'x-decorator-props': {
-                            useValues: (options) => {
-                              const record = useCollectionRecordData();
-                              const result = useRequest(() => Promise.resolve({ data: record }), {
-                                ...options,
-                                manual: true,
-                              });
-                              const ctx = useActionContext();
-                              useEffect(() => {
-                                if (ctx.visible) {
-                                  result.run();
-                                }
-                              }, [ctx.visible]);
-                              return result;
-                            },
-                          },
+                          'x-decorator': 'FormV2',
+                          'x-use-decorator-props': 'useEditFormBlockProps',
                           title: '{{t("Edit profile")}}',
                           properties: {
                             actionBar: {

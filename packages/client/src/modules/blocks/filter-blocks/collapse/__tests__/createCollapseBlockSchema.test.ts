@@ -1,6 +1,6 @@
 import { createCollapseBlockSchema } from '../createFilterCollapseBlockSchema';
 
-vi.mock('@formily/shared', () => ({
+vi.mock('@tachybase/schema', () => ({
   uid: vi.fn().mockReturnValue('mocked-uid'),
 }));
 

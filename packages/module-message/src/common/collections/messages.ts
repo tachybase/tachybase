@@ -68,6 +68,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'dataKey',
+      type: 'string',
+      interface: 'input',
+    },
+    {
       name: 'jsonContent',
       interface: 'input',
       type: 'jsonb',

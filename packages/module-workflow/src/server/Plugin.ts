@@ -34,6 +34,7 @@ import DestroyInstruction from './instructions/DestroyInstruction';
 import EndInstruction from './instructions/EndInstruction';
 import QueryInstruction from './instructions/QueryInstruction';
 import UpdateInstruction from './instructions/UpdateInstruction';
+import UpdateOrCreateInstruction from './instructions/UpdateOrCreateInstruction';
 import Processor from './Processor';
 import Trigger from './triggers';
 import CollectionTrigger from './triggers/CollectionTrigger';
@@ -189,6 +190,7 @@ export default class PluginWorkflowServer extends Plugin {
     this.registerInstruction('condition', ConditionInstruction);
     this.registerInstruction('end', EndInstruction);
     this.registerInstruction('create', CreateInstruction);
+    this.registerInstruction('updateorcreate', UpdateOrCreateInstruction);
     this.registerInstruction('destroy', DestroyInstruction);
     this.registerInstruction('query', QueryInstruction);
     this.registerInstruction('update', UpdateInstruction);
@@ -228,8 +230,11 @@ export default class PluginWorkflowServer extends Plugin {
         'executions:list',
         'executions:get',
         'executions:cancel',
+        'executions:retry',
         'flow_nodes:update',
         'flow_nodes:destroy',
+        'flow_nodes:moveUp',
+        'flow_nodes:moveDown',
       ],
     });
 
@@ -239,7 +244,7 @@ export default class PluginWorkflowServer extends Plugin {
     });
 
     this.app.acl.allow('workflows', ['trigger'], 'loggedIn');
-    this.app.acl.allow('flow_nodes', ['moveUp', 'moveDown'], 'loggedIn');
+    // this.app.acl.allow('flow_nodes', ['moveUp', 'moveDown'], 'loggedIn');
 
     db.on('workflows.beforeSave', this.onBeforeSave);
     db.on('workflows.afterSave', (model: WorkflowModel) => this.toggle(model));
@@ -390,25 +395,34 @@ export default class PluginWorkflowServer extends Plugin {
 
   private async createExecution(workflow: WorkflowModel, context, options): Promise<ExecutionModel | null> {
     const { transaction = await this.db.sequelize.transaction() } = options;
+    const sameTransaction = options.transaction === transaction;
     const trigger = this.triggers.get(workflow.type);
     const valid = await trigger.validateEvent(workflow, context, { ...options, transaction });
     if (!valid) {
-      if (!options.transaction) {
+      if (!sameTransaction) {
         await transaction.commit();
       }
       return null;
     }
 
-    const execution = await workflow.createExecution(
-      {
-        context,
-        key: workflow.key,
-        status: EXECUTION_STATUS.QUEUEING,
-        parentNode: options.parentNode || null,
-        parentId: options.parent ? options.parent.id : null,
-      },
-      { transaction },
-    );
+    let execution;
+    try {
+      execution = await workflow.createExecution(
+        {
+          context,
+          key: workflow.key,
+          status: EXECUTION_STATUS.QUEUEING,
+          parentNode: options.parentNode || null,
+          parentId: options.parent ? options.parent.id : null,
+        },
+        { transaction },
+      );
+    } catch (err) {
+      if (!sameTransaction) {
+        await transaction.rollback();
+      }
+      throw err;
+    }
 
     this.getLogger(workflow.id).info(`execution of workflow ${workflow.id} created as ${execution.id}`);
 
@@ -430,7 +444,7 @@ export default class PluginWorkflowServer extends Plugin {
       },
     );
 
-    if (!options.transaction) {
+    if (!sameTransaction) {
       await transaction.commit();
     }
 
@@ -536,7 +550,10 @@ export default class PluginWorkflowServer extends Plugin {
     try {
       await (job ? processor.resume(job) : processor.start());
       logger.info(`execution (${execution.id}) finished with status: ${execution.status}`, { execution });
-
+      if (execution.status !== 0) {
+        const executionDuration = execution.updatedAt.getTime() - execution.createdAt.getTime();
+        await execution.update({ executionCost: executionDuration }, { transaction: options.transaction });
+      }
       if (execution.status && execution.parentNode) {
         // 根据parentId找到parent
         const { database } = <typeof ExecutionModel>execution.constructor;

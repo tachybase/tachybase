@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useCollection_deprecated, useCollectionFilterOptions, useCompile } from '@tachybase/client';
+import { useCollection_deprecated, useCollectionFilterOptions, useCompile, useGlobalVariable } from '@tachybase/client';
 
 import { useTranslation } from '../locale';
 
@@ -13,8 +13,10 @@ export const useCustomRequestVariableOptions = () => {
   const [fields, userFields] = useMemo(() => {
     return [compile(fieldsOptions), compile(userFieldOptions)];
   }, [fieldsOptions, userFieldOptions]);
+  const environmentVariables = useGlobalVariable('$env');
   return useMemo(() => {
-    return [
+    // 如果environmentVariables为空则返回不包含environmentVariables的数组,如果不为空则返回包含environmentVariables的数组
+    const list = [
       {
         name: 'currentRecord',
         title: t('Current record', { ns: 'core' }),
@@ -31,5 +33,9 @@ export const useCustomRequestVariableOptions = () => {
         children: null,
       },
     ];
+    if (environmentVariables) {
+      list.unshift(environmentVariables);
+    }
+    return list;
   }, [fields, userFields]);
 };

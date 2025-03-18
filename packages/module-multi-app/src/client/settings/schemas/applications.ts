@@ -255,7 +255,7 @@ export const tableActionColumnSchema: ISchema = {
 export const schema: ISchema = {
   type: 'void',
   properties: {
-    provider: {
+    applicationsTable: {
       type: 'void',
       'x-decorator': 'TableBlockProvider',
       'x-decorator-props': {

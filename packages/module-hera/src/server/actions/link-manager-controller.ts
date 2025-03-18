@@ -20,6 +20,7 @@ export class LinkManagerController {
     return next();
   }
 
+  // TODO: 判断
   @Action('set')
   async setLink(ctx: Context, next: () => Promise<any>) {
     const {

@@ -37,6 +37,7 @@ export class MessageInstruction extends Instruction {
     notifiedPerson: {
       type: 'array',
       title: tval('The Notified Person'),
+      required: true,
       'x-decorator': 'FormItem',
       'x-component': 'ArrayItems',
       'x-component-props': {
@@ -77,6 +78,7 @@ export class MessageInstruction extends Instruction {
     title: {
       type: 'string',
       title: tval('Title'),
+      required: true,
       'x-decorator': 'FormItem',
       'x-component': 'WorkflowVariableCodeMirror',
       'x-component-props': {
