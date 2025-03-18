@@ -43,6 +43,7 @@ interface CanArgs {
   role: string;
   resource: string;
   action: string;
+  rawResourceName?: string;
   ctx?: any;
 }
 
@@ -215,20 +216,21 @@ export class ACL extends EventEmitter {
   }
 
   can(options: CanArgs): CanResult | null {
-    const { role, resource, action, ctx } = options;
+    const { role, resource, action, rawResourceName, ctx } = options;
     const aclRole = this.roles.get(role);
 
     if (!aclRole) {
       return null;
     }
 
-    const snippetAllowed = aclRole.snippetAllowed(`${resource}:${action}`);
+    const actionPath = `${rawResourceName ? rawResourceName : resource}:${action}`;
+    const snippetAllowed = aclRole.snippetAllowed(actionPath);
 
     // if (snippetAllowed === false) {
     //   return null;
     // }
 
-    const fixedParams = this.fixedParamsManager.getParams(resource, action);
+    const fixedParams = this.fixedParamsManager.getParams(rawResourceName ? rawResourceName : resource, action);
 
     const mergeParams = (result: CanResult) => {
       const params = result['params'] || {};
@@ -353,7 +355,19 @@ export class ACL extends EventEmitter {
 
     return async function ACLMiddleware(ctx, next) {
       const roleName = ctx.state.currentRole || 'anonymous';
-      const { resourceName, actionName } = ctx.action;
+      const { resourceName: rawResourceName, actionName } = ctx.action;
+
+      let resourceName = rawResourceName;
+      if (rawResourceName.includes('.')) {
+        resourceName = rawResourceName.split('.').pop();
+      }
+
+      if (ctx.getCurrentRepository) {
+        const currentRepository = ctx.getCurrentRepository();
+        if (currentRepository && currentRepository.targetCollection) {
+          resourceName = ctx.getCurrentRepository().targetCollection.name;
+        }
+      }
 
       ctx.can = (options: Omit<CanArgs, 'role'>) => {
         const canResult = acl.can({ role: roleName, ...options, ctx });
@@ -362,7 +376,9 @@ export class ACL extends EventEmitter {
       };
 
       ctx.permission = {
-        can: ctx.can({ resource: resourceName, action: actionName }),
+        can: ctx.can({ resource: resourceName, action: actionName, rawResourceName }),
+        resourceName,
+        actionName,
       };
 
       return compose(acl.middlewares.nodes)(ctx, next);
@@ -374,7 +390,19 @@ export class ACL extends EventEmitter {
    */
   async getActionParams(ctx) {
     const roleName = ctx.state.currentRole || 'anonymous';
-    const { resourceName, actionName } = ctx.action;
+    const { resourceName: rawResourceName, actionName } = ctx.action;
+
+    let resourceName = rawResourceName;
+    if (rawResourceName.includes('.')) {
+      resourceName = rawResourceName.split('.').pop();
+    }
+
+    if (ctx.getCurrentRepository) {
+      const currentRepository = ctx.getCurrentRepository();
+      if (currentRepository && currentRepository.targetCollection) {
+        resourceName = ctx.getCurrentRepository().targetCollection.name;
+      }
+    }
 
     ctx.can = (options: Omit<CanArgs, 'role'>) => {
       const can = this.can({ role: roleName, ...options });
@@ -419,7 +447,7 @@ export class ACL extends EventEmitter {
     this.middlewares.add(
       async (ctx, next) => {
         const resourcerAction: Action = ctx.action;
-        const { resourceName, actionName } = ctx.action;
+        const { resourceName, actionName } = ctx.permission;
 
         const permission = ctx.permission;
 

@@ -60,6 +60,8 @@ import {
 import { ApplicationVersion } from './helpers/application-version';
 import { Locale } from './locale';
 import { MainDataSource } from './main-data-source';
+import { parseVariables } from './middlewares';
+import { dataTemplate } from './middlewares/data-template';
 import { NoticeManager } from './notice';
 import { Plugin } from './plugin';
 import { Constructor, InstallOptions, PluginManager } from './plugin-manager';
@@ -1125,6 +1127,12 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     if (this.options.acl !== false) {
       this.resourcer.use(this.acl.middleware(), { tag: 'acl', after: ['auth'] });
     }
+
+    this._dataSourceManager.use(parseVariables, {
+      group: 'parseVariables',
+      after: 'acl',
+    });
+    this._dataSourceManager.use(dataTemplate, { group: 'dataTemplate', after: 'acl' });
 
     this._locales = new Locale(createAppProxy(this));
 
