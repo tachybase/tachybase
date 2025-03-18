@@ -50,6 +50,7 @@ export class PresetTachyBase extends Plugin {
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
     ['full-text-search', '0.23.24', true],
+    ['password-policy', '0.23.64', true],
     ['auth-pages', '0.23.61', true],
     // default disable
     ['adapter-bullmq', '0.21.76', false],
