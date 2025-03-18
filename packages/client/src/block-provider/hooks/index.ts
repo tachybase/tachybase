@@ -1,4 +1,5 @@
 import { ChangeEvent, useCallback, useEffect } from 'react';
+import { evaluators } from '@tachybase/evaluators/client';
 import { Field, Form, ISchema, untracked, useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { isURL, parse } from '@tachybase/utils/client';
 
@@ -34,6 +35,7 @@ import {
 import { isSubMode } from '../../schema-component/antd/association-field/util';
 import { useCurrentUserContext } from '../../user';
 import { useLocalVariables, useVariables } from '../../variables';
+import { VariableOption, VariablesContextType } from '../../variables/types';
 import { isVariable } from '../../variables/utils/isVariable';
 import { transformVariableValue } from '../../variables/utils/transformVariableValue';
 import { useBlockRequestContext, useFilterByTk, useParamsFromRecord } from '../BlockProvider';
