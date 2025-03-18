@@ -229,7 +229,10 @@ export class APIClient {
   auth: Auth;
   storage: Storage;
 
+  options: APIClientOptions;
+
   constructor(instance?: APIClientOptions) {
+    this.options = instance;
     if (typeof instance === 'function') {
       this.axios = instance;
     } else {

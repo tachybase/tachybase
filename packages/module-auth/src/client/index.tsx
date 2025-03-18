@@ -10,6 +10,7 @@ import { AuthenticatorBind } from './bind/AuthenticatorBind';
 import { NAMESPACE } from './locale';
 import { AuthLayout, SignInPage, SignUpPage } from './pages';
 import { Authenticator } from './settings/Authenticator';
+import { TokenPolicySettings } from './settings/token-policy';
 
 export type AuthOptions = {
   components: Partial<{
@@ -70,6 +71,14 @@ export class PluginAuthClient extends Plugin {
         SignUpForm: SignUpForm,
         AdminSettingsForm: Options,
       },
+    });
+
+    this.app.systemSettingsManager.add(`security.token-policy`, {
+      title: `{{t("Token policy", { ns: "${NAMESPACE}" })}}`,
+      Component: TokenPolicySettings,
+      aclSnippet: `pm.security.token-policy`,
+      icon: 'ApiOutlined',
+      sort: 0,
     });
   }
 }
