@@ -10,6 +10,8 @@ function addElectronCommand(name: string, cli: Command) {
       await runElectronDev(opts);
     } else if (name === 'electron:build') {
       await runElectronBuild(opts);
+    } else if (name === 'electron:start') {
+      await runElectronStart(opts);
     }
   });
 }
@@ -19,6 +21,7 @@ async function runElectronDev(opts: any) {
   // @ts-ignore
   process.env.IS_DEV_CMD = true;
   const { port, client, server, inspect, rs } = opts;
+
   if (port) {
     process.env.APP_PORT = opts.port;
   }
@@ -129,7 +132,11 @@ async function runElectronDev(opts: any) {
   }, 1000);
 }
 
-function runElectronBuild(opts: any) {
+async function runElectronBuild(opts: any) {
+  // TODO: implement
+}
+
+async function runElectronStart(opts: any) {
   // TODO: implement
 }
 
