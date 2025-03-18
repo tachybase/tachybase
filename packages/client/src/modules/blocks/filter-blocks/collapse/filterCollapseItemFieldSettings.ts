@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
+import { fieldComponentSettingsItem } from '../../../../data-source';
 import { useCompile, useDesignable } from '../../../../schema-component';
 import { SchemaSettingsDefaultSortingRules } from '../../../../schema-settings';
 import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
@@ -189,6 +190,7 @@ export const filterCollapseItemFieldSettings = new SchemaSettings({
               };
             },
           },
+          { ...fieldComponentSettingsItem },
         ];
       },
     },
