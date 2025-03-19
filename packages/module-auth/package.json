@@ -29,6 +29,7 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/logger": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
