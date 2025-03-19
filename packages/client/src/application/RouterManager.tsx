@@ -1,4 +1,4 @@
-import React, { ComponentType, createContext, useContext } from 'react';
+import React, { ComponentType, createContext, PropsWithChildren, useContext } from 'react';
 
 import { get, set } from 'lodash';
 import {
@@ -141,7 +141,7 @@ export class RouterManager {
 
     const routes = this.getRoutesTree();
 
-    const BaseLayoutContext = createContext<ComponentType>(null);
+    const BaseLayoutContext = createContext<React.ComponentType<PropsWithChildren<any>>>(null);
 
     const Provider = () => {
       const BaseLayout = useContext(BaseLayoutContext);
@@ -177,7 +177,7 @@ export class RouterManager {
     const RenderRouter = ({
       BaseLayout = BlankComponent,
     }: {
-      BaseLayout?: ComponentType<any>;
+      BaseLayout?: React.ComponentType<PropsWithChildren<any>>;
       children?: React.ReactNode;
     }) => {
       return (
