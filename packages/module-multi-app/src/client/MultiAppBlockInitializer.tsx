@@ -1,43 +1,12 @@
-import React from 'react';
-import {
-  createTableBlockSchema,
-  SchemaInitializerItem,
-  useSchemaInitializer,
-  useSchemaInitializerItem,
-} from '@tachybase/client';
-import { ISchema } from '@tachybase/schema';
+import { useCallback } from 'react';
+import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
-import { TableOutlined } from '@ant-design/icons';
-
-import { AppManager } from './AppManager';
-import { usePluginUtils } from './utils';
+import { schemaMultiAppBlock as schema } from './MultiAppBlock.schema';
 
 export const MultiAppBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
-  const { t } = usePluginUtils();
   const itemConfig = useSchemaInitializerItem();
+  const handleClick = useCallback(() => insert(schema), [insert]);
 
-  return (
-    <SchemaInitializerItem
-      {...itemConfig}
-      onClick={() => {
-        insert({
-          type: 'void',
-          'x-decorator-props': {},
-          'x-component': 'CardItem',
-          'x-toolbar': 'BlockSchemaToolbar',
-          'x-settings': 'blockSettings:table',
-          properties: {
-            app: {
-              type: 'void',
-              'x-component': 'AppManager',
-              'x-component-props': {
-                admin: false,
-              },
-            },
-          },
-        });
-      }}
-    />
-  );
+  return <SchemaInitializerItem {...itemConfig} onClick={handleClick} />;
 };
