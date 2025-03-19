@@ -109,6 +109,10 @@ export const tableBlockSettings = new SchemaSettings({
               const sortBy = data?.data?.[0]?.sortBy;
               fieldSchema['x-decorator-props'].dragSortBy = sortBy;
             }
+            if (!dragSort) {
+              fieldSchema['x-decorator-props'].dragSortBy = null;
+              field.decoratorProps.dragSortBy = null;
+            }
             field.decoratorProps.dragSort = dragSort;
             fieldSchema['x-decorator-props'].dragSort = dragSort;
             service.run({ ...service.params?.[0], sort: fieldSchema['x-decorator-props'].dragSortBy });
