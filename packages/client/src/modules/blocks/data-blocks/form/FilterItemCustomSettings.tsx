@@ -251,7 +251,7 @@ export const FilterItemCustomSettings = new SchemaSettings({
               },
             },
           } as ISchema,
-          onSubmit({ default: { value } }) {
+          onSubmit({ default: { value = null } }) {
             field.setValue(value);
             fieldSchema['default'] = value;
             fieldSchema['x-component-props']['defaultValue'] = value;
