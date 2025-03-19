@@ -229,7 +229,10 @@ export class APIClient {
   auth: Auth;
   storage: Storage;
 
+  options: APIClientOptions;
+
   constructor(instance?: APIClientOptions) {
+    this.options = instance;
     if (typeof instance === 'function') {
       this.axios = instance;
     } else {
@@ -288,7 +291,12 @@ export class APIClient {
     });
   }
 
-  request<T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D> | ResourceActionOptions): Promise<R> {
+  request<T = any, R = AxiosResponse<T>, D = any>(
+    config: (AxiosRequestConfig<D> | ResourceActionOptions) & {
+      skipNotify?: boolean | ((error: any) => boolean);
+      skipAuth?: boolean;
+    },
+  ): Promise<R> {
     const { resource, resourceOf, action, params, headers } = config as any;
     if (resource) {
       return this.resource(resource, resourceOf, headers)[action](params);
