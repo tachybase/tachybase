@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType, lazy } from 'react';
 import { Plugin } from '@tachybase/client';
 import { Registry } from '@tachybase/utils/client';
 
