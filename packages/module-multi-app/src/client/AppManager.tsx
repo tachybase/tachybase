@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   SchemaComponent,
   useAPIClient,
@@ -13,13 +13,13 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
 
 import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../constants';
+import { schemaAppManager } from './AppManager.schema';
 import {
   useCreateDatabaseConnectionAction,
   useMultiAppUpdateAction,
   useStartAllAction,
   useStopAllAction,
 } from './hooks';
-import { schema } from './settings/schemas/applications';
 import { usePluginUtils } from './utils';
 
 const useLink = () => {
@@ -114,7 +114,7 @@ export const AppManager = (props) => {
   return (
     <Card bordered={false}>
       <SchemaComponent
-        schema={schema}
+        schema={schemaAppManager}
         scope={{
           admin,
           userId,
