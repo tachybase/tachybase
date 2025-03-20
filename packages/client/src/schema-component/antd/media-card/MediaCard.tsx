@@ -10,11 +10,11 @@ interface MediaCardProps {
   layout?: 'horizontal' | 'vertical';
   needHover?: boolean;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const MediaCard = (props: MediaCardProps) => {
-  const { icon, color, title, layout = 'horizontal', onClick, className, needHover = true } = props;
+  const { icon, color, title, layout = 'horizontal', onClick = () => {}, className, needHover = true } = props;
   const { styles } = useStyles();
   return (
     <div

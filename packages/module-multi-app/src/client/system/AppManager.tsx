@@ -17,16 +17,14 @@ import { usePluginUtils } from '../locale';
 import { schemaAppManager } from './AppManager.schema';
 import { useCreateDatabaseConnectionAction } from './hooks/useCreateDatabaseConnectionAction';
 import { useMultiAppUpdateAction } from './hooks/useMultiAppUpdateAction';
+import { useRouteUrl } from './hooks/useRouteUrl';
 import { useStartAllAction } from './hooks/useStartAllAction';
 import { useStopAllAction } from './hooks/useStopAllAction';
 
 const useLink = () => {
   const record = useCollectionRecordData();
-  const app = useApp();
-  if (record.cname) {
-    return `//${record.cname}`;
-  }
-  return app.getRouteUrl(`/apps/${record.name}/admin/`);
+  const url = useRouteUrl({ name: record.name, cname: record.cname });
+  return url;
 };
 
 const AppVisitor = () => {

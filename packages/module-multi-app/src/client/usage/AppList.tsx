@@ -4,6 +4,7 @@ import { MediaCard, useTableBlockContext } from '@tachybase/client';
 import { Card, message, Spin } from 'antd';
 
 import { usePluginUtils } from '../locale';
+import { useRouteUrl } from '../system/hooks/useRouteUrl';
 import { useStyles } from './AppList.style';
 
 export const AppList = () => {
@@ -34,12 +35,14 @@ export const AppList = () => {
 };
 
 const AppCard = (props) => {
-  const { cname, displayName, icon, color, status } = props;
+  const { name, cname, displayName, icon, color, status } = props;
   const { t } = usePluginUtils();
+
+  const link = useRouteUrl({ name, cname });
 
   const handleClick = useCallback(() => {
     if (window && status === 'running') {
-      window.open(`https://${cname}`, '_blank');
+      window.open(link, '_blank');
     } else {
       message.warning(t('App is not running'));
     }
