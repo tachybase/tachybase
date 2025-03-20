@@ -8,12 +8,13 @@ interface MediaCardProps {
   icon: string;
   title: string;
   layout?: 'horizontal' | 'vertical';
+  needHover?: boolean;
   className?: string;
   onClick: () => void;
 }
 
 export const MediaCard = (props: MediaCardProps) => {
-  const { icon, color, title, layout = 'horizontal', onClick, className } = props;
+  const { icon, color, title, layout = 'horizontal', onClick, className, needHover = true } = props;
   const { styles } = useStyles();
   return (
     <div
@@ -21,6 +22,7 @@ export const MediaCard = (props: MediaCardProps) => {
         styles.mediaCardStyle,
         {
           layout: layout === 'vertical',
+          'need-hover': needHover,
         },
         className,
       )}

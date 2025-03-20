@@ -15,12 +15,14 @@ export const useStyles = createStyles(({ css, token }) => {
       &.layout {
         flex-direction: column;
       }
-
       :hover {
-        background-color: var(--colorPrimaryText);
         border-radius: 10px;
         transform: scale(1.05);
         transition: all 0.3s;
+      }
+
+      &.need-hover:hover {
+        background-color: var(--colorPrimaryText);
       }
 
       .icon-wrapper {

@@ -1,12 +1,13 @@
 import { useCallback } from 'react';
 import { MediaCard, useTableBlockContext } from '@tachybase/client';
 
-import { message, Spin } from 'antd';
+import { Card, message, Spin } from 'antd';
 
 import { usePluginUtils } from '../locale';
 import { useStyles } from './AppList.style';
 
 export const AppList = () => {
+  const { t } = usePluginUtils();
   const { styles } = useStyles();
   const contextTableBlock = useTableBlockContext();
   const service = contextTableBlock?.service;
@@ -18,7 +19,18 @@ export const AppList = () => {
 
   const { data: appList } = data || {};
 
-  return <div className={styles.appListStyle}>{appList?.map((app) => <AppCard key={app.name} {...app} />)}</div>;
+  return (
+    <Card
+      title={t('Multi-app display')}
+      style={{
+        backgroundColor: 'transparent',
+        border: 'none',
+        boxShadow: 'none',
+      }}
+    >
+      <div className={styles.appListStyle}>{appList?.map((app) => <AppCard key={app.name} {...app} />)}</div>
+    </Card>
+  );
 };
 
 const AppCard = (props) => {
@@ -39,6 +51,7 @@ const AppCard = (props) => {
       title={displayName}
       icon={icon}
       color={status === 'running' ? color : undefined}
+      needHover={false}
       onClick={handleClick}
     />
   );
