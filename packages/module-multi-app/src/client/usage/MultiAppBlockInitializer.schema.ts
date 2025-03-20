@@ -1,4 +1,4 @@
-export const schemaMultiAppBlock = {
+export const schemaMultiAppBlockInitializer = {
   type: 'void',
   'x-component': 'CardItem',
   'x-toolbar': 'BlockSchemaToolbar',

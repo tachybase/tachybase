@@ -1,12 +1,12 @@
 import { useCallback } from 'react';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 
-import { schemaMultiAppBlock as schema } from './MultiAppBlock.schema';
+import { schemaMultiAppBlockInitializer } from './MultiAppBlockInitializer.schema';
 
 export const MultiAppBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
   const itemConfig = useSchemaInitializerItem();
-  const handleClick = useCallback(() => insert(schema), [insert]);
+  const handleClick = useCallback(() => insert(schemaMultiAppBlockInitializer), [insert]);
 
   return <SchemaInitializerItem {...itemConfig} onClick={handleClick} />;
 };

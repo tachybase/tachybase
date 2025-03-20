@@ -12,15 +12,13 @@ import {
 import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
 
-import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../constants';
+import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../../constants';
+import { usePluginUtils } from '../locale';
 import { schemaAppManager } from './AppManager.schema';
-import {
-  useCreateDatabaseConnectionAction,
-  useMultiAppUpdateAction,
-  useStartAllAction,
-  useStopAllAction,
-} from './hooks';
-import { usePluginUtils } from './utils';
+import { useCreateDatabaseConnectionAction } from './hooks/useCreateDatabaseConnectionAction';
+import { useMultiAppUpdateAction } from './hooks/useMultiAppUpdateAction';
+import { useStartAllAction } from './hooks/useStartAllAction';
+import { useStopAllAction } from './hooks/useStopAllAction';
 
 const useLink = () => {
   const record = useCollectionRecordData();

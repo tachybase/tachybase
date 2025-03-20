@@ -2,8 +2,10 @@ import React from 'react';
 import { SchemaComponentOptions, useActionContext, useRequest } from '@tachybase/client';
 import { ISchema, uid } from '@tachybase/schema';
 
-import { collectionMultiApp, formSchema, tableActionColumnSchema } from './settings/schemas/applications';
-import { i18nText } from './utils';
+import { collectionMultiApp } from '../base/collections/collectionMultiApp';
+import { formSchema } from '../base/schemas/schemaForm';
+import { tableActionColumnSchema } from '../base/schemas/schemaTableActionColumn';
+import { i18nText } from '../locale';
 
 export const schemaAppManager: ISchema = {
   type: 'void',
