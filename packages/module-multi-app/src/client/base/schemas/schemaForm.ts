@@ -100,5 +100,18 @@ export const formSchema: ISchema = {
       'x-decorator': 'FormItem',
       'x-hidden': '{{ !admin }}',
     },
+    icon: {
+      type: 'string',
+      title: `{{ t("Icon") }}`,
+      'x-component': 'IconPicker',
+      'x-decorator': 'FormItem',
+    },
+    color: {
+      type: 'string',
+      title: `{{ t("Color") }}`,
+      'x-component': 'ColorPicker',
+      'x-decorator': 'FormItem',
+      default: '#e5e5e5',
+    },
   },
 };

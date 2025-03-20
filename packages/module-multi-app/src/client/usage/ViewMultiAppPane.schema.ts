@@ -13,20 +13,12 @@ export const schemaViewMultiAppPane = {
           sort: ['-createdAt'],
           appends: [],
           filter: {
-            createdById: '{{ admin ? undefined : userId }}',
+            createdById: '{{ userId }}',
           },
         },
         rowKey: 'name',
       },
-      properties: {
-        actions: {},
-        table: {
-          type: 'array',
-          'x-uid': 'appList',
-          'x-component': 'AppList',
-          'x-component-props': {},
-        },
-      },
+      'x-component': 'AppList',
     },
   },
 };
