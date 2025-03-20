@@ -13,6 +13,7 @@ import {
   Expression,
   SignatureInput,
 } from './components';
+import { InputPreview } from './components/custom-components/InputPreview';
 import { PluginCustomComponents } from './features/custom-components';
 import { EmbedPlugin } from './features/embed';
 import { PluginFieldAppends } from './features/field-appends';
@@ -110,6 +111,7 @@ export class PluginCoreClient extends Plugin {
       SettingBlock: SettingBlockInitializer,
       SignatureInput,
       ExcelFile,
+      InputPreview,
     });
   }
 
@@ -182,6 +184,10 @@ export class PluginCoreClient extends Plugin {
     await this.registerSettings();
     await this.registerRouters();
     await this.registerInterfaces();
+    await this.app.addFieldInterfaceComponentOption('url', {
+      label: 'Preview',
+      value: 'InputPreview',
+    });
   }
 }
 
