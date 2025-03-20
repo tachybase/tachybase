@@ -1,4 +1,3 @@
-import React from 'react';
 import { Plugin } from '@tachybase/client';
 
 import { AppstoreOutlined } from '@ant-design/icons';
@@ -9,7 +8,7 @@ import { MultiAppBlockInitializer } from './MultiAppBlockInitializer';
 import { MultiAppManagerProvider } from './MultiAppManagerProvider';
 import { i18nText } from './utils';
 
-export class MultiAppManagerPlugin extends Plugin {
+class MultiAppManagerPlugin extends Plugin {
   async load() {
     this.app.addComponents({
       AppManager,
@@ -35,4 +34,3 @@ export class MultiAppManagerPlugin extends Plugin {
 }
 
 export default MultiAppManagerPlugin;
-export { formSchema, tableActionColumnSchema } from './settings/schemas/applications';
