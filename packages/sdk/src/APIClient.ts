@@ -55,6 +55,9 @@ export class Auth {
     }
     this.KEYS['role'] = `${appName.toUpperCase()}_` + this.KEYS['role'];
     this.KEYS['locale'] = `${appName.toUpperCase()}_` + this.KEYS['locale'];
+    this.KEYS['token'] = `${appName.toUpperCase()}_` + this.KEYS['token'];
+    this.KEYS['theme'] = `${appName.toUpperCase()}_` + this.KEYS['theme'];
+    this.KEYS['authenticator'] = `${appName.toUpperCase()}_` + this.KEYS['authenticator'];
   }
 
   get locale() {

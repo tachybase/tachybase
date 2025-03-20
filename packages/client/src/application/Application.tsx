@@ -143,6 +143,10 @@ export class Application {
     this.name = this.options.name || getSubAppName(options.publicPath) || 'main';
     this.pluginContextMenu = new PluginContextMenu(options.pluginMenuItems);
     this.AttachmentPreviewManager = new AttachmentPreviewManager(options.attachmentItem, this);
+
+    this.i18n.on('languageChanged', (lng) => {
+      this.apiClient.auth.locale = lng;
+    });
   }
 
   private initRequireJs() {
