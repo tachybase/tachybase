@@ -1856,6 +1856,9 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+      antd:
+        specifier: 5.22.5
+        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       qs:
         specifier: ^6.13.1
         version: 6.13.1
@@ -1866,9 +1869,6 @@ importers:
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
-      antd:
-        specifier: 5.22.5
-        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       async-mutex:
         specifier: ^0.3.2
         version: 0.3.2
@@ -4342,6 +4342,37 @@ importers:
       minimatch:
         specifier: ^5.1.6
         version: 5.1.6
+
+  packages/plugin-test-temp:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/data-source':
+        specifier: workspace:*
+        version: link:../data-source
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/resourcer':
+        specifier: workspace:*
+        version: link:../resourcer
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@sgarciac/bombadil':
+        specifier: ^2.3.0
+        version: 2.3.0
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
 
   packages/plugin-theme-editor:
     dependencies:
@@ -9177,6 +9208,9 @@ packages:
   '@scarf/scarf@1.4.0':
     resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
 
+  '@sgarciac/bombadil@2.3.0':
+    resolution: {integrity: sha512-jet+J1Dr2NPgVrILO43B6OIFp5v1uyBLGS7pWfQ97YL/zQafayFVCVtSgrRr/gJcyU2Qo3mcqPs4qvvBOydApA==}
+
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
@@ -10879,6 +10913,9 @@ packages:
   cheerio@1.0.0-rc.10:
     resolution: {integrity: sha512-g0J0q/O6mW8z5zxQ3A8E8J1hUgp4SMOvEoW/x84OwyHKe/Zccz83PVT4y5Crcr530FV6NgmKI1qvGTKVl9XXVw==}
     engines: {node: '>= 6'}
+
+  chevrotain@4.8.1:
+    resolution: {integrity: sha512-Dd2oHFdscdm8MSmG0ejTXdMlqKR5ryeKuwLpsf1ZOs3l8HD/jPfIY0MYs9Eh4X3gm9h0CR155zpVYFK+uAI3tA==}
 
   china-division@2.7.0:
     resolution: {integrity: sha512-4uUPAT+1WfqDh5jytq7omdCmHNk3j+k76zEG/2IqaGcYB90c2SwcixttcypdsZ3T/9tN1TTpBDoeZn+Yw/qBEA==}
@@ -13786,6 +13823,9 @@ packages:
   lodash.escaperegexp@4.1.2:
     resolution: {integrity: sha512-TM9YBvyC84ZxE3rgfefxUWiQKLilstD6k7PTGt6wfbtXF8ixIJLOL3VYyV/z+ZiPLsVxAsKAFVwWlWeb2Y8Yyw==}
 
+  lodash.every@4.6.0:
+    resolution: {integrity: sha512-isF82d+65/sNvQ3aaQAW7LLHnnTxSN/2fm4rhYyuufLzA4VtHz6y6S5vFwe6PQVr2xdqUOyxBbTNKDpnmeu50w==}
+
   lodash.flatten@4.4.0:
     resolution: {integrity: sha512-C5N2Z3DgnnKr0LOpv/hKCgKdb7ZZwafIrsesve6lmzvZIRZRGaZ/l6Q8+2W7NaT+ZwO3fFlSCzCzrDCFdJfZ4g==}
 
@@ -13825,6 +13865,9 @@ packages:
 
   lodash.isundefined@3.0.1:
     resolution: {integrity: sha512-MXB1is3s899/cD8jheYYE2V9qTHwKvt+npCwpD+1Sxm3Q3cECXCiYHjeHWXNwr6Q0SOBPrYUDxendrO6goVTEA==}
+
+  lodash.last@3.0.0:
+    resolution: {integrity: sha512-14mq7rSkCxG4XMy9lF2FbIOqqgF0aH0NfPuQ3LPR3vIh0kHnUvIYP70dqa1Hf47zyXfQ8FzAg0MYOQeSuE1R7A==}
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -16151,6 +16194,9 @@ packages:
 
   regenerator-transform@0.15.2:
     resolution: {integrity: sha512-hfMp2BoF0qOk3uc5V20ALGDS2ddjQaLrdl7xrGXvAIow7qeWRM2VA2HuCHkUKk9slq3VwEwLNK3DFBqDfPGYtg==}
+
+  regexp-to-ast@0.4.0:
+    resolution: {integrity: sha512-4qf/7IsIKfSNHQXSwial1IFmfM1Cc/whNBQqRwe0V2stPe7KmN1U0tWQiIx6JiirgSrisjE0eECdNf7Tav1Ntw==}
 
   regexp.prototype.flags@1.5.2:
     resolution: {integrity: sha512-NcDiDkTLuPR+++OCKB0nWafEmhg/Da8aUPLPMQbK+bxKKCm1/S5he+AqYa4PlMCVBalb4/yxIRub6qkEx5yJbw==}
@@ -23253,6 +23299,14 @@ snapshots:
 
   '@scarf/scarf@1.4.0': {}
 
+  '@sgarciac/bombadil@2.3.0':
+    dependencies:
+      chevrotain: 4.8.1
+      lodash.every: 4.6.0
+      lodash.includes: 4.3.0
+      lodash.last: 3.0.0
+      moment: 2.30.1
+
   '@sinclair/typebox@0.27.8': {}
 
   '@sindresorhus/is@0.14.0': {}
@@ -25600,6 +25654,10 @@ snapshots:
       parse5: 6.0.1
       parse5-htmlparser2-tree-adapter: 6.0.1
       tslib: 2.8.1
+
+  chevrotain@4.8.1:
+    dependencies:
+      regexp-to-ast: 0.4.0
 
   china-division@2.7.0: {}
 
@@ -28987,6 +29045,8 @@ snapshots:
 
   lodash.escaperegexp@4.1.2: {}
 
+  lodash.every@4.6.0: {}
+
   lodash.flatten@4.4.0: {}
 
   lodash.groupby@4.6.0: {}
@@ -29012,6 +29072,8 @@ snapshots:
   lodash.isstring@4.0.1: {}
 
   lodash.isundefined@3.0.1: {}
+
+  lodash.last@3.0.0: {}
 
   lodash.merge@4.6.2: {}
 
@@ -31786,6 +31848,8 @@ snapshots:
   regenerator-transform@0.15.2:
     dependencies:
       '@babel/runtime': 7.26.9
+
+  regexp-to-ast@0.4.0: {}
 
   regexp.prototype.flags@1.5.2:
     dependencies:

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   SchemaComponent,
   useAPIClient,
@@ -12,23 +12,19 @@ import {
 import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
 
-import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../constants';
-import {
-  useCreateDatabaseConnectionAction,
-  useMultiAppUpdateAction,
-  useStartAllAction,
-  useStopAllAction,
-} from './hooks';
-import { schema } from './settings/schemas/applications';
-import { usePluginUtils } from './utils';
+import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../../constants';
+import { usePluginUtils } from '../locale';
+import { schemaAppManager } from './AppManager.schema';
+import { useCreateDatabaseConnectionAction } from './hooks/useCreateDatabaseConnectionAction';
+import { useMultiAppUpdateAction } from './hooks/useMultiAppUpdateAction';
+import { useRouteUrl } from './hooks/useRouteUrl';
+import { useStartAllAction } from './hooks/useStartAllAction';
+import { useStopAllAction } from './hooks/useStopAllAction';
 
 const useLink = () => {
   const record = useCollectionRecordData();
-  const app = useApp();
-  if (record.cname) {
-    return `//${record.cname}`;
-  }
-  return app.getRouteUrl(`/apps/${record.name}/admin/`);
+  const url = useRouteUrl({ name: record.name, cname: record.cname });
+  return url;
 };
 
 const AppVisitor = () => {
@@ -114,7 +110,7 @@ export const AppManager = (props) => {
   return (
     <Card bordered={false}>
       <SchemaComponent
-        schema={schema}
+        schema={schemaAppManager}
         scope={{
           admin,
           userId,

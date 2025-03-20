@@ -1,14 +1,13 @@
-import React from 'react';
 import { Icon, PinnedPluginListProvider, SchemaComponentOptions, useApp, useRequest } from '@tachybase/client';
 
 import { Button, Dropdown } from 'antd';
 import { Link } from 'react-router-dom';
 
-import { NAMESPACE } from '../constants';
+import { NAMESPACE } from '../../constants';
+import { usePluginUtils } from '../locale';
+import { MultiAppBlockInitializer } from '../usage/MultiAppBlockInitializer';
 import { AppNameInput } from './AppNameInput';
-import { MultiAppBlockInitializer } from './MultiAppBlockInitializer';
 import { useStyles } from './MultiAppManagerProvider.style';
-import { usePluginUtils } from './utils';
 
 const MultiAppManager = () => {
   const { styles } = useStyles();

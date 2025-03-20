@@ -58,5 +58,6 @@ export * from './tree';
 export * from './unixTimestamp';
 export * from './upload';
 export * from './variable';
+export * from './media-card';
 export { PageHeader } from '@ant-design/pro-layout';
 export { CodeMirror } from '@tachybase/components';
