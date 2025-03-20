@@ -18,18 +18,7 @@ export const GroupBlock = (props) => {
   const params = fieldSchema.parent['x-decorator-props'].params;
   const { service } = useBlockRequestContext();
   const { getDataBlocks } = useFilterBlock();
-  if (!service.params.length) {
-    getDataBlocks().map((block) => {
-      if (Object.keys(block.defaultFilter).length) {
-        getDataBlocks().forEach((getblock) => {
-          if (getblock.uid !== block.uid && getblock.collection.name === block.collection.name) {
-            service.params = block.defaultFilter;
-          }
-        });
-      }
-    });
-  }
-
+  const dataBlocks = getDataBlocks();
   if (service.loading && !field.loaded) {
     return <Spin />;
   }
@@ -42,7 +31,15 @@ export const GroupBlock = (props) => {
       <p style={{ fontWeight: 600 }}>汇总：</p>
       {params?.config.map((configItem, index) => {
         if (configItem) {
-          return <InternalGroupBlock {...props} configItem={configItem} service={service} key={index} />;
+          return (
+            <InternalGroupBlock
+              {...props}
+              configItem={configItem}
+              service={service}
+              key={index}
+              dataBlocks={dataBlocks}
+            />
+          );
         }
       })}
     </>
@@ -70,11 +67,22 @@ export const fieldTransformers = (item, data, api) => {
 };
 
 export const InternalGroupBlock = (props) => {
-  const { configItem, service } = props;
+  const { configItem, service, dataBlocks } = props;
   const fieldSchema = useFieldSchema();
   const params = fieldSchema.parent['x-decorator-props'].params;
   const [result, setResult] = useState({});
   const api = useAPIClient();
+  if (!Object.values(service.params).length || service.params.length) {
+    dataBlocks.forEach((block) => {
+      if (Object.values(block.defaultFilter).length) {
+        service.params = { ...service.params, ...block.defaultFilter };
+      }
+    });
+  } else {
+    if (dataBlocks[dataBlocks.length - 1]?.service?.params?.[0]?.filter) {
+      service.params = dataBlocks[dataBlocks.length - 1].service.params[0].filter;
+    }
+  }
   useAsyncEffect(async () => {
     const filter = service?.params[0] ? service.params[0].filter : service?.params;
     if (configItem.reqUrl) {

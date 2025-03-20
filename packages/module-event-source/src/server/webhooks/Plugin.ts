@@ -77,7 +77,7 @@ export class PluginWebhook extends Plugin {
 
     this.app.acl.registerSnippet({
       name: 'pm.business-components.event-source',
-      actions: ['webhooks:*'],
+      actions: ['webhooks:*', 'workflows:*'],
     });
   }
 
