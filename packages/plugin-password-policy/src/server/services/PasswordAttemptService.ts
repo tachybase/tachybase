@@ -612,12 +612,6 @@ export class PasswordAttemptService {
         },
       });
 
-      // // 清空失败记录
-      // await this.clearUserFailRecords(userId);
-
-      // // 从缓存中删除锁定信息
-      // await this.app.cache.del(this.getUserLockCacheKey(userId));
-
       this.logger.info(`Reset sign-in failure records for user ${userId}`);
     } catch (error) {
       this.logger.error(`Failed to reset sign-in failure records for user ${userId}:`, error);
