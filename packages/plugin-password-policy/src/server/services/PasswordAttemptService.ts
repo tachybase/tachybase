@@ -147,6 +147,13 @@ export class PasswordAttemptService {
     // 监听userLocks表的更新事件
     this.app.db.on('userLocks.afterUpdate', async (model) => {
       const userId = model.get('userId');
+      if (!userId && model.previous('userId')) {
+        const userId = model.previous('userId');
+        await this.app.cache.del(this.getUserLockCacheKey(userId));
+        await this.clearUserFailRecords(userId);
+        this.logger.info(`Removed user ${userId} from locked users cache (deleted)`);
+        return;
+      }
       const expireAt = model.get('expireAt');
       const now = new Date();
 
@@ -526,18 +533,19 @@ export class PasswordAttemptService {
           );
         }
       } else if (user.lock?.expireAt && now > user.lock.expireAt) {
-        await this.db.getRepository('users').update({
-          filterByTk: user.id,
-          values: {
-            lock: null,
-            signInFails: {
-              status: false,
-            },
+        await this.db.getRepository('userLocks').destroy({
+          filter: {
+            userId: user.id,
           },
         });
-
-        // 从缓存中移除
-        await this.app.cache.del(this.getUserLockCacheKey(user.id));
+        await this.db.getRepository('signInFails').update({
+          filter: {
+            userId: user.id,
+          },
+          values: {
+            status: false,
+          },
+        });
       }
 
       const record = await this.recordFailedAttemptToDb(user, ip, now, true);
@@ -598,18 +606,17 @@ export class PasswordAttemptService {
     }
 
     try {
-      await this.db.getRepository('users').update({
-        filterByTk: userId,
-        values: {
-          lock: null,
+      await this.db.getRepository('userLocks').destroy({
+        filter: {
+          userId,
         },
       });
 
-      // 清空失败记录
-      await this.clearUserFailRecords(userId);
+      // // 清空失败记录
+      // await this.clearUserFailRecords(userId);
 
-      // 从缓存中删除锁定信息
-      await this.app.cache.del(this.getUserLockCacheKey(userId));
+      // // 从缓存中删除锁定信息
+      // await this.app.cache.del(this.getUserLockCacheKey(userId));
 
       this.logger.info(`Reset sign-in failure records for user ${userId}`);
     } catch (error) {
