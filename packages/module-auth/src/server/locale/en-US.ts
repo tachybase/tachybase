@@ -7,4 +7,6 @@ export default {
     'The phone number has been registered, please login directly',
   'The phone number is not registered, please register first':
     'The phone number is not registered, please register first',
+  'The username, email or password is incorrect, please re-enter':
+    'The username, email or password is incorrect, please re-enter',
 };

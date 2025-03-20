@@ -17,7 +17,7 @@ export default defineCollection({
       target: 'users',
       targetField: 'id',
       foreignKey: 'userId',
-      onDelete: 'SET NULL',
+      onDelete: 'NO ACTION',
     },
     {
       type: 'boolean',

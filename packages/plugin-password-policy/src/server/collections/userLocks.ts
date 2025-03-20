@@ -24,6 +24,7 @@ export default defineCollection({
       name: 'user',
       target: 'users',
       foreignKey: 'userId',
+      onDelete: 'CASCADE',
     },
   ],
 });

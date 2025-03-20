@@ -8,7 +8,7 @@ export default extendCollection({
       name: 'signInFails',
       target: 'signInFails',
       foreignKey: 'userId',
-      onDelete: 'SET NULL',
+      onDelete: 'NO ACTION',
     },
     {
       type: 'hasOne',

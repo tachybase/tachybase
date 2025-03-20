@@ -73,6 +73,9 @@ export class PasswordStrengthService {
               await this.validatePasswordHistory(ctx, values.password, values.id);
             }
           }
+        } else if (resourceName === 'auth' && actionName === 'signUp') {
+          const { username, password } = ctx.action.params.values;
+          await this.validatePasswordStrength(ctx, password, username);
         } else if (resourceName === 'auth' && actionName === 'changePassword') {
           // 修改密码
           const { newPassword } = ctx.action.params.values;
