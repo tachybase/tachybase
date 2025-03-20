@@ -30,5 +30,6 @@ export * from './cluster';
 export * from './plugin-symlink';
 export * from './currencyUtils';
 export * from './getCurrentStacks';
+export * from './i18n';
 
 export { dayjs, lodash };

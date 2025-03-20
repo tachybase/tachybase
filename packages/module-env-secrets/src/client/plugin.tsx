@@ -10,6 +10,7 @@ export class PluginEnvironmentVariablesClient extends Plugin {
       title: this.t('Variables and secrets'),
       icon: 'TableOutlined',
       Component: EnvironmentPage,
+      aclSnippet: 'pm.system-services.env-secrets',
     });
     this.app.addGlobalVar('$env', useGetEnvironmentVariables);
     this.app.use(EnvironmentVariablesAndSecretsProvider);

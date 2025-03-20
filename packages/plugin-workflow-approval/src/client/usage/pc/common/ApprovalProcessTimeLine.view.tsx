@@ -57,7 +57,7 @@ export const ApprovalProcessTimeLine = (props) => {
   );
 };
 
-export const Process = ({ dataSource }) => {
+export const Process = ({ dataSource = [] }) => {
   const compile = useCompile();
   const items = dataSource.map((dataItem, index) => {
     let status = { color: '', label: '' };
@@ -80,7 +80,7 @@ export const Process = ({ dataSource }) => {
             <Tag color={status.color} style={{ marginLeft: '5px', fontSize: '12px' }}>
               {compile(status.label)}
             </Tag>
-            {`${dataItem.status === 0 ? '' : dayjs(dataItem.updatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
+            {`${dataItem.status === 0 && index !== 0 ? '' : dayjs(dataItem.updatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
           </div>
         </div>
       ),

@@ -1,4 +1,4 @@
-import { ComponentType } from 'react';
+import { ComponentType, lazy } from 'react';
 import { Plugin } from '@tachybase/client';
 import { Registry } from '@tachybase/utils/client';
 
@@ -7,9 +7,11 @@ import { Authenticator as AuthenticatorType } from './authenticator';
 import { AuthProvider } from './AuthProvider';
 import { Options, SignInForm, SignUpForm } from './basic';
 import { AuthenticatorBind } from './bind/AuthenticatorBind';
+import { authCheckMiddleware } from './interceptors';
 import { NAMESPACE } from './locale';
 import { AuthLayout, SignInPage, SignUpPage } from './pages';
 import { Authenticator } from './settings/Authenticator';
+import { TokenPolicySettings } from './settings/token-policy';
 
 export type AuthOptions = {
   components: Partial<{
@@ -70,6 +72,22 @@ export class PluginAuthClient extends Plugin {
         SignUpForm: SignUpForm,
         AdminSettingsForm: Options,
       },
+    });
+
+    this.app.systemSettingsManager.add(`security.token-policy`, {
+      title: `{{t("Token policy", { ns: "${NAMESPACE}" })}}`,
+      Component: TokenPolicySettings,
+      aclSnippet: `pm.security.token-policy`,
+      icon: 'ApiOutlined',
+      sort: 0,
+    });
+
+    const [fulfilled, rejected] = authCheckMiddleware({ app: this.app });
+    this.app.apiClient.axios.interceptors.response['handlers'].unshift({
+      fulfilled,
+      rejected,
+      synchronous: false,
+      runWhen: null,
     });
   }
 }

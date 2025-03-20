@@ -10,6 +10,7 @@ import { I18nextProvider } from 'react-i18next';
 import { Link, Navigate, NavLink } from 'react-router-dom';
 
 import { APIClient, APIClientProvider } from '../api-client';
+import { CollectionFieldInterfaceComponentOption } from '../data-source';
 import { CollectionField } from '../data-source/collection-field/CollectionField';
 import { DataSourceApplicationProvider } from '../data-source/components/DataSourceApplicationProvider';
 import { DataBlockProvider } from '../data-source/data-block/DataBlockProvider';
@@ -206,6 +207,14 @@ export class Application {
     return this.options.publicPath.replace(/\/$/g, '') + pathname;
   }
 
+  getHref(pathname: string) {
+    const name = this.name;
+    if (name && name !== 'main') {
+      return this.getPublicPath() + 'apps/' + name + '/' + pathname.replace(/^\//g, '');
+    }
+    return this.getPublicPath() + pathname.replace(/^\//g, '');
+  }
+
   getCollectionManager(dataSource?: string) {
     return this.dataSourceManager.getDataSource(dataSource)?.collectionManager;
   }
@@ -354,6 +363,12 @@ export class Application {
     const root = createRoot(container);
     root.render(<App />);
     return root;
+  }
+  addFieldInterfaceComponentOption(fieldName: string, componentOption: CollectionFieldInterfaceComponentOption) {
+    return this.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption(
+      fieldName,
+      componentOption,
+    );
   }
 
   addGlobalVar(key: string, value: any) {

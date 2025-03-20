@@ -1,4 +1,4 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { createStyles } from '../style';
 
@@ -21,5 +21,6 @@ export const PoweredBy = () => {
   const { styles } = useStyles();
   const date = new Date();
   const year = date.getFullYear();
-  return <div className={styles.powerBy}>©2023-{year} TachyBase Team</div>;
+  const { t } = useTranslation();
+  return <div className={styles.powerBy}>{`©2023-${year} ${t('TachyBase Team')}`}</div>;
 };
