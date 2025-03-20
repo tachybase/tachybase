@@ -8,9 +8,13 @@ export const useStyles = createStyles(({ css, token }) => {
       justify-content: center;
       align-items: center;
       gap: 10px;
-      width: 100%;
+      width: fit-content;
       padding: 10px;
       cursor: pointer;
+
+      &.layout {
+        flex-direction: column;
+      }
 
       :hover {
         background-color: var(--colorPrimaryText);

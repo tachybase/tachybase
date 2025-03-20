@@ -4,13 +4,13 @@ import { AppstoreOutlined } from '@ant-design/icons';
 
 import { i18nText } from '../locale';
 import { MultiAppBlockInitializer } from './MultiAppBlockInitializer';
-import { MultiAppPane } from './MultiAppPane';
+import { ViewMultiAppPane } from './ViewMultiAppPane';
 
 /** 用户界面部分 */
 export class KitUsage extends Plugin {
   async load() {
     this.app.addComponents({
-      MultiAppPane,
+      ViewMultiAppPane: ViewMultiAppPane,
     });
     const blockInitializers = this.app.schemaInitializerManager.get('page:addBlock');
 

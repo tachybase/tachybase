@@ -6,7 +6,7 @@ export const schemaMultiAppBlockInitializer = {
   properties: {
     app: {
       type: 'void',
-      'x-component': 'MultiAppPane',
+      'x-component': 'ViewMultiAppPane',
       'x-component-props': {
         admin: false,
       },
