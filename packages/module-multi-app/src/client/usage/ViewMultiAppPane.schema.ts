@@ -9,7 +9,7 @@ export const schemaViewMultiAppPane = {
         collection: collectionMultiApp,
         action: 'list',
         params: {
-          pageSize: 10,
+          pageSize: 20,
           sort: ['-createdAt'],
           appends: [],
           filter: {

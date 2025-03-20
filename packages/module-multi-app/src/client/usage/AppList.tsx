@@ -1,9 +1,13 @@
 import { useCallback } from 'react';
 import { MediaCard, useTableBlockContext } from '@tachybase/client';
 
-import { Spin } from 'antd';
+import { message, Spin } from 'antd';
+
+import { usePluginUtils } from '../locale';
+import { useStyles } from './AppList.style';
 
 export const AppList = () => {
+  const { styles } = useStyles();
   const contextTableBlock = useTableBlockContext();
   const service = contextTableBlock?.service;
   const { data, loading } = service || {};
@@ -13,17 +17,29 @@ export const AppList = () => {
   }
 
   const { data: appList } = data || {};
-  console.log('%c Line:16 🍢 appList', 'font-size:18px;color:#ed9ec7;background:#465975', appList);
 
-  return <div>{appList?.map((app) => <AppCard key={app.name} {...app} />)}</div>;
+  return <div className={styles.appListStyle}>{appList?.map((app) => <AppCard key={app.name} {...app} />)}</div>;
 };
 
 const AppCard = (props) => {
-  const { cname, displayName, icon, color } = props;
+  const { cname, displayName, icon, color, status } = props;
+  const { t } = usePluginUtils();
 
   const handleClick = useCallback(() => {
-    window.open(`https://${cname}`, '_blank');
-  }, [cname]);
+    if (window && status === 'running') {
+      window.open(`https://${cname}`, '_blank');
+    } else {
+      message.warning(t('App is not running'));
+    }
+  }, [cname, status]);
 
-  return <MediaCard layout="vertical" title={displayName} icon={icon} color={color} onClick={handleClick} />;
+  return (
+    <MediaCard
+      layout="vertical"
+      title={displayName}
+      icon={icon}
+      color={status === 'running' ? color : undefined}
+      onClick={handleClick}
+    />
+  );
 };

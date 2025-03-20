@@ -1,4 +1,4 @@
-export const schemaMultiAppBlockInitializer = {
+export const schemaShowMultiAppBlockInitializer = {
   type: 'void',
   'x-component': 'CardItem',
   'x-toolbar': 'BlockSchemaToolbar',
@@ -6,7 +6,7 @@ export const schemaMultiAppBlockInitializer = {
   properties: {
     app: {
       type: 'void',
-      'x-component': 'AppManager',
+      'x-component': 'ViewMultiAppPane',
       'x-component-props': {
         admin: false,
       },
