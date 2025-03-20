@@ -55,9 +55,9 @@ export class ResourceEventTrigger extends EventSourceTrigger {
 
   private getMatchList(list: EventSourceModel[], resourceName: string, actionName: string): EventSourceModel[] {
     const matchList = [];
-    // 优先按照options.sort 从小到大排序，再按照id从小到大排序
+    // 优先按照sort 从小到大排序，再按照id从小到大排序
     list.sort((a, b) => {
-      let diffSort = a.options.sort - b.options.sort;
+      let diffSort = a.sort - b.sort;
       if (diffSort !== 0) {
         return diffSort;
       }
@@ -128,4 +128,6 @@ export class ResourceEventTrigger extends EventSourceTrigger {
       list.splice(index, 1);
     }
   }
+
+  // TODO: 根据排序重新排序
 }

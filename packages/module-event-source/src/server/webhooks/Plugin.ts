@@ -84,6 +84,7 @@ export class PluginWebhook extends Plugin {
   async loadEventSources() {
     const repo = this.db.getRepository(EVENT_SOURCE_COLLECTION);
     const list = (await repo.find({
+      sort: 'sort',
       filter: {
         enabled: true,
       },

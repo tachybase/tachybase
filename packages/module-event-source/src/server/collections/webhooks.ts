@@ -64,5 +64,9 @@ export default defineCollection({
       name: 'effectConfig',
       type: 'virtual',
     },
+    {
+      name: 'sort',
+      type: 'integer',
+    },
   ],
 });

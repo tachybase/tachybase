@@ -73,6 +73,8 @@ export class DatabaseEventTrigger extends EventSourceTrigger {
     }
   }
 
+  // TODO: 根据排序重新排序
+
   afterDestroy(model: EventSourceModel) {
     const callback = this.eventMap.get(model.id);
     if (!callback) {

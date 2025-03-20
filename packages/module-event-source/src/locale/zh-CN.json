@@ -44,5 +44,6 @@
   "for creating custom requests, try not to duplicate with other requests": "用于创建自定义请求,尽量不要和其他请求重复",
   "get user input and original data changes before operation, but the workflow is triggered after the resource operation, which is commonly used for specific association changes, etc.": "在操作之前获取用户输入和原始数据的变化,但是工作流触发在资源操作之后,常用于特定关联变动等",
   "get user input and original data changes before operation, but the workflow is triggered before the resource operation, which is commonly used for data verification, etc.": "在操作之前获取用户输入和原始数据的变化,但是工作流触发在资源操作之前,常用于数据校验等",
-  "resource": "接口资源"
+  "resource": "接口资源",
+  "the smaller the number, the earlier the execution": "数字越小,越先执行"
 }

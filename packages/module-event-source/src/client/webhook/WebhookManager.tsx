@@ -109,6 +109,11 @@ const properties = {
     },
     'x-collection-field': 'webhooks.options',
   },
+  sort: {
+    type: 'number',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
   code: {
     type: 'string',
     'x-component': 'CollectionField',

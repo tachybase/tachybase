@@ -92,6 +92,21 @@ export const dispatchers: CollectionOptions = {
       } as ISchema,
     },
     {
+      type: 'number',
+      name: 'sort',
+      interface: 'inputNumber',
+      uiSchema: {
+        title: tval('Sort'),
+        type: 'number',
+        'x-component': 'InputNumber',
+        'x-decorator': 'FormItem',
+        'x-component-props': {
+          min: 0,
+        },
+        description: tval('the smaller the number, the earlier the execution'),
+      } as ISchema,
+    },
+    {
       type: 'text',
       name: 'code',
       interface: 'textarea',
