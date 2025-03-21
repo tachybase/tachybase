@@ -4,8 +4,7 @@
   "version": "0.23.65",
   "description": "User authentication management, including password, SMS, and support for Single Sign-On (SSO) protocols, with extensibility.",
   "keywords": [
-    "Authentication",
-    "Security"
+    "Authentication"
   ],
   "main": "./dist/server/index.js",
   "scripts": {
@@ -17,8 +16,6 @@
     "@tachybase/schema": "workspace:*",
     "antd": "5.22.5",
     "cron": "^3.3.1",
-    "lodash": "^4.17.21",
-    "ms": "^2.1.3",
     "react": "^18.3.1",
     "react-i18next": "^15.2.0",
     "react-router-dom": "6.28.1"
@@ -29,7 +26,6 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
-    "@tachybase/logger": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

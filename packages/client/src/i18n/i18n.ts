@@ -27,4 +27,8 @@ if (typeof localStorage !== 'undefined') {
     keySeparator: false,
     nsSeparator: false,
   });
+
+  i18n.on('languageChanged', (lng) => {
+    localStorage.setItem('TACHYBASE_LOCALE', lng);
+  });
 }

@@ -15,7 +15,7 @@ declare class WebSocketWithId extends WebSocket {
 
 interface WebSocketClient {
   ws: WebSocketWithId;
-  tags: Set<string>;
+  tags: string[];
   url: string;
   headers: any;
   app?: string;
@@ -58,13 +58,8 @@ export class WSServer {
           headers: client.headers,
         });
 
-        for (const tag of client.tags) {
-          if (tag.startsWith('app#')) {
-            client.tags.delete(tag);
-          }
-        }
-
-        client.tags.add(`app#${handleAppName}`);
+        client.tags = client.tags.filter((tag) => !tag.startsWith('app#'));
+        client.tags.push(`app#${handleAppName}`);
 
         AppSupervisor.getInstance().bootStrapApp(handleAppName);
       });
@@ -111,50 +106,6 @@ export class WSServer {
         },
       });
     });
-
-    AppSupervisor.getInstance().on('afterAppAdded', (app) => {
-      this.bindAppWSEvents(app);
-    });
-  }
-
-  bindAppWSEvents(app) {
-    if (app.listenerCount('ws:setTag') > 0) {
-      return;
-    }
-
-    app.on('ws:setTag', ({ clientId, tagKey, tagValue }) => {
-      this.setClientTag(clientId, tagKey, tagValue);
-    });
-
-    app.on('ws:removeTag', ({ clientId, tagKey }) => {
-      this.removeClientTag(clientId, tagKey);
-    });
-
-    app.on('ws:sendToTag', ({ tagKey, tagValue, message }) => {
-      this.sendToConnectionsByTags(
-        [
-          { tagName: tagKey, tagValue },
-          { tagName: 'app', tagValue: app.name },
-        ],
-        message,
-      );
-    });
-
-    app.on('ws:sendToClient', ({ clientId, message }) => {
-      this.sendToClient(clientId, message);
-    });
-
-    app.on('ws:sendToCurrentApp', ({ message }) => {
-      this.sendToConnectionsByTag('app', app.name, message);
-    });
-
-    app.on('ws:sendToTags', ({ tags, message }) => {
-      this.sendToConnectionsByTags(tags, message);
-    });
-
-    app.on('ws:authorized', ({ clientId, userId }) => {
-      this.sendToClient(clientId, { type: 'authorized' });
-    });
   }
 
   addNewConnection(ws: WebSocketWithId, request: IncomingMessage) {
@@ -164,7 +115,7 @@ export class WSServer {
 
     this.webSocketClients.set(id, {
       ws,
-      tags: new Set(),
+      tags: [],
       url: request.url,
       headers: request.headers,
     });
@@ -172,25 +123,6 @@ export class WSServer {
     this.setClientApp(this.webSocketClients.get(id));
 
     return this.webSocketClients.get(id);
-  }
-
-  setClientTag(clientId: string, tagKey: string, tagValue: string) {
-    const client = this.webSocketClients.get(clientId);
-    if (!client) {
-      return;
-    }
-    client.tags.add(`${tagKey}#${tagValue}`);
-    console.log(`client tags: ${Array.from(client.tags)}`);
-  }
-
-  removeClientTag(clientId: string, tagKey: string) {
-    const client = this.webSocketClients.get(clientId);
-    // remove all tags with the given tagKey
-    client.tags.forEach((tag) => {
-      if (tag.startsWith(`${tagKey}#`)) {
-        client.tags.delete(tag);
-      }
-    });
   }
 
   async setClientApp(client: WebSocketClient) {
@@ -203,7 +135,7 @@ export class WSServer {
 
     client.app = handleAppName;
     console.log(`client tags: app#${handleAppName}`);
-    client.tags.add(`app#${handleAppName}`);
+    client.tags.push(`app#${handleAppName}`);
 
     const hasApp = AppSupervisor.getInstance().hasApp(handleAppName);
 
@@ -249,32 +181,10 @@ export class WSServer {
 
   sendToConnectionsByTag(tagName: string, tagValue: string, sendMessage: object) {
     this.loopThroughConnections((client: WebSocketClient) => {
-      if (client.tags.has(`${tagName}#${tagValue}`)) {
+      if (client.tags.includes(`${tagName}#${tagValue}`)) {
         this.sendMessageToConnection(client, sendMessage);
       }
     });
-  }
-
-  /**
-   * Send message to clients that match all the given tag conditions
-   * @param tags Array of tag conditions, each condition is an object with tagName and tagValue
-   * @param sendMessage Message to be sent
-   */
-  sendToConnectionsByTags(tags: Array<{ tagName: string; tagValue: string }>, sendMessage: object) {
-    this.loopThroughConnections((client: WebSocketClient) => {
-      const allTagsMatch = tags.every(({ tagName, tagValue }) => client.tags.has(`${tagName}#${tagValue}`));
-
-      if (allTagsMatch) {
-        this.sendMessageToConnection(client, sendMessage);
-      }
-    });
-  }
-
-  sendToClient(clientId: string, sendMessage: object) {
-    const client = this.webSocketClients.get(clientId);
-    if (client) {
-      this.sendMessageToConnection(client, sendMessage);
-    }
   }
 
   loopThroughConnections(callback: (client: WebSocketClient) => void) {

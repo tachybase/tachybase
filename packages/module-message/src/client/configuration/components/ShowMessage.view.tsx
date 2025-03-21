@@ -11,13 +11,11 @@ export const ViewShowMessage = () => {
   const context = useContext(SchemaComponentContext);
   const [, setId] = useState(uid());
   const { workflow } = useFlowContext();
+
   const contextValue = useMemo(() => {
     return {
       ...context,
-      reset: () => {},
-      refresh: () => {
-        setId(uid());
-      },
+      refresh: () => setId(uid()),
       designable: !workflow.executed,
     };
   }, [context, workflow.executed]);

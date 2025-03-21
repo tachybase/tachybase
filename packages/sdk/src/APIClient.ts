@@ -55,9 +55,6 @@ export class Auth {
     }
     this.KEYS['role'] = `${appName.toUpperCase()}_` + this.KEYS['role'];
     this.KEYS['locale'] = `${appName.toUpperCase()}_` + this.KEYS['locale'];
-    this.KEYS['token'] = `${appName.toUpperCase()}_` + this.KEYS['token'];
-    this.KEYS['theme'] = `${appName.toUpperCase()}_` + this.KEYS['theme'];
-    this.KEYS['authenticator'] = `${appName.toUpperCase()}_` + this.KEYS['authenticator'];
   }
 
   get locale() {
@@ -232,10 +229,7 @@ export class APIClient {
   auth: Auth;
   storage: Storage;
 
-  options: APIClientOptions;
-
   constructor(instance?: APIClientOptions) {
-    this.options = instance;
     if (typeof instance === 'function') {
       this.axios = instance;
     } else {
@@ -294,12 +288,7 @@ export class APIClient {
     });
   }
 
-  request<T = any, R = AxiosResponse<T>, D = any>(
-    config: (AxiosRequestConfig<D> | ResourceActionOptions) & {
-      skipNotify?: boolean | ((error: any) => boolean);
-      skipAuth?: boolean;
-    },
-  ): Promise<R> {
+  request<T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D> | ResourceActionOptions): Promise<R> {
     const { resource, resourceOf, action, params, headers } = config as any;
     if (resource) {
       return this.resource(resource, resourceOf, headers)[action](params);

@@ -1,23 +1,19 @@
-import React, { ComponentType, createContext, PropsWithChildren, useContext } from 'react';
+import React, { ComponentType } from 'react';
 
 import { get, set } from 'lodash';
 import {
+  BrowserRouter,
   BrowserRouterProps,
-  createBrowserRouter,
-  createHashRouter,
-  createMemoryRouter,
+  HashRouter,
   HashRouterProps,
+  MemoryRouter,
   MemoryRouterProps,
-  Outlet,
   RouteObject,
-  RouterProvider,
-  useRouteError,
+  useRoutes,
 } from 'react-router-dom';
 
-import VariablesProvider from '../variables/VariablesProvider';
 import { Application } from './Application';
 import { BlankComponent, RouterContextCleaner } from './components';
-import { CustomRouterContextProvider } from './CustomRouterContextProvider';
 
 export interface BrowserRouterOptions extends Omit<BrowserRouterProps, 'children'> {
   type?: 'browser';
@@ -30,7 +26,6 @@ export interface MemoryRouterOptions extends Omit<MemoryRouterProps, 'children'>
 }
 export type RouterOptions = (HashRouterOptions | BrowserRouterOptions | MemoryRouterOptions) & {
   renderComponent?: RenderComponentType;
-  routes?: Record<string, RouteType>;
 };
 export type ComponentTypeAndString<T = any> = ComponentType<T> | string;
 export interface RouteType extends Omit<RouteObject, 'children' | 'Component'> {
@@ -42,21 +37,10 @@ export class RouterManager {
   protected routes: Record<string, RouteType> = {};
   protected options: RouterOptions;
   public app: Application;
-  private router;
-  get basename() {
-    return this.router.basename;
-  }
-  get state() {
-    return this.router.state;
-  }
-  get navigate() {
-    return this.router.navigate;
-  }
 
   constructor(options: RouterOptions = {}, app: Application) {
     this.options = options;
     this.app = app;
-    this.routes = options.routes || {};
   }
 
   /**
@@ -130,62 +114,36 @@ export class RouterManager {
   /**
    * @internal
    */
-  getRouterComponent(children?: React.ReactNode) {
+  getRouterComponent() {
     const { type = 'browser', ...opts } = this.options;
-
-    const routerCreators = {
-      hash: createHashRouter,
-      browser: createBrowserRouter,
-      memory: createMemoryRouter,
+    const Routers = {
+      hash: HashRouter,
+      browser: BrowserRouter,
+      memory: MemoryRouter,
     };
 
-    const routes = this.getRoutesTree();
+    const ReactRouter = Routers[type];
 
-    const BaseLayoutContext = createContext<React.ComponentType<PropsWithChildren<any>>>(null);
-
-    const Provider = () => {
-      const BaseLayout = useContext(BaseLayoutContext);
-      return (
-        <CustomRouterContextProvider>
-          <BaseLayout>
-            <VariablesProvider>
-              <Outlet />
-              {children}
-            </VariablesProvider>
-          </BaseLayout>
-        </CustomRouterContextProvider>
-      );
+    const RenderRoutes = () => {
+      const routes = this.getRoutesTree();
+      const element = useRoutes(routes);
+      return element;
     };
-
-    // bubble up error to application error boundary
-    const ErrorElement = () => {
-      const error = useRouteError();
-      throw error;
-    };
-
-    this.router = routerCreators[type](
-      [
-        {
-          element: <Provider />,
-          errorElement: <ErrorElement />,
-          children: routes,
-        },
-      ],
-      opts,
-    );
 
     const RenderRouter = ({
       BaseLayout = BlankComponent,
     }: {
-      BaseLayout?: React.ComponentType<PropsWithChildren<any>>;
+      BaseLayout?: ComponentType<any>;
       children?: React.ReactNode;
     }) => {
       return (
-        <BaseLayoutContext.Provider value={BaseLayout}>
-          <RouterContextCleaner>
-            <RouterProvider router={this.router} />
-          </RouterContextCleaner>
-        </BaseLayoutContext.Provider>
+        <RouterContextCleaner>
+          <ReactRouter {...opts}>
+            <BaseLayout>
+              <RenderRoutes />
+            </BaseLayout>
+          </ReactRouter>
+        </RouterContextCleaner>
       );
     };
 

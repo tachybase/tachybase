@@ -1,17 +1,10 @@
-import {
-  useActionContext,
-  useAPIClient,
-  useDataBlockRequest,
-  useDataBlockResource,
-  useDataSourceManager,
-} from '@tachybase/client';
+import { useActionContext, useAPIClient, useDataBlockRequest, useDataBlockResource } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { NAMESPACE } from '../locale';
-import { ThirdDataSource } from '../ThridDataSource';
 
 export const useTestConnectionAction = () => {
   const form = useForm();
@@ -42,7 +35,6 @@ export const useCreateDatabaseConnectionAction = () => {
   const ctx = useActionContext();
   const service = useDataBlockRequest();
   const resource = useDataBlockResource();
-  const dm = useDataSourceManager();
   return {
     async onClick() {
       try {
@@ -51,8 +43,6 @@ export const useCreateDatabaseConnectionAction = () => {
         field.data.loading = true;
         await resource.create({ values: form.values });
         ctx.setVisible(false);
-
-        dm.addDataSource(ThirdDataSource, form.values);
         await form.reset();
         field.data.loading = false;
         service.refresh();

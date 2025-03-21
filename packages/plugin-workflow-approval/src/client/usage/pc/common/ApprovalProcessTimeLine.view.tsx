@@ -57,7 +57,7 @@ export const ApprovalProcessTimeLine = (props) => {
   );
 };
 
-export const Process = ({ dataSource = [] }) => {
+export const Process = ({ dataSource }) => {
   const compile = useCompile();
   const items = dataSource.map((dataItem, index) => {
     let status = { color: '', label: '' };

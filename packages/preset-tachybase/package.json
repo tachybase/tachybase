@@ -77,7 +77,6 @@
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
     "@tachybase/plugin-online-user": "workspace:*",
     "@tachybase/plugin-otp": "workspace:*",
-    "@tachybase/plugin-password-policy": "workspace:*",
     "@tachybase/plugin-simple-cms": "workspace:*",
     "@tachybase/plugin-sub-accounts": "workspace:*",
     "@tachybase/plugin-theme-editor": "workspace:*",

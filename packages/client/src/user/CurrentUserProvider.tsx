@@ -2,7 +2,7 @@ import React, { createContext, useContext, useMemo } from 'react';
 
 import { Navigate, useLocation } from 'react-router-dom';
 
-import { ReturnTypeOfUseRequest, useAPIClient, useRequest } from '../api-client';
+import { ReturnTypeOfUseRequest, useRequest } from '../api-client';
 import { useACLRoleContext } from '../built-in/acl';
 import { useCompile } from '../schema-component';
 
@@ -32,16 +32,9 @@ export const useCurrentRoles = () => {
 };
 
 export const CurrentUserProvider = (props) => {
-  const api = useAPIClient();
-  const result = useRequest<any>(() =>
-    api
-      .request({
-        url: '/auth:check',
-        skipNotify: true,
-        skipAuth: true,
-      })
-      .then((res) => res?.data),
-  );
+  const result = useRequest<any>({
+    url: 'auth:check',
+  });
 
   if (result.loading) {
     return;

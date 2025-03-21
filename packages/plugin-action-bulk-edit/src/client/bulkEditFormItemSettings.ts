@@ -1,5 +1,4 @@
 import {
-  fieldComponentSettingsItem,
   SchemaSettings,
   useApp,
   useCollection_deprecated,
@@ -316,7 +315,6 @@ export const bulkEditFormItemSettings = new SchemaSettings({
               return !!(form && !isFormReadPretty && validateSchema);
             },
           },
-          { ...fieldComponentSettingsItem },
         ];
       },
     },

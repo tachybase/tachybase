@@ -14,7 +14,6 @@ import bodyParser from 'koa-bodyparser';
 import Application, { ApplicationOptions } from './application';
 import { dataWrapping } from './middlewares/data-wrapping';
 import { db2resource } from './middlewares/db2resource';
-import { extractClientIp } from './middlewares/extract-client-ip';
 import { i18n } from './middlewares/i18n';
 
 export function createI18n(options: ApplicationOptions): TypeI18n {
@@ -91,8 +90,6 @@ export function registerMiddlewares(app: Application, options: ApplicationOption
 
   app.use(db2resource, { tag: 'db2resource', after: 'dataWrapping' });
   app.use(app.dataSourceManager.middleware(), { tag: 'dataSource', after: 'dataWrapping' });
-
-  app.use(extractClientIp(), { tag: 'extractClientIp', before: 'cors' });
 }
 
 export const createAppProxy = (app: Application) => {

@@ -14,10 +14,7 @@ export const useTableBlockProps = () => {
   const fieldSchema = useFieldSchema();
 
   const ctx = useTableBlockContext();
-  const globalSort =
-    fieldSchema.parent?.['x-decorator-props']?.['dragSort'] === true
-      ? fieldSchema.parent?.['x-decorator-props']?.['dragSortBy']
-      : undefined;
+  const globalSort = fieldSchema.parent?.['x-decorator-props']?.['dragSortBy'];
   const { getDataBlocks } = useFilterBlock();
   const isLoading = ctx?.service?.loading;
   const params = ctx?.service?.params;

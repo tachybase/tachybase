@@ -42,12 +42,6 @@ export default defineCollection({
     {
       type: 'string',
       name: 'icon',
-      interface: 'icon',
-    },
-    {
-      type: 'string',
-      name: 'color',
-      interface: 'color',
     },
     {
       type: 'string',

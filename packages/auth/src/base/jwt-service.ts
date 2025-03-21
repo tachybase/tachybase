@@ -1,4 +1,4 @@
-import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 
 import { ITokenBlacklistService } from './token-blacklist-service';
 
@@ -40,9 +40,9 @@ export class JwtService {
     return jwt.sign(payload, this.secret(), opt);
   }
 
-  decode(token: string): Promise<JwtPayload> {
+  decode(token: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      jwt.verify(token, this.secret(), (err: any, decoded: JwtPayload) => {
+      jwt.verify(token, this.secret(), (err: any, decoded: any) => {
         if (err) {
           return reject(err);
         }
@@ -60,9 +60,9 @@ export class JwtService {
       return null;
     }
     try {
-      const { exp, jti } = await this.decode(token);
+      const { exp } = await this.decode(token);
       return this.blacklist.add({
-        token: jti ?? token,
+        token,
         expiration: new Date(exp * 1000).toString(),
       });
     } catch {
