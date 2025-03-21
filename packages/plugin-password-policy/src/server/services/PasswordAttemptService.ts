@@ -179,7 +179,6 @@ export class PasswordAttemptService {
     // 监听userLocks表的删除事件
     this.app.db.on('userLocks.afterDestroy', async (model) => {
       const userId = model.get('userId');
-      console.log('userLocks.afterDestroy', userId);
       await this.app.cache.del(this.getUserLockCacheKey(userId));
       // 用户被解锁，清空失败记录
       await this.clearUserFailRecords(userId);
@@ -203,7 +202,6 @@ export class PasswordAttemptService {
         },
       });
 
-      console.log('======clear===');
       // 从内存缓存中删除
       this.failureRecords.delete(userId);
 
@@ -405,7 +403,6 @@ export class PasswordAttemptService {
               const field = userRepository.collection.getField<PasswordField>('password');
               const valid = await field.verify(password, user.password);
               if (!valid) {
-                console.log(1111111111111);
                 // 失败则需要记录
                 await this.recordFailedAttempt(user, ctx.state.clientIp);
               } else {
@@ -560,7 +557,6 @@ export class PasswordAttemptService {
 
       const record = await this.recordFailedAttemptToDb(user, ip, now, true);
 
-      console.log('add fail record');
       if (this.failureRecords.get(user.id)) {
         this.failureRecords.get(user.id).push({
           userId: user.id,
