@@ -34,6 +34,7 @@ export const customizeCustomRequestActionSettings = new SchemaSettings({
         return {
           ...linkageRulesProps,
           collectionName: name,
+          type: 'button',
         };
       },
     },
