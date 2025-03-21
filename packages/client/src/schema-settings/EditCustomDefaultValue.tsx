@@ -33,7 +33,7 @@ export const EditCustomDefaultValue = () => {
           },
         },
       }}
-      onSubmit={({ default: { value } }) => {
+      onSubmit={({ default: { value = null } }) => {
         field.setValue(value);
         fieldSchema['default'] = value;
         fieldSchema['x-component-props'] = {

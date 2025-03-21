@@ -33,7 +33,6 @@ export const fieldComponentSettingsItem: SchemaSettingsItemType = {
     const fieldSchema = tableColumnSchema || schema;
     const { dn } = useDesignable();
     const compile = useCompile();
-
     const options =
       collectionInterface?.componentOptions
         ?.filter((item) => !item.useVisible || item.useVisible())
@@ -54,14 +53,16 @@ export const fieldComponentSettingsItem: SchemaSettingsItemType = {
           component,
           ...(componentOptions?.useProps?.() || {}),
         };
-        _.set(fieldSchema, 'x-component-props', componentProps);
         field.componentProps = componentProps;
+        field.component = component;
+        _.set(fieldSchema, 'x-component-props', componentProps);
         dn.emit('patch', {
           schema: {
             ['x-uid']: fieldSchema['x-uid'],
             'x-component-props': componentProps,
           },
         });
+        dn.refresh();
       },
     };
   },

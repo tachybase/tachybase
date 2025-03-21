@@ -1101,6 +1101,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/logger':
+        specifier: workspace:*
+        version: link:../logger
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -1123,6 +1126,12 @@ importers:
       cron:
         specifier: ^3.3.1
         version: 3.3.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      ms:
+        specifier: ^2.1.3
+        version: 2.1.3
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1869,6 +1878,9 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+      antd:
+        specifier: 5.22.5
+        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       qs:
         specifier: ^6.13.1
         version: 6.13.1
@@ -1879,9 +1891,6 @@ importers:
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
-      antd:
-        specifier: 5.22.5
-        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       async-mutex:
         specifier: ^0.3.2
         version: 0.3.2
@@ -4113,6 +4122,39 @@ importers:
         specifier: ^4.0.996
         version: 4.0.996(encoding@0.1.13)
 
+  packages/plugin-password-policy:
+    dependencies:
+      '@ant-design/icons':
+        specifier: ^5.5.2
+        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
+      antd:
+        specifier: 5.22.5
+        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      geoip-lite:
+        specifier: ^1.4.9
+        version: 1.4.10
+      ipaddr.js:
+        specifier: ^2.1.0
+        version: 2.2.0
+
   packages/plugin-prototype-game-runesweeper:
     dependencies:
       '@tachybase/client':
@@ -4771,6 +4813,9 @@ importers:
       '@tachybase/plugin-otp':
         specifier: workspace:*
         version: link:../plugin-otp
+      '@tachybase/plugin-password-policy':
+        specifier: workspace:*
+        version: link:../plugin-password-policy
       '@tachybase/plugin-simple-cms':
         specifier: workspace:*
         version: link:../plugin-prototype-simple-cms
@@ -5232,6 +5277,9 @@ importers:
       '@types/node':
         specifier: 20.17.10
         version: 20.17.10
+      i18next:
+        specifier: 23.16.8
+        version: 23.16.8
 
 packages:
 
@@ -12791,6 +12839,10 @@ packages:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
 
+  geoip-lite@1.4.10:
+    resolution: {integrity: sha512-4N69uhpS3KFd97m00wiFEefwa+L+HT5xZbzPhwu+sDawStg6UN/dPwWtUfkQuZkGIY1Cj7wDVp80IsqNtGMi2w==}
+    engines: {node: '>=10.3.0'}
+
   get-caller-file@2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
     engines: {node: 6.* || 8.* || >= 10.*}
@@ -13375,6 +13427,10 @@ packages:
     resolution: {integrity: sha512-2YZsvl7jopIa1gaePkeMtd9rAcSjOOjPtpcLlOeusyO+XH2SK5ZcT+UCrElPP+WVIInh2TzeI4XW9ENaSLVVHA==}
     engines: {node: '>=12.22.0'}
 
+  ip-address@5.9.4:
+    resolution: {integrity: sha512-dHkI3/YNJq4b/qQaz+c8LuarD3pY24JqZWfjB8aZx1gtpc2MDILu9L9jpZe1sHpzo/yWFweQVn+U//FhazUxmw==}
+    engines: {node: '>= 0.10'}
+
   ip-address@9.0.5:
     resolution: {integrity: sha512-zHtQzGojZXTwZTHQqra+ETKd4Sn3vgi7uBmlPoXVWZqYvuKmtI0l/VZTjqGmJY9x88GGOaZ9+G9ES8hC4T4X8g==}
     engines: {node: '>= 12'}
@@ -13385,6 +13441,10 @@ packages:
   ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
+
+  ipaddr.js@2.2.0:
+    resolution: {integrity: sha512-Ag3wB2o37wslZS19hZqorUnrnzSkpOVy+IiiDEiTqNubEYpYuHWIf6K4psgN2ZWKExS4xhVCrRVfb/wfW8fWJA==}
+    engines: {node: '>= 10'}
 
   is-arguments@1.1.1:
     resolution: {integrity: sha512-8Q7EARjzEnKpt/PCD7e1cgUS0a6X8u5tdSiMqXhojOdoV9TsMsiO+9VLC5vAmO8N7/GmXn7yjR8qnA6bVAEzfA==}
@@ -28613,6 +28673,16 @@ snapshots:
 
   gensync@1.0.0-beta.2: {}
 
+  geoip-lite@1.4.10:
+    dependencies:
+      async: 2.6.4
+      chalk: 4.1.2
+      iconv-lite: 0.6.3
+      ip-address: 5.9.4
+      lazy: 1.0.11
+      rimraf: 2.7.1
+      yauzl: 2.10.0
+
   get-caller-file@2.0.5: {}
 
   get-intrinsic@1.2.4:
@@ -29205,7 +29275,7 @@ snapshots:
 
   i18next@23.16.8:
     dependencies:
-      '@babel/runtime': 7.26.0
+      '@babel/runtime': 7.26.9
 
   iconv-lite@0.4.24:
     dependencies:
@@ -29347,6 +29417,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  ip-address@5.9.4:
+    dependencies:
+      jsbn: 1.1.0
+      lodash: 4.17.21
+      sprintf-js: 1.1.2
+
   ip-address@9.0.5:
     dependencies:
       jsbn: 1.1.0
@@ -29355,6 +29431,8 @@ snapshots:
   ip@1.1.8: {}
 
   ipaddr.js@1.9.1: {}
+
+  ipaddr.js@2.2.0: {}
 
   is-arguments@1.1.1:
     dependencies:
@@ -32768,7 +32846,7 @@ snapshots:
 
   react-i18next@15.4.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.26.0
+      '@babel/runtime': 7.26.9
       html-parse-stringify: 3.0.1
       i18next: 23.16.8
       react: 18.3.1

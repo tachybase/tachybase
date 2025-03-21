@@ -1,4 +1,8 @@
-import { css } from '@tachybase/client';
+import { css, useDataBlockResource, useFilterByTk, useTranslation } from '@tachybase/client';
+
+import { message } from 'antd';
+import saveAs from 'file-saver';
+import _ from 'lodash';
 
 import { DrawerDescription } from '../../../components/DrawerDescription';
 import { lang } from '../../../locale';
@@ -7,6 +11,7 @@ import { renderNodeConfigTitle } from './NodeConfigTitle';
 
 export const getSchemaNodeConfig = (params) => {
   const { instruction, data, detailText, workflow } = params;
+
   return {
     type: 'void',
     properties: {
@@ -71,6 +76,37 @@ export const getSchemaNodeConfig = (params) => {
                     'x-component': 'Action',
                     'x-component-props': {
                       useAction: '{{ cm.useCancelAction }}',
+                    },
+                  },
+                  dump: {
+                    type: 'void',
+                    title: '{{ t("Dump") }}',
+                    'x-component': 'Action',
+                    'x-component-props': {
+                      useAction() {
+                        const { t } = useTranslation();
+                        return {
+                          async run() {
+                            const blob = new Blob(
+                              [
+                                JSON.stringify(
+                                  data,
+                                  (key, value) => {
+                                    if (key === 'upstream' || key === 'downstream') {
+                                      return undefined;
+                                    }
+                                    return value;
+                                  },
+                                  2,
+                                ),
+                              ],
+                              { type: 'application/json' },
+                            );
+                            saveAs(blob, data.title + '-' + data.key + '.json');
+                            message.success(t('Operation succeeded'));
+                          },
+                        };
+                      },
                     },
                   },
                   submit: {

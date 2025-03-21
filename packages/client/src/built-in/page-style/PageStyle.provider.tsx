@@ -26,7 +26,7 @@ export const PageStyleProvider = ({ children }) => {
 
   return (
     <PageStyleContext.Provider
-      value={{ style: currentUser.data.data.systemSettings?.pageStyle || 'classical', items, setItems }}
+      value={{ style: currentUser?.data?.data?.systemSettings?.pageStyle || 'classical', items, setItems }}
     >
       {children}
     </PageStyleContext.Provider>

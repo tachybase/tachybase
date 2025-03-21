@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "0.23.64",
+  "version": "0.23.65",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "scripts": {
@@ -77,6 +77,7 @@
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
     "@tachybase/plugin-online-user": "workspace:*",
     "@tachybase/plugin-otp": "workspace:*",
+    "@tachybase/plugin-password-policy": "workspace:*",
     "@tachybase/plugin-simple-cms": "workspace:*",
     "@tachybase/plugin-sub-accounts": "workspace:*",
     "@tachybase/plugin-theme-editor": "workspace:*",
