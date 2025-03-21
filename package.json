@@ -43,6 +43,7 @@
     ]
   },
   "dependencies": {
+    "@electron-forge/cli": "^7.7.0",
     "pm2": "^5.4.3",
     "rimraf": "^6.0.1"
   },
