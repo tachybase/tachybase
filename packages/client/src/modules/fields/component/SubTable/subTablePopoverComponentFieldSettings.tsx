@@ -302,7 +302,7 @@ export const clickToSelect = {
       })
       .filter(Boolean);
     fieldTabsOptions.unshift({
-      label: 'none',
+      label: t('None'),
       value: 'none',
     });
     const Parentoptions = cm.getCollectionFields(`${fieldSchema['x-collection-field']}.${firstLevelValue}`);
@@ -315,11 +315,10 @@ export const clickToSelect = {
         };
     }).filter(Boolean);
     fieldParentTabsOptions.unshift({
-      label: t('none'),
+      label: t('None'),
       value: 'none',
     });
     const defParentVal = fieldSchema['x-component-props']?.['quickAddParentCollection']?.value || 'none';
-
     const schema = useMemo<ISchema>(() => {
       return {
         type: 'object',
