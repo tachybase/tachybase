@@ -43,6 +43,7 @@ export const SignInPage = () => {
   useViewport();
   const signInForms = useSignInForms();
   const authenticators = useContext(AuthenticatorsContext);
+  console.log('%c Line:46 🌽 authenticators', 'font-size:18px;color:#33a5ff;background:#465975', authenticators);
   const signInButtons = useSignInButtons(authenticators);
 
   if (!authenticators.length) {

@@ -21,15 +21,17 @@ export const LanguageSwitcher = () => {
     [locale, enabledLanguages],
   );
 
+  const handleChangeLanguage = async (lang: string) => {
+    await api.auth.setLocale(lang);
+    window.location.reload();
+  };
+
   return (
     <SelectWithTitle
       title={<span className={styles.iconGlobe}></span>}
       defaultValue={i18n.language}
       options={options}
-      onChange={async (lang) => {
-        api.auth.setLocale(lang);
-        window.location.reload();
-      }}
+      onChange={handleChangeLanguage}
     />
   );
 };
