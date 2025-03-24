@@ -1,0 +1,23 @@
+{
+  "name": "@tachybase/app-electron",
+  "version": "0.23.64",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "electron .",
+    "make": "electron-forge make",
+    "package": "electron-forge package",
+    "start": "electron-forge start"
+  },
+  "dependencies": {
+    "@tachybase/app-server": "workspace:*"
+  },
+  "devDependencies": {
+    "@electron-forge/maker-squirrel": "^6.4.0",
+    "@electron-forge/maker-zip": "^6.4.0",
+    "electron": "^35.0.2"
+  }
+}
