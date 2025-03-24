@@ -45,5 +45,9 @@
   "User can bind or unbind the sign in type": "User can bind or unbind the sign in type",
   "User not found. Please sign in again to continue.": "User not found. Please sign in again to continue.",
   "Username/Email": "Username/Email",
-  "Your session has expired. Please sign in again.": "Your session has expired. Please sign in again."
+  "Your session has expired. Please sign in again.": "Your session has expired. Please sign in again.",
+  "gitea": "Gitea",
+  "sms": "SMS",
+  "wechat": "WeChat",
+  "work-wechat": "WeCom"
 }
