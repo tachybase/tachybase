@@ -396,8 +396,9 @@ export class PasswordAttemptService {
             });
             if (user) {
               if (user.lock?.expireAt && user.lock.expireAt > new Date()) {
-                ctx.throw(403, ctx.t('User has been locked', { ns: NAMESPACE }));
-                return next();
+if (user.lock?.expireAt && user.lock.expireAt > new Date()) {
+  ctx.throw(403, ctx.t('User has been locked', { ns: NAMESPACE }));
+}
               }
               // TODO: 抽一下通用的,或者用其他方式
               const field = userRepository.collection.getField<PasswordField>('password');
