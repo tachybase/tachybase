@@ -303,6 +303,11 @@ export class BaseAuth extends Auth {
           message: this.ctx.t('Your session has expired. Please sign in again.', { ns: localeNamespace }),
           code: AuthErrorCode.INVALID_TOKEN,
         });
+      } else {
+        this.ctx.throw(401, {
+          message: this.ctx.t('Invalid token. Please sign in again.', { ns: localeNamespace }),
+          code: AuthErrorCode.INVALID_TOKEN,
+        });
       }
     }
     await this.ctx.app.emitAsync('cache:del:roles', { userId });
