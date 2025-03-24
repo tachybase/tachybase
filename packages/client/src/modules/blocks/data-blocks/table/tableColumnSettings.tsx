@@ -112,6 +112,40 @@ export const tableColumnSettings = new SchemaSettings({
           },
         },
         {
+          name: 'columnAlign',
+          type: 'select',
+          useComponentProps() {
+            const fieldSchema = useFieldSchema();
+            const { t } = useTranslation();
+            const field = useField();
+            const { dn } = useDesignable();
+            return {
+              key: 'align',
+              title: t('Algin'),
+              options: [
+                { label: t('Left'), value: 'left' },
+                { label: t('Center'), value: 'center' },
+                { label: t('Right'), value: 'right' },
+              ],
+              value: fieldSchema['x-component-props'].align || 'left',
+              onChange: (align) => {
+                const props = fieldSchema['x-component-props'] || {};
+                props['align'] = align;
+                const schema: ISchema = {
+                  ['x-uid']: fieldSchema['x-uid'],
+                };
+                schema['x-component-props'] = props;
+                fieldSchema['x-component-props'] = props;
+                field.componentProps.align = align;
+                dn.emit('patch', {
+                  schema,
+                });
+                dn.refresh();
+              },
+            };
+          },
+        },
+        {
           name: 'sortable',
           type: 'switch',
           useVisible() {
