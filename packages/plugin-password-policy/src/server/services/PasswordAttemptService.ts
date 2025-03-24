@@ -508,19 +508,39 @@ export class PasswordAttemptService {
         await this.recordFailedAttemptToDb(user, ip, now, false);
         return;
       }
-      if (this.getRecentFailureCount(user.id) + 1 >= this.config.maxAttempts) {
+      if (user.lock?.expireAt && now > user.lock.expireAt) {
+        //超时重置
+        await this.resetFailedAttempts(user.id);
+      } else if (this.getRecentFailureCount(user.id) + 1 >= this.config.maxAttempts) {
         if (!user.lock?.expireAt || now > user.lock.expireAt) {
           const lockExpireAt = new Date(now);
           lockExpireAt.setSeconds(lockExpireAt.getSeconds() + this.config.lockSeconds);
-          await this.db.getRepository('users').update({
-            filterByTk: user.id,
-            values: {
-              lock: {
-                expireAt: lockExpireAt,
+          await this.db.sequelize.transaction(async (transaction) => {
+            const existOne = await this.db.getRepository('userLocks').findOne({
+              filter: {
+                userId: user.id,
               },
-            },
+              transaction,
+            });
+            if (existOne) {
+              await existOne.update(
+                {
+                  expireAt: lockExpireAt,
+                },
+                {
+                  transaction,
+                },
+              );
+            } else {
+              await this.db.getRepository('userLocks').create({
+                values: {
+                  userId: user.id,
+                  expireAt: lockExpireAt,
+                },
+                transaction,
+              });
+            }
           });
-
           // 更新锁定用户缓存
           await this.app.cache.set(
             this.getUserLockCacheKey(user.id),
@@ -532,30 +552,23 @@ export class PasswordAttemptService {
             this.CACHE_TTL,
           );
         }
-      } else if (user.lock?.expireAt && now > user.lock.expireAt) {
-        await this.db.getRepository('userLocks').destroy({
-          filter: {
-            userId: user.id,
-          },
-        });
-        await this.db.getRepository('signInFails').update({
-          filter: {
-            userId: user.id,
-          },
-          values: {
-            status: false,
-          },
-        });
       }
 
       const record = await this.recordFailedAttemptToDb(user, ip, now, true);
 
-      const userRecords = this.failureRecords.get(user.id) || [];
-      userRecords.push({
-        userId: user.id,
-        createdAt: record.get('createdAt'),
-      });
-      this.failureRecords.set(user.id, userRecords);
+      if (this.failureRecords.get(user.id)) {
+        this.failureRecords.get(user.id).push({
+          userId: user.id,
+          createdAt: record.get('createdAt'),
+        });
+      } else {
+        this.failureRecords.set(user.id, [
+          {
+            userId: user.id,
+            createdAt: record.get('createdAt'),
+          },
+        ]);
+      }
     } catch (error) {
       this.logger.error('Failed to record sign-in failure:', error);
       throw error;

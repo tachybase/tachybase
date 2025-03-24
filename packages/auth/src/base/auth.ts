@@ -293,7 +293,23 @@ export class BaseAuth extends Auth {
     if (!token) {
       return;
     }
-    const { userId } = await this.jwt.decode(token);
+    let userId;
+    try {
+      const result = await this.jwt.decode(token);
+      userId = result.userId;
+    } catch (err) {
+      if (err.name === 'TokenExpiredError') {
+        this.ctx.throw(401, {
+          message: this.ctx.t('Your session has expired. Please sign in again.', { ns: localeNamespace }),
+          code: AuthErrorCode.INVALID_TOKEN,
+        });
+      } else {
+        this.ctx.throw(401, {
+          message: this.ctx.t('Invalid token. Please sign in again.', { ns: localeNamespace }),
+          code: AuthErrorCode.INVALID_TOKEN,
+        });
+      }
+    }
     await this.ctx.app.emitAsync('cache:del:roles', { userId });
     await this.ctx.cache.del(this.getCacheKey(userId));
     return await this.jwt.block(token);
