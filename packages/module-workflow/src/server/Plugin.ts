@@ -243,7 +243,7 @@ export default class PluginWorkflowServer extends Plugin {
       actions: ['workflows:list'],
     });
 
-    this.app.acl.allow('workflows', ['trigger'], 'loggedIn');
+    this.app.acl.allow('workflows', ['trigger', 'list'], 'loggedIn');
     // this.app.acl.allow('flow_nodes', ['moveUp', 'moveDown'], 'loggedIn');
 
     db.on('workflows.beforeSave', this.onBeforeSave);
