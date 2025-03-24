@@ -75,7 +75,20 @@ export const InternalGroupBlock = (props) => {
   if (!Object.values(service.params).length || service.params.length) {
     dataBlocks.forEach((block) => {
       if (Object.values(block.defaultFilter).length) {
-        service.params = { ...service.params, ...block.defaultFilter };
+        if (service.params?.[0]?.filter) {
+          const keys = Object.keys(block.defaultFilter);
+          keys.forEach((key) => {
+            const length = Object.values(service.params[0].filter?.[key] || {})?.length;
+            const filter = {};
+            filter[length] = block.defaultFilter[key];
+            service.params[0].filter[key] = {
+              ...service.params[0].filter?.[key],
+              ...filter,
+            };
+          });
+        } else {
+          service.params = { ...service.params, ...block.defaultFilter };
+        }
       }
     });
   } else {
