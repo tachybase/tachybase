@@ -121,13 +121,13 @@ export const tableColumnSettings = new SchemaSettings({
             const { dn } = useDesignable();
             return {
               key: 'align',
-              title: t('Algin'),
+              title: t('Align'),
               options: [
                 { label: t('Left'), value: 'left' },
                 { label: t('Center'), value: 'center' },
                 { label: t('Right'), value: 'right' },
               ],
-              value: fieldSchema['x-component-props'].align || 'left',
+              value: fieldSchema['x-component-props']?.align || 'left',
               onChange: (align) => {
                 const props = fieldSchema['x-component-props'] || {};
                 props['align'] = align;
