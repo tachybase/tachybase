@@ -355,12 +355,11 @@ export function EnvironmentTabs() {
   ];
   const useFilterActionProps = () => {
     const field = useField<any>();
-    const { run } = variablesRequest;
 
     return {
       options: filterOptions,
       onSubmit: async (values) => {
-        run(values);
+        variablesRequest?.run(values);
 
         field.setValue(values);
       },
