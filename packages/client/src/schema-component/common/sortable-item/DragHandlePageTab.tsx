@@ -1,27 +1,26 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import { cx } from 'antd-style';
-import { MenuContext } from 'rc-menu/es/context/MenuContext';
 
 import { useDesignable } from '../../hooks';
 import { useStyles } from './DragHandlePageTab.style';
 import { SortableContext } from './SortableItem';
 
 export const DragHandlePageTab = (props) => {
-  const { isSubMenu, name, children, className: overStyle, isAdminMenu } = props;
+  const { isSubMenu, children, className: overStyle, isAdminMenu } = props;
   const { draggable } = useContext(SortableContext);
-  const { onOpenChange } = useContext(MenuContext) || {}; // AdminMenu, 此时 MenuContext 不存在
   const { designable } = useDesignable();
   const { attributes, listeners, setNodeRef, transform, isDragging } = draggable;
   const { styles } = useStyles();
   const ref = useRef(null); // 用于获取元素的宽高
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 }); // 存储元素的宽高
   const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 }); // 存储指针的初始位置
+  console.log('%c Line:18 🍷 initialPosition', 'font-size:18px;color:#33a5ff;background:#f5ce50', initialPosition);
 
   // 计算偏移量
   const centerOffset = {
-    x: dimensions.width / 4,
-    y: dimensions.height / 4,
+    x: dimensions.width * 4,
+    y: dimensions.height * 3,
   };
 
   const style = {
@@ -51,13 +50,6 @@ export const DragHandlePageTab = (props) => {
       setInitialPosition({ x: clientX, y: clientY });
     }
   };
-
-  useEffect(() => {
-    if (isSubMenu && isDragging) {
-      // 拖动分组时, 自动关闭当前分组
-      onOpenChange?.(name, false);
-    }
-  }, [isDragging]);
 
   if (!designable) {
     return children;
