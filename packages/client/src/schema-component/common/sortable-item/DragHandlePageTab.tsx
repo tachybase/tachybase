@@ -26,8 +26,8 @@ export const DragHandlePageTab = (props) => {
     position: isDragging ? 'fixed' : 'static', // 拖拽时脱离文档流
     top: isDragging ? initialPosition.y - centerOffset.y : 0, // 初始位置减去偏移量
     left: isDragging ? initialPosition.x - centerOffset.x : 0, // 初始位置减去偏移量
-    width: isDragging ? dimensions.width : '100%', // 保持宽高不变
-    height: isDragging ? dimensions.height : '100%', // 保持宽高不变
+    width: isDragging ? 'max-content' : '100%', // 保持宽高不变
+    height: isDragging ? 'max-content' : '100%',
     zIndex: isDragging ? 999 : 'auto', // 拖拽时提高层级
     pointerEvents: isDragging ? 'none' : 'auto', // 拖拽时禁用指针事件
 
