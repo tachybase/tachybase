@@ -24,6 +24,7 @@ import { useGlobalTheme } from '../../../style/theme';
 import { DndContext } from '../../common';
 import { SortableItem } from '../../common/sortable-item';
 import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
+import { DragHandlePageTab } from '../../common/sortable-item/DragHandlePageTab';
 import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
 import { ErrorFallback } from '../error-fallback';
@@ -209,13 +210,13 @@ const TabItem = (props) => {
       schema={schema}
       className={classNames('tb-action-link', 'designerCss', props.className, styles.tabItemClass)}
     >
-      <DragHandleMenu>
+      <DragHandlePageTab>
         {schema['x-icon'] && <Icon style={{ marginRight: 8 }} type={schema['x-icon']} />}
         <span>{schema.title || t('Unnamed')}</span>
         <div className="tab-designer-wrapper">
           <PageTabDesigner schema={schema} />
         </div>
-      </DragHandleMenu>
+      </DragHandlePageTab>
     </SortableItem>
   );
 };
