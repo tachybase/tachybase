@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { locale, SelectWithTitle, useAPIClient, useSystemSettings, useTranslation } from '@tachybase/client';
 
+import { IconGlobal } from './IconGlobal';
 import { useStyles } from './LanguageSwitcher.style';
 
 export const LanguageSwitcher = () => {
@@ -28,7 +29,7 @@ export const LanguageSwitcher = () => {
 
   return (
     <SelectWithTitle
-      title={<span className={styles.iconGlobe}></span>}
+      title={<IconGlobal />}
       defaultValue={i18n.language}
       options={options}
       onChange={handleChangeLanguage}
