@@ -4,6 +4,7 @@ import { Schema, SchemaOptionsContext, useFieldSchema } from '@tachybase/schema'
 
 import { PlusOutlined } from '@ant-design/icons';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
+import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { Button, Tabs } from 'antd';
 import { cx } from 'antd-style';
 import classNames from 'classnames';
@@ -22,6 +23,7 @@ import { useGetAriaLabelOfSchemaInitializer } from '../../../schema-initializer/
 import { useGlobalTheme } from '../../../style/theme';
 import { DndContext } from '../../common';
 import { SortableItem } from '../../common/sortable-item';
+import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
 import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
 import { ErrorFallback } from '../error-fallback';
@@ -157,6 +159,15 @@ const TabComponent = (props) => {
   // react18  tab 动画会卡顿，所以第一个 tab 时，动画禁用，后面的 tab 才启用
   const [hasMounted, setHasMounted] = useState(false);
 
+  // 配置传感器（确保拖拽行为正常）
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5, // 移动 5px 后触发拖拽
+      },
+    }),
+  );
+
   const handleTabClick = (activeKey) => {
     setLoading(true);
     setSearchParams([['tab', activeKey]]);
@@ -172,7 +183,7 @@ const TabComponent = (props) => {
   }, []);
 
   return (
-    <DndContext>
+    <DndContext sensors={sensors}>
       <Tabs
         className={styles.tabComponentClass}
         type="card"
@@ -198,11 +209,13 @@ const TabItem = (props) => {
       schema={schema}
       className={classNames('tb-action-link', 'designerCss', props.className, styles.tabItemClass)}
     >
-      {schema['x-icon'] && <Icon style={{ marginRight: 8 }} type={schema['x-icon']} />}
-      <span>{schema.title || t('Unnamed')}</span>
-      <div className="tab-designer-wrapper">
-        <PageTabDesigner schema={schema} />
-      </div>
+      <DragHandleMenu>
+        {schema['x-icon'] && <Icon style={{ marginRight: 8 }} type={schema['x-icon']} />}
+        <span>{schema.title || t('Unnamed')}</span>
+        <div className="tab-designer-wrapper">
+          <PageTabDesigner schema={schema} />
+        </div>
+      </DragHandleMenu>
     </SortableItem>
   );
 };
