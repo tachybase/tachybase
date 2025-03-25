@@ -4,6 +4,7 @@ import {
   useCollectionRecordData,
   useFilterFieldOptions,
   useFilterFieldProps,
+  useRecord,
   useRequest,
   useTableBlockContext,
 } from '@tachybase/client';
@@ -12,8 +13,9 @@ import { roleCollection } from './schemas/roleCollections';
 
 export const useRoleCollectionServiceProps = (props) => {
   const { uid } = props;
-  const record = useCollectionRecordData();
-  const resourceOf = record['name'];
+  const record = useRecord();
+  const resourceOf = record?.['name'];
+  const collectionRecord = useCollectionRecordData();
   const service = useRequest(
     {
       resource: 'roles.dataSourcesCollections',
@@ -21,7 +23,7 @@ export const useRoleCollectionServiceProps = (props) => {
       resourceOf,
       params: {
         pageSize: 20,
-        filter: { hidden: { $isFalsy: true }, dataSourceKey: record.key },
+        filter: { hidden: { $isFalsy: true }, dataSourceKey: collectionRecord.key },
         sort: ['sort'],
         appends: ['fields'],
       },
