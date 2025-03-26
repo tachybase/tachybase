@@ -20,11 +20,11 @@ export const IconPickerContentV2 = (props) => {
         label: '图标',
         children: <SystemIcon />,
       },
-      // {
-      //   key: 'custom',
-      //   label: '自定义图标',
-      //   children: <UploadConfigIcon />,
-      // },
+      {
+        key: 'custom',
+        label: '自定义图标',
+        children: <UploadConfigIcon />,
+      },
     ],
     [],
   );

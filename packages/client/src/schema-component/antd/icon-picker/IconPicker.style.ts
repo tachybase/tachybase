@@ -5,6 +5,7 @@ export const useStyles = createStyles(({ css }) => {
     popoverStyles: css`
       .ant-popover-inner {
         border-radius: 8px;
+        padding: 0 !important;
       }
     `,
   };

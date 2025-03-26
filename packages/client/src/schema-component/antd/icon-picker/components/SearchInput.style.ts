@@ -3,7 +3,7 @@ import { createStyles } from 'antd-style';
 export const useStyles = createStyles(({ css, token }) => ({
   searchInput: css`
     .ant-input-outlined.ant-input-outlined.ant-input-outlined {
-      background-color: #f9f9f9;
+      background-color: #f5f8fe;
       border-radius: 20px;
       border: none;
       box-shadow: none;

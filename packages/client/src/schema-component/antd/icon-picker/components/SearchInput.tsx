@@ -19,7 +19,7 @@ export const SearchInput = () => {
     <Input.Search
       className={styles.searchInput}
       allowClear
-      placeholder={t('search')}
+      placeholder={t('')}
       prefix={<Icon type="SearchOutlined" />}
       onChange={handleChange}
       onSearch={handleSearch}
