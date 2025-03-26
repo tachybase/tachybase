@@ -68,6 +68,7 @@ export class FieldModel extends MagicAttributeModel {
   async migrate({ isNew, ...options }: MigrateOptions = {}) {
     let field;
     try {
+      console.log('start load field');
       field = await this.load({
         transaction: options.transaction,
       });
@@ -78,13 +79,16 @@ export class FieldModel extends MagicAttributeModel {
       const collection = this.getFieldCollection();
 
       if (isNew && collection.model.rawAttributes[this.get('name')] && this.get('unique')) {
+        console.log('collection.model.rawAttributes[]', collection.model.rawAttributes[this.get('name')]);
         // trick: set unique to false to avoid auto sync unique index
         collection.model.rawAttributes[this.get('name')].unique = false;
       }
 
+      console.log('start sync', options);
       await field.sync(options);
 
       if (isNew && this.get('unique')) {
+        console.log('start syncUniqueIndex');
         await this.syncUniqueIndex({
           transaction: options.transaction,
         });
@@ -95,6 +99,7 @@ export class FieldModel extends MagicAttributeModel {
         // update field should not remove field from memory
         field.remove();
       }
+      console.error('migrate error', error);
       throw error;
     }
   }
