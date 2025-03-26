@@ -125,14 +125,14 @@ export class CollectionManagerPlugin extends Plugin {
 
     this.app.db.on('fields.afterCreate', afterCreateForReverseField(this.app.db));
 
-    this.app.db.on('fields.afterCreate', async (model: FieldModel, { context, transaction }) => {
-      if (context) {
-        await model.migrate({
-          isNew: true,
-          transaction,
-        });
-      }
-    });
+    // this.app.db.on('fields.afterCreate', async (model: FieldModel, { context, transaction }) => {
+    //   if (context) {
+    //     await model.migrate({
+    //       isNew: true,
+    //       transaction,
+    //     });
+    //   }
+    // });
 
     // after migrate
     this.app.db.on('fields.afterCreate', afterCreateForForeignKeyField(this.app.db));
