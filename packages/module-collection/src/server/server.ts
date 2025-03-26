@@ -17,7 +17,7 @@ import {
   beforeDestroyForeignKey,
   beforeInitOptions,
 } from './hooks';
-import { beforeCreateForValidateField } from './hooks/beforeCreateForValidateField';
+import { beforeCreateForValidateField, beforeUpdateForValidateField } from './hooks/beforeCreateForValidateField';
 import { beforeCreateForViewCollection } from './hooks/beforeCreateForViewCollection';
 import { CollectionModel, FieldModel } from './models';
 import collectionActions from './resourcers/collections';
@@ -124,18 +124,7 @@ export class CollectionManagerPlugin extends Plugin {
     this.app.db.on('fields.beforeCreate', beforeCreateForValidateField(this.app.db));
 
     this.app.db.on('fields.afterCreate', afterCreateForReverseField(this.app.db));
-
-    this.app.db.on('fields.afterCreate', async (model: FieldModel, { context, transaction }) => {
-      if (context) {
-        await model.migrate({
-          isNew: true,
-          transaction,
-        });
-      }
-    });
-
-    // after migrate
-    this.app.db.on('fields.afterCreate', afterCreateForForeignKeyField(this.app.db));
+    this.app.db.on('fields.beforeUpdate', beforeUpdateForValidateField(this.app.db));
 
     this.app.db.on('fields.beforeUpdate', async (model, options) => {
       const newValue = options.values;
@@ -189,9 +178,36 @@ export class CollectionManagerPlugin extends Plugin {
       }
     });
 
-    this.app.db.on('fields.afterSaveWithAssociations', async (model: FieldModel, { context, transaction }) => {
+    const afterCreateForForeignKeyFieldHook = afterCreateForForeignKeyField(this.app.db);
+
+    this.app.db.on('fields.afterCreate', async (model: FieldModel, options) => {
+      const { context, transaction } = options;
       if (context) {
         await model.load({ transaction });
+        await afterCreateForForeignKeyFieldHook(model, options);
+      }
+    });
+
+    this.app.db.on('fields.afterUpdate', async (model: FieldModel, options) => {
+      const { context, transaction } = options;
+      if (context) {
+        await model.load({ transaction });
+      }
+    });
+
+    this.app.db.on('fields.afterSaveWithAssociations', async (model: FieldModel, options) => {
+      const { context, transaction } = options;
+      if (context) {
+        const collection = this.app.db.getCollection(model.get('collectionName'));
+        const syncOptions = {
+          transaction,
+          force: false,
+          alter: {
+            drop: false,
+          },
+        };
+
+        await collection.sync(syncOptions);
       }
     });
 
