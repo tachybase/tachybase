@@ -61,7 +61,7 @@ export const SchemaInitializerOpenModeSchemaItems: React.FC<Options> = (options)
               ]}
               value={
                 fieldSchema?.['x-component-props']?.['openSize'] ??
-                (fieldSchema?.['x-component-props']?.['openMode'] == 'modal' ? 'large' : 'middle')
+                (fieldSchema?.['x-component-props']?.['openMode'] === 'modal' ? 'large' : 'middle')
               }
               onChange={(value) => {
                 field.componentProps.openSize = value;
@@ -107,16 +107,16 @@ export const SchemaSettingOpenModeSchemaItems: React.FC<Options> = (options) => 
           value={openModeValue}
           onChange={(value) => {
             field.componentProps.openMode = value;
-            const schema = {
-              'x-uid': fieldSchema['x-uid'],
-            };
-            schema['x-component-props'] = fieldSchema['x-component-props'] || {};
-            schema['x-component-props'].openMode = value;
             fieldSchema['x-component-props'].openMode = value;
-            // when openMode change, set openSize value to default
-            Reflect.deleteProperty(fieldSchema['x-component-props'], 'openSize');
             dn.emit('patch', {
-              schema: schema,
+              schema: {
+                'x-uid': fieldSchema['x-uid'],
+                'x-component-props': {
+                  ...fieldSchema['x-component-props'],
+                  openMode: value,
+                  openSize: undefined,
+                },
+              },
             });
             dn.refresh();
           }}
@@ -132,7 +132,7 @@ export const SchemaSettingOpenModeSchemaItems: React.FC<Options> = (options) => 
           ]}
           value={
             fieldSchema?.['x-component-props']?.['openSize'] ??
-            (fieldSchema?.['x-component-props']?.['openMode'] == 'modal' ? 'large' : 'middle')
+            (fieldSchema?.['x-component-props']?.['openMode'] === 'modal' ? 'large' : 'middle')
           }
           onChange={(value) => {
             field.componentProps.openSize = value;
