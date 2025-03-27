@@ -53,16 +53,16 @@ Using the Tachybase, you will not be limited to any specific development form. I
 The following is a general development roadmap. The detailed development plan will be announced by March 31, 2025, and will be released along with the related application templates.
 
 - [x] Kernel: Kernel API
-- [ ] Kernel: Message Mechanism
+<!-- - [ ] Kernel: Message Mechanism -->
 - [x] Kernel: Module API
 - [x] Module: Ant Design-based UI Library
 - [x] Module: Workflow
 - [x] Module: No-code Capability
 - [x] Module: Cloud Components
-- [ ] Module: Message Queue
+<!-- - [ ] Module: Message Queue -->
 - [x] Module: Scheduled Tasks
 - [x] Plugin: Workflow - Approval
-- [ ] Plugin: Workflow - Data Templates
+<!-- - [ ] Plugin: Workflow - Data Templates -->
 
 UI planning principles: The core mechanisms are designed in the Kernel Layer, and the specific components are provided in the Module Layer.
 
