@@ -1,4 +1,4 @@
-name: Manual Minor Release On Main
+name: Manual Patch Release On Main
 
 on:
   workflow_dispatch
@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.18.0
-      - name: Do minor version release
+      - name: Do patch version release
         id: do_version
         run: |
           pnpm -r exec -- npm version patch
