@@ -103,7 +103,7 @@ const PageHeader = (props) => {
   const options = useContext(SchemaOptionsContext);
   const compile = useCompile();
 
-  const { hiddenScrollArea } = useContextMenu();
+  const { showScrollArea } = useContextMenu();
 
   const hidePageTitle = fieldSchema['x-component-props']?.hidePageTitle;
 
@@ -129,14 +129,14 @@ const PageHeader = (props) => {
           // 如果标题为空的时候会导致 PageHeader 不渲染，所以这里设置一个空白字符，然后再设置高度为 0
           title={pageHeaderTitle || ' '}
           {...parentProps}
-          extra={!enablePageTabs && !hiddenScrollArea && <ScrollArea />}
+          extra={!enablePageTabs && showScrollArea && <ScrollArea />}
           footer={
             enablePageTabs && (
               <TabComponent
                 activeKey={activeKey}
                 setLoading={setLoading}
                 setSearchParams={setSearchParams}
-                hiddenScrollArea={hiddenScrollArea}
+                showScrollArea={showScrollArea}
                 options={options}
                 theme={theme}
                 items={items}
@@ -150,7 +150,7 @@ const PageHeader = (props) => {
 };
 
 const TabComponent = (props) => {
-  const { activeKey, setLoading, setSearchParams, hiddenScrollArea, options, theme, items } = props;
+  const { activeKey, setLoading, setSearchParams, showScrollArea, options, theme, items } = props;
 
   const { styles } = useStyles();
 
@@ -181,7 +181,7 @@ const TabComponent = (props) => {
         activeKey={activeKey}
         items={items}
         onTabClick={handleTabClick}
-        tabBarExtraContent={<TabBarExtraContent theme={theme} hiddenScrollArea={hiddenScrollArea} options={options} />}
+        tabBarExtraContent={<TabBarExtraContent theme={theme} showScrollArea={showScrollArea} options={options} />}
       />
     </DndContext>
   );
@@ -208,7 +208,7 @@ const TabItem = (props) => {
 };
 
 const TabBarExtraContent = (props) => {
-  const { hiddenScrollArea, options, theme } = props;
+  const { showScrollArea, options, theme } = props;
   const dn = useDesignable();
   const { t } = useTranslation();
   const { getAriaLabel } = useGetAriaLabelOfSchemaInitializer();
@@ -243,7 +243,7 @@ const TabBarExtraContent = (props) => {
           onClick={handleAddTab}
         />
       )}
-      {!hiddenScrollArea && <ScrollArea className="scroll-area-extra-content" />}
+      {showScrollArea && <ScrollArea className="scroll-area-extra-content" />}
     </div>
   );
 };
