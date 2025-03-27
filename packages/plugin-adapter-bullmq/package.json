@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-adapter-bullmq",
-  "version": "0.23.66",
+  "version": "1.0.0",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-adapter-bullmq"
