@@ -14,14 +14,29 @@ function compileTemplate(template, context) {
   return parse(template)(context);
 }
 function mergeRequestOptions(options) {
-  const { baseRequestConfig, actionOptions, templateContext = {} } = options;
+  const { baseRequestConfig, actionOptions, templateContext = {}, environment } = options;
+  const $env = environment;
+  const baseHeaders = baseRequestConfig.headers;
+  const actionHeaders = actionOptions.headers;
+  if ($env) {
+    if (baseHeaders) {
+      for (const key of Object.keys(baseHeaders)) {
+        baseHeaders[key] = $env.renderJsonTemplate(baseHeaders[key]);
+      }
+    }
+    if (actionHeaders) {
+      for (const key of Object.keys(actionHeaders)) {
+        actionHeaders[key] = $env.renderJsonTemplate(actionHeaders[key]);
+      }
+    }
+  }
   const rawConfig = {
     method: actionOptions.method,
     url: actionOptions.path,
     baseURL: baseRequestConfig.baseUrl,
     headers: {
-      ...baseRequestConfig.headers,
-      ...actionOptions.headers,
+      ...baseHeaders,
+      ...actionHeaders,
     },
     params: actionOptions.params,
     data: null,
@@ -157,8 +172,9 @@ export class HttpCollection extends Collection {
     parseField?: boolean;
     debugVars?: any;
     runAsDebug?: boolean;
+    environment?: any;
   }) {
-    const { dataSource, actionOptions, templateContext = {}, parseField, debugVars, runAsDebug } = options;
+    const { dataSource, actionOptions, templateContext = {}, parseField, debugVars, runAsDebug, environment } = options;
     normalizeRequestOptions(actionOptions);
     const dataSourceRequestConfig = dataSource.requestConfig();
     buildTemplateContext({
@@ -170,6 +186,7 @@ export class HttpCollection extends Collection {
       baseRequestConfig: dataSourceRequestConfig,
       actionOptions,
       templateContext,
+      environment,
     });
     if (runAsDebug) {
       requestConfig.validateStatus = () => true;
