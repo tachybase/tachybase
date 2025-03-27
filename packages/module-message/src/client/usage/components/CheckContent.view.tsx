@@ -38,7 +38,7 @@ export const ViewCheckContent = (props) => {
   }, [record]);
   //目前如果没有dataKey 会默认加载相关表的另一条不相关数据  需要后续优化
   return (
-    Object.keys(reqRecord).length && (
+    (Object.keys(reqRecord).length || !record.dataKey) && (
       <RecordProvider record={{ record, ...reqRecord }}>
         <ProviderContextMessage value={record}>
           <SchemaComponentContext.Provider value={{ ...context, designable: false }}>

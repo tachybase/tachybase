@@ -1,4 +1,4 @@
-name: Manual Minor Release On Main
+name: Manual Major Release On Main
 
 on:
   workflow_dispatch
@@ -17,11 +17,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20.18.0
-      - name: Do minor version release
+      - name: Do major version release
         id: do_version
         run: |
-          pnpm -r exec -- npm version minor
-          echo "version=$(npm version minor --no-git-tag-version)" >> "$GITHUB_OUTPUT"
+          pnpm -r exec -- npm version major
+          echo "version=$(npm version major --no-git-tag-version)" >> "$GITHUB_OUTPUT"
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

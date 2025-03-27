@@ -7,13 +7,6 @@ export default defineCollection({
   },
   fields: [
     {
-      name: 'id',
-      type: 'bigInt',
-      autoIncrement: true,
-      primaryKey: true,
-      allowNull: false,
-    },
-    {
       type: 'boolean',
       name: 'default',
     },

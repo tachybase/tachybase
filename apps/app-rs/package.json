@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/app-rs",
-  "version": "0.23.65",
+  "version": "0.23.66",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {

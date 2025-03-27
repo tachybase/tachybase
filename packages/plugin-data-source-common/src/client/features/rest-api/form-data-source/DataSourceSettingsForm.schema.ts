@@ -74,10 +74,7 @@ export const schemaDataSourceSettingsForm = {
                   value: {
                     type: 'string',
                     'x-decorator': 'FormItem',
-                    'x-component': 'Input',
-                    'x-component-props': {
-                      useTypedConstant: true,
-                    },
+                    'x-component': 'TextAreaWithGlobalScope',
                   },
                   remove: {
                     type: 'void',
