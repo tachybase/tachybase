@@ -83,6 +83,7 @@ const createGroupBlockSchema = (options) => {
       });
     }
   });
+
   const schema: ISchema = {
     title: collection.title,
     type: 'void',
@@ -110,6 +111,7 @@ const createGroupBlockSchema = (options) => {
   };
   if (!sumItem.length) {
     delete schema['x-decorator-props']['resource_deprecated'];
+    schema['x-decorator-props']['action'] = 'list';
   }
   if (collection.template === 'view' && !sumItem.length) {
     delete schema['x-decorator-props']['action'];
