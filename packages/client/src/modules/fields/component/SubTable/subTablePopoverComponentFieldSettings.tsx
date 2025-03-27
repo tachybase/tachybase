@@ -2,17 +2,22 @@ import { useEffect, useMemo, useState } from 'react';
 import { ArrayItems, Switch } from '@tachybase/components';
 import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
 
-import { Empty } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useCollectionManager_deprecated, useSortFields } from '../../../../collection-manager';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
 import { useCollectionManager } from '../../../../data-source';
-import { useCompile, useDesignable, useFieldModeOptions, useIsAddNewForm } from '../../../../schema-component';
+import {
+  FieldNames,
+  useCompile,
+  useDesignable,
+  useFieldModeOptions,
+  useIsAddNewForm,
+} from '../../../../schema-component';
 import { isSubMode } from '../../../../schema-component/antd/association-field/util';
 import { useIsAssociationField, useIsFieldReadPretty } from '../../../../schema-component/antd/form-item';
-import { SchemaSettingsItem, SchemaSettingsSubMenu } from '../../../../schema-settings';
+import { SecondLevelSelect } from './secondLevelSelect';
 
 // const SchemaSettingsClickToSelect = (props) => {
 //   const { t } = useTranslation();
@@ -287,7 +292,6 @@ export const clickToSelect = {
       fieldSchema['x-component-props']['quickAddField']?.value || 'none',
     );
     const options = cm.getCollection(fieldSchema['x-collection-field']);
-    // const defVal = fieldSchema['x-component-props']['quickAddField']?.value || 'none';
     const isAddNewForm = useIsAddNewForm();
 
     const fieldTabsOptions = options.fields
@@ -359,16 +363,19 @@ export const clickToSelect = {
             title: t('Set Quick Add Parent Tabs'),
             default: defParentVal,
             'x-decorator': 'FormItem',
-            'x-component': 'Select',
-            'x-component-props': {
-              options: fieldParentTabsOptions,
-            },
+            'x-component': 'SecondLevelSelect',
             'x-reactions': [
               {
                 dependencies: ['firstLevelselection', 'isquickaddtabs'],
                 fulfill: {
                   state: {
                     visible: '{{$deps[0] !== "none" && $deps[1] === true}}',
+                  },
+                  schema: {
+                    'x-component-props': {
+                      firstLevelValue: '{{$deps[0]}}',
+                      collectionField: fieldSchema['x-collection-field'],
+                    },
                   },
                 },
               },
@@ -381,6 +388,7 @@ export const clickToSelect = {
     return {
       components: {
         Switch,
+        SecondLevelSelect,
       },
       title: t('Quick create'),
       schema,
