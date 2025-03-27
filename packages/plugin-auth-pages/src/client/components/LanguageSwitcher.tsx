@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { locale, SelectWithTitle, useAPIClient, useSystemSettings, useTranslation } from '@tachybase/client';
 
+import { IconGlobal } from './IconGlobal';
 import { useStyles } from './LanguageSwitcher.style';
 
 export const LanguageSwitcher = () => {
@@ -21,15 +22,17 @@ export const LanguageSwitcher = () => {
     [locale, enabledLanguages],
   );
 
+  const handleChangeLanguage = async (lang: string) => {
+    await api.auth.setLocale(lang);
+    window.location.reload();
+  };
+
   return (
     <SelectWithTitle
-      title={<span className={styles.iconGlobe}></span>}
+      title={<IconGlobal />}
       defaultValue={i18n.language}
       options={options}
-      onChange={async (lang) => {
-        api.auth.setLocale(lang);
-        window.location.reload();
-      }}
+      onChange={handleChangeLanguage}
     />
   );
 };
