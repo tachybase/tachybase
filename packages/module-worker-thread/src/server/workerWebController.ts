@@ -3,7 +3,7 @@ import { Application } from '@tachybase/server';
 import { Action, Controller } from '@tachybase/utils';
 
 import { NAMESPACE } from '../constants';
-import { WORKER_COUNT, WORKER_COUNT_MAX, WORKER_COUNT_SUB } from './constants';
+import { WORKER_COUNT, WORKER_COUNT_MAX, WORKER_COUNT_MAX_SUB, WORKER_COUNT_SUB } from './constants';
 import { WorkerWebInfo } from './workerTypes';
 
 @Controller('worker_thread')
@@ -22,11 +22,13 @@ export class WorkerWebController {
       const current = app.worker.getCurrentWorkerNum();
       const busy = app.worker.getBusyWorkerNum();
       const env = app.name === 'main' ? WORKER_COUNT : WORKER_COUNT_SUB;
+      const max = app.name === 'main' ? WORKER_COUNT_MAX : WORKER_COUNT_MAX_SUB;
       ctx.body = {
         preset,
         current,
         busy,
         env,
+        max,
       };
     }
     return next();
@@ -39,7 +41,8 @@ export class WorkerWebController {
       ctx.throw(400, ctx.t('Invalid worker count', { ns: NAMESPACE }));
     }
     const app = ctx.app as Application;
-    if (count > WORKER_COUNT_MAX) {
+    const countMax = app.name === 'main' ? WORKER_COUNT_MAX : WORKER_COUNT_MAX_SUB;
+    if (count > countMax) {
       ctx.throw(400, ctx.t('Too many workers', { ns: NAMESPACE }));
     }
     if (!app.worker) {
@@ -53,7 +56,7 @@ export class WorkerWebController {
   }
 
   @Action('restartAllForcely', { acl: 'private' })
-  async resetAllForcely(ctx: Context, next: Next) {
+  async restartAllForcely(ctx: Context, next: Next) {
     const app = ctx.app as Application;
     await app.worker.restartAllForcely();
     ctx.body = {
