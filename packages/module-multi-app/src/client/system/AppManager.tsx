@@ -36,19 +36,31 @@ const AppVisitor = () => {
   const resource = useMemo(() => {
     return apiClient.resource('applications');
   }, [apiClient]);
-  const handleStart = () => {
-    resource.start({ filterByTk: record.name }).then(() => {
-      notification.info({
-        key: NOTIFICATION_CLIENT_KEY,
-        message: (
-          <span>
-            {t('Processing...')} &nbsp; &nbsp;
-            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-          </span>
-        ),
-        duration: 0,
+  const handleStart = async () => {
+    try {
+      const response = await resource.start({ filterByTk: record.name });
+      if (response?.status === 205) {
+        notification.info({
+          key: NOTIFICATION_CLIENT_KEY,
+          message: t('App is already running'),
+        });
+      } else {
+        notification.info({
+          key: NOTIFICATION_CLIENT_KEY,
+          message: (
+            <span>
+              {t('Processing...')} &nbsp; &nbsp;
+              <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+            </span>
+          ),
+          duration: 0,
+        });
+      }
+    } catch (e) {
+      notification.error({
+        message: t('Failed to start app'),
       });
-    });
+    }
   };
   const handleStop = () => {
     resource.stop({ filterByTk: record.name }).then(() => {
