@@ -1,0 +1,13 @@
+{
+  "name": "@tachybase/plugin-block-step-form",
+  "version": "1.0.0",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "react-i18next": "^15.4.1"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
