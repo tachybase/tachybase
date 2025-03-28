@@ -18,22 +18,22 @@ export const useStyles = createStyles(({ css, token }) => ({
         .system-icon-radius {
           display: flex;
           ul {
-            background-color: #f5f8fe;
-            border-radius: 15px;
+            background-color: ${`${token.colorPrimaryBg}`};
             display: flex;
             list-style: none;
             justify-content: space-evenly;
             padding: 0 5px;
             margin: 0;
             margin-left: 10px;
+            border-radius: ${`${token.borderRadius}px`};
             li {
               padding: 3px 8px;
               cursor: pointer;
             }
             .syste-icon-checkout {
-              background-color: #3279fe;
+              border-radius: ${`${token.borderRadius}px`};
+              background-color: ${`${token.colorPrimaryHover}`};
               color: white;
-              border-radius: 15px;
             }
           }
         }
@@ -50,6 +50,7 @@ export const useStyles = createStyles(({ css, token }) => ({
           overflow: hidden;
           padding: 0;
           cursor: pointer;
+          border-radius: ${`${token.borderRadius}px`};
           .ant-color-picker-clear {
             width: 100%;
             height: 100%;
@@ -90,6 +91,7 @@ export const useStyles = createStyles(({ css, token }) => ({
             text-align: center;
             line-height: 30px;
             margin: 5px;
+            border-radius: ${`${token.borderRadius}px`};
             svg {
               width: 15px !important;
               height: 15px !important;
@@ -100,7 +102,7 @@ export const useStyles = createStyles(({ css, token }) => ({
     }
 
     .system-icon-bottom {
-      background-color: #f5f8fe;
+      background-color: ${`${token.colorPrimaryBg}`};
       height: 2.5dvw;
       width: 100%;
       position: sticky;
@@ -122,6 +124,11 @@ export const useStyles = createStyles(({ css, token }) => ({
               height: 22px !important;
             }
           }
+        }
+        .system-icon-bottom-li-active {
+          background-color: ${`${token.colorPrimaryHover}`};
+          border-radius: ${`${token.borderRadius}px`};
+          color: white;
         }
       }
     }

@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { ColorPicker } from 'antd';
-import { groupBy } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { Icon, icons } from '../../../../icon';
@@ -11,24 +10,31 @@ export const SystemIcon = (props) => {
   const { styles } = useStyles();
   const [size, setSize] = useState();
   const [color, setColor] = useState();
+  const [activeSection, setActiveSection] = useState('Directional');
+  const containerRef = useRef(null);
   const sizeProps = {
     ...props,
     size,
     setSize,
     color,
     setColor,
+    activeSection,
+    setActiveSection,
+    containerRef,
   };
+
   return (
     <div className={styles.systemIcon}>
       <SystemIconTop {...sizeProps} />
       <SystemIconMiddle {...sizeProps} />
-      <SystemIconBottom />
+      <SystemIconBottom {...sizeProps} />
     </div>
   );
 };
 
 const SystemIconTop = (props) => {
-  const { size, setSize, color, setColor, filterKey } = props;
+  const { size, setSize, color, setColor } = props;
+  const { t } = useTranslation();
   const styleBackgroudColor = [
     { background: 'linear-gradient( 138deg, #FFCBCB 21%, #FF7575 100%)' },
     { background: 'linear-gradient( 136deg, #FFD07D 0%, #F4A94D 57%, #FB9EB1 92%)' },
@@ -44,7 +50,7 @@ const SystemIconTop = (props) => {
   return (
     <div className={'system-icon-top'}>
       <div className={'system-icon-size'}>
-        选择底色
+        {`${t('Select base color')}`}
         <div className="system-icon-radius">
           <Icon
             type={'clearoutlined'}
@@ -60,7 +66,7 @@ const SystemIconTop = (props) => {
                 setSize('rounded');
               }}
             >
-              圆形
+              {t('Rotundity')}
             </li>
             <li
               className={`${size === 'smallRounded' ? 'syste-icon-checkout' : ''}`}
@@ -68,15 +74,15 @@ const SystemIconTop = (props) => {
                 setSize('smallRounded');
               }}
             >
-              小圆角
+              {t('Small Rounded')}
             </li>
             <li
-              className={`${size === 'bigRounded' ? 'syste-icon-checkout' : ''}`}
+              className={`${size === 'largeRounded' ? 'syste-icon-checkout' : ''}`}
               onClick={() => {
-                setSize('bigRounded');
+                setSize('largeRounded');
               }}
             >
-              大圆角
+              {t('Large Rounded')}
             </li>
           </ul>
         </div>
@@ -84,7 +90,16 @@ const SystemIconTop = (props) => {
       <ul className={'system-icon-style'}>
         {styleBackgroudColor.map((item, index) => {
           if (index + 1 === styleBackgroudColor.length) {
-            return <ColorPicker style={{ ...item, ...iconSize[size] }} value={color}></ColorPicker>;
+            const chekoutColor = styleBackgroudColor.find((colorItem) => colorItem.background === color);
+            return (
+              <ColorPicker
+                style={{ ...item, ...iconSize[size] }}
+                value={chekoutColor ? '' : color}
+                onChange={(color) => {
+                  setColor(color.toCssString());
+                }}
+              ></ColorPicker>
+            );
           }
           return (
             <li
@@ -101,9 +116,143 @@ const SystemIconTop = (props) => {
 };
 
 const SystemIconMiddle = (props) => {
-  const { currentKey, filterKey, onChange, changePop, size, color, value } = props;
+  const { filterKey, onChange, size, color, value, setActiveSection, containerRef } = props;
   const [clickValue, setClickValue] = useState();
   const { t } = useTranslation();
+  const iconKeysByFilter = getFilterKeys(filterKey, icons);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('.system-icon-category');
+      const middle = document.getElementById('system-icon-middle');
+      const middleRect = middle.getBoundingClientRect();
+      let currentSection = 'Application';
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+
+        if (rect.top - middleRect.top <= 70) {
+          currentSection = section.id;
+        }
+      });
+      setActiveSection(currentSection);
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+    }
+
+    return () => container?.removeEventListener('scroll', handleScroll);
+  }, [setActiveSection]);
+  return (
+    <div className={'system-icon-middle'} ref={containerRef} id="system-icon-middle">
+      {t('Select Icon')}
+      {Object.keys(iconKeysByFilter).map((item) => {
+        return iconKeysByFilter[item].length ? (
+          <div className={'system-icon-category'} id={item}>
+            <div className="title">{t(item)}</div>
+            <div className="icon">
+              {iconKeysByFilter[item].map((key) => {
+                let iconStyle = {};
+                if (key === clickValue || key === value) {
+                  iconStyle = { ...iconSize[size], background: color, border: '1px solid #D4D4D4 ' };
+                  if (color) {
+                    iconStyle['color'] = 'white';
+                  }
+                }
+                return (
+                  <div
+                    className="icon-li"
+                    style={{ ...iconStyle }}
+                    onClick={() => {
+                      onChange(key);
+                      setClickValue(key);
+                    }}
+                  >
+                    <Icon type={key} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : null;
+      })}
+    </div>
+  );
+};
+
+const SystemIconBottom = (props) => {
+  const { activeSection, containerRef } = props;
+
+  const handleClick = (id) => {
+    const section = document.getElementById(id);
+    if (section && containerRef.current) {
+      containerRef.current.scrollTo({
+        top: section.offsetTop - containerRef.current.offsetTop,
+        behavior: 'smooth',
+      });
+    }
+  };
+  const categoryIcons = [
+    {
+      id: 'Directional',
+      icon: 'rightcircleoutlined',
+    },
+    {
+      id: 'Suggested',
+      icon: 'exclamationcircleoutlined',
+    },
+    {
+      id: 'EditIcon',
+      icon: 'editoutlined',
+    },
+    {
+      id: 'DataIcon',
+      icon: 'pieChartoutlined',
+    },
+    {
+      id: 'Brand',
+      icon: 'globaloutlined',
+    },
+    {
+      id: 'Application',
+      icon: 'appstoreoutlined',
+    },
+  ];
+  return (
+    <div className={'system-icon-bottom'}>
+      <ul>
+        {categoryIcons.map((item) => {
+          return (
+            <li
+              className={`system-icon-bottom-li  ${activeSection === item.id ? 'system-icon-bottom-li-active' : ''}`}
+              onClick={() => {
+                handleClick(item.id);
+              }}
+            >
+              <Icon type={item.icon} />
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+};
+
+const iconSize = {
+  rounded: {
+    borderRadius: '50px',
+  },
+  smallRounded: {
+    borderRadius: '8px',
+  },
+  largeRounded: {
+    borderRadius: '11px',
+  },
+};
+
+const getFilterKeys = (filterKey, icons) => {
   const iconKeysByFilter = useMemo(() => {
     const iconFilter = {
       Directional: [],
@@ -133,73 +282,5 @@ const SystemIconMiddle = (props) => {
     });
     return iconFilter;
   }, [filterKey]);
-
-  return (
-    <div className={'system-icon-middle'}>
-      选择图标
-      {Object.keys(iconKeysByFilter).map((item) => {
-        return iconKeysByFilter[item].length ? (
-          <div className={'system-icon-category'}>
-            <div className="title">{t(item)}</div>
-            <div className="icon">
-              {iconKeysByFilter[item].map((key) => {
-                let iconStyle = {};
-                if (key === clickValue || key === value) {
-                  iconStyle = { ...iconSize[size], background: color, border: '1px solid #D4D4D4 ' };
-                }
-                return (
-                  <div
-                    className="icon-li"
-                    style={{ ...iconStyle }}
-                    onClick={() => {
-                      onChange(key);
-                      setClickValue(key);
-                    }}
-                  >
-                    <Icon type={key} />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ) : null;
-      })}
-    </div>
-  );
-};
-
-const SystemIconBottom = () => {
-  const categoryIcons = [
-    'rightcircleoutlined',
-    'exclamationcircleoutlined',
-    'editoutlined',
-    'pieChartoutlined',
-    'globaloutlined',
-    'appstoreoutlined',
-  ];
-  return (
-    <div className={'system-icon-bottom'}>
-      <ul>
-        {categoryIcons.map((item) => {
-          return (
-            <li>
-              <Icon type={item} />
-            </li>
-          );
-        })}
-      </ul>
-    </div>
-  );
-};
-
-const iconSize = {
-  rounded: {
-    borderRadius: '50px',
-  },
-  smallRounded: {
-    borderRadius: '8px',
-  },
-  bigRounded: {
-    borderRadius: '11px',
-  },
+  return iconKeysByFilter;
 };
