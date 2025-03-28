@@ -2,29 +2,39 @@ import { createStyles } from 'antd-style';
 
 export const useStyles = createStyles(({ css, token }) => ({
   systemIcon: css`
-    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    height: 17dvw;
     justify-content: space-between;
     background-color: #f8f8f8;
+    height: 21dvw;
     .system-icon-top {
       background-color: #ffffff;
       .system-icon-size {
         display: flex;
         justify-content: space-between;
-        padding: 5px 15px 0 15px;
+        padding: 5px 15px 15px 15px;
         border-radius: 0 0 8px 8px;
-        ul {
-          background-color: #f5f8fe;
-          border-radius: 15px;
+        .system-icon-radius {
           display: flex;
-          list-style: none;
-          justify-content: space-evenly;
-          padding: 0 5px;
-          li {
-            padding: 5px 10px;
+          ul {
+            background-color: #f5f8fe;
+            border-radius: 15px;
+            display: flex;
+            list-style: none;
+            justify-content: space-evenly;
+            padding: 0 5px;
+            margin: 0;
+            margin-left: 10px;
+            li {
+              padding: 3px 8px;
+              cursor: pointer;
+            }
+            .syste-icon-checkout {
+              background-color: #3279fe;
+              color: white;
+              border-radius: 15px;
+            }
           }
         }
       }
@@ -37,9 +47,9 @@ export const useStyles = createStyles(({ css, token }) => ({
         .ant-color-picker-trigger {
           width: 30px;
           height: 30px;
-          border-radius: 8px;
           overflow: hidden;
           padding: 0;
+          cursor: pointer;
           .ant-color-picker-clear {
             width: 100%;
             height: 100%;
@@ -63,10 +73,57 @@ export const useStyles = createStyles(({ css, token }) => ({
     .system-icon-middle {
       flex: 1;
       padding: 5px 15px;
+      height: 18dvw;
+      overflow-y: scroll;
+      .system-icon-category {
+        background-color: #ffffff;
+        margin-top: 10px;
+        .title {
+          padding: 10px;
+        }
+        .icon {
+          display: flex;
+          flex-wrap: wrap;
+          .icon-li {
+            height: 30px;
+            width: 30px;
+            text-align: center;
+            line-height: 30px;
+            margin: 5px;
+            svg {
+              width: 15px !important;
+              height: 15px !important;
+            }
+          }
+        }
+      }
     }
 
     .system-icon-bottom {
-      background-color: red;
+      background-color: #f5f8fe;
+      height: 2.5dvw;
+      width: 100%;
+      position: sticky;
+      bottom: 0;
+      box-shadow: 0px -4px 5px rgba(0, 0, 0, 0.1);
+      ul {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        li {
+          .anticon {
+            padding: 8px 10px;
+            svg {
+              width: 22px !important;
+              height: 22px !important;
+            }
+          }
+        }
+      }
     }
   `,
 }));

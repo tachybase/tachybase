@@ -4,25 +4,21 @@ import _ from 'lodash';
 import { Icon, useTranslation } from '../../../..';
 import { useStyles } from './SearchInput.style';
 
-export const SearchInput = () => {
+export const SearchInput = (props) => {
+  const { changeFilterKey } = props;
   const { styles } = useStyles();
   const { t } = useTranslation();
   const handleChange = _.debounce((event) => {
-    event.stopPropagation();
     const searchValue = event.target.value.trim();
+    changeFilterKey(searchValue);
   }, 500);
-
-  const handleSearch = (value, event) => {
-    event.stopPropagation();
-  };
   return (
-    <Input.Search
+    <Input
       className={styles.searchInput}
       allowClear
       placeholder={t('')}
       prefix={<Icon type="SearchOutlined" />}
       onChange={handleChange}
-      onSearch={handleSearch}
     />
   );
 };

@@ -18,7 +18,7 @@ export const IconPickerContentV2 = (props) => {
       {
         key: 'icon',
         label: '图标',
-        children: <SystemIcon />,
+        children: <SystemIcon {...props} />,
       },
       {
         key: 'custom',
@@ -26,16 +26,17 @@ export const IconPickerContentV2 = (props) => {
         children: <UploadConfigIcon />,
       },
     ],
-    [],
+    [props],
   );
 
   return (
-    <Tabs
-      className={styles.iconPickerContent}
-      tabBarExtraContent={<SearchInput />}
-      defaultActiveKey="icon"
-      items={items}
-      onChange={onChange}
-    />
+    <div className={styles.iconPickerContent}>
+      <Tabs
+        tabBarExtraContent={<SearchInput changeFilterKey={setFilterKey} />}
+        defaultActiveKey="icon"
+        items={items}
+        onChange={onChange}
+      />
+    </div>
   );
 };
