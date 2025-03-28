@@ -324,66 +324,64 @@ export const clickToSelect = {
     });
     const defParentVal = fieldSchema['x-component-props']?.['quickAddParentCollection']?.value || 'none';
 
-    const schema = useMemo<ISchema>(() => {
-      return {
-        type: 'object',
-        title: t('Click to select'),
-        properties: {
-          isquickaddtabs: {
-            title: t('Enable quick create'),
-            type: 'boolean',
-            default: fieldSchema['x-component-props']?.isQuickAdd || false,
-            'x-decorator': 'FormItem',
-            'x-component': 'Switch',
-            'x-component-props': {},
-          },
-          firstLevelselection: {
-            title: t('Set Quick Add Tabs'),
-            default: firstLevelValue,
-            'x-decorator': 'FormItem',
-            'x-component': 'Select',
-            enum: fieldTabsOptions,
-            'x-reactions': [
-              {
-                dependencies: ['isquickaddtabs'],
-                fulfill: {
-                  state: {
-                    visible: '{{$deps[0] === true}}',
-                  },
+    const schema = {
+      type: 'object',
+      title: t('Click to select'),
+      properties: {
+        isquickaddtabs: {
+          title: t('Enable quick create'),
+          type: 'boolean',
+          default: fieldSchema['x-component-props']?.isQuickAdd || false,
+          'x-decorator': 'FormItem',
+          'x-component': 'Switch',
+          'x-component-props': {},
+        },
+        firstLevelselection: {
+          title: t('Set Quick Add Tabs'),
+          default: firstLevelValue,
+          'x-decorator': 'FormItem',
+          'x-component': 'Select',
+          enum: fieldTabsOptions,
+          'x-reactions': [
+            {
+              dependencies: ['isquickaddtabs'],
+              fulfill: {
+                state: {
+                  visible: '{{$deps[0] === true}}',
                 },
-              },
-            ],
-            'x-component-props': {
-              onChange(value) {
-                setFirstLevelValue(value);
               },
             },
+          ],
+          'x-component-props': {
+            onChange(value) {
+              setFirstLevelValue(value);
+            },
           },
-          secondLevelselection: {
-            title: t('Set Quick Add Parent Tabs'),
-            default: defParentVal,
-            'x-decorator': 'FormItem',
-            'x-component': 'SecondLevelSelect',
-            'x-reactions': [
-              {
-                dependencies: ['firstLevelselection', 'isquickaddtabs'],
-                fulfill: {
-                  state: {
-                    visible: '{{$deps[0] !== "none" && $deps[1] === true}}',
-                  },
-                  schema: {
-                    'x-component-props': {
-                      firstLevelValue: '{{$deps[0]}}',
-                      collectionField: fieldSchema['x-collection-field'],
-                    },
+        },
+        secondLevelselection: {
+          title: t('Set Quick Add Parent Tabs'),
+          default: defParentVal,
+          'x-decorator': 'FormItem',
+          'x-component': 'SecondLevelSelect',
+          'x-reactions': [
+            {
+              dependencies: ['firstLevelselection', 'isquickaddtabs'],
+              fulfill: {
+                state: {
+                  visible: '{{$deps[0] !== "none" && $deps[1] === true}}',
+                },
+                schema: {
+                  'x-component-props': {
+                    firstLevelValue: '{{$deps[0]}}',
+                    collectionField: fieldSchema['x-collection-field'],
                   },
                 },
               },
-            ],
-          },
+            },
+          ],
         },
-      };
-    }, [firstLevelValue, fieldParentTabsOptions]);
+      },
+    };
 
     return {
       components: {
@@ -411,13 +409,13 @@ export const clickToSelect = {
 
         fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
         fieldSchema['x-component-props']['quickAddParentCollection'] = {
-          collectionField: `${fieldSchema['x-collection-field']}.${firstLevelValue}.${secondLevelselection}`,
+          collectionField: `${fieldSchema['x-collection-field']}.${firstLevelselection}.${secondLevelselection}`,
           value: secondLevelselection,
         };
         schema['x-component-props'] = fieldSchema['x-component-props'];
         field.componentProps = field.componentProps || {};
         field.componentProps['quickAddParentCollection'] = {
-          collectionField: `${fieldSchema['x-collection-field']}.${firstLevelValue}.${secondLevelselection}`,
+          collectionField: `${fieldSchema['x-collection-field']}.${firstLevelselection}.${secondLevelselection}`,
           value: secondLevelselection,
         };
 

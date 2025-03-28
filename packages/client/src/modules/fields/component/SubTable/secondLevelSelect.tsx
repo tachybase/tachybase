@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { connect, mapProps, mapReadPretty, toArr, useFieldSchema } from '@tachybase/schema';
 
 import { CloseCircleFilled, CloseOutlined, LoadingOutlined } from '@ant-design/icons';
@@ -25,7 +26,6 @@ export const SecondLevelSelect = connect(
     const { objectValue, loading, value, rawOptions, defaultValue, firstLevelValue, collectionField, ...others } =
       props;
     const { t } = useTranslation();
-    const fieldSchema = useFieldSchema();
     const compile = useCompile();
     const cm = useCollectionManager();
     let mode: any = props.multiple ? 'multiple' : props.mode;
@@ -54,7 +54,15 @@ export const SecondLevelSelect = connect(
       label: t('none'),
       value: 'none',
     });
-    debugger;
+    const matchedOption = fieldParentTabsOptions.find((option) => option.value === value);
+    const newValue = matchedOption ? value : 'none';
+
+    useEffect(() => {
+      if (!matchedOption) {
+        props.onChange?.('none');
+      }
+    }, [value, fieldParentTabsOptions]);
+
     return (
       <AntdSelect
         // @ts-ignore
@@ -67,7 +75,7 @@ export const SecondLevelSelect = connect(
         }}
         popupMatchSelectWidth={false}
         notFoundContent={loading ? <Spin /> : <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}
-        value={toValue(value)}
+        value={toValue(newValue)}
         defaultValue={toValue(defaultValue)}
         tagRender={(props) => {
           return (

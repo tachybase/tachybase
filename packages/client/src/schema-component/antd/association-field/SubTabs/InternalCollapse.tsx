@@ -171,6 +171,7 @@ export const InternalTabs = observer((props) => {
   useDeepCompareEffect(() => {
     if (!defOptions.length) return;
     const fieldTabs = field.value;
+    if (!fieldTabs) return;
     if (quickAddParentField && quickAddParentField?.value !== 'none') {
       const filterParantOptions = tabsParantFilterOptions(defOptions, fieldTabs, quickAddField);
       setDefOptions(filterParantOptions);
