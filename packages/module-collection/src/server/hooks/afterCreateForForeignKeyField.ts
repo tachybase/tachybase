@@ -190,7 +190,7 @@ export function afterCreateForForeignKeyField(db: Database) {
     try {
       await hook(model, options);
     } catch (error) {
-      /* empty */
+      console.log(error);
     }
   };
 }

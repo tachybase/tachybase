@@ -14,6 +14,8 @@ export class SyncRunner {
   private readonly database: Database;
   private tableDescMap = {};
 
+  private uniqueAttributes: string[] = [];
+
   constructor(private model: typeof Model) {
     this.collection = model.collection;
     this.database = model.database;
@@ -44,8 +46,8 @@ export class SyncRunner {
       return;
     }
 
+    // @ts-ignore
     const collectionSyncOptions = this.database.collectionFactory.collectionTypes.get(
-      // @ts-ignore
       this.collection.constructor,
     )?.onSync;
 
@@ -66,6 +68,19 @@ export class SyncRunner {
       throw e;
     }
 
+    let beforeColumns;
+
+    try {
+      beforeColumns = await this.queryInterface.describeTable(this.tableName, options);
+    } catch (error) {
+      // continue
+    }
+
+    if (beforeColumns) {
+      await this.handlePrimaryKeyBeforeSync(beforeColumns, options);
+      await this.handleUniqueFieldBeforeSync(beforeColumns, options);
+    }
+
     const syncResult = await this.performSync(options);
     const columns = await this.queryInterface.describeTable(this.tableName, options);
 
@@ -76,44 +91,91 @@ export class SyncRunner {
     return syncResult;
   }
 
-  async handlePrimaryKey(columns, options) {
-    if (!this.database.inDialect('postgres')) {
+  async handleUniqueFieldBeforeSync(beforeColumns, options) {
+    if (!this.database.inDialect('sqlite')) {
       return;
     }
+    // find new attributes with unique true
+    const newAttributes = Object.keys(this.rawAttributes).filter((key) => {
+      return !Object.keys(beforeColumns).includes(this.rawAttributes[key].field) && this.rawAttributes[key].unique;
+    });
 
+    this.uniqueAttributes = newAttributes;
+
+    // set unique false for new attributes to skip sequelize sync error
+    for (const newAttribute of newAttributes) {
+      this.rawAttributes[newAttribute].unique = false;
+    }
+  }
+
+  async handlePrimaryKeyBeforeSync(columns, options) {
+    const columnsBePrimaryKey = Object.keys(columns)
+      .filter((key) => {
+        return columns[key].primaryKey === true;
+      })
+      .sort();
+
+    const columnsWillBePrimaryKey = Object.keys(this.rawAttributes)
+      .filter((key) => {
+        return this.rawAttributes[key].primaryKey === true;
+      })
+      .map((key) => {
+        return this.rawAttributes[key].field;
+      })
+      .sort();
+
+    if (columnsBePrimaryKey.length === 1 && !columnsWillBePrimaryKey.includes(columnsBePrimaryKey[0])) {
+      // remove primary key
+      if (this.database.inDialect('mariadb', 'mysql')) {
+        await this.sequelize.query(`ALTER TABLE ${this.collection.quotedTableName()} DROP PRIMARY KEY;`, options);
+      }
+    }
+  }
+
+  async handlePrimaryKey(columns, options) {
     try {
       const columnsBePrimaryKey = Object.keys(columns)
         .filter((key) => {
-          return columns[key].primaryKey == true;
+          return columns[key].primaryKey === true;
         })
         .sort();
 
       const columnsWillBePrimaryKey = Object.keys(this.rawAttributes)
         .filter((key) => {
-          return this.rawAttributes[key].primaryKey == true;
+          return this.rawAttributes[key].primaryKey === true;
         })
         .map((key) => {
           return this.rawAttributes[key].field;
         })
         .sort();
 
-      if (columnsWillBePrimaryKey.length == 0) {
-        // skip if no primary key
+      if (columnsWillBePrimaryKey.length === 0) {
         return;
       }
 
-      if (JSON.stringify(columnsBePrimaryKey) != JSON.stringify(columnsWillBePrimaryKey)) {
-        await this.queryInterface.addConstraint(this.tableName, {
-          type: 'primary key',
-          fields: columnsWillBePrimaryKey,
-          name: `${this.collection.tableName()}_${columnsWillBePrimaryKey.join('_')}_pk`,
-          transaction: options?.transaction,
-        });
+      if (
+        columnsWillBePrimaryKey.length === 1 &&
+        JSON.stringify(columnsBePrimaryKey) !== JSON.stringify(columnsWillBePrimaryKey)
+      ) {
+        if (this.database.inDialect('mariadb', 'mysql')) {
+          await this.sequelize.query(
+            `ALTER TABLE ${this.collection.quotedTableName()} ADD PRIMARY KEY (${columnsWillBePrimaryKey[0]});`,
+            options,
+          );
+        } else {
+          await this.queryInterface.addConstraint(this.tableName, {
+            type: 'primary key',
+            fields: columnsWillBePrimaryKey,
+            name: `${this.collection.tableName()}_${columnsWillBePrimaryKey.join('_')}_pk`,
+            transaction: options?.transaction,
+          });
+        }
       }
     } catch (e) {
       if (e.message.includes('No description found')) {
         return;
       }
+      throw e;
     }
   }
 
@@ -146,7 +208,7 @@ export class SyncRunner {
 
       if (columnDefaultValue === 'NULL' && attributeDefaultValue === null) continue;
 
-      if (columnDefaultValue != attributeDefaultValue) {
+      if (columnDefaultValue !== attributeDefaultValue) {
         const changeAttribute = {
           ...currentAttribute,
           defaultValue: attributeDefaultValue,
@@ -179,16 +241,20 @@ export class SyncRunner {
   }
 
   async handleUniqueIndex(options) {
+    for (const uniqueAttribute of this.uniqueAttributes) {
+      this.rawAttributes[uniqueAttribute].unique = true;
+    }
+
     const existsIndexes: any = await this.queryInterface.showIndex(this.collection.getTableNameWithSchema(), options);
     const existsUniqueIndexes = existsIndexes.filter((index) => index.unique);
 
     const uniqueAttributes = Object.keys(this.rawAttributes).filter((key) => {
-      return this.rawAttributes[key].unique == true;
+      return this.rawAttributes[key].unique === true;
     });
 
     // remove unique index that not in model
     for (const existUniqueIndex of existsUniqueIndexes) {
-      const isSingleField = existUniqueIndex.fields.length == 1;
+      const isSingleField = existUniqueIndex.fields.length === 1;
       if (!isSingleField) continue;
 
       const columnName = existUniqueIndex.fields[0].attribute;
@@ -221,13 +287,14 @@ export class SyncRunner {
     for (const uniqueAttribute of uniqueAttributes) {
       // check index exists or not
       const indexExists = existsUniqueIndexes.find((index) => {
-        return index.fields.length == 1 && index.fields[0].attribute == this.rawAttributes[uniqueAttribute].field;
+        return index.fields.length === 1 && index.fields[0].attribute === this.rawAttributes[uniqueAttribute].field;
       });
 
       if (!indexExists) {
         await this.queryInterface.addIndex(this.tableName, [this.rawAttributes[uniqueAttribute].field], {
           unique: true,
           transaction: options?.transaction,
+          name: `${this.collection.tableName()}_${this.rawAttributes[uniqueAttribute].field}_uk`,
         });
       }
     }
@@ -278,7 +345,7 @@ export class SyncRunner {
   findAttributeByColumnName(columnName: string): any {
     return Object.values(this.rawAttributes).find((attribute) => {
       // @ts-ignore
-      return attribute.field == columnName;
+      return attribute.field === columnName;
     });
   }
 
@@ -322,7 +389,7 @@ export class SyncRunner {
     // @ts-ignore
     const _schema = this.model._schema;
 
-    if (_schema && _schema != 'public') {
+    if (_schema && _schema !== 'public') {
       await this.sequelize.query(`CREATE SCHEMA IF NOT EXISTS "${_schema}";`, {
         raw: true,
         transaction: options?.transaction,
