@@ -81,6 +81,7 @@
     "@tachybase/plugin-simple-cms": "workspace:*",
     "@tachybase/plugin-sub-accounts": "workspace:*",
     "@tachybase/plugin-theme-editor": "workspace:*",
+    "@tachybase/plugin-validator": "workspace:*",
     "@tachybase/plugin-workflow-analysis": "workspace:*",
     "@tachybase/plugin-workflow-approval": "workspace:*",
     "@tachybase/schema": "workspace:*",
