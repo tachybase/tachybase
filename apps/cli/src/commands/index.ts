@@ -7,6 +7,7 @@ import createNginxConf from './create-nginx-conf';
 import createPlugin from './create-plugin';
 import dev from './dev';
 import e2e from './e2e';
+import electron from './electron';
 import global from './global';
 import pm2 from './pm2';
 import postinstall from './postinstall';
@@ -30,4 +31,5 @@ export default async (cli: Command) => {
   upgrade(cli);
   postinstall(cli);
   createPlugin(cli);
+  electron(cli);
 };
