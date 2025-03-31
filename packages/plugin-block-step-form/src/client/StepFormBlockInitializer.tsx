@@ -6,7 +6,7 @@ import {
   useSchemaInitializerItem,
 } from '@tachybase/client';
 
-import schema from './StepFormBlockInitializer.schema';
+import getSchemaStepFormBlockInitializer from './StepFormBlockInitializer.schema';
 
 const StepFormBlockInitializer = () => {
   const { insert } = useSchemaInitializer();
@@ -15,7 +15,9 @@ const StepFormBlockInitializer = () => {
 
   const handleCreateBlockSchema = async ({ item }) => {
     const collection = cm.getCollection(item.name);
-    insert(schema);
+    const remoteSchema = getSchemaStepFormBlockInitializer({ collection });
+
+    insert(remoteSchema);
   };
 
   return (
