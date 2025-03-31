@@ -22,7 +22,6 @@ export const AppList = () => {
 
   return (
     <Card
-      title={t('Multi-app display')}
       style={{
         backgroundColor: 'transparent',
         border: 'none',
