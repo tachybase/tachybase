@@ -1,20 +1,24 @@
+import React, { Suspense } from 'react';
 import { Plugin } from '@tachybase/client';
 
+import { Skeleton } from 'antd';
+
+import { lang } from './locale';
+
+const StepFormBlockInitializer = React.lazy(() => import('./StepFormBlockInitializer'));
+
 class PluginBlockStepFormClient extends Plugin {
-  async afterAdd() {
-    // await this.app.pm.add()
-  }
-
-  async beforeLoad() {}
-
-  // You can get and modify the app instance here
   async load() {
-    console.log(this.app);
-    // this.app.addComponents({})
-    // this.app.addScopes({})
-    // this.app.addProvider()
-    // this.app.addProviders()
-    // this.app.router.add()
+    const blockInitializers = this.app.schemaInitializerManager.get('page:addBlock');
+
+    blockInitializers?.add('dataBlocks.stepForm', {
+      title: lang('Step form'),
+      Component: () => (
+        <Suspense fallback={<Skeleton.Button active />}>
+          <StepFormBlockInitializer />
+        </Suspense>
+      ),
+    });
   }
 }
 
