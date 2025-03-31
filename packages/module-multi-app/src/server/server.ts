@@ -245,8 +245,7 @@ export class PluginMultiAppManager extends Plugin {
     // 主动告知客户端状态变化
     AppSupervisor.getInstance().on('appStatusChanged', notifyStatusChange);
 
-    this.app.acl.allow('applications', 'listPinned', 'loggedIn');
-    this.app.acl.allow('applications', 'list', 'loggedIn');
+    this.app.acl.allow('applications', ['list', 'create', 'update', 'destroy', 'start', 'stop'], 'loggedIn');
 
     this.app.acl.registerSnippet({
       name: `pm.${this.name}.applications`,
