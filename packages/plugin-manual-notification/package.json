@@ -1,0 +1,13 @@
+{
+  "name": "@tachybase/plugin-manual-notification",
+  "version": "1.0.0",
+  "main": "dist/server/index.js",
+  "devDependencies": {
+    "antd": "5.22.5"
+  },
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
