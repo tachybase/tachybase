@@ -31,6 +31,11 @@ function getFileData(ctx: Context) {
   const filename = path.basename(name);
   const extname = path.extname(filename);
   const urlPath = storage.path ? storage.path.replace(/^([^/])/, '/$1') : '';
+  let create_user_id = '';
+  if (storage.type === 'local' && storage.create_user_id) {
+    storage.create_user_id = storage.create_user_id.replace(/^([^/])/, '/$1');
+    create_user_id = `/${storage.create_user_id}`;
+  }
 
   return {
     title: Buffer.from(file.originalname, 'latin1').toString('utf8').replace(extname, ''),
@@ -40,7 +45,7 @@ function getFileData(ctx: Context) {
     path: storage.path,
     size: file.size,
     // 直接缓存起来
-    url: `${storage.baseUrl}${urlPath}/${filename}`,
+    url: `${storage.baseUrl}${create_user_id}${urlPath}/${filename}`,
     mimetype: file.mimetype,
     // @ts-ignore
     meta: ctx.request.body,

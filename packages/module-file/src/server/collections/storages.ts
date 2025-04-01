@@ -60,5 +60,11 @@ export default defineCollection({
       name: 'paranoid',
       defaultValue: false,
     },
+    {
+      // 主应用创建者的用户id
+      type: 'bigInt',
+      name: 'create_user_id',
+      defaultValue: false,
+    },
   ],
 });
