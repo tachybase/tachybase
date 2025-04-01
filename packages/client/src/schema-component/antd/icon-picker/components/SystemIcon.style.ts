@@ -88,8 +88,9 @@ export const useStyles = createStyles(({ css, token }) => ({
           .icon-li {
             height: 30px;
             width: 30px;
-            text-align: center;
-            line-height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin: 5px;
             border-radius: ${`${token.borderRadius}px`};
             svg {
@@ -117,8 +118,10 @@ export const useStyles = createStyles(({ css, token }) => ({
         margin: 0;
         height: 100%;
         li {
+          width: 40px !important;
+          height: 40px !important;
           .anticon {
-            padding: 8px 10px;
+            padding: 8px 10px !important;
             svg {
               width: 22px !important;
               height: 22px !important;

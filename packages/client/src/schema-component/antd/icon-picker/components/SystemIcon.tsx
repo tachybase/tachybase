@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useFieldSchema } from '@tachybase/schema';
 
 import { ColorPicker } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -35,18 +36,7 @@ export const SystemIcon = (props) => {
 const SystemIconTop = (props) => {
   const { size, setSize, color, setColor } = props;
   const { t } = useTranslation();
-  const styleBackgroudColor = [
-    { background: 'linear-gradient( 138deg, #FFCBCB 21%, #FF7575 100%)' },
-    { background: 'linear-gradient( 136deg, #FFD07D 0%, #F4A94D 57%, #FB9EB1 92%)' },
-    { background: 'linear-gradient( 135deg, #9EC56F 32%, #77D19A 88%)' },
-    { background: 'linear-gradient( 136deg, #62D4C3 50%, #66CCE0 91%)' },
-    { background: 'linear-gradient( 136deg, #9FCAFF 0%, #606CFF 72%, #705DFF 100%)' },
-    { background: 'linear-gradient( 135deg, #8895F6 0%, #828FF4 27%, #956CF5 100%)' },
-    {
-      background:
-        'conic-gradient( from 179.99999762840656deg at 85.99999248981476% 86.00000143051147%, #7796FD 1%, #FBCAFD 14%, #C2FCFF 31%, #7C90FF 50%, #A1A5F4 70%, #BDF1FF 87%)',
-    },
-  ];
+
   return (
     <div className={'system-icon-top'}>
       <div className={'system-icon-size'}>
@@ -93,7 +83,7 @@ const SystemIconTop = (props) => {
             const chekoutColor = styleBackgroudColor.find((colorItem) => colorItem.background === color);
             return (
               <ColorPicker
-                style={{ ...item, ...iconSize[size] }}
+                style={{ ...item, borderRadius: iconSize[size]?.borderRadius }}
                 value={chekoutColor ? '' : color}
                 onChange={(color) => {
                   setColor(color.toCssString());
@@ -103,7 +93,7 @@ const SystemIconTop = (props) => {
           }
           return (
             <li
-              style={{ ...item, ...iconSize[size] }}
+              style={{ ...item, borderRadius: iconSize[size]?.borderRadius }}
               onClick={() => {
                 setColor(item.background);
               }}
@@ -120,7 +110,6 @@ const SystemIconMiddle = (props) => {
   const [clickValue, setClickValue] = useState();
   const { t } = useTranslation();
   const iconKeysByFilter = getFilterKeys(filterKey, icons);
-
   useEffect(() => {
     const handleScroll = () => {
       const sections = document.querySelectorAll('.system-icon-category');
@@ -145,6 +134,19 @@ const SystemIconMiddle = (props) => {
 
     return () => container?.removeEventListener('scroll', handleScroll);
   }, [setActiveSection]);
+
+  const iconChange = (key) => {
+    // const changeProps = {
+    //   iconValue:key,
+    //   background: color,
+    //   borderRadius: iconSize[size]?.borderRadius,
+    // };
+    // if (color) {
+    //   changeProps['color']='white'
+    // }
+    onChange(key);
+    setClickValue(key);
+  };
   return (
     <div className={'system-icon-middle'} ref={containerRef} id="system-icon-middle">
       {t('Select Icon')}
@@ -156,7 +158,11 @@ const SystemIconMiddle = (props) => {
               {iconKeysByFilter[item].map((key) => {
                 let iconStyle = {};
                 if (key === clickValue || key === value) {
-                  iconStyle = { ...iconSize[size], background: color, border: '1px solid #D4D4D4 ' };
+                  iconStyle = {
+                    borderRadius: iconSize[key]?.borderRadius,
+                    background: color,
+                    border: '1px solid #D4D4D4 ',
+                  };
                   if (color) {
                     iconStyle['color'] = 'white';
                   }
@@ -166,8 +172,7 @@ const SystemIconMiddle = (props) => {
                     className="icon-li"
                     style={{ ...iconStyle }}
                     onClick={() => {
-                      onChange(key);
-                      setClickValue(key);
+                      iconChange(key);
                     }}
                   >
                     <Icon type={key} />
@@ -251,6 +256,19 @@ const iconSize = {
     borderRadius: '11px',
   },
 };
+
+const styleBackgroudColor = [
+  { background: 'linear-gradient( 138deg, #FFCBCB 21%, #FF7575 100%)' },
+  { background: 'linear-gradient( 136deg, #FFD07D 0%, #F4A94D 57%, #FB9EB1 92%)' },
+  { background: 'linear-gradient( 135deg, #9EC56F 32%, #77D19A 88%)' },
+  { background: 'linear-gradient( 136deg, #62D4C3 50%, #66CCE0 91%)' },
+  { background: 'linear-gradient( 136deg, #9FCAFF 0%, #606CFF 72%, #705DFF 100%)' },
+  { background: 'linear-gradient( 135deg, #8895F6 0%, #828FF4 27%, #956CF5 100%)' },
+  {
+    background:
+      'conic-gradient( from 179.99999762840656deg at 85.99999248981476% 86.00000143051147%, #7796FD 1%, #FBCAFD 14%, #C2FCFF 31%, #7C90FF 50%, #A1A5F4 70%, #BDF1FF 87%)',
+  },
+];
 
 const getFilterKeys = (filterKey, icons) => {
   const iconKeysByFilter = useMemo(() => {
