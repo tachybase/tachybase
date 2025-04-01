@@ -1,4 +1,5 @@
 import path from 'path';
+import { Context } from '@tachybase/actions';
 import { Database, IDatabaseOptions, Transactionable } from '@tachybase/database';
 import Application, { AppSupervisor, Gateway, Plugin } from '@tachybase/server';
 
@@ -59,7 +60,7 @@ const defaultSubAppUpgradeHandle: SubAppUpgradeHandler = async (mainApp: Applica
   }
 };
 
-const defaultDbCreator = async (app: Application) => {
+const defaultDbCreator = async (app: Application, { context }: { context: Context }) => {
   const databaseOptions = app.options.database as any;
   const { host, port, username, password, dialect, database } = databaseOptions;
   const tmpl = app.options?.tmpl;
@@ -121,6 +122,29 @@ const defaultDbCreator = async (app: Application) => {
       } else {
         await client.query(`CREATE DATABASE "${database}"`);
       }
+
+      // 新建一个client, 修改数据库里的原始用户id和parent_id
+      const newClient = new Client({
+        host,
+        port,
+        user: username,
+        password,
+        database,
+      });
+      await newClient.connect();
+      // originalInfo插入一条数据create_user_id是当前用户id, parent_id是当前应用的name
+      let create_user_id;
+      if (app.name === 'main') {
+        create_user_id = context.state.currentUser.id;
+      } else {
+        const originalInfo = await context.db.getRepository('originalInfo').findOne();
+        create_user_id = originalInfo.create_user_id;
+      }
+      // TODO: 非模板创建的应用怎么办
+      await newClient.query(
+        `INSERT INTO originalInfo (create_user_id, parent_id) VALUES (${create_user_id}, ${app.name})`,
+      );
+      await newClient.end();
     } catch (e) {
       app.logger.error(JSON.stringify(e));
       AppSupervisor.getInstance().setAppError(database, e);
