@@ -10,5 +10,15 @@ export default defineCollection({
       type: 'boolean',
       name: 'default',
     },
+    {
+      type: 'bigInt',
+      name: 'userId',
+      primaryKey: true,
+    },
+    {
+      type: 'string',
+      name: 'roleName',
+      primaryKey: true,
+    },
   ],
 });
