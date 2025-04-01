@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/app-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
