@@ -21,6 +21,7 @@ export default class PluginBackupRestoreServer extends Plugin {
 
     return dumper.runDumpTask({
       groups: new Set(data.dataTypes) as Set<DumpRulesGroupType>,
+      appName: this.app.name,
     });
   }
 }
