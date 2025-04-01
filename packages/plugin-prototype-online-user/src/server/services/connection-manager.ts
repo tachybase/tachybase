@@ -75,7 +75,7 @@ export class ConnectionManager {
           users,
         },
       });
-      if (broadcast) {
+      if (broadcast && this.app.online.pub.isOpen) {
         await this.app.online.pub.PUBLISH(KEY_ONLINE_USERS + appName, currentProcessNum());
       }
     };
@@ -93,6 +93,9 @@ export class ConnectionManager {
         await notifyAllClients();
       });
       ws.on('close', async () => {
+        if (!this.app?.online?.all?.isOpen) {
+          return;
+        }
         await this.app.online.all.HDEL(KEY_ONLINE_USERS + appName, ws.id);
         await notifyAllClients();
       });
