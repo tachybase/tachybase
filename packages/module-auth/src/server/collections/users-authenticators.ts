@@ -19,7 +19,6 @@ export default defineCollection({
       name: 'id',
       type: 'bigInt',
       autoIncrement: true,
-      primaryKey: true,
       allowNull: false,
     },
     /**
@@ -70,6 +69,16 @@ export default defineCollection({
       type: 'json',
       name: 'meta',
       defaultValue: {},
+    },
+    {
+      type: 'bigInt',
+      name: 'userId',
+      primaryKey: true,
+    },
+    {
+      type: 'string',
+      name: 'authenticator',
+      primaryKey: true,
     },
   ],
 });
