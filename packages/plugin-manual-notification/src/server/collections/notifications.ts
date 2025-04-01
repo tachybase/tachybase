@@ -18,5 +18,13 @@ export default {
       type: 'string',
       name: 'detail',
     },
+    {
+      type: 'float',
+      name: 'duration',
+    },
+    {
+      type: 'string',
+      name: 'level',
+    },
   ],
 } as CollectionOptions;

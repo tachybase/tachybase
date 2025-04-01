@@ -1,10 +1,12 @@
 {
-  "About Platform": "About the Platform",
-  "About Tachybase": "About Tachybase",
-  "DateComponent": "Date Component",
-  "Guess you want": "What you might want to know",
-  "How To Start": "How To Start",
-  "InformationForm": "Information Form",
-  "LoginComponent": "Login Component",
-  "What Can We Do": "What Can We Do"
+  "Add notification": "Add Notification",
+  "Detail": "Content",
+  "Edit notification": "Edit Notification",
+  "Manual Notification": "Custom Notification",
+  "Notification Config": "Notification Configuration",
+  "Notification duration": "Notification Duration",
+  "Notification level": "Notification Level",
+  "Notification title": "Notification Title",
+  "Send": "Send",
+  "Set to manual close when this item is empty": "Set to manual close when this field is empty"
 }

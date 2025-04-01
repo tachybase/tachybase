@@ -73,6 +73,7 @@
     "@tachybase/plugin-full-text-search": "workspace:*",
     "@tachybase/plugin-i18n-editor": "workspace:*",
     "@tachybase/plugin-log-viewer": "workspace:*",
+    "@tachybase/plugin-manual-notification": "workspace:*",
     "@tachybase/plugin-mock-collections": "workspace:*",
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
     "@tachybase/plugin-online-user": "workspace:*",

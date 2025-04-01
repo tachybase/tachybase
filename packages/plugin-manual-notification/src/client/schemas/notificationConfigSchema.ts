@@ -23,7 +23,7 @@ export const notificationCollection = {
       name: 'title',
       uiSchema: {
         type: 'string',
-        title: '{{t("Title")}}',
+        title: `{{t("Notification title", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'Input',
       } as ISchema,
     },
@@ -33,8 +33,57 @@ export const notificationCollection = {
       name: 'detail',
       uiSchema: {
         type: 'string',
-        title: '{{t("Detail")}}',
+        title: `{{t("Detail", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'Input.TextArea',
+      } as ISchema,
+    },
+    {
+      interface: 'input',
+      type: 'number',
+      name: 'duration',
+      uiSchema: {
+        type: 'number',
+        title: `{{t("Notification duration", { ns: "${NAMESPACE}" })}}`,
+        description: `{{t('Set to manual close when this item is empty', { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'InputNumber',
+        'x-read-pretty': true,
+        'x-component-props': {
+          min: 0,
+          max: 999,
+          suffix: 's',
+        },
+      } as ISchema,
+    },
+    {
+      interface: 'select',
+      type: 'string',
+      name: 'level',
+      uiSchema: {
+        type: 'string',
+        title: `{{t("Notification level", { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'Select',
+        enum: [
+          {
+            value: 'info',
+            label: 'info',
+          },
+          {
+            value: 'success',
+            label: 'success',
+          },
+          {
+            value: 'error',
+            label: 'error',
+          },
+          {
+            value: 'warning',
+            label: 'warning',
+          },
+          {
+            value: 'open',
+            label: 'open',
+          },
+        ],
       } as ISchema,
     },
   ],
@@ -46,6 +95,14 @@ export const NotificationFieldset: Record<string, ISchema> = {
     'x-decorator': 'FormItem',
   },
   detail: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
+  duration: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
+  level: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
   },
@@ -71,7 +128,7 @@ const createNotification: ISchema = {
   properties: {
     drawer: {
       type: 'void',
-      title: '{{ t("Add record") }}',
+      title: `{{ t("Add notification", { ns: "${NAMESPACE}" }) }}`,
       'x-component': 'Action.Container',
       'x-component-props': {
         className: 'tb-action-popup',
@@ -126,8 +183,7 @@ const createNotification: ISchema = {
                     },
                   },
                 },
-                title: NotificationFieldset.title,
-                detail: NotificationFieldset.detail,
+                ...NotificationFieldset,
               },
             },
           },
@@ -150,7 +206,7 @@ export const updateNotificationConfig: ISchema = {
   properties: {
     drawer: {
       type: 'void',
-      title: '{{ t("Edit record") }}',
+      title: `{{ t("Edit notification", { ns: "${NAMESPACE}" }) }}`,
       'x-component': 'Action.Container',
       'x-component-props': {
         className: 'tb-action-popup',
@@ -203,8 +259,7 @@ export const updateNotificationConfig: ISchema = {
                     },
                   },
                 },
-                title: NotificationFieldset.title,
-                detail: NotificationFieldset.detail,
+                ...NotificationFieldset,
               },
             },
           },
@@ -227,7 +282,7 @@ export const notificationSchema: ISchema = {
           pageSize: 50,
         },
       },
-      title: '{{t("Notification Config")}}',
+      title: `{{t("Notification Config", { ns: "${NAMESPACE}" })}}`,
       properties: {
         actions: {
           type: 'void',
@@ -300,6 +355,9 @@ export const notificationSchema: ISchema = {
                 title: {
                   type: 'string',
                   'x-component': 'CollectionField',
+                  'x-component-props': {
+                    ellipsis: true,
+                  },
                   'x-read-pretty': true,
                 },
               },
@@ -310,6 +368,34 @@ export const notificationSchema: ISchema = {
               'x-component': 'TableV2.Column',
               properties: {
                 detail: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-component-props': {
+                    ellipsis: true,
+                  },
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            duration: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              properties: {
+                duration: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-disabled': true,
+                  // 'x-read-pretty': true,
+                },
+              },
+            },
+            level: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              properties: {
+                level: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
@@ -330,14 +416,8 @@ export const notificationSchema: ISchema = {
                   properties: {
                     send: {
                       type: 'void',
-                      title: '{{t("Send")}}',
-                      // 'x-action': 'submit',
-                      // 'x-decorator': 'ACLActionProvider',
+                      title: `{{t("Send", { ns: "${NAMESPACE}" })}}`,
                       'x-component': 'Action.Link',
-                      // 'x-component': 'ViewDatabaseConnectionAction',
-                      // 'x-component-props': {
-                      //   type: 'primary',
-                      // },
                       'x-use-component-props': 'useSendActionProps',
                     },
                     update: updateNotificationConfig,

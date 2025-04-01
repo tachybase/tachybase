@@ -14,6 +14,7 @@ export enum NoticeType {
   TOAST = 'toast',
   NOTIFICATION = 'notification',
   CUSTOM = 'custom',
+  BROADCAST = 'broadcast',
 }
 
 export class NoticeManager {
@@ -55,5 +56,18 @@ export class NoticeManager {
 
   notification(title: string, content: string, level: NoticeLevel) {
     this.#emit({ type: NoticeType.NOTIFICATION, title, content, level });
+  }
+
+  broadcast(title: string, content: string, level: NoticeLevel, duration: number | null) {
+    this.ws?.sendToConnectionsToEvery({
+      type: 'notice',
+      payload: {
+        type: NoticeType.BROADCAST,
+        title,
+        content,
+        duration,
+        level,
+      },
+    });
   }
 }

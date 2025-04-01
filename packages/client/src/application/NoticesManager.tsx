@@ -20,6 +20,7 @@ export enum NoticeType {
   TOAST = 'toast',
   NOTIFICATION = 'notification',
   CUSTOM = 'custom',
+  BROADCAST = 'broadcast',
 }
 
 export enum NoticeDuration {
@@ -72,9 +73,19 @@ export class NoticeManager {
   currentStatus = '';
   currentStatusUpdatedAt = Date.now();
 
-  on(data: { type: NoticeType; title?: string; content: string; level: NoticeLevel; eventType?: string; event?: any }) {
+  on(data: {
+    type: NoticeType;
+    title?: string;
+    content: string;
+    level: NoticeLevel;
+    eventType?: string;
+    event?: any;
+    duration: null | number;
+  }) {
     if (data.type === NoticeType.NOTIFICATION) {
       this[data.type](data.title, data.content, data.level);
+    } else if (data.type === NoticeType.BROADCAST) {
+      this[data.type](data.title, data.content, data.level, data.duration);
     } else if (data.type === NoticeType.CUSTOM) {
       this.emitter.emit(data.eventType, data.event);
     } else {
@@ -96,6 +107,15 @@ export class NoticeManager {
     notification[level]({
       message: title,
       description: content,
+    });
+  }
+
+  broadcast(title: string, content: string, level: NoticeLevel, duration: null | number) {
+    notification[level]({
+      message: title,
+      description: content,
+      placement: 'top',
+      duration,
     });
   }
 }

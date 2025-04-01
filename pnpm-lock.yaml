@@ -3970,15 +3970,27 @@ importers:
 
   packages/plugin-manual-notification:
     dependencies:
+      '@tachybase/actions':
+        specifier: workspace:*
+        version: link:../actions
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
       '@tachybase/test':
         specifier: workspace:*
         version: link:../test
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
     devDependencies:
       antd:
         specifier: 5.22.5
@@ -4764,6 +4776,9 @@ importers:
       '@tachybase/plugin-log-viewer':
         specifier: workspace:*
         version: link:../plugin-log-viewer
+      '@tachybase/plugin-manual-notification':
+        specifier: workspace:*
+        version: link:../plugin-manual-notification
       '@tachybase/plugin-mock-collections':
         specifier: workspace:*
         version: link:../plugin-mock-collections
