@@ -25,6 +25,7 @@ const finished = util.promisify(stream.finished);
 type DumpOptions = {
   groups: Set<DumpRulesGroupType>;
   fileName?: string;
+  appName?: string;
 };
 
 type BackUpStatusOk = {
@@ -162,12 +163,15 @@ export class Dumper extends AppMigrator {
     return Object.fromEntries(Object.entries(grouped).map(([key, value]) => [key, value.map((item) => item.name)]));
   }
 
-  backUpStorageDir() {
+  backUpStorageDir(appName?: string) {
+    if (appName && appName !== 'main') {
+      return path.resolve(process.cwd(), 'storage', 'backups', appName);
+    }
     return path.resolve(process.cwd(), 'storage', 'backups');
   }
 
-  async allBackUpFilePaths(options?: { includeInProgress?: boolean; dir?: string }) {
-    const dirname = options?.dir || this.backUpStorageDir();
+  async allBackUpFilePaths(options?: { includeInProgress?: boolean; dir?: string; appName?: string }) {
+    const dirname = options?.dir || this.backUpStorageDir(options?.appName);
     const includeInProgress = options?.includeInProgress;
 
     try {
@@ -204,40 +208,41 @@ export class Dumper extends AppMigrator {
     }
   }
 
-  backUpFilePath(fileName: string) {
-    const dirname = this.backUpStorageDir();
+  backUpFilePath(fileName: string, appName?: string) {
+    const dirname = this.backUpStorageDir(appName);
     return path.resolve(dirname, fileName);
   }
 
-  lockFilePath(fileName: string) {
+  lockFilePath(fileName: string, appName?: string) {
     const lockFile = fileName + '.lock';
-    const dirname = this.backUpStorageDir();
+    const dirname = this.backUpStorageDir(appName);
     return path.resolve(dirname, lockFile);
   }
 
-  async writeLockFile(fileName: string) {
-    const dirname = this.backUpStorageDir();
+  async writeLockFile(fileName: string, appName?: string) {
+    const dirname = this.backUpStorageDir(appName);
     await mkdirp(dirname);
 
-    const filePath = this.lockFilePath(fileName);
+    const filePath = this.lockFilePath(fileName, appName);
     await fsPromises.writeFile(filePath, 'lock', 'utf8');
   }
 
-  async cleanLockFile(fileName: string) {
-    const filePath = this.lockFilePath(fileName);
+  async cleanLockFile(fileName: string, appName?: string) {
+    const filePath = this.lockFilePath(fileName, appName);
     await fsPromises.unlink(filePath);
   }
 
   async runDumpTask(options: Omit<DumpOptions, 'fileName'>) {
     const backupFileName = Dumper.generateFileName();
-    await this.writeLockFile(backupFileName);
+    await this.writeLockFile(backupFileName, options.appName);
 
     if (isMainThread) {
       const promise = this.dump({
         groups: options.groups,
         fileName: backupFileName,
+        appName: options.appName,
       }).finally(() => {
-        this.cleanLockFile(backupFileName);
+        this.cleanLockFile(backupFileName, options.appName);
         Dumper.dumpTasks.delete(backupFileName);
         // 主线程通知备份完成 TODO: 同一个浏览器开两个窗口会有BUG
         this.app.noticeManager.notify('backup', { msg: 'Done' });
@@ -248,11 +253,12 @@ export class Dumper extends AppMigrator {
         await this.dump({
           groups: options.groups,
           fileName: backupFileName,
+          appName: options.appName,
         });
       } catch (err) {
         throw err;
       } finally {
-        this.cleanLockFile(backupFileName);
+        this.cleanLockFile(backupFileName, options.appName);
       }
     }
 
@@ -294,7 +300,7 @@ export class Dumper extends AppMigrator {
     await this.dumpDb(options);
 
     const backupFileName = options.fileName || Dumper.generateFileName();
-    const filePath = await this.packDumpedDir(backupFileName);
+    const filePath = await this.packDumpedDir(backupFileName, options.appName);
     await this.clearWorkDir();
     return filePath;
   }
@@ -475,8 +481,8 @@ export class Dumper extends AppMigrator {
     await fsPromises.writeFile(path.resolve(collectionDataDir, 'meta'), JSON.stringify(meta), 'utf8');
   }
 
-  async packDumpedDir(fileName: string) {
-    const dirname = this.backUpStorageDir();
+  async packDumpedDir(fileName: string, appName?: string) {
+    const dirname = this.backUpStorageDir(appName);
     await mkdirp(dirname);
 
     const filePath = path.resolve(dirname, fileName);

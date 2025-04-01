@@ -35,6 +35,7 @@ export default {
       const dumper = new Dumper(ctx.app);
       const backupFiles = await dumper.allBackUpFilePaths({
         includeInProgress: true,
+        appName: ctx.app.name,
       });
 
       // handle pagination
@@ -60,7 +61,7 @@ export default {
     async get(ctx, next) {
       const { filterByTk } = ctx.action.params;
       const dumper = new Dumper(ctx.app);
-      const filePath = dumper.backUpFilePath(filterByTk);
+      const filePath = dumper.backUpFilePath(filterByTk, ctx.app.name);
 
       async function sendError(message, status = 404) {
         ctx.body = { status: 'error', message };
@@ -150,7 +151,7 @@ export default {
       const { filterByTk } = ctx.action.params;
       const dumper = new Dumper(ctx.app);
 
-      const filePath = dumper.backUpFilePath(filterByTk);
+      const filePath = dumper.backUpFilePath(filterByTk, ctx.app.name);
 
       const fileState = await Dumper.getFileStatus(filePath);
 
@@ -181,7 +182,7 @@ export default {
 
         if (filterByTk) {
           const dumper = new Dumper(ctx.app);
-          return dumper.backUpFilePath(filterByTk);
+          return dumper.backUpFilePath(filterByTk, ctx.app.name);
         }
       })();
 
@@ -203,7 +204,7 @@ export default {
     async destroy(ctx, next) {
       const { filterByTk } = ctx.action.params;
       const dumper = new Dumper(ctx.app);
-      const filePath = dumper.backUpFilePath(filterByTk);
+      const filePath = dumper.backUpFilePath(filterByTk, ctx.app.name);
 
       await fsPromises.unlink(filePath);
 
