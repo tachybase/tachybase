@@ -1,0 +1,11 @@
+{
+  "name": "@tachybase/ocr-convert",
+  "version": "1.0.4",
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
