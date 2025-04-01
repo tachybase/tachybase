@@ -33,7 +33,7 @@ export const useStyles = createStyles(({ css, token }) => {
       .submenu-title {
         display: flex;
         flex-direction: row;
-
+        align-items: center;
         width: 100%;
         vertical-align: middle;
         overflow: hidden;
@@ -86,6 +86,7 @@ export const useStyles = createStyles(({ css, token }) => {
 
       .menuitem-title-wrapper {
         display: flex;
+        align-items: center;
         flex-direction: row;
         width: 100%;
         overflow: hidden;
