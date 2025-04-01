@@ -49,7 +49,7 @@ export const notificationCollection = {
         'x-read-pretty': true,
         'x-component-props': {
           min: 0,
-          max: 999,
+          max: 99999,
           suffix: 's',
         },
       } as ISchema,
