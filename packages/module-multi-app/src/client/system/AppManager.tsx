@@ -11,6 +11,7 @@ import {
 
 import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../../constants';
 import { usePluginUtils } from '../locale';
@@ -107,6 +108,7 @@ export const AppManager = (props) => {
   const { admin = true } = props;
   const currentUser = useCurrentUserContext();
   const userId = currentUser?.data?.data?.id;
+  const { t } = useTranslation([NAMESPACE, 'core'], { nsMode: 'fallback' });
   return (
     <Card bordered={false}>
       <SchemaComponent
@@ -118,6 +120,7 @@ export const AppManager = (props) => {
           useMultiAppUpdateAction,
           useStartAllAction,
           useStopAllAction,
+          t,
         }}
         components={{ AppVisitor }}
       />

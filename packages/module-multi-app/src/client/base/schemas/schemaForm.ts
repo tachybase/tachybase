@@ -36,6 +36,14 @@ export const formSchema: ISchema = {
       title: i18nText('Custom domain prefix'),
       'x-component': 'Input',
       'x-decorator': 'FormItem',
+      'x-validator': `{{(value) => {
+        if (!value) { 
+          return t("Please enter a valid custom domain prefix");
+        }
+        if (!/^[a-z0-9-]{1,63}$/.test(value)) {
+          return t("Custom domain prefix must be 1-63 characters, lowercase letters, numbers, or hyphens (-), and cannot start or end with a hyphen (-)");
+        }
+      }}}`,
       'x-component-props': {
         addonAfter: `.${window.location.hostname}`,
       },
