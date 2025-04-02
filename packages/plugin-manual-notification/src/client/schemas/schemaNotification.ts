@@ -1,7 +1,5 @@
 import { ISchema } from '@tachybase/schema';
 
-import { sort } from 'packages/plugin-mock-collections/src/server/field-interfaces';
-
 import { notificationCollection } from '../collections/notification.collection';
 import { NAMESPACE } from '../locale';
 import { createNotification } from './createNotification';
