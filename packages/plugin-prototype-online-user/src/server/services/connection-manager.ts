@@ -108,6 +108,10 @@ export class ConnectionManager {
             if (!userMeg.payload.token) {
               return;
             }
+            if (!this.app.isStarted()) {
+              this.app.logger.warn('online user connect warn, app is not started');
+              return;
+            }
             try {
               const analysis = jwt.verify(userMeg.payload.token, process.env.APP_KEY) as any;
               const userId = analysis.userId;
