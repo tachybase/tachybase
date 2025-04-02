@@ -1,6 +1,10 @@
 import { ISchema } from '@tachybase/schema';
 
-export const NotificationFieldset: Record<string, ISchema> = {
+export const fieldsetNotification: Record<string, ISchema> = {
+  notifyType: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+  },
   title: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
@@ -13,6 +17,7 @@ export const NotificationFieldset: Record<string, ISchema> = {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
   },
+
   level: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',

@@ -26,5 +26,9 @@ export default {
       type: 'string',
       name: 'level',
     },
+    {
+      name: 'notifyType',
+      type: 'string',
+    },
   ],
 } as CollectionOptions;

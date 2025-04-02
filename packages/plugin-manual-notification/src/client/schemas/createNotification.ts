@@ -2,7 +2,7 @@ import { ISchema } from '@tachybase/schema';
 
 import { notificationCollection } from '../collections/notification.collection';
 import { NAMESPACE } from '../locale';
-import { NotificationFieldset } from './fieldsetNotification';
+import { fieldsetNotification } from './fieldsetNotification';
 
 export const createNotification: ISchema = {
   type: 'void',
@@ -79,7 +79,7 @@ export const createNotification: ISchema = {
                     },
                   },
                 },
-                ...NotificationFieldset,
+                ...fieldsetNotification,
               },
             },
           },

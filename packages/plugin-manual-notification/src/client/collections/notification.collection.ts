@@ -1,3 +1,4 @@
+import { NoticeType } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 import { NAMESPACE } from '../locale';
@@ -52,6 +53,34 @@ export const notificationCollection = {
           max: 99999,
           suffix: 's',
         },
+      } as ISchema,
+    },
+    {
+      interface: 'select',
+      type: 'string',
+      name: 'notifyType',
+      uiSchema: {
+        type: 'string',
+        title: `{{t("Notification type", { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'Select',
+        enum: [
+          {
+            value: NoticeType.MODAL,
+            label: NoticeType.MODAL,
+          },
+          {
+            value: NoticeType.NOTIFICATION,
+            label: NoticeType.NOTIFICATION,
+          },
+          {
+            value: NoticeType.STATUS,
+            label: NoticeType.STATUS,
+          },
+          {
+            value: NoticeType.TOAST,
+            label: NoticeType.TOAST,
+          },
+        ],
       } as ISchema,
     },
     {

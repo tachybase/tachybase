@@ -1,11 +1,13 @@
 import { ISchema } from '@tachybase/schema';
 
+import { sort } from 'packages/plugin-mock-collections/src/server/field-interfaces';
+
 import { notificationCollection } from '../collections/notification.collection';
 import { NAMESPACE } from '../locale';
 import { createNotification } from './createNotification';
 import { updateNotificationConfig } from './updateNotificationConfig';
 
-export const notificationSchema: ISchema = {
+export const schemaNotification: ISchema = {
   type: 'void',
   properties: {
     notificationconfig: {
@@ -16,6 +18,7 @@ export const notificationSchema: ISchema = {
         action: 'list',
         params: {
           pageSize: 50,
+          sort: ['-createdAt'],
         },
       },
       title: `{{t("Notification Config", { ns: "${NAMESPACE}" })}}`,
@@ -73,10 +76,27 @@ export const notificationSchema: ISchema = {
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
-                width: 100,
+                width: 20,
+                align: 'left',
               },
               properties: {
                 id: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            notifyType: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 50,
+                align: 'center',
+              },
+              properties: {
+                notifyType: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
@@ -87,6 +107,9 @@ export const notificationSchema: ISchema = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                align: 'left',
+              },
               properties: {
                 title: {
                   type: 'string',
@@ -102,6 +125,9 @@ export const notificationSchema: ISchema = {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                align: 'left',
+              },
               properties: {
                 detail: {
                   type: 'string',
@@ -113,10 +139,30 @@ export const notificationSchema: ISchema = {
                 },
               },
             },
+            level: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 50,
+                align: 'center',
+              },
+              properties: {
+                level: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
             duration: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 50,
+                align: 'center',
+              },
               properties: {
                 duration: {
                   type: 'string',
@@ -126,22 +172,14 @@ export const notificationSchema: ISchema = {
                 },
               },
             },
-            level: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              properties: {
-                level: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
             actions: {
               type: 'void',
               title: '{{t("Actions")}}',
               'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 50,
+                align: 'center',
+              },
               properties: {
                 actions: {
                   type: 'void',

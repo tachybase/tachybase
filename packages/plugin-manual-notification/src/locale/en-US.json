@@ -7,6 +7,7 @@
   "Notification duration": "Notification Duration",
   "Notification level": "Notification Level",
   "Notification title": "Notification Title",
+  "Notification type": "Notification type",
   "Send": "Send",
-  "Set to manual close when this item is empty": "Set to manual close when this field is empty"
+  "Set to manual close when this item is empty": "Set to manual close when this field is empty. enable when the notification type is status or notification"
 }

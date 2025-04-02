@@ -255,12 +255,6 @@ export class WSServer {
     });
   }
 
-  sendToConnectionsToEvery(sendMessage: object) {
-    this.loopThroughConnections((client: WebSocketClient) => {
-      this.sendMessageToConnection(client, sendMessage);
-    });
-  }
-
   /**
    * Send message to clients that match all the given tag conditions
    * @param tags Array of tag conditions, each condition is an object with tagName and tagValue

@@ -2,7 +2,7 @@ import { ISchema } from '@tachybase/schema';
 
 import { notificationCollection } from '../collections/notification.collection';
 import { NAMESPACE } from '../locale';
-import { NotificationFieldset } from './fieldsetNotification';
+import { fieldsetNotification } from './fieldsetNotification';
 
 export const updateNotificationConfig: ISchema = {
   type: 'void',
@@ -20,6 +20,7 @@ export const updateNotificationConfig: ISchema = {
       title: `{{ t("Edit notification", { ns: "${NAMESPACE}" }) }}`,
       'x-component': 'Action.Container',
       'x-component-props': {
+        openMode: 'drawer',
         className: 'tb-action-popup',
       },
       properties: {
@@ -70,7 +71,7 @@ export const updateNotificationConfig: ISchema = {
                     },
                   },
                 },
-                ...NotificationFieldset,
+                ...fieldsetNotification,
               },
             },
           },
