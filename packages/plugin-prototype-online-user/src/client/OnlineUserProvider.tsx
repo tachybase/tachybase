@@ -21,7 +21,7 @@ const OnlineUserManger = () => {
           if (user) {
             return {
               key: uid(),
-              label: user.nickname,
+              label: user.nickname || user.username,
             };
           }
         });
