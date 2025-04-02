@@ -132,7 +132,10 @@ export default {
         }
       } else {
         const plugin = app.pm.get(PluginBackupRestoreServer) as PluginBackupRestoreServer;
-        taskId = await plugin.workerCreateBackUp(data);
+        taskId = await plugin.workerCreateBackUp({
+          dataTypes: data.dataTypes,
+          appName: ctx.app.name,
+        });
       }
 
       ctx.body = {
