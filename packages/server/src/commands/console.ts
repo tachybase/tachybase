@@ -11,7 +11,7 @@ export default (app: Application) => {
       const repl = (REPL.start('tachybase > ').context.app = app);
       repl.on('exit', async function (err) {
         if (err) {
-          console.log(err);
+          console.error(err);
           process.exit(1);
         }
         await app.stop();

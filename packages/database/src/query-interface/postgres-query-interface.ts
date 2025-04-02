@@ -180,7 +180,7 @@ export default class PostgresQueryInterface extends QueryInterface {
 
       return Object.fromEntries(usages);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return {};
     }
   }
