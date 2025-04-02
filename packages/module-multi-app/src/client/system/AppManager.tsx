@@ -110,8 +110,8 @@ const AppVisitor = () => {
       <a href={link} target={'_blank'} rel="noreferrer">
         {t('View', { ns: NAMESPACE })}
       </a>
-      <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>
-      <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>
+      {record.status !== 'running' && <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>}
+      {record.status === 'running' && <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>}
     </Space>
   );
 };
