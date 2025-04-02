@@ -1,7 +1,7 @@
 import { Plugin } from '@tachybase/client';
 
 import { lang } from './locale';
-import { NotificationConfigPane } from './notificationConfigPage';
+import { NotificationConfigPane } from './NotificationConfigPane';
 
 class PluginManualNotificationClient extends Plugin {
   async afterAdd() {
