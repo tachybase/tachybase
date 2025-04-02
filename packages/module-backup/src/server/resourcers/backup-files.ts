@@ -122,6 +122,7 @@ export default {
             method: 'workerCreateBackUp',
             params: {
               dataTypes: data.dataTypes,
+              appName: ctx.app.name,
             },
             // 目前限制方法并发为1
             concurrency: 1,
