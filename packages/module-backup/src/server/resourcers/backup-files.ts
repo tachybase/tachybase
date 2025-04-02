@@ -122,6 +122,7 @@ export default {
             method: 'workerCreateBackUp',
             params: {
               dataTypes: data.dataTypes,
+              appName: ctx.app.name,
             },
             // 目前限制方法并发为1
             concurrency: 1,
@@ -132,7 +133,10 @@ export default {
         }
       } else {
         const plugin = app.pm.get(PluginBackupRestoreServer) as PluginBackupRestoreServer;
-        taskId = await plugin.workerCreateBackUp(data);
+        taskId = await plugin.workerCreateBackUp({
+          dataTypes: data.dataTypes,
+          appName: ctx.app.name,
+        });
       }
 
       ctx.body = {
