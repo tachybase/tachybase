@@ -1,11 +1,12 @@
 import React from 'react';
-import { SchemaComponent, useAPIClient } from '@tachybase/client';
+import { SchemaComponent, useAPIClient, useApp, useRecordIndex } from '@tachybase/client';
 import { ISchema, uid, useForm } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useNavigate } from 'react-router-dom';
 
+import { TrackingEventType } from '../../../../module-instrumentation/src/client/CustomInstrumentation';
 import { useAuthenticator } from '../authenticator';
 import { useAuthTranslation } from '../locale';
 
@@ -21,10 +22,29 @@ export const useSignUp = (props?: UseSignupProps) => {
   const form = useForm();
   const api = useAPIClient();
   const { t } = useTranslation();
+  const app = useApp();
+  const getDeviceInfo = () => {
+    if (typeof navigator !== 'undefined') {
+      return {
+        userAgent: navigator.userAgent || 'Unknown',
+        platform: navigator.platform || 'Unknown',
+        language: navigator.language || 'Unknown',
+      };
+    }
+    return {
+      userAgent: 'Unknown',
+      platform: 'Unknown',
+      language: 'Unknown',
+    };
+  };
   return {
     async run() {
       await form.submit();
       await api.auth.signUp(form.values, props?.authenticator);
+      await app.trackingManager.logEvent(TrackingEventType.CLICK, 'sign-up', {
+        userId: form.values.username,
+        deviceInfo: getDeviceInfo(),
+      });
       message.success(props?.message?.success || t('Sign up successfully, and automatically jump to the sign in page'));
       setTimeout(() => {
         navigate('/signin');

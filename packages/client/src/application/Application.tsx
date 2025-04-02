@@ -9,6 +9,7 @@ import { createRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 import { Link, Navigate, NavLink } from 'react-router-dom';
 
+import { TrackingManager } from '../../../module-instrumentation/src/client/CustomInstrumentation';
 import { APIClient, APIClientProvider } from '../api-client';
 import { CollectionFieldInterfaceComponentOption } from '../data-source';
 import { CollectionField } from '../data-source/collection-field/CollectionField';
@@ -92,6 +93,7 @@ export class Application {
   public schemaSettingsManager: SchemaSettingsManager;
   public dataSourceManager: DataSourceManager;
   public noticeManager: NoticeManager;
+  public trackingManager: TrackingManager;
   public pluginContextMenu: PluginContextMenu;
   public AttachmentPreviewManager: AttachmentPreviewManager;
   public name: string;
@@ -133,6 +135,7 @@ export class Application {
     this.schemaInitializerManager = new SchemaInitializerManager(options.schemaInitializers, this);
     this.dataSourceManager = new DataSourceManager(options.dataSourceManager, this);
     this.noticeManager = new NoticeManager(this);
+    this.trackingManager = new TrackingManager(this);
     this.addDefaultProviders();
     this.addReactRouterComponents();
     this.addProviders(options.providers || []);

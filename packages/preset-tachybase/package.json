@@ -22,6 +22,7 @@
     "@tachybase/module-event-source": "workspace:*",
     "@tachybase/module-file": "workspace:*",
     "@tachybase/module-hera": "workspace:*",
+    "@tachybase/module-instrumentation": "workspace:*",
     "@tachybase/module-message": "workspace:*",
     "@tachybase/module-multi-app": "workspace:*",
     "@tachybase/module-pdf": "workspace:*",
