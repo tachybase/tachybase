@@ -38,7 +38,7 @@ export const formSchema: ISchema = {
       'x-decorator': 'FormItem',
       'x-validator': `{{(value) => {
         if (!value) { 
-          return t("Please enter a valid custom domain prefix");
+          return null;
         }
         if (!/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/.test(value)) {
           return t("Custom domain prefix must be 1-63 characters, lowercase letters, numbers, or hyphens (-), and cannot start or end with a hyphen (-)");
