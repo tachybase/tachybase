@@ -105,6 +105,9 @@ export class ConnectionManager {
         if (data.toString() !== 'ping') {
           const userMeg = JSON.parse(data.toString());
           if (userMeg.type === 'plugin-online-user:client') {
+            if (!userMeg.payload.token) {
+              return;
+            }
             try {
               const analysis = jwt.verify(userMeg.payload.token, process.env.APP_KEY) as any;
               const userId = analysis.userId;
@@ -112,7 +115,7 @@ export class ConnectionManager {
               await this.app.online.all.HSET(KEY_ONLINE_USERS + appName, ws.id, JSON.stringify(user));
               await notifyAllClients();
             } catch (error) {
-              console.warn(error.message);
+              this.app.logger.warn('online user connect error', error);
             }
           }
         }
