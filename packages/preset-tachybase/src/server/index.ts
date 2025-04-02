@@ -52,6 +52,7 @@ export class PresetTachyBase extends Plugin {
     ['full-text-search', '0.23.24', true],
     ['password-policy', '0.23.65', true],
     ['auth-pages', '0.23.65', true],
+    ['manual-notification', '1.0.4', true],
     // default disable
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],

@@ -14,6 +14,7 @@ export enum NoticeType {
   TOAST = 'toast',
   NOTIFICATION = 'notification',
   CUSTOM = 'custom',
+  MODAL = 'modal',
 }
 
 export class NoticeManager {
@@ -55,5 +56,9 @@ export class NoticeManager {
 
   notification(title: string, content: string, level: NoticeLevel) {
     this.#emit({ type: NoticeType.NOTIFICATION, title, content, level });
+  }
+
+  modal(title: string, content: string, level: NoticeLevel) {
+    this.#emit({ type: NoticeType.MODAL, title, content, level });
   }
 }

@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext, useEffect } from 'react';
 import { define, observable } from '@tachybase/schema';
 
-import { message, notification } from 'antd';
+import { message, Modal, notification } from 'antd';
 import mitt, { Emitter, EventType } from 'mitt';
 
 import { Application } from './Application';
@@ -20,6 +20,7 @@ export enum NoticeType {
   TOAST = 'toast',
   NOTIFICATION = 'notification',
   CUSTOM = 'custom',
+  MODAL = 'modal',
 }
 
 export enum NoticeDuration {
@@ -72,8 +73,18 @@ export class NoticeManager {
   currentStatus = '';
   currentStatusUpdatedAt = Date.now();
 
-  on(data: { type: NoticeType; title?: string; content: string; level: NoticeLevel; eventType?: string; event?: any }) {
+  on(data: {
+    type: NoticeType;
+    title?: string;
+    content: string;
+    level: NoticeLevel;
+    eventType?: string;
+    event?: any;
+    duration: null | number;
+  }) {
     if (data.type === NoticeType.NOTIFICATION) {
+      this[data.type](data.title, data.content, data.level);
+    } else if (data.type === NoticeType.MODAL) {
       this[data.type](data.title, data.content, data.level);
     } else if (data.type === NoticeType.CUSTOM) {
       this.emitter.emit(data.eventType, data.event);
@@ -92,10 +103,39 @@ export class NoticeManager {
     message[level](content);
   }
 
-  notification(title: string, content: string, level: NoticeLevel) {
+  notification(
+    title: string,
+    content: string,
+    level: NoticeLevel,
+    duration: null | number = null,
+    placement: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'top' | 'bottom' = 'topRight',
+  ) {
     notification[level]({
       message: title,
       description: content,
+      placement,
+      duration,
+    });
+  }
+
+  modal(
+    title: string,
+    content: string,
+    level: NoticeLevel,
+    options: {
+      destroyOnClose?: boolean;
+      maskClosable?: boolean;
+      okText?: string;
+      onOk?: () => void;
+      onCancel?: () => void;
+    } = {},
+  ) {
+    Modal[level]({
+      title,
+      content,
+      destroyOnClose: true,
+      maskClosable: true,
+      ...options,
     });
   }
 }
