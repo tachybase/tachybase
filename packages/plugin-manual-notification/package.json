@@ -17,5 +17,5 @@
     "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "用于给所有在线人员发送通知，包括系统更新，重要事件",
-  "displayName.zh-CN": "自定义通知"
+  "displayName.zh-CN": "广播通知"
 }

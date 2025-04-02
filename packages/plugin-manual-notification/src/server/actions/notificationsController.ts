@@ -12,6 +12,9 @@ export class notificationsController {
   async send(ctx: Context, next: Next) {
     try {
       const { title = '', detail: content = '', level = 'open', duration = null, notifyType } = ctx.action.params;
+      if (ctx.app.name !== 'main') {
+        ctx.throw(403, ctx.t('Forbidden broadcast in sub application'));
+      }
       switch (notifyType) {
         case NoticeType.MODAL:
           ctx.app.noticeManager.modal(title, content, level);

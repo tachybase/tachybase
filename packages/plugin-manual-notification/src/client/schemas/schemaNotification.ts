@@ -184,14 +184,18 @@ export const schemaNotification: ISchema = {
                 actions: {
                   type: 'void',
                   'x-component': 'Space',
-                  'x-component-props': {
-                    // split: '|',
-                  },
                   properties: {
                     send: {
                       type: 'void',
                       title: `{{t("Send", { ns: "${NAMESPACE}" })}}`,
                       'x-component': 'Action.Link',
+                      'x-component-props': {
+                        icon: 'WarningOutlined',
+                        confirm: {
+                          title: `{{t('Send record confirmation', { ns: "${NAMESPACE}" })}}`,
+                          content: `{{t('Are you sure you want to send it to all user', { ns: "${NAMESPACE}" })}}`,
+                        },
+                      },
                       'x-use-component-props': 'useSendActionProps',
                     },
                     update: updateNotificationConfig,
