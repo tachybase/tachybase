@@ -4,7 +4,6 @@ import path from 'path';
 import * as process from 'process';
 import stream from 'stream';
 import util from 'util';
-import { isMainThread } from 'worker_threads';
 import {
   Collection,
   CollectionGroupManager as DBCollectionGroupManager,
@@ -247,9 +246,9 @@ export class Dumper extends AppMigrator {
     await fsPromises.unlink(filePath);
   }
 
-  async writeTempFile(options: Omit<DumpOptions, 'fileName'>) {
+  async getLockFile(appName: string) {
     const backupFileName = Dumper.generateFileName();
-    await this.writeLockFile(backupFileName, options.appName);
+    await this.writeLockFile(backupFileName, appName);
     return backupFileName;
   }
 

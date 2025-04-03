@@ -115,10 +115,7 @@ export default {
 
       let useWorker = data.method === 'worker' || (data.method === 'priority' && app.worker?.available);
       const dumper = new Dumper(ctx.app);
-      const taskId = await dumper.writeTempFile({
-        groups: new Set(data.dataTypes),
-        appName: ctx.app.name,
-      });
+      const taskId = await dumper.getLockFile(ctx.app.name);
       if (useWorker) {
         app.worker
           .callPluginMethod({
