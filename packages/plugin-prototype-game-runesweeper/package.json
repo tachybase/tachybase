@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-demos-game-runesweeper",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-demos-game-runesweeper"

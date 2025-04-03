@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-audit-logs",
   "displayName": "Audit logs",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Audit logs.",
   "keywords": [
     "System management"
