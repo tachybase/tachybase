@@ -4,7 +4,6 @@ import path from 'path';
 import * as process from 'process';
 import stream from 'stream';
 import util from 'util';
-import { isMainThread } from 'worker_threads';
 import {
   Collection,
   CollectionGroupManager as DBCollectionGroupManager,
@@ -41,6 +40,12 @@ type BackUpStatusDoing = {
   status: 'in_progress';
 };
 
+type BackUpStatusError = {
+  name: string;
+  createdAt: Date;
+  status: 'error';
+};
+
 export class Dumper extends AppMigrator {
   static dumpTasks: Map<string, Promise<any>> = new Map();
 
@@ -57,7 +62,7 @@ export class Dumper extends AppMigrator {
     return this.dumpTasks.get(taskId);
   }
 
-  static async getFileStatus(filePath: string): Promise<BackUpStatusOk | BackUpStatusDoing> {
+  static async getFileStatus(filePath: string): Promise<BackUpStatusOk | BackUpStatusDoing | BackUpStatusError> {
     const lockFile = filePath + '.lock';
     const fileName = path.basename(filePath);
 
@@ -65,11 +70,20 @@ export class Dumper extends AppMigrator {
       .stat(lockFile)
       .then((lockFileStat) => {
         if (lockFileStat.isFile()) {
-          return {
-            name: fileName,
-            inProgress: true,
-            status: 'in_progress',
-          } as BackUpStatusDoing;
+          // 超过2小时认为是失败
+          if (lockFileStat.ctime.getTime() < Date.now() - 2 * 60 * 60 * 1000) {
+            return {
+              name: fileName,
+              createdAt: lockFileStat.ctime,
+              status: 'error',
+            } as BackUpStatusError;
+          } else {
+            return {
+              name: fileName,
+              inProgress: true,
+              status: 'in_progress',
+            } as BackUpStatusDoing;
+          }
         } else {
           throw new Error('Lock file is not a file');
         }
@@ -227,42 +241,23 @@ export class Dumper extends AppMigrator {
     await fsPromises.writeFile(filePath, 'lock', 'utf8');
   }
 
-  async cleanLockFile(fileName: string, appName?: string) {
+  async cleanLockFile(fileName: string, appName: string) {
     const filePath = this.lockFilePath(fileName, appName);
     await fsPromises.unlink(filePath);
   }
 
-  async runDumpTask(options: Omit<DumpOptions, 'fileName'>) {
+  async getLockFile(appName: string) {
     const backupFileName = Dumper.generateFileName();
-    await this.writeLockFile(backupFileName, options.appName);
-
-    if (isMainThread) {
-      const promise = this.dump({
-        groups: options.groups,
-        fileName: backupFileName,
-        appName: options.appName,
-      }).finally(() => {
-        this.cleanLockFile(backupFileName, options.appName);
-        Dumper.dumpTasks.delete(backupFileName);
-        // 主线程通知备份完成 TODO: 同一个浏览器开两个窗口会有BUG
-        this.app.noticeManager.notify('backup', { msg: 'Done' });
-      });
-      Dumper.dumpTasks.set(backupFileName, promise);
-    } else {
-      try {
-        await this.dump({
-          groups: options.groups,
-          fileName: backupFileName,
-          appName: options.appName,
-        });
-      } catch (err) {
-        throw err;
-      } finally {
-        this.cleanLockFile(backupFileName, options.appName);
-      }
-    }
-
+    await this.writeLockFile(backupFileName, appName);
     return backupFileName;
+  }
+
+  async runDumpTask(options: DumpOptions) {
+    await this.dump({
+      groups: options.groups,
+      fileName: options.fileName,
+      appName: options.appName,
+    });
   }
 
   async dumpableCollectionsGroupByGroup() {

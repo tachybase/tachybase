@@ -16,12 +16,11 @@ export default class PluginBackupRestoreServer extends Plugin {
     this.app.resourcer.define(backupFilesResourcer);
   }
 
-  async workerCreateBackUp(data: { dataTypes: string[]; appName: string }) {
-    const dumper = new Dumper(this.app);
-
-    return dumper.runDumpTask({
+  async workerCreateBackUp(data: { dataTypes: string[]; appName: string; filename: string }) {
+    await new Dumper(this.app).runDumpTask({
       groups: new Set(data.dataTypes) as Set<DumpRulesGroupType>,
       appName: data.appName,
+      fileName: data.filename,
     });
   }
 }
