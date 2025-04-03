@@ -106,7 +106,6 @@ export default {
         }
       >ctx.request.body;
 
-      let taskId;
       const app = ctx.app as Application;
 
       if (data.method === 'worker' && !app.worker?.available) {
@@ -115,28 +114,50 @@ export default {
       }
 
       let useWorker = data.method === 'worker' || (data.method === 'priority' && app.worker?.available);
+      const dumper = new Dumper(ctx.app);
+      const taskId = await dumper.writeTempFile({
+        groups: new Set(data.dataTypes),
+        appName: ctx.app.name,
+      });
       if (useWorker) {
-        try {
-          taskId = await app.worker.callPluginMethod({
+        app.worker
+          .callPluginMethod({
             plugin: PluginBackupRestoreServer,
             method: 'workerCreateBackUp',
             params: {
               dataTypes: data.dataTypes,
               appName: ctx.app.name,
+              filename: taskId,
             },
             // 目前限制方法并发为1
             concurrency: 1,
+          })
+          .then((res) => {
+            app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done', { ns: 'backup' }) });
+          })
+          .catch((error) => {
+            app.noticeManager.notify('backup', { level: 'error', msg: error.message });
+          })
+          .finally(() => {
+            dumper.cleanLockFile(taskId);
           });
-          app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done') });
-        } catch (error) {
-          ctx.throw(500, ctx.t(error.message, { ns: 'worker-thread' }));
-        }
       } else {
         const plugin = app.pm.get(PluginBackupRestoreServer) as PluginBackupRestoreServer;
-        taskId = await plugin.workerCreateBackUp({
-          dataTypes: data.dataTypes,
-          appName: ctx.app.name,
-        });
+        plugin
+          .workerCreateBackUp({
+            dataTypes: data.dataTypes,
+            appName: ctx.app.name,
+            filename: taskId,
+          })
+          .then((res) => {
+            app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done', { ns: 'backup' }) });
+          })
+          .catch((error) => {
+            app.noticeManager.notify('backup', { level: 'error', msg: error.message });
+          })
+          .finally(() => {
+            dumper.cleanLockFile(taskId);
+          });
       }
 
       ctx.body = {
