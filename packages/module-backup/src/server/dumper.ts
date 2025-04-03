@@ -274,31 +274,88 @@ export class Dumper extends AppMigrator {
     dumpingGroups.add('required');
 
     const delayCollections = new Set();
-    const dumpedCollections = await this.getCollectionsByDataTypes(dumpingGroups);
+    let backupFileName = '';
+    let filePath = '';
 
-    for (const collectionName of dumpedCollections) {
-      const collection = this.app.db.getCollection(collectionName);
-      if (lodash.get(collection.options, 'dumpRules.delayRestore')) {
-        delayCollections.add(collectionName);
+    try {
+      this.app.logger.info('Starting data backup...');
+      const dumpedCollections = await this.getCollectionsByDataTypes(dumpingGroups);
+      this.app.logger.info(`Backing up ${dumpedCollections.length} collections`);
+
+      // 按批次处理集合，避免一次性加载太多数据
+      const batchSize = 5; // 每批处理的集合数量
+      for (let i = 0; i < dumpedCollections.length; i += batchSize) {
+        const batchCollections = dumpedCollections.slice(i, i + batchSize);
+        this.app.logger.info(
+          `Processing batch ${Math.floor(i / batchSize) + 1}, total ${batchCollections.length} collections`,
+        );
+
+        // 使用 Promise.all 可以并行处理同一批次中的集合，但避免并行太多
+        await Promise.all(
+          batchCollections.map(async (collectionName) => {
+            const collection = this.app.db.getCollection(collectionName);
+            if (lodash.get(collection.options, 'dumpRules.delayRestore')) {
+              delayCollections.add(collectionName);
+            }
+
+            return this.dumpCollection({
+              name: collectionName,
+            });
+          }),
+        );
+
+        // 在批次之间暂停一下，让垃圾回收器有机会工作
+        await new Promise((resolve) => setTimeout(resolve, 100));
+
+        // 手动触发内存回收（如果环境支持）
+        if (global.gc && typeof global.gc === 'function') {
+          try {
+            global.gc();
+          } catch (e) {
+            // 忽略GC错误
+          }
+        }
       }
 
-      await this.dumpCollection({
-        name: collectionName,
+      this.app.logger.info('Generating metadata...');
+      await this.dumpMeta({
+        dumpableCollectionsGroupByGroup: lodash.pick(await this.dumpableCollectionsGroupByGroup(), [...dumpingGroups]),
+        dumpedGroups: [...dumpingGroups],
+        delayCollections: [...delayCollections],
       });
+
+      this.app.logger.info('Processing database special content...');
+      await this.dumpDb(options);
+
+      backupFileName = options.fileName || Dumper.generateFileName();
+      this.app.logger.info(`Packaging backup file: ${backupFileName}...`);
+      const result = await this.packDumpedDir(backupFileName, options.appName);
+      filePath = result.filePath;
+
+      this.app.logger.info(`Backup completed: ${filePath}`);
+      return result;
+    } catch (error) {
+      this.app.logger.error(`Error during backup: ${error.message}`, error);
+
+      // 如果已经创建了备份文件但未完成，尝试删除它
+      if (backupFileName) {
+        const backupFilePath = this.backUpFilePath(backupFileName, options.appName);
+        try {
+          if (fs.existsSync(backupFilePath)) {
+            await fsPromises.unlink(backupFilePath);
+            this.app.logger.info(`Deleted incomplete backup file: ${backupFilePath}`);
+          }
+        } catch (cleanupError) {
+          this.app.logger.warn(`Failed to delete incomplete backup file: ${cleanupError.message}`);
+        }
+      }
+
+      throw error;
+    } finally {
+      // 清理工作目录，释放空间
+      this.app.logger.info('Cleaning up temporary work directory...');
+      await this.clearWorkDir();
     }
-
-    await this.dumpMeta({
-      dumpableCollectionsGroupByGroup: lodash.pick(await this.dumpableCollectionsGroupByGroup(), [...dumpingGroups]),
-      dumpedGroups: [...dumpingGroups],
-      delayCollections: [...delayCollections],
-    });
-
-    await this.dumpDb(options);
-
-    const backupFileName = options.fileName || Dumper.generateFileName();
-    const filePath = await this.packDumpedDir(backupFileName, options.appName);
-    await this.clearWorkDir();
-    return filePath;
   }
 
   async dumpDb(options: DumpOptions) {
@@ -364,7 +421,7 @@ export class Dumper extends AppMigrator {
     const app = this.app;
     const dir = this.workDir;
     const collectionName = options.name;
-    app.logger.info(`Dumping collection ${collectionName}`);
+    app.logger.info(`Starting dump for collection ${collectionName}`);
 
     const collection = app.db.getCollection(collectionName);
     if (!collection) {
@@ -391,30 +448,71 @@ export class Dumper extends AppMigrator {
     const dataFilePath = path.resolve(collectionDataDir, 'data');
     const dataStream = fs.createWriteStream(dataFilePath);
 
-    const rows = await app.db.sequelize.query(
-      sqlAdapter(app.db, `SELECT * FROM ${collection.isParent() ? 'ONLY' : ''} ${collection.quotedTableName()}`),
-      { type: 'SELECT' },
-    );
+    // 使用分批查询策略处理大量数据
+    const batchSize = 1000; // 每批处理的记录数
+    let offset = 0;
+    let hasMoreRecords = true;
+    let totalRecords = 0; // 记录总数，将通过处理过程中累计计算
 
-    // 写入所有数据
-    for (const row of rows) {
-      const rowData = JSON.stringify(
-        columns.map((col) => {
-          const val = row[col];
-          const field = collection.getField(col);
-          return field ? FieldValueWriter.toDumpedValue(field, val) : val;
-        }),
-      );
+    try {
+      // 分批查询处理
+      while (hasMoreRecords) {
+        // 分批查询数据
+        const query = sqlAdapter(
+          app.db,
+          `SELECT * FROM ${collection.isParent() ? 'ONLY' : ''} ${collection.quotedTableName()} LIMIT ${batchSize} OFFSET ${offset}`,
+        );
 
-      if (!dataStream.write(rowData + '\r\n', 'utf8')) {
-        await new Promise((resolve) => dataStream.once('drain', resolve));
+        const rows = await app.db.sequelize.query(query, { type: 'SELECT' });
+
+        if (!rows || rows.length <= 0) {
+          hasMoreRecords = false;
+          break;
+        }
+
+        app.logger.debug(`Processing batch for ${collectionName}: ${offset} to ${offset + rows.length}`);
+
+        // 减少内存使用，处理一行释放一行
+        for (let i = 0; i < rows.length; i++) {
+          const row = rows[i];
+          const rowData = JSON.stringify(
+            columns.map((col) => {
+              const val = row[col];
+              const field = collection.getField(col);
+              return field ? FieldValueWriter.toDumpedValue(field, val) : val;
+            }),
+          );
+
+          if (!dataStream.write(rowData + '\r\n', 'utf8')) {
+            // 写入缓冲区已满，暂停处理，等待 'drain' 事件
+            await new Promise<void>((resolve) => dataStream.once('drain', resolve));
+          }
+
+          count++;
+
+          // 明确设置为null以帮助垃圾回收（对于大数据特别有效）
+          rows[i] = null;
+        }
+
+        // 更新偏移量和总记录数
+        totalRecords += rows.length;
+        offset += rows.length;
+
+        // 报告进度
+        app.logger.debug(`Progress for ${collectionName}: processed ${offset} records so far`);
       }
 
-      count++;
-    }
+      // 关闭数据流并等待完成
+      dataStream.end();
+      await finished(dataStream);
 
-    dataStream.end();
-    await finished(dataStream);
+      app.logger.info(`Completed dumping collection ${collectionName}, total records: ${count}`);
+    } catch (error) {
+      app.logger.error(`Error dumping collection ${collectionName}: ${error.message}`, error);
+      // 确保流被关闭
+      dataStream.end();
+      throw error;
+    }
 
     const metaAttributes = lodash.mapValues(attributes, (attr, key) => {
       const collectionField = collection.getField(key);
@@ -485,47 +583,95 @@ export class Dumper extends AppMigrator {
     const output = fs.createWriteStream(filePath);
 
     const archive = archiver('zip', {
-      zlib: { level: 9 },
+      zlib: { level: 9 }, // 设置最高压缩级别
     });
 
-    // Create a promise that resolves when the 'close' event is fired
-    const onClose = new Promise((resolve, reject) => {
-      output.on('close', function () {
-        console.log('dumped file size: ' + humanFileSize(archive.pointer(), true));
+    // 创建一个完成承诺，在输出流关闭时解析
+    const onClose = new Promise<boolean>((resolve, reject) => {
+      // 使用一次性事件监听器，防止内存泄漏
+      output.once('close', () => {
+        this.app.logger.info('Backup file size: ' + humanFileSize(archive.pointer(), true));
         resolve(true);
       });
 
-      output.on('end', function () {
-        console.log('Data has been drained');
+      output.once('end', () => {
+        this.app.logger.debug('Data transfer completed');
       });
 
-      archive.on('warning', function (err) {
+      // 一次性监听警告
+      archive.once('warning', (err) => {
         if (err.code === 'ENOENT') {
-          // log warning
+          // 仅记录警告
+          this.app.logger.warn('Packing warning (ENOENT):', err);
         } else {
-          // throw error
+          // 抛出其他警告作为错误
+          this.app.logger.error('Packing error:', err);
           reject(err);
         }
       });
 
-      archive.on('error', function (err) {
+      // 一次性监听错误
+      archive.once('error', (err) => {
+        this.app.logger.error('Packing process error:', err);
         reject(err);
       });
     });
 
-    archive.pipe(output);
+    try {
+      // 设置归档大小限制触发事件
+      const maxSize = 1024 * 1024 * 1024; // 1GB 警告阈值
+      let lastReportSize = 0;
+      archive.on('entry', () => {
+        const currentSize = archive.pointer();
+        // 每增加100MB报告一次进度
+        if (currentSize - lastReportSize > 100 * 1024 * 1024) {
+          this.app.logger.info(`Packing progress: ${humanFileSize(currentSize, true)}`);
+          lastReportSize = currentSize;
+        }
 
-    archive.directory(this.workDir, false);
+        if (currentSize > maxSize) {
+          this.app.logger.warn(`Packing file has exceeded ${humanFileSize(maxSize, true)}`);
+        }
+      });
 
-    // Finalize the archive
-    await archive.finalize();
+      // 将输出流连接到归档
+      archive.pipe(output);
 
-    // Wait for the 'close' event
-    await onClose;
+      // 添加整个工作目录到归档
+      this.app.logger.debug(`Adding work directory ${this.workDir} to archive`);
+      archive.directory(this.workDir, false);
 
-    return {
-      filePath,
-      dirname,
-    };
+      // 完成归档
+      this.app.logger.debug('Finishing archive...');
+      await archive.finalize();
+
+      // 等待关闭事件
+      await onClose;
+
+      return {
+        filePath,
+        dirname,
+      };
+    } catch (error) {
+      this.app.logger.error('Packing process error:', error);
+
+      // 发生错误时，尝试清理资源
+      try {
+        // 如果归档还在运行，尝试中止
+        archive.abort();
+        // 关闭输出流
+        output.end();
+
+        // 如果文件已经创建但不完整，删除它
+        if (fs.existsSync(filePath)) {
+          await fsPromises.unlink(filePath);
+          this.app.logger.info(`Deleted incomplete packing file: ${filePath}`);
+        }
+      } catch (cleanupError) {
+        this.app.logger.error('Cleaning resources error:', cleanupError);
+      }
+
+      throw error;
+    }
   }
 }
