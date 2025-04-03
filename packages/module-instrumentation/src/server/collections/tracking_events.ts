@@ -1,6 +1,9 @@
 import { CollectionOptions } from '@tachybase/database';
 
 export default {
+  dumpRules: {
+    group: 'log',
+  },
   name: 'trackingEvents',
   fields: [
     {
