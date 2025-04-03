@@ -3,18 +3,11 @@ import { App, currentProcessNum, isMain, Service } from '@tachybase/utils';
 
 import jwt from 'jsonwebtoken';
 import { createClient } from 'redis';
-import WebSocket from 'ws';
 
 const KEY_ONLINE_USERS = 'online_users';
 
 @Service()
 export class ConnectionManager {
-  // private redisClient = createClient({
-  //   url: process.env.REDIS_URL ?? 'redis://127.0.0.1:6379',
-  // });
-  // private redisPubClient = this.app.online.app.duplicate();
-  // private redisSubClient = this.app.online.app.duplicate();
-
   @App()
   private app: Application;
 
@@ -61,11 +54,13 @@ export class ConnectionManager {
     const appName = this.app.name;
     const gateway = Gateway.getInstance();
     const ws = gateway['wsServer'];
+
     await this.app.online.sub.SUBSCRIBE(KEY_ONLINE_USERS + appName, async (num) => {
       if (num !== currentProcessNum()) {
         await notifyAllClients(false);
       }
     });
+
     const notifyAllClients = async (broadcast = true) => {
       // 有效在线用户
       const users = (await this.app.online.all.HVALS(KEY_ONLINE_USERS + appName)).map((u) => JSON.parse(u));
@@ -88,42 +83,43 @@ export class ConnectionManager {
         },
       });
     };
-    ws?.wss.on('connection', (ws: WebSocket & { id: string }) => {
-      ws.on('error', async () => {
-        await notifyAllClients();
-      });
-      ws.on('close', async () => {
-        if (!this.app?.online?.all?.isOpen) {
-          return;
-        }
-        await this.app.online.all.HDEL(KEY_ONLINE_USERS + appName, ws.id);
-        await notifyAllClients();
-      });
 
-      // 监听客户端消息,保存客户端信息, 并通知所有客户端
-      ws.on('message', async (data) => {
-        if (data.toString() !== 'ping') {
+    // 注册WebSocket事件处理器
+    this.app.registerWSEventHandler('close', async (clientId) => {
+      if (!this.app?.online?.all?.isOpen) {
+        return;
+      }
+      await this.app.online.all.HDEL(KEY_ONLINE_USERS + appName, clientId);
+      await notifyAllClients();
+    });
+
+    this.app.registerWSEventHandler('error', async () => {
+      await notifyAllClients();
+    });
+
+    this.app.registerWSEventHandler('message', async (clientId, data) => {
+      if (data.toString() !== 'ping') {
+        try {
           const userMeg = JSON.parse(data.toString());
           if (userMeg.type === 'plugin-online-user:client') {
             if (!userMeg.payload.token) {
               return;
             }
-            if (!this.app.isStarted()) {
-              this.app.logger.warn('online user connect warn, app is not started');
+            if (this.app?.db?.closed()) {
+              this.app.logger.warn('online user connect warn, app db is closed');
               return;
             }
-            try {
-              const analysis = jwt.verify(userMeg.payload.token, process.env.APP_KEY) as any;
-              const userId = analysis.userId;
-              const user = await getUserById(userId);
-              await this.app.online.all.HSET(KEY_ONLINE_USERS + appName, ws.id, JSON.stringify(user));
-              await notifyAllClients();
-            } catch (error) {
-              this.app.logger.warn('online user connect error', error);
-            }
+
+            const analysis = jwt.verify(userMeg.payload.token, process.env.APP_KEY) as any;
+            const userId = analysis.userId;
+            const user = await getUserById(userId);
+            await this.app.online.all.HSET(KEY_ONLINE_USERS + appName, clientId, JSON.stringify(user));
+            await notifyAllClients();
           }
+        } catch (error) {
+          this.app.logger.warn('online user connect error', error);
         }
-      });
+      }
     });
   }
 }
