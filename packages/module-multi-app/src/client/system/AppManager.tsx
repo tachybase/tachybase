@@ -102,7 +102,7 @@ const GlobalNotificationHandler = (props) => {
         key: NOTIFICATION_CLIENT_KEY,
         message: message.message,
       });
-    } else if (message.status !== 'running' && message.status === 'initialing') {
+    } else if (message.status !== 'commanding' && message.status !== 'initializing') {
       notification.destroy(NOTIFICATION_CLIENT_KEY);
     }
     // 当前records没有则不刷新
