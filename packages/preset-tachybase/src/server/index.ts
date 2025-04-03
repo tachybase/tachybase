@@ -252,8 +252,8 @@ export class PresetTachyBase extends Plugin {
     const existPlugins = await repository.find();
     const existPluginNames = existPlugins.map((item) => item.name);
     const plugins = (await this.allPlugins()).filter((item) => !existPluginNames.includes(item.name));
-    const afterFilterPlugins = this.filterForbidSubAppPlugin(plugins);
-    await repository.create({ values: afterFilterPlugins });
+    this.filterForbidSubAppPlugin(plugins);
+    await repository.create({ values: plugins });
   }
 
   async install() {
@@ -285,7 +285,11 @@ export class PresetTachyBase extends Plugin {
     }
     const forbidPlugins = this.getForbidSubAppPlugin();
     const repository = this.pm.repository;
-    await repository.destroy({
+    await repository.update({
+      values: {
+        subView: false,
+        enabled: false,
+      },
       filter: {
         name: {
           $in: forbidPlugins,
@@ -299,7 +303,12 @@ export class PresetTachyBase extends Plugin {
       return;
     }
     const forbidPlugins = this.getForbidSubAppPlugin();
-    return plugins.filter((plugin) => !forbidPlugins.includes(plugin.name));
+    plugins.forEach((plugin) => {
+      if (forbidPlugins.includes(plugin.name)) {
+        plugin.subView = false;
+        plugin.enabled = false;
+      }
+    });
   }
 }
 

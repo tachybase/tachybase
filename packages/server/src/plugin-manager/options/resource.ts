@@ -116,7 +116,11 @@ export default {
     async list(ctx, next) {
       const locale = ctx.getCurrentLocale();
       const pm = ctx.app.pm as PluginManager;
-      ctx.body = await pm.list({ locale, isPreset: false });
+      if (ctx.app.name === 'main') {
+        ctx.body = await pm.list({ locale, isPreset: false });
+      } else {
+        ctx.body = await pm.list({ locale, isPreset: false, subView: true });
+      }
       await next();
     },
     async listEnabled(ctx, next) {
@@ -125,6 +129,7 @@ export default {
       const items = await pm.find({
         filter: {
           enabled: true,
+          subView: true,
         },
       });
       ctx.body = items
