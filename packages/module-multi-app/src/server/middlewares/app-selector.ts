@@ -28,14 +28,17 @@ export function appSelectorMiddleware(app) {
         return;
       }
 
-      const appInstance = await repository.findOne({
-        filter: {
-          cname: subAppName,
-        },
-      });
-
-      if (appInstance) {
-        ctx.resolvedAppName = appInstance.name;
+      try {
+        const appInstance = await repository.findOne({
+          filter: {
+            cname: subAppName,
+          },
+        });
+        if (appInstance) {
+          ctx.resolvedAppName = appInstance.name;
+        }
+      } catch (error) {
+        app.logger.error('Error selecting app', error);
       }
     }
 
