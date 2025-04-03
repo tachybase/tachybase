@@ -69,6 +69,7 @@ export class PresetTachyBase extends Plugin {
     ['auth-wecom', '0.21.76', false],
     ['block-comments', '0.22.6', false],
     ['block-map', '0.8.1', false],
+    ['block-step-form', '1.0.0', false],
     ['data-source-common', '0.22.5', false],
     ['demos-game-runesweeper', '0.22.20', false],
     ['devtools', '0.22.82', false],
