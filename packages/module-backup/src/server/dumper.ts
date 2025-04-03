@@ -241,7 +241,7 @@ export class Dumper extends AppMigrator {
     await fsPromises.writeFile(filePath, 'lock', 'utf8');
   }
 
-  async cleanLockFile(fileName: string, appName?: string) {
+  async cleanLockFile(fileName: string, appName: string) {
     const filePath = this.lockFilePath(fileName, appName);
     await fsPromises.unlink(filePath);
   }

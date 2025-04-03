@@ -136,7 +136,7 @@ export default {
             app.noticeManager.notify('backup', { level: 'error', msg: error.message });
           })
           .finally(() => {
-            dumper.cleanLockFile(taskId);
+            dumper.cleanLockFile(taskId, ctx.app.name);
           });
       } else {
         const plugin = app.pm.get(PluginBackupRestoreServer) as PluginBackupRestoreServer;
@@ -153,7 +153,7 @@ export default {
             app.noticeManager.notify('backup', { level: 'error', msg: error.message });
           })
           .finally(() => {
-            dumper.cleanLockFile(taskId);
+            dumper.cleanLockFile(taskId, ctx.app.name);
           });
       }
 
