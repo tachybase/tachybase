@@ -1792,6 +1792,10 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
+      antd:
+        specifier: 5.22.5
+        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   packages/module-message:
     dependencies:
@@ -4619,6 +4623,9 @@ importers:
       '@tachybase/module-hera':
         specifier: workspace:*
         version: link:../module-hera
+      '@tachybase/module-instrumentation':
+        specifier: workspace:*
+        version: link:../module-instrumentation
       '@tachybase/module-message':
         specifier: workspace:*
         version: link:../module-message

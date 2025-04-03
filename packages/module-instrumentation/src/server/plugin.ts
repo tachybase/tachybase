@@ -12,6 +12,10 @@ export class ModuleInstrumentationServer extends Plugin {
 
   async load() {
     this.app.acl.allow('instrumentation', '*', 'public');
+    this.app.acl.registerSnippet({
+      name: `pm.system-services.custom-instrumentation`,
+      actions: ['trackingEvents:*'],
+    });
   }
 
   async install() {}

@@ -4,7 +4,9 @@
   "version": "1.0.6",
   "description": "A module for tracking and instrumentation in Tachybase.",
   "main": "dist/server/index.js",
-  "dependencies": {},
+  "devDependencies": {
+    "antd": "5.22.5"
+  },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
