@@ -9,10 +9,10 @@ export default class extends Migration {
     // coding
     const queryInterface = this.db.sequelize.getQueryInterface();
     // 使用 changeColumn 方法来修改列的数据类型
-    await queryInterface.changeColumn('tokenBlacklist', 'token', {
+    await queryInterface.changeColumn('apiKeys', 'token', {
       type: DataTypes.TEXT,
     });
 
-    this.app.logger.info('change tokenBlacklist token form string to text success!');
+    this.app.logger.info('change apiKeys token form string to text success!');
   }
 }
