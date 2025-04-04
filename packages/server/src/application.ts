@@ -1191,6 +1191,15 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     return db;
   }
 
+  /**
+   * 注册WebSocket事件处理器
+   * @param eventType 事件类型 ('message'|'close'|'error')
+   * @param handler 事件处理函数
+   */
+  registerWSEventHandler(eventType: 'message' | 'close' | 'error', handler: (...args: any[]) => Promise<void> | void) {
+    this.emit('ws:registerEventHandler', { eventType, handler });
+  }
+
   [key: string]: any;
 }
 
