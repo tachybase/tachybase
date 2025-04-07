@@ -77,6 +77,11 @@ export const viewInstrumentation: ISchema = {
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                   'x-read-pretty': true,
+                  'x-component-props': {
+                    style: {
+                      height: '300px',
+                    },
+                  },
                 },
               },
             },

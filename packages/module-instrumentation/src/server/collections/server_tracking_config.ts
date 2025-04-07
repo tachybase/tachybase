@@ -16,10 +16,10 @@ export default {
       type: 'string',
       name: 'resourceName',
     },
-    {
-      type: 'string',
-      name: 'title',
-    },
+    // {
+    //   type: 'string',
+    //   name: 'title',
+    // },
     {
       type: 'string',
       name: 'action',
@@ -28,6 +28,10 @@ export default {
       type: 'boolean',
       name: 'apiConfig',
       defaultValue: true,
+    },
+    {
+      type: 'jsonb',
+      name: 'keys',
     },
   ],
   indexes: [

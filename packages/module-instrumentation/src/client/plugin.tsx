@@ -32,12 +32,12 @@ class ModuleInstrumentationClient extends Plugin {
       Component: ServerTrackingConfigPane,
       aclSnippet: 'pm.system-services.custom-instrumentation.serverTrackingConfig',
     });
-    this.app.systemSettingsManager.add('system-services.custom-instrumentation.serverTracking', {
-      icon: 'SettingOutlined',
-      title: lang('Server tracking'),
-      Component: ServerTrackingPane,
-      aclSnippet: 'pm.system-services.custom-instrumentation.serverTracking',
-    });
+    // this.app.systemSettingsManager.add('system-services.custom-instrumentation.serverTracking', {
+    //   icon: 'SettingOutlined',
+    //   title: lang('Server tracking'),
+    //   Component: ServerTrackingPane,
+    //   aclSnippet: 'pm.system-services.custom-instrumentation.serverTracking',
+    // });
   }
 }
 

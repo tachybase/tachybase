@@ -17,18 +17,18 @@ export const serverTrackingConfigCollection = {
         'x-read-pretty': true,
       } as ISchema,
     },
-    {
-      interface: 'input',
-      type: 'string',
-      name: 'title',
-      uiSchema: {
-        type: 'string',
-        title: '{{t("Title")}}',
-        'x-component': 'Input',
-        'x-component-props': {},
-        'x-read-pretty': true,
-      } as ISchema,
-    },
+    // {
+    //   interface: 'input',
+    //   type: 'string',
+    //   name: 'title',
+    //   uiSchema: {
+    //     type: 'string',
+    //     title: '{{t("Title")}}',
+    //     'x-component': 'Input',
+    //     'x-component-props': {},
+    //     'x-read-pretty': true,
+    //   } as ISchema,
+    // },
     {
       interface: 'input',
       type: 'string',
@@ -49,6 +49,21 @@ export const serverTrackingConfigCollection = {
         type: 'boolean',
         title: tval('Api audit'),
         'x-component': 'Checkbox',
+      } as ISchema,
+    },
+    {
+      interface: 'input',
+      type: 'json',
+      name: 'keys',
+      uiSchema: {
+        type: 'json',
+        title: tval('keys'),
+        'x-component': 'Json',
+        'x-component-props': {
+          style: {
+            height: '100px',
+          },
+        },
       } as ISchema,
     },
   ],

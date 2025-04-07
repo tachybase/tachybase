@@ -3,6 +3,7 @@ import { ISchema } from '@tachybase/schema';
 import { serverTrackingConfigCollection } from '../collections/serverTrackingConfig.collection';
 import { tval } from '../locale';
 import { createServerTrackingConfig } from './createServerTrackingConfig';
+import { updateServerTrackingConfig } from './updateServerTrackingConfig';
 
 export const schemaServerTrackingConfig: ISchema = {
   type: 'void',
@@ -40,33 +41,33 @@ export const schemaServerTrackingConfig: ISchema = {
             //   },
             //   'x-align': 'left',
             // },
-            // refresher: {
-            //   type: 'void',
-            //   title: '{{ t("Refresh") }}',
-            //   'x-action': 'refresh',
-            //   'x-component': 'Action',
-            //   'x-use-component-props': 'useRefreshActionProps',
-            //   'x-designer': 'Action.Designer',
-            //   'x-component-props': {
-            //     icon: 'ReloadOutlined',
-            //   },
-            //   'x-align': 'right',
-            // },
-            // delete: {
-            //   type: 'void',
-            //   title: '{{ t("Delete") }}',
-            //   'x-action': 'destroy',
-            //   'x-component': 'Action',
-            //   'x-decorator': 'ACLActionProvider',
-            //   'x-use-component-props': 'useBulkDestroyActionProps',
-            //   'x-component-props': {
-            //     icon: 'DeleteOutlined',
-            //     confirm: {
-            //       title: "{{t('Delete')}}",
-            //       content: "{{t('Are you sure you want to delete it?')}}",
-            //     },
-            //   },
-            // },
+            refresher: {
+              type: 'void',
+              title: '{{ t("Refresh") }}',
+              'x-action': 'refresh',
+              'x-component': 'Action',
+              'x-use-component-props': 'useRefreshActionProps',
+              'x-designer': 'Action.Designer',
+              'x-component-props': {
+                icon: 'ReloadOutlined',
+              },
+              'x-align': 'right',
+            },
+            delete: {
+              type: 'void',
+              title: '{{ t("Delete") }}',
+              'x-action': 'destroy',
+              'x-component': 'Action',
+              'x-decorator': 'ACLActionProvider',
+              'x-use-component-props': 'useBulkDestroyActionProps',
+              'x-component-props': {
+                icon: 'DeleteOutlined',
+                confirm: {
+                  title: "{{t('Delete')}}",
+                  content: "{{t('Are you sure you want to delete it?')}}",
+                },
+              },
+            },
             // enable: {
             //   type: 'void',
             //   title: '{{ t("Enable") }}',
@@ -112,21 +113,21 @@ export const schemaServerTrackingConfig: ISchema = {
             },
           },
           properties: {
-            title: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              'x-component-props': {
-                align: 'center',
-              },
-              properties: {
-                title: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
+            // title: {
+            //   type: 'void',
+            //   'x-decorator': 'TableV2.Column.Decorator',
+            //   'x-component': 'TableV2.Column',
+            //   'x-component-props': {
+            //     align: 'center',
+            //   },
+            //   properties: {
+            //     title: {
+            //       type: 'string',
+            //       'x-component': 'CollectionField',
+            //       'x-read-pretty': true,
+            //     },
+            //   },
+            // },
             resourceName: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
@@ -157,6 +158,21 @@ export const schemaServerTrackingConfig: ISchema = {
                 },
               },
             },
+            keys: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                align: 'center',
+              },
+              properties: {
+                keys: {
+                  type: 'json',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
             apiConfig: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
@@ -169,6 +185,39 @@ export const schemaServerTrackingConfig: ISchema = {
                   type: 'boolean',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
+                },
+              },
+            },
+            actions: {
+              type: 'void',
+              title: '{{ t("Actions") }}',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                fixed: 'right',
+              },
+              properties: {
+                actions: {
+                  type: 'void',
+                  'x-component': 'Space',
+                  'x-component-props': {
+                    split: '|',
+                  },
+                  properties: {
+                    update: updateServerTrackingConfig,
+                    delete: {
+                      type: 'void',
+                      title: '{{t("Delete")}}',
+                      'x-action': 'destroy',
+                      'x-component': 'Action.Link',
+                      'x-use-component-props': 'useDestroyActionProps',
+                      'x-component-props': {
+                        confirm: {
+                          title: "{{t('Delete record')}}",
+                          content: "{{t('Are you sure you want to delete it?')}}",
+                        },
+                      },
+                    },
+                  },
                 },
               },
             },

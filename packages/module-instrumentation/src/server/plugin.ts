@@ -4,6 +4,7 @@ import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import { TrackingController } from './actions/tracking-controller';
 import { handleCreate, handleDestroy, handleUpdate } from './hooks';
+import { handleOtherAction } from './hooks/afterAction';
 import { ServerTrackingFilter } from './ServerTrackingFilter';
 
 @InjectedPlugin({
@@ -18,16 +19,9 @@ export class ModuleInstrumentationServer extends Plugin {
     });
     this.app.resourcer.use(
       async (ctx: Context, next) => {
-        const { actionName, resourceName, params } = ctx.action;
-        if (!this.serverTrackingFilter?.check(resourceName, actionName)) {
-          return next();
-        }
-        if (actionName === 'update') {
-          return await handleUpdate(ctx, next);
-        } else if (actionName === 'create') {
-          return await handleCreate(ctx, next);
-        } else if (actionName === 'destroy') {
-          return await handleDestroy(ctx, next);
+        const { actionName, resourceName } = ctx.action;
+        if (this.serverTrackingFilter?.check(resourceName, actionName)) {
+          return await handleOtherAction(ctx, next);
         }
         return next();
       },
