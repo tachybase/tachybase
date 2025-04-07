@@ -4,6 +4,7 @@ import { useField, useFieldSchema } from '@tachybase/schema';
 
 import { useAsyncEffect } from 'ahooks';
 import { Descriptions, DescriptionsProps, Spin, Table } from 'antd';
+import { isEqual } from 'lodash';
 
 import { transformers } from './GroupBlockConfigure';
 
@@ -76,6 +77,9 @@ export const InternalGroupBlock = (props) => {
     dataBlocks.forEach((block) => {
       if (Object.values(block.defaultFilter).length) {
         if (service.params?.[0]?.filter) {
+          if (isEqual(service.params?.[0]?.filter, block.defaultFilter)) {
+            return;
+          }
           const keys = Object.keys(block.defaultFilter);
           keys.forEach((key) => {
             const length = Object.values(service.params[0].filter?.[key] || {})?.length;
