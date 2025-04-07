@@ -4,7 +4,7 @@ import { tokenPolicyCollectionName, tokenPolicyRecordKey } from '../../constants
 
 export default class extends Migration {
   on = 'afterLoad'; // 'beforeLoad' or 'afterLoad'
-  appVersion = '<0.23.65';
+  appVersion = '<0.23.66';
 
   async up() {
     const tokenPolicyRepo = this.app.db.getRepository(tokenPolicyCollectionName);
