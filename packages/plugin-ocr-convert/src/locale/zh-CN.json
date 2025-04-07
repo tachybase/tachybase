@@ -1,0 +1,18 @@
+{
+  "Accurate OCR": "高精度文字识别",
+  "Bank Card OCR": "银行卡识别",
+  "Business License OCR": "营业执照识别",
+  "Driver License OCR": "驾驶证识别",
+  "General OCR": "通用文字识别",
+  "Handwriting OCR": "手写体识别",
+  "ID Card OCR": "身份证识别",
+  "Image URL required": "需要提供图片URL",
+  "Image size exceeds limit": "图片大小超出限制",
+  "Invalid image format": "无效的图片格式",
+  "Network error": "网络错误",
+  "OCR Providers": "OCR 服务提供商",
+  "OCR conversion failed": "OCR识别失败",
+  "OCR provider not found": "未找到OCR服务提供商",
+  "Rate limit exceeded": "超出请求限制",
+  "Vehicle License OCR": "行驶证识别"
+}
