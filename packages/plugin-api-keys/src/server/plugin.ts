@@ -58,7 +58,7 @@ export class PluginAPIKeysServer extends Plugin {
         }
         await next();
       },
-      { tag: 'resourceNameListDestroyFilter' },
+      { tag: 'resourceNameListDestroyFilter', after: 'auth' },
     );
   }
 }
