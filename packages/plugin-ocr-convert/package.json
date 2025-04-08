@@ -4,6 +4,9 @@
   "main": "dist/server/index.js",
   "dependencies": {},
   "devDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "@tachybase/utils": "workspace:*",
     "antd": "5.22.5",
     "dayjs": "1.11.13",
     "react": "~18.3.1",
@@ -11,7 +14,9 @@
     "tencentcloud-sdk-nodejs": "^4.0.996"
   },
   "peerDependencies": {
-    "@tachybase/client": "workspace:*",
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/database": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },

@@ -4075,9 +4075,15 @@ importers:
 
   packages/plugin-ocr-convert:
     dependencies:
-      '@tachybase/client':
+      '@tachybase/actions':
         specifier: workspace:*
-        version: link:../client
+        version: link:../actions
+      '@tachybase/components':
+        specifier: workspace:*
+        version: link:../components
+      '@tachybase/database':
+        specifier: workspace:*
+        version: link:../database
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -4085,6 +4091,15 @@ importers:
         specifier: workspace:*
         version: link:../test
     devDependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
+      '@tachybase/utils':
+        specifier: workspace:*
+        version: link:../utils
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -4813,6 +4828,9 @@ importers:
       '@tachybase/plugin-multi-app-share-collection':
         specifier: workspace:*
         version: link:../plugin-multi-app-share-collection
+      '@tachybase/plugin-ocr-convert':
+        specifier: workspace:*
+        version: link:../plugin-ocr-convert
       '@tachybase/plugin-online-user':
         specifier: workspace:*
         version: link:../plugin-prototype-online-user
