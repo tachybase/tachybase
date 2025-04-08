@@ -1,7 +1,7 @@
 import { SchemaInitializer } from '@tachybase/client';
 
+import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
 import { NAMESPACE } from '../../../locale';
-import { APPROVAL_STATUS } from '../../../usage/pc/constants';
 import { ApplyFormActionCommon } from './ApplyFormActionCommon';
 import { ApplyFormActionReminder } from './ApplyFormActionReminder';
 import { ApplyFormActionReSubmit } from './ApplyFormActionReSubmit';
@@ -16,7 +16,7 @@ export const ApplyFormActionInitializer = new SchemaInitializer({
       type: 'item',
       title: '{{t("Submit")}}',
       Component: ApplyFormActionCommon,
-      action: APPROVAL_STATUS.SUBMITTED,
+      action: APPROVAL_INITIATION_STATUS.SUBMITTED,
       actionProps: { type: 'primary' },
       disabled: true,
     },
@@ -25,13 +25,13 @@ export const ApplyFormActionInitializer = new SchemaInitializer({
       type: 'item',
       title: `{{t("Save draft", { ns: "${NAMESPACE}" })}}`,
       Component: ApplyFormActionCommon,
-      action: APPROVAL_STATUS.DRAFT,
+      action: APPROVAL_INITIATION_STATUS.DRAFT,
     },
     {
       name: 'Resubmit',
       type: 'item',
       title: `{{t("Resubmit", { ns: "${NAMESPACE}" })}}`,
-      action: APPROVAL_STATUS.RESUBMIT,
+      action: APPROVAL_INITIATION_STATUS.RESUBMIT,
       Component: ApplyFormActionReSubmit,
     },
     {
@@ -56,7 +56,7 @@ export const LauncherActionConfigInitializer = new SchemaInitializer({
       type: 'item',
       title: '{{t("Submit")}}',
       Component: ApplyFormActionCommon,
-      action: APPROVAL_STATUS.SUBMITTED,
+      action: APPROVAL_INITIATION_STATUS.SUBMITTED,
       actionProps: { type: 'primary' },
       disabled: true,
     },
@@ -65,13 +65,13 @@ export const LauncherActionConfigInitializer = new SchemaInitializer({
       type: 'item',
       title: `{{t("Save draft", { ns: "${NAMESPACE}" })}}`,
       Component: ApplyFormActionCommon,
-      action: APPROVAL_STATUS.DRAFT,
+      action: APPROVAL_INITIATION_STATUS.DRAFT,
     },
     {
       name: 'Resubmit',
       type: 'item',
       title: `{{t("Resubmit", { ns: "${NAMESPACE}" })}}`,
-      action: APPROVAL_STATUS.RESUBMIT,
+      action: APPROVAL_INITIATION_STATUS.RESUBMIT,
       Component: ApplyFormActionCommon,
     },
   ],

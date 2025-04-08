@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 
-import { APPROVAL_STATUS } from '../../../constants';
+import { APPROVAL_INITIATION_STATUS } from '../../../../../common/constants/approval-initiation-status';
 
-const ContextApprovalStatus = createContext(APPROVAL_STATUS.SUBMITTED);
+const ContextApprovalStatus = createContext(APPROVAL_INITIATION_STATUS.SUBMITTED);
 
 export function useContextApprovalStatus() {
   return useContext(ContextApprovalStatus);

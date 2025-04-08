@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   createFormBlockSchema,
   SchemaInitializerItem,
@@ -9,8 +8,9 @@ import {
   useSchemaTemplateManager,
 } from '@tachybase/client';
 
+import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
 import { NAMESPACE } from '../../../locale';
-import { APPROVAL_STATUS, flatSchemaArray } from '../../../usage/pc/constants';
+import { flatSchemaArray } from '../../../usage/pc/constants';
 
 // 添加卡片-Initializer的component
 export const ApplyFormDetailInitializerItem = () => {
@@ -34,7 +34,7 @@ export const ApplyFormDetailInitializerItem = () => {
           title: '{{t("Submit")}}',
           'x-decorator': 'ApplyActionStatusProvider',
           'x-decorator-props': {
-            value: APPROVAL_STATUS.SUBMITTED,
+            value: APPROVAL_INITIATION_STATUS.SUBMITTED,
           },
           'x-component': 'Action',
           'x-component-props': {
@@ -44,7 +44,7 @@ export const ApplyFormDetailInitializerItem = () => {
           },
           'x-designer': 'Action.Designer',
           'x-designer-props': {},
-          'x-action': `${APPROVAL_STATUS.SUBMITTED}`,
+          'x-action': `${APPROVAL_INITIATION_STATUS.SUBMITTED}`,
           'x-action-settings': { removable: false, assignedValues: {} },
         },
         withdraw: {

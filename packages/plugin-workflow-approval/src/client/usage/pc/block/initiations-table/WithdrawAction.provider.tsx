@@ -1,9 +1,9 @@
 import { useCurrentUserContext } from '@tachybase/client';
 import { useFlowContext } from '@tachybase/module-workflow/client';
 
+import { APPROVAL_INITIATION_STATUS } from '../../../../common/constants/approval-initiation-status';
 import { useApproval } from '../../common/ApprovalData.provider';
 import { useResubmit } from '../../common/Resubmit.provider';
-import { APPROVAL_STATUS } from '../../constants';
 
 // TODO: 也许可以抽成审批范围内通用的
 export function WithdrawActionProvider({ children }) {
@@ -14,7 +14,7 @@ export function WithdrawActionProvider({ children }) {
 
   const isSameId = data.data.id === createdById;
   const isEnabledWithdraw = workflow.enabled && workflow.config.withdrawable;
-  const isStatusSubmitted = APPROVAL_STATUS.SUBMITTED === status;
+  const isStatusSubmitted = APPROVAL_INITIATION_STATUS.SUBMITTED === status;
 
   if (isSameId && isEnabledWithdraw && isStatusSubmitted && !isResubmit) {
     return children;
