@@ -1,10 +1,10 @@
-import React from 'react';
 import { createFormBlockSchema, InitializerWithSwitch, useSchemaInitializerItem } from '@tachybase/client';
 
 import _ from 'lodash';
 
+import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
 import { NAMESPACE } from '../../../locale';
-import { APPROVAL_ACTION_STATUS, flatSchemaArray } from '../../../usage/pc/constants';
+import { flatSchemaArray } from '../../../usage/pc/constants';
 
 // 添加卡片-操作switch
 export const SwitchApproverActionBlock = () => {
@@ -17,7 +17,7 @@ export const SwitchApproverActionBlock = () => {
         title: `{{t("Approve", { ns: "${NAMESPACE}" })}}`,
         'x-decorator': 'ApprovalActionProvider',
         'x-decorator-props': {
-          status: APPROVAL_ACTION_STATUS.APPROVED,
+          status: APPROVAL_TODO_STATUS.APPROVED,
         },
         'x-component': 'Action',
         'x-component-props': {
@@ -27,7 +27,7 @@ export const SwitchApproverActionBlock = () => {
         },
         'x-designer': 'Action.Designer',
         'x-designer-props': {},
-        'x-action': `${APPROVAL_ACTION_STATUS.APPROVED}`,
+        'x-action': `${APPROVAL_TODO_STATUS.APPROVED}`,
       },
     },
     resource: 'approvalRecords',
