@@ -1,7 +1,7 @@
 import { useCurrentUserContext } from '@tachybase/client';
 
+import { APPROVAL_INITIATION_STATUS } from '../../../../../common/constants/approval-initiation-status';
 import { useApproval } from '../../../common/ApprovalData.provider';
-import { APPROVAL_STATUS } from '../../../constants';
 import { useContextApprovalExecution } from '../../common/ApprovalExecution.provider';
 
 export const ProviderActionReminder = (props) => {
@@ -12,8 +12,8 @@ export const ProviderActionReminder = (props) => {
 
   const isSameId = data.data.id === createdById;
   const isSameExecutionId = latestExecutionId === approvalExecution.id;
-  const isDraft = status === APPROVAL_STATUS.DRAFT;
-  const isReturned = status === APPROVAL_STATUS.RETURNED;
+  const isDraft = status === APPROVAL_INITIATION_STATUS.DRAFT;
+  const isReturned = status === APPROVAL_INITIATION_STATUS.RETURNED;
 
   if (isSameId && !isDraft && !isReturned && isSameExecutionId) {
     return props.children;

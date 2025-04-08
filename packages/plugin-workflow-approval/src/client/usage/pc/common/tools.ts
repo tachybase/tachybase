@@ -2,8 +2,9 @@ import { EXECUTION_STATUS } from '@tachybase/module-workflow/client';
 
 import _ from 'lodash';
 
+import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
 import { lang } from '../../../locale';
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from '../constants';
+import { APPROVAL_ACTION_STATUS } from '../constants';
 
 // TODO: 拆了这个大文件
 export function getResults(params) {
@@ -29,7 +30,7 @@ export function getResults(params) {
               ...approval.createdBy,
               id: approval.createdById,
             },
-            status: curr.status ? APPROVAL_STATUS.SUBMITTED : approval.status,
+            status: curr.status ? APPROVAL_INITIATION_STATUS.SUBMITTED : approval.status,
             updatedAt: curr.createdAt,
             execution: { ...curr },
           },

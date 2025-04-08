@@ -2,11 +2,12 @@ import { useMemo } from 'react';
 import { CardItem, createStyles, useCompile, useCurrentUserContext } from '@tachybase/client';
 import { dayjs } from '@tachybase/utils/client';
 
-import { Space, Table, Tag, Timeline } from 'antd';
+import { Space, Tag, Timeline } from 'antd';
 import _ from 'lodash';
 
+import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
 import { usePluginTranslation } from '../../../locale';
-import { APPROVAL_STATUS, approvalStatusConfigObj, ApprovalStatusEnumDict } from '../constants';
+import { approvalStatusConfigObj, ApprovalStatusEnumDict } from '../constants';
 import { useApproval } from './ApprovalData.provider';
 import { getAntdTableColumns } from './process-columns';
 import { getResults } from './tools';
@@ -65,7 +66,9 @@ export const Process = ({ dataSource = [] }) => {
       // 第一个必定为发起项
       status =
         ApprovalStatusEnumDict[
-          dataItem.status === APPROVAL_STATUS.DRAFT ? APPROVAL_STATUS.DRAFT : APPROVAL_STATUS.SUBMITTED
+          dataItem.status === APPROVAL_INITIATION_STATUS.DRAFT
+            ? APPROVAL_INITIATION_STATUS.DRAFT
+            : APPROVAL_INITIATION_STATUS.SUBMITTED
         ];
     } else {
       status = approvalStatusConfigObj[dataItem.status];
