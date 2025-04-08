@@ -1,5 +1,6 @@
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../common/constants';
 import { approvalStatusEnums } from '../../../common/constants/approval-initiation-status-options';
-import { ApprovalNoticeStatusOptions, COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../constants';
+import { ApprovalNoticeStatusOptions } from '../constants';
 import { NAMESPACE, tval } from '../locale';
 
 export const CollectionApprovalCarbonCopy = {

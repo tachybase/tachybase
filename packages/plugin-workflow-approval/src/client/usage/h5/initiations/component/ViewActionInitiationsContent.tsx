@@ -16,7 +16,7 @@ import { useTranslation } from '../../locale';
 
 import '../../style/style.css';
 
-import { APPROVAL_ACTION_STATUS } from '../../constants';
+import { APPROVAL_INITIATION_STATUS } from '../../../../common/constants/approval-initiation-status';
 import { useActionReminder } from '../hook/useActionReminder';
 import { useActionResubmit } from '../hook/useActionResubmit';
 import { useCreateSubmit } from '../hook/useCreateSubmit';
@@ -129,7 +129,7 @@ export function ActionBarProvider(props) {
   return props.children;
 }
 
-const ContextInitiationsApprovalStatus = createContext(APPROVAL_ACTION_STATUS.SUBMITTED);
+const ContextInitiationsApprovalStatus = createContext(APPROVAL_INITIATION_STATUS.SUBMITTED);
 
 export function useContextApprovalStatus() {
   return useContext(ContextInitiationsApprovalStatus);

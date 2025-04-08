@@ -1,6 +1,6 @@
 import React from 'react';
 import { SchemaInitializerItemType } from '@tachybase/client';
-import { JOB_STATUS } from '@tachybase/module-workflow/client';
+import { EXECUTION_STATUS, JOB_STATUS } from '@tachybase/module-workflow/client';
 import { ISchema } from '@tachybase/schema';
 
 import {
@@ -13,146 +13,13 @@ import {
   RedoOutlined,
 } from '@ant-design/icons';
 
-import { approvalStatusEnums } from '../../common/constants/approval-initiation-status-options';
-import { lang } from './locale';
-
-export const NOTICE_INSTRUCTION_NAMESPACE = 'notice';
-export const COLLECTION_NOTICE_NAME = 'workflowNotice';
-export const COLLECTION_NAME_APPROVAL_CARBON_COPY = 'approvalCarbonCopy';
-
 export const ProcessedStatus = [1, 2, -1, -3];
-
-/**行为状态 */
-export const APPROVAL_ACTION_STATUS = {
-  /** 0：草稿 */
-  DRAFT: 0,
-  /** 1：已退回 */
-  RETURNED: 1,
-  /** 2：提交 */
-  SUBMITTED: 2,
-  /** 3：处理中 */
-  PROCESSING: 3,
-  /** 4：已完结 */
-  APPROVED: 4,
-  /**5：重新提交 */
-  RESUBMIT: 5,
-  /** -1：拒收 */
-  REJECTED: -1,
-};
-
-export const ApprovalStatusEnums = [
-  { value: APPROVAL_ACTION_STATUS.DRAFT, label: `Draft`, editable: true },
-  {
-    value: APPROVAL_ACTION_STATUS.RETURNED,
-    label: `Returned`,
-    color: 'purple',
-    editable: true,
-  },
-  { value: APPROVAL_ACTION_STATUS.SUBMITTED, label: `Submitted`, color: 'cyan' },
-  { value: APPROVAL_ACTION_STATUS.PROCESSING, label: `Processing`, color: 'gold' },
-  { value: APPROVAL_ACTION_STATUS.APPROVED, label: `Approved`, color: 'green' },
-  { value: APPROVAL_ACTION_STATUS.REJECTED, label: `Rejected`, color: 'red' },
-  { value: APPROVAL_ACTION_STATUS.RESUBMIT, label: 'ReSubmit', color: 'blue', editable: true },
-];
 
 export const ApprovalPriorityType = [
   { value: '1', label: '一般', color: 'cyan' },
   { value: '2', label: '紧急', color: 'gold' },
   { value: '3', label: '非常紧急', color: 'red' },
 ];
-
-export const ApprovalStatusEnumDict = approvalStatusEnums.reduce((e, t) => Object.assign(e, { [t.value]: t }), {});
-export const JobStatusEnums = {
-  [JOB_STATUS.PENDING]: { color: 'gold', label: `Pending` },
-  [JOB_STATUS.RESOLVED]: { color: 'green', label: `Approved` },
-  [JOB_STATUS.REJECTED]: { color: 'red', label: `Rejected` },
-  [JOB_STATUS.RETRY_NEEDED]: { color: 'red', label: `Returned` },
-};
-export const VoteCategory = { SINGLE: Symbol('single'), ALL: Symbol('all'), VOTE: Symbol('vote') };
-export const VoteCategoryEnums = [
-  { value: VoteCategory.SINGLE, label: `Or"` },
-  { value: VoteCategory.ALL, label: `And"` },
-  {
-    value: VoteCategory.VOTE,
-    label: (v: number) => `${lang('Voting')} ( > ${(v * 100).toFixed(0)}%)`,
-  },
-].reduce((obj, vote) => Object.assign(obj, { [vote.value]: vote }), {});
-export function voteOption(value: number) {
-  switch (true) {
-    case value === 1:
-      return VoteCategory.ALL;
-    case 0 < value && value < 1:
-      return VoteCategory.VOTE;
-    default:
-      return VoteCategory.SINGLE;
-  }
-}
-export function flatSchemaArray(sourceData, filter, needRecursion = false) {
-  const flatArray = [];
-  if (!sourceData) {
-    return flatArray;
-  }
-
-  if (filter(sourceData) && (!needRecursion || !sourceData.properties)) {
-    flatArray.push(sourceData);
-  } else {
-    sourceData.properties &&
-      Object.keys(sourceData.properties).forEach((key) => {
-        flatArray.push(...flatSchemaArray(sourceData.properties[key], filter));
-      });
-  }
-
-  return flatArray;
-}
-
-type ValueOf<T> = T[keyof T];
-
-export type FormType = {
-  type: 'create' | 'update' | 'custom';
-  title: string;
-  actions: ValueOf<typeof JOB_STATUS>[];
-  collection:
-    | string
-    | {
-        name: string;
-        fields: any[];
-        [key: string]: any;
-      };
-};
-
-export type ManualFormType = {
-  title: string;
-  config: {
-    useInitializer: ({ allCollections }?: { allCollections: any[] }) => SchemaInitializerItemType;
-    initializers?: {
-      [key: string]: React.FC;
-    };
-    components?: {
-      [key: string]: React.FC;
-    };
-    parseFormOptions(root: ISchema): { [key: string]: FormType };
-  };
-  block: {
-    scope?: {
-      [key: string]: () => any;
-    };
-    components?: {
-      [key: string]: React.FC;
-    };
-  };
-};
-
-export const EXECUTION_STATUS = {
-  QUEUEING: null,
-  STARTED: 0,
-  RESOLVED: 1,
-  FAILED: -1,
-  ERROR: -2,
-  ABORTED: -3,
-  CANCELED: -4,
-  REJECTED: -5,
-  RETRY_NEEDED: -6,
-};
 
 export const ExecutionStatusOptions = [
   {
@@ -223,8 +90,43 @@ export const ExecutionStatusOptions = [
 export const ApprovalNoticeStatusOptions = [
   { value: EXECUTION_STATUS.QUEUEING, label: 'Assigned', color: 'blue' },
   { value: EXECUTION_STATUS.STARTED, label: 'Pending', color: 'gold' },
-  // { value: EXECUTION_STATUS.RETURNED, label: `{{t("Returned", { ns: "${NAMESPACE}" })}}`, color: 'purple' },
   { value: 2, label: 'Approved', color: 'green' },
   { value: EXECUTION_STATUS.REJECTED, label: 'Rejected', color: 'red' },
-  // { value: EXECUTION_STATUS.WITHDRAWN, label: `{{t("Withdrawn", { ns: "${NAMESPACE}" })}}` },
 ];
+
+type ValueOf<T> = T[keyof T];
+
+export type FormType = {
+  type: 'create' | 'update' | 'custom';
+  title: string;
+  actions: ValueOf<typeof JOB_STATUS>[];
+  collection:
+    | string
+    | {
+        name: string;
+        fields: any[];
+        [key: string]: any;
+      };
+};
+
+export type ManualFormType = {
+  title: string;
+  config: {
+    useInitializer: ({ allCollections }?: { allCollections: any[] }) => SchemaInitializerItemType;
+    initializers?: {
+      [key: string]: React.FC;
+    };
+    components?: {
+      [key: string]: React.FC;
+    };
+    parseFormOptions(root: ISchema): { [key: string]: FormType };
+  };
+  block: {
+    scope?: {
+      [key: string]: () => any;
+    };
+    components?: {
+      [key: string]: React.FC;
+    };
+  };
+};
