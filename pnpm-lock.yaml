@@ -225,7 +225,7 @@ importers:
         version: 2.4.2
       esbuild-register:
         specifier: ^3.6.0
-        version: 3.6.0(esbuild@0.24.0)
+        version: 3.6.0(esbuild@0.24.2)
       execa:
         specifier: ^5.1.1
         version: 5.1.1
@@ -3279,9 +3279,6 @@ importers:
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
-      flat:
-        specifier: ^5.0.2
-        version: 5.0.2
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
@@ -26804,10 +26801,10 @@ snapshots:
 
   esbuild-plugin-file-path-extensions@2.1.4: {}
 
-  esbuild-register@3.6.0(esbuild@0.24.0):
+  esbuild-register@3.6.0(esbuild@0.24.2):
     dependencies:
       debug: 4.4.0(supports-color@5.5.0)
-      esbuild: 0.24.0
+      esbuild: 0.24.2
     transitivePeerDependencies:
       - supports-color
 
