@@ -1,7 +1,7 @@
 import { SchemaInitializer } from '@tachybase/client';
 
+import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
 import { NAMESPACE } from '../../../locale';
-import { APPROVAL_ACTION_STATUS } from '../../../usage/pc/constants';
 import { ApproverActionCommon } from './ApproverActionCommon';
 
 export const ApproverActionInitializer = new SchemaInitializer({
@@ -9,27 +9,27 @@ export const ApproverActionInitializer = new SchemaInitializer({
   title: '{{t("Configure actions")}}',
   items: [
     {
-      name: `action-${APPROVAL_ACTION_STATUS.APPROVED}`,
+      name: `action-${APPROVAL_TODO_STATUS.APPROVED}`,
       type: 'item',
       title: `{{t("Approve", { ns: "${NAMESPACE}" })}}`,
       Component: ApproverActionCommon,
-      action: APPROVAL_ACTION_STATUS.APPROVED,
+      action: APPROVAL_TODO_STATUS.APPROVED,
       actionProps: { type: 'primary' },
     },
     {
-      name: `action-${APPROVAL_ACTION_STATUS.REJECTED}`,
+      name: `action-${APPROVAL_TODO_STATUS.REJECTED}`,
       type: 'item',
       title: `{{t("Reject", { ns: "${NAMESPACE}" })}}`,
       Component: ApproverActionCommon,
-      action: APPROVAL_ACTION_STATUS.REJECTED,
+      action: APPROVAL_TODO_STATUS.REJECTED,
       actionProps: { danger: true },
     },
     {
-      name: `action-${APPROVAL_ACTION_STATUS.RETURNED}`,
+      name: `action-${APPROVAL_TODO_STATUS.RETURNED}`,
       type: 'item',
       title: `{{t("Return", { ns: "${NAMESPACE}" })}}`,
       Component: ApproverActionCommon,
-      action: APPROVAL_ACTION_STATUS.RETURNED,
+      action: APPROVAL_TODO_STATUS.RETURNED,
     },
   ],
 });

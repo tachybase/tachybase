@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { useCollectionRecordData } from '@tachybase/client';
 
+import { APPROVAL_TODO_STATUS } from '../../../../common/constants/approval-todo-status';
 import { useTranslation } from '../../../../locale';
-import { APPROVAL_ACTION_STATUS } from '../../constants';
 
 export const ApprovalLastNodeColumn = () => {
   const approvalContext = useCollectionRecordData();
@@ -15,7 +15,7 @@ export const ApprovalLastNodeColumn = () => {
 
 function getLastNodeTitle(approvalContext) {
   const { records } = approvalContext;
-  let targetRecord = records.find(({ status }) => status !== APPROVAL_ACTION_STATUS.APPROVED);
+  let targetRecord = records.find(({ status }) => status !== APPROVAL_TODO_STATUS.APPROVED);
   if (!targetRecord) {
     targetRecord = records.pop() || {};
   }

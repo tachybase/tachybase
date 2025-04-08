@@ -2,13 +2,8 @@ import { css, useCompile } from '@tachybase/client';
 
 import { Progress, Tag } from 'antd';
 
-import {
-  APPROVAL_ACTION_STATUS,
-  approvalStatusConfigObj,
-  JobStatusEnums,
-  VoteCategoryEnums,
-  voteOption,
-} from '../../constants';
+import { APPROVAL_TODO_STATUS } from '../../../../common/constants/approval-todo-status';
+import { approvalStatusConfigObj, JobStatusEnums, VoteCategoryEnums, voteOption } from '../../constants';
 
 // 审批处理: 任务节点值
 export function renderTaskNode(text, record, index) {
@@ -66,11 +61,10 @@ const ProcessTag = (props) => {
       strokeColor="#389e0d"
       showInfo={false}
       percent={
-        ((statusCount[APPROVAL_ACTION_STATUS.APPROVED] + statusCount[APPROVAL_ACTION_STATUS.REJECTED]) / groupCount) *
-        100
+        ((statusCount[APPROVAL_TODO_STATUS.APPROVED] + statusCount[APPROVAL_TODO_STATUS.REJECTED]) / groupCount) * 100
       }
       success={{
-        percent: (statusCount[APPROVAL_ACTION_STATUS.REJECTED] / groupCount) * 100,
+        percent: (statusCount[APPROVAL_TODO_STATUS.REJECTED] / groupCount) * 100,
         strokeColor: '#cf1322',
       }}
     />

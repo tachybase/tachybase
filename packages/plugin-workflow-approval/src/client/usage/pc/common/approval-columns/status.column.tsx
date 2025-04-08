@@ -1,12 +1,12 @@
 import { useCompile, useRecord } from '@tachybase/client';
-import { useFlowContext } from '@tachybase/module-workflow/client';
 import { Field, observer, useField } from '@tachybase/schema';
 
 import { Tag } from 'antd';
 import _ from 'lodash';
 
+import { APPROVAL_TODO_STATUS } from '../../../../common/constants/approval-todo-status';
 import { useTranslation } from '../../../../locale';
-import { APPROVAL_ACTION_STATUS, approvalStatusConfigObj } from '../../constants';
+import { approvalStatusConfigObj } from '../../constants';
 
 export const ApprovalRecordStatusColumn = observer(
   () => {
@@ -28,7 +28,7 @@ export const ColumnStatusComponent = (props) => {
 
   const isNeedShowUnprocessed = execution?.status || job?.status;
 
-  if ([APPROVAL_ACTION_STATUS.ASSIGNED, APPROVAL_ACTION_STATUS.PENDING].includes(value) && isNeedShowUnprocessed) {
+  if ([APPROVAL_TODO_STATUS.ASSIGNED, APPROVAL_TODO_STATUS.PENDING].includes(value) && isNeedShowUnprocessed) {
     return <Tag>{t('Unprocessed')}</Tag>;
   }
 
