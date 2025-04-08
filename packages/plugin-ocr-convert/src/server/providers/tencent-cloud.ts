@@ -2,6 +2,7 @@ import { ClientConfig } from 'tencentcloud-sdk-nodejs/tencentcloud/common/interf
 import { Client } from 'tencentcloud-sdk-nodejs/tencentcloud/services/ocr/v20181119/ocr_client';
 
 import {
+  namespace,
   OCR_TYPE_BANKCARD,
   OCR_TYPE_BUSINESS_LICENSE,
   OCR_TYPE_DRIVER_LICENSE,
@@ -10,8 +11,7 @@ import {
   OCR_TYPE_HANDWRITING,
   OCR_TYPE_IDCARD,
   OCR_TYPE_VEHICLE_LICENSE,
-} from '../constants';
-import { namespace } from '../index';
+} from '../../constants';
 import { OcrResult, Provider } from './Provider';
 
 /**
@@ -23,7 +23,7 @@ export default class TencentCloudProvider extends Provider {
   constructor(plugin, options) {
     super(plugin, options);
 
-    const { secretId, secretKey, region = 'ap-guangzhou' } = this.options;
+    const { secretId, secretKey, region = 'ap-guangzhou', endpoint = 'ocr.tencentcloudapi.com' } = this.options;
 
     const clientConfig: ClientConfig = {
       credential: {
@@ -33,7 +33,7 @@ export default class TencentCloudProvider extends Provider {
       region,
       profile: {
         httpProfile: {
-          endpoint: 'ocr.tencentcloudapi.com',
+          endpoint,
         },
       },
     };

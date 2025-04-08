@@ -1,4 +1,4 @@
-import { PROVIDER_TYPE_TENCENT } from '../constants';
+import { PROVIDER_TYPE_TENCENT } from '../../constants';
 import Plugin from '../plugin';
 import { Provider } from './Provider';
 import TencentProvider from './tencent-cloud';

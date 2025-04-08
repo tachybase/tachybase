@@ -1,3 +1,5 @@
+export const namespace = 'ocr-convert';
+
 // OCR Provider types
 export const PROVIDER_TYPE_TENCENT = 'tencent-cloud';
 

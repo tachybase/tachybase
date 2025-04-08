@@ -1,24 +1,24 @@
 import React from 'react';
-import { SchemaComponent } from '@tachybase/client';
+import { ExtendCollectionsProvider, SchemaComponent } from '@tachybase/client';
 
 import { Card } from 'antd';
 
 import { useCreateProviderAction } from './hooks';
 import ProviderOptions from './ProviderOptions';
-import providers from './schemas/providers';
+import { collectionOcrProviders, schemaOcrProviders } from './schemas/providers';
 
 export function OcrProviders() {
   return (
-    <Card bordered={false}>
+    <ExtendCollectionsProvider collections={[collectionOcrProviders]}>
       <SchemaComponent
-        schema={providers}
-        components={{
-          ProviderOptions,
-        }}
+        schema={schemaOcrProviders}
         scope={{
           useCreateProviderAction,
         }}
+        components={{
+          ProviderOptions,
+        }}
       />
-    </Card>
+    </ExtendCollectionsProvider>
   );
 }

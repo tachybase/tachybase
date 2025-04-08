@@ -1,4 +1,7 @@
-import * as ocr from './ocr';
+import Application from '@tachybase/server';
+
+import * as fileConvert from './fileConvert';
+import * as ocrConvert from './ocrConvert';
 
 function make(name, mod) {
   return Object.keys(mod).reduce(
@@ -9,8 +12,8 @@ function make(name, mod) {
     {},
   );
 }
-export function init({ app }) {
+export function initActions(app: Application) {
   app.actions({
-    ...make('ocr', ocr),
+    ...make('ocr_providers', { ...ocrConvert, ...fileConvert }),
   });
 }

@@ -4106,6 +4106,15 @@ importers:
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
+      docxtemplater:
+        specifier: ^3.55.8
+        version: 3.55.8
+      exceljs:
+        specifier: ^4.4.0
+        version: 4.4.0
+      pizzip:
+        specifier: ^3.0.7
+        version: 3.1.7
       react:
         specifier: ~18.3.1
         version: 18.3.1
