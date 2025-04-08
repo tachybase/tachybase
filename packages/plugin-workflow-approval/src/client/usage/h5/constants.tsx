@@ -20,34 +20,7 @@ export const NOTICE_INSTRUCTION_NAMESPACE = 'notice';
 export const COLLECTION_NOTICE_NAME = 'workflowNotice';
 export const COLLECTION_NAME_APPROVAL_CARBON_COPY = 'approvalCarbonCopy';
 
-/**显示状态 */
-export const APPROVAL_STATUS = {
-  /**已分配 */
-  ASSIGNED: null,
-  /** 待处理*/
-  PENDING: 0,
-  /**已退回 */
-  RETURNED: 1,
-  /**已通过 */
-  APPROVED: 2,
-  /**已拒绝 */
-  REJECTED: -1,
-  /**取消 */
-  CANCELED: -2,
-  /**撤回 */
-  WITHDRAWN: -3,
-};
-
 export const ProcessedStatus = [1, 2, -1, -3];
-
-export const approvalStatusOptions = [
-  { value: APPROVAL_STATUS.ASSIGNED, label: `Assigned`, color: 'blue' },
-  { value: APPROVAL_STATUS.PENDING, label: `Pending`, color: 'gold' },
-  { value: APPROVAL_STATUS.RETURNED, label: `Returned`, color: 'purple' },
-  { value: APPROVAL_STATUS.APPROVED, label: `Approved`, color: 'green' },
-  { value: APPROVAL_STATUS.REJECTED, label: `Rejected`, color: 'red' },
-  { value: APPROVAL_STATUS.WITHDRAWN, label: `Withdrawn` },
-];
 
 /**行为状态 */
 export const APPROVAL_ACTION_STATUS = {
