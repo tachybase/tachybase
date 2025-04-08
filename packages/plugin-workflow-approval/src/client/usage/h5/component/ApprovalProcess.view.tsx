@@ -6,10 +6,10 @@ import { dayjs } from '@tachybase/utils/client';
 import { Space, Steps, Tag } from 'antd-mobile';
 import _ from 'lodash';
 
+import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
 import { approvalStatusEnums } from '../../../common/constants/approval-initiation-status-options';
 import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
 import { approvalTodoStatusOptions } from '../../../common/constants/approval-todo-status-options';
-import { APPROVAL_ACTION_STATUS } from '../constants';
 import { useContextApprovalExecution } from '../context/ApprovalExecution';
 import { ContextWithActionEnabled } from '../context/WithActionEnabled';
 import { lang, usePluginTranslation, useTranslation } from '../locale';
@@ -92,7 +92,7 @@ function getResults({ approval, currentUser }) {
                 ...approval.createdBy,
                 id: approval.createdById,
               },
-              status: curr.status ? APPROVAL_ACTION_STATUS.SUBMITTED : approval.status,
+              status: curr.status ? APPROVAL_INITIATION_STATUS.SUBMITTED : approval.status,
               updatedAt: curr.createdAt,
               execution: { ...curr },
             },
@@ -119,8 +119,11 @@ function getResults({ approval, currentUser }) {
           ? (approvalExecutionId.jobs[record.jobId].first.groupCount += 1)
           : ((approvalExecutionId.jobs[record.jobId] = { first: record }),
             (record.groupCount = 1),
-            (record.statusCount = { [APPROVAL_ACTION_STATUS.APPROVED]: 0, [APPROVAL_ACTION_STATUS.REJECTED]: 0 })),
-        [APPROVAL_ACTION_STATUS.APPROVED, APPROVAL_ACTION_STATUS.REJECTED].includes(record.status) &&
+            (record.statusCount = {
+              [APPROVAL_INITIATION_STATUS.APPROVED]: 0,
+              [APPROVAL_INITIATION_STATUS.REJECTED]: 0,
+            })),
+        [APPROVAL_INITIATION_STATUS.APPROVED, APPROVAL_INITIATION_STATUS.REJECTED].includes(record.status) &&
           (approvalExecutionId.jobs[record.jobId].first.statusCount[record.status] += 1);
     }),
     approval.createdById === (currentUser == null ? void 0 : currentUser.data.id) &&

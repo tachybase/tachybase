@@ -23,7 +23,7 @@ import '../../style/style.css';
 
 import { observer } from '@tachybase/schema';
 
-import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../constants';
+import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../../common/constants';
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
 import { useWorkflowNoticeFormBlockProps } from '../hook/useFormBlockProps';
 import { usePropsNoticeDetail } from '../hook/usePropsNoticeDetail';
