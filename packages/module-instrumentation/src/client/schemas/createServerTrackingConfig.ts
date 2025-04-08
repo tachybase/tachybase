@@ -77,11 +77,11 @@ export const createServerTrackingConfig: ISchema = {
                     },
                   },
                 },
-                // title: {
-                //   type: 'string',
-                //   'x-component': 'CollectionField',
-                //   'x-decorator': 'FormItem',
-                // },
+                title: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
                 resourceName: {
                   type: 'string',
                   'x-component': 'CollectionField',
@@ -100,12 +100,21 @@ export const createServerTrackingConfig: ISchema = {
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                 },
-                keys: {
+                trackingOptions: {
                   type: 'json',
                   default: {
                     meta: ['userId', 'recordId', 'createdAt'],
                     payload: ['resourceName'],
+                    filter: {
+                      $and: [{ meta: { userId: { $gt: 1 } } }],
+                    },
                   },
+                  description: `e.g. 
+                    filter: {
+                      "$and": [
+                        { "meta": { "userId": { "$gt": 1 } } },
+                        { "payload": { "resourceName": { "$eq": "xxxxxx" } } },
+                      ]}`,
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                   'x-component-props': {

@@ -1,6 +1,6 @@
 import { i18n, tval as nTval } from '@tachybase/client';
 
-export const NAMESPACE = '@tachybase/plugin-manual-notification';
+export const NAMESPACE = '@tachybase/module-instrumentation';
 
 export function usePluginTranslation(): any {
   return useTranslation();

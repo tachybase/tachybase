@@ -1,0 +1,12 @@
+{
+  "Action": "API操作",
+  "Api audit": "启用日志",
+  "Custom Instrumentation": "自定义埋点",
+  "Instrumentation key": "埋点键",
+  "Instrumentation log": "埋点日志",
+  "Instrumentation type": "埋点类型",
+  "Instrumentation values": "值",
+  "Resource name": "API资源",
+  "Server tracking configuration": "后端埋点配置",
+  "Tracking options": "埋点配置"
+}

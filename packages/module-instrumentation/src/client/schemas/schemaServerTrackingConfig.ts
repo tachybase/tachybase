@@ -113,21 +113,21 @@ export const schemaServerTrackingConfig: ISchema = {
             },
           },
           properties: {
-            // title: {
-            //   type: 'void',
-            //   'x-decorator': 'TableV2.Column.Decorator',
-            //   'x-component': 'TableV2.Column',
-            //   'x-component-props': {
-            //     align: 'center',
-            //   },
-            //   properties: {
-            //     title: {
-            //       type: 'string',
-            //       'x-component': 'CollectionField',
-            //       'x-read-pretty': true,
-            //     },
-            //   },
-            // },
+            title: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                align: 'center',
+              },
+              properties: {
+                title: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
             resourceName: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
@@ -158,7 +158,7 @@ export const schemaServerTrackingConfig: ISchema = {
                 },
               },
             },
-            keys: {
+            trackingOptions: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
@@ -166,7 +166,7 @@ export const schemaServerTrackingConfig: ISchema = {
                 align: 'center',
               },
               properties: {
-                keys: {
+                trackingOptions: {
                   type: 'json',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,

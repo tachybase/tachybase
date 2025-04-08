@@ -68,6 +68,11 @@ export const updateServerTrackingConfig: ISchema = {
                     },
                   },
                 },
+                title: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-decorator': 'FormItem',
+                },
                 resourceName: {
                   type: 'string',
                   'x-component': 'CollectionField',
@@ -86,9 +91,8 @@ export const updateServerTrackingConfig: ISchema = {
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                 },
-                keys: {
+                trackingOptions: {
                   type: 'json',
-                  default: ['userId', 'recordId', 'resourceName'],
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                   'x-component-props': {

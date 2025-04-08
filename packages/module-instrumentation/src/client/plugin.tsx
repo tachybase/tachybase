@@ -20,11 +20,11 @@ class ModuleInstrumentationClient extends Plugin {
       // Component: InstrumentationPane,
       // aclSnippet: 'pm.system-services.custom-instrumentation',
     });
-    this.app.systemSettingsManager.add('system-services.custom-instrumentation.clientTracking', {
+    this.app.systemSettingsManager.add('system-services.custom-instrumentation.instrumentation-log', {
       icon: 'SettingOutlined',
-      title: lang('Client tracking'),
+      title: lang('Instrumentation log'),
       Component: ClientTrackingPane,
-      aclSnippet: 'pm.system-services.custom-instrumentation.clientTracking',
+      aclSnippet: 'pm.system-services.custom-instrumentation.instrumentation-log',
     });
     this.app.systemSettingsManager.add('system-services.custom-instrumentation.serverTrackingConfig', {
       icon: 'SettingOutlined',
