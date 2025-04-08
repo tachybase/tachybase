@@ -15,7 +15,7 @@ import { uid } from '@tachybase/utils/client';
 import { Spin } from 'antd';
 
 import { FormBlockProvider } from '../../../../common/components/FormBlock.provider';
-import { flatSchemaArray } from '../../../../usage/pc/constants';
+import { flatSchemaArray } from '../../../../common/tools/flatSchemaArray';
 import { useContextApproverConfig } from '../../contexts/ApproverConfig';
 import { ApprovalFormBlockProvider } from './ApprovalFormBlockProvider.view';
 import { ProviderApprovalUpdateForm } from './ApprovalUpdateForm.provider';
