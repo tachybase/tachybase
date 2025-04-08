@@ -6,8 +6,9 @@ import { Space, Tag, Timeline } from 'antd';
 import _ from 'lodash';
 
 import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
+import { approvalInitiationStatusMap } from '../../../common/constants/approval-initiation-status-options';
+import { approvalTodoStatusMap } from '../../../common/constants/approval-todo-status-options';
 import { usePluginTranslation } from '../../../locale';
-import { approvalStatusConfigObj, ApprovalStatusEnumDict } from '../constants';
 import { useApproval } from './ApprovalData.provider';
 import { getAntdTableColumns } from './process-columns';
 import { getResults } from './tools';
@@ -65,13 +66,13 @@ export const Process = ({ dataSource = [] }) => {
     if (!index) {
       // 第一个必定为发起项
       status =
-        ApprovalStatusEnumDict[
+        approvalInitiationStatusMap[
           dataItem.status === APPROVAL_INITIATION_STATUS.DRAFT
             ? APPROVAL_INITIATION_STATUS.DRAFT
             : APPROVAL_INITIATION_STATUS.SUBMITTED
         ];
     } else {
-      status = approvalStatusConfigObj[dataItem.status];
+      status = approvalTodoStatusMap[dataItem.status];
     }
 
     return {

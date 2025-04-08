@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useCurrentUserContext } from '@tachybase/client';
-import { useFlowContext } from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
 
+import { approvalInitiationStatusMap } from '../../../../../common/constants/approval-initiation-status-options';
 import { useApproval } from '../../../common/ApprovalData.provider';
 import { useResubmit } from '../../../common/Resubmit.provider';
-import { ApprovalStatusEnumDict } from '../../../constants';
 import { useContextApprovalExecution } from '../../common/ApprovalExecution.provider';
 
 export function useFormBlockProps() {
@@ -15,7 +14,7 @@ export function useFormBlockProps() {
   const { data } = useCurrentUserContext();
   const { isResubmit } = useResubmit();
 
-  const { editable } = ApprovalStatusEnumDict[approval.status];
+  const { editable } = approvalInitiationStatusMap[approval.status];
 
   const needEditable =
     (isResubmit || editable) &&
