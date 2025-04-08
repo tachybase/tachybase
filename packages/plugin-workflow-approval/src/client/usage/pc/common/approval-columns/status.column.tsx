@@ -5,8 +5,8 @@ import { Tag } from 'antd';
 import _ from 'lodash';
 
 import { APPROVAL_TODO_STATUS } from '../../../../common/constants/approval-todo-status';
+import { approvalTodoStatusMap } from '../../../../common/constants/approval-todo-status-options';
 import { useTranslation } from '../../../../locale';
-import { approvalStatusConfigObj } from '../../constants';
 
 export const ApprovalRecordStatusColumn = observer(
   () => {
@@ -23,7 +23,7 @@ export const ColumnStatusComponent = (props) => {
   const omitProps = _.omit(props, ['value', 'record']);
   const compile = useCompile();
   const { t } = useTranslation();
-  const { option = approvalStatusConfigObj[value] } = omitProps;
+  const { option = approvalTodoStatusMap[value] } = omitProps;
   const { execution, job } = record ?? {};
 
   const isNeedShowUnprocessed = execution?.status || job?.status;
