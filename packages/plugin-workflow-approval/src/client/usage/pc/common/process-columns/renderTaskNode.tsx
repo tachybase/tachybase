@@ -4,7 +4,8 @@ import { Progress, Tag } from 'antd';
 
 import { APPROVAL_TODO_STATUS } from '../../../../common/constants/approval-todo-status';
 import { approvalTodoStatusMap } from '../../../../common/constants/approval-todo-status-options';
-import { JobStatusEnums, VoteCategoryEnums, voteOption } from '../../constants';
+import { jobStatusOptions } from '../../../../common/constants/job-status-options';
+import { VoteCategoryEnums, voteOption } from './tools';
 
 // 审批处理: 任务节点值
 export function renderTaskNode(text, record, index) {
@@ -31,7 +32,7 @@ const ApprovalTag = (props) => {
   const { node, job, statusCount: statusCountMap, groupCount } = record;
 
   const { branchMode, negotiation } = node?.config ? node : ({} as any);
-  const tag = branchMode ? approvalTodoStatusMap[job.result] : JobStatusEnums[job?.status];
+  const tag = branchMode ? approvalTodoStatusMap[job.result] : jobStatusOptions[job?.status];
   const enums = VoteCategoryEnums[voteOption(negotiation)];
 
   return (

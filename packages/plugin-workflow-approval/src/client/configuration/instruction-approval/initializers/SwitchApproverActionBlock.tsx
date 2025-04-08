@@ -3,8 +3,8 @@ import { createFormBlockSchema, InitializerWithSwitch, useSchemaInitializerItem 
 import _ from 'lodash';
 
 import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
+import { flatSchemaArray } from '../../../common/tools/flatSchemaArray';
 import { NAMESPACE } from '../../../locale';
-import { flatSchemaArray } from '../../../usage/pc/constants';
 
 // 添加卡片-操作switch
 export const SwitchApproverActionBlock = () => {
