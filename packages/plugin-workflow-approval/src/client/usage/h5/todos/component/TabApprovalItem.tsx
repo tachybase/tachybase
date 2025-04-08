@@ -8,7 +8,9 @@ import { Empty, List, Space, Tag } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
 
 import { approvalStatusEnums } from '../../../../common/constants/approval-initiation-status-options';
-import { APPROVAL_STATUS, ApprovalPriorityType, approvalStatusOptions, ExecutionStatusOptions } from '../../constants';
+import { APPROVAL_TODO_STATUS } from '../../../../common/constants/approval-todo-status';
+import { approvalTodoStatusOptions } from '../../../../common/constants/approval-todo-status-options';
+import { ApprovalPriorityType, ExecutionStatusOptions } from '../../constants';
 import { useTranslation } from '../../locale';
 
 export const TabApprovalItem = observer((props) => {
@@ -86,11 +88,11 @@ const approvalTodoListStatus = (item, t) => {
   const { workflow, execution, job, status } = item;
   if (
     (!(workflow != null && workflow.enabled) || (execution != null && execution.stauts) || job?.status) &&
-    [APPROVAL_STATUS.ASSIGNED, APPROVAL_STATUS.PENDING].includes(status)
+    [APPROVAL_TODO_STATUS.ASSIGNED, APPROVAL_TODO_STATUS.PENDING].includes(status)
   ) {
     return { label: t('Unprocessed'), color: 'default' };
   } else {
-    return approvalStatusOptions.find((value) => value.value === status);
+    return approvalTodoStatusOptions.find((value) => value.value === status);
   }
 };
 

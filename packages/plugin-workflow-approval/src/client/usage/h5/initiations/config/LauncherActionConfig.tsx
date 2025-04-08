@@ -1,6 +1,6 @@
 import { SchemaInitializer } from '@tachybase/client';
 
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from '../../constants';
+import { APPROVAL_ACTION_STATUS } from '../../constants';
 import { NAMESPACE } from '../../locale';
 import { LauncherActionConfigComponent } from './LauncherActionConfigComponent';
 

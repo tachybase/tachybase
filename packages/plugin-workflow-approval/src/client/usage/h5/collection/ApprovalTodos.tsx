@@ -1,4 +1,4 @@
-import { approvalStatusOptions } from '../constants';
+import { approvalTodoStatusOptions } from '../../../common/constants/approval-todo-status-options';
 import { NAMESPACE } from '../locale';
 
 export const CollectionApprovalTodos = {
@@ -59,7 +59,7 @@ export const CollectionApprovalTodos = {
         type: 'number',
         title: '{{t("Status", { ns: "workflow" })}}',
         'x-component': 'Select',
-        enum: approvalStatusOptions,
+        enum: approvalTodoStatusOptions,
       },
     },
     {

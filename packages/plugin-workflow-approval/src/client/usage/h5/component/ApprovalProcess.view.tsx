@@ -7,7 +7,9 @@ import { Space, Steps, Tag } from 'antd-mobile';
 import _ from 'lodash';
 
 import { approvalStatusEnums } from '../../../common/constants/approval-initiation-status-options';
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS, approvalStatusOptions } from '../constants';
+import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
+import { approvalTodoStatusOptions } from '../../../common/constants/approval-todo-status-options';
+import { APPROVAL_ACTION_STATUS } from '../constants';
 import { useContextApprovalExecution } from '../context/ApprovalExecution';
 import { ContextWithActionEnabled } from '../context/WithActionEnabled';
 import { lang, usePluginTranslation, useTranslation } from '../locale';
@@ -128,7 +130,7 @@ function getResults({ approval, currentUser }) {
           ((approvalExecution.records[0].groupCount = 2),
           approvalExecution.records.push({
             user: { nickname: approval.createdBy.nickname },
-            status: APPROVAL_STATUS.WITHDRAWN,
+            status: APPROVAL_TODO_STATUS.WITHDRAWN,
             updatedAt: approvalExecution.updatedAt,
           }));
       });
@@ -151,12 +153,12 @@ const getStepsResult = (result, t) => {
         (!(value.workflow != null && value.workflow.enabled) ||
           (value.execution != null && value.execution.stauts) ||
           value.job?.status) &&
-        [APPROVAL_STATUS.ASSIGNED, APPROVAL_STATUS.PENDING].includes(value.status)
+        [APPROVAL_TODO_STATUS.ASSIGNED, APPROVAL_TODO_STATUS.PENDING].includes(value.status)
       ) {
         status['label'] = 'Unprocessed';
         status['color'] = 'default';
       } else {
-        const approvalStatus = approvalStatusOptions.find((option) => option.value === value.status);
+        const approvalStatus = approvalTodoStatusOptions.find((option) => option.value === value.status);
         const approvalActionStatus = approvalStatusEnums.find((option) => option.value === value.status);
         if (value.nodeId) {
           status['label'] = approvalStatus?.label || approvalActionStatus?.label;
