@@ -11,6 +11,10 @@ export async function recognize(context: Context, next: Next) {
     return context.throw(500, 'no provider for action provided');
   }
   const ProviderType = plugin.providers.get(<string>providerItem.get('type'));
+  if (!ProviderType) {
+    console.error('[ocr-convert] invalid provider type:', providerItem.get('type'));
+    return context.throw(500, 'invalid provider type');
+  }
   const provider = new ProviderType(plugin, providerItem.get('options'));
 
   const result = await provider.recognize(context, values.image, values.type);
