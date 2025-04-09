@@ -3,7 +3,6 @@ import { Context } from '@tachybase/actions';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import { TrackingController } from './actions/tracking-controller';
-import { handleCreate, handleDestroy, handleUpdate } from './hooks';
 import { handleOtherAction } from './hooks/afterAction';
 import { ServerTrackingFilter } from './ServerTrackingFilter';
 

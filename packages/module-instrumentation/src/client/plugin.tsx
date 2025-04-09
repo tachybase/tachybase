@@ -3,7 +3,7 @@ import { Plugin } from '@tachybase/client';
 import { ClientTrackingPane } from './InstrumentationPane';
 import { lang } from './locale';
 import { ServerTrackingConfigPane } from './serverTrackingConfigPane';
-import { ServerTrackingPane } from './serverTrackingPane';
+import { TrackingStatisticsPane } from './TrackingStatisticsPane';
 
 class ModuleInstrumentationClient extends Plugin {
   async afterAdd() {
@@ -32,12 +32,12 @@ class ModuleInstrumentationClient extends Plugin {
       Component: ServerTrackingConfigPane,
       aclSnippet: 'pm.system-services.custom-instrumentation.serverTrackingConfig',
     });
-    // this.app.systemSettingsManager.add('system-services.custom-instrumentation.serverTracking', {
-    //   icon: 'SettingOutlined',
-    //   title: lang('Server tracking'),
-    //   Component: ServerTrackingPane,
-    //   aclSnippet: 'pm.system-services.custom-instrumentation.serverTracking',
-    // });
+    this.app.systemSettingsManager.add('system-services.custom-instrumentation.trackingStatistics', {
+      icon: 'SettingOutlined',
+      title: lang('tracking statistics'),
+      Component: TrackingStatisticsPane,
+      aclSnippet: 'pm.system-services.custom-instrumentation.trackingStatistics',
+    });
   }
 }
 
