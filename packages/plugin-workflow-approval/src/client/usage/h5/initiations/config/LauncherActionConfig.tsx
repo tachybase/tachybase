@@ -1,7 +1,7 @@
 import { SchemaInitializer } from '@tachybase/client';
 
 import { APPROVAL_INITIATION_STATUS } from '../../../../common/constants/approval-initiation-status';
-import { NAMESPACE } from '../../locale';
+import { NAMESPACE } from '../../../../locale';
 import { LauncherActionConfigComponent } from './LauncherActionConfigComponent';
 
 // 卡片-配置操作
