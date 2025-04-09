@@ -15,6 +15,11 @@ export const fieldsetNotification: Record<string, ISchema> = {
   level: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
+    'x-component-props': {
+      optionRender: OptionRender,
+      popupMatchSelectWidth: true,
+      listHeight: 300,
+    },
     'x-visible': '{{ $self.query(".notifyType").value() !== "status"}}',
   },
   title: {

@@ -116,11 +116,6 @@ export const notificationCollection = {
             label: `{{t("warning", { ns: "${NAMESPACE}" })}}`,
             color: 'yellow',
           },
-          {
-            value: 'open',
-            label: `{{t("open", { ns: "${NAMESPACE}" })}}`,
-            color: 'orange',
-          },
         ],
       } as ISchema,
     },
