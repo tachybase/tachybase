@@ -47,7 +47,7 @@ export default {
       },
       default: 'ocr.tencentcloudapi.com',
     },
-    enabledTypes: {
+    ocrTypes: {
       title: `{{t("Recognition Types", { ns: "${NAMESPACE}" })}}`,
       type: 'array',
       'x-decorator': 'FormItem',
@@ -55,17 +55,17 @@ export default {
       'x-component-props': {
         mode: 'multiple',
         options: [
-          { label: `{{t("General OCR", { ns: "${NAMESPACE}" })}}`, value: 'general' },
-          { label: `{{t("Accurate OCR", { ns: "${NAMESPACE}" })}}`, value: 'general-accurate' },
-          { label: `{{t("Handwriting OCR", { ns: "${NAMESPACE}" })}}`, value: 'handwriting' },
-          { label: `{{t("ID Card OCR", { ns: "${NAMESPACE}" })}}`, value: 'idcard' },
-          { label: `{{t("Business License OCR", { ns: "${NAMESPACE}" })}}`, value: 'business-license' },
-          { label: `{{t("Bank Card OCR", { ns: "${NAMESPACE}" })}}`, value: 'bankcard' },
-          { label: `{{t("Vehicle License OCR", { ns: "${NAMESPACE}" })}}`, value: 'vehicle-license' },
-          { label: `{{t("Driver License OCR", { ns: "${NAMESPACE}" })}}`, value: 'driver-license' },
+          { label: `{{t("General OCR", { ns: "${NAMESPACE}" })}}`, value: 'GeneralBasicOCR' },
+          { label: `{{t("Accurate OCR", { ns: "${NAMESPACE}" })}}`, value: 'GeneralAccurateOCR' },
+          { label: `{{t("Handwriting OCR", { ns: "${NAMESPACE}" })}}`, value: 'GeneralHandwritingOCR' },
+          { label: `{{t("ID Card OCR", { ns: "${NAMESPACE}" })}}`, value: 'IDCardOCR' },
+          { label: `{{t("Business License OCR", { ns: "${NAMESPACE}" })}}`, value: 'BizLicenseOCR' },
+          { label: `{{t("Bank Card OCR", { ns: "${NAMESPACE}" })}}`, value: 'BankCardOCR' },
+          { label: `{{t("Vehicle License OCR", { ns: "${NAMESPACE}" })}}`, value: 'VehicleLicenseOCR' },
+          { label: `{{t("Driver License OCR", { ns: "${NAMESPACE}" })}}`, value: 'DriverLicenseOCR' },
         ],
       },
-      default: ['general'],
+      default: ['GeneralBasicOCR'],
     },
   },
 } as ISchema;

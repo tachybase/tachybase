@@ -8,21 +8,21 @@ export interface OcrProvider {
 }
 
 export type TencentOcrType =
-  | 'general'
-  | 'general-accurate'
-  | 'handwriting'
-  | 'idcard'
-  | 'business-license'
-  | 'bankcard'
-  | 'vehicle-license'
-  | 'driver-license';
+  | 'GeneralBasicOCR'
+  | 'GeneralAccurateOCR'
+  | 'GeneralHandwritingOCR'
+  | 'IDCardOCR'
+  | 'BizLicenseOCR'
+  | 'BankCardOCR'
+  | 'VehicleLicenseOCR'
+  | 'DriverLicenseOCR';
 
 export interface TencentOcrConfig {
   secretId: string;
   secretKey: string;
   region: string;
   endpoint: string;
-  enabledTypes: TencentOcrType[];
+  ocrTypes: TencentOcrType[];
 }
 
 export interface OcrRecognitionParams {

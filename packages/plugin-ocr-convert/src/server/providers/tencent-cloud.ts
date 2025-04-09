@@ -1,17 +1,7 @@
 import { ClientConfig } from 'tencentcloud-sdk-nodejs/tencentcloud/common/interface';
 import { Client } from 'tencentcloud-sdk-nodejs/tencentcloud/services/ocr/v20181119/ocr_client';
 
-import {
-  namespace,
-  OCR_TYPE_BANKCARD,
-  OCR_TYPE_BUSINESS_LICENSE,
-  OCR_TYPE_DRIVER_LICENSE,
-  OCR_TYPE_GENERAL,
-  OCR_TYPE_GENERAL_ACCURATE,
-  OCR_TYPE_HANDWRITING,
-  OCR_TYPE_IDCARD,
-  OCR_TYPE_VEHICLE_LICENSE,
-} from '../../constants';
+import { namespace, OCR_TYPE_GENERAL } from '../../constants';
 import { OcrResult, Provider } from './Provider';
 
 /**
@@ -72,21 +62,8 @@ export default class TencentCloudProvider extends Provider {
         throw new Error(this.plugin.app.t('No OCR types configured', { ns: namespace }));
       }
 
-      // 根据OCR类型对应腾讯云API方法名映射
-      const typeToMethodMap = {
-        [OCR_TYPE_GENERAL]: 'GeneralBasicOCR',
-        [OCR_TYPE_GENERAL_ACCURATE]: 'GeneralAccurateOCR',
-        [OCR_TYPE_HANDWRITING]: 'GeneralHandwritingOCR',
-        [OCR_TYPE_IDCARD]: 'IDCardOCR',
-        [OCR_TYPE_BUSINESS_LICENSE]: 'BizLicenseOCR',
-        [OCR_TYPE_BANKCARD]: 'BankCardOCR',
-        [OCR_TYPE_VEHICLE_LICENSE]: 'VehicleLicenseOCR',
-        [OCR_TYPE_DRIVER_LICENSE]: 'DriverLicenseOCR',
-      };
-
       // 检查请求的类型是否在配置的ocrTypes列表中
-      const methodName = typeToMethodMap[type];
-      if (!methodName || !ocrTypes.includes(methodName)) {
+      if (!ocrTypes.includes(type)) {
         throw new Error(this.plugin.app.t('OCR type not enabled', { ns: namespace }));
       }
 
@@ -95,22 +72,22 @@ export default class TencentCloudProvider extends Provider {
       let textItems = [];
 
       switch (type) {
-        case OCR_TYPE_GENERAL:
+        case 'GeneralBasicOCR':
           response = await this.client.GeneralBasicOCR(params);
           textItems = response.TextDetections || [];
           break;
 
-        case OCR_TYPE_GENERAL_ACCURATE:
+        case 'GeneralAccurateOCR':
           response = await this.client.GeneralAccurateOCR(params);
           textItems = response.TextDetections || [];
           break;
 
-        case OCR_TYPE_HANDWRITING:
+        case 'GeneralHandwritingOCR':
           response = await this.client.GeneralHandwritingOCR(params);
           textItems = response.TextDetections || [];
           break;
 
-        case OCR_TYPE_IDCARD:
+        case 'IDCardOCR':
           // 正反面识别
           const idcardSide = options.idcardSide || 'FRONT';
           params.CardSide = idcardSide;
@@ -124,7 +101,7 @@ export default class TencentCloudProvider extends Provider {
             },
           ];
 
-        case OCR_TYPE_BUSINESS_LICENSE:
+        case 'BizLicenseOCR':
           response = await this.client.BizLicenseOCR(params);
           return [
             {
@@ -133,7 +110,7 @@ export default class TencentCloudProvider extends Provider {
             },
           ];
 
-        case OCR_TYPE_BANKCARD:
+        case 'BankCardOCR':
           response = await this.client.BankCardOCR(params);
           return [
             {
@@ -142,7 +119,7 @@ export default class TencentCloudProvider extends Provider {
             },
           ];
 
-        case OCR_TYPE_VEHICLE_LICENSE:
+        case 'VehicleLicenseOCR':
           response = await this.client.VehicleLicenseOCR(params);
           return [
             {
@@ -151,7 +128,7 @@ export default class TencentCloudProvider extends Provider {
             },
           ];
 
-        case OCR_TYPE_DRIVER_LICENSE:
+        case 'DriverLicenseOCR':
           response = await this.client.DriverLicenseOCR(params);
           return [
             {
