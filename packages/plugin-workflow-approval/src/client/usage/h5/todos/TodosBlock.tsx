@@ -10,7 +10,7 @@ import { collectionFlowNodes } from '../../../common/collections/flowNodes';
 import { todoCollection } from '../../../common/collections/userJobs';
 import { CollectionWorkflowNotice } from '../../../common/collections/workflowNotice';
 import { collectionWorkflows } from '../../../common/collections/workflows';
-import { useTranslation } from '../locale';
+import { useTranslation } from '../../../locale';
 import { TabDuplicateItem } from './component/TabDuplicateItem';
 import { TabPendingItem } from './component/TabPendingItem';
 import { TabProcessedItem } from './component/TabProcessedItem';

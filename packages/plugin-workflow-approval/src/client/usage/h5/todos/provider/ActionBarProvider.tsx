@@ -1,4 +1,3 @@
-import React from 'react';
 import { ActionBarProvider as ClientActionBarProvider, useCompile, useCurrentUserContext } from '@tachybase/client';
 import { useFlowContext } from '@tachybase/module-workflow/client';
 import { useFieldSchema } from '@tachybase/schema';
@@ -7,8 +6,8 @@ import { str2moment } from '@tachybase/utils/client';
 import { Space, Tag } from 'antd';
 
 import { approvalTodoStatusOptions } from '../../../../common/constants/approval-todo-status-options';
+import { useTranslation } from '../../../../locale';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
-import { useTranslation } from '../../locale';
 
 export function ActionBarProvider(props) {
   const { status } = useContextApprovalExecution();

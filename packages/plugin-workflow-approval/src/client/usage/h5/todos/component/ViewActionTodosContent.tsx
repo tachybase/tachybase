@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   MobileProvider,
   RemoteSchemaComponent,
@@ -8,16 +8,17 @@ import {
   useFormBlockContext,
 } from '@tachybase/client';
 import { DetailsBlockProvider } from '@tachybase/module-workflow/client';
+import { observer } from '@tachybase/schema';
 
 import { Result } from 'antd';
 import { NavBar, Skeleton, TabBar } from 'antd-mobile';
 import _ from 'lodash';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+import { useTranslation } from '../../../../locale';
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
 import { FormBlockProvider } from '../../context/FormBlock';
 import { SchemaComponentContextProvider } from '../../context/SchemaComponent';
-import { useTranslation } from '../../locale';
 import { useApprovalDetailBlockProps } from '../hook/useApprovalDetailBlockProps';
 import { useApprovalFormBlockProps } from '../hook/useApprovalFormBlockProps';
 import { useSubmit } from '../hook/useSubmit';
@@ -26,8 +27,6 @@ import { ApprovalActionProvider } from '../provider/ApprovalAction';
 import { ApprovalFormBlockDecorator } from '../provider/ApprovalFormBlock';
 
 import '../../style/style.css';
-
-import { observer } from '@tachybase/schema';
 
 // 审批-待办-查看: 内容
 export const ViewActionTodosContent = observer((props) => {

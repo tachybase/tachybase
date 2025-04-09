@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAPIClient } from '@tachybase/client';
-import { observer, useFieldSchema } from '@tachybase/schema';
+import { observer } from '@tachybase/schema';
 
 import { Picker, Space } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 
-import { useTranslation } from '../locale';
+import { useTranslation } from '../../../locale';
 
 export const ApprovalTemplateType = observer((props) => {
   const { changeFilter, filter } = props as any;
