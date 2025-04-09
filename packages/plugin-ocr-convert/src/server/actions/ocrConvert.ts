@@ -13,11 +13,6 @@ export async function recognize(context: Context, next: Next) {
   const ProviderType = plugin.providers.get(<string>providerItem.get('type'));
   const provider = new ProviderType(plugin, providerItem.get('options'));
 
-  try {
-    const result = await provider.recognize(values.image, values.type);
-    context.body = result;
-  } catch (error) {
-    console.error(error);
-    return context.throw(500);
-  }
+  const result = await provider.recognize(context, values.image, values.type);
+  context.body = result;
 }

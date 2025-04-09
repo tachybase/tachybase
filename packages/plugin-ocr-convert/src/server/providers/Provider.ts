@@ -1,3 +1,5 @@
+import { Context } from '@tachybase/actions';
+
 import Plugin from '../plugin';
 
 export interface OcrResult {
@@ -19,12 +21,13 @@ export class Provider {
 
   /**
    * 识别图片中的文字
+   * @param ctx 上下文
    * @param imageData 图片数据，可以是URL或Base64编码的图片
    * @param type 识别类型
    * @param options 识别选项
    * @returns 识别结果
    */
-  async recognize(imageData: string, type: string = 'general', options: any = {}): Promise<OcrResult[]> {
+  async recognize(ctx: Context, imageData: string, type: string = 'general', options: any = {}): Promise<OcrResult[]> {
     throw new Error('Method not implemented');
   }
 
