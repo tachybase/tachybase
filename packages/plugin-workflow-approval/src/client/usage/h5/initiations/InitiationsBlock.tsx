@@ -1,20 +1,19 @@
-import React, { createContext, useEffect, useState } from 'react';
-import { BlockItem, css, ExtendCollectionsProvider, SchemaComponent, useDesignable } from '@tachybase/client';
+import { createContext, useState } from 'react';
+import { BlockItem, css, ExtendCollectionsProvider, SchemaComponent } from '@tachybase/client';
 import { observer, useFieldSchema } from '@tachybase/schema';
 
-import { SearchBar, Space, Tabs } from 'antd-mobile';
+import { SearchBar, Tabs } from 'antd-mobile';
 
-import '../style/style.css';
-
-import { CollectionApprovals } from '../collection/Approvals.collection';
-import { CollectionApprovalTodos } from '../collection/ApprovalTodos';
-import { CollectionFlowNodes } from '../collection/FlowNodes.collection';
-import { CollectionWorkflows } from '../collection/Workflows.collection';
+import { collectionFlowNodes } from '../../../common/collections/flowNodes';
+import { collectionWorkflows } from '../../../common/collections/workflows';
 import { useTranslation } from '../locale';
 import { InitiationsItem } from './component/InitiationsItem';
 import { UserInitiationsItem } from './component/UserInitiationsItem';
 
 import '../style/style.css';
+
+import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
+import { collectionApprovals } from '../../../common/collections/approvals';
 
 export const InitiationsBlockContext = createContext({});
 
@@ -25,7 +24,7 @@ export const InitiationsBlock = observer((props) => {
   const [changeValue, setChangeValue] = useState('');
   return (
     <ExtendCollectionsProvider
-      collections={[CollectionWorkflows, CollectionFlowNodes, CollectionApprovals, CollectionApprovalTodos]}
+      collections={[collectionWorkflows, collectionFlowNodes, collectionApprovals, collectionApprovalTodos]}
     >
       <BlockItem>
         <InitiationsBlockContext.Provider value={contextFilter}>

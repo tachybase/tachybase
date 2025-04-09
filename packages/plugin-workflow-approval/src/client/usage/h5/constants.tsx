@@ -88,10 +88,26 @@ export const ExecutionStatusOptions = [
 ];
 
 export const ApprovalNoticeStatusOptions = [
-  { value: EXECUTION_STATUS.QUEUEING, label: 'Assigned', color: 'blue' },
-  { value: EXECUTION_STATUS.STARTED, label: 'Pending', color: 'gold' },
-  { value: 2, label: 'Approved', color: 'green' },
-  { value: EXECUTION_STATUS.REJECTED, label: 'Rejected', color: 'red' },
+  {
+    value: EXECUTION_STATUS.QUEUEING,
+    label: 'Assigned',
+    color: 'blue',
+  },
+  {
+    value: EXECUTION_STATUS.STARTED,
+    label: 'Pending',
+    color: 'gold',
+  },
+  {
+    value: 2,
+    label: 'Approved',
+    color: 'green',
+  },
+  {
+    value: EXECUTION_STATUS.REJECTED,
+    label: 'Rejected',
+    color: 'red',
+  },
 ];
 
 type ValueOf<T> = T[keyof T];
