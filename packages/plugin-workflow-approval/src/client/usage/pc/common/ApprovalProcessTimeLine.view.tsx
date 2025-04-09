@@ -38,8 +38,6 @@ export const ApprovalProcessTimeLine = (props) => {
 
   const results = useMemo(() => getResults({ approval: approvalContext, currentUser: data }), [approvalContext, data]);
 
-  const columns = useMemo(() => getAntdTableColumns({ t, styles }), [t, styles]);
-
   return (
     <ContextWithActionEnabled.Provider value={{ actionEnabled: props.actionEnabled }}>
       <CardItem title={t('Current record')}>
