@@ -10,7 +10,6 @@ import { approvalInitiationStatusMap } from '../../../common/constants/approval-
 import { approvalTodoStatusMap } from '../../../common/constants/approval-todo-status-options';
 import { useTranslation } from '../../../locale';
 import { useApproval } from './ApprovalData.provider';
-import { getAntdTableColumns } from './process-columns';
 import { getResults } from './tools';
 import { ContextWithActionEnabled } from './WithActionEnabled.provider';
 
