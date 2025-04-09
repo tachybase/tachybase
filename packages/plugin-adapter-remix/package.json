@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-adapter-remix",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-adapter-remix"
