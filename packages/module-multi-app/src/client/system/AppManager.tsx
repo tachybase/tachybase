@@ -8,6 +8,7 @@ import {
   useDataBlockRequest,
   useNoticeSub,
 } from '@tachybase/client';
+import { uid } from '@tachybase/utils/client';
 
 import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
@@ -145,6 +146,7 @@ export const AppManager = (props) => {
           useStartAllAction,
           useStopAllAction,
           t,
+          uid,
         }}
         components={{ AppVisitor, GlobalNotificationHandler }}
       />

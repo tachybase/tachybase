@@ -47,14 +47,17 @@ export const formSchema: ISchema = {
       'x-component-props': {
         addonAfter: `.${window.location.hostname}`,
       },
-      'x-reactions': {
-        dependencies: ['cname'],
-        fulfill: {
-          state: {
-            value: '{{($deps[0] && $deps[0].replace(new RegExp("\\."+window.location.hostname+"$"), "")) || ""}}',
+      'x-reactions': [
+        {
+          dependencies: ['cname'],
+          fulfill: {
+            state: {
+              value:
+                '{{ ($deps[0] && $deps[0].replace(new RegExp("\\."+window.location.hostname+"$"), "")) || uid(7) }}',
+            },
           },
         },
-      },
+      ],
     },
     cname: {
       'x-hidden': true,
@@ -75,6 +78,7 @@ export const formSchema: ISchema = {
       title: i18nText('Template'),
       'x-component': 'RemoteSelect',
       'x-component-props': {
+        placeholder: i18nText('Can be empty, or selected from the template library or personal applications'),
         fieldNames: {
           label: 'displayName',
           value: 'name',
