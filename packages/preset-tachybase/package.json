@@ -76,6 +76,7 @@
     "@tachybase/plugin-manual-notification": "workspace:*",
     "@tachybase/plugin-mock-collections": "workspace:*",
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
+    "@tachybase/plugin-ocr-convert": "workspace:*",
     "@tachybase/plugin-online-user": "workspace:*",
     "@tachybase/plugin-otp": "workspace:*",
     "@tachybase/plugin-password-policy": "workspace:*",
