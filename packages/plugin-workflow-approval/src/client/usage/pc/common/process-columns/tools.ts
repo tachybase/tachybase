@@ -1,4 +1,4 @@
-import { lang, NAMESPACE } from '../../locale';
+import { lang, NAMESPACE } from '../../../../locale';
 
 const VoteCategory = {
   SINGLE: Symbol('single'),
