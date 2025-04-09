@@ -66,19 +66,23 @@ export const notificationCollection = {
         enum: [
           {
             value: NoticeType.MODAL,
-            label: NoticeType.MODAL,
+            label: `{{t("modal", { ns: "${NAMESPACE}" })}}`,
+            description: `{{t("modal_description", { ns: "${NAMESPACE}" })}}`,
           },
           {
             value: NoticeType.NOTIFICATION,
-            label: NoticeType.NOTIFICATION,
+            label: `{{t("notification", { ns: "${NAMESPACE}" })}}`,
+            description: `{{t("notification_description", { ns: "${NAMESPACE}" })}}`,
           },
           {
             value: NoticeType.STATUS,
-            label: NoticeType.STATUS,
+            label: `{{t("status", { ns: "${NAMESPACE}" })}}`,
+            description: `{{t("status_description", { ns: "${NAMESPACE}" })}}`,
           },
           {
             value: NoticeType.TOAST,
-            label: NoticeType.TOAST,
+            label: `{{t("toast", { ns: "${NAMESPACE}" })}}`,
+            description: `{{t("toast_description", { ns: "${NAMESPACE}" })}}`,
           },
         ],
       } as ISchema,
@@ -94,23 +98,28 @@ export const notificationCollection = {
         enum: [
           {
             value: 'info',
-            label: 'info',
+            label: `{{t("info", { ns: "${NAMESPACE}" })}}`,
+            color: 'blue',
           },
           {
             value: 'success',
-            label: 'success',
+            label: `{{t("success", { ns: "${NAMESPACE}" })}}`,
+            color: 'green',
           },
           {
             value: 'error',
-            label: 'error',
+            label: `{{t("error", { ns: "${NAMESPACE}" })}}`,
+            color: 'red',
           },
           {
             value: 'warning',
-            label: 'warning',
+            label: `{{t("warning", { ns: "${NAMESPACE}" })}}`,
+            color: 'yellow',
           },
           {
             value: 'open',
-            label: 'open',
+            label: `{{t("open", { ns: "${NAMESPACE}" })}}`,
+            color: 'orange',
           },
         ],
       } as ISchema,

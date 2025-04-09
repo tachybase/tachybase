@@ -134,7 +134,7 @@ export class NoticeManager {
       title,
       content,
       destroyOnClose: true,
-      maskClosable: true,
+      maskClosable: false,
       ...options,
     });
   }

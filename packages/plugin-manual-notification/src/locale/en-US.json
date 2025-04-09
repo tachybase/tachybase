@@ -12,5 +12,18 @@
   "Notification type": "Notification type",
   "Send": "Send",
   "Send record confirmation": "Send record confirmation",
-  "Set to manual close when this item is empty": "Set to manual close when this field is empty. enable when the notification type is status or notification"
+  "Set to manual close when this item is empty": "Set to manual close when this field is empty. enable when the notification type is status or notification",
+  "error": "Error",
+  "info": "Info",
+  "modal": "Modal",
+  "modal_description": "Popup dialog in the center of the screen",
+  "notification": "Notification",
+  "notification_description": "Notification in the top right corner",
+  "open": "Open",
+  "status": "Status Bar",
+  "status_description": "Horizontal bar at the top of the page",
+  "success": "Success",
+  "toast": "Toast",
+  "toast_description": "Brief message at the top",
+  "warning": "Warning"
 }
