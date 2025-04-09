@@ -17,7 +17,7 @@ export class PluginOcrConvert extends Plugin {
     await initActions(this.app);
     this.app.acl.registerSnippet({
       name: `pm.ocr.providers`,
-      actions: ['ocr_providers:*', 'ocr:*', 'fileConvert:*'],
+      actions: ['ocr_providers:*'],
     });
   }
 

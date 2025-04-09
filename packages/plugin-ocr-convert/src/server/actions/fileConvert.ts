@@ -46,8 +46,7 @@ export async function convertToWord(context: Context, next: Next) {
 
     const zip = new PizZip(templateContent);
     const doc = new Docxtemplater(zip);
-    doc.setData(data);
-    doc.render();
+    doc.render(data);
     const buffer = doc.getZip().generate({ type: 'nodebuffer' });
 
     // 判断保存方式是通过文件还是通过流
