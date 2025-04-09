@@ -1,5 +1,5 @@
-import { approvalTodoStatusOptions } from '../../../common/constants/approval-todo-status-options';
-import { NAMESPACE, tval } from '../locale';
+import { NAMESPACE, tval } from '../../usage/h5/locale';
+import { approvalTodoStatusOptions } from '../constants/approval-todo-status-options';
 
 export const CollectionWorkflowNotice = {
   title: tval('Notice Center'),

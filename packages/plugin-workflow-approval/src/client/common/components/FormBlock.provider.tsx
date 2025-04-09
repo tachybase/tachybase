@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useMemo, useRef } from 'react';
+import { Fragment, useContext, useMemo, useRef } from 'react';
 import {
   BlockRequestContext_deprecated,
   CollectionProvider_deprecated,
