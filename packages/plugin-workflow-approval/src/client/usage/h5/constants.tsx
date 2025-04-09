@@ -16,9 +16,21 @@ import {
 export const ProcessedStatus = [1, 2, -1, -3];
 
 export const ApprovalPriorityType = [
-  { value: '1', label: '一般', color: 'cyan' },
-  { value: '2', label: '紧急', color: 'gold' },
-  { value: '3', label: '非常紧急', color: 'red' },
+  {
+    value: '1',
+    label: '一般',
+    color: 'cyan',
+  },
+  {
+    value: '2',
+    label: '紧急',
+    color: 'gold',
+  },
+  {
+    value: '3',
+    label: '非常紧急',
+    color: 'red',
+  },
 ];
 
 export const ExecutionStatusOptions = [
