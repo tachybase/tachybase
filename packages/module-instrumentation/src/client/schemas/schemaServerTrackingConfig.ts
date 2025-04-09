@@ -16,6 +16,7 @@ export const schemaServerTrackingConfig: ISchema = {
         collection: serverTrackingConfigCollection,
         action: 'list',
         params: {
+          pageSize: 50,
           filter: {},
         },
       },

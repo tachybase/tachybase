@@ -19,6 +19,7 @@ export default {
     {
       type: 'string',
       name: 'title',
+      unique: true,
     },
     {
       type: 'string',
@@ -32,12 +33,6 @@ export default {
     {
       type: 'jsonb',
       name: 'trackingOptions',
-    },
-  ],
-  indexes: [
-    {
-      fields: ['resourceName', 'action'],
-      unique: true,
     },
   ],
 } as CollectionOptions;

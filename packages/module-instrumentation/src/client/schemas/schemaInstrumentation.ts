@@ -149,8 +149,7 @@ export const schemaClientTracking: ISchema = {
               title: '{{t("Actions")}}',
               'x-component': 'TableV2.Column',
               'x-component-props': {
-                width: 50,
-                align: 'center',
+                fixed: 'right',
               },
               properties: {
                 actions: {

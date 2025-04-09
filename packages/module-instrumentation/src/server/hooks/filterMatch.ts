@@ -5,7 +5,7 @@ const operators = {
   $gte: (a, b) => a >= b,
   $lt: (a, b) => a < b,
   $lte: (a, b) => a <= b,
-  $in: (a, b) => b.includes(a),
+  $in: (a, b) => a.includes(b),
 };
 
 function getValueByPath(obj, path) {

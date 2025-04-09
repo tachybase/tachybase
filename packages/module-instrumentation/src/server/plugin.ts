@@ -21,7 +21,8 @@ export class ModuleInstrumentationServer extends Plugin {
       async (ctx: Context, next) => {
         const { actionName, resourceName } = ctx.action;
         if (this.serverTrackingFilter?.check(resourceName, actionName)) {
-          return await handleOtherAction(ctx, next);
+          const whiteList = this.serverTrackingFilter.whiteList;
+          return await handleOtherAction(ctx, next, whiteList);
         }
         return next();
       },

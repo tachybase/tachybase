@@ -39,16 +39,29 @@ export const useSignUp = (props?: UseSignupProps) => {
   };
   return {
     async run() {
-      await form.submit();
-      await api.auth.signUp(form.values, props?.authenticator);
-      await app.trackingManager.logEvent(TrackingEventType.CLICK, 'sign-up', {
-        userId: form.values.username,
-        deviceInfo: getDeviceInfo(),
-      });
-      message.success(props?.message?.success || t('Sign up successfully, and automatically jump to the sign in page'));
-      setTimeout(() => {
-        navigate('/signin');
-      }, 2000);
+      try {
+        await form.submit();
+        await api.auth.signUp(form.values, props?.authenticator);
+        await app.trackingManager.logEvent(TrackingEventType.CLICK, 'sign-up', {
+          userId: form.values.username,
+          signup_method: 'account',
+          deviceInfo: getDeviceInfo(),
+        });
+        message.success(
+          props?.message?.success || t('Sign up successfully, and automatically jump to the sign in page'),
+        );
+        setTimeout(() => {
+          navigate('/signin');
+        }, 2000);
+      } catch (err) {
+        await app.trackingManager.logEvent(TrackingEventType.CLICK, 'sign-up-err', {
+          userId: form.values.username,
+          signup_method: 'account',
+          deviceInfo: getDeviceInfo(),
+          error_status: err.status,
+          error_message: err.response.data,
+        });
+      }
     },
   };
 };

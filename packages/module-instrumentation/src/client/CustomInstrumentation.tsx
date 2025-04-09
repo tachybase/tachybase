@@ -52,6 +52,5 @@ export class TrackingManager {
         ...data,
       },
     });
-    console.log('Tracking Event:', data);
   }
 }

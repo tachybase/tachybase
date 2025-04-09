@@ -1,9 +1,16 @@
 import Database, { Transaction } from '@tachybase/database';
 
+export type WhiteListItem = {
+  title: string;
+  resourceName: string;
+  action: string;
+  options: Record<string, any>;
+};
 export class ServerTrackingFilter {
   db: Database;
+
   // 白名单
-  whiteList: { resourceName: string; action: string }[] = [];
+  whiteList: WhiteListItem[] = [];
   blackList: { resourceName: string; action: string }[] = [];
 
   constructor(database: Database) {
@@ -20,7 +27,12 @@ export class ServerTrackingFilter {
       this.blackList = [];
       for (const item of apiConfigs) {
         if (item.apiConfig) {
-          this.whiteList.push({ resourceName: item.resourceName, action: item.action });
+          this.whiteList.push({
+            title: item.title,
+            resourceName: item.resourceName,
+            action: item.action,
+            options: item.trackingOptions,
+          });
         } else {
           this.blackList.push({ resourceName: item.resourceName, action: item.action });
         }

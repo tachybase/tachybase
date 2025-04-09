@@ -1,35 +1,16 @@
 import { Context } from '@tachybase/actions';
 import { Application } from '@tachybase/server';
 
+import { WhiteListItem } from '../ServerTrackingFilter';
 import { filterMatch } from './filterMatch';
 
-export async function handleOtherAction(ctx: Context, next) {
+export async function handleOtherAction(ctx: Context, next, whiteList: WhiteListItem[]) {
   await next();
   const { actionName, resourceName, params } = ctx.action;
-  // const repo = ctx.db.getRepository('serverTracking');
+  const data = ctx.response?.body || null;
   const repo = ctx.db.getRepository('trackingEvents');
-  const Config = await ctx.db.getRepository('serverTrackingConfig').findOne({
-    filter: {
-      resourceName: resourceName,
-      action: actionName,
-    },
-  });
-  const configTitle = Config?.title || '';
-  const configKeys = {
-    meta: Config?.trackingOptions?.meta || [],
-    payload: Config?.trackingOptions?.payload || [],
-    filter: Config?.trackingOptions?.filter || [],
-  };
-  const app = ctx.app as Application;
-  const collection = app.mainDataSource.collectionManager.getCollection(ctx.action.resourceName);
-  const currentRecordId = ctx.body?.[collection.filterTargetKey];
-  const currentUserId = ctx.auth?.user.id;
-  const currentTime = new Date().toISOString();
 
-  const baseValues: Record<string, any> = {};
-  if (configKeys.meta.includes('userId')) baseValues.userId = currentUserId;
-  if (configKeys.meta.includes('recordId')) baseValues.recordId = currentRecordId;
-  if (configKeys.meta.includes('createdAt')) baseValues.createdAt = currentTime;
+  const allConfigs = whiteList.filter((item) => item.resourceName === resourceName && item.action === actionName);
 
   function findValuesByKeys(obj: any, trackingOptions: string[]): Record<string, any[]> {
     const result: Record<string, any[]> = {};
@@ -47,28 +28,58 @@ export async function handleOtherAction(ctx: Context, next) {
     };
 
     traverse(obj);
+
+    for (const key in result) {
+      const seen = new Set<string>();
+      result[key] = result[key].filter((item) => {
+        const str = JSON.stringify(item);
+        if (seen.has(str)) return false;
+        seen.add(str);
+        return true;
+      });
+    }
+
     return result;
   }
 
-  const nestedValuesMap = findValuesByKeys(params, configKeys.payload);
+  for (const Config of allConfigs) {
+    const configTitle = Config?.title || '';
+    const configKeys = {
+      meta: Config?.options?.meta || [],
+      payload: Config?.options?.payload || [],
+      filter: Config?.options?.filter || {},
+    };
+    const app = ctx.app as Application;
+    const collection = app.mainDataSource.collectionManager.getCollection(ctx.action.resourceName);
+    const currentRecordId = ctx.body?.[collection.filterTargetKey] || null;
+    const currentUserId = ctx.auth?.user.id || null;
+    const currentTime = new Date().toISOString();
 
-  const finalValues = {
-    meta: baseValues,
-    payload: Object.fromEntries(
-      Object.entries(nestedValuesMap).map(([key, value]) => [
-        key,
-        Array.isArray(value) && value.length === 1 ? value[0] : value,
-      ]),
-    ),
-  };
+    const baseValues: Record<string, any> = {};
+    if (configKeys.meta.includes('userId')) baseValues.userId = currentUserId;
+    if (configKeys.meta.includes('recordId')) baseValues.recordId = currentRecordId;
+    if (configKeys.meta.includes('createdAt')) baseValues.createdAt = currentTime;
 
-  if (filterMatch(finalValues, configKeys.filter)) {
-    repo.create({
-      values: {
-        key: configTitle,
-        type: `${resourceName}-${actionName}`,
-        values: finalValues,
-      },
-    });
+    const nestedValuesMap = findValuesByKeys({ params, data }, configKeys.payload);
+
+    const finalValues = {
+      meta: baseValues,
+      payload: Object.fromEntries(
+        Object.entries(nestedValuesMap).map(([key, value]) => [
+          key,
+          Array.isArray(value) && value.length === 1 ? value[0] : value,
+        ]),
+      ),
+    };
+
+    if (filterMatch(finalValues, configKeys.filter)) {
+      repo.create({
+        values: {
+          key: configTitle,
+          type: `${resourceName}-${actionName}`,
+          values: finalValues,
+        },
+      });
+    }
   }
 }

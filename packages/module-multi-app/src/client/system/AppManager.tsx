@@ -13,6 +13,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
 import { useTranslation } from 'react-i18next';
 
+import { TrackingEventType } from '../../../../module-instrumentation/src/client/CustomInstrumentation';
 import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../../constants';
 import { usePluginUtils } from '../locale';
 import { schemaAppManager } from './AppManager.schema';
@@ -34,6 +35,9 @@ const AppVisitor = () => {
   const record = useCollectionRecordData();
   const apiClient = useAPIClient();
   const { data, mutate, refresh } = useDataBlockRequest<any[]>();
+  const currentUserContext = useCurrentUserContext();
+  const currentUser = currentUserContext?.data?.data;
+  const app = useApp();
   const resource = useMemo(() => {
     return apiClient.resource('applications');
   }, [apiClient]);
@@ -57,9 +61,19 @@ const AppVisitor = () => {
           duration: 0,
         });
       }
+      app.trackingManager.logEvent(TrackingEventType.CLICK, 'multiapp_start', {
+        UserId: currentUser.id,
+        appName: record.name,
+      });
     } catch (e) {
       notification.error({
         message: t('Failed to start app'),
+      });
+      app.trackingManager.logEvent(TrackingEventType.CLICK, 'multiapp_start_error', {
+        UserId: currentUser.id,
+        appName: record.name,
+        error_status: e.status,
+        error_message: e.response.data,
       });
     }
   };
@@ -74,6 +88,10 @@ const AppVisitor = () => {
           </span>
         ),
         duration: 0,
+      });
+      app.trackingManager.logEvent(TrackingEventType.CLICK, 'multiapp_stop', {
+        UserId: currentUser.id,
+        appName: record.name,
       });
     });
   };
@@ -107,7 +125,17 @@ const AppVisitor = () => {
   });
   return (
     <Space split={<Divider type="horizontal" />}>
-      <a href={link} target={'_blank'} rel="noreferrer">
+      <a
+        onClick={() => {
+          // 埋点逻辑
+          app.trackingManager.logEvent(TrackingEventType.CLICK, 'multiapp_linkView', {
+            link,
+            UserId: currentUser.id,
+            appName: record.name,
+          });
+          window.open(link, '_blank', 'noreferrer');
+        }}
+      >
         {t('View', { ns: NAMESPACE })}
       </a>
       <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>
