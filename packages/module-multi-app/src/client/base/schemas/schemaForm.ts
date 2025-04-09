@@ -1,4 +1,4 @@
-import { ISchema, uid } from '@tachybase/schema';
+import { ISchema } from '@tachybase/schema';
 
 import { i18nText } from '../../locale';
 
