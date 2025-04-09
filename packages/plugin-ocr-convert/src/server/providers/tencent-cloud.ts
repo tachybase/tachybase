@@ -66,6 +66,30 @@ export default class TencentCloudProvider extends Provider {
         throw new Error(this.plugin.app.t('Invalid image format', { ns: namespace }));
       }
 
+      // 验证OCR类型是否在配置的ocrTypes列表中
+      const { ocrTypes = [] } = this.options;
+      if (!ocrTypes || !Array.isArray(ocrTypes) || ocrTypes.length === 0) {
+        throw new Error(this.plugin.app.t('No OCR types configured', { ns: namespace }));
+      }
+
+      // 根据OCR类型对应腾讯云API方法名映射
+      const typeToMethodMap = {
+        [OCR_TYPE_GENERAL]: 'GeneralBasicOCR',
+        [OCR_TYPE_GENERAL_ACCURATE]: 'GeneralAccurateOCR',
+        [OCR_TYPE_HANDWRITING]: 'GeneralHandwritingOCR',
+        [OCR_TYPE_IDCARD]: 'IDCardOCR',
+        [OCR_TYPE_BUSINESS_LICENSE]: 'BizLicenseOCR',
+        [OCR_TYPE_BANKCARD]: 'BankCardOCR',
+        [OCR_TYPE_VEHICLE_LICENSE]: 'VehicleLicenseOCR',
+        [OCR_TYPE_DRIVER_LICENSE]: 'DriverLicenseOCR',
+      };
+
+      // 检查请求的类型是否在配置的ocrTypes列表中
+      const methodName = typeToMethodMap[type];
+      if (!methodName || !ocrTypes.includes(methodName)) {
+        throw new Error(this.plugin.app.t('OCR type not enabled', { ns: namespace }));
+      }
+
       // 根据不同的识别类型调用对应的API
       let response;
       let textItems = [];

@@ -8,6 +8,6 @@ export function lang(key: string) {
   return i18n.t(key, { ns: [NAMESPACE, 'core'] });
 }
 
-export function useVerificationTranslation() {
+export function useOcrTranslation() {
   return useTranslation([NAMESPACE, 'core']);
 }

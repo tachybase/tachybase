@@ -1,6 +1,6 @@
 import { ISchema } from '@tachybase/schema';
 
-import { NAMESPACE } from '../locale';
+import { lang, NAMESPACE } from '../locale';
 
 export default {
   type: 'object',
@@ -17,7 +17,7 @@ export default {
       type: 'string',
       'x-decorator': 'FormItem',
       'x-component': 'TextAreaWithGlobalScope',
-      'x-component-props': { password: true },
+      // 'x-component-props': { password: true },
       required: true,
     },
     region: {
@@ -28,11 +28,11 @@ export default {
       'x-component-props': {
         placeholder: 'ap-guangzhou',
         options: [
-          { label: 'ap-guangzhou (广州)', value: 'ap-guangzhou' },
-          { label: 'ap-shanghai (上海)', value: 'ap-shanghai' },
-          { label: 'ap-beijing (北京)', value: 'ap-beijing' },
-          { label: 'ap-hongkong (香港)', value: 'ap-hongkong' },
-          { label: 'ap-singapore (新加坡)', value: 'ap-singapore' },
+          { label: lang('ap-guangzhou (guangzhou)'), value: 'ap-guangzhou' },
+          { label: lang('ap-shanghai (shanghai)'), value: 'ap-shanghai' },
+          { label: lang('ap-beijing (beijing)'), value: 'ap-beijing' },
+          { label: lang('ap-hongkong (hongkong)'), value: 'ap-hongkong' },
+          { label: lang('ap-singapore (singapore)'), value: 'ap-singapore' },
         ],
       },
       default: 'ap-guangzhou',

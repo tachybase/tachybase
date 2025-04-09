@@ -38,7 +38,7 @@ export const collectionOcrProviders = {
         type: 'string',
         'x-component': 'Select',
         required: true,
-        enum: [{ label: `{{t("Tencent Cloud", { ns: "${NAMESPACE}" })}}`, value: PROVIDER_TYPE_TENCENT }],
+        enum: [{ label: `{{t("Tencent Cloud OCR", { ns: "${NAMESPACE}" })}}`, value: PROVIDER_TYPE_TENCENT }],
       },
     },
     {
@@ -149,7 +149,7 @@ export const update: ISchema = {
 
 export const schemaOcrProviders = {
   type: 'void',
-  name: 'providers',
+  name: 'ocr_providers',
   'x-decorator': 'TableBlockProvider',
   'x-component': 'CardItem',
   'x-decorator-props': {
@@ -401,7 +401,7 @@ export const schemaOcrProviders = {
 const providers: ISchema = {
   type: 'void',
   properties: {
-    table: {
+    ocrTable: {
       type: 'void',
       'x-component': 'DataBlockProvider',
       'x-component-props': {
