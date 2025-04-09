@@ -1,32 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   CollectionProvider,
-  CollectionProvider_deprecated,
   MobileProvider,
   RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentProvider,
   useAPIClient,
-  useFormBlockContext,
-  usePlugin,
 } from '@tachybase/client';
 import { DetailsBlockProvider, FlowContext, linkNodes } from '@tachybase/module-workflow/client';
+import { observer } from '@tachybase/schema';
 
 import { Result } from 'antd';
 import { NavBar, Skeleton } from 'antd-mobile';
 import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
-import { useTranslation } from '../../locale';
-
-import '../../style/style.css';
-
-import { observer } from '@tachybase/schema';
-
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../../common/constants';
+import { useTranslation } from '../../../../locale';
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
 import { useWorkflowNoticeFormBlockProps } from '../hook/useFormBlockProps';
 import { usePropsNoticeDetail } from '../hook/usePropsNoticeDetail';
+
+import '../../style/style.css';
 
 // 审批-抄送-查看: 内容
 export const ViewTodosWorkflowNoticeContent = observer((props) => {

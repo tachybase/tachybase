@@ -1,4 +1,4 @@
-import { NAMESPACE, tval } from '../../usage/h5/locale';
+import { NAMESPACE, tval } from '../../locale';
 import { approvalTodoStatusOptions } from '../constants/approval-todo-status-options';
 
 export const CollectionWorkflowNotice = {

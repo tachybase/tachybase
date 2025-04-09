@@ -1,6 +1,6 @@
 import { JobStatusOptions } from '@tachybase/module-workflow/client';
 
-import { NAMESPACE } from '../../usage/h5/locale';
+import { NAMESPACE } from '../../locale';
 
 export const todoCollection = {
   title: `{{t("Workflow todos", { ns: "${NAMESPACE}" })}}`,

@@ -5,8 +5,8 @@ import { Picker, Space } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 
 import { approvalTodoStatusOptions } from '../../../../common/constants/approval-todo-status-options';
+import { useTranslation } from '../../../../locale';
 import { ExecutionStatusOptions, ProcessedStatus } from '../../constants';
-import { useTranslation } from '../../locale';
 
 export const TabApprovalType = observer((props) => {
   const { collectionName, params } = props as any;

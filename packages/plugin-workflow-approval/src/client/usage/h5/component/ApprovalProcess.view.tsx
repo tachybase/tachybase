@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { createStyles, useCurrentUserContext } from '@tachybase/client';
+import { useMemo } from 'react';
+import { useCurrentUserContext } from '@tachybase/client';
 import { EXECUTION_STATUS } from '@tachybase/module-workflow/client';
 import { dayjs } from '@tachybase/utils/client';
 
@@ -10,14 +10,13 @@ import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-i
 import { approvalStatusEnums } from '../../../common/constants/approval-initiation-status-options';
 import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
 import { approvalTodoStatusOptions } from '../../../common/constants/approval-todo-status-options';
+import { lang, useTranslation } from '../../../locale';
 import { useContextApprovalExecution } from '../context/ApprovalExecution';
 import { ContextWithActionEnabled } from '../context/WithActionEnabled';
-import { lang, usePluginTranslation, useTranslation } from '../locale';
 
 export const ApprovalProcess = (props) => {
-  const { t } = usePluginTranslation();
+  const { t } = useTranslation();
   const { approval: approvalContext } = useContextApprovalExecution();
-  const { styles } = getStyles();
   const { data } = useCurrentUserContext();
   const { Step } = Steps;
   const results = useMemo(() => getResults({ approval: approvalContext, currentUser: data }), [approvalContext, data]);
@@ -25,11 +24,6 @@ export const ApprovalProcess = (props) => {
 
   return (
     <ContextWithActionEnabled.Provider value={{ actionEnabled: props.actionEnabled }}>
-      {/* <Space direction="vertical" size="middle" className={styles.layout}>
-        {results.map((item) => (
-          <Table key={item.id} dataSource={item.records} rowKey={'id'} pagination={false} columns={columns} />
-        ))}
-      </Space> */}
       <Steps direction="vertical">
         {stepsResult.map((item, index) => {
           return (
@@ -59,21 +53,6 @@ export const ApprovalProcess = (props) => {
     </ContextWithActionEnabled.Provider>
   );
 };
-
-const getStyles = createStyles(({ css, token }) => ({
-  layout: css`
-    display: flex;
-  `,
-  columnDetail: css`
-    .ant-description-textarea {
-      margin-bottom: 0.5em;
-    }
-    time {
-      display: block;
-      color: ${token.colorTextTertiary};
-    }
-  `,
-}));
 
 function getResults({ approval, currentUser }) {
   const { workflow, approvalExecutions, records } = approval;

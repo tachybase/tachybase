@@ -10,8 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import { approvalStatusEnums } from '../../../../common/constants/approval-initiation-status-options';
 import { APPROVAL_TODO_STATUS } from '../../../../common/constants/approval-todo-status';
 import { approvalTodoStatusOptions } from '../../../../common/constants/approval-todo-status-options';
+import { useTranslation } from '../../../../locale';
 import { ApprovalPriorityType, ExecutionStatusOptions } from '../../constants';
-import { useTranslation } from '../../locale';
 
 export const TabApprovalItem = observer((props) => {
   const { filter, params, input, collectionName, tabKey } = props as any;

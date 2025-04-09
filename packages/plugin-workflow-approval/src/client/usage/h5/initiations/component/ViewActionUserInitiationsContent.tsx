@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   MobileProvider,
   RemoteSchemaComponent,
@@ -14,24 +14,23 @@ import { useForm } from '@tachybase/schema';
 import { NavBar, Skeleton } from 'antd-mobile';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useTranslation } from '../../../../locale';
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
 import { FormBlockProvider } from '../../context/FormBlock';
 import { SchemaComponentContextProvider } from '../../context/SchemaComponent';
-import { useTranslation } from '../../locale';
+import { useActionReminder } from '../hook/useActionReminder';
+import { useActionResubmit } from '../hook/useActionResubmit';
 import { useFormBlockProps } from '../hook/useFormBlockProps';
 import { useUpdateSubmit } from '../hook/useUpadteSubmit';
 import { useWithdrawAction } from '../hook/useWithdrawAction';
 import { ActionBarProvider } from '../provider/ActionBar';
+import { ProviderActionReminder } from '../provider/ActionReminder.provider';
+import { ProviderActionResubmit } from '../provider/ActionResubmit.provider';
 import { ApplyActionStatusProvider } from '../provider/ApplyActionStatus';
+import { ResubmitProvider } from '../provider/Resubmit.provider';
 import { WithdrawActionProvider } from '../provider/WithdrawAction';
 
 import '../../style/style.css';
-
-import { useActionReminder } from '../hook/useActionReminder';
-import { useActionResubmit } from '../hook/useActionResubmit';
-import { ProviderActionReminder } from '../provider/ActionReminder.provider';
-import { ProviderActionResubmit } from '../provider/ActionResubmit.provider';
-import { ResubmitProvider } from '../provider/Resubmit.provider';
 
 export const ViewActionUserInitiationsContent = () => {
   const params = useParams();

@@ -4,16 +4,15 @@ import { observer, useFieldSchema } from '@tachybase/schema';
 
 import { SearchBar, Tabs } from 'antd-mobile';
 
+import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
+import { collectionApprovals } from '../../../common/collections/approvals';
 import { collectionFlowNodes } from '../../../common/collections/flowNodes';
 import { collectionWorkflows } from '../../../common/collections/workflows';
-import { useTranslation } from '../locale';
+import { useTranslation } from '../../../locale';
 import { InitiationsItem } from './component/InitiationsItem';
 import { UserInitiationsItem } from './component/UserInitiationsItem';
 
 import '../style/style.css';
-
-import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
-import { collectionApprovals } from '../../../common/collections/approvals';
 
 export const InitiationsBlockContext = createContext({});
 
