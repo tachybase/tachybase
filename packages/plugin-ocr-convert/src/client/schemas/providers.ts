@@ -3,7 +3,6 @@ import { ISchema, uid } from '@tachybase/schema';
 
 import { PROVIDER_TYPE_TENCENT } from '../../constants';
 import { lang, NAMESPACE } from '../locale';
-import { providerTypes } from '../providerTypes';
 
 export const collectionOcrProviders = {
   name: 'ocr_providers',
@@ -703,11 +702,11 @@ const providers: ISchema = {
                                       },
                                     },
                                     submit: {
-                                      title: lang('Submit'),
+                                      title: '{{ t("Submit") }}',
                                       'x-component': 'Action',
+                                      'x-use-component-props': 'useUpdateActionProps',
                                       'x-component-props': {
                                         type: 'primary',
-                                        useAction: '{{ useUpdateProviderAction }}',
                                       },
                                     },
                                   },
@@ -727,7 +726,7 @@ const providers: ISchema = {
                           title: lang('Delete confirmation'),
                           content: lang('Are you sure you want to delete this OCR provider?'),
                         },
-                        useAction: '{{ useRemoveProviderAction }}',
+                        useAction: '{{ useDestroyActionProps }}',
                       },
                     },
                   },
