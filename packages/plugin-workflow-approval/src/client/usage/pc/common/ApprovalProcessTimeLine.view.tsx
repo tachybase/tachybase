@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
 import { approvalInitiationStatusMap } from '../../../common/constants/approval-initiation-status-options';
 import { approvalTodoStatusMap } from '../../../common/constants/approval-todo-status-options';
-import { usePluginTranslation } from '../../../locale';
+import { useTranslation } from '../../../locale';
 import { useApproval } from './ApprovalData.provider';
 import { getAntdTableColumns } from './process-columns';
 import { getResults } from './tools';
@@ -31,7 +31,7 @@ const getStyles = createStyles(({ css, token }) => ({
 
 // 审批(发起/待办)卡片-查看-审批流程
 export const ApprovalProcessTimeLine = (props) => {
-  const { t } = usePluginTranslation();
+  const { t } = useTranslation();
   const approvalContext = useApproval();
   const { styles } = getStyles();
   const { data } = useCurrentUserContext();
