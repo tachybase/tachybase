@@ -1,5 +1,4 @@
 import fs from 'fs';
-import path from 'path';
 import { promisify } from 'util';
 import { Context, Next } from '@tachybase/actions';
 
@@ -33,11 +32,6 @@ async function getTemplateContent(template: string): Promise<Buffer> {
 // 将模板文本转成word
 export async function convertToWord(context: Context, next: Next) {
   const { values } = context.action.params;
-  // data = {
-  //     项目名称: "福州滨海",
-  //     施工内容: "搭设,临边围护,长24米,冲孔网片24张",
-  //     施工区域: "7标公园地铁19号塔吊洞口",
-  // }
   const { template, data, saveType, fileName } = values;
 
   try {
@@ -67,11 +61,6 @@ export async function convertToWord(context: Context, next: Next) {
 // 将模板文本转成excel
 export async function convertToExcel(context: Context, next: Next) {
   const { values } = context.action.params;
-  // data = {
-  //     项目名称: "福州滨海",
-  //     施工内容: "搭设,临边围护,长24米,冲孔网片24张",
-  //     施工区域: "7标公园地铁19号塔吊洞口",
-  // }
   const { template, data, saveType, fileName } = values;
 
   try {
