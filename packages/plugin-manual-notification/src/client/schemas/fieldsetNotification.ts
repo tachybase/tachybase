@@ -31,10 +31,14 @@ export const fieldsetNotification: Record<string, ISchema> = {
   detail: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
+    required: true,
   },
   duration: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
-    'x-visible': '{{$self.query(".notifyType").value() !== "notification"}}',
+  },
+  endTime: {
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
   },
 };

@@ -23,9 +23,25 @@ export class notificationsController {
   @Action('send', { acl: 'private' })
   async send(ctx: Context, next: Next) {
     try {
-      const { title = '', detail: content = '', level = 'open', duration = null, notifyType } = ctx.action.params;
       if (ctx.app.name !== 'main') {
         ctx.throw(403, ctx.t('Forbidden broadcast in sub application'));
+      }
+      const { title = '', detail: content = '', level = 'open', notifyType } = ctx.action.params;
+      let { duration } = ctx.action.params;
+      if (duration < 0) {
+        ctx.throw(400, ctx.t('Invalid duration', { ns: 'manual-notification' }));
+      }
+      const startTime = new Date();
+      let endTime = ctx.action.params.endTime;
+      if (!endTime) {
+        endTime = new Date(Date.now() + duration * 1000);
+      } else {
+        endTime = new Date(endTime);
+        const endDuration = (endTime.getTime() - startTime.getTime()) / 1000;
+        if (endDuration < 0) {
+          ctx.throw(400, ctx.t('Invalid end time', { ns: 'manual-notification' }));
+        }
+        duration = Math.min(duration, endDuration);
       }
       switch (notifyType) {
         case NoticeType.MODAL:
@@ -35,16 +51,11 @@ export class notificationsController {
           ctx.app.noticeManager.status(content, level, duration);
           break;
         case NoticeType.TOAST:
-          ctx.app.noticeManager.toast(content, level);
+          ctx.app.noticeManager.toast(content, level, duration);
           break;
         case NoticeType.NOTIFICATION:
         default:
           ctx.app.noticeManager.notification(title, content, level, duration);
-      }
-      const startTime = new Date();
-      let endTime = ctx.action.params.endTime;
-      if (!endTime) {
-        endTime = new Date(Date.now() + duration * 1000);
       }
       const item: NotificationLog = {
         content,

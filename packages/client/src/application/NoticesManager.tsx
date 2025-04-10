@@ -86,6 +86,8 @@ export class NoticeManager {
       this.notification(data.title, data.content, data.level, data.duration);
     } else if (data.type === NoticeType.MODAL) {
       this.modal(data.title, data.content, data.level, data.duration);
+    } else if (data.type === NoticeType.TOAST) {
+      this.toast(data.content, data.level, data.duration);
     } else if (data.type === NoticeType.CUSTOM) {
       this.emitter.emit(data.eventType, data.event);
     } else {
@@ -99,8 +101,11 @@ export class NoticeManager {
     this.currentStatusUpdatedAt = Date.now();
   }
 
-  toast(content: string, level: NoticeLevel) {
-    message[level](content);
+  toast(content: string, level: NoticeLevel, duration: number = 3) {
+    message[level]({
+      content,
+      duration,
+    });
   }
 
   notification(
@@ -138,8 +143,12 @@ export class NoticeManager {
       maskClosable: false,
       ...options,
     });
+    if (!duration) {
+      // 默认30秒
+      duration = 30;
+    }
     setTimeout(() => {
-      modal.destroy();
+      modal?.destroy();
     }, duration * 1000);
   }
 }

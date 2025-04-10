@@ -119,5 +119,22 @@ export const notificationCollection = {
         ],
       } as ISchema,
     },
+    {
+      name: 'endTime',
+      type: 'date',
+      interface: 'createdAt',
+      uiSchema: {
+        type: 'datetime',
+        title: `{{t("End time", { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'DatePicker',
+        'x-component-props': {
+          showTime: true,
+          // 默认比当前时间大
+          disabledDate: (current) => {
+            return current && current < new Date();
+          },
+        },
+      },
+    },
   ],
 };
