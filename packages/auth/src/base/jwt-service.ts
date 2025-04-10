@@ -69,4 +69,18 @@ export class JwtService {
       return null;
     }
   }
+
+  public getSecret() {
+    return this.options.secret;
+  }
+  public verifyToken(token: string): Promise<JwtPayload> {
+    return new Promise((resolve, reject) => {
+      jwt.verify(token, this.secret(), (err: any, decoded: JwtPayload) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(decoded);
+      });
+    });
+  }
 }

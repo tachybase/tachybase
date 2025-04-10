@@ -52,8 +52,7 @@ export const formSchema: ISchema = {
           dependencies: ['cname'],
           fulfill: {
             state: {
-              value:
-                '{{ ($deps[0] && $deps[0].replace(new RegExp("\\."+window.location.hostname+"$"), "")) || uid(7) }}',
+              value: '{{ ($deps[0] && $deps[0].replace(new RegExp("\\."+window.location.hostname+"$"), "")) || "" }}',
             },
           },
         },

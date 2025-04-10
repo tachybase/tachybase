@@ -1,0 +1,28 @@
+{
+  "name": "@tachybase/plugin-ocr-convert",
+  "version": "1.0.12",
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "@tachybase/utils": "workspace:*",
+    "antd": "5.22.5",
+    "dayjs": "1.11.13",
+    "docxtemplater": "^3.55.8",
+    "exceljs": "^4.4.0",
+    "pizzip": "^3.0.7",
+    "react": "~18.3.1",
+    "react-i18next": "^15.2.0",
+    "tencentcloud-sdk-nodejs": "^4.0.996"
+  },
+  "peerDependencies": {
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/components": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  },
+  "description.zh-CN": "OCR 转换插件",
+  "displayName.zh-CN": "OCR 转换"
+}
