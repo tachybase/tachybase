@@ -91,6 +91,7 @@ export class NoticeManager {
     } else if (data.type === NoticeType.CUSTOM) {
       this.emitter.emit(data.eventType, data.event);
     } else {
+      // TODO 后续status也能有duration
       this[data.type](data.content, data.level);
     }
   }
