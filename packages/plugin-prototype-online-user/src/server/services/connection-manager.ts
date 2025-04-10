@@ -88,7 +88,7 @@ export class ConnectionManager {
         },
       });
     };
-    ws?.wss.on('connection', (ws: WebSocket & { id: string }) => {
+    const connectionEvent = (ws: WebSocket & { id: string }) => {
       ws.on('error', async () => {
         await notifyAllClients();
       });
@@ -108,8 +108,8 @@ export class ConnectionManager {
             if (!userMeg.payload.token) {
               return;
             }
-            if (!this.app.isStarted()) {
-              this.app.logger.warn('online user connect warn, app is not started');
+            if (this.app.db.closed()) {
+              this.app.logger.warn('online user connect warn, db is closed');
               return;
             }
             try {
@@ -124,6 +124,10 @@ export class ConnectionManager {
           }
         }
       });
+    };
+    ws?.wss.on('connection', connectionEvent);
+    this.app.on('afterStop', () => {
+      ws?.wss.off('connection', connectionEvent);
     });
   }
 }
