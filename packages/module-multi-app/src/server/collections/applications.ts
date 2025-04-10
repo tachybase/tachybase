@@ -69,7 +69,8 @@ export default defineCollection({
       // APPKEY的后缀,为了防止被推断出来
       name: 'appKeySuffix',
       defaultValue: () => {
-        return uid(6);
+-       return uid(6);
++       return uid(16); // Longer suffix for improved security
       },
     },
   ],
