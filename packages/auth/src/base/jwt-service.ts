@@ -69,4 +69,8 @@ export class JwtService {
       return null;
     }
   }
+
+  public getSecret() {
+    return this.options.secret;
+  }
 }

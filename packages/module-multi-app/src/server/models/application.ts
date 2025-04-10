@@ -1,4 +1,4 @@
-import { Model, Transactionable } from '@tachybase/database';
+import { md5, Model, Transactionable } from '@tachybase/database';
 import { Application, ApplicationOptions } from '@tachybase/server';
 import { merge } from '@tachybase/utils';
 
@@ -15,6 +15,7 @@ export class ApplicationModel extends Model {
     const appName = this.get('name') as string;
     const preset = this.get('preset') as string;
     const tmpl = this.get('tmpl') as string;
+    const appKeySuffix = this.get('appKeySuffix') as string;
     const appModelOptions = (this.get('options') as any) || {};
     const startEnvs = appModelOptions.startEnvs || {};
 
@@ -27,7 +28,8 @@ export class ApplicationModel extends Model {
       tmpl,
     } as ApplicationOptions;
 
-    const subSecret = process.env.APP_KEY + '_' + appName;
+    const suffix = appKeySuffix || appName;
+    const subSecret = md5(process.env.APP_KEY) + '_' + suffix;
     if (subAppOptions.authManager?.jwt?.secret) {
       subAppOptions.authManager.jwt.secret = subSecret;
     } else {
