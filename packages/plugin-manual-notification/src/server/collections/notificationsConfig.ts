@@ -23,6 +23,10 @@ export default {
       name: 'duration',
     },
     {
+      type: 'date',
+      name: 'expireAt',
+    },
+    {
       type: 'string',
       name: 'level',
     },
