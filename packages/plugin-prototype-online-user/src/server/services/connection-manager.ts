@@ -113,8 +113,7 @@ export class ConnectionManager {
               return;
             }
             try {
-              const secret = this.app.authManager?.jwt?.getSecret() || process.env.APP_KEY;
-              const analysis = jwt.verify(userMeg.payload.token, secret) as any;
+              const analysis = await this.app.authManager?.jwt?.verifyToken(userMeg.payload.token);
               const userId = analysis.userId;
               const user = await getUserById(userId);
               await this.app.online.all.HSET(KEY_ONLINE_USERS + appName, ws.id, JSON.stringify(user));
