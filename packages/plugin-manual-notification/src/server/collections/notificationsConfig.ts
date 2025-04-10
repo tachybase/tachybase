@@ -23,16 +23,16 @@ export default {
       name: 'duration',
     },
     {
-      type: 'date',
-      name: 'expireAt',
-    },
-    {
       type: 'string',
       name: 'level',
     },
     {
       name: 'notifyType',
       type: 'string',
+    },
+    {
+      type: 'date',
+      name: 'endTime',
     },
   ],
 } as CollectionOptions;

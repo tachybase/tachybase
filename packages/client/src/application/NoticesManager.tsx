@@ -83,9 +83,9 @@ export class NoticeManager {
     duration: null | number;
   }) {
     if (data.type === NoticeType.NOTIFICATION) {
-      this[data.type](data.title, data.content, data.level);
+      this.notification(data.title, data.content, data.level, data.duration);
     } else if (data.type === NoticeType.MODAL) {
-      this[data.type](data.title, data.content, data.level);
+      this.modal(data.title, data.content, data.level, data.duration);
     } else if (data.type === NoticeType.CUSTOM) {
       this.emitter.emit(data.eventType, data.event);
     } else {
@@ -122,6 +122,7 @@ export class NoticeManager {
     title: string,
     content: string,
     level: NoticeLevel,
+    duration: null | number = null,
     options: {
       destroyOnClose?: boolean;
       maskClosable?: boolean;
@@ -130,12 +131,15 @@ export class NoticeManager {
       onCancel?: () => void;
     } = {},
   ) {
-    Modal[level]({
+    const modal = Modal[level]({
       title,
       content,
       destroyOnClose: true,
       maskClosable: false,
       ...options,
     });
+    setTimeout(() => {
+      modal.destroy();
+    }, duration * 1000);
   }
 }

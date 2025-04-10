@@ -16,15 +16,11 @@ export default {
     },
     {
       type: 'string',
-      name: 'detail',
+      name: 'content',
     },
     {
       type: 'float',
       name: 'duration',
-    },
-    {
-      type: 'date',
-      name: 'expireAt',
     },
     {
       type: 'string',
@@ -33,6 +29,14 @@ export default {
     {
       name: 'notifyType',
       type: 'string',
+    },
+    {
+      type: 'date',
+      name: 'endTime',
+    },
+    {
+      type: 'date',
+      name: 'startTime',
     },
   ],
 } as CollectionOptions;

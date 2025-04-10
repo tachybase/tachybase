@@ -25,6 +25,8 @@ export const fieldsetNotification: Record<string, ISchema> = {
   title: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
+    'x-visible':
+      '{{$self.query(".notifyType").value() !== "status" && $self.query(".notifyType").value() !== "toast"}}',
   },
   detail: {
     'x-component': 'CollectionField',
@@ -33,6 +35,6 @@ export const fieldsetNotification: Record<string, ISchema> = {
   duration: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
-    'x-visible': '{{$self.query(".notifyType").value()=== "toast" || $self.query(".notifyType").value() === "status"}}',
+    'x-visible': '{{$self.query(".notifyType").value() !== "notification"}}',
   },
 };
