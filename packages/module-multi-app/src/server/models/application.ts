@@ -1,5 +1,5 @@
 import { Model, Transactionable } from '@tachybase/database';
-import { Application } from '@tachybase/server';
+import { Application, ApplicationOptions } from '@tachybase/server';
 import { merge } from '@tachybase/utils';
 
 import mergeApplicationStartEnvs from '../app-start-env';
@@ -25,8 +25,20 @@ export class ApplicationModel extends Model {
       ...(merge(appOptions, appModelOptions) as object),
       name: appName,
       tmpl,
-    };
+    } as ApplicationOptions;
 
+    const subSecret = process.env.APP_KEY + '_' + appName;
+    if (subAppOptions.authManager?.jwt?.secret) {
+      subAppOptions.authManager.jwt.secret = subSecret;
+    } else {
+      subAppOptions.authManager = {
+        authKey: 'X-Authenticator',
+        default: 'basic',
+        jwt: {
+          secret: subSecret,
+        },
+      };
+    }
     return new Application(subAppOptions);
   }
 }
