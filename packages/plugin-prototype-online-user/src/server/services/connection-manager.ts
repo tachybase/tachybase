@@ -60,7 +60,7 @@ export class ConnectionManager {
   async loadWsServer() {
     const appName = this.app.name;
     const gateway = Gateway.getInstance();
-    const ws = gateway['wsServer'];
+    const wss = gateway['wsServer'];
     await this.app.online.sub.SUBSCRIBE(KEY_ONLINE_USERS + appName, async (num) => {
       if (num !== currentProcessNum()) {
         await notifyAllClients(false);
@@ -69,7 +69,7 @@ export class ConnectionManager {
     const notifyAllClients = async (broadcast = true) => {
       // 有效在线用户
       const users = (await this.app.online.all.HVALS(KEY_ONLINE_USERS + appName)).map((u) => JSON.parse(u));
-      ws.sendToConnectionsByTag('app', appName, {
+      wss.sendToConnectionsByTag('app', appName, {
         type: 'plugin-online-user',
         payload: {
           users,
@@ -88,7 +88,7 @@ export class ConnectionManager {
         },
       });
     };
-    const connectionEvent = (ws: WebSocket & { id: string }) => {
+    const connectionEvent = async (ws: WebSocket & { id: string }) => {
       ws.on('error', async () => {
         await notifyAllClients();
       });
@@ -99,9 +99,7 @@ export class ConnectionManager {
         await this.app.online.all.HDEL(KEY_ONLINE_USERS + appName, ws.id);
         await notifyAllClients();
       });
-
-      // 监听客户端消息,保存客户端信息, 并通知所有客户端
-      ws.on('message', async (data) => {
+      const messageListener = async (data) => {
         if (data.toString() !== 'ping') {
           const userMeg = JSON.parse(data.toString());
           if (userMeg.type === 'plugin-online-user:client') {
@@ -123,11 +121,14 @@ export class ConnectionManager {
             }
           }
         }
-      });
+      };
+
+      // 监听客户端消息,保存客户端信息, 并通知所有客户端
+      ws.on('message', messageListener);
     };
-    ws?.wss.on('connection', connectionEvent);
+    wss?.wss.on('connection', connectionEvent);
     this.app.on('afterStop', () => {
-      ws?.wss.off('connection', connectionEvent);
+      wss?.wss.off('connection', connectionEvent);
     });
   }
 }

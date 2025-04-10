@@ -15,17 +15,17 @@ export class PluginOnlineUserClient extends Plugin {
     this.app.use(OnlineUserProvider);
 
     // listen to connected events.
-    autorun(() => {
-      if (this.app.ws.connected) {
-        const data = {
-          type: 'plugin-online-user:client',
-          payload: {
-            token: this.app.apiClient.auth.getToken(),
-          },
-        };
-        this.app.ws.send(JSON.stringify(data));
-      }
-    });
+    // autorun(() => {
+    //   if (this.app.ws.connected) {
+    //     const data = {
+    //       type: 'plugin-online-user:client',
+    //       payload: {
+    //         token: this.app.apiClient.auth.getToken(),
+    //       },
+    //     };
+    //     this.app.ws.send(JSON.stringify(data));
+    //   }
+    // });
   }
 }
 
