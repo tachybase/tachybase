@@ -3,6 +3,7 @@ import { Logger } from '@tachybase/logger';
 
 import lodash from 'lodash';
 import { nanoid } from 'nanoid';
+import { W } from 'vitest/dist/chunks/worker.CIpff8Eg.js';
 import WebSocket, { WebSocketServer } from 'ws';
 
 import { AppSupervisor } from '../app-supervisor';
@@ -53,36 +54,34 @@ export class WSServer {
     this.wss = new WebSocketServer({ noServer: true });
 
     this.wss.on('connection', async (ws: WebSocketWithId, request: IncomingMessage) => {
-      const client = await this.addNewConnection(ws, request);
-
+      const client = this.addWebsocketId(ws, request);
       console.log(`new client connected ${ws.id}`);
 
-      // 为新连接添加基本事件监听
-      ws.on('error', (error) => {
+      ws.on('error', () => {
         this.removeConnection(ws.id);
-        // 触发应用级别的错误事件处理函数
-        if (client && client.app) {
+      });
+
+      ws.on('close', () => {
+        this.removeConnection(ws.id);
+      });
+
+      await this.setClientApp(client);
+      if (client.app) {
+        ws.on('error', (error) => {
+          // 触发应用级别的错误事件处理函数
           this.triggerAppEventHandlers(client.app, 'error', ws, error);
-        }
-      });
+        });
 
-      ws.on('close', (code, reason) => {
-        // 触发应用级别的关闭事件处理函数
-        if (client && client.app) {
+        ws.on('close', (code, reason) => {
+          // 触发应用级别的关闭事件处理函数
           this.triggerAppEventHandlers(client.app, 'close', ws, code, reason);
-        }
-        this.removeConnection(ws.id);
-      });
+        });
 
-      ws.on('message', (data) => {
-        // 触发应用级别的消息事件处理函数
-        if (client && client.app) {
+        ws.on('message', (data) => {
+          // 触发应用级别的消息事件处理函数
           this.triggerAppEventHandlers(client.app, 'message', ws, data);
-        }
-      });
+        });
 
-      // 触发应用级别的连接事件处理函数
-      if (client && client.app) {
         this.triggerAppEventHandlers(client.app, 'connection', ws, request);
       }
     });
@@ -275,21 +274,19 @@ export class WSServer {
     });
   }
 
-  async addNewConnection(ws: WebSocketWithId, request: IncomingMessage) {
+  addWebsocketId(ws: WebSocketWithId, request: IncomingMessage) {
     const id = nanoid();
 
     ws.id = id;
 
-    this.webSocketClients.set(id, {
+    const webSocketClient: WebSocketClient = {
       ws,
       tags: new Set(),
       url: request.url,
       headers: request.headers,
-    });
-
-    await this.setClientApp(this.webSocketClients.get(id));
-
-    return this.webSocketClients.get(id);
+    };
+    this.webSocketClients.set(id, webSocketClient);
+    return webSocketClient;
   }
 
   setClientTag(clientId: string, tagKey: string, tagValue: string) {
