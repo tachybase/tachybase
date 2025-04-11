@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-department",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Organize users into a hierarchical tree structure of departments, and assign roles to departments as well.",
   "main": "dist/server/index.js",
   "dependencies": {},
