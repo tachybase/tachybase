@@ -1,3 +1,4 @@
+import { isMainThread } from 'node:worker_threads';
 import { Plugin } from '@tachybase/server';
 import { Container } from '@tachybase/utils';
 
@@ -9,6 +10,9 @@ export class PluginOnlineUserServer extends Plugin {
   async beforeLoad() {}
 
   async load() {
+    if (!isMainThread) {
+      return;
+    }
     await Container.get(ConnectionManager).load();
   }
 
