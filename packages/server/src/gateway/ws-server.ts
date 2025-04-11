@@ -21,6 +21,19 @@ interface WebSocketClient {
   app?: string;
 }
 
+// WebSocket 事件类型
+type WSEventType = 'close' | 'error' | 'message' | 'connection';
+
+// WebSocket 事件处理函数类型
+type WSEventHandler = (ws: WebSocketWithId, ...args: any[]) => Promise<void> | void;
+
+// 每个应用的事件处理函数集合
+interface AppWSEventHandlers {
+  [appName: string]: {
+    [eventType: string]: Set<WSEventHandler>;
+  };
+}
+
 function getPayloadByErrorCode(code, options) {
   const error = getErrorWithCode(code);
   return lodash.omit(applyErrorWithArgs(error, options), ['status', 'maintaining']);
@@ -33,6 +46,9 @@ export class WSServer {
   private currentId = nanoid();
   logger: Logger;
 
+  // 存储每个应用注册的事件处理函数
+  private appEventHandlers: AppWSEventHandlers = {};
+
   constructor() {
     this.wss = new WebSocketServer({ noServer: true });
 
@@ -41,13 +57,26 @@ export class WSServer {
 
       console.log(`new client connected ${ws.id}`);
 
-      ws.on('error', () => {
+      // 为新连接添加基本事件监听
+      ws.on('error', (error) => {
+        this.removeConnection(ws.id);
+        // 触发应用级别的错误事件处理函数
+        this.triggerAppEventHandlers(client.app, 'error', ws, error);
+      });
+
+      ws.on('close', (code, reason) => {
+        // 触发应用级别的关闭事件处理函数
+        this.triggerAppEventHandlers(client.app, 'close', ws, code, reason);
         this.removeConnection(ws.id);
       });
 
-      ws.on('close', () => {
-        this.removeConnection(ws.id);
+      ws.on('message', (data) => {
+        // 触发应用级别的消息事件处理函数
+        this.triggerAppEventHandlers(client.app, 'message', ws, data);
       });
+
+      // 触发应用级别的连接事件处理函数
+      this.triggerAppEventHandlers(client.app, 'connection', ws, request);
     });
 
     Gateway.getInstance().on('appSelectorChanged', () => {
@@ -117,6 +146,61 @@ export class WSServer {
     });
   }
 
+  /**
+   * 为指定应用注册 WebSocket 事件处理函数
+   * @param appName 应用名称
+   * @param eventType 事件类型
+   * @param handler 事件处理函数
+   */
+  registerAppEventHandler(appName: string, eventType: WSEventType, handler: WSEventHandler) {
+    if (!this.appEventHandlers[appName]) {
+      this.appEventHandlers[appName] = {};
+    }
+
+    if (!this.appEventHandlers[appName][eventType]) {
+      this.appEventHandlers[appName][eventType] = new Set();
+    }
+
+    this.appEventHandlers[appName][eventType].add(handler);
+
+    return this;
+  }
+
+  /**
+   * 移除指定应用的 WebSocket 事件处理函数
+   * @param appName 应用名称
+   * @param eventType 事件类型
+   * @param handler 事件处理函数
+   */
+  removeAppEventHandler(appName: string, eventType: WSEventType, handler: WSEventHandler) {
+    if (this.appEventHandlers[appName] && this.appEventHandlers[appName][eventType]) {
+      this.appEventHandlers[appName][eventType].delete(handler);
+    }
+
+    return this;
+  }
+
+  /**
+   * 触发指定应用的事件处理函数
+   * @param appName 应用名称
+   * @param eventType 事件类型
+   * @param ws WebSocket 实例
+   * @param args 事件参数
+   */
+  private triggerAppEventHandlers(appName: string, eventType: WSEventType, ws: WebSocketWithId, ...args: any[]) {
+    if (!appName || !this.appEventHandlers[appName] || !this.appEventHandlers[appName][eventType]) {
+      return;
+    }
+
+    for (const handler of this.appEventHandlers[appName][eventType]) {
+      try {
+        handler(ws, ...args);
+      } catch (error) {
+        console.error(`Error in ${appName} WebSocket ${eventType} handler:`, error);
+      }
+    }
+  }
+
   bindAppWSEvents(app) {
     if (app.listenerCount('ws:setTag') > 0) {
       return;
@@ -154,6 +238,16 @@ export class WSServer {
 
     app.on('ws:authorized', ({ clientId, userId }) => {
       this.sendToClient(clientId, { type: 'authorized' });
+    });
+
+    // 添加注册 WebSocket 事件处理函数的方法
+    app.on('ws:registerEventHandler', ({ eventType, handler }) => {
+      this.registerAppEventHandler(app.name, eventType, handler);
+    });
+
+    // 添加移除 WebSocket 事件处理函数的方法
+    app.on('ws:removeEventHandler', ({ eventType, handler }) => {
+      this.removeAppEventHandler(app.name, eventType, handler);
     });
   }
 
@@ -248,23 +342,18 @@ export class WSServer {
   }
 
   sendToConnectionsByTag(tagName: string, tagValue: string, sendMessage: object) {
-    this.loopThroughConnections((client: WebSocketClient) => {
-      if (client.tags.has(`${tagName}#${tagValue}`)) {
+    const tagString = `${tagName}#${tagValue}`;
+    this.webSocketClients.forEach((client) => {
+      if (client.tags.has(tagString)) {
         this.sendMessageToConnection(client, sendMessage);
       }
     });
   }
 
-  /**
-   * Send message to clients that match all the given tag conditions
-   * @param tags Array of tag conditions, each condition is an object with tagName and tagValue
-   * @param sendMessage Message to be sent
-   */
   sendToConnectionsByTags(tags: Array<{ tagName: string; tagValue: string }>, sendMessage: object) {
-    this.loopThroughConnections((client: WebSocketClient) => {
-      const allTagsMatch = tags.every(({ tagName, tagValue }) => client.tags.has(`${tagName}#${tagValue}`));
-
-      if (allTagsMatch) {
+    const tagStrings = tags.map(({ tagName, tagValue }) => `${tagName}#${tagValue}`);
+    this.webSocketClients.forEach((client) => {
+      if (tagStrings.every((tagString) => client.tags.has(tagString))) {
         this.sendMessageToConnection(client, sendMessage);
       }
     });
