@@ -1,6 +1,5 @@
-import React from 'react';
-import { FlowContext } from '@tachybase/module-workflow/client';
+import { ProviderContextWorkflow } from '@tachybase/module-workflow/client';
 
 export function FlowContextProvider({ workflow = undefined, children, value }) {
-  return <FlowContext.Provider value={{ workflow, ...value }}>{children}</FlowContext.Provider>;
+  return <ProviderContextWorkflow value={{ workflow, ...value }}>{children}</ProviderContextWorkflow>;
 }

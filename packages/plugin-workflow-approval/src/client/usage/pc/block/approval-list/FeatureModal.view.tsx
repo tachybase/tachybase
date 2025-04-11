@@ -33,9 +33,9 @@ export const ViewFeatureModal = (props) => {
             FlowContextProvider,
             ApplyActionStatusProvider,
             ActionBarProvider,
-            ProviderActionResubmit: () => null,
             WithdrawActionProvider,
             ProviderActionReminder,
+            ProviderActionResubmit: () => null,
           }}
           scope={{
             useSubmit: useSubmitCreate,

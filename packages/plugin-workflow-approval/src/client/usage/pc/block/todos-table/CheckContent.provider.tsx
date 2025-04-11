@@ -1,7 +1,7 @@
 import { ExecutionContextProvider } from '@tachybase/module-workflow/client';
 
+import { ProviderContextApprovalExecution } from '../../../common/contexts/approvalExecution';
 import { ApprovalContext } from '../../common/ApprovalData.provider';
-import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
 import { ContextApprovalRecords } from './providers/ApprovalExecutions.provider';
 
 export const ProviderCheckContent = (props) => {
@@ -9,9 +9,9 @@ export const ProviderCheckContent = (props) => {
   return (
     <ExecutionContextProvider workflow={omitWorkflow} nodes={nodes} execution={execution}>
       <ApprovalContext.Provider value={approval}>
-        <ContextApprovalExecution.Provider value={approvalExecution}>
+        <ProviderContextApprovalExecution value={approvalExecution}>
           <ContextApprovalRecords.Provider value={data.data}>{children}</ContextApprovalRecords.Provider>
-        </ContextApprovalExecution.Provider>
+        </ProviderContextApprovalExecution>
       </ApprovalContext.Provider>
     </ExecutionContextProvider>
   );

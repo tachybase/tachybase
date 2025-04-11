@@ -1,6 +1,6 @@
+import { ProviderContextApprovalExecution } from '../../../common/contexts/approvalExecution';
 import { ApprovalContext } from '../../common/ApprovalData.provider';
 import { ResubmitProvider } from '../../common/Resubmit.provider';
-import { ContextApprovalExecution } from '../common/ApprovalExecution.provider';
 import { FlowContextProvider } from '../common/FlowContext.provider';
 
 export const ProviderCheckContent = (props) => {
@@ -16,9 +16,9 @@ export const ProviderCheckContent = (props) => {
       }}
     >
       <ApprovalContext.Provider value={approval}>
-        <ContextApprovalExecution.Provider value={approvalValue}>
+        <ProviderContextApprovalExecution value={approvalValue}>
           <ResubmitProvider>{children}</ResubmitProvider>
-        </ContextApprovalExecution.Provider>
+        </ProviderContextApprovalExecution>
       </ApprovalContext.Provider>
     </FlowContextProvider>
   );

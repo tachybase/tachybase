@@ -1,8 +1,8 @@
 import { useCurrentUserContext } from '@tachybase/client';
 
 import { APPROVAL_INITIATION_STATUS } from '../../../../../common/constants/approval-initiation-status';
+import { useContextApprovalExecution } from '../../../../common/contexts/approvalExecution';
 import { useApproval } from '../../../common/ApprovalData.provider';
-import { useContextApprovalExecution } from '../../common/ApprovalExecution.provider';
 
 export const ProviderActionReminder = (props) => {
   const { data } = useCurrentUserContext();
