@@ -7,7 +7,7 @@ import { ColumnNode } from '../../common/notice-columns/column.node';
 import { ColumnStatus } from '../../common/notice-columns/column.status';
 import { ColumnUser } from '../../common/notice-columns/column.user';
 import { ColumnWorkflow } from '../../common/notice-columns/column.workflow';
-import { FuzzySearch } from '../common/FuzzySearch.component';
+import { FuzzySearch } from '../common/FuzzySearch';
 
 const schemaStyles = {
   ActionbarStyle: css`

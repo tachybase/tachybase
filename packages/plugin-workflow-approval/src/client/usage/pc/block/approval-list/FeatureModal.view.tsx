@@ -6,8 +6,8 @@ import {
   SchemaComponent,
   SchemaComponentContext,
 } from '@tachybase/client';
+import { ProviderContextWorkflow } from '@tachybase/module-workflow/client';
 
-import { FlowContextProvider } from '../common/FlowContext.provider';
 import { ActionBarProvider } from '../initiations-table/apply-button/ActionBar.provider';
 import { ApplyActionStatusProvider } from '../initiations-table/apply-button/ActionStatus.provider';
 import { WithdrawActionProvider } from '../initiations-table/apply-button/ActionWithdraw.provider';
@@ -30,7 +30,7 @@ export const ViewFeatureModal = (props) => {
           components={{
             RemoteSchemaComponent,
             CollectionProvider_deprecated,
-            FlowContextProvider,
+            FlowContextProvider: ProviderContextWorkflow,
             ApplyActionStatusProvider,
             ActionBarProvider,
             WithdrawActionProvider,
