@@ -36,6 +36,7 @@ export const fieldsetNotification: Record<string, ISchema> = {
   duration: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
+    'x-visible': '{{$self.query(".notifyType").value() !== "status"}}',
   },
   endTime: {
     'x-component': 'CollectionField',

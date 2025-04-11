@@ -21,17 +21,21 @@ class PluginManualNotificationClient extends Plugin {
     });
 
     autorun(async () => {
-      const { data } = await this.app.apiClient.request({
-        resource: 'notificationConfigs',
-        action: 'getRecent',
-        params: {},
-      });
-      if (!data?.data?.length) {
-        return;
+      try {
+        const { data } = await this.app.apiClient.request({
+          resource: 'notificationConfigs',
+          action: 'getRecent',
+          params: {},
+        });
+        if (!data?.data?.length) {
+          return;
+        }
+        const list = data.data;
+        const { notifyType, title, content, level, duration } = list[0];
+        this.app.noticeManager[notifyType](title, content, level, duration, duration);
+      } catch (error) {
+        console.error('Failed to fetch recent notifications:', error);
       }
-      const list = data.data;
-      const { notifyType, title, content, level, duration } = list[0];
-      this.app.noticeManager[notifyType](title, content, level, duration, duration);
     });
   }
 }
