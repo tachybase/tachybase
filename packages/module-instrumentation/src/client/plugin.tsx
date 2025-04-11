@@ -34,7 +34,7 @@ class ModuleInstrumentationClient extends Plugin {
     });
     this.app.systemSettingsManager.add('system-services.custom-instrumentation.trackingStatistics', {
       icon: 'SettingOutlined',
-      title: lang('tracking statistics'),
+      title: lang('Tracking statistics'),
       Component: TrackingStatisticsPane,
       aclSnippet: 'pm.system-services.custom-instrumentation.trackingStatistics',
     });

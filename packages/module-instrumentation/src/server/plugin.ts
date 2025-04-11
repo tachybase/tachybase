@@ -33,7 +33,8 @@ export class ModuleInstrumentationServer extends Plugin {
     if (isMainThread) {
       this.addServerTrackingListener();
     }
-    this.app.acl.allow('instrumentation', '*', 'public');
+    this.app.acl.allow('instrumentation', 'create', 'public');
+    this.app.acl.allow('instrumentation', 'list', 'loggedIn');
     this.app.acl.registerSnippet({
       name: `pm.system-services.custom-instrumentation.clientTracking`,
       actions: ['trackingEvents:*'],
@@ -41,10 +42,6 @@ export class ModuleInstrumentationServer extends Plugin {
     this.app.acl.registerSnippet({
       name: `pm.system-services.custom-instrumentation.serverTrackingConfig`,
       actions: ['serverTrackingConfig:*'],
-    });
-    this.app.acl.registerSnippet({
-      name: `pm.system-services.custom-instrumentation.serverTracking`,
-      actions: ['serverTracking:*'],
     });
     this.app.acl.registerSnippet({
       name: `pm.system-services.custom-instrumentation.trackingStatistics`,

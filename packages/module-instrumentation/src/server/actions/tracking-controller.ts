@@ -29,7 +29,7 @@ export class TrackingController {
     return next();
   }
 
-  @Action('list', { acl: 'public' })
+  @Action('list', { acl: 'private' })
   async list(ctx: Context, next: () => Promise<any>) {
     const userCount = await ctx.db.getRepository('users').count();
     const ActiveUsers = await getDailyActiveUser(ctx);

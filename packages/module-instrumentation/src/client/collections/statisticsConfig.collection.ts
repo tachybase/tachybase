@@ -1,6 +1,6 @@
 import { ISchema } from '@tachybase/schema';
 
-import { NAMESPACE, tval } from '../locale';
+import { tval } from '../locale';
 
 export const statisticsConfigCollection = {
   name: 'statisticsConfig',
@@ -11,7 +11,7 @@ export const statisticsConfigCollection = {
       name: 'title',
       uiSchema: {
         type: 'string',
-        title: tval('Title'),
+        title: tval('Statistics title'),
         'x-component': 'Input',
         'x-component-props': {},
         'x-read-pretty': true,

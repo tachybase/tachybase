@@ -3,13 +3,13 @@ import { createForm, ISchema } from '@tachybase/schema';
 
 import { statisticsConfigCollection } from '../collections/statisticsConfig.collection';
 import { createStatisticsConfig } from './createStatisticsConfig';
+import { updateStatisticsConfig } from './updateStatisticsConfig';
 
 export const schemaStatisticsConfigs: ISchema = {
   type: 'void',
   properties: {
     apiLogsConfig: {
       type: 'void',
-      // 'x-component': 'CardItem',
       'x-decorator': 'TableBlockProvider',
       'x-decorator-props': {
         collection: statisticsConfigCollection,
@@ -28,76 +28,21 @@ export const schemaStatisticsConfigs: ISchema = {
             },
           },
           properties: {
-            // filter: {
-            //   type: 'void',
-            //   title: '{{ t("Filter") }}',
-            //   'x-action': 'filter',
-            //   'x-designer': 'Filter.Action.Designer',
-            //   'x-component': 'Filter.Action',
-            //   'x-use-component-props': 'useFilterActionProps',
-            //   'x-component-props': {
-            //     icon: 'FilterOutlined',
-            //   },
-            //   'x-align': 'left',
-            // },
-            // refresher: {
-            //   type: 'void',
-            //   title: '{{ t("Refresh") }}',
-            //   'x-action': 'refresh',
-            //   'x-component': 'Action',
-            //   'x-use-component-props': 'useRefreshActionProps',
-            //   'x-designer': 'Action.Designer',
-            //   'x-component-props': {
-            //     icon: 'ReloadOutlined',
-            //   },
-            //   'x-align': 'right',
-            // },
-            // delete: {
-            //   type: 'void',
-            //   title: '{{ t("Delete") }}',
-            //   'x-action': 'destroy',
-            //   'x-component': 'Action',
-            //   'x-decorator': 'ACLActionProvider',
-            //   'x-use-component-props': 'useBulkDestroyActionProps',
-            //   'x-component-props': {
-            //     icon: 'DeleteOutlined',
-            //     confirm: {
-            //       title: "{{t('Delete')}}",
-            //       content: "{{t('Are you sure you want to delete it?')}}",
-            //     },
-            //   },
-            // },
-            // enable: {
-            //   type: 'void',
-            //   title: '{{ t("Enable") }}',
-            //   'x-action': 'update',
-            //   'x-decorator': 'ACLActionProvider',
-            //   'x-use-component-props': 'useApiLogsConfigEnableProps',
-            //   'x-component': 'Action',
-            //   'x-component-props': {
-            //     icon: 'EditOutlined',
-            //   },
-            // },
-            // disenable: {
-            //   type: 'void',
-            //   title: tval('Disable'),
-            //   'x-action': 'update',
-            //   'x-decorator': 'ACLActionProvider',
-            //   'x-use-component-props': 'useApiLogsConfigDisenableProps',
-            //   'x-component': 'Action',
-            //   'x-component-props': {
-            //     icon: 'EditOutlined',
-            //   },
-            // },
-            // sync: {
-            //   type: 'void',
-            //   title: tval('Table sync'),
-            //   'x-use-component-props': 'useApiLogsConfigSyncProps',
-            //   'x-component': 'Action',
-            //   'x-component-props': {
-            //     icon: 'VerticalAlignBottomOutlined',
-            //   },
-            // },
+            delete: {
+              type: 'void',
+              title: '{{ t("Delete") }}',
+              'x-action': 'destroy',
+              'x-component': 'Action',
+              'x-decorator': 'ACLActionProvider',
+              'x-use-component-props': 'useBulkDestroyActionProps',
+              'x-component-props': {
+                icon: 'DeleteOutlined',
+                confirm: {
+                  title: "{{t('Delete')}}",
+                  content: "{{t('Are you sure you want to delete it?')}}",
+                },
+              },
+            },
             create: createStatisticsConfig,
           },
         },
@@ -142,51 +87,39 @@ export const schemaStatisticsConfigs: ISchema = {
                 },
               },
             },
-            // resourceName: {
-            //   type: 'void',
-            //   'x-decorator': 'TableV2.Column.Decorator',
-            //   'x-component': 'TableV2.Column',
-            //   'x-component-props': {
-            //     align: 'center',
-            //   },
-            //   properties: {
-            //     resourceName: {
-            //       type: 'string',
-            //       'x-component': 'CollectionField',
-            //       'x-read-pretty': true,
-            //     },
-            //   },
-            // },
-            // action: {
-            //   type: 'void',
-            //   'x-decorator': 'TableV2.Column.Decorator',
-            //   'x-component': 'TableV2.Column',
-            //   'x-component-props': {
-            //     align: 'center',
-            //   },
-            //   properties: {
-            //     action: {
-            //       type: 'string',
-            //       'x-component': 'CollectionField',
-            //       'x-read-pretty': true,
-            //     },
-            //   },
-            // },
-            // apiConfig: {
-            //   type: 'void',
-            //   'x-decorator': 'TableV2.Column.Decorator',
-            //   'x-component': 'TableV2.Column',
-            //   'x-component-props': {
-            //     align: 'center',
-            //   },
-            //   properties: {
-            //     apiConfig: {
-            //       type: 'boolean',
-            //       'x-component': 'CollectionField',
-            //       'x-read-pretty': true,
-            //     },
-            //   },
-            // },
+            actions: {
+              type: 'void',
+              title: '{{ t("Actions") }}',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                fixed: 'right',
+              },
+              properties: {
+                actions: {
+                  type: 'void',
+                  'x-component': 'Space',
+                  'x-component-props': {
+                    split: '|',
+                  },
+                  properties: {
+                    update: updateStatisticsConfig,
+                    delete: {
+                      type: 'void',
+                      title: '{{t("Delete")}}',
+                      'x-action': 'destroy',
+                      'x-component': 'Action.Link',
+                      'x-use-component-props': 'useDestroyActionProps',
+                      'x-component-props': {
+                        confirm: {
+                          title: "{{t('Delete record')}}",
+                          content: "{{t('Are you sure you want to delete it?')}}",
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
         },
       },

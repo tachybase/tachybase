@@ -2,41 +2,35 @@ import { ISchema } from '@tachybase/schema';
 
 import { statisticsConfigCollection } from '../collections/statisticsConfig.collection';
 
-export const createStatisticsConfig: ISchema = {
+export const updateStatisticsConfig: ISchema = {
   type: 'void',
-  'x-action': 'create',
-  'x-acl-action': 'create',
-  title: "{{t('Add new')}}",
-  'x-component': 'Action',
-  'x-decorator': 'ACLActionProvider',
+  title: '{{ t("Edit") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
   'x-component-props': {
     openMode: 'drawer',
-    type: 'primary',
-    // component: 'CreateRecordAction',
-    icon: 'PlusOutlined',
+    icon: 'EditOutlined',
   },
-  'x-align': 'right',
-  'x-acl-action-props': {
-    skipScopeCheck: true,
-  },
+  'x-decorator': 'ACLActionProvider',
   properties: {
     drawer: {
       type: 'void',
-      title: '{{ t("Add record") }}',
+      title: '{{ t("Edit record") }}',
       'x-component': 'Action.Container',
       'x-component-props': {
         className: 'tb-action-popup',
       },
       properties: {
-        body: {
+        card: {
           type: 'void',
           'x-acl-action-props': {
-            skipScopeCheck: true,
+            skipScopeCheck: false,
           },
-          'x-acl-action': `${statisticsConfigCollection.name}:create`,
+          'x-acl-action': `${statisticsConfigCollection.name}:update`,
           'x-decorator': 'FormBlockProvider',
-          'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
+          'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
           'x-decorator-props': {
+            action: 'get',
             dataSource: 'main',
             collection: statisticsConfigCollection,
           },
@@ -45,7 +39,7 @@ export const createStatisticsConfig: ISchema = {
             form: {
               type: 'void',
               'x-component': 'FormV2',
-              'x-use-component-props': 'useCreateFormBlockProps',
+              'x-use-component-props': 'useEditFormBlockProps',
               properties: {
                 actionBar: {
                   type: 'void',
@@ -64,15 +58,12 @@ export const createStatisticsConfig: ISchema = {
                     submit: {
                       title: '{{ t("Submit") }}',
                       'x-component': 'Action',
-                      'x-use-component-props': 'useCreateActionProps',
+                      'x-use-component-props': 'useUpdateActionProps',
                       'x-component-props': {
                         type: 'primary',
-                        htmlType: 'submit',
                       },
                       'x-action-settings': {
-                        assignedValues: {},
-                        triggerWorkflows: [],
-                        pageMode: false,
+                        isDeltaChanged: true,
                       },
                     },
                   },
@@ -84,18 +75,6 @@ export const createStatisticsConfig: ISchema = {
                 },
                 statisticsOptions: {
                   type: 'string',
-                  default: {
-                    filterKey: '',
-                    filterValues: {},
-                    dedupBy: '',
-                    minCount: 1,
-                    timeFilter: {
-                      after: '',
-                      before: '',
-                      on: '',
-                      today: true,
-                    },
-                  },
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                 },

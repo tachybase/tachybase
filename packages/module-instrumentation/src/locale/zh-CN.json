@@ -1,12 +1,18 @@
 {
   "Action": "API操作",
+  "All users": "总用户数",
   "Api audit": "启用日志",
   "Custom Instrumentation": "自定义埋点",
   "Instrumentation key": "埋点键",
   "Instrumentation log": "埋点日志",
   "Instrumentation type": "埋点类型",
   "Instrumentation values": "值",
+  "Other users": "其他用户",
   "Resource name": "API资源",
   "Server tracking configuration": "后端埋点配置",
-  "Tracking options": "埋点配置"
+  "Statistics options": "数据来源",
+  "Statistics title": "数据标题",
+  "Today active": "今日活跃",
+  "Tracking options": "埋点配置",
+  "Tracking statistics": "埋点分析"
 }

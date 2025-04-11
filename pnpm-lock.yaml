@@ -1802,6 +1802,9 @@ importers:
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
 
   packages/module-message:
     dependencies:
