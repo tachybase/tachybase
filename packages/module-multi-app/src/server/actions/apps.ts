@@ -68,10 +68,10 @@ export async function create(ctx: Context, next: Next) {
     if (matchedApp.length === 0) {
       ctx.throw(400, ctx.t('Template not exists', { ns: NAMESPACE }));
     }
-    const appStatus = AppSupervisor.getInstance().getAppStatus(tmpl, 'initialized');
-    if (appStatus !== 'stopped' && appStatus !== 'initialized') {
-      ctx.throw(400, ctx.t('Template is in use', { ns: NAMESPACE }));
-    }
+    // const appStatus = AppSupervisor.getInstance().getAppStatus(tmpl, 'initialized');
+    // if (appStatus !== 'stopped' && appStatus !== 'initialized') {
+    //   ctx.throw(400, ctx.t('Template is in use', { ns: NAMESPACE }));
+    // }
   }
   const app = await ctx.db.getRepository('applications').create({
     values: {
