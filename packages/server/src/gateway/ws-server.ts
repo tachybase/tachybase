@@ -52,8 +52,8 @@ export class WSServer {
   constructor() {
     this.wss = new WebSocketServer({ noServer: true });
 
-    this.wss.on('connection', (ws: WebSocketWithId, request: IncomingMessage) => {
-      const client = this.addNewConnection(ws, request);
+    this.wss.on('connection', async (ws: WebSocketWithId, request: IncomingMessage) => {
+      const client = await this.addNewConnection(ws, request);
 
       console.log(`new client connected ${ws.id}`);
 
@@ -275,7 +275,7 @@ export class WSServer {
     });
   }
 
-  addNewConnection(ws: WebSocketWithId, request: IncomingMessage) {
+  async addNewConnection(ws: WebSocketWithId, request: IncomingMessage) {
     const id = nanoid();
 
     ws.id = id;
@@ -287,7 +287,7 @@ export class WSServer {
       headers: request.headers,
     });
 
-    this.setClientApp(this.webSocketClients.get(id));
+    await this.setClientApp(this.webSocketClients.get(id));
 
     return this.webSocketClients.get(id);
   }

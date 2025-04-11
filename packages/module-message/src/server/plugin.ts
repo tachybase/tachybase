@@ -98,7 +98,7 @@ class ModuleMessagesServer extends Plugin {
               // 添加新标签
               client.tags.add(`app:${appName}#${userId}`);
             } catch (error) {
-              this.app.logger.warn('signIn message connection error', error);
+              this.app.logger.info('signIn message connection error', error);
             }
           } else if (userMeg.type === 'signOut') {
             try {
@@ -111,7 +111,7 @@ class ModuleMessagesServer extends Plugin {
                 }
               });
             } catch (error) {
-              this.app.logger.warn('signOut message connection error', error);
+              this.app.logger.info('signOut message connection error', error);
             }
           }
         }
