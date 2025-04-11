@@ -87,6 +87,7 @@ export class PresetTachyBase extends Plugin {
     ['department', '0.23.22', false],
     ['workflow-analysis', '0.23.41', false],
     ['api-logs', '0.23.49', false],
+    ['ocr-convert', '1.0.12', false],
   ];
 
   get localPlugins() {

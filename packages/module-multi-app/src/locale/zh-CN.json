@@ -9,6 +9,7 @@
   "App status": "应用状态",
   "Applications": "应用",
   "Auto start": "自动启动",
+  "Can be empty, or selected from the template library or personal applications": "可以为空,或从模板库和个人应用中选择",
   "Commanding": "命令中",
   "Custom domain": "自定义域名",
   "Custom domain prefix": "自定义域名前缀",
@@ -45,5 +46,5 @@
   "Template is in use": "模板正在使用",
   "Template not exists": "模板不存在",
   "This database does not support to create application using template": "该数据库不支持使用模板创建应用程序",
-  "View": "查看"
+  "View": "访问"
 }

@@ -66,19 +66,23 @@ export const notificationCollection = {
         enum: [
           {
             value: NoticeType.MODAL,
-            label: NoticeType.MODAL,
+            label: `{{t("modal", { ns: "${NAMESPACE}" })}}`,
+            description: `{{t("modal_description", { ns: "${NAMESPACE}" })}}`,
           },
           {
             value: NoticeType.NOTIFICATION,
-            label: NoticeType.NOTIFICATION,
+            label: `{{t("notification", { ns: "${NAMESPACE}" })}}`,
+            description: `{{t("notification_description", { ns: "${NAMESPACE}" })}}`,
           },
           {
             value: NoticeType.STATUS,
-            label: NoticeType.STATUS,
+            label: `{{t("status", { ns: "${NAMESPACE}" })}}`,
+            description: `{{t("status_description", { ns: "${NAMESPACE}" })}}`,
           },
           {
             value: NoticeType.TOAST,
-            label: NoticeType.TOAST,
+            label: `{{t("toast", { ns: "${NAMESPACE}" })}}`,
+            description: `{{t("toast_description", { ns: "${NAMESPACE}" })}}`,
           },
         ],
       } as ISchema,
@@ -94,26 +98,43 @@ export const notificationCollection = {
         enum: [
           {
             value: 'info',
-            label: 'info',
+            label: `{{t("info", { ns: "${NAMESPACE}" })}}`,
+            color: 'blue',
           },
           {
             value: 'success',
-            label: 'success',
+            label: `{{t("success", { ns: "${NAMESPACE}" })}}`,
+            color: 'green',
           },
           {
             value: 'error',
-            label: 'error',
+            label: `{{t("error", { ns: "${NAMESPACE}" })}}`,
+            color: 'red',
           },
           {
             value: 'warning',
-            label: 'warning',
-          },
-          {
-            value: 'open',
-            label: 'open',
+            label: `{{t("warning", { ns: "${NAMESPACE}" })}}`,
+            color: 'yellow',
           },
         ],
       } as ISchema,
+    },
+    {
+      name: 'endTime',
+      type: 'date',
+      interface: 'createdAt',
+      uiSchema: {
+        type: 'datetime',
+        title: `{{t("End time", { ns: "${NAMESPACE}" })}}`,
+        'x-component': 'DatePicker',
+        'x-component-props': {
+          showTime: true,
+          // 默认比当前时间大
+          disabledDate: (current) => {
+            return current && current < new Date();
+          },
+        },
+      },
     },
   ],
 };
