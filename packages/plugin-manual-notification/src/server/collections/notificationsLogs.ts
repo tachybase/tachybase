@@ -1,7 +1,7 @@
 import { CollectionOptions } from '@tachybase/database';
 
 export default {
-  name: 'notificationConfigs',
+  name: 'notificationLogs',
   fields: [
     {
       name: 'id',
@@ -16,7 +16,7 @@ export default {
     },
     {
       type: 'string',
-      name: 'detail',
+      name: 'content',
     },
     {
       type: 'float',
@@ -29,6 +29,14 @@ export default {
     {
       name: 'notifyType',
       type: 'string',
+    },
+    {
+      type: 'date',
+      name: 'endTime',
+    },
+    {
+      type: 'date',
+      name: 'startTime',
     },
   ],
 } as CollectionOptions;
