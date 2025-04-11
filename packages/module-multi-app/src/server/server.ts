@@ -234,9 +234,11 @@ export class PluginMultiAppManager extends Plugin {
 
     this.app.on('afterStart', onAfterStart(this.db));
 
-    this.app.on('afterUpgrade', async (app, options) => {
-      await this.subAppUpgradeHandler(app);
-    });
+    if (process.env.SUBAPP_LAZY_UPGRADE === '1') {
+      this.app.on('afterUpgrade', async (app, options) => {
+        await this.subAppUpgradeHandler(app);
+      });
+    }
 
     const notifyStatusChange = this.notifyStatusChange.bind(this);
     this.app.on('beforeStop', async (app) => {
