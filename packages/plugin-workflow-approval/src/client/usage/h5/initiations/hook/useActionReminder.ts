@@ -3,8 +3,8 @@ import { useField } from '@tachybase/schema';
 
 import { message } from 'antd';
 
+import { useTranslation } from '../../../../locale';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
-import { useTranslation } from '../../locale';
 
 // 催签
 export function useActionReminder() {

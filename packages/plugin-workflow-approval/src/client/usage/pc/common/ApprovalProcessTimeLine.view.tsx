@@ -2,13 +2,14 @@ import { useMemo } from 'react';
 import { CardItem, createStyles, useCompile, useCurrentUserContext } from '@tachybase/client';
 import { dayjs } from '@tachybase/utils/client';
 
-import { Space, Table, Tag, Timeline } from 'antd';
+import { Space, Tag, Timeline } from 'antd';
 import _ from 'lodash';
 
-import { usePluginTranslation } from '../../../locale';
-import { APPROVAL_STATUS, approvalStatusConfigObj, ApprovalStatusEnumDict } from '../constants';
+import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
+import { approvalInitiationStatusMap } from '../../../common/constants/approval-initiation-status-options';
+import { approvalTodoStatusMap } from '../../../common/constants/approval-todo-status-options';
+import { useTranslation } from '../../../locale';
 import { useApproval } from './ApprovalData.provider';
-import { getAntdTableColumns } from './process-columns';
 import { getResults } from './tools';
 import { ContextWithActionEnabled } from './WithActionEnabled.provider';
 
@@ -29,14 +30,12 @@ const getStyles = createStyles(({ css, token }) => ({
 
 // 审批(发起/待办)卡片-查看-审批流程
 export const ApprovalProcessTimeLine = (props) => {
-  const { t } = usePluginTranslation();
+  const { t } = useTranslation();
   const approvalContext = useApproval();
   const { styles } = getStyles();
   const { data } = useCurrentUserContext();
 
   const results = useMemo(() => getResults({ approval: approvalContext, currentUser: data }), [approvalContext, data]);
-
-  const columns = useMemo(() => getAntdTableColumns({ t, styles }), [t, styles]);
 
   return (
     <ContextWithActionEnabled.Provider value={{ actionEnabled: props.actionEnabled }}>
@@ -64,11 +63,13 @@ export const Process = ({ dataSource = [] }) => {
     if (!index) {
       // 第一个必定为发起项
       status =
-        ApprovalStatusEnumDict[
-          dataItem.status === APPROVAL_STATUS.DRAFT ? APPROVAL_STATUS.DRAFT : APPROVAL_STATUS.SUBMITTED
+        approvalInitiationStatusMap[
+          dataItem.status === APPROVAL_INITIATION_STATUS.DRAFT
+            ? APPROVAL_INITIATION_STATUS.DRAFT
+            : APPROVAL_INITIATION_STATUS.SUBMITTED
         ];
     } else {
-      status = approvalStatusConfigObj[dataItem.status];
+      status = approvalTodoStatusMap[dataItem.status];
     }
 
     return {

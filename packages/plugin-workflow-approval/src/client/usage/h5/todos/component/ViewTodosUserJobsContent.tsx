@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { MobileProvider, SchemaComponent, useAPIClient, useFormBlockContext, usePlugin } from '@tachybase/client';
 import PluginWorkflowClient, {
   DetailsBlockProvider,
@@ -6,27 +6,25 @@ import PluginWorkflowClient, {
   linkNodes,
   useAvailableUpstreams,
 } from '@tachybase/module-workflow/client';
+import { observer } from '@tachybase/schema';
+import { Registry } from '@tachybase/utils/client';
 
 import { Result } from 'antd';
 import { NavBar, Skeleton } from 'antd-mobile';
 import _ from 'lodash';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
-import { useTranslation } from '../../locale';
-
-import '../../style/style.css';
-
-import { observer } from '@tachybase/schema';
-import { Registry } from '@tachybase/utils/client';
-
+import { useTranslation } from '../../../../locale';
 import { ManualFormType } from '../../constants';
 import { ContextApprovalExecution } from '../../context/ApprovalExecution';
+import { ContextWithActionEnabled } from '../../context/WithActionEnabled';
 import { useUserJobsFormBlockProps } from '../hook/useFormBlockProps';
 import { useUserJobsSubmit } from '../hook/useSubmit';
 import { ActionBarUserJobsProvider } from '../provider/ActionBarProvider';
 import { FormBlockProvider } from '../provider/FormBlockProvider';
 import { ManualActionStatusProvider } from '../provider/ManualActionStatusProvider';
+
+import '../../style/style.css';
 
 // 审批-执行处理-查看: 内容
 export const ViewTodosUserJobsContent = observer((props) => {

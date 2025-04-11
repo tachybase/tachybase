@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import {
   ActionContextProvider,
   CollectionProvider_deprecated,
@@ -9,11 +9,11 @@ import {
   SchemaComponentContext,
   useRequest,
 } from '@tachybase/client';
+import { ProviderContextWorkflow } from '@tachybase/module-workflow/client';
 import { useFieldSchema } from '@tachybase/schema';
 
 import { Button, Col, Row } from 'antd';
 
-import { FlowContextProvider } from '../common/FlowContext.provider';
 import { ActionBarProvider } from '../initiations-table/apply-button/ActionBar.provider';
 import { ApplyActionStatusProvider } from '../initiations-table/apply-button/ActionStatus.provider';
 import { useSubmitCreate } from '../initiations-table/apply-button/hooks/useSubmitCreate';
@@ -169,7 +169,7 @@ export const InitiateApplication = () => {
           components={{
             RemoteSchemaComponent,
             CollectionProvider_deprecated,
-            FlowContextProvider,
+            FlowContextProvider: ProviderContextWorkflow,
             ApplyActionStatusProvider,
             ActionBarProvider,
             ProviderActionResubmit: () => null,

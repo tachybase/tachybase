@@ -1,7 +1,7 @@
 import { useCurrentUserContext } from '@tachybase/client';
 
+import { useContextApprovalExecution } from '../../../../common/contexts/approvalExecution';
 import { useApproval } from '../../../common/ApprovalData.provider';
-import { useContextApprovalExecution } from '../../common/ApprovalExecution.provider';
 
 export const ActionBarProvider = (props) => {
   const { data } = useCurrentUserContext();

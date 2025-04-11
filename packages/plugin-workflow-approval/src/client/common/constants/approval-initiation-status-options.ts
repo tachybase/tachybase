@@ -44,3 +44,11 @@ export const approvalStatusEnums = [
     color: '#FF0000',
   },
 ];
+
+export const approvalInitiationStatusMap = approvalStatusEnums.reduce(
+  (configMap, options) => ({
+    ...configMap,
+    [options.value]: options,
+  }),
+  {},
+);

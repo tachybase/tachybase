@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BlockItem, ExtendCollectionsProvider, SchemaComponent } from '@tachybase/client';
 import { observer, useFieldSchema } from '@tachybase/schema';
 
 import { SearchBar, Tabs } from 'antd-mobile';
 
-import { CollectionApprovals } from '../collection/Approvals.collection';
-import { CollectionApprovalTodos } from '../collection/ApprovalTodos';
-import { CollectionFlowNodes } from '../collection/FlowNodes.collection';
-import { CollectionWorkflowNotice } from '../collection/notice.collection';
-import { nodeCollection, todoCollection, workflowCollection } from '../collection/UserJobs.collection';
-import { CollectionWorkflows } from '../collection/Workflows.collection';
-import { useTranslation } from '../locale';
+import { collectionApprovalTodos } from '../../../common/collections/approvalRecords';
+import { collectionApprovals } from '../../../common/collections/approvals';
+import { collectionFlowNodes } from '../../../common/collections/flowNodes';
+import { todoCollection } from '../../../common/collections/userJobs';
+import { CollectionWorkflowNotice } from '../../../common/collections/workflowNotice';
+import { collectionWorkflows } from '../../../common/collections/workflows';
+import { useTranslation } from '../../../locale';
 import { TabDuplicateItem } from './component/TabDuplicateItem';
 import { TabPendingItem } from './component/TabPendingItem';
 import { TabProcessedItem } from './component/TabProcessedItem';
@@ -27,12 +27,10 @@ export const TodosBlock = observer((props) => {
   return (
     <ExtendCollectionsProvider
       collections={[
-        CollectionWorkflows,
-        CollectionFlowNodes,
-        CollectionApprovals,
-        CollectionApprovalTodos,
-        nodeCollection,
-        workflowCollection,
+        collectionWorkflows,
+        collectionFlowNodes,
+        collectionApprovals,
+        collectionApprovalTodos,
         todoCollection,
         CollectionWorkflowNotice,
       ]}

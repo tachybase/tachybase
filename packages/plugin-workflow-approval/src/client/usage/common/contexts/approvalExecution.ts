@@ -4,7 +4,9 @@ interface ApprovalExecution {
   id: number;
 }
 
-export const ContextApprovalExecution = createContext<Partial<ApprovalExecution>>({});
+const ContextApprovalExecution = createContext<Partial<ApprovalExecution>>({});
+
+export const ProviderContextApprovalExecution = ContextApprovalExecution.Provider;
 
 export function useContextApprovalExecution() {
   return useContext(ContextApprovalExecution);

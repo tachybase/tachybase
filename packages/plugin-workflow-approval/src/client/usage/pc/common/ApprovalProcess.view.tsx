@@ -4,7 +4,7 @@ import { CardItem, createStyles, useCurrentUserContext } from '@tachybase/client
 import { Space, Table } from 'antd';
 import _ from 'lodash';
 
-import { usePluginTranslation } from '../../../locale';
+import { useTranslation } from '../../../locale';
 import { useApproval } from './ApprovalData.provider';
 import { getAntdTableColumns } from './process-columns';
 import { getResults } from './tools';
@@ -27,7 +27,7 @@ const getStyles = createStyles(({ css, token }) => ({
 
 // 审批(发起/待办)卡片-查看-审批处理
 export const ApprovalProcess = (props) => {
-  const { t } = usePluginTranslation();
+  const { t } = useTranslation();
   const approvalContext = useApproval();
   const { styles } = getStyles();
   const { data } = useCurrentUserContext();

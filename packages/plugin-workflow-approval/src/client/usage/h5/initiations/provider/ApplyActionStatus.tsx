@@ -1,12 +1,11 @@
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { useCurrentUserContext } from '@tachybase/client';
-import { useFlowContext } from '@tachybase/module-workflow/client';
 
-import { APPROVAL_ACTION_STATUS } from '../../constants';
+import { APPROVAL_INITIATION_STATUS } from '../../../../common/constants/approval-initiation-status';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 import { useResubmit } from './Resubmit.provider';
 
-const ContextApprovalStatus = createContext(APPROVAL_ACTION_STATUS.SUBMITTED);
+const ContextApprovalStatus = createContext(APPROVAL_INITIATION_STATUS.SUBMITTED);
 
 export function useContextApprovalStatus() {
   return useContext(ContextApprovalStatus);
@@ -21,12 +20,12 @@ export function ApplyActionStatusProvider(props) {
   const isSameId = data.data.id === createdById;
 
   const isStatusDid = [
-    APPROVAL_ACTION_STATUS.DRAFT,
-    APPROVAL_ACTION_STATUS.RETURNED,
-    APPROVAL_ACTION_STATUS.RESUBMIT,
+    APPROVAL_INITIATION_STATUS.DRAFT,
+    APPROVAL_INITIATION_STATUS.RETURNED,
+    APPROVAL_INITIATION_STATUS.RESUBMIT,
   ].includes(status);
 
-  if (value === APPROVAL_ACTION_STATUS.DRAFT && status === APPROVAL_ACTION_STATUS.DRAFT) {
+  if (value === APPROVAL_INITIATION_STATUS.DRAFT && status === APPROVAL_INITIATION_STATUS.DRAFT) {
     return null;
   }
 

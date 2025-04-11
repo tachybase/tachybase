@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useRecord, useRequest } from '@tachybase/client';
+import { ExecutionContextProvider } from '@tachybase/module-workflow/client';
 
 import { Result, Spin } from 'antd';
 import _ from 'lodash';
 
 import { useTranslation } from '../../../../locale';
+import { ProviderContextApprovalExecution } from '../../../common/contexts/approvalExecution';
+import { ApprovalContext } from '../../common/ApprovalData.provider';
 import { ContextWithActionEnabled } from '../../common/WithActionEnabled.provider';
-import { ProviderCheckContent } from './CheckContent.provider';
 import { ViewCheckContent } from './CheckContent.view';
+import { ContextApprovalRecords } from './providers/ApprovalExecutions.provider';
 
 // 审批-待办-查看: 内容
-export const CheckContent = () => {
+export const CheckContentContainer = () => {
   const { id } = useRecord();
   const { t } = useTranslation();
   const { actionEnabled } = useContext(ContextWithActionEnabled);
@@ -66,17 +69,14 @@ export const CheckContent = () => {
   node?.config.applyDetail;
 
   return (
-    <ProviderCheckContent
-      {...{
-        omitWorkflow,
-        nodes,
-        execution,
-        approval,
-        approvalExecution,
-        data,
-      }}
-    >
-      <ViewCheckContent id={id} node={node} actionEnabled={actionEnabled} />
-    </ProviderCheckContent>
+    <ExecutionContextProvider workflow={omitWorkflow} nodes={nodes} execution={execution}>
+      <ApprovalContext.Provider value={approval}>
+        <ProviderContextApprovalExecution value={approvalExecution}>
+          <ContextApprovalRecords.Provider value={data.data}>
+            <ViewCheckContent id={id} node={node} actionEnabled={actionEnabled} />
+          </ContextApprovalRecords.Provider>
+        </ProviderContextApprovalExecution>
+      </ApprovalContext.Provider>
+    </ExecutionContextProvider>
   );
 };

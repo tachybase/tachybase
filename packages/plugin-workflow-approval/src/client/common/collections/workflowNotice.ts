@@ -1,42 +1,10 @@
-import { approvalStatusEnums } from '../../../common/constants/approval-initiation-status-options';
-import { ApprovalNoticeStatusOptions, COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../constants';
-import { NAMESPACE, tval } from '../locale';
+import { NAMESPACE, tval } from '../../locale';
+import { approvalTodoStatusOptions } from '../constants/approval-todo-status-options';
 
-export const CollectionApprovalCarbonCopy = {
-  title: tval('ApprovalCarbonCopy'),
-  name: COLLECTION_NAME_APPROVAL_CARBON_COPY,
+export const CollectionWorkflowNotice = {
+  title: tval('Notice Center'),
+  name: 'workflowNotice',
   fields: [
-    {
-      type: 'bigInt',
-      name: 'approvalId',
-      interface: 'number',
-      uiSchema: {
-        type: 'number',
-        title: 'ID',
-        'x-component': 'InputNumber',
-      },
-    },
-    {
-      type: 'belongsTo',
-      name: 'createdBy',
-      target: 'users',
-      foreignKey: 'createdById',
-      interface: 'm2o',
-      uiSchema: {
-        type: 'number',
-        title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
-        'x-component': 'RemoteSelect',
-        'x-component-props': {
-          fieldNames: {
-            label: 'nickname',
-            value: 'id',
-          },
-          service: {
-            resource: 'users',
-          },
-        },
-      },
-    },
     {
       type: 'bigInt',
       name: 'id',
@@ -115,7 +83,7 @@ export const CollectionApprovalCarbonCopy = {
         type: 'number',
         title: '{{t("Status", { ns: "workflow" })}}',
         'x-component': 'Select',
-        enum: ApprovalNoticeStatusOptions,
+        enum: approvalTodoStatusOptions,
       },
     },
     {
@@ -169,17 +137,6 @@ export const CollectionApprovalCarbonCopy = {
             whiteSpace: 'nowrap',
           },
         },
-      },
-    },
-    {
-      type: 'integer',
-      name: 'status',
-      interface: 'select',
-      uiSchema: {
-        type: 'number',
-        title: '{{t("Status", { ns: "workflow" })}}',
-        'x-component': 'Select',
-        enum: approvalStatusEnums,
       },
     },
   ],

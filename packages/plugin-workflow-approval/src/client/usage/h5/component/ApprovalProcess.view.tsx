@@ -1,21 +1,22 @@
-import React, { useMemo } from 'react';
-import { createStyles, useCurrentUserContext } from '@tachybase/client';
+import { useMemo } from 'react';
+import { useCurrentUserContext } from '@tachybase/client';
 import { EXECUTION_STATUS } from '@tachybase/module-workflow/client';
 import { dayjs } from '@tachybase/utils/client';
 
 import { Space, Steps, Tag } from 'antd-mobile';
 import _ from 'lodash';
 
+import { APPROVAL_INITIATION_STATUS } from '../../../common/constants/approval-initiation-status';
 import { approvalStatusEnums } from '../../../common/constants/approval-initiation-status-options';
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS, approvalStatusOptions } from '../constants';
+import { APPROVAL_TODO_STATUS } from '../../../common/constants/approval-todo-status';
+import { approvalTodoStatusOptions } from '../../../common/constants/approval-todo-status-options';
+import { lang, useTranslation } from '../../../locale';
 import { useContextApprovalExecution } from '../context/ApprovalExecution';
 import { ContextWithActionEnabled } from '../context/WithActionEnabled';
-import { lang, usePluginTranslation, useTranslation } from '../locale';
 
 export const ApprovalProcess = (props) => {
-  const { t } = usePluginTranslation();
+  const { t } = useTranslation();
   const { approval: approvalContext } = useContextApprovalExecution();
-  const { styles } = getStyles();
   const { data } = useCurrentUserContext();
   const { Step } = Steps;
   const results = useMemo(() => getResults({ approval: approvalContext, currentUser: data }), [approvalContext, data]);
@@ -23,11 +24,6 @@ export const ApprovalProcess = (props) => {
 
   return (
     <ContextWithActionEnabled.Provider value={{ actionEnabled: props.actionEnabled }}>
-      {/* <Space direction="vertical" size="middle" className={styles.layout}>
-        {results.map((item) => (
-          <Table key={item.id} dataSource={item.records} rowKey={'id'} pagination={false} columns={columns} />
-        ))}
-      </Space> */}
       <Steps direction="vertical">
         {stepsResult.map((item, index) => {
           return (
@@ -58,21 +54,6 @@ export const ApprovalProcess = (props) => {
   );
 };
 
-const getStyles = createStyles(({ css, token }) => ({
-  layout: css`
-    display: flex;
-  `,
-  columnDetail: css`
-    .ant-description-textarea {
-      margin-bottom: 0.5em;
-    }
-    time {
-      display: block;
-      color: ${token.colorTextTertiary};
-    }
-  `,
-}));
-
 function getResults({ approval, currentUser }) {
   const { workflow, approvalExecutions, records } = approval;
   approvalExecutions.sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
@@ -90,7 +71,7 @@ function getResults({ approval, currentUser }) {
                 ...approval.createdBy,
                 id: approval.createdById,
               },
-              status: curr.status ? APPROVAL_ACTION_STATUS.SUBMITTED : approval.status,
+              status: curr.status ? APPROVAL_INITIATION_STATUS.SUBMITTED : approval.status,
               updatedAt: curr.createdAt,
               execution: { ...curr },
             },
@@ -117,8 +98,11 @@ function getResults({ approval, currentUser }) {
           ? (approvalExecutionId.jobs[record.jobId].first.groupCount += 1)
           : ((approvalExecutionId.jobs[record.jobId] = { first: record }),
             (record.groupCount = 1),
-            (record.statusCount = { [APPROVAL_ACTION_STATUS.APPROVED]: 0, [APPROVAL_ACTION_STATUS.REJECTED]: 0 })),
-        [APPROVAL_ACTION_STATUS.APPROVED, APPROVAL_ACTION_STATUS.REJECTED].includes(record.status) &&
+            (record.statusCount = {
+              [APPROVAL_INITIATION_STATUS.APPROVED]: 0,
+              [APPROVAL_INITIATION_STATUS.REJECTED]: 0,
+            })),
+        [APPROVAL_INITIATION_STATUS.APPROVED, APPROVAL_INITIATION_STATUS.REJECTED].includes(record.status) &&
           (approvalExecutionId.jobs[record.jobId].first.statusCount[record.status] += 1);
     }),
     approval.createdById === (currentUser == null ? void 0 : currentUser.data.id) &&
@@ -128,7 +112,7 @@ function getResults({ approval, currentUser }) {
           ((approvalExecution.records[0].groupCount = 2),
           approvalExecution.records.push({
             user: { nickname: approval.createdBy.nickname },
-            status: APPROVAL_STATUS.WITHDRAWN,
+            status: APPROVAL_TODO_STATUS.WITHDRAWN,
             updatedAt: approvalExecution.updatedAt,
           }));
       });
@@ -151,12 +135,12 @@ const getStepsResult = (result, t) => {
         (!(value.workflow != null && value.workflow.enabled) ||
           (value.execution != null && value.execution.stauts) ||
           value.job?.status) &&
-        [APPROVAL_STATUS.ASSIGNED, APPROVAL_STATUS.PENDING].includes(value.status)
+        [APPROVAL_TODO_STATUS.ASSIGNED, APPROVAL_TODO_STATUS.PENDING].includes(value.status)
       ) {
         status['label'] = 'Unprocessed';
         status['color'] = 'default';
       } else {
-        const approvalStatus = approvalStatusOptions.find((option) => option.value === value.status);
+        const approvalStatus = approvalTodoStatusOptions.find((option) => option.value === value.status);
         const approvalActionStatus = approvalStatusEnums.find((option) => option.value === value.status);
         if (value.nodeId) {
           status['label'] = approvalStatus?.label || approvalActionStatus?.label;

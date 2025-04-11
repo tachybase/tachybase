@@ -3,7 +3,7 @@ import { useCurrentUserContext, useFormBlockContext, useRecord } from '@tachybas
 import { useFlowContext } from '@tachybase/module-workflow/client';
 import { useForm } from '@tachybase/schema';
 
-import { ApprovalStatusEnumDict } from '../../constants';
+import { approvalInitiationStatusMap } from '../../../../common/constants/approval-initiation-status-options';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 
 export function useFormBlockProps() {
@@ -11,7 +11,7 @@ export function useFormBlockProps() {
   const form = useForm();
   const { data } = useCurrentUserContext();
 
-  const { editable } = ApprovalStatusEnumDict[approval.status];
+  const { editable } = approvalInitiationStatusMap[approval.status];
 
   const needEditable =
     editable && approval?.latestExecutionId === id && approval.createdById === data?.data.id && workflow.enabled;

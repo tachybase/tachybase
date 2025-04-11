@@ -4,7 +4,7 @@ import { NodeColumn } from '../../common/approval-columns/node.column';
 import { ApprovalRecordStatusColumn } from '../../common/approval-columns/status.column';
 import { UserColumn } from '../../common/approval-columns/user.column';
 import { WorkflowColumn } from '../../common/approval-columns/workflow.column';
-import { FuzzySearch } from '../common/FuzzySearch.component';
+import { FuzzySearch } from '../common/FuzzySearch';
 import { ViewCheckLink } from './CheckLink.view';
 import { schemaTableTodos as schema } from './TableTodos.schema';
 

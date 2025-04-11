@@ -4,8 +4,9 @@ import { observer } from '@tachybase/schema';
 import { Picker, Space } from 'antd-mobile';
 import { DownOutline } from 'antd-mobile-icons';
 
-import { approvalStatusOptions, ExecutionStatusOptions, ProcessedStatus } from '../../constants';
-import { useTranslation } from '../../locale';
+import { approvalTodoStatusOptions } from '../../../../common/constants/approval-todo-status-options';
+import { useTranslation } from '../../../../locale';
+import { ExecutionStatusOptions, ProcessedStatus } from '../../constants';
 
 export const TabApprovalType = observer((props) => {
   const { collectionName, params } = props as any;
@@ -14,7 +15,7 @@ export const TabApprovalType = observer((props) => {
   const { t } = useTranslation();
   const columns = [];
   if (collectionName === 'approvalRecords') {
-    approvalStatusOptions.forEach((item) => {
+    approvalTodoStatusOptions.forEach((item) => {
       if (ProcessedStatus.includes(item.value)) {
         columns.push({
           label: t(item.label),

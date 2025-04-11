@@ -1,6 +1,6 @@
 import { useTableBlockContext } from '@tachybase/client';
 
-import { FeatureCard } from './FeatureCard.component';
+import { FeatureCard } from './FeatureCard';
 import { useStyles } from './FeatureList.style';
 
 export const FeatureList = () => {

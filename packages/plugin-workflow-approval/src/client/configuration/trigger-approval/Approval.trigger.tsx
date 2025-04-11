@@ -10,7 +10,7 @@ import {
 import { useForm } from '@tachybase/schema';
 
 import { ConfigButton } from '../../common/components/ConfigButton';
-import { NAMESPACE, tval, usePluginTranslation } from '../../locale';
+import { NAMESPACE, tval, useTranslation } from '../../locale';
 import { ViewApplyFormWrapper } from './components/ApplyFormWrapper.view';
 
 // 工作流节点-审批触发器节点
@@ -155,7 +155,7 @@ export class ApprovalTrigger extends Trigger {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { getCollectionFields } = useCollectionManager_deprecated();
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { t } = usePluginTranslation();
+    const { t } = useTranslation();
     const rootFields = [
       {
         collectionName: config.collection,

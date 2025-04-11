@@ -1,7 +1,6 @@
-import React from 'react';
 import { CollectionProvider_deprecated, RemoteSchemaComponent, SchemaComponent } from '@tachybase/client';
+import { ProviderContextWorkflow } from '@tachybase/module-workflow/client';
 
-import { FlowContextProvider } from '../../common/FlowContext.provider';
 import { useActionResubmit } from '../hooks/useActionResubmit';
 import { ActionBarProvider } from './ActionBar.provider';
 import { ApplyActionStatusProvider } from './ActionStatus.provider';
@@ -18,7 +17,7 @@ export const ViewApplyButton = (props) => {
       components={{
         RemoteSchemaComponent,
         CollectionProvider_deprecated,
-        FlowContextProvider,
+        ProviderContextWorkflow,
         ApplyActionStatusProvider,
         ActionBarProvider,
         ProviderActionResubmit: () => null,

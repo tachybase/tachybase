@@ -1,5 +1,5 @@
 import { NAMESPACE, tval } from '../../locale';
-import { approvalStatusOptions } from '../../usage/pc/constants';
+import { approvalTodoStatusOptions } from '../constants/approval-todo-status-options';
 
 export const collectionApprovalTodos = {
   title: `{{t("Approval todos", { ns: "${NAMESPACE}" })}}`,
@@ -87,7 +87,7 @@ export const collectionApprovalTodos = {
         type: 'number',
         title: '{{t("Status", { ns: "workflow" })}}',
         'x-component': 'Select',
-        enum: approvalStatusOptions,
+        enum: approvalTodoStatusOptions,
       },
     },
     {

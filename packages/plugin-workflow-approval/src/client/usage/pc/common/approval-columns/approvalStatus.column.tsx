@@ -4,7 +4,7 @@ import { observer } from '@tachybase/schema';
 import { Tag } from 'antd';
 import _ from 'lodash';
 
-import { ApprovalStatusEnumDict } from '../../constants';
+import { approvalInitiationStatusMap } from '../../../../common/constants/approval-initiation-status-options';
 
 export const ColumnApprovalStatus = observer(
   () => {
@@ -19,7 +19,7 @@ export const ColumnApprovalStatus = observer(
 export const ColumnStatusComponent = (props) => {
   const compile = useCompile();
   const { value } = props;
-  const option = ApprovalStatusEnumDict[value];
+  const option = approvalInitiationStatusMap[value];
 
   return <Tag color={option.color}>{compile(option.label)}</Tag>;
 };

@@ -4,10 +4,6 @@ import { NAMESPACE as COMMON_NAMESPACE } from '../common/constants';
 
 export const NAMESPACE = COMMON_NAMESPACE;
 
-export function usePluginTranslation(): any {
-  return useTranslation();
-}
-
 export function useTranslation() {
   const t = (key: string, options = {}) => i18n.t(key, { ns: NAMESPACE, ...options });
   return { t };

@@ -1,20 +1,11 @@
-import { approvalStatusOptions } from '../constants';
-import { NAMESPACE, tval } from '../locale';
+import { JobStatusOptions } from '@tachybase/module-workflow/client';
 
-export const CollectionWorkflowNotice = {
-  title: tval('Notice Center'),
-  name: 'workflowNotice',
+import { NAMESPACE } from '../../locale';
+
+export const todoCollection = {
+  title: `{{t("Workflow todos", { ns: "${NAMESPACE}" })}}`,
+  name: 'users_jobs',
   fields: [
-    {
-      type: 'bigInt',
-      name: 'id',
-      interface: 'number',
-      uiSchema: {
-        type: 'number',
-        title: 'ID',
-        'x-component': 'InputNumber',
-      },
-    },
     {
       type: 'belongsTo',
       name: 'user',
@@ -23,14 +14,16 @@ export const CollectionWorkflowNotice = {
       interface: 'm2o',
       uiSchema: {
         type: 'number',
-        title: tval('The Notified Person'),
+        title: '{{t("User")}}',
         'x-component': 'RemoteSelect',
         'x-component-props': {
           fieldNames: {
             label: 'nickname',
             value: 'id',
           },
-          service: { resource: 'users' },
+          service: {
+            resource: 'users',
+          },
         },
       },
     },
@@ -43,7 +36,7 @@ export const CollectionWorkflowNotice = {
       isAssociation: true,
       uiSchema: {
         type: 'number',
-        title: `{{t("Task node", { ns: "${NAMESPACE}" })}}`,
+        title: `{{t("Task", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'RemoteSelect',
         'x-component-props': {
           fieldNames: {
@@ -64,14 +57,16 @@ export const CollectionWorkflowNotice = {
       interface: 'm2o',
       uiSchema: {
         type: 'number',
-        title: '{{t("Workflow", { ns: "workflow" })}}',
+        title: `{{t("Workflow", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'RemoteSelect',
         'x-component-props': {
           fieldNames: {
             label: 'title',
             value: 'id',
           },
-          service: { resource: 'workflows' },
+          service: {
+            resource: 'workflows',
+          },
         },
       },
     },
@@ -81,19 +76,9 @@ export const CollectionWorkflowNotice = {
       interface: 'select',
       uiSchema: {
         type: 'number',
-        title: '{{t("Status", { ns: "workflow" })}}',
+        title: `{{t("Status", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'Select',
-        enum: approvalStatusOptions,
-      },
-    },
-    {
-      type: 'text',
-      name: 'comment',
-      interface: 'markdown',
-      uiSchema: {
-        type: 'string',
-        'x-component': 'Markdown',
-        title: `{{t("Comment", { ns: "${NAMESPACE}" })}}`,
+        enum: JobStatusOptions,
       },
     },
     {
@@ -106,36 +91,6 @@ export const CollectionWorkflowNotice = {
         'x-component': 'DatePicker',
         'x-component-props': {
           showTime: true,
-        },
-      },
-    },
-    {
-      name: 'updatedAt',
-      type: 'date',
-      interface: 'updatedAt',
-      uiSchema: {
-        type: 'datetime',
-        title: '{{t("Updated at")}}',
-        'x-component': 'DatePicker',
-        'x-component-props': {
-          showTime: true,
-        },
-      },
-    },
-    {
-      type: 'string',
-      name: 'summary',
-      interface: 'input',
-      uiSchema: {
-        type: 'string',
-        title: tval('Summary'),
-        'x-component': 'ApprovalsSummary',
-        'x-component-props': {
-          style: {
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            whiteSpace: 'nowrap',
-          },
         },
       },
     },

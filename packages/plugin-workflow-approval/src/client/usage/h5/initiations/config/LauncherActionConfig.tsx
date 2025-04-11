@@ -1,7 +1,7 @@
 import { SchemaInitializer } from '@tachybase/client';
 
-import { APPROVAL_ACTION_STATUS, APPROVAL_STATUS } from '../../constants';
-import { NAMESPACE } from '../../locale';
+import { APPROVAL_INITIATION_STATUS } from '../../../../common/constants/approval-initiation-status';
+import { NAMESPACE } from '../../../../locale';
 import { LauncherActionConfigComponent } from './LauncherActionConfigComponent';
 
 // 卡片-配置操作
@@ -14,7 +14,7 @@ export const LauncherActionConfigInitializer = new SchemaInitializer({
       type: 'item',
       title: '{{t("Submit")}}',
       Component: LauncherActionConfigComponent,
-      action: APPROVAL_ACTION_STATUS.SUBMITTED,
+      action: APPROVAL_INITIATION_STATUS.SUBMITTED,
       actionProps: { type: 'primary' },
       disabled: true,
     },
@@ -23,7 +23,7 @@ export const LauncherActionConfigInitializer = new SchemaInitializer({
       type: 'item',
       title: `{{t("Save draft", { ns: "${NAMESPACE}" })}}`,
       Component: LauncherActionConfigComponent,
-      action: APPROVAL_ACTION_STATUS.DRAFT,
+      action: APPROVAL_INITIATION_STATUS.DRAFT,
     },
   ],
 });

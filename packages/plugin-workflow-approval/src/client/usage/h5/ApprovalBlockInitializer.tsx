@@ -1,4 +1,3 @@
-import React from 'react';
 import { SchemaInitializerItem, useSchemaInitializer, useSchemaInitializerItem } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 

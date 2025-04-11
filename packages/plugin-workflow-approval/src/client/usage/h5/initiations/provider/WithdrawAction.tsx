@@ -1,6 +1,6 @@
 import { useCurrentUserContext } from '@tachybase/client';
 
-import { APPROVAL_ACTION_STATUS } from '../../constants';
+import { APPROVAL_INITIATION_STATUS } from '../../../../common/constants/approval-initiation-status';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 
 export function WithdrawActionProvider({ children }) {
@@ -10,7 +10,7 @@ export function WithdrawActionProvider({ children }) {
 
   const isSameId = data.data.id === createdById;
   const isEnabledWithdraw = workflow.enabled && workflow.config.withdrawable;
-  const isStatusSubmitted = APPROVAL_ACTION_STATUS.SUBMITTED === status;
+  const isStatusSubmitted = APPROVAL_INITIATION_STATUS.SUBMITTED === status;
   if (isSameId && isEnabledWithdraw && isStatusSubmitted) {
     return children;
   }

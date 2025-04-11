@@ -1,10 +1,10 @@
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { useCurrentUserContext } from '@tachybase/client';
 
-import { APPROVAL_ACTION_STATUS } from '../../constants';
+import { APPROVAL_INITIATION_STATUS } from '../../../../common/constants/approval-initiation-status';
 import { useContextApprovalExecution } from '../../context/ApprovalExecution';
 
-const ContextApprovalStatus = createContext(APPROVAL_ACTION_STATUS.SUBMITTED);
+const ContextApprovalStatus = createContext(APPROVAL_INITIATION_STATUS.SUBMITTED);
 
 export function useContextApprovalStatus() {
   return useContext(ContextApprovalStatus);
@@ -17,7 +17,7 @@ export function ApplyActionStatusProvider(props) {
   const { data } = useCurrentUserContext();
   const isSameId = data.data.id === createdById;
   const isEnbled = workflow.enabled;
-  const isStatusDid = [APPROVAL_ACTION_STATUS.DRAFT, APPROVAL_ACTION_STATUS.RETURNED].includes(status);
+  const isStatusDid = [APPROVAL_INITIATION_STATUS.DRAFT, APPROVAL_INITIATION_STATUS.RETURNED].includes(status);
 
   if (isSameId && isEnbled && isStatusDid) {
     return <ContextApprovalStatus.Provider value={value}>{children}</ContextApprovalStatus.Provider>;
