@@ -5,6 +5,7 @@ export default {
     group: 'log',
   },
   name: 'trackingEvents',
+  createdAt: true,
   fields: [
     {
       name: 'id',

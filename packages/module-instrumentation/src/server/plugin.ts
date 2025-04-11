@@ -46,6 +46,10 @@ export class ModuleInstrumentationServer extends Plugin {
       name: `pm.system-services.custom-instrumentation.serverTracking`,
       actions: ['serverTracking:*'],
     });
+    this.app.acl.registerSnippet({
+      name: `pm.system-services.custom-instrumentation.trackingStatistics`,
+      actions: ['statisticsConfig:*'],
+    });
   }
 
   async install() {}
