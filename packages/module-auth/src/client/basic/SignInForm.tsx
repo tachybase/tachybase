@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
-import { SchemaComponent, useAPIClient, useApp, useCurrentUserContext } from '@tachybase/client';
+import { SchemaComponent, useAPIClient, useCurrentUserContext } from '@tachybase/client';
 import { ISchema, useForm } from '@tachybase/schema';
 
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { TrackingEventType } from '../../../../module-instrumentation/src/client/CustomInstrumentation';
 import { Authenticator } from '../authenticator';
 import { useAuthTranslation } from '../locale';
 import { useSignUpForms } from '../pages';
@@ -21,43 +20,13 @@ export const useSignIn = (authenticator: string) => {
   const form = useForm();
   const api = useAPIClient();
   const redirect = useRedirect();
-  const app = useApp();
   const { refreshAsync } = useCurrentUserContext();
-  const getDeviceInfo = () => {
-    if (typeof navigator !== 'undefined') {
-      return {
-        userAgent: navigator.userAgent || 'Unknown',
-        platform: navigator.platform || 'Unknown',
-        language: navigator.language || 'Unknown',
-      };
-    }
-    return {
-      userAgent: 'Unknown',
-      platform: 'Unknown',
-      language: 'Unknown',
-    };
-  };
   return {
     async run() {
-      try {
-        await form.submit();
-        await api.auth.signIn(form.values, authenticator);
-        await app.trackingManager.logEvent(TrackingEventType.CLICK, 'sign-in', {
-          account: form.values.account,
-          signup_method: 'account',
-          deviceInfo: getDeviceInfo(),
-        });
-        await refreshAsync();
-        redirect();
-      } catch (err) {
-        await app.trackingManager.logEvent(TrackingEventType.CLICK, 'sign-in-err', {
-          account: form.values.account,
-          signup_method: 'account',
-          deviceInfo: getDeviceInfo(),
-          error_status: err.status,
-          error_message: err.response.data,
-        });
-      }
+      await form.submit();
+      await api.auth.signIn(form.values, authenticator);
+      await refreshAsync();
+      redirect();
     },
   };
 };

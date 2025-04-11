@@ -16,16 +16,16 @@ export class ModuleInstrumentationServer extends Plugin {
       this.serverTrackingFilter = new ServerTrackingFilter(this.db);
       await this.serverTrackingFilter.load();
     });
-    this.app.resourcer.use(
+    this.app.use(
       async (ctx: Context, next) => {
         const { actionName, resourceName } = ctx.action;
         if (this.serverTrackingFilter?.check(resourceName, actionName)) {
           const whiteList = this.serverTrackingFilter.whiteList;
           return await handleOtherAction(ctx, next, whiteList);
         }
-        return next();
+        await next();
       },
-      { tag: 'serverTrackingConfig', after: 'acl', before: 'dataSource' },
+      { tag: 'serverTrackingConfig', before: 'errorHandler' },
     );
   }
 

@@ -31,13 +31,13 @@ const useLink = () => {
 
 const AppVisitor = () => {
   const { t } = usePluginUtils();
+  const app = useApp();
   const link = useLink();
   const record = useCollectionRecordData();
   const apiClient = useAPIClient();
-  const { data, mutate, refresh } = useDataBlockRequest<any[]>();
   const currentUserContext = useCurrentUserContext();
   const currentUser = currentUserContext?.data?.data;
-  const app = useApp();
+  const { data, mutate, refresh } = useDataBlockRequest<any[]>();
   const resource = useMemo(() => {
     return apiClient.resource('applications');
   }, [apiClient]);
@@ -61,19 +61,9 @@ const AppVisitor = () => {
           duration: 0,
         });
       }
-      app.trackingManager.logEvent(TrackingEventType.CLICK, 'multiapp_start', {
-        UserId: currentUser.id,
-        appName: record.name,
-      });
     } catch (e) {
       notification.error({
         message: t('Failed to start app'),
-      });
-      app.trackingManager.logEvent(TrackingEventType.CLICK, 'multiapp_start_error', {
-        UserId: currentUser.id,
-        appName: record.name,
-        error_status: e.status,
-        error_message: e.response.data,
       });
     }
   };
@@ -88,10 +78,6 @@ const AppVisitor = () => {
           </span>
         ),
         duration: 0,
-      });
-      app.trackingManager.logEvent(TrackingEventType.CLICK, 'multiapp_stop', {
-        UserId: currentUser.id,
-        appName: record.name,
       });
     });
   };
@@ -135,9 +121,7 @@ const AppVisitor = () => {
           });
           window.open(link, '_blank', 'noreferrer');
         }}
-      >
-        {t('View', { ns: NAMESPACE })}
-      </a>
+      />
       <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>
       <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>
     </Space>
