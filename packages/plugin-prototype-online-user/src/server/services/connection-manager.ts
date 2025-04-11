@@ -139,13 +139,11 @@ export class ConnectionManager {
       await this.app.online.all.HDEL(KEY_ONLINE_USERS + appName, ws.id);
       await notifyAllClients();
     };
-    this.registerWSEventHandler('close', closeHandler);
 
     // 注册 WebSocket 错误事件处理函数
     const errorHandler = async () => {
       await notifyAllClients();
     };
-    this.registerWSEventHandler('error', errorHandler);
 
     // 注册 WebSocket 消息事件处理函数
     const messageHandler = async (ws: WebSocket & { id: string }, data) => {
@@ -178,6 +176,13 @@ export class ConnectionManager {
       // 可以在这里处理新连接建立时的逻辑
       this.app.logger.debug(`New WebSocket connection established: ${ws.id}`);
     };
+
+    // 先清理之前可能注册的WebSocket事件处理函数
+    this.unregisterWSEventHandlers();
+
+    this.registerWSEventHandler('close', closeHandler);
+    this.registerWSEventHandler('error', errorHandler);
+    this.registerWSEventHandler('message', messageHandler);
     this.registerWSEventHandler('connection', connectionHandler);
   }
 }
