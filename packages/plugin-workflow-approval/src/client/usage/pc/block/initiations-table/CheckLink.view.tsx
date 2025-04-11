@@ -1,6 +1,6 @@
 import { SchemaComponent, useRecord } from '@tachybase/client';
 
-import { CheckContent } from './CheckContent.component';
+import { CheckContent } from './CheckContent';
 import { getSchemaActionLaunch } from './CheckLink.schema';
 import { ProviderRecord } from './providers/Record.provider';
 
