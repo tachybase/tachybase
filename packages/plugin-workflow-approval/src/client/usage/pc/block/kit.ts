@@ -10,7 +10,7 @@ import { ViewCheckLink as ViewCheckLinkInitiations } from './initiations-table/C
 import { ViewTableInitiated } from './initiations-table/TableInitiated';
 import { ViewCheckLink as ViewCheckLinkTodos } from './todos-table/CheckLink.view';
 import { ProviderApprovalUpdateForm } from './todos-table/providers/ApprovalUpdateForm.provider';
-import { ViewTableTodos } from './todos-table/TableTodos';
+import { ViewTableTodos } from './todos-table/TableTodos.view';
 
 export class KitApprovalBlock extends Plugin {
   async afterAdd() {
