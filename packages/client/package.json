@@ -14,7 +14,7 @@
     "@ant-design/icons": "^5.5.2",
     "@ant-design/pro-components": "2.8.2",
     "@ant-design/pro-layout": "^7.21.2",
-    "@ctrl/tinycolor": "^3.6.1",
+    "@ctrl/tinycolor": "^4.1.0",
     "@dnd-kit/accessibility": "^3.1.1",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^7.0.0",
