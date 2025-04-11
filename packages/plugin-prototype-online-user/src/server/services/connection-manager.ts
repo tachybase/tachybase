@@ -8,7 +8,7 @@ import WebSocket from 'ws';
 const KEY_ONLINE_USERS = 'online_users';
 
 // WebSocket 事件类型
-type WSEventType = 'close' | 'error' | 'message';
+type WSEventType = 'close' | 'error' | 'message' | 'connection';
 
 // WebSocket 事件处理函数类型
 type WSEventHandler = (ws: WebSocket & { id: string }, ...args: any[]) => Promise<void> | void;
@@ -50,10 +50,6 @@ export class ConnectionManager {
     }
     this.app.on('afterStop', () => {
       this.unload();
-    });
-
-    // 添加 beforeStop 事件监听，用于清理 WebSocket 事件处理函数
-    this.app.on('beforeStop', () => {
       this.unregisterWSEventHandlers();
     });
 
@@ -176,5 +172,12 @@ export class ConnectionManager {
       }
     };
     this.registerWSEventHandler('message', messageHandler);
+
+    // 可选：注册 WebSocket 连接事件处理函数
+    const connectionHandler = async (ws: WebSocket & { id: string }) => {
+      // 可以在这里处理新连接建立时的逻辑
+      this.app.logger.debug(`New WebSocket connection established: ${ws.id}`);
+    };
+    this.registerWSEventHandler('connection', connectionHandler);
   }
 }

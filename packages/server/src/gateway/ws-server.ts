@@ -61,22 +61,30 @@ export class WSServer {
       ws.on('error', (error) => {
         this.removeConnection(ws.id);
         // 触发应用级别的错误事件处理函数
-        this.triggerAppEventHandlers(client.app, 'error', ws, error);
+        if (client && client.app) {
+          this.triggerAppEventHandlers(client.app, 'error', ws, error);
+        }
       });
 
       ws.on('close', (code, reason) => {
         // 触发应用级别的关闭事件处理函数
-        this.triggerAppEventHandlers(client.app, 'close', ws, code, reason);
+        if (client && client.app) {
+          this.triggerAppEventHandlers(client.app, 'close', ws, code, reason);
+        }
         this.removeConnection(ws.id);
       });
 
       ws.on('message', (data) => {
         // 触发应用级别的消息事件处理函数
-        this.triggerAppEventHandlers(client.app, 'message', ws, data);
+        if (client && client.app) {
+          this.triggerAppEventHandlers(client.app, 'message', ws, data);
+        }
       });
 
       // 触发应用级别的连接事件处理函数
-      this.triggerAppEventHandlers(client.app, 'connection', ws, request);
+      if (client && client.app) {
+        this.triggerAppEventHandlers(client.app, 'connection', ws, request);
+      }
     });
 
     Gateway.getInstance().on('appSelectorChanged', () => {
@@ -162,6 +170,7 @@ export class WSServer {
     }
 
     this.appEventHandlers[appName][eventType].add(handler);
+    console.log(`Registered ${eventType} handler for app ${appName}`);
 
     return this;
   }
@@ -175,6 +184,7 @@ export class WSServer {
   removeAppEventHandler(appName: string, eventType: WSEventType, handler: WSEventHandler) {
     if (this.appEventHandlers[appName] && this.appEventHandlers[appName][eventType]) {
       this.appEventHandlers[appName][eventType].delete(handler);
+      console.log(`Removed ${eventType} handler for app ${appName}`);
     }
 
     return this;
@@ -182,6 +192,7 @@ export class WSServer {
 
   /**
    * 触发指定应用的事件处理函数
+   * 只有当客户端与应用名称匹配时，才会触发相应的事件处理函数
    * @param appName 应用名称
    * @param eventType 事件类型
    * @param ws WebSocket 实例
@@ -192,6 +203,19 @@ export class WSServer {
       return;
     }
 
+    // 获取客户端所属的应用
+    const client = this.webSocketClients.get(ws.id);
+    if (!client) {
+      return;
+    }
+
+    // 如果 WebSocket 客户端的应用与事件处理函数的应用不匹配，则不触发
+    // 这样可以避免触发与当前客户端无关的应用的事件处理函数
+    if (client.app !== appName) {
+      return;
+    }
+
+    // console.log(`Triggering ${eventType} handlers for app ${appName}, client ${ws.id}`);
     for (const handler of this.appEventHandlers[appName][eventType]) {
       try {
         handler(ws, ...args);
@@ -279,6 +303,9 @@ export class WSServer {
 
   removeClientTag(clientId: string, tagKey: string) {
     const client = this.webSocketClients.get(clientId);
+    if (!client) {
+      return;
+    }
     // remove all tags with the given tagKey
     client.tags.forEach((tag) => {
       if (tag.startsWith(`${tagKey}#`)) {
