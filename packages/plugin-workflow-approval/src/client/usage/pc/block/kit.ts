@@ -3,14 +3,14 @@ import { Plugin } from '@tachybase/client';
 import { KitApprovalCommon } from '../common/kit';
 import { FeatureList } from './approval-list/FeatureList';
 import { InitiateApplication } from './approval-list/InitiateApplication';
-import { CarbonCopyBlockProvider } from './carbon-copy-table/CarbonCopyBlock.provider';
-import { CarbonCopyCenter } from './carbon-copy-table/CarbonCopyCenter.schema';
 import { KitApprovalBlockInitializer } from './initializers/kit';
-import { ViewCheckLink as ViewCheckLinkInitiations } from './initiations-table/CheckLink.view';
-import { ViewTableInitiated } from './initiations-table/TableInitiated';
-import { ViewCheckLink as ViewCheckLinkTodos } from './todos-table/CheckLink.view';
-import { ProviderApprovalUpdateForm } from './todos-table/providers/ApprovalUpdateForm.provider';
-import { ViewTableTodos } from './todos-table/TableTodos.view';
+import { CarbonCopyBlockProvider } from './table-carbon-copy/CarbonCopyBlock.provider';
+import { CarbonCopyCenter } from './table-carbon-copy/CarbonCopyCenter.schema';
+import { ViewCheckLink as ViewCheckLinkInitiations } from './table-initiations/CheckLink.view';
+import { ViewTableInitiated } from './table-initiations/TableInitiated';
+import { ViewCheckLink as ViewCheckLinkTodos } from './table-todos/CheckLink.view';
+import { ProviderApprovalUpdateForm } from './table-todos/providers/ApprovalUpdateForm.provider';
+import { ViewTableTodos } from './table-todos/TableTodos.view';
 
 export class KitApprovalBlock extends Plugin {
   async afterAdd() {
