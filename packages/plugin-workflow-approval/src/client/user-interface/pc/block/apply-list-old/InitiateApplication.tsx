@@ -25,7 +25,7 @@ import { WithdrawActionProvider } from '../table-initiations/WithdrawAction.prov
 
 /**
  * DOC:
- * 区块初始化组件: 审批: 发起申请
+ * 区块初始化组件: 审批: 发起申请 (旧版)
  */
 export const InitiateApplication = () => {
   const fieldSchema = useFieldSchema();
