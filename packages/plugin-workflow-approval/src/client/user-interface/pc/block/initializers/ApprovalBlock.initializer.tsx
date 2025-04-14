@@ -1,5 +1,5 @@
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../../../common/constants';
-import { NAMESPACE, tval } from '../../../../locale';
+import { tval } from '../../../../locale';
 
 export const initializerName = 'otherBlocks.workflow.approval';
 
@@ -12,7 +12,7 @@ export const initializerApprovalBlock = {
   children: [
     {
       type: 'item',
-      title: `{{t("Initiate Request", { ns: "${NAMESPACE}" })}}`,
+      title: tval('Initiate Request'),
       icon: 'ClockCircleOutlined',
       'x-component': 'Approval-InitiateApplication',
       Component: 'Approval-ViewBlockInitItem',
@@ -24,7 +24,7 @@ export const initializerApprovalBlock = {
     },
     {
       type: 'item',
-      title: `{{t("New Initiate Request", { ns: "${NAMESPACE}" })}}`,
+      title: tval('New Initiate Request'),
       icon: 'ClockCircleOutlined',
       'x-component': 'Approval-FeatureList',
       Component: 'Approval-ViewBlockInitItem',
@@ -36,7 +36,7 @@ export const initializerApprovalBlock = {
     },
     {
       type: 'item',
-      title: `{{t("My Initiations", { ns: "${NAMESPACE}" })}}`,
+      title: tval('My Initiations'),
       icon: 'AuditOutlined',
       'x-component': 'Approval-ViewTableInitiated',
       Component: 'Approval-ViewBlockInitItem',
@@ -55,7 +55,7 @@ export const initializerApprovalBlock = {
     },
     {
       type: 'item',
-      title: `{{t("My Pending Tasks", { ns: "${NAMESPACE}" })}}`,
+      title: tval('My Pending Tasks'),
       icon: 'FormOutlined',
       'x-component': 'Approval-ViewTableTodos',
       Component: 'Approval-ViewBlockInitItem',
@@ -81,7 +81,7 @@ export const initializerApprovalBlock = {
     },
     {
       type: 'item',
-      title: `{{t("Carbon Copy me", { ns: "${NAMESPACE}" })}}`,
+      title: tval('Carbon Copy me'),
       icon: 'MailOutlined',
       'x-decorator': 'CarbonCopyBlockProvider',
       'x-component': 'CarbonCopyCenter',
