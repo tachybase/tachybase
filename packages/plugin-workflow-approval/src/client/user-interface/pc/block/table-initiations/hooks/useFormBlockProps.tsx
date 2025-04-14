@@ -3,7 +3,7 @@ import { useCurrentUserContext } from '@tachybase/client';
 import { useForm } from '@tachybase/schema';
 
 import { approvalInitiationStatusMap } from '../../../../../common/constants/approval-initiation-status-options';
-import { useContextApprovalExecution } from '../../../../common/contexts/approvalExecution';
+import { useContextApprovalExecution } from '../../../../../common/contexts/approvalExecution';
 import { useApproval } from '../../../common/ApprovalData.provider';
 import { useResubmit } from '../../../common/Resubmit.provider';
 

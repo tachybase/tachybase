@@ -1,6 +1,6 @@
 import { ProviderContextWorkflow } from '@tachybase/module-workflow/client';
 
-import { ProviderContextApprovalExecution } from '../../../common/contexts/approvalExecution';
+import { ProviderContextApprovalExecution } from '../../../../common/contexts/approvalExecution';
 import { ApprovalContext } from '../../common/ApprovalData.provider';
 import { ResubmitProvider } from '../../common/Resubmit.provider';
 
