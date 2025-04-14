@@ -3,7 +3,12 @@ import { SchemaComponentContext, useSchemaComponentContext } from '@tachybase/cl
 export function SchemaComponentContextProvider({ designable, children }) {
   const schemaComponentContext = useSchemaComponentContext();
   return (
-    <SchemaComponentContext.Provider value={{ ...schemaComponentContext, designable }}>
+    <SchemaComponentContext.Provider
+      value={{
+        ...schemaComponentContext,
+        designable,
+      }}
+    >
       {children}
     </SchemaComponentContext.Provider>
   );

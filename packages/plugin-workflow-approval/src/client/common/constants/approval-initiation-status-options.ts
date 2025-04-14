@@ -1,46 +1,47 @@
+import { tval } from '../../locale';
 import { APPROVAL_INITIATION_STATUS } from './approval-initiation-status';
 
 export const approvalStatusEnums = [
   {
     value: APPROVAL_INITIATION_STATUS.DRAFT,
-    label: 'Draft',
+    label: tval('Draft'),
     editable: true,
   },
   {
     value: APPROVAL_INITIATION_STATUS.RETURNED,
-    label: 'Returned',
+    label: tval('Returned'),
     color: 'purple',
     editable: true,
   },
   {
     value: APPROVAL_INITIATION_STATUS.SUBMITTED,
-    label: 'Submitted',
+    label: tval('Submitted'),
     color: 'cyan',
   },
   {
     value: APPROVAL_INITIATION_STATUS.PROCESSING,
-    label: 'Processing',
+    label: tval('Processing'),
     color: 'gold',
   },
   {
     value: APPROVAL_INITIATION_STATUS.APPROVED,
-    label: 'Approved',
+    label: tval('Approved'),
     color: 'green',
   },
   {
     value: APPROVAL_INITIATION_STATUS.RESUBMIT,
-    label: 'Resubmit',
+    label: tval('Resubmit'),
     color: 'blue',
     editable: true,
   },
   {
     value: APPROVAL_INITIATION_STATUS.REJECTED,
-    label: 'Rejected',
+    label: tval('Rejected'),
     color: 'red',
   },
   {
     value: APPROVAL_INITIATION_STATUS.ERROR,
-    label: 'ERROR',
+    label: tval('ERROR'),
     color: '#FF0000',
   },
 ];
