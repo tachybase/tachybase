@@ -1,8 +1,8 @@
 import { Plugin } from '@tachybase/client';
 
 import { KitApprovalBase } from './base/kit';
-import KitApprovalConfiguration from './configuration/kit';
-import { KitApprovalUsage } from './usage/kit';
+import KitApprovalConfiguration from './system-settings/kit';
+import { KitApprovalUsage } from './user-interface/kit';
 
 class PluginWorkflowApprovalClient extends Plugin {
   async afterAdd() {
