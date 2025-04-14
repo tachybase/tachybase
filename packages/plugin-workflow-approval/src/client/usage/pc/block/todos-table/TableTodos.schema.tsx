@@ -1,6 +1,6 @@
 import { css } from '@tachybase/client';
 
-import { NAMESPACE, tval } from '../../../../locale';
+import { tval } from '../../../../locale';
 
 export const schemaTableTodos = {
   type: 'void',
@@ -9,16 +9,22 @@ export const schemaTableTodos = {
     actions: {
       type: 'void',
       'x-component': 'ActionBar',
-      'x-component-props': { style: { marginBottom: 16 } },
+      'x-component-props': {
+        style: {
+          marginBottom: 16,
+        },
+      },
       properties: {
         filter: {
           type: 'void',
-          title: '{{ t("Filter") }}',
+          title: tval('Filter', { ns: 'core' }),
           'x-action': 'filter',
           'x-designer': 'Filter.Action.Designer',
           'x-component': 'Filter.Action',
           'x-use-component-props': 'useFilterActionProps',
-          'x-component-props': { icon: 'FilterOutlined' },
+          'x-component-props': {
+            icon: 'FilterOutlined',
+          },
           'x-align': 'left',
         },
         filterSummary: {
@@ -28,12 +34,14 @@ export const schemaTableTodos = {
         },
         refresher: {
           type: 'void',
-          title: '{{ t("Refresh") }}',
+          title: tval('Refresh', { ns: 'core' }),
           'x-action': 'refresh',
           'x-component': 'Action',
           'x-use-component-props': 'useRefreshActionProps',
           'x-designer': 'Action.Designer',
-          'x-component-props': { icon: 'ReloadOutlined' },
+          'x-component-props': {
+            icon: 'ReloadOutlined',
+          },
           'x-align': 'right',
         },
       },
@@ -56,8 +64,10 @@ export const schemaTableTodos = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 60 },
-          title: '{{t("Actions")}}',
+          'x-component-props': {
+            width: 60,
+          },
+          title: tval('Actions', { ns: 'core' }),
           properties: {
             action: {
               'x-component': 'ViewCheckLink',
@@ -84,7 +94,9 @@ export const schemaTableTodos = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 160 },
+          'x-component-props': {
+            width: 160,
+          },
           properties: {
             createdAt: {
               type: 'string',
@@ -97,7 +109,9 @@ export const schemaTableTodos = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 350 },
+          'x-component-props': {
+            width: 350,
+          },
           title: tval('Approval Summary'),
           properties: {
             summary: {
@@ -109,10 +123,12 @@ export const schemaTableTodos = {
         },
         createdBy: {
           type: 'void',
-          title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
+          title: tval('Initiator'),
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 160 },
+          'x-component-props': {
+            width: 160,
+          },
           properties: {
             createdBy: {
               type: 'string',
@@ -125,8 +141,10 @@ export const schemaTableTodos = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 140 },
-          title: `{{t("Assignee", { ns: "${NAMESPACE}" })}}`,
+          'x-component-props': {
+            width: 140,
+          },
+          title: tval('Assignee'),
           properties: {
             user: {
               'x-component': 'UserColumn',
@@ -138,8 +156,10 @@ export const schemaTableTodos = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 100 },
-          title: '{{t("Status", { ns: "workflow" })}}',
+          'x-component-props': {
+            width: 100,
+          },
+          title: tval('Status', { ns: 'workflow' }),
           properties: {
             status: {
               'x-component': 'ApprovalRecordStatusColumn',
@@ -154,7 +174,7 @@ export const schemaTableTodos = {
           'x-component-props': {
             width: null,
           },
-          title: '{{t("Workflow", { ns: "workflow" })}}',
+          title: tval('Workflow', { ns: 'workflow' }),
           properties: {
             workflow: {
               'x-component': 'WorkflowColumn',
@@ -169,7 +189,7 @@ export const schemaTableTodos = {
           'x-component-props': {
             width: null,
           },
-          title: `{{t("Task node", { ns: "${NAMESPACE}" })}}`,
+          title: tval('Task node'),
           properties: {
             node: {
               'x-component': 'NodeColumn',

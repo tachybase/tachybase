@@ -15,4 +15,9 @@ export function lang(key: string, options = {}) {
   });
 }
 
-export const tval = (key: string) => nTval(key, { ns: NAMESPACE });
+export const tval = (
+  key: string,
+  options = {
+    ns: NAMESPACE,
+  },
+) => nTval(key, { ns: NAMESPACE, ...options });
