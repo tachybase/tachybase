@@ -1,4 +1,3 @@
-import React from 'react';
 import { mergeFilter, useDataBlockProps, useDataBlockRequest } from '@tachybase/client';
 
 import { Input, Space } from 'antd';

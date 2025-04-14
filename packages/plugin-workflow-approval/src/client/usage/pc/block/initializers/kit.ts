@@ -8,6 +8,7 @@ export class KitApprovalBlockInitializer extends Plugin {
   async load() {
     const pageBlockManager = this.app.schemaInitializerManager.get('page:addBlock');
     pageBlockManager.add(initializerName, initializerApprovalBlock);
+
     this.app.addComponents({
       /**
        * DOC:
