@@ -1,8 +1,8 @@
 import { Plugin } from '@tachybase/client';
 
 import { KitApprovalCommon } from '../common/kit';
-import { FeatureList } from './approval-list/FeatureList';
-import { InitiateApplication } from './approval-list/InitiateApplication';
+import { ApplyList } from './apply-list/ApplyList';
+import { InitiateApplication } from './apply-list/InitiateApplication';
 import { KitApprovalBlockInitializer } from './initializers/kit';
 import { CarbonCopyBlockProvider } from './table-carbon-copy/CarbonCopyBlock.provider';
 import { CarbonCopyCenter } from './table-carbon-copy/CarbonCopyCenter.schema';
@@ -37,7 +37,7 @@ export class KitApprovalBlock extends Plugin {
       'Approval-InitiateApplication': InitiateApplication,
       'Approval-ViewTableInitiated': ViewTableInitiated,
       'Approval-ViewTableTodos': ViewTableTodos,
-      'Approval-FeatureList': FeatureList,
+      'Approval-FeatureList': ApplyList,
       /**
        * @deprecated
        * 兼容旧版用法, 防止线上已经按照旧版配置的 schema, 运行的时候找不到原组件
