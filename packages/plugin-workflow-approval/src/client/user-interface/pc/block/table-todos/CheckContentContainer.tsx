@@ -5,8 +5,8 @@ import { ExecutionContextProvider } from '@tachybase/module-workflow/client';
 import { Result, Spin } from 'antd';
 import _ from 'lodash';
 
+import { ProviderContextApprovalExecution } from '../../../../common/contexts/approvalExecution';
 import { useTranslation } from '../../../../locale';
-import { ProviderContextApprovalExecution } from '../../../common/contexts/approvalExecution';
 import { ApprovalContext } from '../../common/ApprovalData.provider';
 import { ContextWithActionEnabled } from '../../common/WithActionEnabled.provider';
 import { ViewCheckContent } from './CheckContent.view';
