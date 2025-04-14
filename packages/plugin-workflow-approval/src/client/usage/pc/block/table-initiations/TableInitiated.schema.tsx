@@ -1,6 +1,6 @@
 import { css } from '@tachybase/client';
 
-import { NAMESPACE, tval } from '../../../../locale';
+import { tval } from '../../../../locale';
 
 export const schemaTableInitiated = {
   type: 'void',

@@ -8,14 +8,14 @@ import {
 } from '@tachybase/client';
 import { ProviderContextWorkflow } from '@tachybase/module-workflow/client';
 
-import { ActionBarProvider } from '../initiations-table/apply-button/ActionBar.provider';
-import { ApplyActionStatusProvider } from '../initiations-table/apply-button/ActionStatus.provider';
-import { WithdrawActionProvider } from '../initiations-table/apply-button/ActionWithdraw.provider';
-import { useSubmitCreate } from '../initiations-table/apply-button/hooks/useSubmitCreate';
-import { useActionReminder } from '../initiations-table/hooks/useActionReminder';
-import { useActionResubmit } from '../initiations-table/hooks/useActionResubmit';
-import { useWithdrawAction } from '../initiations-table/hooks/useWithdrawAction';
-import { ProviderActionReminder } from '../initiations-table/providers/ActionReminder.provider';
+import { ActionBarProvider } from '../table-initiations/apply-button/ActionBar.provider';
+import { ApplyActionStatusProvider } from '../table-initiations/apply-button/ActionStatus.provider';
+import { WithdrawActionProvider } from '../table-initiations/apply-button/ActionWithdraw.provider';
+import { useSubmitCreate } from '../table-initiations/apply-button/hooks/useSubmitCreate';
+import { useActionReminder } from '../table-initiations/hooks/useActionReminder';
+import { useActionResubmit } from '../table-initiations/hooks/useActionResubmit';
+import { useWithdrawAction } from '../table-initiations/hooks/useWithdrawAction';
+import { ProviderActionReminder } from '../table-initiations/providers/ActionReminder.provider';
 import { getSchemaFeatureModal } from './FeatureModal.schema';
 
 export const ViewFeatureModal = (props) => {

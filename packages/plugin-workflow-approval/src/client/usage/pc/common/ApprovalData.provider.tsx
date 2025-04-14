@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import { useRecord } from '@tachybase/client';
 
-import { Approval } from '../block/todos-table/providers/ApprovalExecutions.provider';
+import { Approval } from '../block/table-todos/providers/ApprovalExecutions.provider';
 
 export const ApprovalContext = createContext<Partial<Approval>>({});
 
