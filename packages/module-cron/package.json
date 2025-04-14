@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-cron",
   "displayName": "Cron job",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Schedule tasks to run at specific times, using a workflow approach",
   "main": "dist/server/index.js",
   "scripts": {

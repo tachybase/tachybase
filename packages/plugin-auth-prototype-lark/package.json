@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-lark",
   "displayName": "Auth: Lark",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-lark"

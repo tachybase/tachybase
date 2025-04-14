@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-error-handler",
   "displayName": "Error handler",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Handling application errors and exceptions.",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
