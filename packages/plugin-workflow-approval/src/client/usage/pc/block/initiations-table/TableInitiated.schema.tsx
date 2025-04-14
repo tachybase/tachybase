@@ -63,8 +63,10 @@ export const schemaTableInitiated = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 60 },
-          title: '{{t("Actions")}}',
+          'x-component-props': {
+            width: 60,
+          },
+          title: tval('Actions', { ns: 'core' }),
           properties: {
             action: {
               'x-component': 'ViewCheckLink',
@@ -75,7 +77,9 @@ export const schemaTableInitiated = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 80 },
+          'x-component-props': {
+            width: 80,
+          },
           title: tval('ID'),
           properties: {
             id: {
@@ -121,7 +125,7 @@ export const schemaTableInitiated = {
           'x-component-props': {
             width: 140,
           },
-          title: `{{t("Initiator", { ns: "${NAMESPACE}" })}}`,
+          title: tval('Initiator'),
           properties: {
             createdBy: {
               'x-component': 'UserColumn',
@@ -136,7 +140,7 @@ export const schemaTableInitiated = {
           'x-component-props': {
             width: 100,
           },
-          title: '{{t("Status", { ns: "workflow" })}}',
+          title: tval('Status', { ns: 'workflow' }),
           properties: {
             status: {
               'x-component': 'CollectionField',
@@ -151,7 +155,7 @@ export const schemaTableInitiated = {
           'x-component-props': {
             width: 200,
           },
-          title: '{{t("Workflow", { ns: "workflow" })}}',
+          title: tval('Workflow', { ns: 'workflow' }),
           properties: {
             workflow: {
               'x-component': 'WorkflowColumn',
@@ -166,7 +170,7 @@ export const schemaTableInitiated = {
           'x-component-props': {
             width: 200,
           },
-          title: `{{t("Task node", { ns: "${NAMESPACE}" })}}`,
+          title: tval('Task node'),
           properties: {
             lastNode: {
               'x-component': 'ApprovalLastNodeColumn',
