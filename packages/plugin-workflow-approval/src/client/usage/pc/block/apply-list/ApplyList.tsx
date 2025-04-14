@@ -1,9 +1,13 @@
 import { useTableBlockContext } from '@tachybase/client';
 
+import { useStyles } from './ApplyList.style';
 import { FeatureCard } from './FeatureCard';
-import { useStyles } from './FeatureList.style';
 
-export const FeatureList = () => {
+/**
+ * DOC:
+ * 区块初始化组件: 审批: 发起申请(新)
+ */
+export const ApplyList = () => {
   const { styles } = useStyles();
   const { service } = useTableBlockContext();
   const { loading, data } = service;

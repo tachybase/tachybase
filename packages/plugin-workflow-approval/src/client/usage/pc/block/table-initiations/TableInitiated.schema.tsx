@@ -17,12 +17,14 @@ export const schemaTableInitiated = {
       properties: {
         filter: {
           type: 'void',
-          title: '{{ t("Filter") }}',
+          title: tval('Filter', { ns: 'core' }),
           'x-action': 'filter',
           'x-designer': 'Filter.Action.Designer',
           'x-component': 'Filter.Action',
           'x-use-component-props': 'useFilterActionProps',
-          'x-component-props': { icon: 'FilterOutlined' },
+          'x-component-props': {
+            icon: 'FilterOutlined',
+          },
           'x-align': 'left',
         },
         filterSummary: {
@@ -35,12 +37,14 @@ export const schemaTableInitiated = {
         },
         refresher: {
           type: 'void',
-          title: '{{ t("Refresh") }}',
+          title: tval('Refresh', { ns: 'core' }),
           'x-action': 'refresh',
           'x-component': 'Action',
           'x-use-component-props': 'useRefreshActionProps',
           'x-designer': 'Action.Designer',
-          'x-component-props': { icon: 'ReloadOutlined' },
+          'x-component-props': {
+            icon: 'ReloadOutlined',
+          },
           'x-align': 'right',
         },
       },
@@ -108,7 +112,9 @@ export const schemaTableInitiated = {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
-          'x-component-props': { width: 350 },
+          'x-component-props': {
+            width: 350,
+          },
           title: tval('Approval Summary'),
           properties: {
             summary: {
