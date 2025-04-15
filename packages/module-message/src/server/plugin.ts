@@ -81,22 +81,37 @@ class ModuleMessagesServer extends Plugin {
         if (data.toString() !== 'ping') {
           const userMeg = JSON.parse(data.toString());
           if (userMeg.type === 'signIn') {
+            if (!userMeg.payload.token) {
+              return;
+            }
             try {
+              const analysis = await this.app.authManager?.jwt?.verifyToken(userMeg.payload.token);
               // 给当前连接设置tag app:${appName} 为data.userId
-              const analysis = jwt.verify(userMeg.payload.token, process.env.APP_KEY) as any;
               const userId = analysis.userId;
               const client = ws.webSocketClients.get(websocket.id);
-              client.tags = client.tags.filter((tag) => !tag.startsWith('app:'));
-              client.tags.push(`app:${appName}#${userId}`);
+              // 移除所有以 'app:' 开头的标签
+              client.tags.forEach((tag) => {
+                if (tag.startsWith('app:')) {
+                  client.tags.delete(tag);
+                }
+              });
+              // 添加新标签
+              client.tags.add(`app:${appName}#${userId}`);
             } catch (error) {
-              console.warn(error.message);
+              this.app.logger.warn('signIn message connection error', error);
             }
           } else if (userMeg.type === 'signOut') {
             try {
               const client = ws.webSocketClients.get(websocket.id);
-              client.tags = client.tags.filter((tag) => !tag.startsWith('app:'));
+
+              // 移除所有以 'app:' 开头的标签
+              client.tags.forEach((tag) => {
+                if (tag.startsWith('app:')) {
+                  client.tags.delete(tag);
+                }
+              });
             } catch (error) {
-              console.warn(error.message);
+              this.app.logger.warn('signOut message connection error', error);
             }
           }
         }

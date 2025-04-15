@@ -17,7 +17,7 @@ export const schemaAppManager: ISchema = {
         collection: collectionMultiApp,
         action: 'list',
         params: {
-          pageSize: 50,
+          pageSize: 20,
           sort: ['-createdAt'],
           appends: [],
           filter: {
@@ -27,6 +27,10 @@ export const schemaAppManager: ISchema = {
         rowKey: 'name',
       },
       properties: {
+        GlobalNotificationHandler: {
+          type: 'void',
+          'x-component': 'GlobalNotificationHandler',
+        },
         actions: {
           type: 'void',
           'x-component': 'ActionBar',
@@ -36,6 +40,11 @@ export const schemaAppManager: ISchema = {
             },
           },
           properties: {
+            fuzzySearch: {
+              type: 'void',
+              'x-component': 'FuzzySearchInput',
+              'x-align': 'left',
+            },
             refresh: {
               type: 'void',
               title: '{{ t("Refresh") }}',

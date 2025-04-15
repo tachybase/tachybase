@@ -52,6 +52,7 @@ export class PresetTachyBase extends Plugin {
     ['full-text-search', '0.23.24', true],
     ['password-policy', '0.23.65', true],
     ['auth-pages', '0.23.65', true],
+    ['manual-notification', '1.0.4', true],
     // default disable
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],
@@ -87,6 +88,7 @@ export class PresetTachyBase extends Plugin {
     ['department', '0.23.22', false],
     ['workflow-analysis', '0.23.41', false],
     ['api-logs', '0.23.49', false],
+    ['ocr-convert', '1.0.12', false],
   ];
 
   get localPlugins() {
@@ -252,6 +254,7 @@ export class PresetTachyBase extends Plugin {
     const existPlugins = await repository.find();
     const existPluginNames = existPlugins.map((item) => item.name);
     const plugins = (await this.allPlugins()).filter((item) => !existPluginNames.includes(item.name));
+    this.filterForbidSubAppPlugin(plugins);
     await repository.create({ values: plugins });
   }
 
@@ -266,7 +269,48 @@ export class PresetTachyBase extends Plugin {
 
   async upgrade() {
     this.log.info('update built-in plugins');
+    await this.forbidSubAppPlugin();
     await this.updateOrCreatePlugins();
+  }
+
+  getForbidSubAppPlugin() {
+    if (this.app.name === 'main') {
+      return [];
+    }
+    const { FORBID_SUB_APP_PLUGINS } = process.env;
+    return FORBID_SUB_APP_PLUGINS ? FORBID_SUB_APP_PLUGINS.split(',') : [];
+  }
+  // 从环境变量读取禁止子应用装载的插件
+  async forbidSubAppPlugin() {
+    if (this.app.name === 'main') {
+      return;
+    }
+    const forbidPlugins = this.getForbidSubAppPlugin();
+    const repository = this.pm.repository;
+    await repository.update({
+      values: {
+        subView: false,
+        enabled: false,
+      },
+      filter: {
+        name: {
+          $in: forbidPlugins,
+        },
+      },
+    });
+  }
+
+  async filterForbidSubAppPlugin(plugins: any[]) {
+    if (this.app.name === 'main') {
+      return;
+    }
+    const forbidPlugins = this.getForbidSubAppPlugin();
+    plugins.forEach((plugin) => {
+      if (forbidPlugins.includes(plugin.name)) {
+        plugin.subView = false;
+        plugin.enabled = false;
+      }
+    });
   }
 }
 

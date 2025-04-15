@@ -8,9 +8,11 @@ import {
   useDataBlockRequest,
   useNoticeSub,
 } from '@tachybase/client';
+import { uid } from '@tachybase/utils/client';
 
 import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../../constants';
 import { usePluginUtils } from '../locale';
@@ -32,12 +34,13 @@ const AppVisitor = () => {
   const link = useLink();
   const record = useCollectionRecordData();
   const apiClient = useAPIClient();
-  const { data, mutate, refresh } = useDataBlockRequest<any[]>();
+
   const resource = useMemo(() => {
     return apiClient.resource('applications');
   }, [apiClient]);
-  const handleStart = () => {
-    resource.start({ filterByTk: record.name }).then(() => {
+
+  const handleStart = async () => {
+    try {
       notification.info({
         key: NOTIFICATION_CLIENT_KEY,
         message: (
@@ -48,8 +51,21 @@ const AppVisitor = () => {
         ),
         duration: 0,
       });
-    });
+      const response = await resource.start({ filterByTk: record.name });
+      if (response?.status === 205) {
+        notification.info({
+          key: NOTIFICATION_CLIENT_KEY,
+          message: t('App is already running'),
+        });
+      }
+    } catch (e) {
+      notification.error({
+        key: NOTIFICATION_CLIENT_KEY,
+        message: t('Failed to start app'),
+      });
+    }
   };
+
   const handleStop = () => {
     resource.stop({ filterByTk: record.name }).then(() => {
       notification.info({
@@ -64,6 +80,22 @@ const AppVisitor = () => {
       });
     });
   };
+
+  return (
+    <Space split={<Divider type="horizontal" />}>
+      <a href={link} target={'_blank'} rel="noreferrer">
+        {t('View', { ns: NAMESPACE })}
+      </a>
+      {record.status !== 'running' && <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>}
+      {record.status === 'running' && <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>}
+    </Space>
+  );
+};
+
+// 简单的通知显示处理
+const GlobalNotificationHandler = (props) => {
+  const { data, mutate, refresh } = useDataBlockRequest<any[]>();
+  // 监听通知事件，只处理通知显示部分
   useNoticeSub(NOTIFY_STATUS_EVENT_KEY, (message) => {
     const func = notification[message.level] || notification.info;
     if (message.message) {
@@ -71,7 +103,7 @@ const AppVisitor = () => {
         key: NOTIFICATION_CLIENT_KEY,
         message: message.message,
       });
-    } else if (message.status !== 'commanding') {
+    } else if (message.status !== 'commanding' && message.status !== 'initializing') {
       notification.destroy(NOTIFICATION_CLIENT_KEY);
     }
     // 当前records没有则不刷新
@@ -89,24 +121,19 @@ const AppVisitor = () => {
     const updatedData = [...data.data]; // 创建副本
     updatedData.find((v) => v.name === message.app).status = message.status;
     mutate({
+      ...data,
       data: updatedData,
     });
   });
-  return (
-    <Space split={<Divider type="horizontal" />}>
-      <a href={link} target={'_blank'} rel="noreferrer">
-        {t('View', { ns: NAMESPACE })}
-      </a>
-      <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>
-      <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>
-    </Space>
-  );
+  return null;
 };
 
 export const AppManager = (props) => {
   const { admin = true } = props;
   const currentUser = useCurrentUserContext();
   const userId = currentUser?.data?.data?.id;
+  const { t } = useTranslation([NAMESPACE, 'core'], { nsMode: 'fallback' });
+
   return (
     <Card bordered={false}>
       <SchemaComponent
@@ -118,8 +145,10 @@ export const AppManager = (props) => {
           useMultiAppUpdateAction,
           useStartAllAction,
           useStopAllAction,
+          t,
+          uid,
         }}
-        components={{ AppVisitor }}
+        components={{ AppVisitor, GlobalNotificationHandler }}
       />
     </Card>
   );

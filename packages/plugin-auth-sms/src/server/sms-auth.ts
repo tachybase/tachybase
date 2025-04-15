@@ -53,7 +53,7 @@ export class SMSAuth extends BaseAuth {
           throw new Error(ctx.t('The phone number is not registered, please register first', { ns: namespace }));
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         throw new Error(err.message);
       }
     });

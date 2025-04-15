@@ -35,6 +35,7 @@ export default {
       const dumper = new Dumper(ctx.app);
       const backupFiles = await dumper.allBackUpFilePaths({
         includeInProgress: true,
+        appName: ctx.app.name,
       });
 
       // handle pagination
@@ -60,7 +61,7 @@ export default {
     async get(ctx, next) {
       const { filterByTk } = ctx.action.params;
       const dumper = new Dumper(ctx.app);
-      const filePath = dumper.backUpFilePath(filterByTk);
+      const filePath = dumper.backUpFilePath(filterByTk, ctx.app.name);
 
       async function sendError(message, status = 404) {
         ctx.body = { status: 'error', message };
@@ -105,7 +106,6 @@ export default {
         }
       >ctx.request.body;
 
-      let taskId;
       const app = ctx.app as Application;
 
       if (data.method === 'worker' && !app.worker?.available) {
@@ -114,24 +114,47 @@ export default {
       }
 
       let useWorker = data.method === 'worker' || (data.method === 'priority' && app.worker?.available);
+      const dumper = new Dumper(ctx.app);
+      const taskId = await dumper.getLockFile(ctx.app.name);
       if (useWorker) {
-        try {
-          taskId = await app.worker.callPluginMethod({
+        app.worker
+          .callPluginMethod({
             plugin: PluginBackupRestoreServer,
             method: 'workerCreateBackUp',
             params: {
               dataTypes: data.dataTypes,
+              appName: ctx.app.name,
+              filename: taskId,
             },
             // 目前限制方法并发为1
             concurrency: 1,
+          })
+          .then((res) => {
+            app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done', { ns: 'backup' }) });
+          })
+          .catch((error) => {
+            app.noticeManager.notify('backup', { level: 'error', msg: error.message });
+          })
+          .finally(() => {
+            dumper.cleanLockFile(taskId, ctx.app.name);
           });
-          app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done') });
-        } catch (error) {
-          ctx.throw(500, ctx.t(error.message, { ns: 'worker-thread' }));
-        }
       } else {
         const plugin = app.pm.get(PluginBackupRestoreServer) as PluginBackupRestoreServer;
-        taskId = await plugin.workerCreateBackUp(data);
+        plugin
+          .workerCreateBackUp({
+            dataTypes: data.dataTypes,
+            appName: ctx.app.name,
+            filename: taskId,
+          })
+          .then((res) => {
+            app.noticeManager.notify('backup', { level: 'info', msg: ctx.t('Done', { ns: 'backup' }) });
+          })
+          .catch((error) => {
+            app.noticeManager.notify('backup', { level: 'error', msg: error.message });
+          })
+          .finally(() => {
+            dumper.cleanLockFile(taskId, ctx.app.name);
+          });
       }
 
       ctx.body = {
@@ -150,7 +173,7 @@ export default {
       const { filterByTk } = ctx.action.params;
       const dumper = new Dumper(ctx.app);
 
-      const filePath = dumper.backUpFilePath(filterByTk);
+      const filePath = dumper.backUpFilePath(filterByTk, ctx.app.name);
 
       const fileState = await Dumper.getFileStatus(filePath);
 
@@ -181,7 +204,7 @@ export default {
 
         if (filterByTk) {
           const dumper = new Dumper(ctx.app);
-          return dumper.backUpFilePath(filterByTk);
+          return dumper.backUpFilePath(filterByTk, ctx.app.name);
         }
       })();
 
@@ -203,7 +226,7 @@ export default {
     async destroy(ctx, next) {
       const { filterByTk } = ctx.action.params;
       const dumper = new Dumper(ctx.app);
-      const filePath = dumper.backUpFilePath(filterByTk);
+      const filePath = dumper.backUpFilePath(filterByTk, ctx.app.name);
 
       await fsPromises.unlink(filePath);
 

@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/preset-tachybase",
-  "version": "1.0.0",
+  "version": "1.0.15",
   "license": "Apache-2.0",
   "main": "./lib/server/index.js",
   "scripts": {
@@ -73,8 +73,10 @@
     "@tachybase/plugin-full-text-search": "workspace:*",
     "@tachybase/plugin-i18n-editor": "workspace:*",
     "@tachybase/plugin-log-viewer": "workspace:*",
+    "@tachybase/plugin-manual-notification": "workspace:*",
     "@tachybase/plugin-mock-collections": "workspace:*",
     "@tachybase/plugin-multi-app-share-collection": "workspace:*",
+    "@tachybase/plugin-ocr-convert": "workspace:*",
     "@tachybase/plugin-online-user": "workspace:*",
     "@tachybase/plugin-otp": "workspace:*",
     "@tachybase/plugin-password-policy": "workspace:*",

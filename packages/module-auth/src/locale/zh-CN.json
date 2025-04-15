@@ -43,6 +43,8 @@
   "Unbind": "解绑",
   "User can bind or unbind the sign in type": "用户可以绑定或解绑登录方式",
   "User not found. Please sign in again to continue.": "用户不存在。请重新登录以继续。",
+  "Username/Email": "用户名/邮箱",
+  "WeChat": "微信",
   "Your session has expired. Please sign in again.": "您的会话已过期，请重新登录。",
   "gitea": "Gitea 验证登录",
   "sms": "短信验证",

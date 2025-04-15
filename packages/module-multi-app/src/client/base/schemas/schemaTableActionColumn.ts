@@ -54,7 +54,7 @@ export const tableActionColumnSchema: ISchema = {
       type: 'void',
       title: '{{ t("Delete") }}',
       'x-component': 'Action.Link',
-      'x-hidden': '{{ !admin }}',
+      // 'x-hidden': '{{ !admin }}',
       // 'x-decorator': 'ACLActionProvider',
       'x-use-component-props': 'useDestroyActionProps',
       'x-component-props': {

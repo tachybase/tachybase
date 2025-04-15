@@ -36,17 +36,27 @@ export const formSchema: ISchema = {
       title: i18nText('Custom domain prefix'),
       'x-component': 'Input',
       'x-decorator': 'FormItem',
+      'x-validator': `{{(value) => {
+        if (!value) { 
+          return null;
+        }
+        if (!/^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$/.test(value)) {
+          return t("Custom domain prefix must be 1-63 characters, lowercase letters, numbers, or hyphens (-), and cannot start or end with a hyphen (-)");
+        }
+      }}}`,
       'x-component-props': {
         addonAfter: `.${window.location.hostname}`,
       },
-      'x-reactions': {
-        dependencies: ['cname'],
-        fulfill: {
-          state: {
-            value: '{{($deps[0] && $deps[0].replace(new RegExp("\\."+window.location.hostname+"$"), "")) || ""}}',
+      'x-reactions': [
+        {
+          dependencies: ['cname'],
+          fulfill: {
+            state: {
+              value: '{{ ($deps[0] && $deps[0].replace(new RegExp("\\."+window.location.hostname+"$"), "")) || "" }}',
+            },
           },
         },
-      },
+      ],
     },
     cname: {
       'x-hidden': true,
@@ -67,6 +77,7 @@ export const formSchema: ISchema = {
       title: i18nText('Template'),
       'x-component': 'RemoteSelect',
       'x-component-props': {
+        placeholder: i18nText('Can be empty, or selected from the template library or personal applications'),
         fieldNames: {
           label: 'displayName',
           value: 'name',

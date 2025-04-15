@@ -9,7 +9,7 @@ export default defineCollection({
   model: 'TokenBlacklistModel',
   fields: [
     {
-      type: 'string',
+      type: 'text',
       name: 'token',
       index: true,
     },

@@ -17,15 +17,30 @@ const OnlineUserManger = () => {
     app.ws.on('message', (event: MessageEvent) => {
       const data = JSON.parse(event.data);
       if (data?.type === 'plugin-online-user') {
-        const onlineUserItems = data.payload.users?.map((user) => {
-          if (user) {
+        const list: { userId: number; name: string; count: number }[] = [];
+        for (const item of data.payload.users) {
+          if (!item) {
+            continue;
+          }
+          const exist = list.find((user) => user.userId === item.id);
+          if (exist) {
+            exist.count++;
+            continue;
+          }
+          list.push({
+            userId: item.id,
+            name: item.nickname || item.username,
+            count: 1,
+          });
+        }
+        setOnlineUserItems(
+          list.map((item) => {
             return {
               key: uid(),
-              label: user.nickname,
+              label: `${item.name}:${item.count}`,
             };
-          }
-        });
-        setOnlineUserItems(onlineUserItems);
+          }),
+        );
       }
     });
   }, [app]);
