@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-manual-notification",
   "displayName": "Manual Notification",
-  "version": "1.0.10",
+  "version": "1.0.12",
   "description": "Used to send notifications to all online users, including system updates and important events",
   "main": "dist/server/index.js",
   "devDependencies": {
