@@ -31,7 +31,6 @@ const StepFormContainer = () => {
     key: item.title,
     title: item.title,
   }));
-
   return (
     <>
       <Steps current={current} items={items} />

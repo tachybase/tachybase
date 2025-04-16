@@ -15,7 +15,7 @@ const StepFormBlockInitializer = () => {
 
   const handleCreateBlockSchema = async ({ item }) => {
     const collection = cm.getCollection(item.name);
-    const remoteSchema = getSchemaStepFormBlockInitializer({ collection });
+    const remoteSchema = getSchemaStepFormBlockInitializer({ collection, isEdit: false });
 
     insert(remoteSchema);
   };
