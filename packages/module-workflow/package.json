@@ -50,6 +50,7 @@
     "@tachybase/logger": "workspace:*",
     "@tachybase/module-collection": "workspace:*",
     "@tachybase/module-error-handler": "workspace:*",
+    "@tachybase/module-ui-schema": "workspace:*",
     "@tachybase/module-user": "workspace:*",
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/schema": "workspace:*",
