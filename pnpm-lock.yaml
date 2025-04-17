@@ -1405,6 +1405,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/module-acl':
+        specifier: workspace:*
+        version: link:../module-acl
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server
@@ -2174,6 +2177,9 @@ importers:
       '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
+      '@tachybase/module-ui-schema':
+        specifier: workspace:*
+        version: link:../module-ui-schema
       '@tachybase/module-user':
         specifier: workspace:*
         version: link:../module-user
@@ -4004,6 +4010,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/module-collection':
+        specifier: workspace:*
+        version: link:../module-collection
       '@tachybase/module-error-handler':
         specifier: workspace:*
         version: link:../module-error-handler
@@ -4544,6 +4553,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/module-ui-schema':
+        specifier: workspace:*
+        version: link:../module-ui-schema
       '@tachybase/module-workflow':
         specifier: workspace:*
         version: link:../module-workflow
