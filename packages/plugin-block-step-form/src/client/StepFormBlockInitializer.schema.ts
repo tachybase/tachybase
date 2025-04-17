@@ -1,12 +1,13 @@
 import { ISchema, uid } from '@tachybase/schema';
 
-export default function getSchemaStepFormBlockInitializer({ collection }) {
+export default function getSchemaStepFormBlockInitializer({ isEdit, collection }) {
   const { name: collectionName, title: collectionTitle, dataSource } = collection;
 
   return {
     type: 'void',
+    'x-acl-action': `${collectionName}:${isEdit ? 'update' : 'create'}`,
     'x-toolbar': 'BlockSchemaToolbar',
-    'x-settings': 'blockSettings:createForm',
+    'x-settings': 'blockSettings:stepsForm',
     'x-component': 'CardItem',
     'x-decorator': 'FormBlockProvider',
     'x-decorator-props': {
@@ -14,7 +15,7 @@ export default function getSchemaStepFormBlockInitializer({ collection }) {
       collection: collectionName,
       isCustomizedCreate: true,
     },
-    'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
+    'x-use-decorator-props': isEdit ? 'useEditFormBlockDecoratorProps' : 'useCreateFormBlockDecoratorProps',
     properties: {
       step: {
         type: 'void',

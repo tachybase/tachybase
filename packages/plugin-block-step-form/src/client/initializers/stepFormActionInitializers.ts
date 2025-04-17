@@ -45,7 +45,7 @@ export const stepFormActionInitilizers = new SchemaInitializer({
       type: 'item',
       title: tval('Done'),
       name: 'doneAction',
-      Component: 'CreateActionInitializer',
+      Component: 'CustomizeAddRecordActionInitializer',
       schema: {
         'x-align': 'right',
         'x-decorator': 'ACLActionProvider',
@@ -62,7 +62,7 @@ export const stepFormActionInitilizers = new SchemaInitializer({
       type: 'item',
       title: tval('Request action'),
       name: 'requestAction',
-      Component: 'CreateActionInitializer',
+      Component: 'CustomizeAddRecordActionInitializer',
       schema: {
         'x-align': 'right',
         'x-decorator': 'ACLActionProvider',
