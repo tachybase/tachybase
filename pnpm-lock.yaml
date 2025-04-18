@@ -225,7 +225,7 @@ importers:
         version: 2.4.2
       esbuild-register:
         specifier: ^3.6.0
-        version: 3.6.0(esbuild@0.24.0)
+        version: 3.6.0(esbuild@0.24.2)
       execa:
         specifier: ^5.1.1
         version: 5.1.1
@@ -270,8 +270,8 @@ importers:
   apps/cli:
     dependencies:
       '@tachybase/utils':
-        specifier: 0.23.18
-        version: 0.23.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 1.0.18
+        version: 1.0.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -9588,8 +9588,8 @@ packages:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
 
-  '@tachybase/utils@0.23.18':
-    resolution: {integrity: sha512-H7Qj1ByJ0BiBj56kOZXKWav4MXyJspUHPGQW3+yqeE6crVQY4DaZ79Ht3nP/iAl8tXB+k/wS7UTmLXbJM+rmcQ==}
+  '@tachybase/utils@1.0.18':
+    resolution: {integrity: sha512-RfZG0M5c5D9RPuInIKwknYblk3dlgbVkpQZj73XRySj0ZhzWyCEsEHuv7E/TGRzWh/ZbOzmayyzk2cfBSwULOg==}
 
   '@tanem/svg-injector@10.1.68':
     resolution: {integrity: sha512-UkJajeR44u73ujtr5GVSbIlELDWD/mzjqWe54YMK61ljKxFcJoPd9RBSaO7xj02ISCWUqJW99GjrS+sVF0UnrA==}
@@ -23800,7 +23800,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@tachybase/utils@0.23.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tachybase/utils@1.0.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@hapi/topo': 6.0.2
       '@rc-component/mini-decimal': 1.1.0
@@ -26789,10 +26789,10 @@ snapshots:
 
   esbuild-plugin-file-path-extensions@2.1.4: {}
 
-  esbuild-register@3.6.0(esbuild@0.24.0):
+  esbuild-register@3.6.0(esbuild@0.24.2):
     dependencies:
       debug: 4.4.0(supports-color@5.5.0)
-      esbuild: 0.24.0
+      esbuild: 0.24.2
     transitivePeerDependencies:
       - supports-color
 
