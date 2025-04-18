@@ -22,13 +22,6 @@ export default (cli: Command) => {
       // @ts-ignore
       process.env.IS_DEV_CMD = true;
 
-      if (opts.waitServer) {
-        process.env.IPC_DEV_PORT =
-          (await getPortPromise({
-            port: 10000 + Math.floor(Math.random() * 1000),
-          })) + '';
-      }
-
       if (!SERVER_TSCONFIG_PATH) {
         throw new Error('SERVER_TSCONFIG_PATH is not set.');
       }
