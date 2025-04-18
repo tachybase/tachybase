@@ -3,6 +3,7 @@ import {
   useCollectionRecordData,
   useDataBlockRequest,
   useDataBlockResource,
+  useRecord,
 } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
@@ -14,7 +15,8 @@ export const useMultiAppUpdateAction = (actionCallback?: (key: string, values: a
   const service = useDataBlockRequest();
   const resource = useDataBlockResource();
   const record = useCollectionRecordData();
-  const filterByTk = record?.name;
+  const { record: cardRecord } = useRecord();
+  const filterByTk = record?.name || cardRecord?.name;
   return {
     async onClick() {
       await form.submit();
