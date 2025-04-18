@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tachybase/utils": "0.23.18",
+    "@tachybase/utils": "1.0.18",
     "@types/fs-extra": "^11.0.4",
     "@umijs/utils": "3.5.43",
     "axios": "^1.7.9",
@@ -42,8 +42,7 @@
     "tree-kill": "^1.2.2",
     "tsconfig-paths": "^4.2.0",
     "tsup": "8.3.5",
-    "tsx": "^4.19.2",
-    "zeromq": "6.1.2"
+    "tsx": "^4.19.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

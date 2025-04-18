@@ -7,5 +7,15 @@ export const stepsFormBlockSettings = new SchemaSettings({
       name: 'StepsForm',
       Component: SchemaSettingsBlockTitleItem,
     },
+    {
+      type: 'remove',
+      name: 'remove',
+      componentProps: {
+        removeParentsIfNoChildren: true,
+        breakRemoveOn: {
+          'x-component': 'Grid',
+        },
+      },
+    },
   ],
 });

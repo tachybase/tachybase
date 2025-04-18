@@ -1,13 +1,14 @@
 import { ButtonEditor, SchemaSettings, useSchemaToolbar } from '@tachybase/client';
 
-export const stepNextSettings = new SchemaSettings({
-  name: 'actionSettings:stepsFormNext',
+export const stepPreviousSettings = new SchemaSettings({
+  name: 'actionSettings:stepsFormPrevious',
   items: [
     {
       name: 'editButton',
       Component: ButtonEditor,
       useComponentProps: () => {
-        return useSchemaToolbar().buttonEditorProps;
+        const schemaToolbar = useSchemaToolbar();
+        return schemaToolbar.buttonEditorProps;
       },
     },
     {
