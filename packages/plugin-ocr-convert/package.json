@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-ocr-convert",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "main": "dist/server/index.js",
   "dependencies": {},
   "devDependencies": {
