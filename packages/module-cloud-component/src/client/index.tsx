@@ -6,6 +6,7 @@ import exceljs from 'exceljs';
 import * as fileSaver from 'file-saver';
 import * as qrcode from 'qrcode';
 import * as reactUse from 'react-use';
+import * as recharts from 'recharts';
 
 import { CloudLibraryManager } from './cloud-library-manager/CloudLibraryManager';
 import { ProviderCloudComponent } from './CloudComponent.provider';
@@ -22,6 +23,7 @@ export class ModuleCloudComponentClient extends Plugin {
     this.app.requirejs.define('exceljs', () => exceljs);
     this.app.requirejs.define('qrcode', () => qrcode);
     this.app.requirejs.define('file-saver', () => fileSaver);
+    this.app.requirejs.define('recharts', () => recharts);
     await this.initLibraries();
   }
 
