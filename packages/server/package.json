@@ -50,8 +50,7 @@
     "serve-handler": "^6.1.6",
     "winston": "^3.17.0",
     "ws": "^8.18.0",
-    "xpipe": "^1.0.8",
-    "zeromq": "6.1.2"
+    "xpipe": "^1.0.8"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",

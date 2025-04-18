@@ -38,7 +38,6 @@ import _ from 'lodash';
 import { nanoid } from 'nanoid';
 import semver from 'semver';
 import WebSocket from 'ws';
-import { Request } from 'zeromq';
 
 import packageJson from '../package.json';
 import { createACL } from './acl';
@@ -251,14 +250,6 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
 
     // TODO implements more robust event emitters
     this.setMaxListeners(100);
-
-    if (process.env.IPC_DEV_PORT) {
-      this.once('afterStart', async () => {
-        const sock = new Request({ reconnectInterval: -1 });
-        sock.connect('tcp://localhost:' + process.env.IPC_DEV_PORT);
-        await sock.send('ready');
-      });
-    }
 
     // 初始化 WebSocket 事件处理
     this.initWSEventHandlers();
