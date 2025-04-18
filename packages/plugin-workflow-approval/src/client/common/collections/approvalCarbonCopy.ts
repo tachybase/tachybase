@@ -1,6 +1,7 @@
 import { COLLECTION_NAME_APPROVAL_CARBON_COPY } from '../../../common/constants';
 import { NAMESPACE, tval } from '../../locale';
-import { ApprovalStatusEnums, approvalStatusOptions } from '../../usage/pc/constants';
+import { approvalStatusEnums } from '../constants/approval-initiation-status-options';
+import { approvalTodoStatusOptions } from '../constants/approval-todo-status-options';
 
 export const collectionApprovalCarbonCopy = {
   title: tval('ApprovalCarbonCopy'),
@@ -115,7 +116,7 @@ export const collectionApprovalCarbonCopy = {
         type: 'number',
         title: '{{t("Status", { ns: "workflow" })}}',
         'x-component': 'Select',
-        enum: approvalStatusOptions,
+        enum: approvalTodoStatusOptions,
       },
     },
     {
@@ -179,7 +180,7 @@ export const collectionApprovalCarbonCopy = {
         type: 'number',
         title: '{{t("Status", { ns: "workflow" })}}',
         'x-component': 'Select',
-        enum: ApprovalStatusEnums,
+        enum: approvalStatusEnums,
       },
     },
   ],
