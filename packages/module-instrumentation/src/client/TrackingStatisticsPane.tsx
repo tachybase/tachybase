@@ -11,6 +11,7 @@ import { schemaStatisticsConfigs } from './schemas/schemasStatistics';
 type StatisticsData = {
   users: Record<string, number>;
   customData: Record<string, number>;
+  customDataByTime: any;
 };
 
 export const TrackingStatisticsPane = () => {
@@ -68,7 +69,6 @@ export const TrackingStatisticsPane = () => {
       .style('text', `${userCount}`)
       .style('x', '50%')
       .style('y', '50%')
-      .style('dx', -10)
       .style('dy', 10)
       .style('fontSize', 25)
       .style('fill', '#000000')
@@ -112,7 +112,59 @@ export const TrackingStatisticsPane = () => {
   }, [data?.users]);
 
   useEffect(() => {
-    const container = document.getElementById('users-statistics-wrapper');
+    if (!data?.customDataByTime) return;
+
+    const container = document.getElementById('statisticsByTime-line-wrapper');
+    if (!container) return;
+
+    container.innerHTML = ''; // 清空旧图表
+
+    const entries = Object.entries(data.customDataByTime); // { [title]: { dateKey: count } }
+
+    entries.forEach(([title, timeSeries], index) => {
+      const chartId = `line-statistics-${index}`;
+      const chartDiv = document.createElement('div');
+      chartDiv.id = chartId;
+      chartDiv.style.width = '100%';
+      chartDiv.style.height = '300px';
+      chartDiv.style.marginBottom = '24px';
+      container.appendChild(chartDiv);
+
+      // 转换数据为数组形式，按时间排序
+      const lineData = Object.entries(timeSeries)
+        .map(([date, value]) => ({ date, value }))
+        .sort((a, b) => a.date.localeCompare(b.date)); // 排序保证折线连贯
+
+      const chart = new Chart({
+        container: chartId,
+        autoFit: true,
+      });
+
+      chart
+        .line()
+        .data(lineData)
+        .encode('x', 'date')
+        .encode('y', 'value')
+        .encode('series', () => title)
+        .label({
+          text: 'value',
+          style: {
+            dx: -10,
+            dy: -12,
+          },
+        })
+        .style('strokeWidth', 2);
+
+      chart.render();
+    });
+
+    return () => {
+      container.innerHTML = ''; // 清理 DOM
+    };
+  }, [data?.customDataByTime]);
+
+  useEffect(() => {
+    const container = document.getElementById('statistics-wrapper');
     if (!container) return;
 
     container.innerHTML = ''; // 清空原有内容，防止重复渲染
@@ -120,7 +172,7 @@ export const TrackingStatisticsPane = () => {
     const chunks = chunk(customDataArray, 10); // 每 10 条数据为一组
 
     chunks.forEach((group, index) => {
-      const chartId = `users-statistics-${index}`;
+      const chartId = `statistics-${index}`;
       const chartDiv = document.createElement('div');
       chartDiv.id = chartId;
       chartDiv.style.width = '100%';
@@ -133,7 +185,18 @@ export const TrackingStatisticsPane = () => {
         autoFit: true,
       });
 
-      chart.interval().data(group).encode('x', 'title').encode('y', 'count').style('widthRatio', 0.5);
+      chart
+        .interval()
+        .data(group)
+        .encode('x', 'title')
+        .encode('y', 'count')
+        .label({
+          text: 'count',
+          style: {
+            dy: -15,
+          },
+        })
+        .style('widthRatio', 0.5);
 
       chart.render();
     });
@@ -151,7 +214,8 @@ export const TrackingStatisticsPane = () => {
             <div id="user-pie-chart" style={{ flex: 1, width: '100%', height: 300 }} />
             <div id="users-dailyActive" style={{ flex: 1, width: '100%', height: 300 }} />
           </div>
-          <div id="users-statistics-wrapper" style={{ width: '100%', height: 400 }} />
+          <div id="statisticsByTime-line-wrapper" style={{ width: '100%', height: 400 }} />
+          <div id="statistics-wrapper" style={{ width: '100%', height: 400 }} />
         </Card>
       </div>
       <div style={{ marginTop: 24 }}>

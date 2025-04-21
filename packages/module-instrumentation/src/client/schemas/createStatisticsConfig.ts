@@ -89,11 +89,13 @@ export const createStatisticsConfig: ISchema = {
                     filterValues: {},
                     dedupBy: '',
                     minCount: 1,
+                    timeGroup: '',
                     timeFilter: {
                       after: '',
                       before: '',
                       on: '',
                       today: true,
+                      rangeDays: '',
                     },
                   },
                   'x-component': 'CollectionField',

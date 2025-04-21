@@ -1,10 +1,8 @@
 import { Context, Next } from '@tachybase/actions';
 import { Action, Controller } from '@tachybase/utils';
 
-import { checkEntryExists } from 'apps/build/src/utils/buildPluginUtils';
-
 import { getDailyActiveUser } from '../hooks/getActiveUser';
-import { countDataByEventFrequency } from '../hooks/getStatistics';
+import { countDataByEventFrequency, groupDataByTime } from '../hooks/getStatistics';
 
 @Controller('instrumentation')
 export class TrackingController {
@@ -36,14 +34,21 @@ export class TrackingController {
     const allData = await ctx.db.getRepository('trackingEvents').find();
     const configs = await ctx.db.getRepository('statisticsConfig').find();
     let customData = {};
+    let customDataByTime = {};
     for (const config of configs) {
-      const count = countDataByEventFrequency(allData, config.statisticsOptions);
-      customData[config.title] = count;
+      if (config.statisticsOptions?.timeGroup) {
+        const grouped = groupDataByTime(allData, config.statisticsOptions); // 你写的逻辑
+        customDataByTime[config.title] = grouped;
+      } else {
+        const count = countDataByEventFrequency(allData, config.statisticsOptions);
+        customData[config.title] = count;
+      }
     }
 
     const result = {
       users: { ...ActiveUsers, userCount },
       customData,
+      customDataByTime,
     };
     ctx.body = result;
     return next();

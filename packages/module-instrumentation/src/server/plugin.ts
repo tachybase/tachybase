@@ -64,47 +64,8 @@ export class ModuleInstrumentationServer extends Plugin {
     if (isMainThread) {
       this.addServerTrackingListener();
     }
-    // this.app.on('afterStart', async () => {
-    //   const SignInTracking = await this.app.db.getRepository('serverTrackingConfig').findOne({
-    //     filter: {
-    //       title: 'sign-in',
-    //       resourceName: 'auth',
-    //       action: 'signIn'
-    //     },
-    //   });
-    //   if (!SignInTracking) {
-    //     await this.app.db.getRepository('serverTrackingConfig').create({
-    //       values: {
-    //         title: 'sign-in',
-    //         resourceName: 'auth',
-    //         action: 'signIn',
-    //         trackingOptions: {
-    //           "meta": [
-    //             "userId",
-    //             "recordId",
-    //             "createdAt"
-    //           ],
-    //           "filter": {
-    //             "$and": [
-    //               {
-    //                 "payload": {
-    //                   "errors": {
-    //                     "$exists": false
-    //                   }
-    //                 }
-    //               }
-    //             ]
-    //           },
-    //           "payload": [
-    //             "errors"
-    //           ]
-    //         }
-    //       },
-    //     });
-    //   }
-    // });
     this.app.acl.allow('instrumentation', 'create', 'public');
-    this.app.acl.allow('instrumentation', 'list', 'loggedIn');
+    this.app.acl.allow('instrumentation', 'list', 'public');
     this.app.acl.registerSnippet({
       name: `pm.system-services.custom-instrumentation.clientTracking`,
       actions: ['trackingEvents:*'],
