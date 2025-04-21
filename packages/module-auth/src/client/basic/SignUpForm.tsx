@@ -1,5 +1,5 @@
 import React from 'react';
-import { SchemaComponent, useAPIClient, useApp, useRecordIndex } from '@tachybase/client';
+import { SchemaComponent, useAPIClient } from '@tachybase/client';
 import { ISchema, uid, useForm } from '@tachybase/schema';
 
 import { message } from 'antd';

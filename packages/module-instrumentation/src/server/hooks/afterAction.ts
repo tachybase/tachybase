@@ -5,7 +5,6 @@ import { WhiteListItem } from '../ServerTrackingFilter';
 import { filterMatch } from './filterMatch';
 
 export async function handleOtherAction(ctx: Context, next, whiteList: WhiteListItem[]) {
-  await next();
   const { actionName, resourceName, params } = ctx.action;
   const data = ctx.response?.body || null;
   const repo = ctx.db.getRepository('trackingEvents');
@@ -51,8 +50,8 @@ export async function handleOtherAction(ctx: Context, next, whiteList: WhiteList
     };
     const app = ctx.app as Application;
     const collection = app.mainDataSource.collectionManager.getCollection(ctx.action.resourceName);
-    const currentRecordId = ctx.body?.[collection.filterTargetKey] || null;
-    const currentUserId = ctx.auth?.user.id || null;
+    const currentRecordId = ctx.body?.[collection?.filterTargetKey] || null;
+    const currentUserId = ctx.auth?.user?.id || null;
     const currentTime = new Date().toISOString();
 
     const baseValues: Record<string, any> = {};

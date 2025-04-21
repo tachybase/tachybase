@@ -26,7 +26,7 @@ export const getDailyActiveUser = async (ctx: Context) => {
 
   for (const item of last30DaysData) {
     const createdAt = item.createdAt || item.values?.createdAt;
-    const account = item.values?.account;
+    const account = item.values?.payload?.account;
     if (!createdAt || !account) continue;
 
     const dateStr = dayjs(createdAt).format('YYYY-MM-DD');

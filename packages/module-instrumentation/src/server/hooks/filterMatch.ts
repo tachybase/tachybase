@@ -6,6 +6,8 @@ const operators = {
   $lt: (a, b) => a < b,
   $lte: (a, b) => a <= b,
   $in: (a, b) => a.includes(b),
+  $exists: (a, b) => (b ? a !== undefined : a === undefined),
+  $null: (a, b) => (b ? a === null : a !== null),
 };
 
 function getValueByPath(obj, path) {

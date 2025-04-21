@@ -13,17 +13,48 @@ export class ModuleInstrumentationServer extends Plugin {
   serverTrackingFilter: ServerTrackingFilter = null;
   async addServerTrackingListener() {
     this.app.on('afterStart', async () => {
+      const SignInTracking = await this.app.db.getRepository('serverTrackingConfig').findOne({
+        filter: {
+          title: 'sign-in',
+          resourceName: 'auth',
+          action: 'signIn',
+        },
+      });
+      if (!SignInTracking) {
+        await this.app.db.getRepository('serverTrackingConfig').create({
+          values: {
+            title: 'sign-in',
+            resourceName: 'auth',
+            action: 'signIn',
+            trackingOptions: {
+              meta: ['userId', 'recordId', 'createdAt'],
+              filter: {
+                $and: [
+                  {
+                    payload: {
+                      errors: {
+                        $exists: false,
+                      },
+                    },
+                  },
+                ],
+              },
+              payload: ['errors', 'account'],
+            },
+          },
+        });
+      }
       this.serverTrackingFilter = new ServerTrackingFilter(this.db);
       await this.serverTrackingFilter.load();
     });
     this.app.use(
       async (ctx: Context, next) => {
+        await next();
         const { actionName, resourceName } = ctx.action;
         if (this.serverTrackingFilter?.check(resourceName, actionName)) {
           const whiteList = this.serverTrackingFilter.whiteList;
           return await handleOtherAction(ctx, next, whiteList);
         }
-        await next();
       },
       { tag: 'serverTrackingConfig', before: 'errorHandler' },
     );
@@ -33,6 +64,45 @@ export class ModuleInstrumentationServer extends Plugin {
     if (isMainThread) {
       this.addServerTrackingListener();
     }
+    // this.app.on('afterStart', async () => {
+    //   const SignInTracking = await this.app.db.getRepository('serverTrackingConfig').findOne({
+    //     filter: {
+    //       title: 'sign-in',
+    //       resourceName: 'auth',
+    //       action: 'signIn'
+    //     },
+    //   });
+    //   if (!SignInTracking) {
+    //     await this.app.db.getRepository('serverTrackingConfig').create({
+    //       values: {
+    //         title: 'sign-in',
+    //         resourceName: 'auth',
+    //         action: 'signIn',
+    //         trackingOptions: {
+    //           "meta": [
+    //             "userId",
+    //             "recordId",
+    //             "createdAt"
+    //           ],
+    //           "filter": {
+    //             "$and": [
+    //               {
+    //                 "payload": {
+    //                   "errors": {
+    //                     "$exists": false
+    //                   }
+    //                 }
+    //               }
+    //             ]
+    //           },
+    //           "payload": [
+    //             "errors"
+    //           ]
+    //         }
+    //       },
+    //     });
+    //   }
+    // });
     this.app.acl.allow('instrumentation', 'create', 'public');
     this.app.acl.allow('instrumentation', 'list', 'loggedIn');
     this.app.acl.registerSnippet({
