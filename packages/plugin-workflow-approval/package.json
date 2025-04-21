@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-workflow-approval",
   "displayName": "Approval",
-  "version": "1.0.15",
+  "version": "1.0.18",
   "description": "Approval base in Workflow",
   "keywords": [
     "Approval",
@@ -33,6 +33,7 @@
     "@tachybase/components": "workspace:*",
     "@tachybase/data-source": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/module-ui-schema": "workspace:*",
     "@tachybase/module-workflow": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
