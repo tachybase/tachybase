@@ -2,7 +2,7 @@ import { i18n, tval as nTval } from '@tachybase/client';
 
 import { useTranslation as useT } from 'react-i18next';
 
-export const NAMESPACE = 'block-step-form';
+import { NAMESPACE } from './constants';
 
 export function useTranslation() {
   return useT(NAMESPACE);

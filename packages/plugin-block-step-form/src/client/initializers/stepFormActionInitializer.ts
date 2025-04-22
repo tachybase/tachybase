@@ -2,7 +2,7 @@ import { SchemaInitializer, useCollection } from '@tachybase/client';
 
 import { tval } from '../locale';
 
-export const stepFormActionInitilizers = new SchemaInitializer({
+export const stepFormActionInitializer = new SchemaInitializer({
   name: 'stepsForm:configureActions',
   title: tval('Configure actions', { ns: 'core' }),
   icon: 'SettingOutlined',
@@ -11,8 +11,16 @@ export const stepFormActionInitilizers = new SchemaInitializer({
       type: 'item',
       title: tval('Previous'),
       name: 'previousAction',
+      // TODO:
       Component: 'CreateActionInitializer',
       schema: {
+        type: 'void',
+        title: tval('Previous'),
+        'x-component': 'Action',
+        'x-use-component-props': 'useStepsFormPreviousActionProps',
+        'x-settings': 'actionSettings:stepsFormPrevious',
+        'x-toolbar': 'ActionSchemaToolbar',
+        'x-action': 'stepsform:previous',
         'x-align': 'right',
         'x-decorator': 'ACLActionProvider',
         'x-acl-action-props': {
@@ -30,6 +38,13 @@ export const stepFormActionInitilizers = new SchemaInitializer({
       name: 'nextAction',
       Component: 'CreateActionInitializer',
       schema: {
+        type: 'void',
+        title: tval('Next'),
+        'x-component': 'Action',
+        'x-use-component-props': 'useStepsFormNextActionProps',
+        'x-toolbar': 'ActionSchemaToolbar',
+        'x-settings': 'actionSettings:stepsFormNext',
+        'x-action': 'stepsform:next',
         'x-align': 'right',
         'x-decorator': 'ACLActionProvider',
         'x-acl-action-props': {
