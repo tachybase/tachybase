@@ -5,11 +5,11 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 ENV COREPACK_NPM_REGISTRY=$NPM_REGISTRY
 RUN corepack enable
-ENV COREPACK_DEFAULT_TO_LATEST=0
 
 COPY . /app
 WORKDIR /app
 
+RUN npm install -g corepack@latest
 RUN pnpm config set registry $NPM_REGISTRY
 RUN pnpm install --shamefully-hoist
 RUN pnpm build:p
