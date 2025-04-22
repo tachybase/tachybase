@@ -235,6 +235,7 @@ export async function revision(context: Context, next: Next) {
           allExecuted: origin.allExecuted,
           sync: origin.sync,
           initAt: origin.initAt,
+          ...values,
         }
       : values;
 
