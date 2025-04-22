@@ -1,7 +1,7 @@
 import React from 'react';
-import { useCurrentUserContext } from '@tachybase/client';
 
 import { useApp } from '../../../application';
+import { useCurrentUserContext } from '../../../user';
 
 type TrackedLinkProps = {
   href: string;
@@ -24,7 +24,7 @@ export const TrackingLink: React.FC<TrackedLinkProps> = ({
   const handleClick = () => {
     app.trackingManager.logEvent('click', trackingKey, {
       href,
-      UserId: currentUser.id,
+      UserId: currentUser?.id,
     });
   };
 

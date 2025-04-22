@@ -1,4 +1,5 @@
-import { APIClient, Application } from '@tachybase/client';
+import { Application } from '.';
+import { APIClient } from '../api-client';
 
 export interface TrackingData {
   type: string;
@@ -16,7 +17,7 @@ export class TrackingManager {
       key,
       values,
     };
-    this.app.apiClient.resource('instrumentation').create({
+    this.api.resource('instrumentation').create({
       values: {
         ...data,
       },

@@ -51,7 +51,10 @@ export const TrackingStatisticsPane = () => {
       .encode('y', 'value')
       .encode('color', 'type')
       .style('stroke', '#ffffff')
-      .tooltip('type*value');
+      .tooltip((data) => ({
+        name: data.type,
+        value: data.value,
+      }));
 
     chart
       .text()

@@ -10,8 +10,13 @@ const operators = {
   $null: (a, b) => (b ? a === null : a !== null),
 };
 
-function getValueByPath(obj, path) {
-  return path.split('.').reduce((acc, key) => acc?.[key], obj);
+function getValueByPath(obj: any, path: string): any {
+  if (!obj || !path) return undefined;
+
+  return path.split('.').reduce((acc, key) => {
+    if (acc === undefined || acc === null) return undefined;
+    return acc[key];
+  }, obj);
 }
 
 function matchCondition(value, condition) {

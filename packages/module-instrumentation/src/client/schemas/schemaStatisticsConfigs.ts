@@ -80,7 +80,7 @@ export const schemaStatisticsConfigs: ISchema = {
               },
               properties: {
                 statisticsOptions: {
-                  type: 'string',
+                  type: 'json',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
                 },

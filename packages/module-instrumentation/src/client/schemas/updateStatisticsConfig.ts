@@ -74,7 +74,7 @@ export const updateStatisticsConfig: ISchema = {
                   'x-decorator': 'FormItem',
                 },
                 statisticsOptions: {
-                  type: 'string',
+                  type: 'json',
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                 },

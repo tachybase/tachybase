@@ -82,7 +82,7 @@ export const createStatisticsConfig: ISchema = {
                   'x-decorator': 'FormItem',
                 },
                 statisticsOptions: {
-                  type: 'string',
+                  type: 'json',
                   default: {
                     filterKey: '',
                     filterValues: {},

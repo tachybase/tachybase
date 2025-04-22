@@ -72,7 +72,7 @@ export async function handleOtherAction(ctx: Context, next, whiteList: WhiteList
     };
 
     if (filterMatch(finalValues, configKeys.filter)) {
-      repo.create({
+      await repo.create({
         values: {
           key: configTitle,
           type: `${resourceName}-${actionName}`,

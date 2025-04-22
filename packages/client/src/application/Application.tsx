@@ -9,7 +9,6 @@ import { createRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 import { Link, Navigate, NavLink } from 'react-router-dom';
 
-import { TrackingManager } from '../../../module-instrumentation/src/client/CutomInstrumentation';
 import { APIClient, APIClientProvider } from '../api-client';
 import { CollectionFieldInterfaceComponentOption } from '../data-source';
 import { CollectionField } from '../data-source/collection-field/CollectionField';
@@ -31,6 +30,7 @@ import { SchemaInitializer, SchemaInitializerManager } from './schema-initialize
 import * as schemaInitializerComponents from './schema-initializer/components';
 import { SchemaSettings, SchemaSettingsManager } from './schema-settings';
 import { PluginSettingOptions, SystemSettingsManager } from './SystemSettingsManager';
+import { TrackingManager } from './TrackingManager';
 import { UserSettingOptions, UserSettingsManager } from './UserSettingsManager';
 import { compose, normalizeContainer } from './utils';
 import { defineGlobalDeps } from './utils/globalDeps';

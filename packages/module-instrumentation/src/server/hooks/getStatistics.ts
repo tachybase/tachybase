@@ -151,16 +151,19 @@ export function groupDataByTime(data: any[], config: FilterConfig): Record<strin
 
     if (timeFilter.on) {
       const target = new Date(timeFilter.on);
+      if (isNaN(target.getTime())) return false;
       return isSameDay(time, target);
     }
 
     if (timeFilter.after) {
       const after = new Date(timeFilter.after);
+      if (isNaN(after.getTime())) return false;
       if (time < after) return false;
     }
 
     if (timeFilter.before) {
       const before = new Date(timeFilter.before);
+      if (isNaN(before.getTime())) return false;
       if (time > before) return false;
     }
 

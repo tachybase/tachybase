@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import {
   SchemaComponent,
+  TrackingLink,
   useCollectionRecordData,
   useCurrentUserContext,
   useDataBlockRequest,
@@ -12,7 +13,6 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Card, Divider, notification, Space, Spin } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-import { TrackingLink } from '../../../../client/src/schema-component/antd/tracking-link';
 import { NAMESPACE, NOTIFICATION_CLIENT_KEY, NOTIFY_STATUS_EVENT_KEY } from '../../constants';
 import { usePluginUtils } from '../locale';
 import { schemaAppManager } from './AppManager.schema';
