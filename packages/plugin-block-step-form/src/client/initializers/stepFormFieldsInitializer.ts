@@ -1,5 +1,6 @@
 import { CollectionFieldsToFormInitializerItems, Grid, SchemaInitializer } from '@tachybase/client';
-import { tval } from '@tachybase/utils';
+
+import { tval } from '../locale';
 
 export const stepFormFieldsInitializer = new SchemaInitializer({
   name: 'stepsForm:configureFields',

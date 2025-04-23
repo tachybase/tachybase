@@ -13,7 +13,7 @@ export const stepFormBlockInitializerItem: SchemaInitializerItemType = {
     return {
       title: t('Step form'),
       icon: 'RightSquareOutlined',
-      onCreateBlockSchema: async ({ item }) => {
+      onCreateBlockSchema: ({ item }) => {
         const { dataSource, collectionName, name } = item;
         const remoteSchema = getSchemaStepFormBlockInitializer({
           dataSource,

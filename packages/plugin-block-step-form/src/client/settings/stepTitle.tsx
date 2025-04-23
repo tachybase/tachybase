@@ -4,7 +4,7 @@ import { useFieldSchema } from '@tachybase/schema';
 import { useContextStepsForm } from '../contexts/stepsForm';
 import { useTranslation } from '../locale';
 
-export const stepTitle = new SchemaSettings({
+export const stepTitleSettings = new SchemaSettings({
   name: 'settings:stepsFormStepTitleSettings',
   items: [
     {

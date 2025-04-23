@@ -1,7 +1,7 @@
 import { ISchema } from '@tachybase/schema';
 
 import { stepFormActionInitializer } from '../initializers/stepFormActionInitializer';
-import { stepsFormBlockSettings } from '../settings/stepsForm.block';
+import { stepsFormBlockSettings } from '../settings/stepsForm';
 import { getSchemaStepItem } from './stepItem';
 
 export const getSchemaStepFormBlockInitializer = ({
@@ -11,30 +11,28 @@ export const getSchemaStepFormBlockInitializer = ({
   isCusomeizeCreate = false,
   stepTitle = 'Step 1',
 }) => {
-  const { name: collectionName, title: collectionTitle } = collection;
-
   return {
     type: 'void',
     'x-decorator': 'FormBlockProvider',
     'x-decorator-props': {
-      dataSource: dataSource,
-      collection: collectionName,
+      dataSource,
+      collection,
       isCustomizedCreate: isCusomeizeCreate,
     },
     'x-use-decorator-props': isEdit ? 'useEditFormBlockDecoratorProps' : 'useCreateFormBlockDecoratorProps',
     'x-component': 'CardItem',
     'x-toolbar': 'BlockSchemaToolbar',
     'x-settings': stepsFormBlockSettings.name,
-    'x-acl-action': `${collectionName}:${isEdit ? 'update' : 'create'}`,
+    'x-acl-action': `${collection}:${isEdit ? 'update' : 'create'}`,
     properties: {
       step: {
         type: 'void',
-        title: collectionTitle,
+        title: stepTitle,
         'x-component': 'StepsForm',
         'x-component-props': {
-          collection: collectionName,
-          dataSource: dataSource,
-          isEdit: isEdit,
+          collection,
+          dataSource,
+          isEdit,
         },
         properties: {
           step1: getSchemaStepItem({

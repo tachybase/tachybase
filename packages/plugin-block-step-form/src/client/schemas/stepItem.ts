@@ -1,6 +1,6 @@
 import { uid } from '@tachybase/schema';
 
-export const getSchemaStepItem = ({ title }) => {
+export const getSchemaStepItem = ({ title, ...others }) => {
   const id = uid();
   return {
     type: 'void',
