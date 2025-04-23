@@ -1,4 +1,9 @@
+import React from 'react';
+import { SchemaComponentOptions, useActionContext, useRequest } from '@tachybase/client';
+import { uid } from '@tachybase/utils/client';
+
 import { collectionMultiApp } from '../base/collections/collectionMultiApp';
+import { formSchema } from '../base/schemas/schemaForm';
 
 export const schemaViewMultiAppPane = {
   type: 'void',
