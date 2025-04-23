@@ -41,7 +41,6 @@ export const useStyles = createStyles(({ css, token }) => {
       .media-card:hover {
         background-color: #fafafa;
         transition: background-color 0.3s ease;
-
         .media-actions {
           visibility: visible;
         }
