@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useAPIClient, useBlockRequestContext, useFilterBlock } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
 
@@ -72,28 +72,42 @@ export const InternalGroupBlock = (props) => {
   const params = fieldSchema.parent['x-decorator-props'].params;
   const [result, setResult] = useState({});
   const api = useAPIClient();
-  if (!Object.values(service.params).length || service.params.length) {
-    dataBlocks.forEach((block) => {
-      if (Object.values(block.defaultFilter).length) {
-        if (service.params?.[0]?.filter) {
-          const keys = Object.keys(block.defaultFilter);
-          keys.forEach((key) => {
-            const length = Object.values(service.params[0].filter?.[key] || {})?.length;
-            const filter = {};
-            filter[length] = block.defaultFilter[key];
-            service.params[0].filter[key] = {
-              ...service.params[0].filter?.[key],
-              ...filter,
-            };
-          });
-        } else {
-          service.params = { ...service.params, ...block.defaultFilter };
-        }
+
+  const blockFilter = useMemo(() => {
+    if (!dataBlocks.length) {
+      return null;
+    }
+    const list = [];
+    for (const block of dataBlocks) {
+      if (block.defaultFilter) {
+        list.push(block.defaultFilter);
       }
-    });
-  } else {
-    if (dataBlocks[dataBlocks.length - 1]?.service?.params?.[0]?.filter) {
-      service.params = dataBlocks[dataBlocks.length - 1].service.params[0].filter;
+    }
+    if (!list.length) {
+      return null;
+    }
+    return {
+      $and: list,
+    };
+  }, dataBlocks);
+
+  if (blockFilter) {
+    if (!service.params) {
+      // service.params = {
+      //   filter: {
+      //     $and: [blockFilter]
+      //   },
+      // }
+    } else if (!service.params.filter) {
+      // service.params.filter = {
+      //   $and: [blockFilter]
+      // }
+    } else if (typeof service.params.filter === 'object' && !service.params.filter.$and) {
+      service.params.filter = {
+        $and: [service.params.filter, blockFilter],
+      };
+    } else if (service.params.filter.$and && !service.params.filter.$and.includes(blockFilter)) {
+      service.params.filter.$and.push(blockFilter);
     }
   }
   useAsyncEffect(async () => {
