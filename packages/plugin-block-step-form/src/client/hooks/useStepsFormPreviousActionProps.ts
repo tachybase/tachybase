@@ -2,10 +2,11 @@ import { useContextStepsForm } from '../contexts/stepsForm';
 
 export function useStepsFormPreviousActionProps() {
   const contextStepsForm = useContextStepsForm();
+  const { currentStep, previousStep } = contextStepsForm;
   return {
-    disable: contextStepsForm.currentStep === 0,
+    disable: currentStep === 0,
     onClick: async () => {
-      await contextStepsForm.previousStep();
+      await previousStep();
     },
   };
 }

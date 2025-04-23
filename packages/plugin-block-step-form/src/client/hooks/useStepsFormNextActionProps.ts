@@ -2,11 +2,11 @@ import { useContextStepsForm } from '../contexts/stepsForm';
 
 export function useStepsFormNextActionProps() {
   const contextStepsForm = useContextStepsForm();
+  const { currentStep, stepsCount, nextStep } = contextStepsForm;
   return {
-    disabled: contextStepsForm.currentStep === contextStepsForm.stepsCount - 1,
+    disabled: currentStep === stepsCount - 1,
     onClick: async () => {
-      // TODO: Implement logic to submit form data and move to next step
-      await contextStepsForm.nextStep();
+      await nextStep();
     },
   };
 }

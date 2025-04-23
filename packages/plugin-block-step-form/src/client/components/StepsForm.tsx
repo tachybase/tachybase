@@ -7,38 +7,10 @@ import { App as AntdApp, message } from 'antd';
 import { ProviderContextStepsForm } from '../contexts/stepsForm';
 import { tval, useTranslation } from '../locale';
 import { getSchemaStepItem } from '../schemas/stepItem';
+import { extractCollectionFields } from '../tools/extractCollectionFields';
+import { isValidMove } from '../tools/isValidMove';
 import { AddStepDesignable } from './AddStep.dn';
 import { AntdStepList } from './AntdStepList';
-
-const extractCollectionFields = (schema) => {
-  const collectionFields = [];
-  const traverse = (node) => {
-    if (node['x-component'] === 'CollectionField') {
-      collectionFields.push(node);
-    } else if (node.properties) {
-      Object.keys(node.properties).forEach((key) => traverse(node.properties[key]));
-    }
-  };
-  traverse(schema);
-
-  const pathList = collectionFields.map((field) => {
-    const path = [];
-    let current = field;
-    while (current.parent && current !== schema) {
-      path.unshift(current.name);
-      current = current.parent;
-    }
-    return path.join('.');
-  });
-
-  return pathList;
-};
-
-const isValidMove = (fromIndex, toIndex) => {
-  return (
-    Number.isInteger(fromIndex) && Number.isInteger(toIndex) && fromIndex !== toIndex && fromIndex >= 0 && toIndex >= 0
-  );
-};
 
 export const StepsForm = withDynamicSchemaProps(
   ({ collection, dataSource, isEdit }) => {
