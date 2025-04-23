@@ -42,6 +42,11 @@ class PluginBlockStepFormClient extends Plugin {
       'dataBlocks.stepForm',
       stepFormBlockInitializerItem,
     );
+    this.app.schemaInitializerManager.addItem(
+      'popup:addNew:addBlock',
+      'dataBlocks.stepForm',
+      stepFormBlockInitializerItem,
+    );
   }
 }
 
