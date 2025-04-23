@@ -1137,6 +1137,9 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+      cron-parser:
+        specifier: 4.9.0
+        version: 4.9.0
     devDependencies:
       '@ant-design/icons':
         specifier: ^5.5.2
