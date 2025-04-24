@@ -3,7 +3,6 @@ import { DumpRulesGroupType } from '@tachybase/database';
 import { Application, AppSupervisor } from '@tachybase/server';
 
 import { Dumper } from '../dumper';
-import { Restorer } from '../restorer';
 
 export default function addBackupCommand(app: Application) {
   app
@@ -19,14 +18,7 @@ export default function addBackupCommand(app: Application) {
       [],
     )
     .action(async (options) => {
-      // should confirm data will be overwritten
-      if (!options.force) {
-        app.logger.warn('This action will overwrite your current data, please make sure you have a backup❗️❗️');
-        return;
-      }
-
       let backupApp = app;
-
       if (options.app) {
         if (
           !(await app.db.getCollection('applications').repository.findOne({
@@ -63,7 +55,9 @@ export default function addBackupCommand(app: Application) {
       await dumper.runDumpTask({
         groups,
         appName,
+        fileName: backupFileName,
       });
       await fsPromises.unlink(tmpFile);
+      backupApp.logger.info(`${appName} backup into ${backupFileName}!`);
     });
 }
