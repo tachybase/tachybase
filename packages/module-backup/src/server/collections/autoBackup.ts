@@ -1,9 +1,11 @@
 import { CollectionOptions } from '@tachybase/database';
 
+import { COLLECTION_AUTOBACKUP } from '../../constants';
+
 export default function () {
   return {
     dumpRules: 'required',
-    name: 'autoBackups',
+    name: COLLECTION_AUTOBACKUP,
     shared: true,
     createdAt: true,
     updatedAt: true,

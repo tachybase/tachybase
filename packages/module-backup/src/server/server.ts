@@ -1,9 +1,10 @@
+import { execSync } from 'child_process';
 import { DumpRulesGroupType } from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
 
 import parser from 'cron-parser';
 
-import { COLLECTION_AUTOBACKUP } from './constants';
+import { COLLECTION_AUTOBACKUP } from '../constants';
 import { Dumper } from './dumper';
 import { AutoBackupModel } from './model/AutoBackupModel';
 import backupFilesResourcer from './resourcers/backup-files';
@@ -14,10 +15,15 @@ function parseDateWithoutMs(date: Date) {
 
 const MAX_SAFE_INTERVAL = 2147483647;
 export default class PluginBackupRestoreServer extends Plugin {
+  private static readonly inspectFields = ['repeat', 'enabled'];
   beforeLoad() {
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}`,
+      name: `pm.${this.name}.files`,
       actions: ['backupFiles:*'],
+    });
+    this.app.acl.registerSnippet({
+      name: `pm.${this.name}.auto`,
+      actions: ['autoBackup:*'],
     });
   }
 
@@ -42,7 +48,7 @@ export default class PluginBackupRestoreServer extends Plugin {
       // 仅监听部分字段变化
       let changed = false;
       for (const field of options.fields) {
-        if (StaticScheduleTrigger.inspectFields.includes(field)) {
+        if (PluginBackupRestoreServer.inspectFields.includes(field)) {
           changed = true;
           break;
         }
@@ -57,7 +63,7 @@ export default class PluginBackupRestoreServer extends Plugin {
       // 仅监听部分字段变化
       let changed = false;
       for (const field of options.fields) {
-        if (StaticScheduleTrigger.inspectFields.includes(field)) {
+        if (PluginBackupRestoreServer.inspectFields.includes(field)) {
           changed = true;
           break;
         }
@@ -82,25 +88,25 @@ export default class PluginBackupRestoreServer extends Plugin {
       const nextTime = this.getNextTime(cronJob, now);
       if (nextTime) {
         this.app.logger.info(
-          `cronJobs [${cronJob.id}] caching scheduled workflow [${cronJob.workflowKey}] will run at: ${new Date(nextTime).toISOString()}`,
+          `cronJobs [${cronJob.id}] caching scheduled will run at: ${new Date(nextTime).toISOString()}`,
         );
       } else {
-        this.app.logger.info(`cronJobs [${cronJob.id}] workflow [${cronJob.workflowKey}] will not be scheduled`);
+        this.app.logger.info(`cronJobs [${cronJob.id}] will not be scheduled`);
       }
       this.schedule(cronJob, nextTime, nextTime >= now.getTime());
     });
   }
 
   getNextTime(cronJob: AutoBackupModel, currentDate: Date, nextSecond = false) {
-    if (cronJob.limit && cronJob.limitExecuted >= cronJob.limit) {
-      return null;
-    }
-    if (!cronJob.startsOn) {
-      return null;
-    }
+    // if (cronJob.limit && cronJob.limitExecuted >= cronJob.limit) {
+    //   return null;
+    // }
+    // if (!cronJob.startsOn) {
+    //   return null;
+    // }
     currentDate.setMilliseconds(nextSecond ? 1000 : 0);
     const timestamp = currentDate.getTime();
-    const startTime = parseDateWithoutMs(cronJob.startsOn);
+    const startTime = parseDateWithoutMs(cronJob.startsOn || new Date());
     if (startTime > timestamp) {
       return startTime;
     }
@@ -169,6 +175,41 @@ export default class PluginBackupRestoreServer extends Plugin {
       }
       const eventKey = `${cronJob.id}@${time}`;
       this.timers.delete(eventKey);
+
+      // // 执行备份逻辑
+      // try {
+      //   execSync(
+      //     `pnpm tachybase backup -a ${this.app.name} ${cronJob.dumpRules}`,
+      //     {
+      //       cwd: process.cwd(),
+      //       env: process.env, // TODO: 有待测试
+      //     }
+      //   );
+      // } catch(e) {
+      //   this.app.logger.error(e);
+      // }
+
+      try {
+        const dumper = new Dumper(this.app);
+        const filename = await dumper.getLockFile(this.app.name);
+        this.app.worker
+          .callPluginMethod({
+            plugin: PluginBackupRestoreServer,
+            method: 'workerCreateBackUp',
+            params: {
+              dataTypes: cronJob.dumpRules,
+              appName: this.app.name,
+              filename,
+            },
+            // 目前限制方法并发为1
+            concurrency: 1,
+          })
+          .finally(() => {
+            dumper.cleanLockFile(filename, this.app.name);
+          });
+      } catch (e) {
+        this.app.logger.error(e);
+      }
 
       const nextTime = this.getNextTime(cronJob, new Date(), true);
       if (nextTime) {

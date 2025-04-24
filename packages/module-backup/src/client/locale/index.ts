@@ -1,4 +1,4 @@
-import { i18n } from '@tachybase/client';
+import { i18n, tval as nTval } from '@tachybase/client';
 
 import { useTranslation } from 'react-i18next';
 
@@ -17,3 +17,6 @@ export function useDuplicatorTranslation() {
     nsMode: 'fallback',
   });
 }
+
+export const tval = (key: string) => nTval(key, { ns: NAMESPACE });
+export { useTranslation };
