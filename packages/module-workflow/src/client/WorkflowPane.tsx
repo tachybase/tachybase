@@ -3,8 +3,10 @@ import { ExtendCollectionsProvider, SchemaComponent, SchemaComponentContext, use
 import { onFieldChange, useField, useFormEffects } from '@tachybase/schema';
 
 import WorkflowPlugin, { RadioWithTooltip } from '.';
+import { AddWorkflowCategory, AddWorkflowCategoryAction } from './components/AddWorkflowCategory';
 import { ColumnShowCollection } from './components/ColumnShowCollection';
 import { ColumnShowTitle } from './components/ColumnShowTitle';
+import { EditWorkflowCategory, EditWorkflowCategoryAction } from './components/EditWorkflowCategory';
 import { ExecutionLink } from './components/ExecutionLink';
 import { ExecutionRetryAction } from './components/ExecutionRetryAction';
 import { ExecutionStatusColumn, ExecutionStatusSelect } from './components/ExecutionStatus';
@@ -55,6 +57,10 @@ export function WorkflowPane(props) {
             ExecutionStatusColumn,
             ColumnShowTitle,
             ColumnShowCollection,
+            AddWorkflowCategory,
+            AddWorkflowCategoryAction,
+            EditWorkflowCategory,
+            EditWorkflowCategoryAction,
             ...components,
           }}
           scope={{

@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CardItem,
+  SchemaComponent,
   TableBlockProvider,
   useActionContext,
   useAPIClient,
   useCollectionRecordData,
+  useCompile,
   useDataBlockRequest,
   useDataBlockResource,
   useFilterByTk,
+  useResourceActionContext,
 } from '@tachybase/client';
-import { ISchema, observable, observer, useForm } from '@tachybase/schema';
+import { ISchema, observable, observer, uid, useForm } from '@tachybase/schema';
 
-import { message, Tabs } from 'antd';
+import { MenuOutlined } from '@ant-design/icons';
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  MouseSensor,
+  useDraggable,
+  useDroppable,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import { App, Badge, Dropdown, message, Space, Tabs } from 'antd';
 import { saveAs } from 'file-saver';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { lang, NAMESPACE, tval } from '../locale';
@@ -91,6 +106,32 @@ export const collectionWorkflows = {
       } as ISchema,
     },
     {
+      type: 'belongsToMany',
+      name: 'category',
+      target: 'workflowCategories',
+      sourceKey: 'key',
+      foreignKey: 'workflowKey',
+      otherKey: 'categoryId',
+      targetKey: 'id',
+      sortBy: 'sort',
+      through: 'workflowCategory',
+      collectionName: 'workflows',
+      interface: 'm2m',
+      uiSchema: {
+        title: '{{t("workflow Category=====")}}',
+        type: 'array',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          // multiple: true,
+          fieldNames: {
+            value: 'id',
+            label: 'name',
+          },
+          // ellipsis: true
+        },
+      } as ISchema,
+    },
+    {
       type: 'string',
       name: 'description',
       interface: 'textarea',
@@ -158,12 +199,13 @@ export const collectionWorkflows = {
         title: '{{t("Last updated by")}}',
         'x-component': 'AssociationField',
         'x-component-props': {
+          multiple: true,
           fieldNames: {
             value: 'id',
             label: 'nickname',
           },
         },
-        'x-read-pretty': true,
+        // 'x-read-pretty': true,
       },
     },
   ],
@@ -203,6 +245,14 @@ export const workflowFieldset: Record<string, ISchema> = {
   tags: {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
+  },
+  category: {
+    'x-collection-field': 'workflows.category',
+    'x-component': 'CollectionField',
+    'x-decorator': 'FormItem',
+    'x-component-props': {
+      multiple: true,
+    },
   },
   enabled: {
     'x-component': 'CollectionField',
@@ -306,6 +356,7 @@ export const createWorkflow: ISchema = {
                 },
                 title: workflowFieldset.title,
                 tags: workflowFieldset.tags,
+                category: workflowFieldset.category,
                 type: workflowFieldset.type,
                 sync: workflowFieldset.sync,
                 description: workflowFieldset.description,
@@ -349,6 +400,9 @@ export const updateWorkflow: ISchema = {
           'x-decorator-props': {
             action: 'get',
             dataSource: 'main',
+            params: {
+              appends: ['category'],
+            },
             collection: collectionWorkflows,
           },
           'x-component': 'CardItem',
@@ -387,6 +441,7 @@ export const updateWorkflow: ISchema = {
                 },
                 title: workflowFieldset.title,
                 tags: workflowFieldset.tags,
+                category: workflowFieldset.category,
                 type: workflowFieldset.type,
                 enabled: workflowFieldset.enabled,
                 sync: workflowFieldset.sync,
@@ -526,21 +581,256 @@ const testWorkflow: ISchema = {
   },
 };
 
-const TabCardItem = ({ children }) => {
+function Droppable(props) {
+  const { isOver, setNodeRef } = useDroppable({
+    id: props.id,
+    data: props.data,
+  });
+  const style = isOver
+    ? {
+        color: 'green',
+      }
+    : undefined;
+
   return (
-    <Tabs
-      type="card"
-      onChange={(value) => {
-        tag.value = value;
-      }}
-      items={[{ value: '', label: lang('All') }].concat(dataSource).map(({ label, value }, i) => {
-        return {
-          label: label,
-          key: value,
-          children: <CardItem>{children}</CardItem>,
-        };
-      })}
-    />
+    <div ref={setNodeRef} style={style}>
+      {props.children}
+    </div>
+  );
+}
+
+function Draggable(props) {
+  const { attributes, listeners, setNodeRef } = useDraggable({
+    id: props.id,
+    data: props.data,
+  });
+  return (
+    <div ref={setNodeRef} {...listeners} {...attributes}>
+      <div>{props.children}</div>
+    </div>
+  );
+}
+
+const TabTitle = observer(
+  ({ item }: { item: any }) => {
+    return (
+      <Droppable id={item.id.toString()} data={item}>
+        <div>
+          <Draggable id={item.id.toString()} data={item}>
+            <TabBar item={item} />
+          </Draggable>
+        </div>
+      </Droppable>
+    );
+  },
+  { displayName: 'TabTitle' },
+);
+
+const TabBar = ({ item }) => {
+  const { t } = useTranslation();
+  const compile = useCompile();
+  return (
+    <Space>
+      <Badge color={item.color} />
+      {t(compile(item.name))}
+    </Space>
+  );
+};
+
+const DndProvider = observer(
+  (props) => {
+    const [activeTab, setActiveId] = useState(null);
+    // const { refresh } = useContext(CollectionCategroriesContext);
+    // const { refresh: refreshCM } = useResourceActionContext();
+    const api = useAPIClient();
+    const onDragEnd = async (props: DragEndEvent) => {
+      const { active, over } = props;
+      setTimeout(() => {
+        setActiveId(null);
+      });
+      if (over && over.id !== active.id) {
+        await api.resource('workflowCategories').move({
+          sourceId: active.id,
+          targetId: over.id,
+        });
+        // await refresh();
+        // await refreshCM();
+      }
+    };
+
+    function onDragStart(event) {
+      setActiveId(event.active?.data.current);
+    }
+
+    const mouseSensor = useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 10,
+      },
+    });
+    const sensors = useSensors(mouseSensor);
+    return (
+      <DndContext sensors={sensors} onDragEnd={onDragEnd} onDragStart={onDragStart}>
+        {props.children}
+        <DragOverlay>
+          {activeTab ? <span style={{ whiteSpace: 'nowrap' }}>{<TabBar item={activeTab} />}</span> : null}
+        </DragOverlay>
+      </DndContext>
+    );
+  },
+  { displayName: 'DndProvider' },
+);
+
+const TabCardItem = ({ children }) => {
+  const api = useAPIClient();
+  // const { run, defaultRequest, setState } = useResourceActionContext();
+  const [dataSource, setDataSource] = useState([]);
+  console.log('%c Line:538 🍓 dataSource', 'font-size:18px;color:#ed9ec7;background:#f5ce50', dataSource);
+  const [loading, setLoading] = useState(true);
+  const [activeKey, setActiveKey] = useState({ tab: 'all' });
+  const [key, setKey] = useState(activeKey.tab);
+  const compile = useCompile();
+  const { modal } = App.useApp();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await api.request({
+        url: 'workflowCategories:list',
+        params: {
+          paginate: false,
+          sort: ['sort'],
+        },
+      });
+      setDataSource(data.data); // 更新状态
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  // useEffect(() => {
+  //   if (activeKey.tab !== 'all') {
+  //     onChange(activeKey.tab);
+  //   }
+  // }, []);
+
+  // const onChange = (key: string) => {
+  //   setActiveKey({ tab: key });
+  //   setKey(uid());
+  //   if (key !== 'all') {
+  //     const prevFilter = defaultRequest?.params?.filter;
+  //     const filter = { $and: [prevFilter, { 'category.id': key }] };
+  //     run({ filter });
+  //     setState?.({ category: [+key], params: [{ filter }] });
+  //   } else {
+  //     run();
+  //     setState?.({ category: [], params: [] });
+  //   }
+  // };
+
+  const remove = (key: any) => {
+    modal.confirm({
+      title: compile("{{t('Delete category')}}"),
+      content: compile("{{t('Are you sure you want to delete it?')}}"),
+      onOk: async () => {
+        await api.resource('collectionCategories').destroy({
+          filter: {
+            id: key,
+          },
+        });
+        key === +activeKey.tab && setActiveKey({ tab: 'all' });
+        // await refresh();
+        // await refreshCM();
+      },
+    });
+  };
+
+  const menu = _.memoize((item) => {
+    return {
+      items: [
+        {
+          key: 'edit',
+          label: (
+            <SchemaComponent
+              schema={{
+                type: 'void',
+                properties: {
+                  [uid()]: {
+                    'x-component': 'EditWorkflowCategory',
+                    'x-component-props': {
+                      item: item,
+                    },
+                  },
+                },
+              }}
+            />
+          ),
+        },
+        {
+          key: 'delete',
+          label: compile("{{t('Delete category')}}"),
+          onClick: () => remove(item.id),
+        },
+      ],
+    };
+  });
+
+  return (
+    <DndProvider>
+      <Tabs
+        addIcon={
+          <SchemaComponent
+            schema={{
+              type: 'void',
+              properties: {
+                addCategories: {
+                  type: 'void',
+                  title: '{{ t("Add category") }}',
+                  'x-component': 'AddWorkflowCategory',
+                  'x-component-props': {
+                    type: 'primary',
+                  },
+                },
+              },
+            }}
+          />
+        }
+        type="editable-card"
+        onChange={(value) => {
+          tag.value = value;
+        }}
+        defaultActiveKey={activeKey.tab || 'all'}
+        destroyInactiveTabPane={true}
+        tabBarStyle={{ marginBottom: '0px' }}
+        items={[
+          {
+            id: '',
+            name: lang('All'),
+            closable: false,
+          },
+        ]
+          .concat(dataSource)
+          .filter((item) => item && item.name != null && item.id != null)
+          .map((item) => {
+            return {
+              label:
+                item.id !== '' ? (
+                  <div data-no-dnd="true">
+                    <TabTitle item={item} />
+                  </div>
+                ) : (
+                  compile(item.name)
+                ),
+              key: item.id,
+              closable: item.closable,
+              closeIcon: (
+                <Dropdown menu={menu(item)}>
+                  <MenuOutlined role="button" aria-label={compile(item.name)} style={{ padding: 8, margin: '-8px' }} />
+                </Dropdown>
+              ),
+              children: <CardItem>{children}</CardItem>,
+            };
+          })}
+      />
+    </DndProvider>
   );
 };
 
@@ -754,6 +1044,27 @@ export const workflowSchema: ISchema = {
                   type: 'array',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
+                },
+              },
+            },
+            category: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                sorter: true,
+                width: 20,
+                align: 'center',
+              },
+              properties: {
+                category: {
+                  type: 'array',
+                  'x-collection-field': 'workflows.category',
+                  'x-component': 'CollectionField',
+                  'x-component-props': {
+                    multiple: true,
+                  },
+                  // 'x-read-pretty': true,
                 },
               },
             },
