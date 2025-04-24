@@ -400,10 +400,10 @@ export const updateWorkflow: ISchema = {
           'x-decorator-props': {
             action: 'get',
             dataSource: 'main',
+            collection: collectionWorkflows,
             params: {
               appends: ['category'],
             },
-            collection: collectionWorkflows,
           },
           'x-component': 'CardItem',
           properties: {
