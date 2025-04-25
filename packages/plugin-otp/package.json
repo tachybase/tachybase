@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-otp",
   "displayName": "Verification",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "verification setting.",
   "keywords": [
     "Authentication"
