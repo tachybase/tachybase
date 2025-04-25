@@ -27,7 +27,7 @@ export default function () {
         name: 'repeat',
       },
       {
-        type: 'string',
+        type: 'array',
         name: 'dumpRules',
       },
       {

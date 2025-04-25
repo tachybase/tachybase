@@ -88,11 +88,22 @@ const properties = {
   //   'x-component-props': {},
   // },
   dumpRules: {
-    type: 'number',
-    'x-component': 'CollectionField',
+    title: 'dumpRules',
+    type: 'array',
+    'x-component': 'Checkbox.Group',
     'x-decorator': 'FormItem',
-    'x-collection-field': 'autoBackup.dumpRules',
-    'x-component-props': {},
+    'x-component-props': {
+      style: {
+        display: 'flex',
+        flexDirection: 'column', // 竖向排列
+      },
+      options: '{{ dumpRuleTypes }}',
+    },
+    'x-reactions': (field) => {
+      const value = new Set(field.value || []);
+      value.add('required'); // 👈 始终加入
+      field.value = Array.from(value);
+    },
   },
   maxNumber: {
     type: 'number',

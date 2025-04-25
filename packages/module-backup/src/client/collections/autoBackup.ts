@@ -34,7 +34,7 @@ export default {
       },
     },
     {
-      type: 'string',
+      type: 'array',
       name: 'dumpRules',
       uiSchema: {
         title: '{{ t("dumpRules") }}',

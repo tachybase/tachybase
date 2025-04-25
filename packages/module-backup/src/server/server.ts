@@ -176,19 +176,6 @@ export default class PluginBackupRestoreServer extends Plugin {
       const eventKey = `${cronJob.id}@${time}`;
       this.timers.delete(eventKey);
 
-      // // 执行备份逻辑
-      // try {
-      //   execSync(
-      //     `pnpm tachybase backup -a ${this.app.name} ${cronJob.dumpRules}`,
-      //     {
-      //       cwd: process.cwd(),
-      //       env: process.env, // TODO: 有待测试
-      //     }
-      //   );
-      // } catch(e) {
-      //   this.app.logger.error(e);
-      // }
-
       try {
         const dumper = new Dumper(this.app);
         const filename = await dumper.getLockFile(this.app.name);
