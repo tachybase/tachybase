@@ -99,7 +99,7 @@ export class FormulaFieldInterface extends CollectionFieldInterface {
     },
     'uiSchema.x-component-props.addonAfter': {
       type: 'string',
-      title: '后缀',
+      title: '{{t("Suffix")}}',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
