@@ -1128,6 +1128,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../database
+      '@tachybase/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tachybase/server':
         specifier: workspace:*
         version: link:../server

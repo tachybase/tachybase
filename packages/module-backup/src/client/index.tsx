@@ -15,13 +15,13 @@ export class PluginBackupRestoreClient extends Plugin {
       sort: -50,
     });
     this.app.systemSettingsManager.add('system-services.' + NAMESPACE + '.files', {
-      title: this.t('Files'),
+      title: this.t('Backup file'),
       icon: 'CloudServerOutlined',
       Component: BackupAndRestoreList,
       aclSnippet: 'pm.backup.restore',
     });
     this.app.systemSettingsManager.add('system-services.' + NAMESPACE + '.auto', {
-      title: this.t('Auto'),
+      title: this.t('Auto backup'),
       icon: 'CloudServerOutlined',
       Component: AutoBackupTable,
       aclSnippet: 'pm.backup.auto',

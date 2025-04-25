@@ -8,6 +8,7 @@ import { COLLECTION_AUTOBACKUP } from '../constants';
 import { Dumper } from './dumper';
 import { AutoBackupModel } from './model/AutoBackupModel';
 import backupFilesResourcer from './resourcers/backup-files';
+import { cleanOldFiles } from './utils/files';
 
 function parseDateWithoutMs(date: Date) {
   return Math.floor(date.getTime() / 1000) * 1000;
@@ -98,12 +99,6 @@ export default class PluginBackupRestoreServer extends Plugin {
   }
 
   getNextTime(cronJob: AutoBackupModel, currentDate: Date, nextSecond = false) {
-    // if (cronJob.limit && cronJob.limitExecuted >= cronJob.limit) {
-    //   return null;
-    // }
-    // if (!cronJob.startsOn) {
-    //   return null;
-    // }
     currentDate.setMilliseconds(nextSecond ? 1000 : 0);
     const timestamp = currentDate.getTime();
     const startTime = parseDateWithoutMs(cronJob.startsOn || new Date());
@@ -193,6 +188,15 @@ export default class PluginBackupRestoreServer extends Plugin {
           })
           .finally(() => {
             dumper.cleanLockFile(filename, this.app.name);
+            const dirPath = dumper.backUpStorageDir(this.app.name);
+            // 删除最旧的备份文件
+            cleanOldFiles(dumper.backUpStorageDir(this.app.name), cronJob.maxNumber)
+              .then(() => {
+                this.app.looger.info(`clean backup ${dirPath} to count: {cronJob.maxNumber}`);
+              })
+              .catch((err) => {
+                this.app.logger.error('clean backup error', err);
+              });
           });
       } catch (e) {
         this.app.logger.error(e);

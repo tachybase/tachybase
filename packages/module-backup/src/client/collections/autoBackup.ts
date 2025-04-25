@@ -37,7 +37,7 @@ export default {
       type: 'array',
       name: 'dumpRules',
       uiSchema: {
-        title: '{{ t("dumpRules") }}',
+        title: '{{ t("Dump rules") }}',
         type: 'string',
         'x-component': 'Input',
         required: true,
@@ -57,7 +57,7 @@ export default {
       type: 'integer',
       name: 'maxNumber',
       uiSchema: {
-        title: '{{ t("maxNumber") }}',
+        title: '{{ t("Max number") }}',
         type: 'integer',
         'x-component': 'Input',
         required: true,

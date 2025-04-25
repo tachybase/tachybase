@@ -1,4 +1,5 @@
 {
+  "Auto backup": "自动备份",
   "Backed up successfully": "备份成功",
   "Backing up": "备份中",
   "Backup": "备份",
@@ -14,8 +15,10 @@
   "Deleted successfully": "删除成功",
   "Done": "完成",
   "Download": "下载",
+  "Dump rules": "备份规则",
   "File size": "文件大小",
   "Learn more": "了解更多",
+  "Max number": "最大数量",
   "New backup": "新建备份",
   "Optional Data": "可选数据",
   "Origin": "来源",

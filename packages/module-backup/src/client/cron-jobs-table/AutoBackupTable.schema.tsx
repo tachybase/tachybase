@@ -1,10 +1,7 @@
-import React from 'react';
-import { useCollectionRecordData, useDataBlockRequest, useDataBlockResource, useRecord } from '@tachybase/client';
+import { useDataBlockRequest, useDataBlockResource, useRecord } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
-import { Button, Space } from 'antd';
-
-import { lang, tval } from '../locale';
+import { tval } from '../locale';
 
 const properties = {
   name: {
