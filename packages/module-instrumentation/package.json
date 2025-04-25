@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-instrumentation",
   "displayName": "Custom instrumentation",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "A module for tracking and instrumentation in Tachybase.",
   "main": "dist/server/index.js",
   "devDependencies": {
