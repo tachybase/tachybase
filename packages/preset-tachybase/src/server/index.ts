@@ -49,6 +49,7 @@ export class PresetTachyBase extends Plugin {
     ['field-encryption', '0.23.8', true],
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
+    ['instrumentation', '1.0.18', true],
     ['full-text-search', '0.23.24', true],
     ['password-policy', '0.23.65', true],
     ['auth-pages', '0.23.65', true],

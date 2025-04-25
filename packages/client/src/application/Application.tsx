@@ -30,6 +30,7 @@ import { SchemaInitializer, SchemaInitializerManager } from './schema-initialize
 import * as schemaInitializerComponents from './schema-initializer/components';
 import { SchemaSettings, SchemaSettingsManager } from './schema-settings';
 import { PluginSettingOptions, SystemSettingsManager } from './SystemSettingsManager';
+import { TrackingManager } from './TrackingManager';
 import { UserSettingOptions, UserSettingsManager } from './UserSettingsManager';
 import { compose, normalizeContainer } from './utils';
 import { defineGlobalDeps } from './utils/globalDeps';
@@ -92,6 +93,7 @@ export class Application {
   public schemaSettingsManager: SchemaSettingsManager;
   public dataSourceManager: DataSourceManager;
   public noticeManager: NoticeManager;
+  public trackingManager: TrackingManager;
   public pluginContextMenu: PluginContextMenu;
   public AttachmentPreviewManager: AttachmentPreviewManager;
   public name: string;
@@ -133,6 +135,7 @@ export class Application {
     this.schemaInitializerManager = new SchemaInitializerManager(options.schemaInitializers, this);
     this.dataSourceManager = new DataSourceManager(options.dataSourceManager, this);
     this.noticeManager = new NoticeManager(this);
+    this.trackingManager = new TrackingManager(this);
     this.addDefaultProviders();
     this.addReactRouterComponents();
     this.addProviders(options.providers || []);
