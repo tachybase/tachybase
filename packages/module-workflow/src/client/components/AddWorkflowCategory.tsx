@@ -15,6 +15,7 @@ import { Tag } from 'antd';
 import { cloneDeep } from 'lodash';
 
 import { useTranslation } from '../locale';
+import { useWorkflowCategory } from '../WorkflowCategoriesProvider';
 
 const CollectionCategory = observer(
   (props: any) => {
@@ -35,10 +36,10 @@ const CollectionCategory = observer(
   { displayName: 'WorkflowCategory' },
 );
 
-const useCreateCategry = () => {
+const useCreateworkflowCategry = () => {
   const form = useForm();
   const ctx = useActionContext();
-  const { refresh } = useDataBlockRequest();
+  const refreshCategories = useWorkflowCategory();
   const api = useAPIClient();
   return {
     async run() {
@@ -51,7 +52,7 @@ const useCreateCategry = () => {
       });
       ctx.setVisible(false);
       await form.reset();
-      await refresh();
+      refreshCategories();
     },
   };
 };
@@ -79,7 +80,7 @@ export const AddWorkflowCategoryAction = (props) => {
           getContainer,
           useCancelAction,
           createOnly: true,
-          useCreateCategry,
+          useCreateworkflowCategry,
           ...scope,
         }}
       />
@@ -131,7 +132,7 @@ const workflowCategorySchema: ISchema = {
               'x-component': 'Action',
               'x-component-props': {
                 type: 'primary',
-                useAction: '{{ useCreateCategry }}',
+                useAction: '{{ useCreateworkflowCategry }}',
                 style: {
                   marginLeft: '8px',
                 },

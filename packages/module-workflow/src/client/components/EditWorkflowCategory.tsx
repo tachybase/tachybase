@@ -14,11 +14,12 @@ import { ISchema, useForm } from '@tachybase/schema';
 
 import { cloneDeep } from 'lodash';
 
+import { useWorkflowCategory } from '../WorkflowCategoriesProvider';
+
 const useEditCategry = () => {
   const form = useForm();
   const ctx = useActionContext();
-  // const { refresh } = useContext(CollectionCategroriesContext);
-  // const { refresh: refreshCM } = useResourceActionContext();
+  const refreshCategories = useWorkflowCategory();
   const api = useAPIClient();
   const { id } = useRecord();
   return {
@@ -33,8 +34,7 @@ const useEditCategry = () => {
       });
       ctx.setVisible(false);
       await form.reset();
-      // await refresh();
-      // await refreshCM();
+      refreshCategories();
     },
   };
 };

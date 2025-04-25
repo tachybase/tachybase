@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   CardItem,
   SchemaComponent,
+  SchemaComponentContext,
   TableBlockProvider,
   useActionContext,
   useAPIClient,
+  useCollectionManager_deprecated,
   useCollectionRecordData,
   useCompile,
   useDataBlockRequest,
@@ -31,36 +33,10 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { lang, NAMESPACE, tval } from '../locale';
+import { WorkflowCategoryContext } from '../WorkflowCategoriesProvider';
 import { executionSchema } from './executions';
 
 const tag = observable({ value: '' });
-
-const dataSource = [
-  {
-    value: '0',
-    label: '分类一',
-  },
-  {
-    value: '1',
-    label: '分类二',
-  },
-  {
-    value: '2',
-    label: '分类三',
-  },
-  {
-    value: '3',
-    label: '分类四',
-  },
-  {
-    value: '4',
-    label: '分类五',
-  },
-  {
-    value: '5',
-    label: '分类六',
-  },
-];
 
 export const collectionWorkflows = {
   name: 'workflows',
@@ -92,20 +68,6 @@ export const collectionWorkflows = {
       } as ISchema,
     },
     {
-      type: 'array',
-      name: 'tags',
-      interface: 'multipleSelect',
-      uiSchema: {
-        title: '{{t("Tags")}}',
-        type: 'array',
-        enum: dataSource,
-        'x-component': 'Select',
-        'x-component-props': {
-          mode: 'multiple',
-        },
-      } as ISchema,
-    },
-    {
       type: 'belongsToMany',
       name: 'category',
       target: 'workflowCategories',
@@ -118,16 +80,14 @@ export const collectionWorkflows = {
       collectionName: 'workflows',
       interface: 'm2m',
       uiSchema: {
-        title: '{{t("workflow Category=====")}}',
+        title: '{{t("workflow Category")}}',
         type: 'array',
         'x-component': 'AssociationField',
         'x-component-props': {
-          // multiple: true,
           fieldNames: {
             value: 'id',
             label: 'name',
           },
-          // ellipsis: true
         },
       } as ISchema,
     },
@@ -211,6 +171,22 @@ export const collectionWorkflows = {
   ],
 };
 
+export const collectionWorkflowCategories = {
+  name: 'workflowCategories',
+  fields: [
+    {
+      type: 'string',
+      name: 'name',
+      interface: 'input',
+      uiSchema: {
+        title: '{{t("Name")}}',
+        type: 'string',
+        'x-component': 'Input',
+      } as ISchema,
+    },
+  ],
+};
+
 export const workflowFieldset: Record<string, ISchema> = {
   title: {
     'x-component': 'CollectionField',
@@ -241,10 +217,6 @@ export const workflowFieldset: Record<string, ISchema> = {
         },
       ],
     },
-  },
-  tags: {
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
   },
   category: {
     'x-collection-field': 'workflows.category',
@@ -355,7 +327,6 @@ export const createWorkflow: ISchema = {
                   },
                 },
                 title: workflowFieldset.title,
-                tags: workflowFieldset.tags,
                 category: workflowFieldset.category,
                 type: workflowFieldset.type,
                 sync: workflowFieldset.sync,
@@ -440,7 +411,6 @@ export const updateWorkflow: ISchema = {
                   },
                 },
                 title: workflowFieldset.title,
-                tags: workflowFieldset.tags,
                 category: workflowFieldset.category,
                 type: workflowFieldset.type,
                 enabled: workflowFieldset.enabled,
@@ -680,65 +650,44 @@ const DndProvider = observer(
   { displayName: 'DndProvider' },
 );
 
-const TabCardItem = ({ children }) => {
+const WorkflowTabCardItem = ({ children }) => {
   const api = useAPIClient();
-  // const { run, defaultRequest, setState } = useResourceActionContext();
   const [dataSource, setDataSource] = useState([]);
-  console.log('%c Line:538 🍓 dataSource', 'font-size:18px;color:#ed9ec7;background:#f5ce50', dataSource);
   const [loading, setLoading] = useState(true);
   const [activeKey, setActiveKey] = useState({ tab: 'all' });
   const [key, setKey] = useState(activeKey.tab);
   const compile = useCompile();
   const { modal } = App.useApp();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await api.request({
-        url: 'workflowCategories:list',
-        params: {
-          paginate: false,
-          sort: ['sort'],
-        },
-      });
-      setDataSource(data.data); // 更新状态
-      setLoading(false);
-    };
-    fetchData();
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    const { data } = await api.request({
+      url: 'workflowCategories:list',
+      params: {
+        paginate: false,
+        sort: ['sort'],
+      },
+    });
+    setDataSource(data.data);
+    setLoading(false);
   }, []);
 
-  // useEffect(() => {
-  //   if (activeKey.tab !== 'all') {
-  //     onChange(activeKey.tab);
-  //   }
-  // }, []);
-
-  // const onChange = (key: string) => {
-  //   setActiveKey({ tab: key });
-  //   setKey(uid());
-  //   if (key !== 'all') {
-  //     const prevFilter = defaultRequest?.params?.filter;
-  //     const filter = { $and: [prevFilter, { 'category.id': key }] };
-  //     run({ filter });
-  //     setState?.({ category: [+key], params: [{ filter }] });
-  //   } else {
-  //     run();
-  //     setState?.({ category: [], params: [] });
-  //   }
-  // };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const remove = (key: any) => {
     modal.confirm({
       title: compile("{{t('Delete category')}}"),
       content: compile("{{t('Are you sure you want to delete it?')}}"),
       onOk: async () => {
-        await api.resource('collectionCategories').destroy({
+        await api.resource('workflowCategories').destroy({
           filter: {
             id: key,
           },
         });
         key === +activeKey.tab && setActiveKey({ tab: 'all' });
-        // await refresh();
-        // await refreshCM();
+        fetchData();
       },
     });
   };
@@ -774,63 +723,69 @@ const TabCardItem = ({ children }) => {
   });
 
   return (
-    <DndProvider>
-      <Tabs
-        addIcon={
-          <SchemaComponent
-            schema={{
-              type: 'void',
-              properties: {
-                addCategories: {
-                  type: 'void',
-                  title: '{{ t("Add category") }}',
-                  'x-component': 'AddWorkflowCategory',
-                  'x-component-props': {
-                    type: 'primary',
+    <WorkflowCategoryContext.Provider value={fetchData}>
+      <DndProvider>
+        <Tabs
+          addIcon={
+            <SchemaComponent
+              schema={{
+                type: 'void',
+                properties: {
+                  addCategories: {
+                    type: 'void',
+                    title: '{{ t("Add category") }}',
+                    'x-component': 'AddWorkflowCategory',
+                    'x-component-props': {
+                      type: 'primary',
+                    },
                   },
                 },
-              },
-            }}
-          />
-        }
-        type="editable-card"
-        onChange={(value) => {
-          tag.value = value;
-        }}
-        defaultActiveKey={activeKey.tab || 'all'}
-        destroyInactiveTabPane={true}
-        tabBarStyle={{ marginBottom: '0px' }}
-        items={[
-          {
-            id: '',
-            name: lang('All'),
-            closable: false,
-          },
-        ]
-          .concat(dataSource)
-          .filter((item) => item && item.name != null && item.id != null)
-          .map((item) => {
-            return {
-              label:
-                item.id !== '' ? (
-                  <div data-no-dnd="true">
-                    <TabTitle item={item} />
-                  </div>
-                ) : (
-                  compile(item.name)
+              }}
+            />
+          }
+          type="editable-card"
+          onChange={(value) => {
+            tag.value = value;
+          }}
+          defaultActiveKey={activeKey.tab || 'all'}
+          destroyInactiveTabPane={true}
+          tabBarStyle={{ marginBottom: '0px' }}
+          items={[
+            {
+              id: '',
+              name: lang('All'),
+              closable: false,
+            },
+          ]
+            .concat(dataSource)
+            .filter((item) => item && item.name != null && item.id != null)
+            .map((item) => {
+              return {
+                label:
+                  item.id !== '' ? (
+                    <div data-no-dnd="true">
+                      <TabTitle item={item} />
+                    </div>
+                  ) : (
+                    compile(item.name)
+                  ),
+                key: item.id,
+                closable: item.closable,
+                closeIcon: (
+                  <Dropdown menu={menu(item)}>
+                    <MenuOutlined
+                      role="button"
+                      aria-label={compile(item.name)}
+                      style={{ padding: 8, margin: '-8px' }}
+                    />
+                  </Dropdown>
                 ),
-              key: item.id,
-              closable: item.closable,
-              closeIcon: (
-                <Dropdown menu={menu(item)}>
-                  <MenuOutlined role="button" aria-label={compile(item.name)} style={{ padding: 8, margin: '-8px' }} />
-                </Dropdown>
-              ),
-              children: <CardItem>{children}</CardItem>,
-            };
-          })}
-      />
-    </DndProvider>
+                children: <CardItem>{children}</CardItem>,
+              };
+            })}
+        />
+      </DndProvider>
+    </WorkflowCategoryContext.Provider>
   );
 };
 
@@ -852,10 +807,7 @@ const TabTableBlockProvider = observer((props) => {
   };
 
   if (tag.value) {
-    // @ts-expect-error
-    requestProps.params.filter.tags = {
-      $anyOf: [tag.value],
-    };
+    requestProps.params.filter['category.id'] = [tag.value];
   }
 
   return <TableBlockProvider {...props} {...requestProps} />;
@@ -867,7 +819,7 @@ export const workflowSchema: ISchema = {
     provider: {
       type: 'void',
       'x-decorator': TabTableBlockProvider,
-      'x-component': TabCardItem,
+      'x-component': WorkflowTabCardItem,
       properties: {
         actions: {
           type: 'void',
@@ -1029,24 +981,6 @@ export const workflowSchema: ISchema = {
                 },
               },
             },
-            tags: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              'x-component-props': {
-                sorter: true,
-                width: 20,
-                align: 'center',
-              },
-              title: '{{t("Tags")}}',
-              properties: {
-                tags: {
-                  type: 'array',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
             category: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
@@ -1063,8 +997,9 @@ export const workflowSchema: ISchema = {
                   'x-component': 'CollectionField',
                   'x-component-props': {
                     multiple: true,
+                    mode: 'Tag',
                   },
-                  // 'x-read-pretty': true,
+                  'x-read-pretty': true,
                 },
               },
             },
