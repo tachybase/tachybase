@@ -33,7 +33,7 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { lang, NAMESPACE, tval } from '../locale';
-import { WorkflowCategoryContext } from '../WorkflowCategoriesProvider';
+import { useWorkflowCategory, WorkflowCategoryContext } from '../WorkflowCategoriesProvider';
 import { executionSchema } from './executions';
 
 const tag = observable({ value: '' });
@@ -80,7 +80,7 @@ export const collectionWorkflows = {
       collectionName: 'workflows',
       interface: 'm2m',
       uiSchema: {
-        title: '{{t("workflow Category")}}',
+        title: `{{t("workflow Category", { ns: "${NAMESPACE}" })}}`,
         type: 'array',
         'x-component': 'AssociationField',
         'x-component-props': {
@@ -610,8 +610,7 @@ const TabBar = ({ item }) => {
 const DndProvider = observer(
   (props) => {
     const [activeTab, setActiveId] = useState(null);
-    // const { refresh } = useContext(CollectionCategroriesContext);
-    // const { refresh: refreshCM } = useResourceActionContext();
+    const refreshCategories = useWorkflowCategory();
     const api = useAPIClient();
     const onDragEnd = async (props: DragEndEvent) => {
       const { active, over } = props;
@@ -623,8 +622,7 @@ const DndProvider = observer(
           sourceId: active.id,
           targetId: over.id,
         });
-        // await refresh();
-        // await refreshCM();
+        refreshCategories();
       }
     };
 
