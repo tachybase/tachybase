@@ -51,41 +51,9 @@ const properties = {
     'x-decorator': 'FormItem',
     'x-collection-field': 'autoBackup.repeat',
     'x-component-props': {},
-    // 'x-reactions': [
-    //   {
-    //     target: 'endsOn',
-    //     fulfill: {
-    //       state: {
-    //         visible: '{{!!$self.value}}',
-    //       },
-    //     },
-    //   },
-    //   {
-    //     target: 'limit',
-    //     fulfill: {
-    //       state: {
-    //         visible: '{{!!$self.value}}',
-    //       },
-    //     },
-    //   },
-    // ],
   },
-  // endsOn: {
-  //   type: 'DateTime',
-  //   'x-component': 'EndsByField',
-  //   'x-decorator': 'FormItem',
-  //   'x-collection-field': 'autoBackup.endsOn',
-  //   'x-component-props': {},
-  // },
-  // limit: {
-  //   type: 'number',
-  //   'x-component': 'CollectionField',
-  //   'x-decorator': 'FormItem',
-  //   'x-collection-field': 'autoBackup.limit',
-  //   'x-component-props': {},
-  // },
   dumpRules: {
-    title: 'dumpRules',
+    title: '{{ t("Dump rules") }}',
     type: 'array',
     'x-component': 'Checkbox.Group',
     'x-decorator': 'FormItem',
@@ -103,6 +71,8 @@ const properties = {
     },
   },
   maxNumber: {
+    title: '{{ t("Max number") }}',
+    description: '{{ t("Keep only the maximum number and delete the oldest versions with redundant time.") }}',
     type: 'number',
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
@@ -479,21 +449,5 @@ export const schema = {
   type: 'void',
   properties: {
     autoBackupTable: table,
-    // test: {
-    //   "type": "object",
-    //   "properties": {
-    //     "description": {
-    //       "type": "void",
-    //       "x-component": "Text",
-    //       "x-component-props": {
-    //         "content": "这是一个说明文本，无需用户输入。",
-    //         "style": {
-    //           "color": "#888",
-    //           "fontSize": "14px"
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   },
 };

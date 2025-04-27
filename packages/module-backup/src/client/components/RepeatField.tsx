@@ -4,13 +4,12 @@ import { css } from '@tachybase/client';
 import { InputNumber, Select } from 'antd';
 import { Cron } from 'react-js-cron';
 
-import { useTranslation } from '../locale';
+import { useDuplicatorTranslation } from '../locale';
+import CronZhCN from './locale/Cron.zh-CN';
 
-// import CronZhCN from './locale/Cron.zh-CN';/
-
-// const languages = {
-//   'zh-CN': CronZhCN,
-// };
+const languages = {
+  'zh-CN': CronZhCN,
+};
 
 const RepeatOptions = [
   { value: 'none', text: 'No repeat' },
@@ -41,7 +40,7 @@ function getRepeatTypeValue(v) {
 }
 
 function CommonRepeatField({ value, onChange }) {
-  const { t } = useTranslation();
+  const { t } = useDuplicatorTranslation();
   const option = getNumberOption(value);
 
   return (
@@ -57,7 +56,7 @@ function CommonRepeatField({ value, onChange }) {
 }
 
 export function RepeatField({ value = null, onChange }) {
-  const { t } = useTranslation();
+  const { t } = useDuplicatorTranslation();
   const typeValue = getRepeatTypeValue(value);
   const onTypeChange = useCallback(
     (v) => {
@@ -74,7 +73,7 @@ export function RepeatField({ value = null, onChange }) {
     [onChange],
   );
 
-  // const locale = langu/ages[localStorage.getItem('TACHYBASE_LOCALE') || 'en-US'];
+  const locale = languages[localStorage.getItem('TACHYBASE_LOCALE') || 'en-US'];
 
   return (
     <fieldset
@@ -126,7 +125,7 @@ export function RepeatField({ value = null, onChange }) {
           value={value.trim().split(/\s+/).slice(1).join(' ')}
           setValue={(v) => onChange(`0 ${v}`)}
           clearButton={false}
-          // locale={locale}
+          locale={locale}
         />
       ) : null}
     </fieldset>

@@ -13,7 +13,7 @@ export function generateNTemplate(key: string) {
 }
 
 export function useDuplicatorTranslation() {
-  return useTranslation(NAMESPACE, {
+  return useTranslation([NAMESPACE, 'core'], {
     nsMode: 'fallback',
   });
 }

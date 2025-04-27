@@ -1,39 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import {
-  ExtendCollectionsProvider,
-  SchemaComponent,
-  TableBlockProvider,
-  useCollectionRecordData,
-  useRequest,
-} from '@tachybase/client';
-
-// import {
-//   ExecutionLink,
-//   ExecutionRetryAction,
-//   ExecutionStatusColumn,
-//   OpenDrawer,
-// } from '@tachybase/module-workflow/client';
+import { ExtendCollectionsProvider, SchemaComponent, useRequest } from '@tachybase/client';
 
 import collection from '../collections/autoBackup';
 import { RepeatField } from '../components/RepeatField';
 import { tval, useDuplicatorTranslation } from '../locale';
 import { schema } from './AutoBackupTable.schema';
-
-// export const ExecutionResourceProvider = ({ params, filter = {}, ...others }) => {
-//   const record = useCollectionRecordData();
-//   const props = {
-//     ...others,
-//     params: {
-//       ...params,
-//       filter: {
-//         ...params?.filter,
-//         key: record.workflowKey,
-//       },
-//     },
-//   };
-
-//   return <TableBlockProvider {...props} />;
-// };
 
 export const AutoBackupTable = () => {
   const { t } = useDuplicatorTranslation();
@@ -58,6 +29,7 @@ export const AutoBackupTable = () => {
           RepeatField,
         }}
         scope={{
+          t,
           dumpRuleTypes,
         }}
       />
