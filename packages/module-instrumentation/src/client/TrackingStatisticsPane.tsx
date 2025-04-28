@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { ExtendCollectionsProvider, SchemaComponent, useAPIClient, useRequest } from '@tachybase/client';
 
+import { ReloadOutlined } from '@ant-design/icons';
 import { Chart } from '@antv/g2';
-import { Card } from 'antd';
+import { Button, Card } from 'antd';
 import { chunk } from 'lodash';
 
+import { statisticsConfigCollection } from './collections/statisticsConfig.collection';
+import { tval, useTranslation } from './locale';
 import { schemaStatisticsConfigs } from './schemas/schemaStatisticsConfigs';
 
 type StatisticsData = {
@@ -14,8 +17,9 @@ type StatisticsData = {
 };
 
 export const TrackingStatisticsPane = () => {
+  const { t } = useTranslation();
   const api = useAPIClient();
-  const { data } = useRequest<StatisticsData>(() =>
+  const { data, refresh } = useRequest<StatisticsData>(() =>
     api
       .resource('instrumentation')
       .list()
@@ -181,6 +185,13 @@ export const TrackingStatisticsPane = () => {
       chartDiv.style.marginBottom = '24px';
       container.appendChild(chartDiv);
 
+      const paddedGroup = [...group];
+      if (index === chunks.length - 1 && paddedGroup.length < 5) {
+        while (paddedGroup.length < 5) {
+          paddedGroup.push({ title: '', count: 0 });
+        }
+      }
+
       const chart = new Chart({
         container: chartId,
         autoFit: true,
@@ -188,7 +199,7 @@ export const TrackingStatisticsPane = () => {
 
       chart
         .interval()
-        .data(group)
+        .data(paddedGroup)
         .encode('x', 'title')
         .encode('y', 'count')
         .label({
@@ -207,11 +218,27 @@ export const TrackingStatisticsPane = () => {
     };
   }, [customDataArray]);
 
+  const handleRefresh = () => {
+    // 点击按钮后手动刷新数据
+    refresh();
+  };
+
   return (
     <div>
       <div>
         <Card bordered={false}>
-          <div style={{ display: 'flex', gap: 24 }}>
+          <div style={{ marginTop: 20, textAlign: 'right' }}>
+            <Button onClick={handleRefresh} icon={<ReloadOutlined />}>
+              {t('Refresh')}
+            </Button>
+          </div>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: 24,
+            }}
+          >
             <div id="user-pie-chart" style={{ flex: 1, width: '100%', height: 300 }} />
             <div id="users-dailyActive" style={{ flex: 1, width: '100%', height: 300 }} />
           </div>
@@ -221,7 +248,7 @@ export const TrackingStatisticsPane = () => {
       </div>
       <div style={{ marginTop: 24 }}>
         <Card bordered={false}>
-          <ExtendCollectionsProvider collections={[]}>
+          <ExtendCollectionsProvider collections={[statisticsConfigCollection]}>
             <SchemaComponent schema={schemaStatisticsConfigs} scope={{}} />
           </ExtendCollectionsProvider>
         </Card>

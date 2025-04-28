@@ -27,7 +27,7 @@ export class ModuleInstrumentationServer extends Plugin {
             resourceName: 'auth',
             action: 'signIn',
             trackingOptions: {
-              meta: ['userId', 'recordId', 'createdAt'],
+              meta: ['userId', 'recordId', 'createdAt', 'user-agent'],
               filter: {
                 $and: [
                   {
@@ -39,7 +39,7 @@ export class ModuleInstrumentationServer extends Plugin {
                   },
                 ],
               },
-              payload: ['errors', 'account'],
+              payload: ['errors', 'account', 'phone'],
             },
           },
         });

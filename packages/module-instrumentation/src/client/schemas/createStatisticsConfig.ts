@@ -85,7 +85,11 @@ export const createStatisticsConfig: ISchema = {
                   type: 'json',
                   default: {
                     filterKey: '',
-                    filterValues: {},
+                    filterValues: {
+                      $and: [{ meta: { userId: { $gt: 1 } } }],
+                    },
+                    collection: '',
+                    collectionfilter: {},
                     dedupBy: '',
                     minCount: 1,
                     timeGroup: '',

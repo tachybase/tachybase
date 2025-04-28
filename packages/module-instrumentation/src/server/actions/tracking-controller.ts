@@ -42,12 +42,38 @@ export class TrackingController {
     let customData = {};
     let customDataByTime = {};
     for (const config of configs) {
-      if (config.statisticsOptions?.timeGroup) {
-        const grouped = groupDataByTime(allData, config.statisticsOptions);
-        customDataByTime[config.title] = grouped;
+      if (config.statisticsOptions?.collection) {
+        try {
+          const collectionName = config.statisticsOptions.collection.trim();
+          if (!collectionName) {
+            throw new Error('Collection name is empty or invalid.');
+          }
+
+          const collectionFilter = config.statisticsOptions.collectionFilter;
+          if (collectionFilter && typeof collectionFilter !== 'object') {
+            throw new Error('Collection filter is invalid. It must be an object.');
+          }
+
+          const count = await ctx.db.getRepository(collectionName).count({
+            filter: collectionFilter || {},
+          });
+
+          customData[config.title] = count;
+        } catch (error) {
+          console.error(
+            `Error fetching count for collection "${config.statisticsOptions?.collection}":`,
+            error.message,
+          );
+          customData[config.title] = 0;
+        }
       } else {
-        const count = countDataByEventFrequency(allData, config.statisticsOptions);
-        customData[config.title] = count;
+        if (config.statisticsOptions?.timeGroup) {
+          const grouped = groupDataByTime(allData, config.statisticsOptions);
+          customDataByTime[config.title] = grouped;
+        } else {
+          const count = countDataByEventFrequency(allData, config.statisticsOptions);
+          customData[config.title] = count;
+        }
       }
     }
 
