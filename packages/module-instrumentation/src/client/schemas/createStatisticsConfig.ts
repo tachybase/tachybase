@@ -89,7 +89,7 @@ export const createStatisticsConfig: ISchema = {
                       $and: [{ meta: { userId: { $gt: 1 } } }],
                     },
                     collection: '',
-                    collectionfilter: {},
+                    collectionFilter: {},
                     dedupBy: '',
                     minCount: 1,
                     timeGroup: '',
