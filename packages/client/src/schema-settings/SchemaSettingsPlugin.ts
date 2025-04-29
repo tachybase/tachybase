@@ -56,6 +56,7 @@ import { recordPickerComponentFieldSettings } from '../modules/fields/component/
 import { subformPopoverComponentFieldSettings } from '../modules/fields/component/PopoverNester/subformPopoverComponentFieldSettings';
 import { radioComponentFieldSettings } from '../modules/fields/component/Radio/radioComponentFieldSettings';
 import { selectComponentFieldSettings } from '../modules/fields/component/Select/selectComponentFieldSettings';
+import { sliderComponentFieldSettings } from '../modules/fields/component/Slider/SliderComponentFieldSettings';
 import { subTablePopoverComponentFieldSettings } from '../modules/fields/component/SubTable/subTablePopoverComponentFieldSettings';
 import { tagComponentFieldSettings } from '../modules/fields/component/Tag/tagComponentFieldSettings';
 import { unixTimestampComponentFieldSettings } from '../modules/fields/component/UnixTimestamp/unixTimestampComponentFieldSettings';

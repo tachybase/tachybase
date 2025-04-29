@@ -221,10 +221,6 @@ export const fieldSettingsFormItem = new SchemaSettings({
           },
           {
             name: 'setDefaultValue',
-            useVisible() {
-              const { isAllowToSetDefaultValue } = useIsAllowToSetDefaultValue();
-              return isAllowToSetDefaultValue();
-            },
             Component: SchemaSettingsDefaultValue,
           },
           {
@@ -485,10 +481,6 @@ export const fieldSettingsFormItem = new SchemaSettings({
             },
           },
           { ...fieldComponentSettingsItem },
-          {
-            name: 'editDefaultValue',
-            Component: SchemaSettingsDefaultValue,
-          },
         ];
       },
     },
