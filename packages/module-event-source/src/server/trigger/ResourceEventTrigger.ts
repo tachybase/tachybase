@@ -43,9 +43,14 @@ export class ResourceEventTrigger extends EventSourceTrigger {
             ctx.throw(400, result.lastSavedJob.result);
           }
         }
-        await next();
+        const weakMap = new WeakMap();
         for (const model of matchAfter) {
           const body = await new WebhookController().action(ctx, model);
+          weakMap.set(model, body);
+        }
+        await next();
+        for (const model of matchAfter) {
+          const body = weakMap.get(model);
           await new WebhookController().triggerWorkflow(ctx, model, body);
         }
       },
