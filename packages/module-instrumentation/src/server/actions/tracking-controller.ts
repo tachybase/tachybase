@@ -40,6 +40,7 @@ export class TrackingController {
     const ActiveUsers = await getDailyActiveUser(ctx);
     const allData = await ctx.db.getRepository('trackingEvents').find();
     const configs = await ctx.db.getRepository('statisticsConfig').find();
+    const historyConfigs = await ctx.db.getRepository('trackingHistoryOptions').find();
     let customData = {};
     let customDataByTime = {};
     for (const config of configs) {
@@ -68,13 +69,20 @@ export class TrackingController {
           customData[config.title] = 0;
         }
       } else {
-        if (config.statisticsOptions?.timeGroup) {
-          const grouped = groupDataByTime(allData, config.statisticsOptions);
-          customDataByTime[config.title] = grouped;
-        } else {
-          const count = countDataByEventFrequency(allData, config.statisticsOptions);
-          customData[config.title] = count;
-        }
+        // if (config.statisticsOptions?.timeGroup) {
+        //   const grouped = groupDataByTime(allData, config.statisticsOptions);
+        //   customDataByTime[config.title] = grouped;
+        // } else {
+        const count = countDataByEventFrequency(allData, config.statisticsOptions);
+        customData[config.title] = count;
+        // }
+      }
+    }
+
+    for (const historyConfig of historyConfigs) {
+      if (historyConfig.historyOptions?.timeGroup) {
+        const grouped = groupDataByTime(allData, historyConfig.historyOptions);
+        customDataByTime[historyConfig.title] = grouped;
       }
     }
 

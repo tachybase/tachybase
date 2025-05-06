@@ -84,6 +84,10 @@ export class ModuleInstrumentationServer extends Plugin {
       name: `pm.system-services.custom-instrumentation.statisticsDetails`,
       actions: ['instrumentation:*'],
     });
+    this.app.acl.registerSnippet({
+      name: `pm.system-services.custom-instrumentation.statisticsHistorical`,
+      actions: ['trackingHistoryOptions:*'],
+    });
   }
 }
 
