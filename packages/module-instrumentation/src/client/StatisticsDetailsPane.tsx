@@ -21,10 +21,14 @@ export const statisticsDetailsPane = () => {
     const api = useAPIClient();
     return {
       async onClick() {
-        const { data } = await api.resource('instrumentation').query({
-          values: { ...form.values },
-        });
-        setTableData(data.data);
+        try {
+          const { data } = await api.resource('instrumentation').query({
+            values: { ...form.values },
+          });
+          setTableData(data.data);
+        } catch (err) {
+          console.error(err);
+        }
       },
     };
   };

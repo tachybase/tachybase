@@ -53,7 +53,7 @@ function Calculation({ value = {}, onChange }) {
     };
 
     onChange(expression);
-  }, [source, field, operator, val]);
+  }, [source, field, operator, val, onChange]);
 
   return (
     <fieldset
