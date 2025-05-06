@@ -2,6 +2,7 @@ import { Context, Next } from '@tachybase/actions';
 import { Action, Controller } from '@tachybase/utils';
 
 import { getDailyActiveUser } from '../hooks/getActiveUser';
+import { getDataByEventFrequency } from '../hooks/getQueryResult';
 import { countDataByEventFrequency, groupDataByTime } from '../hooks/getStatistics';
 
 @Controller('instrumentation')
@@ -83,6 +84,15 @@ export class TrackingController {
       customDataByTime,
     };
     ctx.body = result;
+    return next();
+  }
+
+  @Action('query', { acl: 'private' })
+  async query(ctx: Context, next: () => Promise<any>) {
+    const { values: configs } = ctx.action.params;
+    const allData = await ctx.db.getRepository('trackingEvents').find();
+    const queryResult = getDataByEventFrequency(allData, configs);
+    ctx.body = queryResult;
     return next();
   }
 }

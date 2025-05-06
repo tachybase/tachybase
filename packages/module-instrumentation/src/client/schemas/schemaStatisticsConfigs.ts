@@ -7,7 +7,7 @@ import { updateStatisticsConfig } from './updateStatisticsConfig';
 export const schemaStatisticsConfigs: ISchema = {
   type: 'void',
   properties: {
-    apiLogsConfig: {
+    statisticsLogsConfig: {
       type: 'void',
       'x-decorator': 'TableBlockProvider',
       'x-decorator-props': {
