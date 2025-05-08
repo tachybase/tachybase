@@ -422,5 +422,6 @@
   "is true": "为真",
   "ms": "毫秒",
   "needAuthorization": "是否携带权限校验",
+  "workflow Category": "工作流类别",
   "workflow loop!": "存在环形调用！"
 }

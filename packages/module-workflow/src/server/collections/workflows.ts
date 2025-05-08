@@ -38,6 +38,17 @@ export default function () {
         required: true,
       },
       {
+        type: 'belongsToMany',
+        name: 'category',
+        target: 'workflowCategories',
+        sourceKey: 'key',
+        foreignKey: 'workflowKey',
+        otherKey: 'categoryId',
+        targetKey: 'id',
+        sortBy: 'sort',
+        through: 'workflowCategory',
+      },
+      {
         type: 'string',
         name: 'triggerTitle',
       },

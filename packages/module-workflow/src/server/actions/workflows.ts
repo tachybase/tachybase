@@ -17,7 +17,7 @@ export async function update(context: Context, next) {
       'options',
       'type',
       'sync',
-      'tags',
+      'category',
       // TODO: 这里的 icon 和 color 是审批插件的特有字段，后续办法是在审批里覆盖这个方法, 以便分离扩展字段和核心字段
       'color',
       'icon',

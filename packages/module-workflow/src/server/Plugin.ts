@@ -235,6 +235,7 @@ export default class PluginWorkflowServer extends Plugin {
         'flow_nodes:destroy',
         'flow_nodes:moveUp',
         'flow_nodes:moveDown',
+        'workflowCategories:*',
       ],
     });
 
