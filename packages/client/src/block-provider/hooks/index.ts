@@ -3,6 +3,7 @@ import { Field, Form, ISchema, untracked, useField, useFieldSchema, useForm } fr
 import { isURL, parse } from '@tachybase/utils/client';
 
 import { App } from 'antd';
+import flat from 'flat';
 import _ from 'lodash';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
@@ -50,6 +51,34 @@ function renderTemplate(str: string, data: any) {
   return str.replace(re, function (_, key) {
     return get(data, key) || '';
   });
+}
+
+export function filterByCleanedFields(mergeFilter) {
+  const items = flat(mergeFilter) as any;
+  const result = {};
+  const seen = new Set();
+
+  for (const key in items) {
+    const value = items[key];
+    if (value === undefined) continue;
+
+    const pathParts = key.split('.');
+
+    // 过滤掉结构字段（$and, $or, 数字）
+    const filteredParts = pathParts.filter((p) => {
+      return !/^\d+$/.test(p) && !['$and', '$or'].includes(p);
+    });
+
+    // 最终字段名路径
+    const fieldPath = filteredParts.join('.');
+
+    const uniqueKey = `${fieldPath}|${JSON.stringify(value)}`;
+    if (seen.has(uniqueKey)) continue;
+
+    seen.add(uniqueKey);
+    result[key] = value;
+  }
+  return flat.unflatten(result);
 }
 
 const filterValue = (value) => {
@@ -564,8 +593,9 @@ export const useFilterBlockActionProps = () => {
               filter.customFilter,
               prevMergedFilter,
             ]);
-            prevMergedFilter = mergedFilter;
-            if (block.dataLoadingMode === 'manual' && _.isEmpty(mergedFilter)) {
+            const currFilter = filterByCleanedFields(mergedFilter);
+            prevMergedFilter = currFilter;
+            if (block.dataLoadingMode === 'manual' && _.isEmpty(currFilter)) {
               return block.clearData();
             }
 
@@ -573,7 +603,7 @@ export const useFilterBlockActionProps = () => {
               {
                 ...param,
                 page: 1,
-                filter: mergedFilter,
+                filter: currFilter,
               },
               { filters: storedFilter },
             );
@@ -618,7 +648,8 @@ export const useResetBlockActionProps = () => {
             const storedFilter = block.service.params?.[1]?.filters || {};
 
             delete storedFilter[uid];
-            const mergedFilter = mergeFilter([...Object.values(storedFilter), block.defaultFilter, prevMergedFilter]);
+            const currFilter = mergeFilter([...Object.values(storedFilter), block.defaultFilter, prevMergedFilter]);
+            const mergedFilter = filterByCleanedFields(currFilter);
             prevMergedFilter = mergedFilter;
             return block.doFilter(
               {
