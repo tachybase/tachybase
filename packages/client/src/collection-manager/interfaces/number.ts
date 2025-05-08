@@ -20,6 +20,16 @@ export class NumberFieldInterface extends CollectionFieldInterface {
       },
     },
   };
+  componentOptions = [
+    {
+      label: '{{t("InputNumber")}}',
+      value: 'InputNumber',
+    },
+    {
+      label: '{{t("Slider")}}',
+      value: 'Slider',
+    },
+  ];
   availableTypes = ['double', 'float', 'decimal'];
   hasDefaultValue = true;
   properties = {

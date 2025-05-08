@@ -9,6 +9,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "@antv/g6": "^5.0.45",
     "@babel/core": "7.26.0",
     "@babel/parser": "7.26.3",
     "@babel/standalone": "7.26.4",
