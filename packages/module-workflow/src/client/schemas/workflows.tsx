@@ -477,13 +477,11 @@ const testWorkflow: ISchema = {
           title: '{{t("Input")}}',
           description: `{{t("Data is the trigger variable, it can be { data: 0 }, or { data: { id: 0 }}",  { ns: "${NAMESPACE}" })}}`,
           'x-decorator': 'FormItem',
-          default: { data: {} },
-          'x-component': 'Input.JSON',
+          default: '{ "data":{} }',
+          'x-component': 'CodeMirror',
           'x-component-props': {
-            autoSize: {
-              minRows: 20,
-              maxRows: 50,
-            },
+            height: '50vh',
+            defaultLanguage: 'json',
           },
         },
         footer: {
@@ -505,9 +503,14 @@ const testWorkflow: ISchema = {
                   const { values } = useForm();
                   return {
                     async run() {
-                      await resource.test({ filterByTk, values: values.params });
-                      refresh();
-                      setVisible(false);
+                      try {
+                        const obj = JSON.parse(values.params);
+                        await resource.test({ filterByTk, values: obj });
+                        refresh();
+                        setVisible(false);
+                      } catch (e) {
+                        console.error(e);
+                      }
                     },
                   };
                 },
