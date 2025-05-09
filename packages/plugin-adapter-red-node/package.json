@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-adapter-red-node",
+  "displayName": "Adapter red node",
   "version": "1.0.22",
+  "description": "Integrate and manage RedNode workflow automation engine.",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-adapter-red-node"
@@ -21,5 +26,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "集成和管理 RedNode 流程自动化引擎",
+  "displayName.zh-CN": "RedNode管理"
 }

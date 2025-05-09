@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-ocr-convert",
+  "displayName": "OCR Conversion Plugin",
   "version": "1.0.22",
+  "description": "OCR Conversion Plugin",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "dependencies": {},
   "devDependencies": {
