@@ -48,16 +48,21 @@ export const pageSettings = new SchemaSettings({
         const { dn } = useDesignable();
         const { t } = useTranslation();
         const fieldSchema = useFieldSchema();
+        const { title } = useSchemaToolbar();
         return {
           title: t('Enable Share page'),
           checked: fieldSchema['x-component-props']?.enableSharePage,
           onChange(v) {
             fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
             fieldSchema['x-component-props']['enableSharePage'] = v;
+            if (!fieldSchema.title) {
+              fieldSchema.title = title;
+            }
             dn.emit('patch', {
               schema: {
                 ['x-uid']: fieldSchema['x-uid'],
                 ['x-component-props']: fieldSchema['x-component-props'],
+                title: fieldSchema.title,
               },
             });
             dn.refresh();
