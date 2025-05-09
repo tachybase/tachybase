@@ -50,18 +50,22 @@ export const AdminSettingsForm = () => {
                   required: true,
                   title: '{{t("Client Secret")}}',
                 },
+                redirectUrl: {
+                  'x-decorator': 'FormItem',
+                  'x-component': 'Input',
+                  type: 'string',
+                  required: true,
+                  title: '{{t("Redirect URL")}}',
+                  'x-component-props': {
+                    disabled: false,
+                  },
+                  default: redirectUrl,
+                },
               },
             },
           },
         }}
       />
-      <div>
-        <Typography.Title level={5} style={{ fontSize: '14px' }}>
-          {t('Redirect URL')}
-          <span style={{ marginLeft: '2px' }}>:</span>
-        </Typography.Title>
-        <Input value={redirectUrl} disabled={true} addonBefore={<CopyOutlined onClick={() => onCopy(redirectUrl)} />} />
-      </div>
     </div>
   );
 };
