@@ -2,10 +2,10 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { FormLayout } from '@tachybase/components';
 import { Schema, SchemaOptionsContext, useFieldSchema } from '@tachybase/schema';
 
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button, Tabs } from 'antd';
+import { Button, Modal, Tabs } from 'antd';
 import { cx } from 'antd-style';
 import classNames from 'classnames';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -32,7 +32,7 @@ import FixedBlock from './FixedBlock';
 import { useStyles } from './Page.style';
 import { PageDesigner } from './PageDesigner';
 import { PageTabDesigner } from './PageTabDesigner';
-import { getStyles } from './style';
+import { getStyles, useStyles as modalStyle } from './style';
 
 export const Page = (props) => {
   const { children, ...others } = props;
@@ -40,8 +40,10 @@ export const Page = (props) => {
 
   const { title, setTitle } = useDocumentTitle();
   const fieldSchema = useFieldSchema();
+  console.log('🚀 ~ Page ~ fieldSchema:', fieldSchema);
   const disablePageHeader = fieldSchema['x-component-props']?.disablePageHeader;
   const enablePageTabs = fieldSchema['x-component-props']?.enablePageTabs;
+  const enableSharePage = fieldSchema['x-component-props']?.enableSharePage;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -72,6 +74,7 @@ export const Page = (props) => {
           parentProps={others}
           setHeight={setHeight}
           setLoading={setLoading}
+          enableSharePage={enableSharePage}
           setSearchParams={setSearchParams}
         />
         <PageContentComponent
@@ -100,12 +103,13 @@ const PageHeader = (props) => {
     fieldSchema,
     title,
     parentProps,
+    enableSharePage,
   } = props;
 
   const { theme } = useGlobalTheme();
   const options = useContext(SchemaOptionsContext);
   const compile = useCompile();
-
+  const [open, setOpen] = useState(false);
   const { showScrollArea } = useContextMenu();
 
   const hidePageTitle = fieldSchema['x-component-props']?.hidePageTitle;
@@ -117,6 +121,9 @@ const PageHeader = (props) => {
     key: schema.name as string,
     label: <TabItem schema={schema} />,
   }));
+  const { t } = useTranslation();
+
+  const { styles } = modalStyle();
 
   return (
     <div
@@ -146,8 +153,49 @@ const PageHeader = (props) => {
               />
             )
           }
-        />
+        >
+          {' '}
+          <Button
+            icon={<ShareAltOutlined />}
+            onClick={() => {
+              setOpen(true);
+            }}
+            style={{ visibility: `${enableSharePage ? 'visible' : 'hidden'}` }}
+          />
+        </AntdPageHeader>
       )}
+      {disablePageHeader && enableSharePage && (
+        <div className="tb-page-header-button">
+          <Button
+            icon={<ShareAltOutlined />}
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            {t('Share')}
+          </Button>
+        </div>
+      )}
+      <Modal
+        open={open}
+        title={t('Share')}
+        footer={null}
+        width={300}
+        onCancel={() => {
+          setOpen(false);
+        }}
+      >
+        <div className={styles.modal}>
+          <div className="tb-header-modal-list">
+            <Icon type="PaperClipOutlined" />
+            复制链接
+          </div>
+          <div className="tb-header-modal-list">
+            <Icon type="QrcodeOutlined" />
+            生成二维码
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import { createStyles } from 'antd-style';
+
 import { genStyleHook } from './../__builtins__';
 
 export const getStyles = genStyleHook('tb-page', (token) => {
@@ -41,9 +43,21 @@ export const getStyles = genStyleHook('tb-page', (token) => {
           },
         },
       },
-
       '.tb-page-header-wrapper': {
         zIndex: 10,
+        '.ant-page-header': {
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignContent: 'center',
+          '.ant-page-header-content': {
+            width: '90%',
+            paddingBlockStart: '0px',
+            '.ant-btn': {
+              width: '25px',
+              height: '25px',
+            },
+          },
+        },
       },
 
       '.pageHeaderCss': {
@@ -119,6 +133,41 @@ export const getStyles = genStyleHook('tb-page', (token) => {
         overflowX: 'hidden',
         overflowY: 'scroll',
       },
+      '.tb-page-header-button': {
+        flex: 1,
+        paddingTop: token.paddingMD,
+        paddingLeft: token.paddingMD,
+      },
     },
+  };
+});
+
+export const useStyles = createStyles(({ css, token }) => {
+  return {
+    modal: css`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      .tb-header-modal-list {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        .anticon {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          svg {
+            width: 40px;
+            height: 40px;
+          }
+        }
+        .tb-header-modal-list-text {
+          text-align: center;
+        }
+      }
+    `,
   };
 });

@@ -42,6 +42,30 @@ export const pageSettings = new SchemaSettings({
       },
     },
     {
+      name: 'enablesharePage',
+      type: 'switch',
+      useComponentProps() {
+        const { dn } = useDesignable();
+        const { t } = useTranslation();
+        const fieldSchema = useFieldSchema();
+        return {
+          title: t('Enable Share page'),
+          checked: fieldSchema['x-component-props']?.enableSharePage,
+          onChange(v) {
+            fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+            fieldSchema['x-component-props']['enableSharePage'] = v;
+            dn.emit('patch', {
+              schema: {
+                ['x-uid']: fieldSchema['x-uid'],
+                ['x-component-props']: fieldSchema['x-component-props'],
+              },
+            });
+            dn.refresh();
+          },
+        };
+      },
+    },
+    {
       name: 'divider',
       type: 'divider',
       useVisible: useNotDisableHeader,
