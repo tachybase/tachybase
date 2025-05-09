@@ -19,7 +19,7 @@ export class DingtalkAuth extends BaseAuth {
     }
     const dingtalkClient = new DingtalkClient({
       clientId: this.options?.dingtalk?.clientId,
-      clientSecret: this.options?.clientSecret,
+      clientSecret: this.options?.dingtalk?.clientSecret,
       ctx: this.ctx,
     });
     const accessToken = await dingtalkClient.getAccessToken(authCode);
@@ -61,7 +61,7 @@ export class DingtalkAuth extends BaseAuth {
     const clientId = this.options?.dingtalk?.clientId;
     const app = this.ctx.app.name;
     const redirectUrl = encodeURIComponent(
-      `${this.ctx.protocol}://${this.ctx.host}${process.env.API_BASE_PATH}dingtalk:redirect`,
+      this.options?.dingtalk?.redirectUrl || '',
     );
     // TODO: 如果后续有登录后绑定的场景，服务端需要校验 state
     const state = encodeURIComponent(`redirect=${redirect}&app=${app}&name=${this.ctx.headers['x-authenticator']}`);
