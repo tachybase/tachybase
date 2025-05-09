@@ -20,5 +20,7 @@
     "@tachybase/module-auth": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "认证：页面",
+  "displayName.zh-CN": "认证页面"
 }

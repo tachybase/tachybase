@@ -1,7 +1,11 @@
 {
   "name": "@tachybase/plugin-full-text-search",
+  "displayName": "Full-text Search",
   "version": "1.0.22",
   "description": "Provides full text search capability",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "devDependencies": {
     "@types/sequelize": "^4.28.20",

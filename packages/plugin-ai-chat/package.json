@@ -3,6 +3,9 @@
   "displayName": "AI Chat",
   "version": "1.0.22",
   "description": "AI chatbot, providing operational help, intelligent Q&A",
+  "keywords": [
+    "Others"
+  ],
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",

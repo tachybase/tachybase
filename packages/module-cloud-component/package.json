@@ -3,6 +3,9 @@
   "displayName": "Cloud component",
   "version": "1.0.22",
   "description": "Cloud component",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-cloud-component"

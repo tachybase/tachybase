@@ -3,6 +3,9 @@
   "displayName": "Devtools",
   "version": "1.0.22",
   "description": "Development tools for viewing API documentation, middleware, environment variables, events, and more",
+  "keywords": [
+    "Logging and monitoring"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-devtools"

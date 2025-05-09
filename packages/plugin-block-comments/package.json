@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-block-comments",
+  "displayName": "Comments",
   "version": "1.0.22",
+  "description": "Comments",
+  "keywords": [
+    "Others"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-block-comments"

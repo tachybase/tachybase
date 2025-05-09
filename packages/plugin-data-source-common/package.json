@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-data-source-common",
+  "displayName": "External DataSource Support",
   "version": "1.0.22",
+  "description": "Supports more data sources",
+  "keywords": [
+    "Data sources"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-data-source-common"

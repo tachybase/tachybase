@@ -3,6 +3,9 @@
   "displayName": "Custom instrumentation",
   "version": "1.0.19",
   "description": "A module for tracking and instrumentation in Tachybase.",
+  "keywords": [
+    "Logging and monitoring"
+  ],
   "main": "dist/server/index.js",
   "devDependencies": {
     "@antv/g2": "^5.3.0",

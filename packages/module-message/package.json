@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/module-message",
+  "displayName": "Message",
   "version": "1.0.22",
+  "description": "Send messages to users.",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-message"
@@ -30,5 +35,7 @@
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "用于给用户发送消息",
+  "displayName.zh-CN": "消息通知"
 }

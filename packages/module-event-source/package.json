@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/module-event-source",
+  "displayName": "Event Source",
   "version": "1.0.22",
+  "description": "Registering and managing custom event sources.",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-event-source"
@@ -24,5 +29,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "注册和管理自定义事件源",
+  "displayName.zh-CN": "事件源"
 }

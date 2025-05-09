@@ -3,6 +3,9 @@
   "displayName": "Error handler",
   "version": "1.0.22",
   "description": "Handling application errors and exceptions.",
+  "keywords": [
+    "System management"
+  ],
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {

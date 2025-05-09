@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-adapter-remix",
+  "displayName": "Adapter remix",
   "version": "1.0.22",
+  "description": "integrate and manage remix server.",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-adapter-remix"
@@ -21,5 +26,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "集成和管理 Remix 服务器",
+  "displayName.zh-CN": "Remix管理"
 }
