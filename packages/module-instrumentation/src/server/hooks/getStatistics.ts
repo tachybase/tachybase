@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 
+import { filterMatch } from './filterMatch';
+
 type FilterConfig = {
   filterKey: string | string[];
   filterValues?: Record<string, any>;
@@ -35,9 +37,9 @@ export function countDataByEventFrequency(data: any[], config: FilterConfig): nu
     return itemKey === filterKey;
   };
 
-  const matchesValues = (values: Record<string, any>) => {
-    return Object.entries(filterValues).every(([k, v]) => values[k] === v);
-  };
+  // const matchesValues = (values: Record<string, any>) => {
+  //   return Object.entries(filterValues).every(([k, v]) => values[k] === v);
+  // };
 
   const matchesTime = (item: any): boolean => {
     if (!timeFilter) return true;
@@ -89,7 +91,7 @@ export function countDataByEventFrequency(data: any[], config: FilterConfig): nu
 
   for (const item of data) {
     if (!matchKey(item.key)) continue;
-    if (!matchesValues(item.values)) continue;
+    if (!filterMatch(item.values, filterValues)) continue;
     if (!matchesTime(item)) continue;
 
     const key = dedupBy ? getValueByPath(item.values, dedupBy) : '__no_dedup__';
