@@ -10,7 +10,7 @@ import { cx } from 'antd-style';
 import classNames from 'classnames';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
+import { useMatch, useSearchParams } from 'react-router-dom';
 
 import { FormDialog, ScrollArea } from '..';
 import { useToken } from '../__builtins__';
@@ -116,6 +116,7 @@ const PageHeader = (props) => {
   const hidePageTitle = fieldSchema['x-component-props']?.hidePageTitle;
 
   const pageHeaderTitle = hidePageTitle ? undefined : fieldSchema.title || compile(title);
+  const isShare = useMatch('/share/:name');
 
   // THINK: 思考下这里怎么缓存, 直接用 useMemo 是不行的
   const items = fieldSchema.mapProperties((schema) => ({
@@ -157,17 +158,18 @@ const PageHeader = (props) => {
             )
           }
         >
-          {' '}
-          <Button
-            icon={<ShareAltOutlined />}
-            onClick={() => {
-              setOpen(true);
-            }}
-            style={{ visibility: `${enableSharePage ? 'visible' : 'hidden'}` }}
-          />
+          {!isShare && (
+            <Button
+              icon={<ShareAltOutlined />}
+              onClick={() => {
+                setOpen(true);
+              }}
+              style={{ visibility: `${enableSharePage ? 'visible' : 'hidden'}` }}
+            />
+          )}
         </AntdPageHeader>
       )}
-      {disablePageHeader && enableSharePage && (
+      {disablePageHeader && enableSharePage && !isShare && (
         <div className="tb-page-header-button">
           <Button
             icon={<ShareAltOutlined />}
