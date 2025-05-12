@@ -5,7 +5,7 @@ import { Schema, SchemaOptionsContext, useFieldSchema } from '@tachybase/schema'
 import { PlusOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button, Modal, Tabs } from 'antd';
+import { Button, Divider, Modal, Tabs } from 'antd';
 import { cx } from 'antd-style';
 import classNames from 'classnames';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -183,14 +183,16 @@ const PageHeader = (props) => {
       )}
       <Modal
         open={open}
+        className={styles.firstmodal}
         title={t('Share')}
         footer={null}
-        width={300}
+        width={400}
+        closable={false}
         onCancel={() => {
           setOpen(false);
         }}
       >
-        <div className={styles.modal}>
+        <div className={styles.secondmodal}>
           <div className="tb-header-modal-list" onClick={copyLink}>
             <Icon type="PaperClipOutlined" />
             {t('Copy link')}
@@ -205,6 +207,23 @@ const PageHeader = (props) => {
             {t('Generate QR code')}
           </div>
         </div>
+        <Divider style={{ margin: '10px' }} />
+        <Button
+          type="link"
+          block
+          ghost
+          style={{
+            color: '#000',
+            fontSize: '16px',
+            letterSpacing: '1px',
+            fontWeight: 500,
+          }}
+          onClick={() => {
+            setOpen(false);
+          }}
+        >
+          {t('Cancel')}
+        </Button>
         <Modal
           className={styles.imageModal}
           open={imageOpen}

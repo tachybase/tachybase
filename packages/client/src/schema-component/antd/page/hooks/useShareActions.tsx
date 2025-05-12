@@ -125,9 +125,13 @@ const ImageModal = (props) => {
         height={250}
         style={{ border: '1px solid black', backgroundColor: 'white' }}
       />
-      <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginTop: '18px' }}>
-        <Button onClick={saveImage}>{t('Save Picture')}</Button>
-        <Button onClick={copyImage}>{t('Copy QR code')}</Button>
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginTop: '18px', gap: '15px' }}>
+        <Button onClick={saveImage} style={{ flex: 1 }}>
+          {t('Save Picture')}
+        </Button>
+        <Button onClick={copyImage} style={{ flex: 1 }}>
+          {t('Copy QR code')}
+        </Button>
       </div>
     </div>
   );

@@ -144,13 +144,24 @@ export const getStyles = genStyleHook('tb-page', (token) => {
 
 export const useStyles = createStyles(({ css, token }) => {
   return {
-    modal: css`
+    firstmodal: css`
+      .ant-modal-header {
+        text-align: center;
+        margin-bottom: 20px;
+        .ant-modal-title {
+          font-size: x-large;
+        }
+      }
+    `,
+    secondmodal: css`
       display: flex;
       justify-content: center;
       align-items: center;
       margin-top: 20px;
+      margin-bottom: 20px;
       .tb-header-modal-list {
         width: 50%;
+        gap: 10px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -160,8 +171,8 @@ export const useStyles = createStyles(({ css, token }) => {
           display: flex;
           justify-content: center;
           svg {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
           }
         }
         .tb-header-modal-list-text {
