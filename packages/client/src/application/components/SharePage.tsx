@@ -3,7 +3,7 @@ import { useFieldSchema } from '@tachybase/schema';
 
 import { css } from '@emotion/css';
 import { Layout, Result } from 'antd';
-import { useLocation, useMatch, useNavigate } from 'react-router';
+import { Navigate, useLocation, useMatch, useNavigate } from 'react-router';
 import { Outlet } from 'react-router-dom';
 
 import { useAPIClient } from '../../api-client';
@@ -17,7 +17,6 @@ export function useShareToken() {
 }
 
 export const ShareLayout = () => {
-  const fieldSchema = useFieldSchema();
   return (
     <Layout style={{ height: '100%' }}>
       <Layout.Content
@@ -47,24 +46,8 @@ export const ShareLayout = () => {
 
 export const SharePage = () => {
   const shareToken = useShareToken();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const match = useMatch('/share/:name');
-  // FIXME
-  useEffect(
-    () => () => {
-      setTimeout(() => {
-        match &&
-          setTimeout(() => {
-            window.location.pathname !== location.pathname && navigate('/share/not-authorized');
-          });
-      });
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
 
-  return !shareToken || location.pathname === '/share/not-authorized' ? (
+  return !shareToken ? (
     <NotAuthorityResult />
   ) : (
     <AdminProvider>
@@ -74,5 +57,7 @@ export const SharePage = () => {
 };
 
 export function NotAuthorityResult() {
-  return <Result status="403" title="403" subTitle="Sorry, you are not authorized to access this page." />;
+  const { pathname, search } = useLocation();
+  const redirect = `?redirect=${pathname}${search}`;
+  return <Navigate replace to={`/signin${redirect}`} />;
 }

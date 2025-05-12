@@ -169,5 +169,11 @@ export const useStyles = createStyles(({ css, token }) => {
         }
       }
     `,
+    imageModal: css`
+      .ant-modal-content {
+        width: 280px;
+        height: 360px;
+      }
+    `,
   };
 });

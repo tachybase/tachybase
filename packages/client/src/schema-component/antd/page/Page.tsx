@@ -29,6 +29,7 @@ import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
 import { ErrorFallback } from '../error-fallback';
 import FixedBlock from './FixedBlock';
+import { UseShareActions } from './hooks/useShareActions';
 import { useStyles } from './Page.style';
 import { PageDesigner } from './PageDesigner';
 import { PageTabDesigner } from './PageTabDesigner';
@@ -40,7 +41,6 @@ export const Page = (props) => {
 
   const { title, setTitle } = useDocumentTitle();
   const fieldSchema = useFieldSchema();
-  console.log('🚀 ~ Page ~ fieldSchema:', fieldSchema);
   const disablePageHeader = fieldSchema['x-component-props']?.disablePageHeader;
   const enablePageTabs = fieldSchema['x-component-props']?.enablePageTabs;
   const enableSharePage = fieldSchema['x-component-props']?.enableSharePage;
@@ -110,6 +110,7 @@ const PageHeader = (props) => {
   const options = useContext(SchemaOptionsContext);
   const compile = useCompile();
   const [open, setOpen] = useState(false);
+  const [imageOpen, setImageOpen] = useState(false);
   const { showScrollArea } = useContextMenu();
 
   const hidePageTitle = fieldSchema['x-component-props']?.hidePageTitle;
@@ -124,6 +125,8 @@ const PageHeader = (props) => {
   const { t } = useTranslation();
 
   const { styles } = modalStyle();
+
+  const { copyLink, imageAction } = UseShareActions({ title: pageHeaderTitle });
 
   return (
     <div
@@ -186,15 +189,30 @@ const PageHeader = (props) => {
         }}
       >
         <div className={styles.modal}>
-          <div className="tb-header-modal-list">
+          <div className="tb-header-modal-list" onClick={copyLink}>
             <Icon type="PaperClipOutlined" />
-            复制链接
+            {t('Copy link')}
           </div>
-          <div className="tb-header-modal-list">
+          <div
+            className="tb-header-modal-list"
+            onClick={() => {
+              setImageOpen(true);
+            }}
+          >
             <Icon type="QrcodeOutlined" />
-            生成二维码
+            {t('Generate QR code')}
           </div>
         </div>
+        <Modal
+          className={styles.imageModal}
+          open={imageOpen}
+          footer={null}
+          onCancel={() => {
+            setImageOpen(false);
+          }}
+        >
+          {imageAction()}
+        </Modal>
       </Modal>
     </div>
   );
