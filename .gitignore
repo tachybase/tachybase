@@ -36,3 +36,7 @@ node_modules/
 storage/*
 tsconfig.paths.json
 v8-compile-cache-**
+
+index-linux
+index-macos
+index-win.exe

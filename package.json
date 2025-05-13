@@ -61,9 +61,17 @@
     "commander": "^9.5.0",
     "concurrently": "9.1.0",
     "cross-env": "7.0.3",
+    "form-data": "4.0.2",
+    "get-stream": "9.0.1",
     "globals": "^15.14.0",
+    "https-proxy-agent": "7.0.6",
     "husky": "^9.1.7",
+    "is-stream": "4.0.1",
+    "json-bigint": "1.0.0",
+    "koa": "2.16.1",
     "lint-staged": "^13.3.0",
+    "lodash": "4.17.21",
+    "node-fetch": "3.3.2",
     "oxlint": "^0.15.3",
     "prettier": "3.4.2",
     "prettier-plugin-packagejson": "2.5.6",
@@ -75,6 +83,7 @@
     "react-dom": "^18.3.1",
     "tsx": "^4.19.2",
     "typescript": "5.7.2",
+    "uuid": "11.1.0",
     "vitest": "^3.0.5",
     "xlsx": "^0.18.5"
   },
@@ -89,10 +98,13 @@
     "overrides": {
       "@types/node": "20.17.10",
       "antd": "5.22.5",
-      "axios": "1.7.7",
+      "axios": "0.27.2",
       "dayjs": "1.11.13",
       "react-router": "6.28.1",
-      "react-router-dom": "6.28.1"
+      "react-router-dom": "6.28.1",
+      "string-width": "4.2.3",
+      "strip-ansi": "6.0.1",
+      "wrap-ansi": "7.0.0"
     }
   }
 }

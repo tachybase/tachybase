@@ -22,6 +22,13 @@ function findPackageJson(filePath) {
  */
 export function getDepPkgPath(packageName: string, cwd?: string) {
   try {
+    console.log('[getDepPkgPath]', packageName, 'finding');
+    return require.resolve(`${packageName}/package.json`, { paths: [process.cwd()] });
+  } catch {
+    console.log('[getDepPkgPath]', packageName, 'not found in cwd');
+  }
+
+  try {
     return require.resolve(`${packageName}/package.json`, { paths: cwd ? [cwd] : undefined });
   } catch {
     const mainFile = require.resolve(`${packageName}`, { paths: cwd ? [cwd] : undefined });

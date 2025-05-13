@@ -1,0 +1,25 @@
+{
+  "name": "@tachybase/engine",
+  "version": "1.0.18",
+  "description": "",
+  "license": "Apache-2.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "bin": {
+    "tachybase-engine": "./lib/index.js"
+  },
+  "dependencies": {
+    "@tachybase/database": "workspace:*",
+    "@tachybase/preset-tachybase": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/telemetry": "workspace:*",
+    "@tachybase/utils": "workspace:*",
+    "dotenv": "16.5.0",
+    "sqlite3": "5.1.7"
+  },
+  "devDependencies": {
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/logger": "workspace:*"
+  }
+}
