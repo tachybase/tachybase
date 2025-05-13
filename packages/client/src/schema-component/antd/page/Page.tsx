@@ -109,8 +109,8 @@ const PageHeader = (props) => {
   const { theme } = useGlobalTheme();
   const options = useContext(SchemaOptionsContext);
   const compile = useCompile();
-  const [open, setOpen] = useState(false);
-  const [imageOpen, setImageOpen] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [imageOpen, setImageOpen] = useState(true);
   const { showScrollArea } = useContextMenu();
 
   const hidePageTitle = fieldSchema['x-component-props']?.hidePageTitle;
@@ -138,12 +138,20 @@ const PageHeader = (props) => {
     >
       {!disablePageHeader && (
         <AntdPageHeader
-          className={classNames('pageHeaderCss', pageHeaderTitle || enablePageTabs ? '' : 'height0')}
+          className={classNames('pageHeaderCss', pageHeaderTitle || enableSharePage ? '' : 'height0')}
           ghost={false}
           // 如果标题为空的时候会导致 PageHeader 不渲染，所以这里设置一个空白字符，然后再设置高度为 0
           title={pageHeaderTitle || ' '}
           {...parentProps}
-          extra={!enablePageTabs && showScrollArea && <ScrollArea />}
+          extra={
+            <HeaderExtra
+              enablePageTabs={enablePageTabs}
+              showScrollArea={showScrollArea}
+              isShare={isShare}
+              setOpen={setOpen}
+              enableSharePage={enableSharePage}
+            />
+          }
           footer={
             enablePageTabs && (
               <TabComponent
@@ -157,17 +165,7 @@ const PageHeader = (props) => {
               />
             )
           }
-        >
-          {!isShare && (
-            <Button
-              icon={<ShareAltOutlined />}
-              onClick={() => {
-                setOpen(true);
-              }}
-              style={{ visibility: `${enableSharePage ? 'visible' : 'hidden'}` }}
-            />
-          )}
-        </AntdPageHeader>
+        ></AntdPageHeader>
       )}
       {disablePageHeader && enableSharePage && !isShare && (
         <div className="tb-page-header-button">
@@ -206,21 +204,6 @@ const PageHeader = (props) => {
             {t('Generate QR code')}
           </div>
         </div>
-        <Button
-          style={{
-            color: '#1677ff',
-            fontSize: '16px',
-            letterSpacing: '1px',
-            fontWeight: 400,
-            width: 100,
-            borderColor: '#1677ff',
-          }}
-          onClick={() => {
-            setOpen(false);
-          }}
-        >
-          {t('Cancel')}
-        </Button>
         <Modal
           className={styles.imageModal}
           open={imageOpen}
@@ -233,6 +216,23 @@ const PageHeader = (props) => {
         </Modal>
       </Modal>
     </div>
+  );
+};
+
+const HeaderExtra = ({ enablePageTabs, showScrollArea, isShare, setOpen, enableSharePage }) => {
+  return (
+    <>
+      {!isShare && (
+        <Button
+          icon={<ShareAltOutlined />}
+          onClick={() => {
+            setOpen(true);
+          }}
+          style={{ visibility: `${enableSharePage ? 'visible' : 'hidden'}` }}
+        />
+      )}
+      {!enablePageTabs && showScrollArea && <ScrollArea />}
+    </>
   );
 };
 

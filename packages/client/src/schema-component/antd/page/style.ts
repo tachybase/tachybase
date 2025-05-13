@@ -45,17 +45,11 @@ export const getStyles = genStyleHook('tb-page', (token) => {
       },
       '.tb-page-header-wrapper': {
         zIndex: 10,
-        '.ant-page-header': {
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignContent: 'center',
-          '.ant-page-header-content': {
-            width: '90%',
-            paddingBlockStart: '0px',
-            '.ant-btn': {
-              width: '25px',
-              height: '25px',
-            },
+        '.ant-page-header-heading': {
+          justifyContent: 'start',
+          '.ant-btn': {
+            border: 'none',
+            boxShadow: 'none',
           },
         },
       },
@@ -137,6 +131,7 @@ export const getStyles = genStyleHook('tb-page', (token) => {
         flex: 1,
         paddingTop: token.paddingMD,
         paddingLeft: token.paddingMD,
+        border: 'none',
       },
     },
   };
@@ -172,6 +167,7 @@ export const useStyles = createStyles(({ css, token }) => {
         .ant-modal-header {
           text-align: center;
           margin-bottom: 20px;
+          margin-top: 15px;
           .ant-modal-title {
             font-size: x-large;
             font-weight: 400;
@@ -233,6 +229,8 @@ export const useStyles = createStyles(({ css, token }) => {
       }
     `,
     imageModal: css`
+      display: flex;
+      justify-content: center;
       .ant-modal-content {
         width: 280px;
         height: 360px;

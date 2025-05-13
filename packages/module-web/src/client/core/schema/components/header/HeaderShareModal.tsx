@@ -14,6 +14,7 @@ export const ShareModal = ({ open, setOpen, title = '', uid }) => {
   return (
     <Modal
       open={open}
+      className={modalStyle.firstmodal}
       title={t('Share')}
       footer={null}
       width={300}
@@ -21,7 +22,7 @@ export const ShareModal = ({ open, setOpen, title = '', uid }) => {
         setOpen(false);
       }}
     >
-      <div className={modalStyle.modal}>
+      <div className={modalStyle.secondmodal}>
         <div className="tb-header-modal-list" onClick={copyLink}>
           <Icon type="PaperClipOutlined" />
           {t('Copy link')}
