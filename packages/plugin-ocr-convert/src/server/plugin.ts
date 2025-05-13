@@ -6,6 +6,15 @@ import { initActions } from './actions';
 import { initProviders } from './providers';
 import { Provider } from './providers/Provider';
 
+import 'form-data';
+import 'form-data';
+import 'get-stream';
+import 'https-proxy-agent';
+import 'is-stream';
+import 'json-bigint';
+import 'node-fetch';
+import 'uuid';
+
 export class PluginOcrConvert extends Plugin {
   providers: Registry<typeof Provider> = new Registry();
 
