@@ -186,8 +186,7 @@ const PageHeader = (props) => {
         className={styles.firstmodal}
         title={t('Share')}
         footer={null}
-        width={400}
-        closable={false}
+        width={500}
         onCancel={() => {
           setOpen(false);
         }}
@@ -207,16 +206,14 @@ const PageHeader = (props) => {
             {t('Generate QR code')}
           </div>
         </div>
-        <Divider style={{ margin: '10px' }} />
         <Button
-          type="link"
-          block
-          ghost
           style={{
-            color: '#000',
+            color: '#1677ff',
             fontSize: '16px',
             letterSpacing: '1px',
-            fontWeight: 500,
+            fontWeight: 400,
+            width: 100,
+            borderColor: '#1677ff',
           }}
           onClick={() => {
             setOpen(false);
