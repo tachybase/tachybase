@@ -29,7 +29,7 @@ import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
 import { ErrorFallback } from '../error-fallback';
 import FixedBlock from './FixedBlock';
-import { UseShareActions } from './hooks/useShareActions';
+import { useShareActions } from './hooks/useShareActions';
 import { useStyles } from './Page.style';
 import { PageDesigner } from './PageDesigner';
 import { PageTabDesigner } from './PageTabDesigner';
@@ -127,7 +127,7 @@ const PageHeader = (props) => {
 
   const { styles } = modalStyle();
 
-  const { copyLink, imageAction } = UseShareActions({ title: pageHeaderTitle });
+  const { copyLink, imageAction } = useShareActions({ title: pageHeaderTitle, uid: '' });
 
   return (
     <div

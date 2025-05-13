@@ -6,19 +6,26 @@ import QRCode from 'qrcode';
 import { useTranslation } from 'react-i18next';
 import { useMatch } from 'react-router';
 
+import { useIsMobile } from '../../../../block-provider';
+import { useCompile } from '../../../../schema-component';
 import { useCurrentUserVariable } from '../../../../schema-settings';
 
-export const UseShareActions = ({ title }) => {
+export const useShareActions = ({ title, uid }) => {
   const fieldSchema = useFieldSchema();
   const isAdmin = useMatch('/admin/:name');
   const isShare = useMatch('/share/:name');
-  const currentRoute = isAdmin || isShare;
-  const link = window.location.href
-    .replace('/admin', '/share')
-    .replace(currentRoute?.params?.name, fieldSchema['x-uid'])
+  const isMobile = useMatch('/mobile/:name');
+  const isMobilePage = useIsMobile();
+  const currentRoute = isAdmin || isShare || isMobile;
+  const replaceLink = isMobilePage
+    ? window.location.href.replace('/mobile', '/share')
+    : window.location.href.replace('/admin', '/share');
+  const link = replaceLink
+    .replace(currentRoute?.params?.name, uid || fieldSchema['x-uid'])
     .replace(window.location.search || '', '');
   const { t } = useTranslation();
   const [qrLink, setQrLink] = useState();
+  const compile = useCompile();
   QRCode.toDataURL(link, { width: 170 }, (err, url) => {
     if (err) {
       console.error(err);
@@ -30,7 +37,7 @@ export const UseShareActions = ({ title }) => {
   });
   const copyLink = () => {
     navigator.clipboard.writeText(link).then((res) => {
-      message.success(`${t('Replicated')}${title}${t('page link')}`);
+      message.success(`${t('Replicated')}${compile(title)}${t('page link')}`);
     });
   };
 
@@ -48,6 +55,7 @@ const ImageModal = (props) => {
   const canvasRef = useRef(null);
   const { t } = useTranslation();
   const { currentUserCtx } = useCurrentUserVariable();
+  const compile = useCompile();
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -101,7 +109,7 @@ const ImageModal = (props) => {
         try {
           const item = new ClipboardItem({ 'image/png': blob });
           await navigator.clipboard.write([item]);
-          message.success(`${t('Replicated')}${title}${t('QR code')}`);
+          message.success(`${t('Replicated')}${compile(title)}${t('QR code')}`);
         } catch (err) {
           message.error(t('Copy failed, please try again'));
         }

@@ -1,12 +1,25 @@
-import React, { useEffect, useMemo } from 'react';
-import { cx, SortableItem, useCompile, useDesigner, useDocumentTitle, useToken } from '@tachybase/client';
-import { useField } from '@tachybase/schema';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  cx,
+  SortableItem,
+  useCompile,
+  useDesigner,
+  useDocumentTitle,
+  useShareActions,
+  useToken,
+  useTranslation,
+} from '@tachybase/client';
+import { useField, useFieldSchema } from '@tachybase/schema';
 
+import { ShareAltOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import { NavBar, NavBarProps } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
 
 import { generateNTemplate } from '../../../../locale';
 import { HeaderDesigner } from './Header.Designer';
+import { ShareModal } from './HeaderShareModal';
+import { useStyles } from './style';
 
 export interface HeaderProps extends NavBarProps {
   title?: string;
@@ -21,6 +34,9 @@ const InternalHeader = (props: HeaderProps) => {
   const navigate = useNavigate();
   const { setTitle } = useDocumentTitle();
   const { token } = useToken();
+  const { styles } = useStyles();
+  const [open, setOpen] = useState(false);
+  const fieldSchema = useFieldSchema();
 
   useEffect(() => {
     // sync title
@@ -36,10 +52,17 @@ const InternalHeader = (props: HeaderProps) => {
 
   return (
     <SortableItem className={cx('tb-mobile-header')} style={style}>
-      <NavBar backArrow={showBack} onBack={() => navigate(-1)}>
-        {compiledTitle}
+      <NavBar backArrow={showBack} onBack={() => navigate(-1)} className={styles.mobileNav}>
+        <div>{compiledTitle}</div>
+        <Button
+          icon={<ShareAltOutlined />}
+          onClick={() => {
+            setOpen(true);
+          }}
+        />
       </NavBar>
       <Designer />
+      <ShareModal open={open} setOpen={setOpen} title={title} uid={fieldSchema.parent['x-uid']} />
     </SortableItem>
   );
 };
