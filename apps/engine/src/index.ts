@@ -2,7 +2,8 @@ import './intercept';
 import '@tachybase/utils';
 import '@tachybase/telemetry'; // 尽早实例化，以尽力保证插桩成功
 
-import { resolve } from 'node:path';
+import fs from 'node:fs';
+import path, { resolve } from 'node:path';
 import { Gateway } from '@tachybase/server';
 
 import { config } from 'dotenv';
@@ -81,6 +82,29 @@ function initEnv() {
 }
 
 initEnv();
+
+const baseDir = process.cwd();
+
+const distPath = path.join(baseDir, 'apps/app-rs/dist/index.html');
+const clientPath = path.join(baseDir, 'client/index.html');
+
+let servePath = '';
+
+if (fs.existsSync(distPath)) {
+  console.log(`Found: ${distPath}`);
+  servePath = path.join(baseDir, 'apps/app-rs/dist');
+} else if (fs.existsSync(clientPath)) {
+  console.log(`Found: ${clientPath}`);
+  servePath = path.join(baseDir, 'client');
+} else {
+  if (!process.env.SERVE_PATH) {
+    throw new Error('Neither dist nor client index.html found.');
+  }
+}
+
+if (!process.env.SERVE_PATH) {
+  process.env.SERVE_PATH = servePath;
+}
 
 const run = async () => {
   Gateway.getInstance().run({

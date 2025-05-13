@@ -9,7 +9,7 @@ export async function getConfig() {
       dialectModule: require('sqlite3'),
     } as any,
     resourcer: {
-      prefix: process.env.API_BASE_PATH,
+      prefix: process.env.API_BASE_PATH || '/api/',
     },
     plugins: ['tachybase'],
     cacheManager: {
