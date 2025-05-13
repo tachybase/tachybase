@@ -5,6 +5,9 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tachybase build",
+    "build:engine:linux": "pkg -t  node22-linux-arm64 -o dist/engine.run apps/engine/lib/index.js",
+    "build:engine:mac": "pkg -t node22-macos-arm64 -o dist/engine apps/engine/lib/index.js",
+    "build:engine:win": "pkg -t node22-win-arm64 -o dist/engine.exe apps/engine/lib/index.js",
     "build:p": "tachybase build -s --no-dts",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
@@ -57,6 +60,7 @@
     "@types/node": "20.17.10",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@yao-pkg/pkg": "6.4.1",
     "axios": "^1.7.9",
     "commander": "^9.5.0",
     "concurrently": "9.1.0",
