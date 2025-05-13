@@ -83,9 +83,8 @@ function initEnv() {
 initEnv();
 
 const run = async () => {
-  const config2 = await getConfig();
   Gateway.getInstance().run({
-    mainAppOptions: config2,
+    mainAppOptions: (await getConfig()) as any,
   });
 };
 
