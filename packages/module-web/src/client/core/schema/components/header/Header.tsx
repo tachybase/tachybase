@@ -62,7 +62,7 @@ const InternalHeader = (props: HeaderProps) => {
         />
       </NavBar>
       <Designer />
-      <ShareModal open={open} setOpen={setOpen} title={title} uid={fieldSchema.parent['x-uid']} />
+      <ShareModal open={open} setOpen={setOpen} title={title} uid={fieldSchema.parent?.['x-uid']} />
     </SortableItem>
   );
 };
