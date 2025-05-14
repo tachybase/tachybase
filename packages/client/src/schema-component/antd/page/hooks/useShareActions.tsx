@@ -193,7 +193,7 @@ const canvasContent = (canvasRef, link, currentUserCtx, t) => {
   ctx.fillText(t('Scan the code to view the sharing'), canvas.width / 2, 230);
 
   ctx.fillStyle = 'rgba(50, 121, 254, 1)';
-  ctx.font = '13px Arial';
+  ctx.font = '14px Arial';
   ctx.textAlign = 'center';
   ctx.fillText('灵矶(Tachybase)', canvas.width / 2, 250);
 };

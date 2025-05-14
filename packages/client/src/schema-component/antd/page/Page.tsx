@@ -109,8 +109,8 @@ const PageHeader = (props) => {
   const { theme } = useGlobalTheme();
   const options = useContext(SchemaOptionsContext);
   const compile = useCompile();
-  const [open, setOpen] = useState(true);
-  const [imageOpen, setImageOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [imageOpen, setImageOpen] = useState(false);
   const { showScrollArea } = useContextMenu();
 
   const hidePageTitle = fieldSchema['x-component-props']?.hidePageTitle;
