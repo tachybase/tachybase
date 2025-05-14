@@ -11,6 +11,10 @@
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-backup"
   },
+  "dependencies": {
+    "cron-parser": "4.9.0",
+    "react-js-cron": "^3.2.0"
+  },
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
     "@hapi/topo": "^6.0.2",
@@ -40,6 +44,7 @@
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
