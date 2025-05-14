@@ -37,7 +37,7 @@ export const useShareActions = ({ title, uid }) => {
   });
   const copyLink = () => {
     navigator.clipboard.writeText(link).then((res) => {
-      message.success(`${t('Replicated')}${compile(title)}${t('page link')}`);
+      message.success(`${t('Replicated')}${compile(title || '')}${t('page link')}`);
     });
   };
 
@@ -68,6 +68,7 @@ const ImageModal = (props) => {
       link.href = imageData;
       link.download = 'Tachybase-Share.png';
       link.click();
+      message.success(`${t('Saved')}${compile(title || '')}${t('QR code')}`);
     }
   };
 
@@ -80,7 +81,7 @@ const ImageModal = (props) => {
         try {
           const item = new ClipboardItem({ 'image/png': blob });
           await navigator.clipboard.write([item]);
-          message.success(`${t('Replicated')}${compile(title)}${t('QR code')}`);
+          message.success(`${t('Replicated')}${compile(title || '')}${t('QR code')}`);
         } catch (err) {
           message.error(t('Copy failed, please try again'));
         }
@@ -103,6 +104,8 @@ const ImageModal = (props) => {
         width={240}
         height={260}
         style={{
+          width: '240px',
+          height: '260px',
           pointerEvents: 'none',
         }}
       />
@@ -122,27 +125,37 @@ const canvasContent = (canvasRef, link, currentUserCtx, t) => {
   const canvas = canvasRef.current;
   const ctx = canvas.getContext('2d');
 
+  const dpr = window.devicePixelRatio;
+  const { width, height } = canvas;
+  // 重新设置 canvas 自身宽高大小和 css 大小。放大 canvas；css 保持不变
+  canvas.width = Math.round(width * dpr);
+  canvas.height = Math.round(height * dpr);
+  canvas.style.width = width + 'px';
+  canvas.style.height = height + 'px';
+  // 直接用 scale 放大整个坐标系，相对来说就是放大了每个绘制操作
+  ctx.scale(dpr, dpr);
+
   ctx.filter = 'blur(20px)';
   const backgroundGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  backgroundGradient.addColorStop(0, '#eaf6ff');
-  backgroundGradient.addColorStop(1, '#f7f8fa');
+  backgroundGradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+  backgroundGradient.addColorStop(1, 'rgba(234, 238, 246, 0.80)');
   ctx.fillStyle = backgroundGradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // 然后绘制两个模糊的 radial 光斑
+  // 绘制两个模糊的 radial 光斑
   const drawGlow = (x, y) => {
     const radius = 100;
     const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-    gradient.addColorStop(0, 'rgba(217, 238, 255, 1)');
-    gradient.addColorStop(0.7, 'rgba(0, 149, 255, 0)');
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+    gradient.addColorStop(1, 'rgba(217, 238, 255, 0.216)');
     ctx.fillStyle = gradient;
     ctx.beginPath();
     ctx.arc(x, y, radius, 0, Math.PI * 2);
     ctx.fill();
   };
 
-  drawGlow(-150, 0); // ::before
-  drawGlow(-90, 0); // ::after
+  drawGlow(60, 30); // ::before
+  drawGlow(190, 280); // ::after
 
   // 清除 filter，以防后续绘图受影响
   ctx.filter = 'none';
@@ -150,14 +163,14 @@ const canvasContent = (canvasRef, link, currentUserCtx, t) => {
   ctx.fillStyle = '#AAAAAA';
   ctx.font = '13px Arial';
   ctx.textAlign = 'center';
-  ctx.fillText(`${currentUserCtx.nickname}`, canvas.width / 2, 30);
+  ctx.fillText(`${currentUserCtx.nickname}`, canvas.width / 4, 30);
 
   const img = new Image();
   img.src = link;
   img.onload = () => {
     const imgWidth = img.width;
     const imgHeight = img.height;
-    const x = (canvas.width - imgWidth) / 2;
+    const x = (canvas.width - imgWidth) / 8;
     const y = 40;
     // 设置边框和圆角
     const borderWidth = 3; // 边框宽度
@@ -190,10 +203,10 @@ const canvasContent = (canvasRef, link, currentUserCtx, t) => {
   ctx.fillStyle = '#AAAAAA';
   ctx.font = '13px Arial';
   ctx.textAlign = 'center';
-  ctx.fillText(t('Scan the code to view the sharing'), canvas.width / 2, 230);
+  ctx.fillText(t('Scan the code to view the sharing'), canvas.width / 4, 230);
 
   ctx.fillStyle = 'rgba(50, 121, 254, 1)';
   ctx.font = '14px Arial';
   ctx.textAlign = 'center';
-  ctx.fillText('灵矶(Tachybase)', canvas.width / 2, 250);
+  ctx.fillText('灵矶(Tachybase)', canvas.width / 4, 250);
 };

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFieldSchema } from '@tachybase/schema';
 
 import { css } from '@emotion/css';
@@ -7,7 +7,11 @@ import { Navigate, useLocation, useMatch, useNavigate } from 'react-router';
 import { Outlet } from 'react-router-dom';
 
 import { useAPIClient } from '../../api-client';
-import { AdminProvider } from '../../built-in/admin-layout';
+import { AdminProvider, AdminTabs, MenuEditor, useStyles } from '../../built-in/admin-layout';
+import { PinnedPluginList } from '../../built-in/pinned-list';
+import { useSystemSettings } from '../../built-in/system-settings';
+import { CurrentUser } from '../../user';
+import { useApp } from '../hooks';
 
 export function useShareToken() {
   const url = new URL(window.location.href);
@@ -17,6 +21,10 @@ export function useShareToken() {
 }
 
 export const ShareLayout = () => {
+  const { styles } = useStyles();
+  const app = useApp();
+  const result = useSystemSettings();
+  const sideMenuRef = useRef<HTMLDivElement>();
   return (
     <Layout style={{ height: '100%' }}>
       <Layout.Content
@@ -38,6 +46,29 @@ export const ShareLayout = () => {
           }
         `}
       >
+        <Layout.Header className={styles.header}>
+          <div className={styles.headerA}>
+            <div className={styles.headerB}>
+              <div
+                className={styles.titleContainer}
+                onClick={() => {
+                  location.href = app.adminUrl;
+                }}
+              >
+                <img className={styles.logo} src={result?.data?.data?.logo?.url} />
+                <h1 className={styles.title}>{result?.data?.data?.title}</h1>
+              </div>
+              <MenuEditor sideMenuRef={sideMenuRef} />
+              <div className={styles.headerTabs}>
+                <AdminTabs />
+              </div>
+            </div>
+            <div className={styles.right}>
+              <PinnedPluginList belongToFilter="pinnedmenu" />
+              <CurrentUser />
+            </div>
+          </div>
+        </Layout.Header>
         <Outlet />
       </Layout.Content>
     </Layout>
