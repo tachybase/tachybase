@@ -110,7 +110,11 @@ export function WorkflowCanvas() {
       filter: {
         key: workflow.key,
       },
+      values: {
+        color: workflow.color,
+      },
     });
+
     message.success(t('Operation succeeded'));
 
     navigate(getWorkflowDetailPath(revision.id));

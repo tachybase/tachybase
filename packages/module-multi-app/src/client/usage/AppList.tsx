@@ -10,7 +10,7 @@ import { useMultiAppUpdateAction } from '../system/hooks/useMultiAppUpdateAction
 import { useRouteUrl } from '../system/hooks/useRouteUrl';
 import { useStartAllAction } from '../system/hooks/useStartAllAction';
 import { useStopAllAction } from '../system/hooks/useStopAllAction';
-import { appListSchema } from './AppList.schema';
+import { appListActionsSchema, appListSchema } from './AppList.schema';
 import { useStyles } from './AppList.style';
 
 export const AppList = () => {
@@ -18,7 +18,7 @@ export const AppList = () => {
   const { styles } = useStyles();
   const contextTableBlock = useTableBlockContext();
   const service = contextTableBlock?.service;
-  const { data, loading } = service || {};
+  const { data, loading, run } = service || {};
   const [appStatus, setAppStatus] = useState(false);
 
   if (loading) {
@@ -35,6 +35,9 @@ export const AppList = () => {
         boxShadow: 'none',
       }}
     >
+      <div className={styles.appAction}>
+        <SchemaComponent schema={appListActionsSchema} />
+      </div>
       <div className={styles.appListStyle}>
         {appList?.map((app) => (
           <AppCard key={app.name} {...app} service={service} appStatus={appStatus} setAppStatus={setAppStatus} />

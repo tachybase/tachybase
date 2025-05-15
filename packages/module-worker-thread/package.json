@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/module-worker-thread",
-  "version": "1.0.18",
+  "version": "1.0.22",
   "description": "Worker thread for executing time-consuming tasks",
   "main": "dist/server/index.js",
   "scripts": {

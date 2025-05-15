@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import {
   SchemaComponent,
+  TrackingLink,
   useCollectionRecordData,
   useCurrentUserContext,
   useDataBlockRequest,
@@ -36,9 +37,9 @@ const AppVisitor = () => {
 
   return (
     <Space split={<Divider type="horizontal" />}>
-      <a href={link} target={'_blank'} rel="noreferrer">
+      <TrackingLink href={link} target={'_blank'} rel="noreferrer" trackingKey="multiapp_linkView">
         {t('View', { ns: NAMESPACE })}
-      </a>
+      </TrackingLink>
       {record.status !== 'running' && <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>}
       {record.status === 'running' && <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>}
     </Space>

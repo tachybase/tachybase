@@ -16,6 +16,7 @@ export * from './collection-select';
 export * from './color-picker';
 export * from './color-select';
 export * from './cron';
+export * from './slider';
 export * from './custom-cascader';
 export * from './date-picker';
 export * from './details';
@@ -59,5 +60,7 @@ export * from './unixTimestamp';
 export * from './upload';
 export * from './variable';
 export * from './media-card';
+export * from './tracking-link';
+
 export { PageHeader } from '@ant-design/pro-layout';
 export { CodeMirror } from '@tachybase/components';
