@@ -1,6 +1,35 @@
 import './intercept';
+// builtin modules for deps
+import 'dayjs';
 import '@tachybase/utils';
-import '@tachybase/telemetry'; // 尽早实例化，以尽力保证插桩成功
+import '@tachybase/telemetry';
+import '@tachybase/acl';
+import '@tachybase/logger';
+import '@tachybase/cache';
+import '@tachybase/schema';
+import '@tachybase/resourcer';
+import '@tachybase/evaluators';
+import '@tachybase/database';
+import '@tachybase/data-source';
+import '@tachybase/auth';
+import '@tachybase/actions';
+import 'lodash';
+import 'async-mutex';
+import 'jsonwebtoken';
+import 'cache-manager';
+import 'sequelize';
+import 'umzug';
+import 'mathjs';
+import 'winston';
+import 'winston-daily-rotate-file';
+import 'koa';
+import '@koa/cors';
+import 'multer';
+import '@koa/multer';
+import 'koa-bodyparser';
+import 'axios';
+import 'react';
+import 'i18next';
 
 import fs from 'node:fs';
 import path, { resolve } from 'node:path';

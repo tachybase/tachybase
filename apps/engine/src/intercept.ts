@@ -21,13 +21,17 @@ Module._load = function (request: string, parent, isMain) {
 
     // 对裸模块名才尝试优先主程序路径加载
     if (isBareModule(request)) {
-      const resolvedFromApp = require.resolve(request, { paths: [appRoot] });
-      // if (request.includes('tachybase/utils')) {
-      //   console.log('🚀 ~ request:', request);
-      //   console.log('🚀 ~ request:', request, { paths: [appRoot] })
-      //   console.log('🚀 ~ request: ~ resolvedFromApp', resolvedFromApp)
-      // }
-      return originalLoad(resolvedFromApp, parent, isMain);
+      try {
+        const resolvedFromApp = require.resolve(request, { paths: [appRoot] });
+        return originalLoad(resolvedFromApp, parent, isMain);
+      } catch (err) {
+        if (err.code === 'MODULE_NOT_FOUND') {
+          const resolvedFromApp = require.resolve(request, { paths: [process.env.NODE_MODULES_PATH] });
+          return originalLoad(resolvedFromApp, parent, isMain);
+        } else {
+          throw err;
+        }
+      }
     }
 
     // 相对路径、绝对路径不动
