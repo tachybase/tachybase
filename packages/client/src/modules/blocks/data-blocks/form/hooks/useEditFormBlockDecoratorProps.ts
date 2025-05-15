@@ -13,7 +13,10 @@ export function useEditFormBlockDecoratorProps(props) {
   }
 
   return {
-    params,
+    params: {
+      ...params,
+      ...props.params,
+    },
     parentRecord,
   };
 }
