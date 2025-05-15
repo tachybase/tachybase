@@ -219,8 +219,9 @@ export class BaseAuth extends Auth {
         });
 
         const expiresIn = Math.floor(tokenPolicy.tokenExpirationTime / 1000);
+        // TODO: signInTime考虑改成当前日期
         const newToken = this.jwt.sign(
-          { userId: user.id, roleName, temp, signInTime, iat: Math.floor(renewedResult.issuedTime / 1000) },
+          { userId: user.id, roleName, temp, signInTime: Date.now(), iat: Math.floor(renewedResult.issuedTime / 1000) },
           { jwtid: renewedResult.jti, expiresIn },
         );
         this.ctx.res.setHeader('x-new-token', newToken);
