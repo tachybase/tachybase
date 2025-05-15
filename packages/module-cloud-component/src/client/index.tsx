@@ -2,6 +2,7 @@ import { Plugin, useApp, useDesignable } from '@tachybase/client';
 import { Field, useField, useFieldSchema } from '@tachybase/schema';
 import { uid } from '@tachybase/utils/client';
 
+import * as antv from '@antv/g6';
 import exceljs from 'exceljs';
 import * as fileSaver from 'file-saver';
 import * as qrcode from 'qrcode';
@@ -24,6 +25,7 @@ export class ModuleCloudComponentClient extends Plugin {
     this.app.requirejs.define('qrcode', () => qrcode);
     this.app.requirejs.define('file-saver', () => fileSaver);
     this.app.requirejs.define('recharts', () => recharts);
+    this.app.requirejs.define('@antv/g6', () => antv);
     await this.initLibraries();
   }
 
