@@ -49,7 +49,7 @@ export class PluginDepartmentServer extends Plugin {
     });
     this.app.acl.allow('users', ['setMainDepartment', 'listExcludeDept'], 'loggedIn');
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.*`,
+      name: `pm.${this.name}`,
       actions: [
         'departments:*',
         'roles:list',
