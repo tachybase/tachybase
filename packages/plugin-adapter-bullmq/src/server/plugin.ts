@@ -4,9 +4,6 @@ import { createBullBoard } from '@bull-board/api';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { KoaAdapter } from '@bull-board/koa';
 import { Queue } from 'bullmq';
-import _ from 'lodash';
-
-import 'koa';
 
 export class PluginAdapterBullmqServer extends Plugin {
   async afterAdd() {}
