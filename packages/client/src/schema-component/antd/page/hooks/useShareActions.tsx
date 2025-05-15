@@ -37,7 +37,16 @@ export const useShareActions = ({ title, uid }) => {
   });
   const copyLink = () => {
     navigator.clipboard.writeText(link).then((res) => {
-      message.success(`${t('Replicated')}${compile(title || '')}${t('page link')}`);
+      message.open({
+        type: 'success',
+        content: (
+          <>
+            {t('Replicated')}
+            <span style={{ color: '#3279FE' }}>{compile(title || '')}</span>
+            {t('page link')}
+          </>
+        ),
+      });
     });
   };
 
@@ -68,7 +77,16 @@ const ImageModal = (props) => {
       link.href = imageData;
       link.download = 'Tachybase-Share.png';
       link.click();
-      message.success(`${t('Saved')}${compile(title || '')}${t('QR code')}`);
+      message.open({
+        type: 'success',
+        content: (
+          <>
+            {t('Saved')}
+            <span style={{ color: '#3279FE' }}>{compile(title || '')}</span>
+            {t('QR code')}
+          </>
+        ),
+      });
     }
   };
 
@@ -77,11 +95,19 @@ const ImageModal = (props) => {
     if (canvas && navigator.clipboard) {
       canvas.toBlob(async (blob) => {
         if (!blob) return;
-
         try {
           const item = new ClipboardItem({ 'image/png': blob });
           await navigator.clipboard.write([item]);
-          message.success(`${t('Replicated')}${compile(title || '')}${t('QR code')}`);
+          message.open({
+            type: 'success',
+            content: (
+              <>
+                {t('Replicated')}
+                <span style={{ color: '#3279FE' }}>{compile(title || '')}</span>
+                {t('QR code')}
+              </>
+            ),
+          });
         } catch (err) {
           message.error(t('Copy failed, please try again'));
         }
