@@ -231,7 +231,7 @@ importers:
         version: 2.4.2
       esbuild-register:
         specifier: ^3.6.0
-        version: 3.6.0(esbuild@0.24.0)
+        version: 3.6.0(esbuild@0.24.2)
       execa:
         specifier: ^5.1.1
         version: 5.1.1
@@ -2712,12 +2712,6 @@ importers:
       bullmq:
         specifier: ^5.34.3
         version: 5.34.3
-      koa:
-        specifier: 3.0.0
-        version: 3.0.0
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
 
   packages/plugin-adapter-red-node:
     dependencies:
@@ -26708,10 +26702,10 @@ snapshots:
 
   esbuild-plugin-file-path-extensions@2.1.4: {}
 
-  esbuild-register@3.6.0(esbuild@0.24.0):
+  esbuild-register@3.6.0(esbuild@0.24.2):
     dependencies:
       debug: 4.4.0(supports-color@5.5.0)
-      esbuild: 0.24.0
+      esbuild: 0.24.2
     transitivePeerDependencies:
       - supports-color
 
