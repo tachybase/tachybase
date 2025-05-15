@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   ActionBarProvider,
   css,
@@ -10,10 +10,12 @@ import {
 } from '@tachybase/client';
 import { RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
-import { TabsProps } from 'antd';
+import { ShareAltOutlined } from '@ant-design/icons';
+import { Button, TabsProps } from 'antd';
 import { useSearchParams } from 'react-router-dom';
 
 import { countGridCol, findSchema } from '../../helpers';
+import { ShareModal } from '../header/HeaderShareModal';
 import { PageDesigner } from './Page.Designer';
 import useStyles from './style';
 
@@ -26,6 +28,7 @@ const InternalPage: React.FC = (props) => {
   const tabsSchema = fieldSchema.properties?.['tabs'];
   const isHeaderEnabled = field.componentProps.headerEnabled !== false;
   const isTabsEnabled = field.componentProps.tabsEnabled !== false && tabsSchema;
+  const [open, setOpen] = useState(false);
 
   let pageSchema = findSchema(fieldSchema, 'MPage');
   if (!isTabsEnabled && !pageSchema && tabsSchema) {
@@ -106,13 +109,23 @@ const InternalPage: React.FC = (props) => {
           `]: (tabsSchema && !isTabsEnabled) || !tabsSchema,
         })}
       >
-        {isHeaderEnabled && (
+        {isHeaderEnabled ? (
           <RecursionField
             schema={fieldSchema}
             filterProperties={(s) => {
               return 'MHeader' === s['x-component'];
             }}
           ></RecursionField>
+        ) : (
+          <div style={{ display: 'flex', justifyContent: 'end', backgroundColor: '#ffffff', paddingRight: '20px' }}>
+            <Button
+              icon={<ShareAltOutlined />}
+              style={{ border: 'none' }}
+              onClick={() => {
+                setOpen(true);
+              }}
+            />
+          </div>
         )}
         <TabsContextProvider
           PaneRoot={GlobalActionProvider}
@@ -137,6 +150,7 @@ const InternalPage: React.FC = (props) => {
           ></RecursionField>
         )}
       </GlobalActionProvider>
+      <ShareModal open={open} setOpen={setOpen} uid={fieldSchema['x-uid']} />
     </SortableItem>
   );
 };

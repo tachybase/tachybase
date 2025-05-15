@@ -2,15 +2,15 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { FormLayout } from '@tachybase/components';
 import { Schema, SchemaOptionsContext, useFieldSchema } from '@tachybase/schema';
 
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, ShareAltOutlined } from '@ant-design/icons';
 import { PageHeader as AntdPageHeader } from '@ant-design/pro-layout';
 import { PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
-import { Button, Tabs } from 'antd';
+import { Button, Divider, Modal, Tabs } from 'antd';
 import { cx } from 'antd-style';
 import classNames from 'classnames';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
+import { useMatch, useSearchParams } from 'react-router-dom';
 
 import { FormDialog, ScrollArea } from '..';
 import { useToken } from '../__builtins__';
@@ -29,10 +29,11 @@ import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
 import { ErrorFallback } from '../error-fallback';
 import FixedBlock from './FixedBlock';
+import { useShareActions } from './hooks/useShareActions';
 import { useStyles } from './Page.style';
 import { PageDesigner } from './PageDesigner';
 import { PageTabDesigner } from './PageTabDesigner';
-import { getStyles } from './style';
+import { getStyles, useStyles as modalStyle } from './style';
 
 export const Page = (props) => {
   const { children, ...others } = props;
@@ -42,6 +43,7 @@ export const Page = (props) => {
   const fieldSchema = useFieldSchema();
   const disablePageHeader = fieldSchema['x-component-props']?.disablePageHeader;
   const enablePageTabs = fieldSchema['x-component-props']?.enablePageTabs;
+  const enableSharePage = fieldSchema['x-component-props']?.enableSharePage;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
@@ -72,6 +74,7 @@ export const Page = (props) => {
           parentProps={others}
           setHeight={setHeight}
           setLoading={setLoading}
+          enableSharePage={enableSharePage}
           setSearchParams={setSearchParams}
         />
         <PageContentComponent
@@ -100,23 +103,31 @@ const PageHeader = (props) => {
     fieldSchema,
     title,
     parentProps,
+    enableSharePage,
   } = props;
 
   const { theme } = useGlobalTheme();
   const options = useContext(SchemaOptionsContext);
   const compile = useCompile();
-
+  const [open, setOpen] = useState(false);
+  const [imageOpen, setImageOpen] = useState(false);
   const { showScrollArea } = useContextMenu();
 
   const hidePageTitle = fieldSchema['x-component-props']?.hidePageTitle;
 
   const pageHeaderTitle = hidePageTitle ? undefined : fieldSchema.title || compile(title);
+  const isShare = useMatch('/share/:name');
 
   // THINK: 思考下这里怎么缓存, 直接用 useMemo 是不行的
   const items = fieldSchema.mapProperties((schema) => ({
     key: schema.name as string,
     label: <TabItem schema={schema} />,
   }));
+  const { t } = useTranslation();
+
+  const { styles } = modalStyle();
+
+  const { copyLink, imageAction } = useShareActions({ title: pageHeaderTitle, uid: '' });
 
   return (
     <div
@@ -127,12 +138,20 @@ const PageHeader = (props) => {
     >
       {!disablePageHeader && (
         <AntdPageHeader
-          className={classNames('pageHeaderCss', pageHeaderTitle || enablePageTabs ? '' : 'height0')}
+          className={classNames('pageHeaderCss', pageHeaderTitle || enableSharePage ? '' : 'height0')}
           ghost={false}
           // 如果标题为空的时候会导致 PageHeader 不渲染，所以这里设置一个空白字符，然后再设置高度为 0
           title={pageHeaderTitle || ' '}
           {...parentProps}
-          extra={!enablePageTabs && showScrollArea && <ScrollArea />}
+          extra={
+            <HeaderExtra
+              enablePageTabs={enablePageTabs}
+              showScrollArea={showScrollArea}
+              isShare={isShare}
+              setOpen={setOpen}
+              enableSharePage={enableSharePage}
+            />
+          }
           footer={
             enablePageTabs && (
               <TabComponent
@@ -146,9 +165,74 @@ const PageHeader = (props) => {
               />
             )
           }
+        ></AntdPageHeader>
+      )}
+      {disablePageHeader && enableSharePage && !isShare && (
+        <div className="tb-page-header-button">
+          <Button
+            icon={<ShareAltOutlined />}
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            {t('Share')}
+          </Button>
+        </div>
+      )}
+      <Modal
+        open={open}
+        className={styles.firstmodal}
+        title={t('Share')}
+        footer={null}
+        width={500}
+        onCancel={() => {
+          setOpen(false);
+        }}
+      >
+        <div className={styles.secondmodal}>
+          <div className="tb-header-modal-list" onClick={copyLink}>
+            <Icon type="PaperClipOutlined" />
+            {t('Copy link')}
+          </div>
+          <div
+            className="tb-header-modal-list"
+            onClick={() => {
+              setImageOpen(true);
+            }}
+          >
+            <Icon type="QrcodeOutlined" />
+            {t('Generate QR code')}
+          </div>
+        </div>
+        <Modal
+          className={styles.imageModal}
+          open={imageOpen}
+          footer={null}
+          onCancel={() => {
+            setImageOpen(false);
+          }}
+        >
+          {imageAction()}
+        </Modal>
+      </Modal>
+    </div>
+  );
+};
+
+const HeaderExtra = ({ enablePageTabs, showScrollArea, isShare, setOpen, enableSharePage }) => {
+  return (
+    <>
+      {!isShare && (
+        <Button
+          icon={<ShareAltOutlined />}
+          onClick={() => {
+            setOpen(true);
+          }}
+          style={{ visibility: `${enableSharePage ? 'visible' : 'hidden'}` }}
         />
       )}
-    </div>
+      {!enablePageTabs && showScrollArea && <ScrollArea />}
+    </>
   );
 };
 
