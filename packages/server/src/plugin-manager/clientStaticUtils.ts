@@ -21,6 +21,15 @@ function findPackageJson(filePath) {
  * get package.json path for specific NPM package
  */
 export function getDepPkgPath(packageName: string, cwd?: string) {
+  if (process.env.RUN_MODE === 'engine') {
+    try {
+      // try find in current path or in specified path
+      return require.resolve(`${packageName}/package.json`, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
+    } catch {
+      // ignore errors
+    }
+  }
+
   try {
     return require.resolve(`${packageName}/package.json`, { paths: cwd ? [cwd] : undefined });
   } catch {
