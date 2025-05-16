@@ -27,6 +27,6 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
   },
-  "description.zh-CN": "集成和管理 RedNode 流程自动化引擎",
-  "displayName.zh-CN": "RedNode管理"
+  "description.zh-CN": "集成和管理 Node-RED 流程自动化引擎",
+  "displayName.zh-CN": "Node-RED 管理"
 }
