@@ -17,7 +17,7 @@ export const inputNumberComponentFieldSettings = new SchemaSettings({
       type: 'modal',
       useVisible() {
         const fieldSchema = useFieldSchema();
-        return fieldSchema['x-component-props'].component === 'Slider';
+        return fieldSchema['x-component'] === 'Slider' || fieldSchema['x-component-props']?.component === 'Slider';
       },
       useComponentProps() {
         const { t } = useTranslation();
@@ -61,7 +61,7 @@ export const inputNumberComponentFieldSettings = new SchemaSettings({
       type: 'modal',
       useVisible() {
         const fieldSchema = useFieldSchema();
-        return fieldSchema['x-component-props'].component === 'Slider';
+        return fieldSchema['x-component'] === 'Slider' || fieldSchema['x-component-props']?.component === 'Slider';
       },
       useComponentProps() {
         const { t } = useTranslation();
