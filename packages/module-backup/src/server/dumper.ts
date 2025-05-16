@@ -239,6 +239,7 @@ export class Dumper extends AppMigrator {
 
     const filePath = this.lockFilePath(fileName, appName);
     await fsPromises.writeFile(filePath, 'lock', 'utf8');
+    return filePath;
   }
 
   async cleanLockFile(fileName: string, appName: string) {

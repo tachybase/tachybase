@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-mock-collections",
   "displayName": "mock-collections",
-  "version": "1.0.11",
+  "version": "1.0.22",
   "description": "mock-collections",
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
@@ -17,6 +17,7 @@
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/module-collection": "workspace:*",
     "@tachybase/module-error-handler": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",

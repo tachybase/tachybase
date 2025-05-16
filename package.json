@@ -1,6 +1,6 @@
 {
   "name": "tachybase",
-  "version": "1.0.11",
+  "version": "1.0.22",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
@@ -78,7 +78,7 @@
     "vitest": "^3.0.5",
     "xlsx": "^0.18.5"
   },
-  "packageManager": "pnpm@9.15.1",
+  "packageManager": "pnpm@10.8.1",
   "engines": {
     "node": ">=20.18.0"
   },

@@ -85,8 +85,8 @@ class ModuleMessagesServer extends Plugin {
               return;
             }
             try {
+              const analysis = await this.app.authManager?.jwt?.verifyToken(userMeg.payload.token);
               // 给当前连接设置tag app:${appName} 为data.userId
-              const analysis = jwt.verify(userMeg.payload.token, process.env.APP_KEY) as any;
               const userId = analysis.userId;
               const client = ws.webSocketClients.get(websocket.id);
               // 移除所有以 'app:' 开头的标签

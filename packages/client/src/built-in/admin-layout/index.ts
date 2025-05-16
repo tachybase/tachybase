@@ -7,3 +7,4 @@ export * from './InternalAdminLayout';
 export * from './MenuEditor';
 export * from './NoticeArea';
 export * from './filterByACL';
+export * from './style';

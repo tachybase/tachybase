@@ -136,7 +136,7 @@ function getFuzzyFilter(queryValue, isInitiationTable) {
   }
 
   // 数值类型的查询
-  if (queryValue && Number.isFinite(Number(queryValue))) {
+  if (queryValue && Number.isInteger(Number(queryValue))) {
     // 所有对用户的界面显示的统一编号, 为发起审批的编号, 所以查询时候要区分
     searchArr.push(
       ...[

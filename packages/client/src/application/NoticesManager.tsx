@@ -83,12 +83,15 @@ export class NoticeManager {
     duration: null | number;
   }) {
     if (data.type === NoticeType.NOTIFICATION) {
-      this[data.type](data.title, data.content, data.level);
+      this.notification(data.title, data.content, data.level, data.duration);
     } else if (data.type === NoticeType.MODAL) {
-      this[data.type](data.title, data.content, data.level);
+      this.modal(data.title, data.content, data.level, data.duration);
+    } else if (data.type === NoticeType.TOAST) {
+      this.toast(data.content, data.level, data.duration);
     } else if (data.type === NoticeType.CUSTOM) {
       this.emitter.emit(data.eventType, data.event);
     } else {
+      // TODO 后续status也能有duration
       this[data.type](data.content, data.level);
     }
   }
@@ -99,8 +102,11 @@ export class NoticeManager {
     this.currentStatusUpdatedAt = Date.now();
   }
 
-  toast(content: string, level: NoticeLevel) {
-    message[level](content);
+  toast(content: string, level: NoticeLevel, duration: number = 3) {
+    message[level]({
+      content,
+      duration,
+    });
   }
 
   notification(
@@ -122,6 +128,7 @@ export class NoticeManager {
     title: string,
     content: string,
     level: NoticeLevel,
+    duration: null | number = null,
     options: {
       destroyOnClose?: boolean;
       maskClosable?: boolean;
@@ -130,12 +137,19 @@ export class NoticeManager {
       onCancel?: () => void;
     } = {},
   ) {
-    Modal[level]({
+    const modal = Modal[level]({
       title,
       content,
       destroyOnClose: true,
-      maskClosable: true,
+      maskClosable: false,
       ...options,
     });
+    if (!duration) {
+      // 默认30秒
+      duration = 30;
+    }
+    setTimeout(() => {
+      modal?.destroy();
+    }, duration * 1000);
   }
 }

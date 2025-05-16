@@ -89,10 +89,7 @@ function rawTypeToFieldType(rawType, exampleValue) {
     },
     number: () => {
       if (Number.isInteger(exampleValue)) {
-        if (dayjs(exampleValue).isValid()) {
-          return ['integer', 'bigInt'];
-        }
-        return 'integer';
+        return ['integer', 'float', 'date', 'bigInt'];
       }
       return 'float';
     },
