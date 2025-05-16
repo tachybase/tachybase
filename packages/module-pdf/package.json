@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/module-pdf",
+  "displayName": "PDF",
   "version": "1.0.22",
+  "description": "PDF",
+  "keywords": [
+    "Others"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-pdf"
@@ -27,5 +32,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "PDF",
+  "displayName.zh-CN": "PDF"
 }

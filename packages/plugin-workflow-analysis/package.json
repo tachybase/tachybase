@@ -3,6 +3,9 @@
   "displayName": "Workflow analysis tool",
   "version": "1.0.22",
   "description": "Workflow Analysis Tool: Used for Time Consumption and Error Analysis",
+  "keywords": [
+    "Workflow"
+  ],
   "main": "dist/server/index.js",
   "devDependencies": {
     "@ant-design/icons": "^5.6.0",
@@ -19,5 +22,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "工作流分析工具：用于时间消耗和错误分析",
+  "displayName.zh-CN": "工作流分析工具"
 }

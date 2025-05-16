@@ -3,6 +3,9 @@
   "displayName": "WEB client",
   "version": "1.0.22",
   "description": "Provides a client interface for the TachyBase server",
+  "keywords": [
+    "System management"
+  ],
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
