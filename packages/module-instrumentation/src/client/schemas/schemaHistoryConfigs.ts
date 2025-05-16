@@ -1,24 +1,22 @@
 import { ISchema } from '@tachybase/schema';
 
-import { trackingLogCollection } from '../collections/trackingLog.collection';
-import { NAMESPACE } from '../locale';
-import { viewTrackingLog } from './viewTrackingLog';
+import { historyConfigCollection } from '../collections/historyConfig.collection';
+import { createHistoryConfig } from './createHistoryConfig';
+import { updateHistoryConfig } from './updateHistoryConfig';
 
-export const schemaTrackingLog: ISchema = {
+export const schemaHistoryConfigs: ISchema = {
   type: 'void',
   properties: {
-    trackingLogConfig: {
+    trackingHistoryConfig: {
       type: 'void',
       'x-decorator': 'TableBlockProvider',
       'x-decorator-props': {
-        collection: trackingLogCollection,
+        collection: historyConfigCollection,
         action: 'list',
         params: {
-          pageSize: 50,
-          sort: ['-createdAt'],
+          filter: {},
         },
       },
-      title: `{{t("Notification Config", { ns: "${NAMESPACE}" })}}`,
       properties: {
         actions: {
           type: 'void',
@@ -29,32 +27,11 @@ export const schemaTrackingLog: ISchema = {
             },
           },
           properties: {
-            filter: {
-              type: 'void',
-              title: '{{ t("Filter") }}',
-              'x-action': 'filter',
-              'x-designer': 'Filter.Action.Designer',
-              'x-component': 'Filter.Action',
-              'x-use-component-props': 'useFilterActionProps',
-              'x-component-props': {
-                icon: 'FilterOutlined',
-              },
-              'x-align': 'left',
-            },
-            refresh: {
-              type: 'void',
-              title: '{{ t("Refresh") }}',
-              'x-component': 'Action',
-              'x-use-component-props': 'useRefreshActionProps',
-              'x-component-props': {
-                icon: 'ReloadOutlined',
-              },
-            },
             delete: {
               type: 'void',
               title: '{{ t("Delete") }}',
-              'x-component': 'Action',
               'x-action': 'destroy',
+              'x-component': 'Action',
               'x-decorator': 'ACLActionProvider',
               'x-use-component-props': 'useBulkDestroyActionProps',
               'x-component-props': {
@@ -63,9 +40,9 @@ export const schemaTrackingLog: ISchema = {
                   title: "{{t('Delete')}}",
                   content: "{{t('Are you sure you want to delete it?')}}",
                 },
-                actionCallback: '{{ dataSourceDeleteCallback }}',
               },
             },
+            create: createHistoryConfig,
           },
         },
         table: {
@@ -73,72 +50,37 @@ export const schemaTrackingLog: ISchema = {
           'x-component': 'TableV2',
           'x-use-component-props': 'useTableBlockProps',
           'x-component-props': {
-            rowKey: 'key',
+            rowKey: 'id',
             rowSelection: {
               type: 'checkbox',
             },
           },
           properties: {
-            id: {
+            title: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
-                width: 20,
-                align: 'left',
-              },
-              properties: {
-                id: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-read-pretty': true,
-                },
-              },
-            },
-            key: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              'x-component-props': {
-                width: 50,
                 align: 'center',
               },
               properties: {
-                key: {
+                title: {
                   type: 'string',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
                 },
               },
             },
-            type: {
+            historyOptions: {
               type: 'void',
               'x-decorator': 'TableV2.Column.Decorator',
               'x-component': 'TableV2.Column',
               'x-component-props': {
-                align: 'left',
+                align: 'center',
               },
               properties: {
-                type: {
-                  type: 'string',
-                  'x-component': 'CollectionField',
-                  'x-component-props': {
-                    ellipsis: true,
-                  },
-                  'x-read-pretty': true,
-                },
-              },
-            },
-            values: {
-              type: 'void',
-              'x-decorator': 'TableV2.Column.Decorator',
-              'x-component': 'TableV2.Column',
-              'x-component-props': {
-                align: 'left',
-              },
-              properties: {
-                values: {
-                  type: 'string',
+                historyOptions: {
+                  type: 'json',
                   'x-component': 'CollectionField',
                   'x-read-pretty': true,
                 },
@@ -146,7 +88,7 @@ export const schemaTrackingLog: ISchema = {
             },
             actions: {
               type: 'void',
-              title: '{{t("Actions")}}',
+              title: '{{ t("Actions") }}',
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 fixed: 'right',
@@ -155,17 +97,18 @@ export const schemaTrackingLog: ISchema = {
                 actions: {
                   type: 'void',
                   'x-component': 'Space',
+                  'x-component-props': {
+                    split: '|',
+                  },
                   properties: {
-                    view: viewTrackingLog,
-                    destroy: {
+                    update: updateHistoryConfig,
+                    delete: {
                       type: 'void',
-                      title: '{{ t("Delete") }}',
+                      title: '{{t("Delete")}}',
                       'x-action': 'destroy',
-                      'x-decorator': 'ACLActionProvider',
                       'x-component': 'Action.Link',
                       'x-use-component-props': 'useDestroyActionProps',
                       'x-component-props': {
-                        icon: 'DeleteOutlined',
                         confirm: {
                           title: "{{t('Delete record')}}",
                           content: "{{t('Are you sure you want to delete it?')}}",
