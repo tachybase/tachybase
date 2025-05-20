@@ -341,101 +341,89 @@ export const createWorkflow: ISchema = {
   },
 };
 
-export const updateWorkflow = (): ISchema => {
-  const { activeKey } = useContext(WorkflowCategoryContext);
-  console.log('%c Line:346 🚀 activeKey', 'font-size:18px;color:#e41a6a;background:#3f7cff', activeKey);
-  return {
-    type: 'void',
-    title: '{{ t("Edit") }}',
-    'x-action': 'update',
-    'x-component': 'Action.Link',
-    'x-component-props': {
-      openMode: 'drawer',
-      icon: 'EditOutlined',
-    },
-    'x-decorator': 'ACLActionProvider',
-    properties: {
-      drawer: {
-        type: 'void',
-        title: '{{ t("Edit record") }}',
-        'x-component': 'Action.Container',
-        'x-component-props': {
-          className: 'tb-action-popup',
-        },
-        properties: {
-          card: {
-            type: 'void',
-            'x-acl-action-props': {
-              skipScopeCheck: false,
+export const updateWorkflow: ISchema = {
+  type: 'void',
+  title: '{{ t("Edit") }}',
+  'x-action': 'update',
+  'x-component': 'Action.Link',
+  'x-component-props': {
+    openMode: 'drawer',
+    icon: 'EditOutlined',
+  },
+  'x-decorator': 'ACLActionProvider',
+  properties: {
+    drawer: {
+      type: 'void',
+      title: '{{ t("Edit record") }}',
+      'x-component': 'Action.Container',
+      'x-component-props': {
+        className: 'tb-action-popup',
+      },
+      properties: {
+        card: {
+          type: 'void',
+          'x-acl-action-props': {
+            skipScopeCheck: false,
+          },
+          'x-acl-action': `${collectionWorkflows.name}:update`,
+          'x-decorator': 'FormBlockProvider',
+          'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
+          'x-decorator-props': {
+            action: 'get',
+            dataSource: 'main',
+            collection: collectionWorkflows,
+            params: {
+              appends: ['category'],
             },
-            'x-acl-action': `${collectionWorkflows.name}:update`,
-            'x-decorator': 'FormBlockProvider',
-            'x-use-decorator-props': 'useEditFormBlockDecoratorProps',
-            'x-decorator-props': {
-              action: 'get',
-              dataSource: 'main',
-              collection: collectionWorkflows,
-              params: {
-                appends: ['category'],
-              },
-            },
-            'x-component': 'CardItem',
-            properties: {
-              form: {
-                type: 'void',
-                'x-component': 'FormV2',
-                'x-use-component-props': 'useEditFormBlockProps',
-                properties: {
-                  actionBar: {
-                    type: 'void',
-                    'x-component': 'ActionBar',
-                    'x-component-props': {
-                      style: {
-                        marginBottom: 24,
-                      },
+          },
+          'x-component': 'CardItem',
+          properties: {
+            form: {
+              type: 'void',
+              'x-component': 'FormV2',
+              'x-use-component-props': 'useEditFormBlockProps',
+              properties: {
+                actionBar: {
+                  type: 'void',
+                  'x-component': 'ActionBar',
+                  'x-component-props': {
+                    style: {
+                      marginBottom: 24,
                     },
-                    properties: {
-                      cancel: {
-                        title: '{{ t("Cancel") }}',
-                        'x-component': 'Action',
-                        'x-use-component-props': 'useCancelActionProps',
+                  },
+                  properties: {
+                    cancel: {
+                      title: '{{ t("Cancel") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{ t("Submit") }}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useUpdateActionProps',
+                      'x-component-props': {
+                        type: 'primary',
                       },
-                      submit: {
-                        title: '{{ t("Submit") }}',
-                        'x-component': 'Action',
-                        'x-use-component-props': 'useUpdateActionProps',
-                        'x-component-props': {
-                          type: 'primary',
-                        },
-                        'x-action-settings': {
-                          isDeltaChanged: true,
-                        },
+                      'x-action-settings': {
+                        isDeltaChanged: true,
                       },
                     },
                   },
-                  title: workflowFieldset.title,
-                  category: {
-                    'x-collection-field': 'workflows.category',
-                    'x-component': 'CollectionField',
-                    'x-decorator': 'FormItem',
-                    // default: workflowcategory;
-                    'x-component-props': {
-                      multiple: true,
-                    },
-                  },
-                  type: workflowFieldset.type,
-                  enabled: workflowFieldset.enabled,
-                  sync: workflowFieldset.sync,
-                  description: workflowFieldset.description,
-                  options: workflowFieldset.options,
                 },
+                title: workflowFieldset.title,
+                category: workflowFieldset.category,
+                type: workflowFieldset.type,
+                enabled: workflowFieldset.enabled,
+                sync: workflowFieldset.sync,
+                description: workflowFieldset.description,
+                options: workflowFieldset.options,
               },
             },
           },
         },
       },
     },
-  };
+  },
 };
 const revisionWorkflow: ISchema = {
   type: 'void',
@@ -1153,7 +1141,7 @@ export const workflowSchema: ISchema = {
                       type: 'void',
                       'x-component': 'WorkflowLink',
                     },
-                    update: updateWorkflow(),
+                    update: updateWorkflow,
                     revision: revisionWorkflow,
                     test: testWorkflow,
                     delete: {
