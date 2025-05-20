@@ -39,7 +39,7 @@ const CollectionCategory = observer(
 const useCreateworkflowCategry = () => {
   const form = useForm();
   const ctx = useActionContext();
-  const refreshCategories = useWorkflowCategory();
+  const { refresh } = useWorkflowCategory();
   const api = useAPIClient();
   return {
     async run() {
@@ -52,7 +52,7 @@ const useCreateworkflowCategry = () => {
       });
       ctx.setVisible(false);
       await form.reset();
-      refreshCategories();
+      refresh();
     },
   };
 };

@@ -613,7 +613,7 @@ const TabBar = ({ item }) => {
 const DndProvider = observer(
   (props) => {
     const [activeTab, setActiveId] = useState(null);
-    const refreshCategories = useWorkflowCategory();
+    const { refresh } = useWorkflowCategory();
     const api = useAPIClient();
     const onDragEnd = async (props: DragEndEvent) => {
       const { active, over } = props;
@@ -625,7 +625,7 @@ const DndProvider = observer(
           sourceId: active.id,
           targetId: over.id,
         });
-        refreshCategories();
+        refresh();
       }
     };
 
@@ -655,8 +655,7 @@ const WorkflowTabCardItem = ({ children }) => {
   const api = useAPIClient();
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeKey, setActiveKey] = useState({ tab: 'all' });
-  const [key, setKey] = useState(activeKey.tab);
+  const [activeKey, setActiveKey] = useState({ tab: '' });
   const compile = useCompile();
   const { modal } = App.useApp();
 
@@ -687,7 +686,8 @@ const WorkflowTabCardItem = ({ children }) => {
             id: key,
           },
         });
-        key === +activeKey.tab && setActiveKey({ tab: 'all' });
+        setActiveKey({ tab: '' });
+        tag.value = '';
         fetchData();
       },
     });
@@ -724,7 +724,13 @@ const WorkflowTabCardItem = ({ children }) => {
   });
 
   return (
-    <WorkflowCategoryContext.Provider value={fetchData}>
+    <WorkflowCategoryContext.Provider
+      value={{
+        refresh: fetchData,
+        activeKey: activeKey.tab,
+        setActiveKey: (key: string) => setActiveKey({ tab: key }),
+      }}
+    >
       <DndProvider>
         <Tabs
           addIcon={
@@ -745,10 +751,15 @@ const WorkflowTabCardItem = ({ children }) => {
             />
           }
           type="editable-card"
+          activeKey={activeKey.tab}
           onChange={(value) => {
+            setActiveKey({ tab: value });
             tag.value = value;
+            if (value === '') {
+              fetchData();
+            }
           }}
-          defaultActiveKey={activeKey.tab || 'all'}
+          defaultActiveKey={activeKey.tab || ''}
           destroyInactiveTabPane={true}
           tabBarStyle={{ marginBottom: '0px' }}
           items={[
