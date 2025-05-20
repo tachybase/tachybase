@@ -759,7 +759,7 @@ const WorkflowTabCardItem = ({ children }) => {
               fetchData();
             }
           }}
-          defaultActiveKey={activeKey.tab || 'all'}
+          defaultActiveKey={activeKey.tab || ''}
           destroyInactiveTabPane={true}
           tabBarStyle={{ marginBottom: '0px' }}
           items={[
