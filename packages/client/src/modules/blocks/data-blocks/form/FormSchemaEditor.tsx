@@ -3,34 +3,25 @@ import { useRef, useState } from 'react';
 import { EditOutlined, LeftOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { Button, Input, Layout, Menu, Modal, Tooltip, type ModalProps } from 'antd';
 
+import { CollectionProvider, useCollection, useCollectionFields } from '../../../../data-source';
 import { useStyles } from './styles';
 
-interface FormSchemaEditorProps extends Pick<ModalProps, 'open' | 'onCancel'> {}
-
-export const FormSchemaEditor = ({ open, onCancel }: FormSchemaEditorProps) => {
+export const FormSchemaEditor = ({ open, onCancel, collection }) => {
   const { Header, Content, Sider } = Layout;
   const { styles } = useStyles();
 
   return (
     <Modal open={open} footer={null} width="100vw" closable={false} className={styles.editModel}>
-      <Layout style={{ height: '100%' }}>
-        <EditorHeader onCancel={onCancel} />
-        <Layout>
-          <Sider width={300} style={{ background: 'white' }}>
-            <Menu mode="inline" defaultSelectedKeys={['1']} style={{ height: '100%' }}>
-              <Menu.Item key="1">Left Menu 1</Menu.Item>
-              <Menu.Item key="2">Left Menu 2</Menu.Item>
-            </Menu>
-          </Sider>
-          <Content>main content</Content>
-          <Sider width={300} style={{ background: 'white' }}>
-            <Menu mode="inline" defaultSelectedKeys={['1']} style={{ height: '100%' }}>
-              <Menu.Item key="1">Right Menu 1</Menu.Item>
-              <Menu.Item key="2">Right Menu 2</Menu.Item>
-            </Menu>
-          </Sider>
+      <CollectionProvider name={collection}>
+        <Layout style={{ height: '100%' }}>
+          <EditorHeader onCancel={onCancel} />
+          <Layout>
+            <EditorFieldsSider />
+            <EditorContent />
+            <EditorFieldProperty />
+          </Layout>
         </Layout>
-      </Layout>
+      </CollectionProvider>
     </Modal>
   );
 };
@@ -83,5 +74,39 @@ const EditorHeader = ({ onCancel }) => {
         <Input value={tempTitle} onChange={(e) => setTempTitle(e.target.value)} placeholder="请输入表单名称" />
       </Modal>
     </>
+  );
+};
+
+const EditorFieldsSider = () => {
+  const collection = useCollection();
+  const fields = useCollectionFields();
+  const { Header, Content, Sider } = Layout;
+  const { styles } = useStyles();
+  return (
+    <Sider width={300} style={{ background: 'white' }}>
+      <Menu mode="inline" defaultSelectedKeys={['1']} style={{ height: '100%' }}>
+        <Menu.Item key="1">Left Menu 1</Menu.Item>
+        <Menu.Item key="2">Left Menu 2</Menu.Item>
+      </Menu>
+    </Sider>
+  );
+};
+
+const EditorContent = () => {
+  const { Header, Content, Sider } = Layout;
+  const { styles } = useStyles();
+  return <Content>main content</Content>;
+};
+
+const EditorFieldProperty = () => {
+  const { Header, Content, Sider } = Layout;
+  const { styles } = useStyles();
+  return (
+    <Sider width={300} style={{ background: 'white' }}>
+      <Menu mode="inline" defaultSelectedKeys={['1']} style={{ height: '100%' }}>
+        <Menu.Item key="1">Right Menu 1</Menu.Item>
+        <Menu.Item key="2">Right Menu 2</Menu.Item>
+      </Menu>
+    </Sider>
   );
 };

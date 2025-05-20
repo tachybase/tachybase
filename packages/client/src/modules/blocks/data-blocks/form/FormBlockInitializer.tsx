@@ -59,7 +59,8 @@ export const FormBlockInitializer = ({
     // }
 
     // createFormBlock(options);
-    setPendingOptions(options); // 暂存 schema 构建所需信息
+    const collection = options?.item?.name || null;
+    setPendingOptions(collection);
     setVisible(true); // 打开弹窗
   }, []);
 
@@ -92,7 +93,7 @@ export const FormBlockInitializer = ({
         otherText={otherText}
       />
 
-      <FormSchemaEditor open={visible} onCancel={handleClose} />
+      <FormSchemaEditor open={visible} onCancel={handleClose} collection={pendingOptions} />
     </>
   );
 };
