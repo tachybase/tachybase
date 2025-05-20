@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-adapter-bullmq",
   "displayName": "Adapter bullmq",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Integrate and manage BullMQ message queues.",
   "keywords": [
     "System management"
