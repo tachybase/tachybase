@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { FormOutlined } from '@ant-design/icons';
 
@@ -7,6 +7,7 @@ import { useAssociationName } from '../../../../data-source/collection/Associati
 import { Collection, CollectionFieldOptions } from '../../../../data-source/collection/Collection';
 import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { createCreateFormBlockUISchema } from './createCreateFormBlockUISchema';
+import { FormSchemaEditor } from './FormSchemaEditor';
 
 export const FormBlockInitializer = ({
   filterCollections,
@@ -48,41 +49,51 @@ export const FormBlockInitializer = ({
   /** 用于更改 Other records 的文案 */
   otherText?: string;
 }) => {
+  const [visible, setVisible] = useState(false);
+  const [pendingOptions, setPendingOptions] = useState<any>(null);
   const itemConfig = useSchemaInitializerItem();
   const { createFormBlock, templateWrap } = useCreateFormBlock();
-  const onCreateFormBlockSchema = useCallback(
-    (options) => {
-      if (createBlockSchema) {
-        return createBlockSchema(options);
-      }
+  const onCreateFormBlockSchema = useCallback((options) => {
+    // if (createBlockSchema) {
+    //   return createBlockSchema(options);
+    // }
 
-      createFormBlock(options);
-    },
-    [createBlockSchema, createFormBlock],
-  );
+    // createFormBlock(options);
+    setPendingOptions(options); // 暂存 schema 构建所需信息
+    setVisible(true); // 打开弹窗
+  }, []);
+
+  const handleClose = () => {
+    setVisible(false);
+    setPendingOptions(null);
+  };
 
   return (
-    <DataBlockInitializer
-      {...itemConfig}
-      icon={<FormOutlined />}
-      componentType={componentType}
-      templateWrap={(templateSchema, options) => {
-        if (customizeTemplateWrap) {
-          return customizeTemplateWrap(templateSchema, options);
-        }
+    <>
+      <DataBlockInitializer
+        {...itemConfig}
+        icon={<FormOutlined />}
+        componentType={componentType}
+        templateWrap={(templateSchema, options) => {
+          if (customizeTemplateWrap) {
+            return customizeTemplateWrap(templateSchema, options);
+          }
 
-        return templateWrap(templateSchema, options);
-      }}
-      onCreateBlockSchema={onCreateFormBlockSchema}
-      filter={filterCollections}
-      onlyCurrentDataSource={onlyCurrentDataSource}
-      hideSearch={hideSearch}
-      showAssociationFields={showAssociationFields}
-      hideChildrenIfSingleCollection={hideChildrenIfSingleCollection}
-      hideOtherRecordsInPopup={hideOtherRecordsInPopup}
-      currentText={currentText}
-      otherText={otherText}
-    />
+          return templateWrap(templateSchema, options);
+        }}
+        onCreateBlockSchema={onCreateFormBlockSchema}
+        filter={filterCollections}
+        onlyCurrentDataSource={onlyCurrentDataSource}
+        hideSearch={hideSearch}
+        showAssociationFields={showAssociationFields}
+        hideChildrenIfSingleCollection={hideChildrenIfSingleCollection}
+        hideOtherRecordsInPopup={hideOtherRecordsInPopup}
+        currentText={currentText}
+        otherText={otherText}
+      />
+
+      <FormSchemaEditor open={visible} onCancel={handleClose} />
+    </>
   );
 };
 
