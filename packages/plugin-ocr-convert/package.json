@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-ocr-convert",
   "displayName": "OCR Conversion Plugin",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "OCR Conversion Plugin",
   "keywords": [
     "System management"

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-data-source-common",
   "displayName": "External DataSource Support",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Supports more data sources",
   "keywords": [
     "Data sources"
