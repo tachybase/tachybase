@@ -40,7 +40,7 @@ export const inputNumberComponentFieldSettings = new SchemaSettings({
             },
           } as ISchema,
           onSubmit(number) {
-            if (Number(number.maxNumber) > field.componentProps['min']) {
+            if (Number(number.maxNumber) > (field.componentProps['min'] || 0)) {
               fieldSchema['x-component-props']['max'] = Number(number.maxNumber);
               field.componentProps['max'] = Number(number.maxNumber);
               dn.emit('patch', {
@@ -84,7 +84,7 @@ export const inputNumberComponentFieldSettings = new SchemaSettings({
             },
           } as ISchema,
           onSubmit(number) {
-            if (Number(number.minNumber) < field.componentProps['max']) {
+            if (Number(number.minNumber) < (field.componentProps['max'] || 0)) {
               fieldSchema['x-component-props']['min'] = Number(number.minNumber);
               field.componentProps['min'] = Number(number.minNumber);
               dn.emit('patch', {
