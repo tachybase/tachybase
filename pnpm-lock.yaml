@@ -2779,6 +2779,16 @@ importers:
 
   packages/plugin-adapter-red-node:
     dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+    devDependencies:
       '@node-red/editor-api':
         specifier: 4.0.8
         version: 4.0.8
@@ -2791,25 +2801,15 @@ importers:
       '@node-red/util':
         specifier: 4.0.8
         version: 4.0.8
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
+      '@types/express':
+        specifier: 5.0.2
+        version: 5.0.2
+      '@types/node-red':
+        specifier: 1.3.5
+        version: 1.3.5
       express:
         specifier: 4.21.2
         version: 4.21.2
-    devDependencies:
-      '@types/express':
-        specifier: 5.0.0
-        version: 5.0.0
-      '@types/node-red':
-        specifier: ^1.3.5
-        version: 1.3.5
       node-red:
         specifier: 4.0.8
         version: 4.0.8
@@ -9823,6 +9823,9 @@ packages:
   '@types/express@5.0.0':
     resolution: {integrity: sha512-DvZriSMehGHL1ZNLzi6MidnsDhUZM/x2pRdDIKdwbUNqqwHxMlRdkxtn6/EPKyqKpHqTl/4nRZsRNLpZxZRpPQ==}
 
+  '@types/express@5.0.2':
+    resolution: {integrity: sha512-BtjL3ZwbCQriyb0DGw+Rt12qAXPiBTPs815lsUvtt1Grk0vLRMZNMUZ741d5rjk+UQOxfDiBZ3dxpX00vSkK3g==}
+
   '@types/file-saver@2.0.7':
     resolution: {integrity: sha512-dNKVfHd/jk0SkR/exKGj2ggkB45MAkzvWCaqLUUgkyjITkGNzH8H+yUwr+BLJUBjZOe9w8X3wgmXhZDRg1ED6A==}
 
@@ -15785,6 +15788,10 @@ packages:
     resolution: {integrity: sha512-EJPeIn0CYrGu+hli1xilKAPXODtJ12T0sP63Ijx2/khC2JtuaN3JyNIpvmnkmaEtha9ocbG4A4cMcr+TvqvwQg==}
     engines: {node: '>=0.6'}
 
+  qs@6.14.0:
+    resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
+    engines: {node: '>=0.6'}
+
   qs@6.5.3:
     resolution: {integrity: sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==}
     engines: {node: '>=0.6'}
@@ -19245,7 +19252,7 @@ snapshots:
     dependencies:
       '@antv/g-lite': 2.2.18
       '@antv/util': 3.3.10
-      '@babel/runtime': 7.26.9
+      '@babel/runtime': 7.27.1
       gl-matrix: 3.4.3
       tslib: 2.8.1
 
@@ -19270,7 +19277,7 @@ snapshots:
   '@antv/g-dom-mutation-observer-api@2.0.34':
     dependencies:
       '@antv/g-lite': 2.2.18
-      '@babel/runtime': 7.26.9
+      '@babel/runtime': 7.27.1
 
   '@antv/g-lite@2.2.10':
     dependencies:
@@ -19288,7 +19295,7 @@ snapshots:
       '@antv/g-math': 3.0.0
       '@antv/util': 3.3.10
       '@antv/vendor': 1.0.11
-      '@babel/runtime': 7.26.9
+      '@babel/runtime': 7.27.1
       eventemitter3: 5.0.1
       gl-matrix: 3.4.3
       rbush: 3.0.1
@@ -19370,7 +19377,7 @@ snapshots:
     dependencies:
       '@antv/g-lite': 2.2.18
       '@antv/util': 3.3.10
-      '@babel/runtime': 7.26.9
+      '@babel/runtime': 7.27.1
       tslib: 2.8.1
 
   '@antv/g2-extension-plot@0.2.1':
@@ -24462,7 +24469,7 @@ snapshots:
   '@types/cookies@0.7.10':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/express': 5.0.0
+      '@types/express': 5.0.2
       '@types/keygrip': 1.0.6
       '@types/node': 20.17.10
 
@@ -24558,6 +24565,12 @@ snapshots:
       '@types/body-parser': 1.19.5
       '@types/express-serve-static-core': 5.0.0
       '@types/qs': 6.9.17
+      '@types/serve-static': 1.15.5
+
+  '@types/express@5.0.2':
+    dependencies:
+      '@types/body-parser': 1.19.5
+      '@types/express-serve-static-core': 5.0.0
       '@types/serve-static': 1.15.5
 
   '@types/file-saver@2.0.7': {}
@@ -24703,7 +24716,7 @@ snapshots:
 
   '@types/node-red@1.3.5':
     dependencies:
-      '@types/express': 5.0.0
+      '@types/express': 5.0.2
       '@types/node-red__editor-api': 1.3.5
       '@types/node-red__editor-client': 1.3.11
       '@types/node-red__registry': 1.3.10
@@ -24712,7 +24725,7 @@ snapshots:
 
   '@types/node-red__editor-api@1.3.5':
     dependencies:
-      '@types/express': 5.0.0
+      '@types/express': 5.0.2
       '@types/node-red__runtime': 1.3.8
 
   '@types/node-red__editor-client@1.3.11':
@@ -24725,14 +24738,14 @@ snapshots:
 
   '@types/node-red__registry@1.3.10':
     dependencies:
-      '@types/express': 5.0.0
+      '@types/express': 5.0.2
       '@types/node-red__runtime': 1.3.8
       '@types/node-red__util': 1.3.8
 
   '@types/node-red__runtime@1.3.8':
     dependencies:
       '@types/cors': 2.8.17
-      '@types/express': 5.0.0
+      '@types/express': 5.0.2
       '@types/node-red__editor-api': 1.3.5
       '@types/node-red__util': 1.3.8
       '@types/passport': 1.0.16
@@ -24757,7 +24770,7 @@ snapshots:
 
   '@types/passport@1.0.16':
     dependencies:
-      '@types/express': 5.0.0
+      '@types/express': 5.0.2
 
   '@types/pg-pool@2.0.4':
     dependencies:
@@ -28122,7 +28135,7 @@ snapshots:
       dezalgo: 1.0.4
       hexoid: 1.0.0
       once: 1.4.0
-      qs: 6.13.1
+      qs: 6.14.0
 
   formidable@3.5.1:
     dependencies:
@@ -31735,6 +31748,10 @@ snapshots:
     dependencies:
       side-channel: 1.1.0
 
+  qs@6.14.0:
+    dependencies:
+      side-channel: 1.1.0
+
   qs@6.5.3: {}
 
   query-string@6.14.1:
@@ -33733,7 +33750,7 @@ snapshots:
       formidable: 2.1.2
       methods: 1.1.2
       mime: 2.6.0
-      qs: 6.13.1
+      qs: 6.14.0
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
@@ -33748,7 +33765,7 @@ snapshots:
       formidable: 3.5.1
       methods: 1.1.2
       mime: 2.6.0
-      qs: 6.13.1
+      qs: 6.14.0
     transitivePeerDependencies:
       - supports-color
 
@@ -34466,7 +34483,7 @@ snapshots:
       iconv-lite: 0.4.24
       ip: 1.1.8
       pump: 3.0.0
-      qs: 6.13.1
+      qs: 6.14.0
       statuses: 1.5.0
       utility: 1.18.0
     transitivePeerDependencies:
