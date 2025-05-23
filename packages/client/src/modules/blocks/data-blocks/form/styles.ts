@@ -56,5 +56,13 @@ export const useStyles = createStyles(({ css }) => {
         }
       }
     `,
+    fieldsBlock: css`
+      margin-top: 15px;
+      margin-left: 8px;
+      margin-right: 8px;
+      .ant-btn-fields {
+        width: 100%;
+      }
+    `,
   };
 });

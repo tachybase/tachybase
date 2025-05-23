@@ -1,13 +1,15 @@
 import React, { useCallback, useState } from 'react';
+import { ISchema, uid } from '@tachybase/schema';
 
 import { FormOutlined } from '@ant-design/icons';
 
 import { useSchemaInitializer, useSchemaInitializerItem } from '../../../../application';
 import { useAssociationName } from '../../../../data-source/collection/AssociationProvider';
 import { Collection, CollectionFieldOptions } from '../../../../data-source/collection/Collection';
+import { useDesignable } from '../../../../schema-component';
 import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { createCreateFormBlockUISchema } from './createCreateFormBlockUISchema';
-import { FormSchemaEditor } from './FormSchemaEditor';
+import { createCreateFormEditUISchema, FormSchemaEditor } from './FormSchemaEditor';
 
 export const FormBlockInitializer = ({
   filterCollections,
@@ -52,19 +54,23 @@ export const FormBlockInitializer = ({
   const [visible, setVisible] = useState(false);
   const [pendingOptions, setPendingOptions] = useState<any>(null);
   const itemConfig = useSchemaInitializerItem();
-  const { createFormBlock, templateWrap } = useCreateFormBlock();
-  const onCreateFormBlockSchema = useCallback((options) => {
+  const { createFormBlock, templateWrap, createEditFormBlock, removeEditableSchema } = useCreateFormBlock();
+  const onCreateFormBlockSchema = useCallback(async (options) => {
     // if (createBlockSchema) {
     //   return createBlockSchema(options);
     // }
 
     // createFormBlock(options);
-    const collection = options?.item?.name || null;
-    setPendingOptions(collection);
+    const schema = await createEditFormBlock(options);
+    setPendingOptions({ schema, ...options });
     setVisible(true); // 打开弹窗
   }, []);
 
   const handleClose = () => {
+    const { schema } = pendingOptions;
+    // if (schema) {
+    //   removeEditableSchema(schema)
+    // }
     setVisible(false);
     setPendingOptions(null);
   };
@@ -92,13 +98,13 @@ export const FormBlockInitializer = ({
         currentText={currentText}
         otherText={otherText}
       />
-
-      <FormSchemaEditor open={visible} onCancel={handleClose} collection={pendingOptions} />
+      <FormSchemaEditor open={visible} onCancel={handleClose} options={pendingOptions} />
     </>
   );
 };
 
 export const useCreateFormBlock = () => {
+  const { insertAdjacent, remove } = useDesignable();
   const { insert } = useSchemaInitializer();
   const association = useAssociationName();
   const { isCusomeizeCreate: isCustomizeCreate } = useSchemaInitializerItem();
@@ -148,8 +154,69 @@ export const useCreateFormBlock = () => {
     return schema;
   };
 
+  const createEditFormBlock = useCallback(
+    ({ item, fromOthersInPopup }) => {
+      return new Promise((resolve) => {
+        const insertPosition = 'beforeEnd';
+        const schema = fromOthersInPopup
+          ? createCreateFormEditUISchema({
+              collectionName: item.collectionName || item.name,
+              dataSource: item.dataSource,
+              isCusomeizeCreate: true,
+            })
+          : createCreateFormEditUISchema(
+              association
+                ? {
+                    association,
+                    dataSource: item.dataSource,
+                    isCusomeizeCreate: isCustomizeCreate,
+                  }
+                : {
+                    collectionName: item.collectionName || item.name,
+                    dataSource: item.dataSource,
+                    isCusomeizeCreate: isCustomizeCreate,
+                  },
+            );
+
+        insertAdjacent(insertPosition, gridRowColWrap(schema), {
+          onSuccess: (result) => {
+            resolve(result); // 往上层传递成功结果
+          },
+        });
+      });
+    },
+    [association, isCustomizeCreate],
+  );
+
+  const removeEditableSchema = (schema: ISchema) => {
+    remove(schema, {
+      removeParentsIfNoChildren: true,
+      breakRemoveOn: {
+        'x-component': 'Grid',
+      },
+    });
+  };
+
   return {
     createFormBlock,
     templateWrap,
+    createEditFormBlock,
+    removeEditableSchema,
+  };
+};
+
+const gridRowColWrap = (schema: ISchema) => {
+  return {
+    type: 'void',
+    'x-component': 'Grid.Row',
+    properties: {
+      [uid()]: {
+        type: 'void',
+        'x-component': 'Grid.Col',
+        properties: {
+          [schema.name || uid()]: schema,
+        },
+      },
+    },
   };
 };
