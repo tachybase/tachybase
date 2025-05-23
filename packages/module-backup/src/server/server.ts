@@ -193,7 +193,7 @@ export default class PluginBackupRestoreServer extends Plugin {
               // 删除最旧的备份文件
               cleanOldFiles(dumper.backUpStorageDir(this.app.name), cronJob.maxNumber)
                 .then(() => {
-                  this.app.logger.info(`clean backup ${dirPath} to count: {cronJob.maxNumber}`);
+                  this.app.logger.info(`clean backup ${dirPath} to count: ${cronJob.maxNumber}`);
                 })
                 .catch((err) => {
                   this.app.logger.error('clean backup error', err);
