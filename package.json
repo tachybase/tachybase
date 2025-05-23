@@ -5,9 +5,9 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "tachybase build",
-    "build:engine:linux": "pkg -t node22-linux-arm64 -o dist/engine.run apps/engine/lib/index.js",
-    "build:engine:mac": "pkg -t node22-macos-arm64 -o dist/engine apps/engine/lib/index.js",
-    "build:engine:win": "pkg -t node22-win-x64 -o dist/engine.exe apps/engine/lib/index.js",
+    "build:engine:linux": "pkg --compress Brotli -t node22-linux-arm64 -o dist/engine.run apps/engine/lib/index.js",
+    "build:engine:mac": "pkg --compress Brotli -t node22-macos-arm64 -o dist/engine apps/engine/lib/index.js",
+    "build:engine:win": "pkg --compress Brotli -t node22-win-x64 -o dist/engine.exe apps/engine/lib/index.js",
     "build:p": "tachybase build -s --no-dts",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
