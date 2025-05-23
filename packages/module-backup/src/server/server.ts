@@ -173,31 +173,35 @@ export default class PluginBackupRestoreServer extends Plugin {
 
       try {
         const dumper = new Dumper(this.app);
-        const filename = await dumper.getLockFile(this.app.name);
-        this.app.worker
-          .callPluginMethod({
-            plugin: PluginBackupRestoreServer,
-            method: 'workerCreateBackUp',
-            params: {
-              dataTypes: cronJob.dumpRules,
-              appName: this.app.name,
-              filename,
-            },
-            // 目前限制方法并发为1
-            concurrency: 1,
-          })
-          .finally(() => {
-            dumper.cleanLockFile(filename, this.app.name);
-            const dirPath = dumper.backUpStorageDir(this.app.name);
-            // 删除最旧的备份文件
-            cleanOldFiles(dumper.backUpStorageDir(this.app.name), cronJob.maxNumber)
-              .then(() => {
-                this.app.logger.info(`clean backup ${dirPath} to count: {cronJob.maxNumber}`);
-              })
-              .catch((err) => {
-                this.app.logger.error('clean backup error', err);
-              });
-          });
+        if (this.app.worker.available) {
+          const filename = await dumper.getLockFile(this.app.name);
+          this.app.worker
+            .callPluginMethod({
+              plugin: PluginBackupRestoreServer,
+              method: 'workerCreateBackUp',
+              params: {
+                dataTypes: cronJob.dumpRules,
+                appName: this.app.name,
+                filename,
+              },
+              // 目前限制方法并发为1
+              concurrency: 1,
+            })
+            .finally(() => {
+              dumper.cleanLockFile(filename, this.app.name);
+              const dirPath = dumper.backUpStorageDir(this.app.name);
+              // 删除最旧的备份文件
+              cleanOldFiles(dumper.backUpStorageDir(this.app.name), cronJob.maxNumber)
+                .then(() => {
+                  this.app.logger.info(`clean backup ${dirPath} to count: {cronJob.maxNumber}`);
+                })
+                .catch((err) => {
+                  this.app.logger.error('clean backup error', err);
+                });
+            });
+        } else {
+          this.app.logger.warn('auto backup skip, worker count: 0');
+        }
       } catch (e) {
         this.app.logger.error(e);
       }
