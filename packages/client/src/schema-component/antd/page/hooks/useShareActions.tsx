@@ -24,7 +24,7 @@ export const useShareActions = ({ title, uid }) => {
     .replace(currentRoute?.params?.name, uid || fieldSchema['x-uid'])
     .replace(window.location.search || '', '');
   const { t } = useTranslation();
-  const [qrLink, setQrLink] = useState();
+  const [qrLink, setQrLink] = useState<string>();
   const compile = useCompile();
   QRCode.toDataURL(link, { width: 170 }, (err, url) => {
     if (err) {

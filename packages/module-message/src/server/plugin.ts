@@ -13,6 +13,10 @@ import { MessageService } from './MessageManager';
 import initProviders from './providers';
 import { Provider } from './providers/Provider';
 
+class WebSocketWithId extends WebSocket {
+  id: string;
+}
+
 class ModuleMessagesServer extends Plugin {
   providers: Registry<typeof Provider> = new Registry();
 
@@ -76,7 +80,7 @@ class ModuleMessagesServer extends Plugin {
     const gateway = Gateway.getInstance();
     const ws = gateway['wsServer'];
 
-    ws?.wss?.on('connection', async (websocket: WebSocket) => {
+    ws?.wss?.on('connection', async (websocket: WebSocketWithId) => {
       websocket.on('message', async (data) => {
         if (data.toString() !== 'ping') {
           const userMeg = JSON.parse(data.toString());
