@@ -63,17 +63,5 @@ export default {
         required: true,
       },
     },
-    {
-      type: 'encryption',
-      name: 'password',
-      interface: 'encryption',
-      iv: 'welljzlyq2p2439v',
-      uiSchema: {
-        title: '{{ t("Password") }}',
-        type: 'encryption',
-        'x-component': 'Input',
-        required: true,
-      },
-    },
   ],
 } as CollectionOptions;
