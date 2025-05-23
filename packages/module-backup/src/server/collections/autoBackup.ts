@@ -34,12 +34,6 @@ export default function () {
         type: 'integer',
         name: 'maxNumber',
       },
-      {
-        type: 'encryption',
-        name: 'password',
-        interface: 'encryption',
-        iv: 'welljzlyq2p2439v',
-      },
     ],
   } as CollectionOptions;
 }
