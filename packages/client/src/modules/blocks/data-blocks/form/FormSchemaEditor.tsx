@@ -19,15 +19,22 @@ import {
 import { Button, Card, Col, Input, Layout, Menu, Modal, Row, Tooltip, type ModalProps } from 'antd';
 import { cloneDeep, isEqual } from 'lodash';
 
-import { SchemaInitializerItemType, useApp, useSchemaInitializerItem } from '../../../../application';
+import {
+  SchemaInitializerItemType,
+  useApp,
+  useSchemaInitializer,
+  useSchemaInitializerItem,
+} from '../../../../application';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { CollectionProvider, useAssociationName, useExtendCollections } from '../../../../data-source';
 import {
   DndContext,
+  RemoteSchemaComponent,
   SchemaComponent,
   SchemaComponentContext,
   useActionContext,
   useCompile,
+  useComponent,
 } from '../../../../schema-component';
 import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
 import { useStyles } from './styles';
@@ -113,8 +120,9 @@ const EditorHeader = ({ onCancel }) => {
 };
 
 const EditorFieldsSider = () => {
-  // const app = useApp();
-  // const formInitializer = app.schemaInitializerManager.get('form:configureFields');
+  const app = useApp();
+  const formInitializer = app.schemaInitializerManager.get('form:editableFields');
+  const items = formInitializer?.options?.items || [];
   // const items = formInitializer?.options?.items || [];
   // const extraItems = items.filter(item =>
   //   !['displayFields', 'parentCollectionFields', 'extendCollectionFields', 'associationFields', 'divider'].includes(item.name)
@@ -132,8 +140,11 @@ const EditorFieldsSider = () => {
   const { styles } = useStyles();
   return (
     <Sider width={300} style={{ background: 'white', overflow: 'auto' }}>
-      {/* <div className={styles.fieldsBlock}>
-        <p style={{ fontWeight: 500 }}>{t("Display fields")}</p>
+      <div className={styles.fieldsBlock}>
+        {items.map((item) => {
+          return <FieldsButtonMenu item={item} />;
+        })}
+        {/* <p style={{ fontWeight: 500 }}>{t("Display fields")}</p>
         <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
           {fieldsOptions.map((item, index) => (
             <Col span={12} key={index}>
@@ -216,39 +227,38 @@ const EditorFieldsSider = () => {
               </Button>
             </Col>
           ))}
-        </Row>
-      </div> */}
+        </Row> */}
+      </div>
     </Sider>
   );
 };
 
 const EditorContent = ({ schemaUID }) => {
-  const [editableSchema, setEditableSchema] = useState<ISchema>();
-  const config = {
-    url: `uiSchemas:getProperties/${schemaUID}`,
-  };
-  const service = useRequest<{
-    data: any;
-  }>(config);
-  const schema = service.data?.data || {};
+  // const [editableSchema, setEditableSchema] = useState<ISchema>();
+  // const config = {
+  //   url: `uiSchemas:getProperties/${schemaUID}`,
+  // };
+  // const service = useRequest<{
+  //   data: any;
+  // }>(config);
+  // const schema = service.data?.data || {};
   const { Content } = Layout;
   const { styles } = useStyles();
 
-  useEffect(() => {
-    setEditableSchema(cloneDeep(service.data?.data));
-  }, [service.data?.data]);
+  // useEffect(() => {
+  //   setEditableSchema(cloneDeep(service.data?.data));
+  // }, [service.data?.data]);
 
   return (
     <Content style={{ padding: '5px', overflow: 'auto' }}>
-      <SchemaComponentContext.Provider value={{ designable: true }}>
-        <SchemaComponent
+      {/* <SchemaComponent
           schema={{
             type: 'void',
             'x-component': 'gird',
             properties: { editableSchema },
           }}
-        />
-      </SchemaComponentContext.Provider>
+        /> */}
+      <RemoteSchemaComponent uid={schemaUID} />
     </Content>
   );
 };
@@ -266,7 +276,7 @@ const EditorFieldProperty = () => {
   );
 };
 
-const getFormFieldSchema = (options?: any) => {
+const useFormFieldButtonWrappers = (options?: any) => {
   const { name, currentFields } = useCollection_deprecated();
   const { getInterface, getCollection } = useCollectionManager_deprecated();
   const form = useForm();
@@ -304,37 +314,38 @@ const getFormFieldSchema = (options?: any) => {
             : {},
         'x-read-pretty': field?.uiSchema?.['x-read-pretty'],
       };
-      // const resultItem = {
-      //   type: 'item',
-      //   name: field.name,
-      //   title: field?.uiSchema?.title || field.name,
-      //   Component: 'CollectionFieldInitializer',
-      //   remove: removeGridFormItem,
-      // schemaInitialize: (s) => {
-      //   interfaceConfig?.schemaInitialize?.(s, {
-      //     field,
-      //     block,
-      //     readPretty,
-      //     action,
-      //     targetCollection,
-      //   });
-      // },
-      //   schema,
-      // } as SchemaInitializerItemType;
-      // if (block === 'Kanban') {
-      //   resultItem['find'] = (schema: Schema, key: string, action: string) => {
-      //     const s = findSchema(schema, 'x-component', block);
-      //     return findSchema(s, key, action);
-      //   };
-      // }
-      interfaceConfig?.schemaInitialize?.(schema, {
-        field,
-        block,
-        readPretty,
-        action,
-        targetCollection,
-      });
-      return schema;
+      const resultItem = {
+        type: 'item',
+        name: field.name,
+        title: field?.uiSchema?.title || field.name,
+        Component: 'CollectionFieldInitializer',
+        remove: removeGridFormItem,
+        schemaInitialize: (s) => {
+          interfaceConfig?.schemaInitialize?.(s, {
+            field,
+            block,
+            readPretty,
+            action,
+            targetCollection,
+          });
+        },
+        schema,
+      } as SchemaInitializerItemType;
+      if (block === 'Kanban') {
+        resultItem['find'] = (schema: Schema, key: string, action: string) => {
+          const s = findSchema(schema, 'x-component', block);
+          return findSchema(s, key, action);
+        };
+      }
+      return resultItem;
+      // interfaceConfig?.schemaInitialize?.(schema, {
+      //   field,
+      //   block,
+      //   readPretty,
+      //   action,
+      //   targetCollection,
+      // });
+      // return schema;
     });
 };
 
@@ -586,7 +597,7 @@ export function createCreateFormEditUISchema(options: CreateFormBlockUISchemaOpt
           grid: templateSchema || {
             type: 'void',
             'x-component': 'Grid',
-            'x-initializer': 'form:configureFields',
+            'x-initializer': 'form:editableFields',
             properties: {
               // ...fieldsSchema
             },
@@ -605,7 +616,7 @@ function wrapFieldsInGridSchemas(fields: any[]) {
     properties[uid()] = {
       type: 'void',
       'x-component': 'Grid.Row',
-      // '_isJSONSchemaObject': true,
+      _isJSONSchemaObject: true,
       version: '2.0',
       'x-uid': uid(),
       'x-async': false,
@@ -614,7 +625,7 @@ function wrapFieldsInGridSchemas(fields: any[]) {
         [uid()]: {
           type: 'void',
           'x-component': 'Grid.Col',
-          // '_isJSONSchemaObject': true,
+          _isJSONSchemaObject: true,
           version: '2.0',
           'x-uid': uid(),
           'x-async': false,
@@ -622,7 +633,7 @@ function wrapFieldsInGridSchemas(fields: any[]) {
           properties: {
             [field.name]: {
               ...field,
-              // '_isJSONSchemaObject': true,
+              _isJSONSchemaObject: true,
               version: '2.0',
               'x-uid': uid(),
               'x-async': false,
@@ -659,4 +670,59 @@ const geteditableSchema = ({ item, fromOthersInPopup, association, isCusomeizeCr
           },
     );
   }
+};
+
+const FieldsButtonMenu = ({ item }) => {
+  const compile = useCompile();
+  // if (typeof item.Component === 'string') {
+  //   const Comp = useComponent(item.Component);
+  //   return (
+  //     <div>
+  //       {item.title && (
+  //         <p style={{ fontWeight: 500 }}>{compile(item.title)}</p>
+  //       )}
+  //       <Comp />
+  //     </div>
+  //   );
+  // }
+  if (typeof item.Component === 'function') {
+    const Comp = item.Component;
+    return (
+      <div>
+        {item.title && <p style={{ fontWeight: 500 }}>{compile(item.title)}</p>}
+        <Comp />
+      </div>
+    );
+  }
+};
+
+export const editableDisplayFields = () => {
+  const fieldsOptions = useFormFieldButtonWrappers();
+  const { t } = useTranslation();
+  const compile = useCompile();
+  const { insert } = useSchemaInitializer();
+  return (
+    <div>
+      <p style={{ fontWeight: 500 }}>{t('Display fields')}</p>
+      <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
+        {fieldsOptions.map((item, index) => (
+          <Col span={12} key={index}>
+            <Button
+              className="ant-btn-fields"
+              key={item.name}
+              color="default"
+              variant="filled"
+              onClick={() => {
+                const s = item.schema;
+                item?.schemaInitialize?.(s);
+                insert(s);
+              }}
+            >
+              {compile(item.title)}
+            </Button>
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
 };
