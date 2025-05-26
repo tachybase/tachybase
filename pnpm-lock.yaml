@@ -1224,6 +1224,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       cron:
         specifier: ^3.3.1
         version: 3.3.1
@@ -1834,6 +1837,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -2117,6 +2123,9 @@ importers:
       '@types/lodash':
         specifier: 4.17.13
         version: 4.17.13
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       fs-extra:
         specifier: 11.2.0
         version: 11.2.0
@@ -2563,6 +2572,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
@@ -2883,6 +2895,9 @@ importers:
       antd-style:
         specifier: 3.7.1
         version: 3.7.1(@types/react@18.3.18)(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -3058,6 +3073,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       react-i18next:
         specifier: ^15.2.0
         version: 15.2.0(i18next@25.1.2(typescript@5.7.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3770,6 +3788,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -4327,6 +4348,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
