@@ -12,6 +12,7 @@
     "@ant-design/x": "^1.0.3",
     "antd": "5.22.5",
     "antd-style": "3.7.1",
+    "axios": "1.7.7",
     "lodash": "^4.17.21",
     "openai": "^4.77.0",
     "react-i18next": "^15.2.0"
