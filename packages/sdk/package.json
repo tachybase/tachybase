@@ -8,7 +8,7 @@
     "build": "tachybase-build --no-dts @tachybase/sdk"
   },
   "dependencies": {
-    "axios": "1.7.9",
+    "axios": "1.7.7",
     "qs": "^6.13.1"
   },
   "devDependencies": {
