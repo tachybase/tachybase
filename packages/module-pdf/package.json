@@ -19,6 +19,7 @@
     "@react-pdf/renderer": "^3.4.5",
     "@types/babel__core": "7.20.5",
     "@types/lodash": "4.17.13",
+    "axios": "1.7.7",
     "fs-extra": "11.2.0",
     "lodash": "4.17.21",
     "react-use": "17.6.0"

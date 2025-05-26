@@ -16,6 +16,7 @@
     "@ant-design/icons": "~5.3.7",
     "@tachybase/schema": "workspace:*",
     "antd": "5.22.5",
+    "axios": "1.7.7",
     "cron": "^3.3.1",
     "lodash": "^4.17.21",
     "ms": "^2.1.3",

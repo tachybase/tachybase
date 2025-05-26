@@ -281,8 +281,8 @@ importers:
         specifier: 3.5.43
         version: 3.5.43
       axios:
-        specifier: 1.7.9
-        version: 1.7.9
+        specifier: 1.7.7
+        version: 1.7.7
       chalk:
         specifier: ^5.4.0
         version: 5.4.0
@@ -360,8 +360,8 @@ importers:
         specifier: 3.5.43
         version: 3.5.43
       axios:
-        specifier: 1.7.9
-        version: 1.7.9
+        specifier: 1.7.7
+        version: 1.7.7
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
@@ -447,9 +447,6 @@ importers:
       '@tachybase/logger':
         specifier: workspace:*
         version: link:../../packages/logger
-      '@tachybase/preset-tachybase':
-        specifier: workspace:*
-        version: link:../../packages/preset-tachybase
       '@tachybase/resourcer':
         specifier: workspace:*
         version: link:../../packages/resourcer
@@ -717,11 +714,11 @@ importers:
         specifier: 3.7.1
         version: 3.7.1(@types/react@18.3.18)(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
-        specifier: 1.7.9
-        version: 1.7.9
+        specifier: 1.7.7
+        version: 1.7.7
       axios-mock-adapter:
         specifier: ^1.22.0
-        version: 1.22.0(axios@1.7.9)
+        version: 1.22.0(axios@1.7.7)
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -1227,6 +1224,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       cron:
         specifier: ^3.3.1
         version: 3.3.1
@@ -1837,6 +1837,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
@@ -2120,6 +2123,9 @@ importers:
       '@types/lodash':
         specifier: 4.17.13
         version: 4.17.13
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       fs-extra:
         specifier: 11.2.0
         version: 11.2.0
@@ -2420,8 +2426,8 @@ importers:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
-        specifier: 1.7.9
-        version: 1.7.9
+        specifier: 1.7.7
+        version: 1.7.7
       cron-parser:
         specifier: 4.9.0
         version: 4.9.0
@@ -2566,6 +2572,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       file-saver:
         specifier: ^2.0.5
         version: 2.0.5
@@ -2886,6 +2895,9 @@ importers:
       antd-style:
         specifier: 3.7.1
         version: 3.7.1(@types/react@18.3.18)(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -3061,6 +3073,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       react-i18next:
         specifier: ^15.2.0
         version: 15.2.0(i18next@25.1.2(typescript@5.7.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3360,8 +3375,8 @@ importers:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
-        specifier: 1.7.9
-        version: 1.7.9
+        specifier: 1.7.7
+        version: 1.7.7
       react-router-dom:
         specifier: 6.28.1
         version: 6.28.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3773,6 +3788,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -4330,6 +4348,9 @@ importers:
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      axios:
+        specifier: 1.7.7
+        version: 1.7.7
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -4598,8 +4619,8 @@ importers:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
-        specifier: 1.7.9
-        version: 1.7.9
+        specifier: 1.7.7
+        version: 1.7.7
       body-parser:
         specifier: ^1.20.3
         version: 1.20.3
@@ -4956,15 +4977,15 @@ importers:
   packages/sdk:
     dependencies:
       axios:
-        specifier: 1.7.9
-        version: 1.7.9
+        specifier: 1.7.7
+        version: 1.7.7
       qs:
         specifier: ^6.13.1
         version: 6.13.1
     devDependencies:
       axios-mock-adapter:
         specifier: ^1.22.0
-        version: 1.22.0(axios@1.7.9)
+        version: 1.22.0(axios@1.7.7)
       vitest:
         specifier: ^3.0.5
         version: 3.0.5(@types/debug@4.1.12)(@types/node@20.17.10)(jiti@2.4.2)(jsdom@24.1.1(canvas@2.11.2(encoding@0.1.13)))(less@4.2.1)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0)(tsx@4.19.2)
@@ -10655,8 +10676,8 @@ packages:
   axios@0.29.0:
     resolution: {integrity: sha512-Kjsq1xisgO5DjjNQwZFsy0gpcU1P2j36dZeQDXVhpIU26GVgkDUnROaHLSuluhMqtDE7aKA2hbKXG5yu5DN8Tg==}
 
-  axios@1.7.9:
-    resolution: {integrity: sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==}
+  axios@1.7.7:
+    resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
 
   b4a@1.6.4:
     resolution: {integrity: sha512-fpWrvyVHEKyeEvbKZTVOeZF3VSKKWtJxFIxX/jaVPf+cLbGUSitjb49pHLqPV2BUNNZ0LcoeEGfE/YCpyDYHIw==}
@@ -25652,9 +25673,9 @@ snapshots:
 
   aws4@1.12.0: {}
 
-  axios-mock-adapter@1.22.0(axios@1.7.9):
+  axios-mock-adapter@1.22.0(axios@1.7.7):
     dependencies:
-      axios: 1.7.9
+      axios: 1.7.7
       fast-deep-equal: 3.1.3
       is-buffer: 2.0.5
 
@@ -25666,7 +25687,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.7.9:
+  axios@1.7.7:
     dependencies:
       follow-redirects: 1.15.9(debug@4.3.7)
       form-data: 4.0.2
@@ -30808,7 +30829,7 @@ snapshots:
   node-red-admin@4.0.1:
     dependencies:
       ansi-colors: 4.1.3
-      axios: 1.7.9
+      axios: 1.7.7
       bcryptjs: 2.4.3
       cli-table: 0.3.11
       enquirer: 2.4.1
