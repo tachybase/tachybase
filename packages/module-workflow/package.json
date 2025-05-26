@@ -26,7 +26,7 @@
     "@types/lodash": "^4.17.13",
     "@types/qrcode": "^1.5.5",
     "antd": "5.22.5",
-    "axios": "1.7.9",
+    "axios": "1.7.7",
     "cron-parser": "4.9.0",
     "file-saver": "^2.0.5",
     "form-data": "^4.0.1",

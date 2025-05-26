@@ -15,7 +15,7 @@
     "@ant-design/icons": "^5.5.2",
     "ahooks": "^3.8.4",
     "antd": "5.22.5",
-    "axios": "1.7.9",
+    "axios": "1.7.7",
     "react-router-dom": "6.28.1"
   },
   "peerDependencies": {
