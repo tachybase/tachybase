@@ -27,7 +27,6 @@ import { readPrettyFormItemInitializers } from '../modules/blocks/data-blocks/de
 import { RecordReadPrettyFormBlockInitializer } from '../modules/blocks/data-blocks/details-single/RecordReadPrettyFormBlockInitializer';
 import {
   createFormActionInitializers,
-  editableFormItemInitializers,
   formActionInitializers,
   formItemInitializers,
   updateFormActionInitializers,
@@ -121,7 +120,6 @@ export class SchemaInitializerPlugin extends Plugin {
     this.app.schemaInitializerManager.add(tableColumnInitializers);
     this.app.schemaInitializerManager.add(tableActionColumnInitializers);
     this.app.schemaInitializerManager.add(formItemInitializers);
-    this.app.schemaInitializerManager.add(editableFormItemInitializers);
     this.app.schemaInitializerManager.add(formActionInitializers);
     this.app.schemaInitializerManager.add(detailsActionInitializers);
     this.app.schemaInitializerManager.add(readPrettyFormItemInitializers);
