@@ -220,7 +220,7 @@ export abstract class Plugin implements PluginInterface {
       this.options.packageName,
       await this.getSourceDir(),
       'server/migrations',
-    );
+    ).replace(/\\/g, '/');
     return await this.app.loadMigrations({
       directory,
       namespace: this.options.packageName,
