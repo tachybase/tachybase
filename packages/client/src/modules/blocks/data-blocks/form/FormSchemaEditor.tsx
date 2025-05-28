@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
   createCreateFormBlockUISchema,
+  RecordContext_deprecated,
   RecordProvider,
   useAPIClient,
   useCreateFormBlock,
@@ -10,7 +11,18 @@ import {
   useTranslation,
 } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
-import { ISchema, Schema, SchemaContext, uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import {
+  action,
+  createForm,
+  FormContext,
+  ISchema,
+  Schema,
+  SchemaContext,
+  uid,
+  useField,
+  useFieldSchema,
+  useForm,
+} from '@tachybase/schema';
 
 import {
   EditOutlined,
@@ -44,6 +56,7 @@ import * as components from '../../../../collection-manager/Configuration/compon
 import useDialect from '../../../../collection-manager/hooks/useDialect';
 import {
   CollectionProvider,
+  CollectionRecordContext,
   useAssociationName,
   useCollectionManager,
   useDataSource,
@@ -143,11 +156,17 @@ const EditorHeader = ({ onCancel }) => {
           </span>
         </div>
         <div className="center-menu">
-          <Menu key="EditPageMenu" mode="horizontal" selectedKeys={['formEdit']}>
-            <Menu.Item key="formEdit" style={{ fontSize: 'large' }}>
-              表单设计
-            </Menu.Item>
-          </Menu>
+          <Menu
+            key="EditPageMenu"
+            mode="horizontal"
+            selectedKeys={['formEdit']}
+            items={[
+              {
+                key: 'formEdit',
+                label: <span style={{ fontSize: 'large' }}>表单设计</span>,
+              },
+            ]}
+          />
           <Tooltip title="通过选择字段、调整位置、添加属性等对表单进行设计">
             <QuestionCircleOutlined />
           </Tooltip>
@@ -168,6 +187,7 @@ const EditorHeader = ({ onCancel }) => {
 
 const EditorFieldsSider = ({ schema, fetchSchema }) => {
   const record = useCollection_deprecated();
+
   const { Sider } = Layout;
   const { TabPane } = Tabs;
   const { t } = useTranslation();
@@ -189,6 +209,7 @@ const EditorFieldsSider = ({ schema, fetchSchema }) => {
     const wrapedSchema = wrapFieldInGridSchema(s);
     dn.insertBeforeEnd(wrapedSchema);
   };
+  const form = useMemo(() => createForm(), []);
   const resourceActionProps = {
     association: {
       sourceKey: 'name',
@@ -211,14 +232,29 @@ const EditorFieldsSider = ({ schema, fetchSchema }) => {
     <Sider width={300} style={{ background: 'white', overflow: 'auto' }}>
       <RecordProvider record={record}>
         <ResourceActionProvider {...resourceActionProps}>
-          <Tabs defaultActiveKey="existing" centered={true} tabBarGutter={50}>
-            <TabPane tab={t('已有字段')} key="existing">
-              <EditorExistFieldsSider schema={gridSchema} handleInsert={handleInsert} options={options} />
-            </TabPane>
-            <TabPane tab={t('新增字段')} key="extra">
-              <EditorAddFieldsSider schema={gridSchema} handleInsert={handleInsert} fetchSchema={fetchSchema} />
-            </TabPane>
-          </Tabs>
+          <FormContext.Provider value={form}>
+            <Tabs
+              defaultActiveKey="existing"
+              centered
+              tabBarGutter={50}
+              items={[
+                {
+                  label: t('已有字段'),
+                  key: 'existing',
+                  children: (
+                    <EditorExistFieldsSider schema={gridSchema} handleInsert={handleInsert} options={options} />
+                  ),
+                },
+                {
+                  label: t('新增字段'),
+                  key: 'extra',
+                  children: (
+                    <EditorAddFieldsSider schema={gridSchema} handleInsert={handleInsert} fetchSchema={fetchSchema} />
+                  ),
+                },
+              ]}
+            />
+          </FormContext.Provider>
         </ResourceActionProvider>
       </RecordProvider>
     </Sider>
@@ -374,11 +410,11 @@ const FieldButtonGrid: React.FC<FieldButtonGridProps> = ({ schema, items, onInse
 };
 
 const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSchema, handleInsert, fetchSchema }) => {
-  const record = useCollection_deprecated();
+  const { data: record } = useContext(CollectionRecordContext);
   const {
     data: { database },
   } = useCurrentAppInfo();
-  const { getInterface, getTemplate, collections, getCollection } = useCollectionManager_deprecated();
+  const { getInterface, getTemplate, collections, getCollection, getCollections } = useCollectionManager_deprecated();
   const [visible, setVisible] = useState(false);
   const [schema, setSchema] = useState({});
   const [targetScope, setTargetScope] = useState();
@@ -388,6 +424,33 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
   const { styles } = useStyles();
   const { isDialect } = useDialect();
   const fields = getCollection(record.name)?.options?.fields || record.fields || [];
+
+  const loadCollections = async (field, options, exclude?: string[]) => {
+    const { targetScope } = options;
+    const isFieldInherits = field.props?.name === 'inherits';
+    const filteredItems = getCollections().filter((item) => {
+      if (exclude?.includes(item.template)) {
+        return false;
+      }
+      const isAutoCreateAndThrough = item.autoCreate && item.isThrough;
+      if (isAutoCreateAndThrough) {
+        return false;
+      }
+      if (isFieldInherits && item.template === 'view') {
+        return false;
+      }
+      const templateIncluded = !targetScope?.template || targetScope.template.includes(item.template);
+      const nameIncluded = !targetScope?.[field.props?.name] || targetScope[field.props.name].includes(item.name);
+      return templateIncluded && nameIncluded;
+    });
+    return filteredItems.map((item) => ({
+      label: compile(item.title),
+      value: item.name,
+    }));
+  };
+  const useNewId = (prefix) => {
+    return `${prefix || ''}${uid()}`;
+  };
   const currentCollections = useMemo(() => {
     return collections.map((v) => {
       return {
@@ -621,6 +684,9 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
             disabledJSONB: false,
             scopeKeyOptions,
             createMainOnly: true,
+            loadCollections,
+            useAsyncDataSource,
+            useNewId,
           }}
         />
       </ActionContextProvider>
@@ -1040,9 +1106,7 @@ const getSchema = (schema: IField, record: any, compile) => {
   if (!schema) {
     return;
   }
-
   const properties = cloneDeep(schema.properties) as any;
-
   if (schema.hasDefaultValue === true) {
     properties['defaultValue'] = cloneDeep(schema?.default?.uiSchema);
     properties.defaultValue.required = false;
@@ -1149,7 +1213,6 @@ const getSchema = (schema: IField, record: any, compile) => {
                   type: 'primary',
                   useAction: '{{ useCreateCollectionField }}',
                 },
-                'x-use-component-props': 'useInsertProps',
               },
             },
           },
@@ -1222,4 +1285,23 @@ const collection: CollectionOptions = {
       },
     },
   ],
+};
+
+const useAsyncDataSource = (service: any, exclude?: string[]) => {
+  return (field: any, options?: any) => {
+    field.loading = true;
+
+    // 添加延迟 1000ms（1 秒）
+    setTimeout(() => {
+      service(field, options, exclude)
+        .then(
+          action.bound((data: any) => {
+            console.log('%c Line:1290 🍭 data', 'font-size:18px;color:#4fff4B;background:#fca650', data);
+            field.dataSource = data;
+            field.loading = false;
+          }),
+        )
+        .catch(console.error);
+    }, 500); // 延迟时间可自定义
+  };
 };
