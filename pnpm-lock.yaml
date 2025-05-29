@@ -67,9 +67,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.5
         version: 18.3.5(@types/react@18.3.18)
-      '@yao-pkg/pkg':
-        specifier: 6.4.1
-        version: 6.4.1(encoding@0.1.13)
       commander:
         specifier: ^9.5.0
         version: 9.5.0
@@ -526,6 +523,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../../packages/client
+      '@yao-pkg/pkg':
+        specifier: 6.5.1
+        version: 6.5.1(encoding@0.1.13)
 
   packages/acl:
     dependencies:
@@ -10265,12 +10265,12 @@ packages:
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
 
-  '@yao-pkg/pkg-fetch@3.5.21':
-    resolution: {integrity: sha512-nlJ+rXersw70CQVSph7OfIN8lN6nCStjU7koXzh0WXiPvztZGqkoQTScHQCe1K8/tuKpeL0bEOYW0rP4QqMJ9A==}
+  '@yao-pkg/pkg-fetch@3.5.23':
+    resolution: {integrity: sha512-rn45sqVQSkcJNSBdTnYze3n+kyub4CN8aiWYlPgA9yp9FZeEF+BlpL68kSIm3HaVuANniF+7RBMH5DkC4zlHZA==}
     hasBin: true
 
-  '@yao-pkg/pkg@6.4.1':
-    resolution: {integrity: sha512-pjePVt+DQP+HaJI5DfEZDX1pGsMMFjv1wuqfy/BwXlnffVIRk8lXjw7yVYvLQRcomf8Eaz2chDE5B6gR2SSaQw==}
+  '@yao-pkg/pkg@6.5.1':
+    resolution: {integrity: sha512-z6XlySYfnqfm1AfVlBN8A3yeAQniIwL7TKQfDCGsswYSVYLt2snbRefQYsfQQ3pw5lVXrZdLqgTjzaqID9IkWA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -25136,7 +25136,7 @@ snapshots:
 
   '@xtuc/long@4.2.2': {}
 
-  '@yao-pkg/pkg-fetch@3.5.21(encoding@0.1.13)':
+  '@yao-pkg/pkg-fetch@3.5.23(encoding@0.1.13)':
     dependencies:
       https-proxy-agent: 5.0.1
       node-fetch: 2.7.0(encoding@0.1.13)
@@ -25149,12 +25149,12 @@ snapshots:
       - encoding
       - supports-color
 
-  '@yao-pkg/pkg@6.4.1(encoding@0.1.13)':
+  '@yao-pkg/pkg@6.5.1(encoding@0.1.13)':
     dependencies:
       '@babel/generator': 7.26.3
       '@babel/parser': 7.26.3
       '@babel/types': 7.26.3
-      '@yao-pkg/pkg-fetch': 3.5.21(encoding@0.1.13)
+      '@yao-pkg/pkg-fetch': 3.5.23(encoding@0.1.13)
       into-stream: 6.0.0
       minimist: 1.2.8
       multistream: 4.1.0

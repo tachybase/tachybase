@@ -8,6 +8,12 @@
   "bin": {
     "tachybase-engine": "./lib/index.js"
   },
+  "scripts": {
+    "build": "pkg --compress Brotli .",
+    "build:linux": "pkg --compress Brotli -t node22-linux-x64 -o dist/engine lib/index.js",
+    "build:mac": "pkg --compress Brotli -t node22-macos-arm64 -o dist/engine lib/index.js",
+    "build:win": "pkg --compress Brotli -t node22-win-x64 -o dist/engine.exe lib/index.js"
+  },
   "dependencies": {
     "@formulajs/formulajs": "4.4.8",
     "@koa/cors": "5.0.0",
@@ -49,6 +55,21 @@
   "devDependencies": {
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
-    "@tachybase/logger": "workspace:*"
+    "@tachybase/logger": "workspace:*",
+    "@yao-pkg/pkg": "6.5.1"
+  },
+  "pkg": {
+    "targets": [
+      "node22-macos-arm64"
+    ],
+    "outputPath": "dist",
+    "patches": {
+      "./node_modules/@formulajs/formulajs/package.json": [
+        "\"type\": \"module\",",
+        "",
+        "\"main\": \"./lib/cjs\",",
+        "\"main\": \"./lib/cjs/index.cjs\","
+      ]
+    }
   }
 }
