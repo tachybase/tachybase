@@ -169,7 +169,6 @@ const EditorFieldsSider = ({ schema, fetchSchema }) => {
   const record = useCollection_deprecated();
 
   const { Sider } = Layout;
-  const { TabPane } = Tabs;
   const { t } = useTranslation();
   const api = useAPIClient();
   const { refresh } = useDesignable();
@@ -601,8 +600,8 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
           targetCollection,
         });
         try {
-          await resource.create({ values });
           handleInsert(schema);
+          await resource.create({ values });
           await form.reset();
           field.data.loading = false;
           refresh();

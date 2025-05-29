@@ -1,19 +1,25 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ArrayTable } from '@tachybase/components';
+import { ISchema, uid, useField, useForm } from '@tachybase/schema';
 
 import { TableOutlined } from '@ant-design/icons';
 import { Divider, Empty, Input, MenuProps, Spin } from 'antd';
+import { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { useAPIClient, useRequest } from '../../api-client';
 import {
   SchemaInitializerItem,
   SchemaInitializerMenu,
   useGetSchemaInitializerMenuItems,
   useSchemaInitializer,
 } from '../../application';
+import { TemplateSummary, useCancelAction, useCollectionManager_deprecated } from '../../collection-manager';
+import * as components from '../../collection-manager/Configuration/components';
 import { DataSource } from '../../data-source';
 import { Collection, CollectionFieldOptions } from '../../data-source/collection/Collection';
 import { Icon } from '../../icon';
-import { useCompile } from '../../schema-component';
+import { ActionContextProvider, SchemaComponent, useActionContext, useCompile } from '../../schema-component';
 import { useSchemaTemplateManager } from '../../schema-templates';
 import { useCollectionDataSourceItems } from '../utils';
 
@@ -314,9 +320,13 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
   const { insert, setVisible } = useSchemaInitializer();
   const compile = useCompile();
   const { getTemplateSchemaByMode } = useSchemaTemplateManager();
+  const { getTemplate, templates: collectionTemplates } = useCollectionManager_deprecated();
+  const [schema, setSchema] = useState({});
+  const [schemaVisible, setSchemaVisible] = useState(false);
   const onClick = useCallback(
     async ({ item }) => {
       if (item.template) {
+        console.log('%c Line:331 🍞 item.template', 'font-size:18px;color:#ed9ec7;background:#93c0a4', item.template);
         const s = await getTemplateSchemaByMode(item);
         templateWrap ? insert(templateWrap(s, { item, fromOthersInPopup })) : insert(s);
       } else {
@@ -340,12 +350,83 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
       dataBlockInitializerProps: props,
       hideOtherRecordsInPopup,
     });
+
   const getMenuItems = useGetSchemaInitializerMenuItems(onClick);
   const childItems = useMemo(() => {
     return getMenuItems(items, name);
   }, [getMenuItems, items, name]);
   const [openMenuKeys, setOpenMenuKeys] = useState([]);
+  const { t } = useTranslation();
   const searchedChildren = useMenuSearch({ data: childItems, openKeys: openMenuKeys, hideSearch });
+  const useCreateCollection = (schema?: any) => {
+    const api = useAPIClient();
+    const form = useForm();
+    const { refreshCM } = useCollectionManager_deprecated();
+    const ctx = useActionContext();
+    const field = useField();
+    return {
+      async run() {
+        field.data = field.data || {};
+        field.data.loading = true;
+        try {
+          await form.submit();
+          const values = cloneDeep(form.values);
+          if (schema?.events?.beforeSubmit) {
+            schema.events.beforeSubmit(values);
+          }
+          if (!values.autoCreateReverseField) {
+            delete values.reverseField;
+          }
+          delete values.autoCreateReverseField;
+          await api.resource('collections').create({
+            values: {
+              logging: true,
+              ...values,
+            },
+          });
+          ctx.setVisible(false);
+          if (onCreateBlockSchema) {
+            onCreateBlockSchema({
+              item: { name: values.name, dataSource: 'main', title: values.title },
+              fromOthersInPopup,
+            });
+          }
+          await form.reset();
+          field.data.loading = false;
+          await refreshCM();
+        } catch (error) {
+          field.data.loading = false;
+        }
+      },
+    };
+  };
+  const collectionItems = useMemo(() => {
+    const result = [];
+    collectionTemplates.forEach((item) => {
+      if (item.divider) {
+        result.push({
+          type: 'divider',
+        });
+      }
+      if (item.name === 'import') {
+        return;
+      }
+      if (item.name === 'importXlsx') {
+        return;
+      }
+      result.push({
+        label: compile(item.title),
+        key: item.name,
+        onClick: (info) => {
+          const schema = getSchema(getTemplate(info.key), compile, useCreateCollection);
+          setSchema(schema);
+          setVisible(false);
+          setSchemaVisible(true);
+        },
+      });
+    });
+    return result;
+  }, [collectionTemplates]);
   const compiledMenuItems = useMemo(() => {
     let children = searchedChildren.filter((item) => item.key !== 'search' && item.key !== 'empty');
     if (hideChildrenIfSingleCollection && children.length === 1) {
@@ -353,6 +434,16 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
       children = children[0].children;
     } else {
       children = searchedChildren;
+    }
+    if (name === 'form') {
+      children = [
+        ...children,
+        {
+          key: 'create-collection',
+          label: t('Create collection'),
+          children: collectionItems,
+        },
+      ];
     }
     return [
       {
@@ -370,14 +461,108 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
 
   if (childItems.length > 1 || (childItems.length === 1 && childItems[0].children?.length > 0)) {
     return (
-      <SchemaInitializerMenu
-        onOpenChange={(keys) => {
-          setOpenMenuKeys(keys);
-        }}
-        items={compiledMenuItems}
-      />
+      <div>
+        <SchemaInitializerMenu
+          onOpenChange={(keys) => {
+            setOpenMenuKeys(keys);
+          }}
+          items={compiledMenuItems}
+        />
+        <ActionContextProvider value={{ visible: schemaVisible, setVisible: setSchemaVisible }}>
+          <SchemaComponent
+            schema={schema}
+            components={{ ...components, ArrayTable, TemplateSummay: TemplateSummary }}
+            scope={{
+              useCancelAction,
+              createOnly: true,
+              useCreateCollection,
+              showReverseFieldConfig: true,
+            }}
+          />
+        </ActionContextProvider>
+      </div>
     );
   }
 
   return <SchemaInitializerItem {...props} onClick={onClick} />;
+};
+
+const getSchema = (schema, compile, useCreateCollection): ISchema => {
+  if (!schema) {
+    return;
+  }
+
+  const properties = cloneDeep(schema.configurableProperties) as any;
+
+  if (schema.hasDefaultValue === true) {
+    properties['defaultValue'] = cloneDeep(schema.default.uiSchema);
+    properties['defaultValue']['title'] = compile('{{ t("Default value") }}');
+    properties['defaultValue']['x-decorator'] = 'FormItem';
+  }
+  const initialValue: any = {
+    name: `t_${uid()}`,
+    template: schema.name,
+    view: schema.name === 'view',
+    ...cloneDeep(schema.default),
+  };
+  if (initialValue.reverseField) {
+    initialValue.reverseField.name = `f_${uid()}`;
+  }
+  return {
+    type: 'object',
+    properties: {
+      [uid()]: {
+        type: 'void',
+        'x-component': 'Action.Drawer',
+        'x-component-props': {
+          // getContainer: '{{ getContainer }}',
+        },
+        'x-decorator': 'Form',
+        'x-decorator-props': {
+          useValues(options) {
+            return useRequest(
+              () =>
+                Promise.resolve({
+                  data: initialValue,
+                }),
+              options,
+            );
+          },
+        },
+        title: '{{ t("Create collection") }}',
+        properties: {
+          summary: {
+            type: 'void',
+            'x-component': 'TemplateSummay',
+            'x-component-props': {
+              schemaKey: schema.name,
+            },
+          },
+          // @ts-ignore
+          ...properties,
+          footer: {
+            type: 'void',
+            'x-component': 'Action.Drawer.Footer',
+            properties: {
+              action1: {
+                title: '{{ t("Cancel") }}',
+                'x-component': 'Action',
+                'x-component-props': {
+                  useAction: '{{ useCancelAction }}',
+                },
+              },
+              action2: {
+                title: '{{ t("Submit") }}',
+                'x-component': 'Action',
+                'x-component-props': {
+                  type: 'primary',
+                  useAction: () => useCreateCollection(schema),
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
 };
