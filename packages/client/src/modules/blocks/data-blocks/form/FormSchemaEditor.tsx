@@ -1,15 +1,5 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  createCreateFormBlockUISchema,
-  RecordContext_deprecated,
-  RecordProvider,
-  useAPIClient,
-  useCreateFormBlock,
-  useCurrentAppInfo,
-  useRecordIndex,
-  useRequest,
-  useTranslation,
-} from '@tachybase/client';
+import { RecordProvider, useAPIClient, useCurrentAppInfo, useRequest, useTranslation } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
 import {
   action,
@@ -17,30 +7,17 @@ import {
   FormContext,
   ISchema,
   Schema,
-  SchemaContext,
   uid,
   useField,
   useFieldSchema,
   useForm,
 } from '@tachybase/schema';
 
-import {
-  EditOutlined,
-  FormOutlined,
-  LeftOutlined,
-  PlusSquareOutlined,
-  PoweroffOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
-import { Button, Card, Col, Collapse, Input, Layout, Menu, Modal, Row, Tabs, Tooltip, type ModalProps } from 'antd';
-import { cloneDeep, isEqual } from 'lodash';
+import { EditOutlined, FormOutlined, LeftOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { App, Button, Col, Collapse, Input, Layout, Menu, Modal, Row, Tabs, Tooltip } from 'antd';
+import { cloneDeep } from 'lodash';
 
-import {
-  SchemaInitializerItemType,
-  useApp,
-  useSchemaInitializer,
-  useSchemaInitializerItem,
-} from '../../../../application';
+import { SchemaInitializerItemType, useApp } from '../../../../application';
 import {
   CollectionOptions,
   IField,
@@ -54,28 +31,17 @@ import {
 } from '../../../../collection-manager';
 import * as components from '../../../../collection-manager/Configuration/components';
 import useDialect from '../../../../collection-manager/hooks/useDialect';
-import {
-  CollectionProvider,
-  CollectionRecordContext,
-  useAssociationName,
-  useCollectionManager,
-  useDataSource,
-  useDataSourceManager,
-  useExtendCollections,
-} from '../../../../data-source';
+import { CollectionProvider, CollectionRecordContext, useExtendCollections } from '../../../../data-source';
 import {
   ActionContextProvider,
   createDesignable,
   DndContext,
-  RemoteSchemaComponent,
   SchemaComponent,
-  SchemaComponentContext,
   useActionContext,
   useCompile,
-  useComponent,
   useDesignable,
 } from '../../../../schema-component';
-import { findSchema, removeGridFormItem, useCurrentSchema } from '../../../../schema-initializer/utils';
+import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
 import { useStyles } from './styles';
 
 export interface CreateFormBlockUISchemaOptions {
@@ -132,7 +98,8 @@ const EditorHeader = ({ onCancel }) => {
   const [title, setTitle] = useState('未命名表单');
   const [modalVisible, setModalVisible] = useState(false);
   const [tempTitle, setTempTitle] = useState(title);
-
+  const { t } = useTranslation();
+  const { modal } = App.useApp();
   const handleSave = () => {
     setTitle(tempTitle || '未命名表单');
     setModalVisible(false);
@@ -142,7 +109,20 @@ const EditorHeader = ({ onCancel }) => {
     <>
       <Header className={styles.header}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Button icon={<LeftOutlined />} onClick={onCancel} type="text" className="ant-cancel-button" />
+          <Button
+            icon={<LeftOutlined />}
+            onClick={() =>
+              modal.confirm({
+                title: t('Unsaved changes'),
+                content: t("Are you sure you don't want to save?"),
+                onOk: () => {
+                  onCancel();
+                },
+              })
+            }
+            type="text"
+            className="ant-cancel-button"
+          />
           <span
             className="ant-form-title"
             style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer' }}
@@ -1078,30 +1058,6 @@ function wrapFieldInGridSchema(field: any): Record<string, any> {
   };
 }
 
-const geteditableSchema = ({ item, fromOthersInPopup, association, isCusomeizeCreate }) => {
-  if (fromOthersInPopup) {
-    return createCreateFormEditUISchema({
-      collectionName: item.collectionName || item.name,
-      dataSource: item.dataSource,
-      isCusomeizeCreate: true,
-    });
-  } else {
-    return createCreateFormEditUISchema(
-      association
-        ? {
-            association,
-            dataSource: item.dataSource,
-            isCusomeizeCreate,
-          }
-        : {
-            collectionName: item.collectionName || item.name,
-            dataSource: item.dataSource,
-            isCusomeizeCreate,
-          },
-    );
-  }
-};
-
 const getSchema = (schema: IField, record: any, compile) => {
   if (!schema) {
     return;
@@ -1290,18 +1246,13 @@ const collection: CollectionOptions = {
 const useAsyncDataSource = (service: any, exclude?: string[]) => {
   return (field: any, options?: any) => {
     field.loading = true;
-
-    // 添加延迟 1000ms（1 秒）
-    setTimeout(() => {
-      service(field, options, exclude)
-        .then(
-          action.bound((data: any) => {
-            console.log('%c Line:1290 🍭 data', 'font-size:18px;color:#4fff4B;background:#fca650', data);
-            field.dataSource = data;
-            field.loading = false;
-          }),
-        )
-        .catch(console.error);
-    }, 500); // 延迟时间可自定义
+    service(field, options, exclude)
+      .then(
+        action.bound((data: any) => {
+          field.dataSource = data;
+          field.loading = false;
+        }),
+      )
+      .catch(console.error);
   };
 };

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { ISchema, uid } from '@tachybase/schema';
+import { ISchema, Schema, uid, useFieldSchema } from '@tachybase/schema';
 
 import { FormOutlined } from '@ant-design/icons';
 
@@ -8,6 +8,7 @@ import { useAssociationName } from '../../../../data-source/collection/Associati
 import { Collection, CollectionFieldOptions } from '../../../../data-source/collection/Collection';
 import { useDesignable } from '../../../../schema-component';
 import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
+import { findSchema } from '../../../../schema-initializer/utils';
 import { createCreateFormBlockUISchema } from './createCreateFormBlockUISchema';
 import { createCreateFormEditUISchema, FormSchemaEditor } from './FormSchemaEditor';
 
@@ -53,7 +54,9 @@ export const FormBlockInitializer = ({
 }) => {
   const [visible, setVisible] = useState(false);
   const [pendingOptions, setPendingOptions] = useState<any>(null);
+  const schemaUID = pendingOptions?.schema['x-uid'] || null;
   const itemConfig = useSchemaInitializerItem();
+  const fieldSchema = useFieldSchema();
   const { createFormBlock, templateWrap, createEditFormBlock, removeEditableSchema } = useCreateFormBlock();
   const onCreateFormBlockSchema = useCallback(async (options) => {
     // if (createBlockSchema) {
@@ -63,14 +66,14 @@ export const FormBlockInitializer = ({
     // createFormBlock(options);
     const schema = await createEditFormBlock(options);
     setPendingOptions({ schema, ...options });
-    setVisible(true); // 打开弹窗
+    setVisible(true);
   }, []);
 
   const handleClose = () => {
-    const { schema } = pendingOptions;
-    // if (schema) {
-    //   removeEditableSchema(schema)
-    // }
+    const deleteSchema = findSchema(fieldSchema, 'x-uid', schemaUID) || {};
+    if (deleteSchema) {
+      removeEditableSchema(deleteSchema);
+    }
     setVisible(false);
     setPendingOptions(null);
   };
@@ -98,7 +101,7 @@ export const FormBlockInitializer = ({
         currentText={currentText}
         otherText={otherText}
       />
-      <FormSchemaEditor open={visible} onCancel={handleClose} options={pendingOptions} />
+      <FormSchemaEditor key={schemaUID} open={visible} onCancel={handleClose} options={pendingOptions} />
     </>
   );
 };
@@ -188,7 +191,7 @@ export const useCreateFormBlock = () => {
     [association, isCustomizeCreate],
   );
 
-  const removeEditableSchema = (schema: ISchema) => {
+  const removeEditableSchema = (schema: Schema) => {
     remove(schema, {
       removeParentsIfNoChildren: true,
       breakRemoveOn: {
