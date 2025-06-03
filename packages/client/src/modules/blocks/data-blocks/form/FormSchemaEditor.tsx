@@ -184,6 +184,7 @@ const EditorFieldsSider = ({ schema, fetchSchema }) => {
       block: 'Form',
     }),
   };
+
   const dn = createDesignable({ t, api, refresh, current: gridSchema });
   dn.loadAPIClientEvents();
   const handleInsert = (s: ISchema) => {
@@ -546,7 +547,6 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
 
   const useCreateCollectionField = (props: any) => {
     const form = useForm();
-    const { name } = useCollection_deprecated();
     const { refreshCM } = useCollectionManager_deprecated();
     const ctx = useActionContext();
     const { refresh } = useResourceActionContext();
@@ -575,11 +575,11 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
         const schema = {
           type: 'string',
           name: values.name,
-          'x-toolbar': 'FormItemSchemaToolbar',
+          'x-toolbar': 'EditableFormItemSchemaToolbar',
           'x-settings': 'fieldSettings:FormItem',
           'x-component': 'CollectionField',
           'x-decorator': 'FormItem',
-          'x-collection-field': `${name}.${values.name}`,
+          'x-collection-field': `${record.name}.${values.name}`,
           'x-component-props': isFileCollection
             ? {
                 fieldNames: {
@@ -741,14 +741,15 @@ const EditorFormProperty = ({ schema }) => {
 };
 
 const useFormFieldButtonWrappers = (options?: any) => {
-  const { name, currentFields } = useCollection_deprecated();
-  const { getInterface, getCollection } = useCollectionManager_deprecated();
+  const { name } = useCollection_deprecated();
+  const { getInterface, getCollection, getCollectionFields } = useCollectionManager_deprecated();
+  const fields = getCollectionFields(name) || [];
   const form = useForm();
   const { readPretty = form.readPretty, block = 'Form' } = options || {};
   const { fieldSchema } = useActionContext();
   const action = fieldSchema?.['x-action'];
 
-  return currentFields
+  return fields
     ?.filter((field) => field?.interface && !field?.isForeignKey && !field?.treeChildren)
     ?.map((field) => {
       const interfaceConfig = getInterface(field.interface);
@@ -759,7 +760,7 @@ const useFormFieldButtonWrappers = (options?: any) => {
       const schema = {
         type: 'string',
         name: field.name,
-        'x-toolbar': 'FormItemSchemaToolbar',
+        'x-toolbar': 'EditableFormItemSchemaToolbar',
         'x-settings': 'fieldSettings:FormItem',
         'x-component': 'CollectionField',
         'x-decorator': 'FormItem',
@@ -834,7 +835,7 @@ const useFormParentCollectionFieldsButtonWrappers = (options?) => {
             name: field.name,
             title: field?.uiSchema?.title || field.name,
             // 'x-designer': 'FormItem.Designer',
-            'x-toolbar': 'FormItemSchemaToolbar',
+            'x-toolbar': 'EditableFormItemSchemaToolbar',
             'x-settings': 'fieldSettings:FormItem',
             'x-component': component,
             'x-decorator': 'FormItem',
@@ -899,7 +900,7 @@ const useFormExtendCollectionFieldsButtonWrappers = (options?) => {
           const schema = {
             type: 'string',
             name: field.name,
-            'x-toolbar': 'FormItemSchemaToolbar',
+            'x-toolbar': 'EditableFormItemSchemaToolbar',
             'x-settings': 'fieldSettings:FormItem',
             'x-component': 'CollectionField',
             'x-decorator': 'FormItem',
@@ -942,8 +943,11 @@ const useFormExtendCollectionFieldsButtonWrappers = (options?) => {
 };
 
 const useAssociatedFormFieldButtonWrappers = (options?: any) => {
-  const { name, fields } = useCollection_deprecated();
+  const { name } = useCollection_deprecated();
+
   const { getInterface, getCollectionFields, getCollection } = useCollectionManager_deprecated();
+  const fields = getCollectionFields(name) || [];
+
   const form = useForm();
   const { readPretty = form.readPretty, block = 'Form' } = options || {};
   const interfaces = block === 'Form' ? ['m2o'] : ['o2o', 'oho', 'obo', 'm2o'];
@@ -964,7 +968,7 @@ const useAssociatedFormFieldButtonWrappers = (options?: any) => {
             type: 'string',
             name: `${field.name}.${subField.name}`,
             // 'x-designer': 'FormItem.Designer',
-            'x-toolbar': 'FormItemSchemaToolbar',
+            'x-toolbar': 'EditableFormItemSchemaToolbar',
             'x-settings': 'fieldSettings:FormItem',
             'x-component': 'CollectionField',
             'x-read-pretty': readPretty,

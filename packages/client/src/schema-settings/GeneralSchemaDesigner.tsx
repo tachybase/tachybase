@@ -169,7 +169,6 @@ const InternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
   const compile = useCompile();
   const { styles } = useStyles();
   const { getAriaLabel } = useGetAriaLabelOfDesigner();
-  const { schemaUID, setSchemaUID } = useEditableSelectedField();
   const dm = useDataSourceManager();
   const dataSources = dm?.getDataSources();
   const dataSourceContext = useDataSource();
@@ -249,17 +248,6 @@ const InternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       }
     }
 
-    function handleClick(e: MouseEvent) {
-      const target = e.target as HTMLElement;
-      const isInsideToolbar = toolbarElement?.contains(target);
-      if (!isInsideToolbar) {
-        const uid = fieldSchema?.['x-uid'] || null;
-        if (uid !== schemaUID) {
-          setSchemaUID(uid);
-        }
-      }
-    }
-
     if (parentElement) {
       const style = window.getComputedStyle(parentElement);
       if (style.position === 'static') {
@@ -268,14 +256,12 @@ const InternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
 
       parentElement.addEventListener('mouseenter', show);
       parentElement.addEventListener('mouseleave', hide);
-      parentElement.addEventListener('click', handleClick);
     }
 
     return () => {
       if (parentElement) {
         parentElement.removeEventListener('mouseenter', show);
         parentElement.removeEventListener('mouseleave', hide);
-        parentElement.addEventListener('click', handleClick);
       }
     };
   }, []);
