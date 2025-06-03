@@ -326,7 +326,6 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
   const onClick = useCallback(
     async ({ item }) => {
       if (item.template) {
-        console.log('%c Line:331 🍞 item.template', 'font-size:18px;color:#ed9ec7;background:#93c0a4', item.template);
         const s = await getTemplateSchemaByMode(item);
         templateWrap ? insert(templateWrap(s, { item, fromOthersInPopup })) : insert(s);
       } else {

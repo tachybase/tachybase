@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { RecordProvider, useAPIClient, useCurrentAppInfo, useRequest, useTranslation } from '@tachybase/client';
 import { ArrayTable } from '@tachybase/components';
 import {
@@ -18,6 +18,7 @@ import { App, Button, Col, Collapse, Input, Layout, Menu, Modal, Row, Tabs, Tool
 import { cloneDeep } from 'lodash';
 
 import { SchemaInitializerItemType, useApp } from '../../../../application';
+import { defaultSettingItems } from '../../../../application/schema-settings/SchemaSettingsDefaults';
 import {
   CollectionOptions,
   IField,
@@ -42,9 +43,10 @@ import {
   useDesignable,
 } from '../../../../schema-component';
 import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
+import { useEditableSelectedField } from './EditableSelectedFieldContext';
 import { useStyles } from './styles';
 
-export interface CreateFormBlockUISchemaOptions {
+interface CreateFormBlockUISchemaOptions {
   dataSource: string;
   collectionName?: string;
   association?: string;
@@ -83,7 +85,7 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
             <DndContext>
               <EditorFieldsSider schema={schema} fetchSchema={fetchSchema} />
               <EditorContent key={schemakey} schema={schema} />
-              <EditorFieldProperty />
+              <EditorFieldFormProperty schema={schema} />
             </DndContext>
           </Layout>
         </Layout>
@@ -684,17 +686,58 @@ const EditorContent = ({ schema }) => {
   );
 };
 
-const EditorFieldProperty = () => {
+const EditorFieldFormProperty = ({ schema }) => {
   const { Sider } = Layout;
   const { styles } = useStyles();
+  const { t } = useTranslation();
+
   return (
     <Sider width={300} style={{ background: 'white', overflow: 'auto' }}>
-      <Menu mode="inline" defaultSelectedKeys={['1']} style={{ height: '100%' }}>
-        <Menu.Item key="1">Right Menu 1</Menu.Item>
-        <Menu.Item key="2">Right Menu 2</Menu.Item>
-      </Menu>
+      <Tabs
+        defaultActiveKey="field"
+        centered
+        tabBarGutter={50}
+        items={[
+          {
+            label: t('字段属性'),
+            key: 'field',
+            children: <EditorFieldProperty schema={schema} />,
+          },
+          {
+            label: t('表单属性'),
+            key: 'form',
+            children: <EditorFormProperty schema={schema} />,
+          },
+        ]}
+      />
     </Sider>
   );
+};
+
+const EditorFieldProperty = ({ schema }) => {
+  const app = useApp();
+  const { schemaUID } = useEditableSelectedField();
+
+  const fieldSchema = useMemo(() => {
+    if (!schema || !schemaUID) return null;
+    return findSchema(schema, 'x-uid', schemaUID) || null;
+  }, [schema, schemaUID]);
+
+  const newOptions = useMemo(() => {
+    if (!fieldSchema?.['x-settings']) return null;
+    const schemaSetting = app.schemaSettingsManager.get(fieldSchema['x-settings']);
+    const newItems = [...defaultSettingItems, ...schemaSetting.options.items];
+    return { ...schemaSetting.options, items: newItems, schemaUID };
+  }, [app.schemaSettingsManager, fieldSchema]);
+
+  if (!schemaUID) {
+    return <div>未选中字段</div>;
+  }
+  return <div>{schemaUID}</div>;
+};
+
+const EditorFormProperty = ({ schema }) => {
+  return <div></div>;
 };
 
 const useFormFieldButtonWrappers = (options?: any) => {
