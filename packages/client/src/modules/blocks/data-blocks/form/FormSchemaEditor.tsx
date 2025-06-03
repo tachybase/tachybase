@@ -14,7 +14,7 @@ import {
 } from '@tachybase/schema';
 
 import { EditOutlined, FormOutlined, LeftOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { App, Button, Col, Collapse, Input, Layout, Menu, Modal, Row, Tabs, Tooltip } from 'antd';
+import { App, Button, Col, Collapse, Flex, Input, Layout, Menu, Modal, Row, Tabs, Tooltip } from 'antd';
 import { cloneDeep } from 'lodash';
 
 import { SchemaInitializerItemType, useApp } from '../../../../application';
@@ -58,16 +58,15 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
   const api = useAPIClient();
   const schemaUID = options?.schema['x-uid'] || null;
   const fieldSchema = useFieldSchema();
-  // const schema = findSchema(fieldSchema, 'x-uid', schemaUID) || {};
   const [schema, setSchema] = useState({});
   const [schemakey, setSchemakey] = useState(uid());
   const { styles } = useStyles();
   const collectionName = options?.item?.name || null;
   const fetchSchema = async () => {
-    const { data } = await api.request({
+    const service = await api.request({
       url: `/uiSchemas:getJsonSchema/${schemaUID}?includeAsyncNode=true`,
     });
-    const schema = new Schema(data.data) || {};
+    const schema = new Schema(service.data.data) || {};
     setSchema(schema);
     setSchemakey(uid());
   };
@@ -85,7 +84,7 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
             <DndContext>
               <EditorFieldsSider schema={schema} fetchSchema={fetchSchema} />
               <EditorContent key={schemakey} schema={schema} />
-              <EditorFieldFormProperty schema={schema} />
+              <EditorFieldFormProperty schema={schema} fetchSchema={fetchSchema} />
             </DndContext>
           </Layout>
         </Layout>
@@ -686,7 +685,7 @@ const EditorContent = ({ schema }) => {
   );
 };
 
-const EditorFieldFormProperty = ({ schema }) => {
+const EditorFieldFormProperty = ({ schema, fetchSchema }) => {
   const { Sider } = Layout;
   const { styles } = useStyles();
   const { t } = useTranslation();
@@ -701,7 +700,7 @@ const EditorFieldFormProperty = ({ schema }) => {
           {
             label: t('字段属性'),
             key: 'field',
-            children: <EditorFieldProperty schema={schema} />,
+            children: <EditorFieldProperty schema={schema} fetchSchema={fetchSchema} />,
           },
           {
             label: t('表单属性'),
@@ -714,27 +713,130 @@ const EditorFieldFormProperty = ({ schema }) => {
   );
 };
 
-const EditorFieldProperty = ({ schema }) => {
+const EditorFieldProperty = ({ schema, fetchSchema }) => {
   const app = useApp();
   const { schemaUID } = useEditableSelectedField();
-
+  const { getField } = useCollection_deprecated();
+  const { t } = useTranslation();
+  const api = useAPIClient();
+  const { refresh } = useDesignable();
+  const [optionsSchema, setOptionsSchema] = useState({});
   const fieldSchema = useMemo(() => {
     if (!schema || !schemaUID) return null;
     return findSchema(schema, 'x-uid', schemaUID) || null;
   }, [schema, schemaUID]);
+  const dn = useMemo(() => {
+    if (!fieldSchema) return null;
+    return createDesignable({ t, api, refresh, current: fieldSchema });
+  }, [t, api, refresh, fieldSchema]);
 
-  const newOptions = useMemo(() => {
-    if (!fieldSchema?.['x-settings']) return null;
-    const schemaSetting = app.schemaSettingsManager.get(fieldSchema['x-settings']);
-    const newItems = [...defaultSettingItems, ...schemaSetting.options.items];
-    return { ...schemaSetting.options, items: newItems, schemaUID };
-  }, [app.schemaSettingsManager, fieldSchema]);
+  useEffect(() => {
+    if (dn) {
+      dn.loadAPIClientEvents();
+      const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
+      setOptionsSchema(createOptionsSchema({ title }));
+    }
+  }, [dn]);
 
-  if (!schemaUID) {
+  if (!fieldSchema || !dn) {
     return <div>未选中字段</div>;
   }
-  return <div>{schemaUID}</div>;
+
+  const useEditFieldActionProps = () => {
+    const form = useForm();
+    return {
+      async onClick() {
+        const { title } = form.values;
+        try {
+          if (title) {
+            fieldSchema.title = title;
+            await dn.emit('patch', {
+              schema: {
+                'x-uid': fieldSchema['x-uid'],
+                title: fieldSchema.title,
+              },
+            });
+          }
+          dn.refresh;
+          fetchSchema();
+        } catch (e) {
+          console.error(e);
+        }
+      },
+    };
+  };
+
+  return (
+    <div style={{ padding: '10px' }}>
+      <SchemaComponent schema={optionsSchema} scope={{ useEditFieldActionProps }} />
+    </div>
+  );
 };
+
+const createOptionsSchema = (props) => {
+  const { title } = props;
+  return {
+    type: 'void',
+    properties: {
+      [uid()]: {
+        type: 'object',
+        'x-component': 'FormV2',
+        properties: {
+          title: {
+            title: '{{t("Title")}}',
+            default: title,
+            type: 'string',
+            'x-component': 'Input',
+            'x-decorator': 'FormItem',
+          },
+          actions: {
+            type: 'void',
+            'x-component': 'ActionBar',
+            'x-component-props': {
+              style: {
+                marginBottom: 16,
+              },
+            },
+            properties: {
+              update: {
+                title: '{{ t("Submit") }}',
+                'x-action': 'submit',
+                'x-component': 'Action',
+                'x-use-component-props': 'useEditFieldActionProps',
+                'x-component-props': {
+                  type: 'primary',
+                  htmlType: 'submit',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  };
+};
+
+// const EditGenericProperties = ({ dn, fieldSchema }) => {
+//   const onSubmit = ({ title }) => {
+//     if (title) {
+//       fieldSchema.title = title;
+//       dn.emit('patch', {
+//         schema: {
+//           'x-uid': fieldSchema['x-uid'],
+//           title: fieldSchema.title,
+//         },
+//       });
+//     }
+//     dn.refresh();
+//   };
+
+//   return (
+//     <div>
+//       {/* 你可以放个输入框演示一下 */}
+//       <p>字段标题：{fieldSchema.title}</p>
+//     </div>
+//   );
+// };
 
 const EditorFormProperty = ({ schema }) => {
   return <div></div>;
