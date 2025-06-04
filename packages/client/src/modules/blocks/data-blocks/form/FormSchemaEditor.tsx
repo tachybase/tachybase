@@ -31,7 +31,7 @@ import {
 
 import { EditOutlined, FormOutlined, LeftOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import { App, Button, Col, Collapse, Flex, Input, Layout, Menu, Modal, Row, Tabs, Tooltip } from 'antd';
-import { cloneDeep } from 'lodash';
+import _, { cloneDeep } from 'lodash';
 
 import { SchemaInitializerItemType, useApp } from '../../../../application';
 import { defaultSettingItems } from '../../../../application/schema-settings/SchemaSettingsDefaults';
@@ -48,7 +48,12 @@ import {
 } from '../../../../collection-manager';
 import * as components from '../../../../collection-manager/Configuration/components';
 import useDialect from '../../../../collection-manager/hooks/useDialect';
-import { CollectionProvider, CollectionRecordContext, useExtendCollections } from '../../../../data-source';
+import {
+  CollectionProvider,
+  CollectionRecordContext,
+  useContextConfigSetting,
+  useExtendCollections,
+} from '../../../../data-source';
 import {
   ActionContextProvider,
   createDesignable,
@@ -732,15 +737,22 @@ const EditorFieldFormProperty = ({ schema, fetchSchema }) => {
 const EditorFieldProperty = ({ schema, fetchSchema }) => {
   const { schemaUID } = useEditableSelectedField();
   const { getField } = useCollection_deprecated();
+  const { getInterface, getCollectionJoinField } = useCollectionManager_deprecated();
   const { t } = useTranslation();
   const api = useAPIClient();
   const { refresh } = useDesignable();
   const [optionsSchema, setOptionsSchema] = useState({});
   const fieldSchema = findSchema(schema, 'x-uid', schemaUID) || null;
+  const { layoutDirection = 'column' } = useContextConfigSetting();
+  const collectionField = fieldSchema
+    ? getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field'])
+    : null;
+  const interfaceConfig = getInterface(collectionField?.interface);
+  const validateSchema = interfaceConfig?.['validateSchema']?.(fieldSchema);
   const dn = useMemo(() => {
     if (!fieldSchema) return null;
     const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
-    setOptionsSchema(createOptionsSchema({ title, fieldSchema }));
+    setOptionsSchema(createOptionsSchema({ title, fieldSchema, layoutDirection, validateSchema }));
     return createDesignable({ t, api, refresh, current: fieldSchema });
   }, [t, api, refresh, fieldSchema]);
 
@@ -756,32 +768,84 @@ const EditorFieldProperty = ({ schema, fetchSchema }) => {
 
   const useEditFieldActionProps = () => {
     const form = useForm();
+
     return {
       async onClick() {
-        const { editFieldTitle, displayTitle, editDescription, editTooltip, setDefaultValue } = form.values || {};
-
         try {
-          fieldSchema.title = editFieldTitle ?? '';
-          fieldSchema.description = editDescription ?? '';
-          fieldSchema['x-decorator-props'] = {
-            ...(fieldSchema['x-decorator-props'] || {}),
-            showTitle: !!displayTitle,
-            tooltip: editTooltip,
+          const {
+            editFieldTitle = '',
+            displayTitle,
+            editDescription = '',
+            editTooltip,
+            setDefaultValue,
+            layoutDirection = 'row',
+            required = true,
+            pattern,
+            setValidationRules = [],
+          } = form.values || {};
+
+          const oldStyle = fieldSchema['x-decorator-props']?.style || {};
+          const newStyle = {
+            ...oldStyle,
+            display: 'flex',
+            flexDirection: layoutDirection,
+            alignItems: layoutDirection === 'row' ? 'baseline' : 'unset',
           };
-          fieldSchema.default = setDefaultValue;
-          await dn.emit('patch', {
-            schema: {
-              'x-uid': fieldSchema['x-uid'],
-              title: fieldSchema.title,
-              default: fieldSchema.setDefaultValue,
-              description: fieldSchema.description,
-              'x-decorator-props': {
-                ...fieldSchema['x-decorator-props'],
-                showTitle: !!displayTitle,
-                tooltip: editTooltip,
-              },
-            },
+
+          let readPretty = false;
+          let disabled = false;
+
+          switch (pattern) {
+            case 'readonly':
+              readPretty = false;
+              disabled = true;
+              break;
+            case 'read-pretty':
+              readPretty = true;
+              disabled = false;
+              break;
+            default:
+              readPretty = false;
+              disabled = false;
+          }
+
+          const cleanedRules = setValidationRules.map((rule) => {
+            const cleaned = _.pickBy(rule, _.identity);
+            return cleaned;
           });
+
+          if (['percent'].includes(collectionField?.interface)) {
+            for (const rule of cleanedRules) {
+              if (rule.maxValue != null || rule.minValue != null) {
+                rule.percentMode = true;
+              }
+              if (rule.percentFormat) {
+                rule.percentFormats = true;
+              }
+            }
+          }
+
+          const patchSchema = {
+            'x-uid': fieldSchema['x-uid'],
+            title: editFieldTitle,
+            default: setDefaultValue,
+            description: editDescription,
+            required,
+            'x-read-pretty': readPretty,
+            'x-disabled': disabled,
+            'x-validator': cleanedRules,
+            'x-decorator-props': {
+              ...(fieldSchema['x-decorator-props'] || {}),
+              showTitle: !!displayTitle,
+              tooltip: editTooltip,
+              layoutDirection,
+              style: newStyle,
+            },
+          };
+
+          Object.assign(fieldSchema, patchSchema);
+
+          await dn.emit('patch', { schema: patchSchema });
 
           dn.refresh?.();
           await fetchSchema();
@@ -794,13 +858,24 @@ const EditorFieldProperty = ({ schema, fetchSchema }) => {
 
   return (
     <div key={schemaUID} style={{ padding: '10px' }}>
-      <SchemaComponent schema={optionsSchema} scope={{ useEditFieldActionProps }} />
+      <SchemaComponent
+        schema={optionsSchema}
+        scope={{ useEditFieldActionProps }}
+        components={{ ArrayCollapse, FormLayout }}
+      />
     </div>
   );
 };
 
 const createOptionsSchema = (props) => {
-  const { title, fieldSchema } = props;
+  const { title, fieldSchema, layoutDirection, validateSchema } = props;
+  let readOnlyMode = 'editable';
+  if (fieldSchema['x-disabled'] === true) {
+    readOnlyMode = 'readonly';
+  }
+  if (fieldSchema['x-read-pretty'] === true) {
+    readOnlyMode = 'read-pretty';
+  }
   return {
     type: 'void',
     properties: {
@@ -822,6 +897,20 @@ const createOptionsSchema = (props) => {
             'x-component': 'Checkbox',
             'x-decorator': 'FormItem',
           },
+          required: {
+            default: fieldSchema.required ?? false,
+            type: 'boolean',
+            'x-content': '{{t("Required")}}',
+            'x-component': 'Checkbox',
+            'x-decorator': 'FormItem',
+            'x-reactions': {
+              fulfill: {
+                state: {
+                  visible: `{{!${fieldSchema['x-read-pretty']}}}`,
+                },
+              },
+            },
+          },
           editDescription: {
             default: fieldSchema?.description,
             type: 'string',
@@ -842,6 +931,112 @@ const createOptionsSchema = (props) => {
             title: '{{t("Default value")}}',
             'x-decorator': 'FormItem',
             'x-component': 'Input',
+          },
+          layoutDirection: {
+            default: fieldSchema['x-decorator-props']?.layoutDirection ?? layoutDirection,
+            type: 'string',
+            title: '{{t("Layout Direction")}}',
+            'x-decorator': 'FormItem',
+            'x-component': 'Select',
+            'x-component-props': {
+              showSearch: false,
+            },
+            enum: [
+              { label: '{{t("Row")}}', value: 'row' },
+              { label: '{{t("Column")}}', value: 'column' },
+            ],
+          },
+          pattern: {
+            default: readOnlyMode,
+            type: 'string',
+            title: '{{t("Pattern")}}',
+            'x-decorator': 'FormItem',
+            'x-component': 'Select',
+            'x-component-props': {
+              showSearch: false,
+            },
+            enum: [
+              { label: '{{t("Editable")}}', value: 'editable' },
+              { label: '{{t("Readonly")}}', value: 'readonly' },
+              { label: '{{t("Easy-reading")}}', value: 'read-pretty' },
+            ],
+          },
+          setValidationRules: {
+            type: 'array',
+            title: '{{t("Set validation rules")}}',
+            default: fieldSchema?.['x-validator'],
+            'x-component': 'ArrayCollapse',
+            'x-decorator': 'FormItem',
+            'x-component-props': {
+              accordion: true,
+            },
+            maxItems: 3,
+            items: {
+              type: 'object',
+              'x-component': 'ArrayCollapse.CollapsePanel',
+              'x-component-props': {
+                header: '{{ t("Validation rule") }}',
+              },
+              properties: {
+                index: {
+                  type: 'void',
+                  'x-component': 'ArrayCollapse.Index',
+                },
+                layout: {
+                  type: 'void',
+                  'x-component': 'FormLayout',
+                  'x-component-props': {
+                    labelStyle: {
+                      marginTop: '6px',
+                    },
+                    labelCol: 8,
+                    wrapperCol: 16,
+                  },
+                  properties: {
+                    ...validateSchema,
+                    message: {
+                      type: 'string',
+                      title: '{{ t("Error message") }}',
+                      'x-decorator': 'FormItem',
+                      'x-component': 'Input.TextArea',
+                      'x-component-props': {
+                        autoSize: {
+                          minRows: 2,
+                          maxRows: 2,
+                        },
+                      },
+                    },
+                  },
+                },
+                remove: {
+                  type: 'void',
+                  'x-component': 'ArrayCollapse.Remove',
+                },
+                moveUp: {
+                  type: 'void',
+                  'x-component': 'ArrayCollapse.MoveUp',
+                },
+                moveDown: {
+                  type: 'void',
+                  'x-component': 'ArrayCollapse.MoveDown',
+                },
+              },
+            },
+            properties: {
+              add: {
+                type: 'void',
+                title: '{{ t("Add validation rule") }}',
+                'x-component': 'ArrayCollapse.Addition',
+                'x-reactions': {
+                  dependencies: ['setValidationRules'],
+                  fulfill: {
+                    state: {
+                      disabled: '{{$deps[0].length >= 3}}',
+                    },
+                  },
+                },
+              },
+            },
           },
           actions: {
             type: 'void',
