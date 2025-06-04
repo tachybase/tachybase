@@ -856,11 +856,24 @@ const EditorFieldProperty = ({ schema, fetchSchema }) => {
     };
   };
 
+  const useFieldDestroyActionProps = () => {
+    return {
+      async onClick() {
+        dn.remove(fieldSchema, {
+          removeParentsIfNoChildren: true,
+          breakRemoveOn: {
+            'x-component': 'Grid',
+          },
+        });
+      },
+    };
+  };
+
   return (
     <div key={schemaUID} style={{ padding: '10px' }}>
       <SchemaComponent
         schema={optionsSchema}
-        scope={{ useEditFieldActionProps }}
+        scope={{ useEditFieldActionProps, useFieldDestroyActionProps }}
         components={{ ArrayCollapse, FormLayout }}
       />
     </div>
@@ -883,6 +896,41 @@ const createOptionsSchema = (props) => {
         type: 'object',
         'x-component': 'FormV2',
         properties: {
+          actions: {
+            type: 'void',
+            'x-component': 'ActionBar',
+            'x-component-props': {
+              style: {
+                marginBottom: 16,
+              },
+            },
+            properties: {
+              delete: {
+                type: 'void',
+                title: '{{ t("Delete") }}',
+                'x-action': 'destroy',
+                'x-component': 'Action',
+                'x-use-component-props': 'useFieldDestroyActionProps',
+                'x-component-props': {
+                  icon: 'DeleteOutlined',
+                  confirm: {
+                    title: "{{t('Delete')}}",
+                    content: "{{t('Are you sure you want to delete it?')}}",
+                  },
+                },
+              },
+              update: {
+                title: '{{ t("Submit") }}',
+                'x-action': 'submit',
+                'x-component': 'Action',
+                'x-use-component-props': 'useEditFieldActionProps',
+                'x-component-props': {
+                  type: 'primary',
+                  htmlType: 'submit',
+                },
+              },
+            },
+          },
           editFieldTitle: {
             title: '{{t("Title")}}',
             default: fieldSchema.title ?? title,
@@ -1034,27 +1082,6 @@ const createOptionsSchema = (props) => {
                       disabled: '{{$deps[0].length >= 3}}',
                     },
                   },
-                },
-              },
-            },
-          },
-          actions: {
-            type: 'void',
-            'x-component': 'ActionBar',
-            'x-component-props': {
-              style: {
-                marginBottom: 16,
-              },
-            },
-            properties: {
-              update: {
-                title: '{{ t("Submit") }}',
-                'x-action': 'submit',
-                'x-component': 'Action',
-                'x-use-component-props': 'useEditFieldActionProps',
-                'x-component-props': {
-                  type: 'primary',
-                  htmlType: 'submit',
                 },
               },
             },
