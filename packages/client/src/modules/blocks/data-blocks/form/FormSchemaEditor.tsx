@@ -1,6 +1,22 @@
 import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { RecordProvider, useAPIClient, useCurrentAppInfo, useRequest, useTranslation } from '@tachybase/client';
-import { ArrayTable } from '@tachybase/components';
+import {
+  findParentFieldSchema,
+  FlagProvider,
+  RecordProvider,
+  SchemaSettingsDefaultValue,
+  useAPIClient,
+  useCurrentAppInfo,
+  useFlag,
+  useFormBlockContext,
+  useLocalVariables,
+  useRecord,
+  useRequest,
+  useTableBlockContext,
+  useTranslation,
+  useVariables,
+  VariableInput,
+} from '@tachybase/client';
+import { ArrayCollapse, ArrayTable, FormLayout } from '@tachybase/components';
 import {
   action,
   createForm,
@@ -714,27 +730,23 @@ const EditorFieldFormProperty = ({ schema, fetchSchema }) => {
 };
 
 const EditorFieldProperty = ({ schema, fetchSchema }) => {
-  const app = useApp();
   const { schemaUID } = useEditableSelectedField();
   const { getField } = useCollection_deprecated();
   const { t } = useTranslation();
   const api = useAPIClient();
   const { refresh } = useDesignable();
   const [optionsSchema, setOptionsSchema] = useState({});
-  const fieldSchema = useMemo(() => {
-    if (!schema || !schemaUID) return null;
-    return findSchema(schema, 'x-uid', schemaUID) || null;
-  }, [schema, schemaUID]);
+  const fieldSchema = findSchema(schema, 'x-uid', schemaUID) || null;
   const dn = useMemo(() => {
     if (!fieldSchema) return null;
+    const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
+    setOptionsSchema(createOptionsSchema({ title, fieldSchema }));
     return createDesignable({ t, api, refresh, current: fieldSchema });
   }, [t, api, refresh, fieldSchema]);
 
   useEffect(() => {
     if (dn) {
       dn.loadAPIClientEvents();
-      const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
-      setOptionsSchema(createOptionsSchema({ title }));
     }
   }, [dn]);
 
@@ -746,35 +758,49 @@ const EditorFieldProperty = ({ schema, fetchSchema }) => {
     const form = useForm();
     return {
       async onClick() {
-        const { title } = form.values;
+        const { editFieldTitle, displayTitle, editDescription, editTooltip, setDefaultValue } = form.values || {};
+
         try {
-          if (title) {
-            fieldSchema.title = title;
-            await dn.emit('patch', {
-              schema: {
-                'x-uid': fieldSchema['x-uid'],
-                title: fieldSchema.title,
+          fieldSchema.title = editFieldTitle ?? '';
+          fieldSchema.description = editDescription ?? '';
+          fieldSchema['x-decorator-props'] = {
+            ...(fieldSchema['x-decorator-props'] || {}),
+            showTitle: !!displayTitle,
+            tooltip: editTooltip,
+          };
+          fieldSchema.default = setDefaultValue;
+          await dn.emit('patch', {
+            schema: {
+              'x-uid': fieldSchema['x-uid'],
+              title: fieldSchema.title,
+              default: fieldSchema.setDefaultValue,
+              description: fieldSchema.description,
+              'x-decorator-props': {
+                ...fieldSchema['x-decorator-props'],
+                showTitle: !!displayTitle,
+                tooltip: editTooltip,
               },
-            });
-          }
-          dn.refresh;
-          fetchSchema();
+            },
+          });
+
+          dn.refresh?.();
+          await fetchSchema();
         } catch (e) {
-          console.error(e);
+          console.error('更新字段失败:', e);
         }
       },
     };
   };
 
   return (
-    <div style={{ padding: '10px' }}>
+    <div key={schemaUID} style={{ padding: '10px' }}>
       <SchemaComponent schema={optionsSchema} scope={{ useEditFieldActionProps }} />
     </div>
   );
 };
 
 const createOptionsSchema = (props) => {
-  const { title } = props;
+  const { title, fieldSchema } = props;
   return {
     type: 'void',
     properties: {
@@ -782,12 +808,40 @@ const createOptionsSchema = (props) => {
         type: 'object',
         'x-component': 'FormV2',
         properties: {
-          title: {
+          editFieldTitle: {
             title: '{{t("Title")}}',
-            default: title,
+            default: fieldSchema.title ?? title,
             type: 'string',
             'x-component': 'Input',
             'x-decorator': 'FormItem',
+          },
+          displayTitle: {
+            default: fieldSchema['x-decorator-props']?.['showTitle'] ?? true,
+            type: 'boolean',
+            'x-content': '{{t("Display title")}}',
+            'x-component': 'Checkbox',
+            'x-decorator': 'FormItem',
+          },
+          editDescription: {
+            default: fieldSchema?.description,
+            type: 'string',
+            title: '{{t("Edit description")}}',
+            'x-component': 'Input.TextArea',
+            'x-decorator': 'FormItem',
+          },
+          editTooltip: {
+            default: fieldSchema?.['x-decorator-props']?.tooltip,
+            type: 'string',
+            title: '{{t("Edit tooltip")}}',
+            'x-component': 'Input',
+            'x-decorator': 'FormItem',
+          },
+          setDefaultValue: {
+            default: fieldSchema?.default,
+            type: 'string',
+            title: '{{t("Default value")}}',
+            'x-decorator': 'FormItem',
+            'x-component': 'Input',
           },
           actions: {
             type: 'void',

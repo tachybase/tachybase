@@ -43,7 +43,7 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
   const compile = useCompile();
   const { styles } = useStyles();
   const { getAriaLabel } = useGetAriaLabelOfDesigner();
-  const { schemaUID, setSchemaUID } = useEditableSelectedField();
+  const { setSchemaUID } = useEditableSelectedField();
   const dm = useDataSourceManager();
   const dataSources = dm?.getDataSources();
   const dataSourceContext = useDataSource();
@@ -128,9 +128,7 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       const isInsideToolbar = toolbarElement?.contains(target);
       if (!isInsideToolbar) {
         const uid = fieldSchema?.['x-uid'] || null;
-        if (uid !== schemaUID) {
-          setSchemaUID(uid);
-        }
+        setSchemaUID(uid);
       }
     }
 

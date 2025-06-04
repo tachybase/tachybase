@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { SchemaToolbarProvider, useSchemaInitializerRender, useSchemaSettingsRender } from '../application';
 import { useDataSourceManager } from '../data-source/data-source/DataSourceManagerProvider';
 import { useDataSource } from '../data-source/data-source/DataSourceProvider';
-import { useEditableSelectedField } from '../modules/blocks/data-blocks/form/EditableSelectedFieldContext';
 import { DragHandler, useCompile, useDesignable, useGridContext, useGridRowContext } from '../schema-component';
 import { gridRowColWrap } from '../schema-initializer/utils';
 import { useGetAriaLabelOfDesigner } from './hooks/useGetAriaLabelOfDesigner';
