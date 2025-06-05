@@ -49,6 +49,7 @@
     "lru-cache": "8.0.5",
     "markdown-it": "13.0.2",
     "mathjs": "^10.6.4",
+    "minimatch": "5.1.6",
     "mitt": "^3.0.1",
     "nanoid": "^3.3.8",
     "qrcode": "^1.5.4",

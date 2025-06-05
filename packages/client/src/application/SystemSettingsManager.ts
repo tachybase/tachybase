@@ -1,6 +1,7 @@
 import React, { createElement } from 'react';
 
 import { set } from 'lodash';
+import minimatch from 'minimatch';
 import { Outlet } from 'react-router-dom';
 
 import { Icon } from '../icon';
@@ -47,6 +48,8 @@ export class SystemSettingsManager {
   protected aclSnippets: string[] = [];
   public app: Application;
   private cachedList = {};
+  private whiteList: string[] = [];
+  private blackList: string[] = [];
 
   constructor(_pluginSettings: Record<string, PluginSettingOptions>, app: Application) {
     this.app = app;
@@ -73,6 +76,9 @@ export class SystemSettingsManager {
   }
 
   add(name: string, options: PluginSettingOptions) {
+    if (!this.limitCheck(name)) {
+      return;
+    }
     const nameArr = name.split('.');
     const topLevelName = nameArr[0];
     this.settings[name] = {
@@ -152,5 +158,27 @@ export class SystemSettingsManager {
 
   getAclSnippets() {
     return Object.keys(this.settings).map((name) => this.getAclSnippet(name));
+  }
+
+  public setWhiteBack(params: { whiteList: string[]; blackList: string[] }) {
+    this.whiteList = params.whiteList;
+    this.blackList = params.blackList;
+  }
+
+  limitCheck(name: string) {
+    for (const rule of this.blackList) {
+      if (minimatch(name, rule)) {
+        return false;
+      }
+    }
+    if (!this.whiteList.length) {
+      return true;
+    }
+    for (const rule of this.whiteList) {
+      if (minimatch(name, rule)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

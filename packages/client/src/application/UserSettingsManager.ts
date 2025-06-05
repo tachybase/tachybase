@@ -1,17 +1,18 @@
 import React, { createElement } from 'react';
 
 import { set } from 'lodash';
+import minimatch from 'minimatch';
 import { Outlet } from 'react-router-dom';
 
 import { Icon } from '../icon';
 import type { Application } from './Application';
 import type { RouteType } from './RouterManager';
 
-export const USER_SETTINGS_KEY = 'profilers.';
-export const USER_SETTINGS_PATH = '/profilers/';
+export const ADMIN_SETTINGS_KEY = 'admin-settings.';
+export const ADMIN_SETTINGS_PATH = '/_admin/';
 export const SNIPPET_PREFIX = 'pm.';
 
-export interface UserSettingOptions {
+export interface PluginSettingOptions {
   title: any;
   /**
    * @default Outlet
@@ -27,7 +28,7 @@ export interface UserSettingOptions {
   [index: string]: any;
 }
 
-export interface UserSettingsPageType {
+export interface PluginSettingsPageType {
   label?: string | React.ReactElement;
   title: string | React.ReactElement;
   key: string;
@@ -38,20 +39,22 @@ export interface UserSettingsPageType {
   isAllow?: boolean;
   topLevelName?: string;
   aclSnippet: string;
-  children?: UserSettingsPageType[];
+  children?: PluginSettingsPageType[];
   [index: string]: any;
 }
 
-export class UserSettingsManager {
-  protected settings: Record<string, UserSettingOptions> = {};
+export class SystemSettingsManager {
+  protected settings: Record<string, PluginSettingOptions> = {};
   protected aclSnippets: string[] = [];
   public app: Application;
   private cachedList = {};
+  private whiteList: string[] = [];
+  private blackList: string[] = [];
 
-  constructor(_userSettings: Record<string, UserSettingOptions>, app: Application) {
+  constructor(_pluginSettings: Record<string, PluginSettingOptions>, app: Application) {
     this.app = app;
-    Object.entries(_userSettings || {}).forEach(([name, userSettingOptions]) => {
-      this.add(name, userSettingOptions);
+    Object.entries(_pluginSettings || {}).forEach(([name, pluginSettingOptions]) => {
+      this.add(name, pluginSettingOptions);
     });
   }
 
@@ -65,14 +68,17 @@ export class UserSettingsManager {
   }
 
   getRouteName(name: string) {
-    return `${USER_SETTINGS_KEY}${name}`;
+    return `${ADMIN_SETTINGS_KEY}${name}`;
   }
 
   getRoutePath(name: string) {
-    return `${USER_SETTINGS_PATH}${name.replaceAll('.', '/')}`;
+    return `${ADMIN_SETTINGS_PATH}${name.replaceAll('.', '/')}`;
   }
 
-  add(name: string, options: UserSettingOptions) {
+  add(name: string, options: PluginSettingOptions) {
+    if (!this.limitCheck(name)) {
+      return;
+    }
     const nameArr = name.split('.');
     const topLevelName = nameArr[0];
     this.settings[name] = {
@@ -99,7 +105,7 @@ export class UserSettingsManager {
     Object.keys(this.settings).forEach((key) => {
       if (key.startsWith(name)) {
         delete this.settings[key];
-        this.app.router.remove(`${USER_SETTINGS_KEY}${key}`);
+        this.app.router.remove(`${ADMIN_SETTINGS_KEY}${key}`);
       }
     });
   }
@@ -119,16 +125,16 @@ export class UserSettingsManager {
     return !!this.getSetting(name);
   }
 
-  get(name: string, filterAuth = true): UserSettingsPageType {
+  get(name: string, filterAuth = true): PluginSettingsPageType {
     const isAllow = this.hasAuth(name);
-    const userSetting = this.getSetting(name);
-    if ((filterAuth && !isAllow) || !userSetting) return null;
-    const children = Object.keys(userSetting.children || {})
+    const pluginSetting = this.getSetting(name);
+    if ((filterAuth && !isAllow) || !pluginSetting) return null;
+    const children = Object.keys(pluginSetting.children || {})
       .sort((a, b) => a.localeCompare(b)) // sort by name
-      .map((key) => this.get(userSetting.children[key].name, filterAuth))
+      .map((key) => this.get(pluginSetting.children[key].name, filterAuth))
       .filter(Boolean)
       .sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    const { title, icon, aclSnippet, ...others } = userSetting;
+    const { title, icon, aclSnippet, ...others } = pluginSetting;
     return {
       ...others,
       aclSnippet: this.getAclSnippet(name),
@@ -142,20 +148,37 @@ export class UserSettingsManager {
     };
   }
 
-  getList(filterAuth = true): UserSettingsPageType[] {
-    const cacheKey = JSON.stringify(filterAuth);
-    if (this.cachedList[cacheKey]) return this.cachedList[cacheKey];
-
-    return (this.cachedList[cacheKey] = Array.from(
-      new Set(Object.values(this.settings).map((item) => item.topLevelName)),
-    )
+  getList(filterAuth = true): PluginSettingsPageType[] {
+    return Array.from(new Set(Object.values(this.settings).map((item) => item.topLevelName)))
       .sort((a, b) => a.localeCompare(b)) // sort by name
       .map((name) => this.get(name, filterAuth))
       .filter(Boolean)
-      .sort((a, b) => (a.sort || 0) - (b.sort || 0)));
+      .sort((a, b) => (a.sort || 0) - (b.sort || 0));
   }
 
   getAclSnippets() {
     return Object.keys(this.settings).map((name) => this.getAclSnippet(name));
+  }
+
+  public setWhiteBack(params: { whiteList: string[]; blackList: string[] }) {
+    this.whiteList = params.whiteList;
+    this.blackList = params.blackList;
+  }
+
+  limitCheck(name: string) {
+    for (const rule of this.blackList) {
+      if (minimatch(name, rule)) {
+        return false;
+      }
+    }
+    if (!this.whiteList.length) {
+      return true;
+    }
+    for (const rule of this.whiteList) {
+      if (minimatch(name, rule)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

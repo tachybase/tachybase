@@ -761,6 +761,9 @@ importers:
       mathjs:
         specifier: ^10.6.4
         version: 10.6.4
+      minimatch:
+        specifier: 5.1.6
+        version: 5.1.6
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
