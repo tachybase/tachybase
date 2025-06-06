@@ -28,7 +28,8 @@ export default class ApprovalCarbonCopyInstruction extends Instruction {
         except: ['data'],
       });
       // NOTE: 只有新发起审批的时候, 才生成抄送副本. 否则, 会生成不必要的重复副本
-      if ([APPROVAL_STATUS.SUBMITTED].includes(approval.status)) {
+      // error是为了发生错误的时候，重试恢复正常也需要生成抄送
+      if ([APPROVAL_STATUS.SUBMITTED, APPROVAL_STATUS.ERROR].includes(approval.status)) {
         const CarbonCopyModel = db.getModel(COLLECTION_NAME_APPROVAL_CARBON_COPY);
         const notifiedPersonDataMap = targetPersonList.map((userId, index) => ({
           userId,
