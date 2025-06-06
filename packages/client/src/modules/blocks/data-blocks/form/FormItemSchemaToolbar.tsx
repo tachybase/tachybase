@@ -176,8 +176,8 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       <div className={styles.toolbarIcons}>
         <Space size={3} align={'center'}>
           {dragElement}
-          {initializerElement}
-          {settingsElement}
+          {/* {initializerElement}
+          {settingsElement} */}
         </Space>
       </div>
     </div>

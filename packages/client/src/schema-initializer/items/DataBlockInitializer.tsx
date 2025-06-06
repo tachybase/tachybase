@@ -317,10 +317,11 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
     fromOthersInPopup,
     hideOtherRecordsInPopup,
   } = props;
+  const api = useAPIClient();
   const { insert, setVisible } = useSchemaInitializer();
   const compile = useCompile();
   const { getTemplateSchemaByMode } = useSchemaTemplateManager();
-  const { getTemplate, templates: collectionTemplates } = useCollectionManager_deprecated();
+  const { getTemplate, templates: collectionTemplates, refreshCM } = useCollectionManager_deprecated();
   const [schema, setSchema] = useState({});
   const [schemaVisible, setSchemaVisible] = useState(false);
   const onClick = useCallback(
@@ -357,74 +358,55 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
   const [openMenuKeys, setOpenMenuKeys] = useState([]);
   const { t } = useTranslation();
   const searchedChildren = useMenuSearch({ data: childItems, openKeys: openMenuKeys, hideSearch });
-  const useCreateCollection = (schema?: any) => {
-    const api = useAPIClient();
-    const form = useForm();
-    const { refreshCM } = useCollectionManager_deprecated();
-    const ctx = useActionContext();
-    const field = useField();
-    return {
-      async run() {
-        field.data = field.data || {};
-        field.data.loading = true;
-        try {
-          await form.submit();
-          const values = cloneDeep(form.values);
-          if (schema?.events?.beforeSubmit) {
-            schema.events.beforeSubmit(values);
-          }
-          if (!values.autoCreateReverseField) {
-            delete values.reverseField;
-          }
-          delete values.autoCreateReverseField;
-          await api.resource('collections').create({
-            values: {
-              logging: true,
-              ...values,
-            },
-          });
-          ctx.setVisible(false);
-          if (onCreateBlockSchema) {
-            onCreateBlockSchema({
-              item: { name: values.name, dataSource: 'main', title: values.title },
-              fromOthersInPopup,
-            });
-          }
-          await form.reset();
-          field.data.loading = false;
-          await refreshCM();
-        } catch (error) {
-          field.data.loading = false;
-        }
-      },
-    };
-  };
   const collectionItems = useMemo(() => {
-    const result = [];
-    collectionTemplates.forEach((item) => {
-      if (item.divider) {
-        result.push({
-          type: 'divider',
-        });
-      }
-      if (item.name === 'import') {
-        return;
-      }
-      if (item.name === 'importXlsx') {
-        return;
-      }
-      result.push({
-        label: compile(item.title),
-        key: item.name,
-        onClick: (info) => {
-          const schema = getSchema(getTemplate(info.key), compile, useCreateCollection);
-          setSchema(schema);
-          setVisible(false);
-          setSchemaVisible(true);
-        },
+    const skipNames = new Set(['sql', 'view', 'import', 'importXlsx']);
+    return collectionTemplates
+      .filter((item) => !skipNames.has(item.name) || item.divider)
+      .map((item) => {
+        if (item.divider) {
+          return { type: 'divider' };
+        }
+        return {
+          label: compile(item.title),
+          key: item.name,
+          onClick: async (info) => {
+            const schema = getTemplate(info.key);
+            const initialValue: any = {
+              name: `t_${uid()}`,
+              title: "{{t('Untitle collection')}}",
+              template: schema.name,
+              autoGenId: true,
+              createdAt: true,
+              createdBy: true,
+              updatedAt: true,
+              updatedBy: true,
+              view: false,
+              ...(() => {
+                const defaultValue = cloneDeep(schema.default) || {};
+                const existingFields = Array.isArray(defaultValue.fields) ? defaultValue.fields : [];
+                return {
+                  ...defaultValue,
+                  fields: [...existingFields, ...systemFields],
+                };
+              })(),
+            };
+            await api.resource('collections').create({
+              values: {
+                logging: true,
+                ...initialValue,
+              },
+            });
+            setVisible(false);
+            await refreshCM();
+            if (onCreateBlockSchema) {
+              onCreateBlockSchema({
+                item: { name: initialValue.name, dataSource: 'main', title: initialValue.title },
+                fromOthersInPopup,
+              });
+            }
+          },
+        };
       });
-    });
-    return result;
   }, [collectionTemplates]);
   const compiledMenuItems = useMemo(() => {
     let children = searchedChildren.filter((item) => item.key !== 'search' && item.key !== 'empty');
@@ -467,101 +449,89 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
           }}
           items={compiledMenuItems}
         />
-        <ActionContextProvider value={{ visible: schemaVisible, setVisible: setSchemaVisible }}>
-          <SchemaComponent
-            schema={schema}
-            components={{ ...components, ArrayTable, TemplateSummay: TemplateSummary }}
-            scope={{
-              useCancelAction,
-              createOnly: true,
-              useCreateCollection,
-              showReverseFieldConfig: true,
-            }}
-          />
-        </ActionContextProvider>
       </div>
     );
   }
 
   return <SchemaInitializerItem {...props} onClick={onClick} />;
 };
-
-const getSchema = (schema, compile, useCreateCollection): ISchema => {
-  if (!schema) {
-    return;
-  }
-
-  const properties = cloneDeep(schema.configurableProperties) as any;
-
-  if (schema.hasDefaultValue === true) {
-    properties['defaultValue'] = cloneDeep(schema.default.uiSchema);
-    properties['defaultValue']['title'] = compile('{{ t("Default value") }}');
-    properties['defaultValue']['x-decorator'] = 'FormItem';
-  }
-  const initialValue: any = {
-    name: `t_${uid()}`,
-    template: schema.name,
-    view: schema.name === 'view',
-    ...cloneDeep(schema.default),
-  };
-  if (initialValue.reverseField) {
-    initialValue.reverseField.name = `f_${uid()}`;
-  }
-  return {
-    type: 'object',
-    properties: {
-      [uid()]: {
-        type: 'void',
-        'x-component': 'Action.Drawer',
-        'x-component-props': {
-          // getContainer: '{{ getContainer }}',
-        },
-        'x-decorator': 'Form',
-        'x-decorator-props': {
-          useValues(options) {
-            return useRequest(
-              () =>
-                Promise.resolve({
-                  data: initialValue,
-                }),
-              options,
-            );
-          },
-        },
-        title: '{{ t("Create collection") }}',
-        properties: {
-          summary: {
-            type: 'void',
-            'x-component': 'TemplateSummay',
-            'x-component-props': {
-              schemaKey: schema.name,
-            },
-          },
-          // @ts-ignore
-          ...properties,
-          footer: {
-            type: 'void',
-            'x-component': 'Action.Drawer.Footer',
-            properties: {
-              action1: {
-                title: '{{ t("Cancel") }}',
-                'x-component': 'Action',
-                'x-component-props': {
-                  useAction: '{{ useCancelAction }}',
-                },
-              },
-              action2: {
-                title: '{{ t("Submit") }}',
-                'x-component': 'Action',
-                'x-component-props': {
-                  type: 'primary',
-                  useAction: () => useCreateCollection(schema),
-                },
-              },
-            },
-          },
+const systemFields = [
+  {
+    name: 'id',
+    type: 'bigInt',
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false,
+    uiSchema: {
+      type: 'number',
+      title: '{{t("ID")}}',
+      'x-component': 'InputNumber',
+      'x-read-pretty': true,
+    },
+    interface: 'integer',
+  },
+  {
+    name: 'createdAt',
+    interface: 'createdAt',
+    type: 'date',
+    field: 'createdAt',
+    uiSchema: {
+      type: 'datetime',
+      title: '{{t("Created at")}}',
+      'x-component': 'DatePicker',
+      'x-component-props': {},
+      'x-read-pretty': true,
+    },
+  },
+  {
+    name: 'createdBy',
+    interface: 'createdBy',
+    type: 'belongsTo',
+    target: 'users',
+    foreignKey: 'createdById',
+    uiSchema: {
+      type: 'object',
+      title: '{{t("Created by")}}',
+      'x-component': 'AssociationField',
+      'x-component-props': {
+        fieldNames: {
+          value: 'id',
+          label: 'nickname',
         },
       },
+      'x-read-pretty': true,
     },
-  };
-};
+  },
+  {
+    type: 'date',
+    field: 'updatedAt',
+    name: 'updatedAt',
+    interface: 'updatedAt',
+    uiSchema: {
+      type: 'string',
+      title: '{{t("Last updated at")}}',
+      'x-component': 'DatePicker',
+      'x-component-props': {},
+      'x-read-pretty': true,
+    },
+  },
+  {
+    type: 'belongsTo',
+    target: 'users',
+    foreignKey: 'updatedById',
+    name: 'updatedBy',
+    interface: 'updatedBy',
+    uiSchema: {
+      type: 'object',
+      title: '{{t("Last updated by")}}',
+      'x-component': 'AssociationField',
+      'x-component-props': {
+        fieldNames: {
+          value: 'id',
+          label: 'nickname',
+        },
+      },
+      'x-read-pretty': true,
+    },
+  },
+];

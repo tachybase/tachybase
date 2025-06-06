@@ -1,20 +1,11 @@
 import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  findParentFieldSchema,
-  FlagProvider,
   RecordProvider,
-  SchemaSettingsDefaultValue,
+  TableSelectorProvider,
   useAPIClient,
   useCurrentAppInfo,
-  useFlag,
-  useFormBlockContext,
-  useLocalVariables,
-  useRecord,
   useRequest,
-  useTableBlockContext,
   useTranslation,
-  useVariables,
-  VariableInput,
 } from '@tachybase/client';
 import { ArrayCollapse, ArrayTable, FormLayout } from '@tachybase/components';
 import {
@@ -29,12 +20,19 @@ import {
   useForm,
 } from '@tachybase/schema';
 
-import { EditOutlined, FormOutlined, LeftOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { App, Button, Col, Collapse, Flex, Input, Layout, Menu, Modal, Row, Tabs, Tooltip } from 'antd';
+import {
+  DesktopOutlined,
+  EditOutlined,
+  FormOutlined,
+  LeftOutlined,
+  MobileOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
+import { App, Button, Col, Collapse, Drawer, Flex, Input, Layout, Menu, Modal, Radio, Row, Tabs, Tooltip } from 'antd';
+import { CheckboxGroupProps } from 'antd/es/checkbox';
 import _, { cloneDeep } from 'lodash';
 
 import { SchemaInitializerItemType, useApp } from '../../../../application';
-import { defaultSettingItems } from '../../../../application/schema-settings/SchemaSettingsDefaults';
 import {
   CollectionOptions,
   IField,
@@ -49,6 +47,7 @@ import {
 import * as components from '../../../../collection-manager/Configuration/components';
 import useDialect from '../../../../collection-manager/hooks/useDialect';
 import {
+  CollectionField,
   CollectionProvider,
   CollectionRecordContext,
   useContextConfigSetting,
@@ -59,9 +58,12 @@ import {
   createDesignable,
   DndContext,
   SchemaComponent,
+  SchemaComponentContext,
+  SchemaComponentProvider,
   useActionContext,
   useCompile,
   useDesignable,
+  useSchemaComponentContext,
 } from '../../../../schema-component';
 import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
 import { useEditableSelectedField } from './EditableSelectedFieldContext';
@@ -99,31 +101,34 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
   return (
     <Modal open={open} footer={null} width="100vw" closable={false} className={styles.editModel}>
       <CollectionProvider name={collectionName}>
-        <Layout style={{ height: '100%' }}>
-          <EditorHeader onCancel={onCancel} />
-          <Layout>
-            <DndContext>
+        <DndContext>
+          <Layout style={{ height: '100%' }}>
+            <EditorHeader onCancel={onCancel} schema={schema} />
+            <Layout>
               <EditorFieldsSider schema={schema} fetchSchema={fetchSchema} />
               <EditorContent key={schemakey} schema={schema} />
               <EditorFieldFormProperty schema={schema} fetchSchema={fetchSchema} />
-            </DndContext>
+            </Layout>
           </Layout>
-        </Layout>
+        </DndContext>
       </CollectionProvider>
     </Modal>
   );
 };
 
-const EditorHeader = ({ onCancel }) => {
+const EditorHeader = ({ onCancel, schema }) => {
+  const { title: collectionTitle } = useCollection_deprecated();
   const { Header } = Layout;
+  const compile = useCompile();
   const { styles } = useStyles();
-  const [title, setTitle] = useState('未命名表单');
+  const [title, setTitle] = useState(collectionTitle);
   const [modalVisible, setModalVisible] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
   const [tempTitle, setTempTitle] = useState(title);
   const { t } = useTranslation();
   const { modal } = App.useApp();
   const handleSave = () => {
-    setTitle(tempTitle || '未命名表单');
+    setTitle(tempTitle || collectionTitle);
     setModalVisible(false);
   };
 
@@ -153,7 +158,7 @@ const EditorHeader = ({ onCancel }) => {
               setModalVisible(true);
             }}
           >
-            {title}
+            {compile(title)}
             <EditOutlined style={{ marginLeft: 4 }} />
           </span>
         </div>
@@ -174,16 +179,150 @@ const EditorHeader = ({ onCancel }) => {
           </Tooltip>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <Button className="ant-save-button">预览</Button>
+          <Button
+            className="ant-save-button"
+            onClick={() => {
+              setDrawerVisible(true);
+            }}
+          >
+            {t('Preview')}
+          </Button>
           <Button type="primary" className="ant-save-button">
             保存
           </Button>
         </div>
       </Header>
       <Modal title="编辑表单名称" open={modalVisible} onCancel={() => setModalVisible(false)} onOk={handleSave}>
-        <Input value={tempTitle} onChange={(e) => setTempTitle(e.target.value)} placeholder="请输入表单名称" />
+        <Input value={compile(tempTitle)} onChange={(e) => setTempTitle(e.target.value)} placeholder="请输入表单名称" />
       </Modal>
+      <PreviewDrawer open={drawerVisible} onClose={() => setDrawerVisible(false)} schema={schema} />
     </>
+  );
+};
+
+const PreviewDrawer = ({ open, onClose, schema }) => {
+  const { styles } = useStyles();
+  const [device, setDevice] = useState('PC');
+  const options: CheckboxGroupProps<string>['options'] = [
+    { label: <DesktopOutlined />, value: 'PC' },
+    { label: <MobileOutlined />, value: 'Mobile' },
+  ];
+  return (
+    <Drawer
+      placement={'bottom'}
+      height={'90%'}
+      open={open}
+      onClose={onClose}
+      closeIcon={<LeftOutlined />}
+      className={styles.previewDrawer}
+      extra={
+        <div>
+          <Radio.Group
+            block
+            options={options}
+            value={device}
+            onChange={(e) => setDevice(e.target.value)}
+            optionType="button"
+            buttonStyle="solid"
+          />
+        </div>
+      }
+    >
+      <div style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        {device === 'PC' ? <PCPreviewContent schema={schema} /> : <MobilePreviewContent schema={schema} />}
+      </div>
+    </Drawer>
+  );
+};
+
+const PCPreviewContent = ({ schema }) => {
+  const designerCtx = useSchemaComponentContext();
+  return (
+    <div style={{ width: '100%', maxWidth: '700px', height: '100%' }}>
+      <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
+        <SchemaComponent schema={schema} />
+      </SchemaComponentContext.Provider>
+    </div>
+  );
+};
+
+const gridRowColWrap = (schema: ISchema) => {
+  return {
+    type: 'void',
+    'x-component': 'Grid.Row',
+    properties: {
+      [uid()]: {
+        type: 'void',
+        'x-component': 'Grid.Col',
+        properties: {
+          [schema.name || uid()]: schema,
+        },
+      },
+    },
+  };
+};
+
+function findFormItem(schema: ISchema) {
+  const result: ISchema[] = [];
+  const find = (node: ISchema) => {
+    if (!node || typeof node !== 'object') return;
+    if (node['x-decorator'] === 'FormItem') {
+      result.push(gridRowColWrap(node));
+    }
+    if (node.properties) {
+      const orderedKeys = Object.keys(node.properties);
+      for (const key of orderedKeys) {
+        find(node.properties[key]);
+      }
+    }
+  };
+  find(schema);
+  const obj = result.reduce((acc, item) => {
+    acc[uid()] = item;
+    return acc;
+  }, {});
+  return obj;
+}
+
+const MobilePreviewContent = ({ schema }) => {
+  const designerCtx = useSchemaComponentContext();
+  const jsonSchema = useMemo(() => schema.toJSON(), [schema]);
+  const formItems = useMemo(() => findFormItem(jsonSchema), [jsonSchema]);
+  const mobileSchema = new Schema(jsonSchema);
+  const cardSchema = findSchema(mobileSchema, 'x-component', 'CardItem') || {};
+  cardSchema['x-component-props'] = {
+    style: {
+      boxShadow: 'none',
+    },
+  };
+  const formSchema = findSchema(cardSchema, 'x-component', 'FormV2') || {};
+  formSchema.removeProperty('grid');
+  formSchema.addProperty('grid', {
+    type: 'void',
+    'x-component': 'Grid',
+    'x-initializer': 'form:configureFields',
+    properties: {
+      ...formItems,
+    },
+  });
+  return (
+    <div
+      style={{
+        // width: '40%',
+        height: '90%',
+        aspectRatio: '8 / 16',
+        border: '5px solid rgb(177, 176, 176)',
+        borderRadius: 40,
+        boxShadow: '0 0 10px rgba(208, 208, 208, 0.77)',
+        backgroundColor: 'white',
+        overflow: 'auto',
+        position: 'relative',
+      }}
+    >
+      <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
+        <SchemaComponent schema={gridRowColWrap(cardSchema)} />
+      </SchemaComponentContext.Provider>
+    </div>
   );
 };
 
@@ -1092,28 +1231,6 @@ const createOptionsSchema = (props) => {
   };
 };
 
-// const EditGenericProperties = ({ dn, fieldSchema }) => {
-//   const onSubmit = ({ title }) => {
-//     if (title) {
-//       fieldSchema.title = title;
-//       dn.emit('patch', {
-//         schema: {
-//           'x-uid': fieldSchema['x-uid'],
-//           title: fieldSchema.title,
-//         },
-//       });
-//     }
-//     dn.refresh();
-//   };
-
-//   return (
-//     <div>
-//       {/* 你可以放个输入框演示一下 */}
-//       <p>字段标题：{fieldSchema.title}</p>
-//     </div>
-//   );
-// };
-
 const EditorFormProperty = ({ schema }) => {
   return <div></div>;
 };
@@ -1410,8 +1527,8 @@ export function createCreateFormEditUISchema(options: CreateFormBlockUISchemaOpt
       association,
       // isCusomeizeCreate,
     },
-    'x-toolbar': 'BlockSchemaToolbar',
-    'x-settings': 'blockSettings:createForm',
+    // 'x-toolbar': 'BlockSchemaToolbar',
+    // 'x-settings': 'blockSettings:createForm',
     'x-component': 'CardItem',
     properties: {
       [uid()]: {
@@ -1421,7 +1538,7 @@ export function createCreateFormEditUISchema(options: CreateFormBlockUISchemaOpt
         properties: {
           [uid()]: {
             type: 'void',
-            'x-initializer': 'createForm:configureActions',
+            // 'x-initializer': 'createForm:configureActions',
             'x-component': 'ActionBar',
             'x-component-props': {
               // layout: 'one-column',
@@ -1433,7 +1550,7 @@ export function createCreateFormEditUISchema(options: CreateFormBlockUISchemaOpt
           grid: templateSchema || {
             type: 'void',
             'x-component': 'Grid',
-            'x-initializer': 'form:configureFields',
+            // 'x-initializer': 'form:configureFields',
             properties: {
               // ...fieldsSchema
             },

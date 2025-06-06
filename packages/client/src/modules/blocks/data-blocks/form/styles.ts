@@ -64,5 +64,13 @@ export const useStyles = createStyles(({ css }) => {
         width: 100%;
       }
     `,
+    previewDrawer: css`
+      .ant-drawer-body {
+        background-color: #f5f5f5;
+        justify-items: center;
+        padding: 5px;
+        overflow: hidden;
+      }
+    `,
   };
 });
