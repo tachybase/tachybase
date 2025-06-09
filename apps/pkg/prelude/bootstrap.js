@@ -445,19 +445,50 @@ if (typeof PAYLOAD_POSITION !== 'number' || typeof PAYLOAD_SIZE !== 'number') {
   throw new Error('MUST HAVE PAYLOAD');
 }
 
-const entireVfsBuffer = Buffer.allocUnsafe(PAYLOAD_SIZE);
-fs.readSync(EXECPATH_FD, entireVfsBuffer, 0, PAYLOAD_SIZE, PAYLOAD_POSITION);
+let readPayload;
+let readPayloadSync;
 
-function readPayload(buffer, offset, length, position, callback) {
-  const relativePos = position;
-  entireVfsBuffer.copy(buffer, offset, relativePos, relativePos + length);
-  process.nextTick(() => callback(null, length, buffer));
-}
+if (process.env.PKG_READ_FROM_FS) {
+  function readPayloadFs(buffer, offset, length, position, callback) {
+    fs.read(
+      EXECPATH_FD,
+      buffer,
+      offset,
+      length,
+      PAYLOAD_POSITION + position,
+      callback,
+    );
+  }
+  readPayload = readPayloadFs;
 
-function readPayloadSync(buffer, offset, length, position) {
-  const relativePos = position;
-  entireVfsBuffer.copy(buffer, offset, relativePos, relativePos + length);
-  return length;
+  function readPayloadSyncFs(buffer, offset, length, position) {
+    return fs.readSync(
+      EXECPATH_FD,
+      buffer,
+      offset,
+      length,
+      PAYLOAD_POSITION + position,
+    );
+  }
+  readPayloadSync = readPayloadSyncFs;
+} else {
+  const entireVfsBuffer = Buffer.allocUnsafe(PAYLOAD_SIZE);
+  fs.readSync(EXECPATH_FD, entireVfsBuffer, 0, PAYLOAD_SIZE, PAYLOAD_POSITION);
+
+  function readPayloadMemory(buffer, offset, length, position, callback) {
+    const relativePos = position;
+    entireVfsBuffer.copy(buffer, offset, relativePos, relativePos + length);
+    process.nextTick(() => callback(null, length, buffer));
+  }
+
+  function readPayloadSyncMemory(buffer, offset, length, position) {
+    const relativePos = position;
+    entireVfsBuffer.copy(buffer, offset, relativePos, relativePos + length);
+    return length;
+  }
+
+  readPayload = readPayloadMemory;
+  readPayloadSync = readPayloadSyncMemory;
 }
 
 function payloadCopyUni(
