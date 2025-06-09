@@ -70,36 +70,43 @@ interface CreateFormBlockUISchemaOptions {
 }
 
 export const FormSchemaEditor = ({ open, onCancel, options }) => {
-  const api = useAPIClient();
-  const schemaUID = options?.schema['x-uid'] || null;
-  const fieldSchema = useFieldSchema();
+  // const schema = options?.schema || {};
+  // const api = useAPIClient();
+  // const schemaUID = options?.schema['x-uid'] || null;
+  // const fieldSchema = useFieldSchema();
   const [schema, setSchema] = useState({});
+
   const [schemakey, setSchemakey] = useState(uid());
   const { styles } = useStyles();
   const collectionName = options?.item?.name || null;
-  const fetchSchema = async () => {
-    const service = await api.request({
-      url: `/uiSchemas:getJsonSchema/${schemaUID}?includeAsyncNode=true`,
-    });
-    const schema = new Schema(service.data.data) || {};
-    setSchema(schema);
-    setSchemakey(uid());
-  };
+  // const fetchSchema = async () => {
+  //   const service = await api.request({
+  //     url: `/uiSchemas:getJsonSchema/${schemaUID}?includeAsyncNode=true`,
+  //   });
+  //   const schema = new Schema(service.data.data) || {};
+  //   setSchema(schema);
+  //   setSchemakey(uid());
+  // };
   useEffect(() => {
-    if (schemaUID) {
-      fetchSchema();
+    if (options?.schema) {
+      setSchema(options?.schema);
     }
-  }, [schemaUID]);
+  }, [options]);
+  // useEffect(() => {
+  //   if (schemaUID) {
+  //     fetchSchema();
+  //   }
+  // }, [schemaUID]);
   return (
     <Modal open={open} footer={null} width="100vw" closable={false} className={styles.editModel}>
       <CollectionProvider name={collectionName}>
         <DndContext>
           <Layout style={{ height: '100%' }}>
-            <EditorHeader onCancel={onCancel} schema={schema} schemaUID={schemaUID} />
+            <EditorHeader onCancel={onCancel} schema={schema} />
             <Layout>
-              <EditorFieldsSider schema={schema} fetchSchema={fetchSchema} />
+              <EditorFieldsSider schema={schema} setSchemakey={setSchemakey} />
               <EditorContent key={schemakey} schema={schema} />
-              <EditorFieldFormProperty schema={schema} fetchSchema={fetchSchema} />
+              <EditorFieldFormProperty schema={schema} setSchemakey={setSchemakey} />
             </Layout>
           </Layout>
         </DndContext>
@@ -108,36 +115,33 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
   );
 };
 
-function addToolbar(schema: ISchema) {
-  const result: ISchema[] = [];
-  const find = (node: ISchema) => {
+function patchSchemaToolbars(schema: ISchema) {
+  const patch = (node: ISchema) => {
     if (!node || typeof node !== 'object') return;
     if (node['x-toolbar'] === 'EditableFormItemSchemaToolbar') {
-      result.push({ 'x-uid': node['x-uid'], 'x-toolbar': 'FormItemSchemaToolbar' });
+      node['x-toolbar'] = 'FormItemSchemaToolbar';
     }
-    if (node['x-component'] === 'Grid') {
-      result.push({ 'x-uid': node['x-uid'], 'x-initializer': 'form:configureFields' });
+    if (node['x-component'] === 'Grid' && !node['x-initializer']) {
+      node['x-initializer'] = 'form:configureFields';
     }
-    if (node['x-component'] === 'ActionBar') {
-      result.push({ 'x-uid': node['x-uid'], 'x-initializer': 'createForm:configureActions' });
+    if (node['x-component'] === 'ActionBar' && !node['x-initializer']) {
+      node['x-initializer'] = 'createForm:configureActions';
     }
     if (node.properties) {
-      const orderedKeys = Object.keys(node.properties);
-      for (const key of orderedKeys) {
-        find(node.properties[key]);
+      for (const key of Object.keys(node.properties)) {
+        patch(node.properties[key]);
       }
     }
   };
-  find(schema);
-  return result;
+  patch(schema);
 }
 
-const EditorHeader = ({ onCancel, schema, schemaUID }) => {
+const EditorHeader = ({ onCancel, schema }) => {
   const { title: collectionTitle, key } = useCollection_deprecated();
-  const { refresh } = usePageRefresh();
-  const { dn, remove } = useDesignable();
-  const fieldSchema = useFieldSchema();
-  const deleteSchema = findSchema(fieldSchema, 'x-uid', schemaUID) || {};
+  // const { refresh } = usePageRefresh();
+  const { dn } = useDesignable();
+  // const fieldSchema = useFieldSchema();
+  // const deleteSchema = findSchema(fieldSchema, 'x-uid', schemaUID) || {};
   const api = useAPIClient();
   const { Header } = Layout;
   const compile = useCompile();
@@ -159,10 +163,12 @@ const EditorHeader = ({ onCancel, schema, schemaUID }) => {
         value: { title: title },
       });
     }
-    const schemaPatches = addToolbar(schema);
-    await dn.emit('batchPatch', { schemas: schemaPatches });
+    patchSchemaToolbars(schema);
+    // const schemaPatches = addToolbar(schema);
+    // await dn.emit('batchPatch', { schemas: schemaPatches });
+    dn.insertAdjacent('beforeEnd', schema.toJSON());
     dn.refresh();
-    refresh();
+    // refresh();
     await onCancel();
   };
 
@@ -177,14 +183,14 @@ const EditorHeader = ({ onCancel, schema, schemaUID }) => {
                 title: t('Unsaved changes'),
                 content: t("Are you sure you don't want to save?"),
                 onOk: () => {
-                  if (deleteSchema) {
-                    remove(deleteSchema, {
-                      removeParentsIfNoChildren: true,
-                      breakRemoveOn: {
-                        'x-component': 'Grid',
-                      },
-                    });
-                  }
+                  // if (deleteSchema) {
+                  //   remove(deleteSchema, {
+                  //     removeParentsIfNoChildren: true,
+                  //     breakRemoveOn: {
+                  //       'x-component': 'Grid',
+                  //     },
+                  //   });
+                  // }
                   onCancel();
                 },
               })
@@ -358,6 +364,7 @@ const MobilePreviewContent = ({ schema }) => {
         backgroundColor: 'white',
         overflow: 'auto',
         position: 'relative',
+        scrollbarWidth: 'none',
       }}
     >
       <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
@@ -367,13 +374,10 @@ const MobilePreviewContent = ({ schema }) => {
   );
 };
 
-const EditorFieldsSider = ({ schema, fetchSchema }) => {
+const EditorFieldsSider = ({ schema, setSchemakey }) => {
   const record = useCollection_deprecated();
-
   const { Sider } = Layout;
   const { t } = useTranslation();
-  const api = useAPIClient();
-  const { refresh } = useDesignable();
   const gridSchema = findSchema(schema, 'x-component', 'Grid') || {};
   const options = {
     fieldsOptions: useFormFieldButtonWrappers(),
@@ -384,12 +388,22 @@ const EditorFieldsSider = ({ schema, fetchSchema }) => {
       block: 'Form',
     }),
   };
-
-  const dn = createDesignable({ t, api, refresh, current: gridSchema });
-  dn.loadAPIClientEvents();
   const handleInsert = (s: ISchema) => {
     const wrapedSchema = wrapFieldInGridSchema(s);
-    dn.insertBeforeEnd(wrapedSchema);
+    let maxIndex = 0;
+    let hasIndex = false;
+    gridSchema.mapProperties((subSchema) => {
+      const index = subSchema['x-index'];
+      if (typeof index === 'number') {
+        hasIndex = true;
+        if (index > maxIndex) {
+          maxIndex = index;
+        }
+      }
+    });
+    wrapedSchema['x-index'] = hasIndex ? maxIndex + 1 : 1;
+    gridSchema.addProperty(uid(), wrapedSchema);
+    setSchemakey(uid());
   };
   const form = useMemo(() => createForm(), []);
   const resourceActionProps = {
@@ -424,15 +438,13 @@ const EditorFieldsSider = ({ schema, fetchSchema }) => {
                   label: t('已有字段'),
                   key: 'existing',
                   children: (
-                    <EditorExistFieldsSider schema={gridSchema} handleInsert={handleInsert} options={options} />
+                    <EditorExistFieldsSider schema={gridSchema} options={options} handleInsert={handleInsert} />
                   ),
                 },
                 {
                   label: t('新增字段'),
                   key: 'extra',
-                  children: (
-                    <EditorAddFieldsSider schema={gridSchema} handleInsert={handleInsert} fetchSchema={fetchSchema} />
-                  ),
+                  children: <EditorAddFieldsSider schema={gridSchema} handleInsert={handleInsert} />,
                 },
               ]}
             />
@@ -447,7 +459,7 @@ type EditorFieldsSiderProps = {
   schema: Schema;
   handleInsert: (s: ISchema) => void;
   options?: {
-    fieldsOptions?: any[]; // 可进一步明确类型
+    fieldsOptions?: any[];
     fieldsParentOptions?: any[];
     fieldsExtendOptions?: any[];
     associatedFormFieldsOptions?: any[];
@@ -455,7 +467,7 @@ type EditorFieldsSiderProps = {
   fetchSchema?: () => Promise<void>;
 };
 
-const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, handleInsert, options }) => {
+const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, options, handleInsert }) => {
   const { fieldsOptions, fieldsParentOptions, fieldsExtendOptions, associatedFormFieldsOptions } = options;
   const app = useApp();
   const formInitializer = app.schemaInitializerManager.get('form:configureFields');
@@ -591,7 +603,7 @@ const FieldButtonGrid: React.FC<FieldButtonGridProps> = ({ schema, items, onInse
   );
 };
 
-const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSchema, handleInsert, fetchSchema }) => {
+const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSchema, handleInsert }) => {
   const { data: record } = useContext(CollectionRecordContext);
   const {
     data: { database },
@@ -802,13 +814,12 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
           targetCollection,
         });
         try {
-          handleInsert(schema);
           await resource.create({ values });
           await form.reset();
           field.data.loading = false;
           refresh();
           await refreshCM();
-          fetchSchema();
+          handleInsert(schema);
           ctx.setVisible(false);
         } catch (error) {
           field.data.loading = false;
@@ -886,7 +897,7 @@ const EditorContent = ({ schema }) => {
   );
 };
 
-const EditorFieldFormProperty = ({ schema, fetchSchema }) => {
+const EditorFieldFormProperty = ({ schema, setSchemakey }) => {
   const { Sider } = Layout;
   const { styles } = useStyles();
   const { t } = useTranslation();
@@ -901,7 +912,7 @@ const EditorFieldFormProperty = ({ schema, fetchSchema }) => {
           {
             label: t('字段属性'),
             key: 'field',
-            children: <EditorFieldProperty schema={schema} fetchSchema={fetchSchema} />,
+            children: <EditorFieldProperty schema={schema} setSchemakey={setSchemakey} />,
           },
           {
             label: t('表单属性'),
@@ -914,14 +925,14 @@ const EditorFieldFormProperty = ({ schema, fetchSchema }) => {
   );
 };
 
-const EditorFieldProperty = ({ schema, fetchSchema }) => {
+const EditorFieldProperty = ({ schema, setSchemakey }) => {
   const { fieldSchema: currentSchema, field } = useEditableSelectedField();
   const schemaUID = currentSchema?.['x-uid'] || null;
   const { getField } = useCollection_deprecated();
   const { getInterface, getCollectionJoinField } = useCollectionManager_deprecated();
-  const { t } = useTranslation();
-  const api = useAPIClient();
-  const { refresh } = useDesignable();
+  // const { t } = useTranslation();
+  // const api = useAPIClient();
+  // const { refresh } = useDesignable();
   const [optionsSchema, setOptionsSchema] = useState({});
   const fieldSchema = findSchema(schema, 'x-uid', schemaUID) || null;
   const { layoutDirection = 'column' } = useContextConfigSetting();
@@ -930,20 +941,25 @@ const EditorFieldProperty = ({ schema, fetchSchema }) => {
     : null;
   const interfaceConfig = getInterface(collectionField?.interface);
   const validateSchema = interfaceConfig?.['validateSchema']?.(fieldSchema);
-  const dn = useMemo(() => {
-    if (!fieldSchema) return null;
-    const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
-    setOptionsSchema(createOptionsSchema({ title, fieldSchema, layoutDirection, validateSchema }));
-    return createDesignable({ t, api, refresh, current: fieldSchema });
-  }, [t, api, refresh, fieldSchema]);
-
+  // const dn = useMemo(() => {
+  //   if (!fieldSchema) return null;
+  //   const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
+  //   setOptionsSchema(createOptionsSchema({ title, fieldSchema, layoutDirection, validateSchema }));
+  //   return createDesignable({ t, api, refresh, current: fieldSchema });
+  // }, [fieldSchema]);
+  // useEffect(() => {
+  //   if (dn) {
+  //     dn.loadAPIClientEvents();
+  //   }
+  // }, [dn]);
   useEffect(() => {
-    if (dn) {
-      dn.loadAPIClientEvents();
+    if (fieldSchema) {
+      const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
+      setOptionsSchema(createOptionsSchema({ title, fieldSchema, layoutDirection, validateSchema }));
     }
-  }, [dn]);
+  }, [schemaUID]);
 
-  if (!fieldSchema || !dn) {
+  if (!fieldSchema) {
     return <div>未选中字段</div>;
   }
 
@@ -1026,10 +1042,10 @@ const EditorFieldProperty = ({ schema, fetchSchema }) => {
 
           Object.assign(fieldSchema, patchSchema);
 
-          await dn.emit('patch', { schema: patchSchema });
-
-          dn.refresh?.();
-          await fetchSchema();
+          // await dn.emit('patch', { schema: patchSchema });
+          // dn.refresh?.();
+          // await fetchSchema();
+          setSchemakey(uid());
         } catch (e) {
           console.error('更新字段失败:', e);
         }
@@ -1040,12 +1056,12 @@ const EditorFieldProperty = ({ schema, fetchSchema }) => {
   const useFieldDestroyActionProps = () => {
     return {
       async onClick() {
-        dn.remove(fieldSchema, {
-          removeParentsIfNoChildren: true,
-          breakRemoveOn: {
-            'x-component': 'Grid',
-          },
-        });
+        // dn.remove(fieldSchema, {
+        //   removeParentsIfNoChildren: true,
+        //   breakRemoveOn: {
+        //     'x-component': 'Grid',
+        //   },
+        // });
       },
     };
   };
@@ -1616,7 +1632,7 @@ function wrapFieldInGridSchema(field: any): Record<string, any> {
     version: '2.0',
     'x-uid': rowUID,
     'x-async': false,
-    'x-index': 2,
+    'x-index': 1,
     properties: {
       [colUID]: {
         type: 'void',

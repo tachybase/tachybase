@@ -57,8 +57,8 @@ export const FormBlockInitializer = ({
   const schemaUID = pendingOptions?.schema['x-uid'] || null;
   const itemConfig = useSchemaInitializerItem();
   const { createFormBlock, templateWrap, createEditFormBlock } = useCreateFormBlock();
-  const onCreateFormBlockSchema = useCallback(async (options) => {
-    const schema = await createEditFormBlock(options);
+  const onCreateFormBlockSchema = useCallback((options) => {
+    const schema = new Schema(createEditFormBlock(options));
     setPendingOptions({ schema, ...options });
     setVisible(true);
   }, []);
@@ -147,39 +147,61 @@ export const useCreateFormBlock = () => {
     return schema;
   };
 
-  const createEditFormBlock = useCallback(
-    ({ item, fromOthersInPopup }) => {
-      return new Promise((resolve) => {
-        const insertPosition = 'beforeEnd';
-        const schema = fromOthersInPopup
-          ? createCreateFormEditUISchema({
-              collectionName: item.collectionName || item.name,
-              dataSource: item.dataSource,
-              isCusomeizeCreate: true,
-            })
-          : createCreateFormEditUISchema(
-              association
-                ? {
-                    association,
-                    dataSource: item.dataSource,
-                    isCusomeizeCreate: isCustomizeCreate,
-                  }
-                : {
-                    collectionName: item.collectionName || item.name,
-                    dataSource: item.dataSource,
-                    isCusomeizeCreate: isCustomizeCreate,
-                  },
-            );
+  // const createEditFormBlock = useCallback(
+  //   ({ item, fromOthersInPopup }) => {
+  //     return new Promise((resolve) => {
+  //       const insertPosition = 'beforeEnd';
+  //       const schema = fromOthersInPopup
+  //         ? createCreateFormEditUISchema({
+  //             collectionName: item.collectionName || item.name,
+  //             dataSource: item.dataSource,
+  //             isCusomeizeCreate: true,
+  //           })
+  //         : createCreateFormEditUISchema(
+  //             association
+  //               ? {
+  //                   association,
+  //                   dataSource: item.dataSource,
+  //                   isCusomeizeCreate: isCustomizeCreate,
+  //                 }
+  //               : {
+  //                   collectionName: item.collectionName || item.name,
+  //                   dataSource: item.dataSource,
+  //                   isCusomeizeCreate: isCustomizeCreate,
+  //                 },
+  //           );
 
-        insertAdjacent(insertPosition, gridRowColWrap(schema), {
-          onSuccess: (result) => {
-            resolve(result); // 往上层传递成功结果
-          },
-        });
-      });
-    },
-    [association, isCustomizeCreate],
-  );
+  //       insertAdjacent(insertPosition, gridRowColWrap(schema), {
+  //         onSuccess: (result) => {
+  //           resolve(result); // 往上层传递成功结果
+  //         },
+  //       });
+  //     });
+  //   },
+  //   [association, isCustomizeCreate],
+  // );
+  const createEditFormBlock = ({ item, fromOthersInPopup }) => {
+    const schema = fromOthersInPopup
+      ? createCreateFormEditUISchema({
+          collectionName: item.collectionName || item.name,
+          dataSource: item.dataSource,
+          isCusomeizeCreate: true,
+        })
+      : createCreateFormEditUISchema(
+          association
+            ? {
+                association,
+                dataSource: item.dataSource,
+                isCusomeizeCreate: isCustomizeCreate,
+              }
+            : {
+                collectionName: item.collectionName || item.name,
+                dataSource: item.dataSource,
+                isCusomeizeCreate: isCustomizeCreate,
+              },
+        );
+    return gridRowColWrap(schema);
+  };
 
   return {
     createFormBlock,
