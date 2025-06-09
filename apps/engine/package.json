@@ -40,8 +40,8 @@
     "dayjs": "1.11.13",
     "dotenv": "16.5.0",
     "i18next": "25.1.2",
-    "jsonwebtoken": "9.0.2",
-    "koa": "3.0.0",
+    "jsonwebtoken": "8.5.1",
+    "koa": "^2.15.3",
     "koa-bodyparser": "4.4.1",
     "lodash": "4.17.21",
     "mathjs": "^10.6.4",
@@ -53,7 +53,7 @@
     "sqlite3": "5.1.7",
     "umzug": "3.8.2",
     "winston": "3.17.0",
-    "winston-daily-rotate-file": "5.0.0"
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "@tachybase/cache": "workspace:*",
