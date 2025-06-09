@@ -26,6 +26,7 @@ import { CheckboxGroupProps } from 'antd/es/checkbox';
 import _, { cloneDeep } from 'lodash';
 
 import { SchemaInitializerItemType, useApp } from '../../../../application';
+import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import {
   CollectionOptions,
   IField,
@@ -107,12 +108,18 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
   );
 };
 
-function findToolbar(schema: ISchema) {
+function addToolbar(schema: ISchema) {
   const result: ISchema[] = [];
   const find = (node: ISchema) => {
     if (!node || typeof node !== 'object') return;
     if (node['x-toolbar'] === 'EditableFormItemSchemaToolbar') {
       result.push({ 'x-uid': node['x-uid'], 'x-toolbar': 'FormItemSchemaToolbar' });
+    }
+    if (node['x-component'] === 'Grid') {
+      result.push({ 'x-uid': node['x-uid'], 'x-initializer': 'form:configureFields' });
+    }
+    if (node['x-component'] === 'ActionBar') {
+      result.push({ 'x-uid': node['x-uid'], 'x-initializer': 'createForm:configureActions' });
     }
     if (node.properties) {
       const orderedKeys = Object.keys(node.properties);
@@ -127,6 +134,7 @@ function findToolbar(schema: ISchema) {
 
 const EditorHeader = ({ onCancel, schema, schemaUID }) => {
   const { title: collectionTitle, key } = useCollection_deprecated();
+  const { refresh } = usePageRefresh();
   const { dn, remove } = useDesignable();
   const fieldSchema = useFieldSchema();
   const deleteSchema = findSchema(fieldSchema, 'x-uid', schemaUID) || {};
@@ -151,9 +159,10 @@ const EditorHeader = ({ onCancel, schema, schemaUID }) => {
         value: { title: title },
       });
     }
-    const schemaPatches = findToolbar(schema);
+    const schemaPatches = addToolbar(schema);
     await dn.emit('batchPatch', { schemas: schemaPatches });
     dn.refresh();
+    refresh();
     await onCancel();
   };
 
