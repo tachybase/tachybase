@@ -322,8 +322,6 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
   const compile = useCompile();
   const { getTemplateSchemaByMode } = useSchemaTemplateManager();
   const { getTemplate, templates: collectionTemplates, refreshCM } = useCollectionManager_deprecated();
-  const [schema, setSchema] = useState({});
-  const [schemaVisible, setSchemaVisible] = useState(false);
   const onClick = useCallback(
     async ({ item }) => {
       if (item.template) {
