@@ -10,12 +10,15 @@
   },
   "scripts": {
     "build": "pkg --compress Brotli .",
-    "build:linux": "pkg --compress Brotli -t node22-linux-x64 -o dist/engine lib/index.js",
-    "build:mac": "pkg --compress Brotli -t node22-macos-arm64 -o dist/engine lib/index.js",
-    "build:win": "pkg --compress Brotli -t node22-win-x64 -o dist/engine.exe lib/index.js"
+    "build:debug": "pkg .",
+    "build:linux": "pkg --compress Brotli -t node22-linux-x64 .",
+    "build:linux:debug": "pkg -t node22-linux-x64 .",
+    "build:mac": "pkg --compress Brotli -t node22-macos-arm64 .",
+    "build:mac:debug": "pkg -t node22-macos-arm64 .",
+    "build:win": "pkg --compress Brotli -t node22-win-x64 .",
+    "build:win:debug": "pkg -t node22-win-x64 ."
   },
   "dependencies": {
-    "@formulajs/formulajs": "4.4.8",
     "@koa/cors": "5.0.0",
     "@koa/multer": "3.1.0",
     "@tachybase/acl": "workspace:*",
@@ -62,14 +65,6 @@
     "targets": [
       "node22-macos-arm64"
     ],
-    "outputPath": "dist",
-    "patches": {
-      "./node_modules/@formulajs/formulajs/package.json": [
-        "\"type\": \"module\",",
-        "",
-        "\"main\": \"./lib/cjs\",",
-        "\"main\": \"./lib/cjs/index.cjs\","
-      ]
-    }
+    "outputPath": "dist"
   }
 }

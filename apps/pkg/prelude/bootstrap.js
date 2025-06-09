@@ -26,7 +26,6 @@ const { promisify } = require('util');
 const { Script } = require('vm');
 const { homedir, tmpdir } = require('os');
 const util = require('util');
-const { performance } = require('perf_hooks');
 const {
   brotliDecompress,
   brotliDecompressSync,
@@ -36,8 +35,6 @@ const {
 
 const common = {};
 REQUIRE_COMMON(common);
-
-const perfStart = performance.now();
 
 const {
   STORE_BLOB,
@@ -448,86 +445,20 @@ if (typeof PAYLOAD_POSITION !== 'number' || typeof PAYLOAD_SIZE !== 'number') {
   throw new Error('MUST HAVE PAYLOAD');
 }
 
-function measure(fn, label) {
-  let totalTime = 0;
-  let count = 0;
-
-  function wrapper(...args) {
-    const maybeCb = args[args.length - 1];
-    const start = performance.now();
-
-    if (typeof maybeCb === 'function') {
-      // callback 模式
-      const originalCb = maybeCb;
-      args[args.length - 1] = function (...cbArgs) {
-        const end = performance.now();
-        totalTime += end - start;
-        count++;
-        originalCb.apply(this, cbArgs);
-      };
-      return fn.apply(this, args);
-    } else {
-      // sync 模式
-      const result = fn.apply(this, args);
-      const end = performance.now();
-      totalTime += end - start;
-      count++;
-      return result;
-    }
-  }
-
-  wrapper.report = () => {
-    if (count === 0) {
-      console.log(`${label}: no calls made.`);
-    } else {
-      console.log(
-        `${label}: called ${count} times, total ${totalTime.toFixed(2)} ms, avg ${(totalTime / count).toFixed(2)} ms`,
-      );
-    }
-  };
-
-  return wrapper;
-}
-
-const start = performance.now();
 const entireVfsBuffer = Buffer.allocUnsafe(PAYLOAD_SIZE);
 fs.readSync(EXECPATH_FD, entireVfsBuffer, 0, PAYLOAD_SIZE, PAYLOAD_POSITION);
-const end = performance.now();
-console.log(`read ${PAYLOAD_SIZE} bytes in ${end - start} ms`);
 
-// function readPayload2(buffer, offset, length, position, callback) {
-//   fs.read(
-//     EXECPATH_FD,
-//     buffer,
-//     offset,
-//     length,
-//     PAYLOAD_POSITION + position,
-//     callback,
-//   );
-// }
-function readPayload2(buffer, offset, length, position, callback) {
+function readPayload(buffer, offset, length, position, callback) {
   const relativePos = position;
   entireVfsBuffer.copy(buffer, offset, relativePos, relativePos + length);
   process.nextTick(() => callback(null, length, buffer));
 }
-const readPayloadSync = measure(readPayloadSync2, 'readPayloadSync');
 
-// function readPayloadSync2(buffer, offset, length, position) {
-//   return fs.readSync(
-//     EXECPATH_FD,
-//     buffer,
-//     offset,
-//     length,
-//     PAYLOAD_POSITION + position,
-//   );
-// }
-function readPayloadSync2(buffer, offset, length, position) {
+function readPayloadSync(buffer, offset, length, position) {
   const relativePos = position;
   entireVfsBuffer.copy(buffer, offset, relativePos, relativePos + length);
   return length;
 }
-
-const readPayload = measure(readPayload2, 'readPayload');
 
 function payloadCopyUni(
   source,
@@ -1911,7 +1842,7 @@ function payloadFileSync(pointer) {
     runMain: Module.runMain,
   };
 
-  Module.prototype.require = measure(function require(path_) {
+  Module.prototype.require = function require(path_) {
     try {
       return ancestor.require.apply(this, arguments);
     } catch (error) {
@@ -1936,7 +1867,7 @@ function payloadFileSync(pointer) {
       }
       throw error;
     }
-  }, 'require');
+  };
 
   let im;
   let makeRequireFunction;
@@ -1954,7 +1885,7 @@ function payloadFileSync(pointer) {
     // TODO esm modules along with cjs
   }
 
-  Module.prototype._compile = measure(function _compile(content, filename_) {
+  Module.prototype._compile = function _compile(content, filename_) {
     if (!insideSnapshot(filename_)) {
       return ancestor._compile.apply(this, arguments);
     }
@@ -2003,9 +1934,9 @@ function payloadFileSync(pointer) {
     }
 
     throw new Error('UNEXPECTED-55');
-  }, '_compile');
+  };
 
-  Module._resolveFilename = measure(function _resolveFilename() {
+  Module._resolveFilename = function _resolveFilename() {
     let filename;
     let flagWasOn = false;
     try {
@@ -2042,12 +1973,12 @@ function payloadFileSync(pointer) {
     }
 
     return filename;
-  }, '_resolveFilename');
+  };
 
-  Module.runMain = measure(function runMain() {
+  Module.runMain = function runMain() {
     Module._load(ENTRYPOINT, null, true);
     process._tickCallback();
-  }, 'runMain');
+  };
 })();
 
 // /////////////////////////////////////////////////////////////////
@@ -2321,21 +2252,3 @@ function payloadFileSync(pointer) {
     return ancestor.dlopen.apply(process, args);
   };
 })();
-
-// 程序退出时打印
-process.on('exit', () => {
-  Module.prototype.require.report();
-  Module.prototype._compile.report();
-  Module._resolveFilename.report();
-  Module.runMain.report();
-  readPayloadSync.report();
-  readPayload.report();
-});
-
-process.on('SIGINT', () => {
-  // 用户按下 Ctrl+C
-  process.exit(0); // 记得显式退出
-});
-
-const perfEnd = performance.now();
-console.log(`pkg bootstrap time: ${(perfEnd - perfStart).toFixed(2)} ms`);
