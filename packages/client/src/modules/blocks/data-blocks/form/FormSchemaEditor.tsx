@@ -1,12 +1,5 @@
 import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  RecordProvider,
-  TableSelectorProvider,
-  useAPIClient,
-  useCurrentAppInfo,
-  useRequest,
-  useTranslation,
-} from '@tachybase/client';
+import { RecordProvider, useAPIClient, useCurrentAppInfo, useRequest, useTranslation } from '@tachybase/client';
 import { ArrayCollapse, ArrayTable, FormLayout } from '@tachybase/components';
 import {
   action,
@@ -47,7 +40,6 @@ import {
 import * as components from '../../../../collection-manager/Configuration/components';
 import useDialect from '../../../../collection-manager/hooks/useDialect';
 import {
-  CollectionField,
   CollectionProvider,
   CollectionRecordContext,
   useContextConfigSetting,
@@ -59,7 +51,6 @@ import {
   DndContext,
   SchemaComponent,
   SchemaComponentContext,
-  SchemaComponentProvider,
   useActionContext,
   useCompile,
   useDesignable,
@@ -103,7 +94,7 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
       <CollectionProvider name={collectionName}>
         <DndContext>
           <Layout style={{ height: '100%' }}>
-            <EditorHeader onCancel={onCancel} schema={schema} />
+            <EditorHeader onCancel={onCancel} schema={schema} schemaUID={schemaUID} />
             <Layout>
               <EditorFieldsSider schema={schema} fetchSchema={fetchSchema} />
               <EditorContent key={schemakey} schema={schema} />
@@ -116,8 +107,30 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
   );
 };
 
-const EditorHeader = ({ onCancel, schema }) => {
-  const { title: collectionTitle } = useCollection_deprecated();
+function findToolbar(schema: ISchema) {
+  const result: ISchema[] = [];
+  const find = (node: ISchema) => {
+    if (!node || typeof node !== 'object') return;
+    if (node['x-toolbar'] === 'EditableFormItemSchemaToolbar') {
+      result.push({ 'x-uid': node['x-uid'], 'x-toolbar': 'FormItemSchemaToolbar' });
+    }
+    if (node.properties) {
+      const orderedKeys = Object.keys(node.properties);
+      for (const key of orderedKeys) {
+        find(node.properties[key]);
+      }
+    }
+  };
+  find(schema);
+  return result;
+}
+
+const EditorHeader = ({ onCancel, schema, schemaUID }) => {
+  const { title: collectionTitle, key } = useCollection_deprecated();
+  const { dn, remove } = useDesignable();
+  const fieldSchema = useFieldSchema();
+  const deleteSchema = findSchema(fieldSchema, 'x-uid', schemaUID) || {};
+  const api = useAPIClient();
   const { Header } = Layout;
   const compile = useCompile();
   const { styles } = useStyles();
@@ -127,9 +140,21 @@ const EditorHeader = ({ onCancel, schema }) => {
   const [tempTitle, setTempTitle] = useState(title);
   const { t } = useTranslation();
   const { modal } = App.useApp();
-  const handleSave = () => {
+  const handleTitleSave = () => {
     setTitle(tempTitle || collectionTitle);
     setModalVisible(false);
+  };
+  const handleSave = async () => {
+    if (title && title !== collectionTitle) {
+      api.resource('collections').update({
+        filterByTk: key,
+        value: { title: title },
+      });
+    }
+    const schemaPatches = findToolbar(schema);
+    await dn.emit('batchPatch', { schemas: schemaPatches });
+    dn.refresh();
+    await onCancel();
   };
 
   return (
@@ -143,6 +168,14 @@ const EditorHeader = ({ onCancel, schema }) => {
                 title: t('Unsaved changes'),
                 content: t("Are you sure you don't want to save?"),
                 onOk: () => {
+                  if (deleteSchema) {
+                    remove(deleteSchema, {
+                      removeParentsIfNoChildren: true,
+                      breakRemoveOn: {
+                        'x-component': 'Grid',
+                      },
+                    });
+                  }
                   onCancel();
                 },
               })
@@ -187,12 +220,12 @@ const EditorHeader = ({ onCancel, schema }) => {
           >
             {t('Preview')}
           </Button>
-          <Button type="primary" className="ant-save-button">
+          <Button type="primary" className="ant-save-button" onClick={handleSave}>
             保存
           </Button>
         </div>
       </Header>
-      <Modal title="编辑表单名称" open={modalVisible} onCancel={() => setModalVisible(false)} onOk={handleSave}>
+      <Modal title="编辑表单名称" open={modalVisible} onCancel={() => setModalVisible(false)} onOk={handleTitleSave}>
         <Input value={compile(tempTitle)} onChange={(e) => setTempTitle(e.target.value)} placeholder="请输入表单名称" />
       </Modal>
       <PreviewDrawer open={drawerVisible} onClose={() => setDrawerVisible(false)} schema={schema} />
@@ -308,7 +341,6 @@ const MobilePreviewContent = ({ schema }) => {
   return (
     <div
       style={{
-        // width: '40%',
         height: '90%',
         aspectRatio: '8 / 16',
         border: '5px solid rgb(177, 176, 176)',
@@ -1527,8 +1559,8 @@ export function createCreateFormEditUISchema(options: CreateFormBlockUISchemaOpt
       association,
       // isCusomeizeCreate,
     },
-    // 'x-toolbar': 'BlockSchemaToolbar',
-    // 'x-settings': 'blockSettings:createForm',
+    'x-toolbar': 'BlockSchemaToolbar',
+    'x-settings': 'blockSettings:createForm',
     'x-component': 'CardItem',
     properties: {
       [uid()]: {
