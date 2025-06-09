@@ -1,15 +1,25 @@
 import React, { createContext, useContext, useState } from 'react';
+import { ISchema } from '@tachybase/schema';
 
-const EditableSelectedFieldContext = createContext<{
-  schemaUID: string | null;
-  setSchemaUID: (uid: string | null) => void;
-} | null>(null);
+interface EditableFieldInfo {
+  field: any | null;
+  fieldSchema: ISchema | null;
+  setEditableField: (info: { field: any; fieldSchema: ISchema } | null) => void;
+}
+
+const EditableSelectedFieldContext = createContext<EditableFieldInfo | null>(null);
 
 export const EditableSelectedFieldProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [schemaUID, setSchemaUID] = useState<string | null>(null);
+  const [fieldInfo, setFieldInfo] = useState<{ field: any; fieldSchema: ISchema } | null>(null);
 
   return (
-    <EditableSelectedFieldContext.Provider value={{ schemaUID, setSchemaUID }}>
+    <EditableSelectedFieldContext.Provider
+      value={{
+        field: fieldInfo?.field ?? null,
+        fieldSchema: fieldInfo?.fieldSchema ?? null,
+        setEditableField: setFieldInfo,
+      }}
+    >
       {children}
     </EditableSelectedFieldContext.Provider>
   );
@@ -18,7 +28,7 @@ export const EditableSelectedFieldProvider: React.FC<{ children: React.ReactNode
 export const useEditableSelectedField = () => {
   const ctx = useContext(EditableSelectedFieldContext);
   if (!ctx) {
-    throw new Error('useSelectedField must be used within a SelectedFieldProvider');
+    throw new Error('useEditableSelectedField must be used within a EditableSelectedFieldProvider');
   }
   return ctx;
 };

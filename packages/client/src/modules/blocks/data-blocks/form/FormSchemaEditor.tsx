@@ -89,7 +89,7 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
     if (schemaUID) {
       fetchSchema();
     }
-  }, [schemaUID, fieldSchema]);
+  }, [schemaUID]);
   return (
     <Modal open={open} footer={null} width="100vw" closable={false} className={styles.editModel}>
       <CollectionProvider name={collectionName}>
@@ -915,7 +915,8 @@ const EditorFieldFormProperty = ({ schema, fetchSchema }) => {
 };
 
 const EditorFieldProperty = ({ schema, fetchSchema }) => {
-  const { schemaUID } = useEditableSelectedField();
+  const { fieldSchema: currentSchema, field } = useEditableSelectedField();
+  const schemaUID = currentSchema?.['x-uid'] || null;
   const { getField } = useCollection_deprecated();
   const { getInterface, getCollectionJoinField } = useCollectionManager_deprecated();
   const { t } = useTranslation();

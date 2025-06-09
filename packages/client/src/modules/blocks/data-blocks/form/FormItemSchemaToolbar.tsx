@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo, useRef } from 'react';
-import { useFieldSchema } from '@tachybase/schema';
+import { useField, useFieldSchema } from '@tachybase/schema';
 
 import { DragOutlined, PlusOutlined } from '@ant-design/icons';
 
@@ -40,10 +40,11 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
   const { title, initializer, settings, showBackground, showBorder = true, draggable = true } = props;
   const { designable } = useDesignable();
   const fieldSchema = useFieldSchema();
+  const field = useField();
   const compile = useCompile();
   const { styles } = useStyles();
   const { getAriaLabel } = useGetAriaLabelOfDesigner();
-  const { setSchemaUID } = useEditableSelectedField();
+  const { setEditableField } = useEditableSelectedField();
   const dm = useDataSourceManager();
   const dataSources = dm?.getDataSources();
   const dataSourceContext = useDataSource();
@@ -127,8 +128,8 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       const target = e.target as HTMLElement;
       const isInsideToolbar = toolbarElement?.contains(target);
       if (!isInsideToolbar) {
-        const uid = fieldSchema?.['x-uid'] || null;
-        setSchemaUID(uid);
+        // const uid = fieldSchema?.['x-uid'] || null;
+        setEditableField({ field, fieldSchema });
       }
     }
 
@@ -147,7 +148,7 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       if (parentElement) {
         parentElement.removeEventListener('mouseenter', show);
         parentElement.removeEventListener('mouseleave', hide);
-        parentElement.addEventListener('click', handleClick);
+        parentElement.removeEventListener('click', handleClick);
       }
     };
   }, []);
