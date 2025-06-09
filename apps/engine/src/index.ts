@@ -137,9 +137,11 @@ if (!process.env.SERVE_PATH) {
 }
 
 const run = async () => {
-  Gateway.getInstance().run({
+  console.log('loading...');
+  await Gateway.getInstance().run({
     mainAppOptions: (await getConfig()) as any,
   });
+  console.log('loading done');
 };
 
 run();

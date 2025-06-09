@@ -20,3 +20,5 @@ examples/express/node_modules
 # Editors
 yarn-error.log
 tsconfig.tsbuildinfo
+
+!lib

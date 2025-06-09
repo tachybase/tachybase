@@ -10,30 +10,14 @@ function isBareModule(name: string) {
   return !name.startsWith('.') && !name.startsWith('/') && !isAbsolute(name);
 }
 
+// 统计路径加载情况
 const count = {
   total: 0,
   builtin: 0,
   main: 0,
-  modules: 0,
   path: 0,
   fallback: 0,
-  error: 0,
 };
-
-const timer = {
-  total: 0,
-  builtin: 0,
-  main: 0,
-  modules: 0,
-  path: 0,
-  error: 0,
-};
-
-// 程序退出时打印
-process.on('exit', () => {
-  console.log(JSON.stringify(count));
-  console.log(JSON.stringify(timer));
-});
 
 const lookingPaths = process.env.NODE_MODULES_PATH ? [appRoot, process.env.NODE_MODULES_PATH] : [appRoot];
 
@@ -46,7 +30,7 @@ Module._load = function (request: string, parent, isMain) {
     return originalLoad(request, parent, isMain);
   }
 
-  // 对裸模块名才尝试优先主程序路径加载
+  // 对裸模块名 尝试优先主程序路径加载、再从指定路径加载
   if (isBareModule(request)) {
     try {
       const resolvedFromApp = require.resolve(request, { paths: lookingPaths });
@@ -60,7 +44,7 @@ Module._load = function (request: string, parent, isMain) {
     }
   }
 
-  count.path++;
   // 相对路径、绝对路径不动
+  count.path++;
   return originalLoad(request, parent, isMain);
 };
