@@ -10,13 +10,13 @@
   },
   "scripts": {
     "build": "pkg --compress Brotli .",
-    "build:debug": "pkg .",
+    "build:debug": "pkg --debug .",
     "build:linux": "pkg --compress Brotli -t node22-linux-x64 .",
-    "build:linux:debug": "pkg -t node22-linux-x64 .",
+    "build:linux:debug": "pkg --debug -t node22-linux-x64 .",
     "build:mac": "pkg --compress Brotli -t node22-macos-arm64 .",
-    "build:mac:debug": "pkg -t node22-macos-arm64 .",
+    "build:mac:debug": "pkg --debug -t node22-macos-arm64 .",
     "build:win": "pkg --compress Brotli -t node22-win-x64 .",
-    "build:win:debug": "pkg -t node22-win-x64 ."
+    "build:win:debug": "pkg --debug -t node22-win-x64 ."
   },
   "dependencies": {
     "@koa/cors": "5.0.0",
@@ -32,7 +32,6 @@
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/telemetry": "workspace:*",
     "@tachybase/utils": "workspace:*",
     "async-mutex": "0.3.0",
     "axios": "0.29.0",

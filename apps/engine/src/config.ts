@@ -1,6 +1,5 @@
 import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
-import { telemetryOptions as telemetry } from '@tachybase/telemetry';
 
 const DbTypeMap = {
   sqlite: require('sqlite3'),
@@ -45,7 +44,6 @@ export async function getConfig() {
         level: getLoggerLevel(),
       },
     },
-    telemetry,
     perfHooks: process.env.ENABLE_PERF_HOOKS ? true : false,
   };
 }

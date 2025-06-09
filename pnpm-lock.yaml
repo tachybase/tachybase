@@ -450,9 +450,6 @@ importers:
       '@tachybase/server':
         specifier: workspace:*
         version: link:../../packages/server
-      '@tachybase/telemetry':
-        specifier: workspace:*
-        version: link:../../packages/telemetry
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -5164,9 +5161,6 @@ importers:
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
-      '@tachybase/telemetry':
-        specifier: workspace:*
-        version: link:../telemetry
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
@@ -5429,9 +5423,6 @@ importers:
       '@rc-component/mini-decimal':
         specifier: ^1.1.0
         version: 1.1.0
-      antd:
-        specifier: 5.22.5
-        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
