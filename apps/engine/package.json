@@ -11,7 +11,7 @@
   "scripts": {
     "build": "pkg --compress Brotli .",
     "build:linux": "pkg --compress Brotli -t node22-linux-x64 -o dist/engine lib/index.js",
-    "build:mac": "pkg --compress Brotli -t node22-macos-arm64 -o dist/engine lib/index.js",
+    "build:mac": "pkg -t node22-macos-arm64 -o dist/engine lib/index.js",
     "build:win": "pkg --compress Brotli -t node22-win-x64 -o dist/engine.exe lib/index.js"
   },
   "dependencies": {
@@ -56,7 +56,7 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/logger": "workspace:*",
-    "@yao-pkg/pkg": "6.5.1"
+    "@tachybase/pkg": "workspace:*"
   },
   "pkg": {
     "targets": [

@@ -1,0 +1,20 @@
+{
+  "name": "test-01-hybrid-esm",
+  "version": "1.0.0",
+  "description": "",
+  "bin": "test-hybrid.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "libphonenumber-js": "^1.11.20"
+  },
+  "pkg": {
+    "patches": {
+      "./node_modules/libphonenumber-js/package.json": [
+        "\"type\": \"module\",",
+        ""
+      ]
+    }
+  }
+}

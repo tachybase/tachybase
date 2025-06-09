@@ -69,6 +69,7 @@ export class IPCSocketServer {
 
     socketServer.listen(xpipe.eq(socketPath), () => {
       console.log(`Gateway IPC Server running at ${socketPath}`);
+      process.exit(0);
     });
 
     return new IPCSocketServer(socketServer);

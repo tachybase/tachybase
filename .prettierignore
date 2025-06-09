@@ -14,3 +14,11 @@ packages/**/node_modules/**
 packages/core/cli/templates/plugin/src/client/*.tpl
 packages/app/client/src/.plugins
 storage
+
+apps/pkg/lib-es5/
+# Symlink needed for test
+apps/pkg/test/test-99-#108/lib/log.js
+apps/pkg/test/test-50-cannot-css-script/assets/animate.css
+apps/pkg/test/test-50-package-json-8/test-z-data.css
+apps/pkg/test/test-50-package-json-8b/test-z-data.css
+apps/pkg/test/test-50-package-json-8p/test-z-data.css
