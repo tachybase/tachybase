@@ -10,12 +10,15 @@
   },
   "scripts": {
     "build": "pkg --compress Brotli .",
-    "build:linux": "pkg --compress Brotli -t node22-linux-x64 -o dist/engine lib/index.js",
-    "build:mac": "pkg --compress Brotli -t node22-macos-arm64 -o dist/engine lib/index.js",
-    "build:win": "pkg --compress Brotli -t node22-win-x64 -o dist/engine.exe lib/index.js"
+    "build:debug": "pkg --debug .",
+    "build:linux": "pkg --compress Brotli -t node22-linux-x64 .",
+    "build:linux:debug": "pkg --debug -t node22-linux-x64 .",
+    "build:mac": "pkg --compress Brotli -t node22-macos-arm64 .",
+    "build:mac:debug": "pkg --debug -t node22-macos-arm64 .",
+    "build:win": "pkg --compress Brotli -t node22-win-x64 .",
+    "build:win:debug": "pkg --debug -t node22-win-x64 ."
   },
   "dependencies": {
-    "@formulajs/formulajs": "4.4.8",
     "@koa/cors": "5.0.0",
     "@koa/multer": "3.1.0",
     "@tachybase/acl": "workspace:*",
@@ -29,7 +32,6 @@
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/telemetry": "workspace:*",
     "@tachybase/utils": "workspace:*",
     "async-mutex": "0.3.0",
     "axios": "0.29.0",
@@ -37,8 +39,8 @@
     "dayjs": "1.11.13",
     "dotenv": "16.5.0",
     "i18next": "25.1.2",
-    "jsonwebtoken": "9.0.2",
-    "koa": "3.0.0",
+    "jsonwebtoken": "8.5.1",
+    "koa": "^2.15.3",
     "koa-bodyparser": "4.4.1",
     "lodash": "4.17.21",
     "mathjs": "^10.6.4",
@@ -50,26 +52,18 @@
     "sqlite3": "5.1.7",
     "umzug": "3.8.2",
     "winston": "3.17.0",
-    "winston-daily-rotate-file": "5.0.0"
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/logger": "workspace:*",
-    "@yao-pkg/pkg": "6.5.1"
+    "@tachybase/pkg": "workspace:*"
   },
   "pkg": {
     "targets": [
       "node22-macos-arm64"
     ],
-    "outputPath": "dist",
-    "patches": {
-      "./node_modules/@formulajs/formulajs/package.json": [
-        "\"type\": \"module\",",
-        "",
-        "\"main\": \"./lib/cjs\",",
-        "\"main\": \"./lib/cjs/index.cjs\","
-      ]
-    }
+    "outputPath": "dist"
   }
 }

@@ -17,7 +17,7 @@ import {
   SystemLoggerOptions,
 } from '@tachybase/logger';
 import { ResourceOptions, Resourcer } from '@tachybase/resourcer';
-import { AppTelemetryOptions, getTelemetry } from '@tachybase/telemetry';
+// import { AppTelemetryOptions, getTelemetry } from '@tachybase/telemetry';
 import {
   applyMixins,
   AsyncEmitter,
@@ -119,7 +119,7 @@ export interface ApplicationOptions {
   name?: string;
   authManager?: AuthManagerOptions;
   perfHooks?: boolean;
-  telemetry?: AppTelemetryOptions;
+  // telemetry?: AppTelemetryOptions;
   tmpl?: any;
 }
 
@@ -378,9 +378,9 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     return this._locales;
   }
 
-  get telemetry() {
-    return getTelemetry();
-  }
+  // get telemetry() {
+  //   return getTelemetry();
+  // }
 
   protected _version: ApplicationVersion;
 
@@ -575,13 +575,13 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.emitAsync('beforeLoad', this, options);
     }
 
-    // Telemetry is already initialized in @tachybase/app
-    if (this.options.telemetry?.enabled) {
-      // Start collecting telemetry data if enabled
-      if (!this.telemetry.started) {
-        this.telemetry.start();
-      }
-    }
+    // // Telemetry is already initialized in @tachybase/app
+    // if (this.options.telemetry?.enabled) {
+    //   // Start collecting telemetry data if enabled
+    //   if (!this.telemetry.started) {
+    //     this.telemetry.start();
+    //   }
+    // }
 
     await this.pm.load(options);
 
@@ -919,9 +919,9 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.cacheManager.close();
     }
 
-    if (this.telemetry.started) {
-      await this.telemetry.shutdown();
-    }
+    // if (this.telemetry.started) {
+    //   await this.telemetry.shutdown();
+    // }
 
     await this.emitAsync('afterStop', this, options);
 
