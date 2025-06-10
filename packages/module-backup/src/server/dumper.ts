@@ -13,7 +13,7 @@ import {
 import archiver from 'archiver';
 import dayjs from 'dayjs';
 import { default as _, default as lodash } from 'lodash';
-import { mkdirp } from 'mkdirp';
+import mkdirp from 'mkdirp';
 
 import { AppMigrator } from './app-migrator';
 import { FieldValueWriter } from './field-value-writer';
