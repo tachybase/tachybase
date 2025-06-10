@@ -4,7 +4,7 @@ import { Logger, LoggerOptions } from '@tachybase/logger';
 import Application, { Plugin, PluginOptions } from '@tachybase/server';
 import { Registry } from '@tachybase/utils';
 
-import { LRUCache } from 'lru-cache';
+import LRUCache from 'lru-cache';
 
 import initActions from './actions';
 import { EXECUTION_STATUS, JOB_STATUS } from './constants';
