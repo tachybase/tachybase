@@ -224,7 +224,7 @@ importers:
         version: 2.4.2
       esbuild-register:
         specifier: ^3.6.0
-        version: 3.6.0(esbuild@0.24.2)
+        version: 3.6.0(esbuild@0.24.0)
       execa:
         specifier: ^5.1.1
         version: 5.1.1
@@ -7640,7 +7640,6 @@ packages:
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
     engines: {node: '>=10.10.0'}
-    deprecated: Use @eslint/config-array instead
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -7648,7 +7647,6 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
-    deprecated: Use @eslint/object-schema instead
 
   '@hutson/parse-repository-url@5.0.0':
     resolution: {integrity: sha512-e5+YUKENATs1JgYHMzTr2MW/NDcXGfYFAuOQU8gJgF/kEh4EqKgfGrfLI67bMD4tbhZVlkigz/9YYwWcbOFthg==}
@@ -11735,8 +11733,8 @@ packages:
   compare-func@2.0.0:
     resolution: {integrity: sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA==}
 
-  complex.js@2.4.2:
-    resolution: {integrity: sha512-qtx7HRhPGSCBtGiST4/WGHuW+zeaND/6Ld+db6PbrulIB1i2Ev/2UPiqcmpQNPSyfBKraC0EOvOKCB5dGZKt3g==}
+  complex.js@2.1.1:
+    resolution: {integrity: sha512-8njCHOTtFFLtegk6zQo0kkVX1rngygb/KQI6z1qZxlFI3scluC+LVTCFbrkWjBv4vvLlbQ9t88IPMC6k95VTTg==}
 
   component-emitter@1.3.1:
     resolution: {integrity: sha512-T0+barUSQRTUQASh8bx02dl+DhF54GtIDY13Y3m9oWTklKbb3Wv974meRpeZ3lp1JpLVECWWNHC4vaG2XHXouQ==}
@@ -16755,10 +16753,6 @@ packages:
     resolution: {integrity: sha512-EJPeIn0CYrGu+hli1xilKAPXODtJ12T0sP63Ijx2/khC2JtuaN3JyNIpvmnkmaEtha9ocbG4A4cMcr+TvqvwQg==}
     engines: {node: '>=0.6'}
 
-  qs@6.14.0:
-    resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
-    engines: {node: '>=0.6'}
-
   qs@6.4.0:
     resolution: {integrity: sha512-Qs6dfgR5OksK/PSxl1kGxiZgEQe8RqJMB9wZqVlKQfU+zzV+HY77pWJnoJENACKDQByWdpr8ZPIh1TBi4lpiSQ==}
     engines: {node: '>=0.6'}
@@ -17752,7 +17746,6 @@ packages:
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
-    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rimraf@5.0.10:
@@ -20402,7 +20395,7 @@ snapshots:
     dependencies:
       '@antv/g-lite': 2.2.18
       '@antv/util': 3.3.10
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.26.9
       gl-matrix: 3.4.3
       tslib: 2.8.1
 
@@ -20427,7 +20420,7 @@ snapshots:
   '@antv/g-dom-mutation-observer-api@2.0.34':
     dependencies:
       '@antv/g-lite': 2.2.18
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.26.9
 
   '@antv/g-lite@2.2.10':
     dependencies:
@@ -20445,7 +20438,7 @@ snapshots:
       '@antv/g-math': 3.0.0
       '@antv/util': 3.3.10
       '@antv/vendor': 1.0.11
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.26.9
       eventemitter3: 5.0.1
       gl-matrix: 3.4.3
       rbush: 3.0.1
@@ -20527,7 +20520,7 @@ snapshots:
     dependencies:
       '@antv/g-lite': 2.2.18
       '@antv/util': 3.3.10
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.26.9
       tslib: 2.8.1
 
   '@antv/g2-extension-plot@0.2.1':
@@ -20583,7 +20576,7 @@ snapshots:
       '@antv/g-dom-mutation-observer-api': 2.0.34
       '@antv/g-lite': 2.2.18
       '@antv/g-web-animations-api': 2.1.23
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.26.9
 
   '@antv/graphlib@2.0.4':
     dependencies:
@@ -28015,7 +28008,7 @@ snapshots:
       array-ify: 1.0.0
       dot-prop: 5.3.0
 
-  complex.js@2.4.2: {}
+  complex.js@2.1.1: {}
 
   component-emitter@1.3.1: {}
 
@@ -29249,10 +29242,10 @@ snapshots:
 
   esbuild-plugin-file-path-extensions@2.1.4: {}
 
-  esbuild-register@3.6.0(esbuild@0.24.2):
+  esbuild-register@3.6.0(esbuild@0.24.0):
     dependencies:
       debug: 4.4.0(supports-color@5.5.0)
-      esbuild: 0.24.2
+      esbuild: 0.24.0
     transitivePeerDependencies:
       - supports-color
 
@@ -30047,7 +30040,7 @@ snapshots:
       dezalgo: 1.0.4
       hexoid: 1.0.0
       once: 1.4.0
-      qs: 6.14.0
+      qs: 6.13.1
 
   formidable@3.5.1:
     dependencies:
@@ -31152,7 +31145,7 @@ snapshots:
 
   is-regex@1.2.1:
     dependencies:
-      call-bound: 1.0.4
+      call-bound: 1.0.3
       gopd: 1.2.0
       has-tostringtag: 1.0.2
       hasown: 2.0.2
@@ -32134,8 +32127,8 @@ snapshots:
 
   mathjs@10.6.4:
     dependencies:
-      '@babel/runtime': 7.27.1
-      complex.js: 2.4.2
+      '@babel/runtime': 7.26.9
+      complex.js: 2.1.1
       decimal.js: 10.5.0
       escape-latex: 1.2.0
       fraction.js: 4.3.7
@@ -34028,10 +34021,6 @@ snapshots:
       side-channel: 1.1.0
 
   qs@6.13.1:
-    dependencies:
-      side-channel: 1.1.0
-
-  qs@6.14.0:
     dependencies:
       side-channel: 1.1.0
 
@@ -36086,10 +36075,10 @@ snapshots:
   string.prototype.trim@1.2.10:
     dependencies:
       call-bind: 1.0.8
-      call-bound: 1.0.4
+      call-bound: 1.0.3
       define-data-property: 1.1.4
       define-properties: 1.2.1
-      es-abstract: 1.24.0
+      es-abstract: 1.23.6
       es-object-atoms: 1.1.1
       has-property-descriptors: 1.0.2
 
@@ -36191,7 +36180,7 @@ snapshots:
       formidable: 2.1.2
       methods: 1.1.2
       mime: 2.6.0
-      qs: 6.14.0
+      qs: 6.13.1
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
@@ -36206,7 +36195,7 @@ snapshots:
       formidable: 3.5.1
       methods: 1.1.2
       mime: 2.6.0
-      qs: 6.14.0
+      qs: 6.13.1
     transitivePeerDependencies:
       - supports-color
 
@@ -36970,7 +36959,7 @@ snapshots:
       iconv-lite: 0.4.24
       ip: 1.1.8
       pump: 3.0.0
-      qs: 6.14.0
+      qs: 6.13.1
       statuses: 1.5.0
       utility: 1.18.0
     transitivePeerDependencies:
