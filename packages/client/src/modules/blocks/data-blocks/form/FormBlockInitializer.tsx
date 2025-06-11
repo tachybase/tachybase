@@ -9,8 +9,8 @@ import { Collection, CollectionFieldOptions } from '../../../../data-source/coll
 import { useDesignable, useSchemaComponentContext } from '../../../../schema-component';
 import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { findSchema } from '../../../../schema-initializer/utils';
+import { createCreateFormEditUISchema, FormSchemaEditor } from '../form-editor';
 import { createCreateFormBlockUISchema } from './createCreateFormBlockUISchema';
-import { createCreateFormEditUISchema, FormSchemaEditor } from './FormSchemaEditor';
 
 export const FormBlockInitializer = ({
   filterCollections,

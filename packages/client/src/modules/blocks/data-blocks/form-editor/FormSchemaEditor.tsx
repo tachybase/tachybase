@@ -58,8 +58,9 @@ import {
   useSchemaComponentContext,
 } from '../../../../schema-component';
 import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
+import { useStyles } from '../form/styles';
+import { EditableGrid } from './EditableGrid';
 import { useEditableSelectedField } from './EditableSelectedFieldContext';
-import { useStyles } from './styles';
 
 interface CreateFormBlockUISchemaOptions {
   dataSource: string;
@@ -70,33 +71,15 @@ interface CreateFormBlockUISchemaOptions {
 }
 
 export const FormSchemaEditor = ({ open, onCancel, options }) => {
-  // const schema = options?.schema || {};
-  // const api = useAPIClient();
-  // const schemaUID = options?.schema['x-uid'] || null;
-  // const fieldSchema = useFieldSchema();
   const [schema, setSchema] = useState({});
-
   const [schemakey, setSchemakey] = useState(uid());
   const { styles } = useStyles();
   const collectionName = options?.item?.name || null;
-  // const fetchSchema = async () => {
-  //   const service = await api.request({
-  //     url: `/uiSchemas:getJsonSchema/${schemaUID}?includeAsyncNode=true`,
-  //   });
-  //   const schema = new Schema(service.data.data) || {};
-  //   setSchema(schema);
-  //   setSchemakey(uid());
-  // };
   useEffect(() => {
     if (options?.schema) {
       setSchema(options?.schema);
     }
   }, [options]);
-  // useEffect(() => {
-  //   if (schemaUID) {
-  //     fetchSchema();
-  //   }
-  // }, [schemaUID]);
   return (
     <Modal open={open} footer={null} width="100vw" closable={false} className={styles.editModel}>
       <CollectionProvider name={collectionName}>
@@ -121,8 +104,15 @@ function patchSchemaToolbars(schema: ISchema) {
     if (node['x-toolbar'] === 'EditableFormItemSchemaToolbar') {
       node['x-toolbar'] = 'FormItemSchemaToolbar';
     }
-    if (node['x-component'] === 'Grid' && !node['x-initializer']) {
+    if (node['x-component'] === 'EditableGrid') {
       node['x-initializer'] = 'form:configureFields';
+      node['x-component'] = 'Grid';
+    }
+    if (node['x-component'] === 'EditableGrid.Col') {
+      node['x-component'] = 'Grid.Col';
+    }
+    if (node['x-component'] === 'EditableGrid.Row') {
+      node['x-component'] = 'Grid.Row';
     }
     if (node['x-component'] === 'ActionBar' && !node['x-initializer']) {
       node['x-initializer'] = 'createForm:configureActions';
@@ -288,7 +278,7 @@ const PCPreviewContent = ({ schema }) => {
   return (
     <div style={{ width: '100%', maxWidth: '700px', height: '100%' }}>
       <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
-        <SchemaComponent schema={schema} />
+        <SchemaComponent schema={schema} components={{ EditableGrid }} />
       </SchemaComponentContext.Provider>
     </div>
   );
@@ -297,11 +287,11 @@ const PCPreviewContent = ({ schema }) => {
 const gridRowColWrap = (schema: ISchema) => {
   return {
     type: 'void',
-    'x-component': 'Grid.Row',
+    'x-component': 'EditableGrid.Row',
     properties: {
       [uid()]: {
         type: 'void',
-        'x-component': 'Grid.Col',
+        'x-component': 'EditableGrid.Col',
         properties: {
           [schema.name || uid()]: schema,
         },
@@ -347,7 +337,7 @@ const MobilePreviewContent = ({ schema }) => {
   formSchema.removeProperty('grid');
   formSchema.addProperty('grid', {
     type: 'void',
-    'x-component': 'Grid',
+    'x-component': 'EditableGrid',
     'x-initializer': 'form:configureFields',
     properties: {
       ...formItems,
@@ -368,7 +358,7 @@ const MobilePreviewContent = ({ schema }) => {
       }}
     >
       <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
-        <SchemaComponent schema={gridRowColWrap(cardSchema)} />
+        <SchemaComponent schema={gridRowColWrap(cardSchema)} components={{ EditableGrid }} />
       </SchemaComponentContext.Provider>
     </div>
   );
@@ -378,7 +368,7 @@ const EditorFieldsSider = ({ schema, setSchemakey }) => {
   const record = useCollection_deprecated();
   const { Sider } = Layout;
   const { t } = useTranslation();
-  const gridSchema = findSchema(schema, 'x-component', 'Grid') || {};
+  const gridSchema = findSchema(schema, 'x-component', 'EditableGrid') || {};
   const options = {
     fieldsOptions: useFormFieldButtonWrappers(),
     fieldsParentOptions: useFormParentCollectionFieldsButtonWrappers(),
@@ -892,7 +882,7 @@ const EditorContent = ({ schema }) => {
 
   return (
     <Content style={{ padding: '5px', overflow: 'auto' }}>
-      <SchemaComponent schema={schema} />
+      <SchemaComponent schema={schema} components={{ EditableGrid }} />
     </Content>
   );
 };
@@ -1607,7 +1597,7 @@ export function createCreateFormEditUISchema(options: CreateFormBlockUISchemaOpt
           },
           grid: templateSchema || {
             type: 'void',
-            'x-component': 'Grid',
+            'x-component': 'EditableGrid',
             // 'x-initializer': 'form:configureFields',
             properties: {
               // ...fieldsSchema
@@ -1627,7 +1617,7 @@ function wrapFieldInGridSchema(field: any): Record<string, any> {
 
   return {
     type: 'void',
-    'x-component': 'Grid.Row',
+    'x-component': 'EditableGrid.Row',
     _isJSONSchemaObject: true,
     version: '2.0',
     'x-uid': rowUID,
@@ -1636,7 +1626,7 @@ function wrapFieldInGridSchema(field: any): Record<string, any> {
     properties: {
       [colUID]: {
         type: 'void',
-        'x-component': 'Grid.Col',
+        'x-component': 'EditableGrid.Col',
         _isJSONSchemaObject: true,
         version: '2.0',
         'x-uid': colUID,
