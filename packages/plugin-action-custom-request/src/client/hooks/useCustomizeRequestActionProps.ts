@@ -81,6 +81,7 @@ export const useCustomizeRequestActionProps = () => {
             'X-Response-Type': onSuccess?.down ? 'blob' : 'json',
           },
         })) as any;
+
         const headerContentType = res.headers.getContentType();
         let filename = getFilenameFromHeader(res.headers['content-disposition']);
         if (onSuccess?.down) {
