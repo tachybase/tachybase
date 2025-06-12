@@ -147,7 +147,11 @@ export abstract class Plugin implements PluginInterface {
       throw new Error(`plugin name invalid`);
     }
 
-    await this.app.syncMessageManager.publish(this.name, message, options);
+    try {
+      await this.app.syncMessageManager.publish(this.name, message, options);
+    } catch (err) {
+      this.app.logger.error(err);
+    }
   }
 
   /**
