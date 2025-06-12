@@ -3,7 +3,7 @@ import { ArrayField, useField, useFieldSchema } from '@tachybase/schema';
 
 import _ from 'lodash';
 
-import { filterByCleanedFields, findFilterTargets } from '../../../../../block-provider/hooks';
+import { findFilterTargets } from '../../../../../block-provider/hooks';
 import { useTableBlockContext } from '../../../../../block-provider/TableBlockProvider';
 import { useFilterBlock } from '../../../../../filter-provider/FilterProvider';
 import { mergeFilter } from '../../../../../filter-provider/utils';
@@ -97,7 +97,7 @@ export const useTableBlockProps = () => {
       }
 
       const value = [record[ctx.rowKey]];
-      let prevMergedFilter = {};
+
       dataBlocks.forEach((block) => {
         const target = targets.find((target) => target.uid === block.uid);
         if (!target) return;
@@ -105,6 +105,7 @@ export const useTableBlockProps = () => {
         const param = block.service.params?.[0] || {};
         // 保留原有的 filter
         const storedFilter = block.service.params?.[1]?.filters || {};
+
         if (selectedRow.includes(record[ctx.rowKey])) {
           if (block.dataLoadingMode === 'manual') {
             return block.clearData();
@@ -114,26 +115,24 @@ export const useTableBlockProps = () => {
           storedFilter[uid] = {
             $and: [
               {
-                [target?.field || ctx.rowKey]: {
-                  [target?.field ? '$in' : '$eq']: value,
+                [target.field || ctx.rowKey]: {
+                  [target.field ? '$in' : '$eq']: value,
                 },
               },
             ],
           };
         }
+
         const mergedFilter = mergeFilter([
           ...Object.values(storedFilter).map((filter) => removeNullCondition(filter)),
-          block.service?.params?.[0]?.filter || {},
           block.defaultFilter,
-          prevMergedFilter,
         ]);
-        const currFilter = filterByCleanedFields(mergedFilter);
-        prevMergedFilter = currFilter;
+
         return block.doFilter(
           {
             ...param,
             page: 1,
-            filter: currFilter,
+            filter: mergedFilter,
           },
           { filters: storedFilter },
         );
