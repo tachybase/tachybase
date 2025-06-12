@@ -10,7 +10,6 @@ export * from './getValuesByPath';
 export * from './json-templates';
 export * from './log';
 export * from './merge';
-export * from './notification';
 export * from './number';
 export * from './parse-filter';
 export * from './registry';

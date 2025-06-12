@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/plugin-wechat-official-account",
-  "version": "1.0.11",
+  "version": "1.1.5",
   "keywords": [
     "Authentication"
   ],
@@ -13,7 +13,7 @@
     "@ant-design/icons": "^5.5.2",
     "@types/xml2js": "^0.4.14",
     "antd": "5.22.5",
-    "axios": "^1.7.9",
+    "axios": "1.7.7",
     "body-parser": "^1.20.3",
     "jsonwebtoken": "^8.5.1",
     "koa-bodyparser": "^4.4.1",

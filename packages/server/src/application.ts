@@ -17,7 +17,7 @@ import {
   SystemLoggerOptions,
 } from '@tachybase/logger';
 import { ResourceOptions, Resourcer } from '@tachybase/resourcer';
-import { AppTelemetryOptions, getTelemetry } from '@tachybase/telemetry';
+// import { AppTelemetryOptions, getTelemetry } from '@tachybase/telemetry';
 import {
   applyMixins,
   AsyncEmitter,
@@ -37,7 +37,7 @@ import lodash from 'lodash';
 import _ from 'lodash';
 import { nanoid } from 'nanoid';
 import semver from 'semver';
-import { Request } from 'zeromq';
+import WebSocket from 'ws';
 
 import packageJson from '../package.json';
 import { createACL } from './acl';
@@ -49,6 +49,7 @@ import { registerCli } from './commands';
 import { CronJobManager } from './cron/cron-job-manager';
 import { Environment } from './environment';
 import { ApplicationNotInstall } from './errors/application-not-install';
+import { Gateway } from './gateway';
 import {
   createAppProxy,
   createI18n,
@@ -68,6 +69,17 @@ import { Constructor, InstallOptions, PluginManager } from './plugin-manager';
 import { createPubSubManager, PubSubManager, PubSubManagerOptions } from './pub-sub-manager';
 import { MemoryPubSubAdapter } from './pub-sub-manager/memory-pub-sub-adapter';
 import { SyncMessageManager } from './sync-message-manager';
+
+// WebSocket 事件类型
+type WSEventType = 'close' | 'error' | 'message' | 'connection';
+
+// WebSocket 事件处理函数类型
+type WSEventHandler = (ws: WebSocket & { id: string }, ...args: any[]) => Promise<void> | void;
+
+// 每种事件类型的处理函数集合
+interface WSEventHandlers {
+  [eventType: string]: Set<WSEventHandler>;
+}
 
 export { Logger } from 'winston';
 
@@ -107,7 +119,7 @@ export interface ApplicationOptions {
   name?: string;
   authManager?: AuthManagerOptions;
   perfHooks?: boolean;
-  telemetry?: AppTelemetryOptions;
+  // telemetry?: AppTelemetryOptions;
   tmpl?: any;
 }
 
@@ -219,6 +231,14 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
   public modules: Record<string, any> = {};
   public middlewareSourceMap: WeakMap<Function, string> = new WeakMap();
 
+  // WebSocket 事件处理器集合
+  private wsEventHandlers: WSEventHandlers = {
+    close: new Set(),
+    error: new Set(),
+    message: new Set(),
+    connection: new Set(),
+  };
+
   constructor(public options: ApplicationOptions) {
     super();
     this.context.reqId = randomUUID();
@@ -231,13 +251,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     // TODO implements more robust event emitters
     this.setMaxListeners(100);
 
-    if (process.env.IPC_DEV_PORT) {
-      this.once('afterStart', async () => {
-        const sock = new Request({ reconnectInterval: -1 });
-        sock.connect('tcp://localhost:' + process.env.IPC_DEV_PORT);
-        await sock.send('ready');
-      });
-    }
+    // 初始化 WebSocket 事件处理
+    this.initWSEventHandlers();
   }
 
   get noticeManager() {
@@ -363,9 +378,9 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     return this._locales;
   }
 
-  get telemetry() {
-    return getTelemetry();
-  }
+  // get telemetry() {
+  //   return getTelemetry();
+  // }
 
   protected _version: ApplicationVersion;
 
@@ -560,13 +575,13 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.emitAsync('beforeLoad', this, options);
     }
 
-    // Telemetry is already initialized in @tachybase/app
-    if (this.options.telemetry?.enabled) {
-      // Start collecting telemetry data if enabled
-      if (!this.telemetry.started) {
-        this.telemetry.start();
-      }
-    }
+    // // Telemetry is already initialized in @tachybase/app
+    // if (this.options.telemetry?.enabled) {
+    //   // Start collecting telemetry data if enabled
+    //   if (!this.telemetry.started) {
+    //     this.telemetry.start();
+    //   }
+    // }
 
     await this.pm.load(options);
 
@@ -904,9 +919,9 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.cacheManager.close();
     }
 
-    if (this.telemetry.started) {
-      await this.telemetry.shutdown();
-    }
+    // if (this.telemetry.started) {
+    //   await this.telemetry.shutdown();
+    // }
 
     await this.emitAsync('afterStop', this, options);
 
@@ -1189,6 +1204,53 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       logger: this._logger.child({ module: 'database' }),
     });
     return db;
+  }
+
+  /**
+   * 初始化 WebSocket 事件处理
+   * 注册应用级别的事件，用于与 WSServer 通信
+   */
+  private initWSEventHandlers() {
+    this.on('ws:registerEventHandler', ({ eventType, handler }) => {
+      this.registerWSEventHandler(eventType, handler);
+    });
+
+    this.on('ws:removeEventHandler', ({ eventType, handler }) => {
+      this.removeWSEventHandler(eventType, handler);
+    });
+  }
+
+  /**
+   * 为 WebSocket 事件注册处理函数
+   * 这是一个适配器方法，将事件处理函数注册到 Gateway 的 WSServer
+   * @param eventType 事件类型
+   * @param handler 事件处理函数
+   */
+  registerWSEventHandler(eventType: WSEventType, handler: WSEventHandler) {
+    const gateway = Gateway.getInstance();
+    const wsServer = gateway['wsServer'];
+
+    if (wsServer) {
+      wsServer.registerAppEventHandler(this.name, eventType, handler);
+    }
+
+    return this;
+  }
+
+  /**
+   * 移除 WebSocket 事件处理函数
+   * @param eventType 事件类型
+   * @param handler 事件处理函数
+   */
+  removeWSEventHandler(eventType: WSEventType, handler: WSEventHandler) {
+    const gateway = Gateway.getInstance();
+    const wsServer = gateway['wsServer'];
+
+    if (wsServer) {
+      wsServer.removeAppEventHandler(this.name, eventType, handler);
+    }
+
+    return this;
   }
 
   [key: string]: any;

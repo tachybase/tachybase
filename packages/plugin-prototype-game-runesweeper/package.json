@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-demos-game-runesweeper",
-  "version": "1.0.11",
+  "displayName": "Game runesweeper demo",
+  "version": "1.1.5",
+  "description": "Game runesweeper demo",
+  "keywords": [
+    "Others"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-demos-game-runesweeper"
@@ -15,5 +20,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "Game runesweeper demo",
+  "displayName.zh-CN": "Runesweeper"
 }

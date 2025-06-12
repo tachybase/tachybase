@@ -1,0 +1,12 @@
+{
+  "bin": "test-x-index.js",
+  "license": "MIT",
+  "dependencies": {
+    "delta": "*"
+  },
+  "pkg": {
+    "ignore": [
+      "**/*/node_modules/delta/useless.c"
+    ]
+  }
+}

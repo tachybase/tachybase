@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { ArrayField, useField, useFieldSchema } from '@tachybase/schema';
 
+import flat from 'flat';
 import _ from 'lodash';
 
 import { filterByCleanedFields, findFilterTargets } from '../../../../../block-provider/hooks';
@@ -121,9 +122,15 @@ export const useTableBlockProps = () => {
             ],
           };
         }
+        const items = flat(block.service?.params?.[0]?.filter || {}) as any;
+        Object.entries(items).forEach(([key, value]) => {
+          if (key.includes(ctx.rowKey) && selectedRow.includes(value)) {
+            delete items[key];
+          }
+        });
         const mergedFilter = mergeFilter([
           ...Object.values(storedFilter).map((filter) => removeNullCondition(filter)),
-          block.service?.params?.[0]?.filter || {},
+          flat.unflatten(items),
           block.defaultFilter,
           prevMergedFilter,
         ]);

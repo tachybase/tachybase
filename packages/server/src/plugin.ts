@@ -147,7 +147,11 @@ export abstract class Plugin implements PluginInterface {
       throw new Error(`plugin name invalid`);
     }
 
-    await this.app.syncMessageManager.publish(this.name, message, options);
+    try {
+      await this.app.syncMessageManager.publish(this.name, message, options);
+    } catch (err) {
+      this.app.logger.error(err);
+    }
   }
 
   /**
@@ -220,7 +224,7 @@ export abstract class Plugin implements PluginInterface {
       this.options.packageName,
       await this.getSourceDir(),
       'server/migrations',
-    );
+    ).replace(/\\/g, '/');
     return await this.app.loadMigrations({
       directory,
       namespace: this.options.packageName,

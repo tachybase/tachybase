@@ -29,6 +29,7 @@ export class NoticeManager {
     title?: string;
     content?: string;
     level?: NoticeLevel;
+    duration?: number;
     eventType?: string;
     event?: unknown;
   }) {
@@ -46,19 +47,19 @@ export class NoticeManager {
     });
   }
 
-  status(content: string, level: NoticeLevel) {
-    this.#emit({ type: NoticeType.STATUS, content, level });
+  status(content: string, level: NoticeLevel, duration: number) {
+    this.#emit({ type: NoticeType.STATUS, content, level, duration });
   }
 
-  toast(content: string, level: NoticeLevel) {
-    this.#emit({ type: NoticeType.TOAST, content, level });
+  toast(content: string, level: NoticeLevel, duration: number) {
+    this.#emit({ type: NoticeType.TOAST, content, level, duration });
   }
 
-  notification(title: string, content: string, level: NoticeLevel) {
-    this.#emit({ type: NoticeType.NOTIFICATION, title, content, level });
+  notification(title: string, content: string, level: NoticeLevel, duration: number) {
+    this.#emit({ type: NoticeType.NOTIFICATION, title, content, level, duration });
   }
 
-  modal(title: string, content: string, level: NoticeLevel) {
-    this.#emit({ type: NoticeType.MODAL, title, content, level });
+  modal(title: string, content: string, level: NoticeLevel, duration: number) {
+    this.#emit({ type: NoticeType.MODAL, title, content, level, duration });
   }
 }

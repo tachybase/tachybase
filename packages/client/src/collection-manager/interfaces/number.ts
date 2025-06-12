@@ -20,6 +20,16 @@ export class NumberFieldInterface extends CollectionFieldInterface {
       },
     },
   };
+  componentOptions = [
+    {
+      label: '{{t("InputNumber")}}',
+      value: 'InputNumber',
+    },
+    {
+      label: '{{t("Slider")}}',
+      value: 'Slider',
+    },
+  ];
   availableTypes = ['double', 'float', 'decimal'];
   hasDefaultValue = true;
   properties = {
@@ -39,6 +49,18 @@ export class NumberFieldInterface extends CollectionFieldInterface {
         { value: '0.0001', label: '1.0000' },
         { value: '0.00001', label: '1.00000' },
       ],
+    },
+    'uiSchema.x-component-props.addonBefore': {
+      type: 'string',
+      title: '{{t("Prefix")}}',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+    },
+    'uiSchema.x-component-props.addonAfter': {
+      type: 'string',
+      title: '{{t("Suffix")}}',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
     },
   };
   filterable = {

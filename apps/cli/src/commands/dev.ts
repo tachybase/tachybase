@@ -1,6 +1,5 @@
 import { Command } from 'commander';
 import { getPortPromise } from 'portfinder';
-import zmq from 'zeromq';
 
 import { nodeCheck, postCheck, promptForTs, run } from '../util';
 
@@ -22,13 +21,6 @@ export default (cli: Command) => {
       const { APP_SERVER_ROOT, APP_CLIENT_ROOT, SERVER_TSCONFIG_PATH } = process.env;
       // @ts-ignore
       process.env.IS_DEV_CMD = true;
-
-      if (opts.waitServer) {
-        process.env.IPC_DEV_PORT =
-          (await getPortPromise({
-            port: 10000 + Math.floor(Math.random() * 1000),
-          })) + '';
-      }
 
       if (!SERVER_TSCONFIG_PATH) {
         throw new Error('SERVER_TSCONFIG_PATH is not set.');
@@ -134,12 +126,19 @@ export default (cli: Command) => {
         };
 
         async function runMqServer() {
-          const sock = new zmq.Reply();
-
-          await sock.bind('tcp://*:' + process.env.IPC_DEV_PORT);
-          for await (const [msg] of sock) {
+          const proxyPort = opts.proxyPort || serverPort || clientPort + 10;
+          const targetUrl = process.env.PROXY_TARGET_URL || (proxyPort ? `http://127.0.0.1:${proxyPort}` : undefined);
+          try {
+            const result = await fetch(`${targetUrl}/api/__health_check`);
+            const res = await result.text();
+            if (res !== 'ok') {
+              throw new Error('server not ready');
+            }
             runClient();
-            sock.close();
+          } catch {
+            setTimeout(() => {
+              runMqServer();
+            }, 500);
           }
         }
 

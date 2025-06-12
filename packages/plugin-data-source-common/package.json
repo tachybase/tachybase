@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-data-source-common",
-  "version": "1.0.11",
+  "displayName": "External DataSource Support",
+  "version": "1.1.5",
+  "description": "Supports more data sources",
+  "keywords": [
+    "Data sources"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-data-source-common"
@@ -10,6 +15,7 @@
     "@ant-design/icons": "^5.5.2",
     "@types/lodash": "^4.17.13",
     "antd": "5.22.5",
+    "axios": "1.7.7",
     "lodash": "^4.17.21",
     "mysql2": "^3.11.5",
     "pg": "^8.13.1",

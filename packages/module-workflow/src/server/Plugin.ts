@@ -216,11 +216,11 @@ export default class PluginWorkflowServer extends Plugin {
       },
     });
 
-    this.meter = this.app.telemetry.metric.getMeter();
-    const counter = this.meter.createObservableGauge('workflow.events.counter');
-    counter.addCallback((result) => {
-      result.observe(this.eventsCount);
-    });
+    // this.meter = this.app.telemetry.metric.getMeter();
+    // const counter = this.meter.createObservableGauge('workflow.events.counter');
+    // counter.addCallback((result) => {
+    //   result.observe(this.eventsCount);
+    // });
 
     this.app.acl.registerSnippet({
       name: `pm.${this.name}.workflows`,
@@ -235,6 +235,7 @@ export default class PluginWorkflowServer extends Plugin {
         'flow_nodes:destroy',
         'flow_nodes:moveUp',
         'flow_nodes:moveDown',
+        'workflowCategories:*',
       ],
     });
 

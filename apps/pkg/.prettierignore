@@ -1,0 +1,8 @@
+lib-es5/
+# Symlink needed for test
+test/test-99-#108/lib/log.js
+
+test/test-50-cannot-css-script/assets/animate.css
+test/test-50-package-json-8/test-z-data.css
+test/test-50-package-json-8b/test-z-data.css
+test/test-50-package-json-8p/test-z-data.css

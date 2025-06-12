@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-backup",
   "displayName": "App backup & restore",
-  "version": "1.0.11",
+  "version": "1.1.5",
   "description": "Backup and restore applications for scenarios such as application replication, migration, and upgrades.",
   "keywords": [
     "System management"
@@ -10,6 +10,10 @@
   "main": "./dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-backup"
+  },
+  "dependencies": {
+    "cron-parser": "4.9.0",
+    "react-js-cron": "^3.2.0"
   },
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
@@ -40,6 +44,7 @@
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/database": "workspace:*",
+    "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"

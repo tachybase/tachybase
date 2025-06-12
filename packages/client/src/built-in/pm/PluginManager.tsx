@@ -74,43 +74,6 @@ const PluginDescription = ({ description, record }) => {
   );
 };
 
-const columns: TableProps<IPluginData>['columns'] = [
-  {
-    title: i18n.t('Name'),
-    dataIndex: 'name',
-    key: 'name',
-    render: (_, { displayName, name, packageName }) => <span>{displayName || name || packageName}</span>,
-  },
-  {
-    title: i18n.t('Keywords'),
-    dataIndex: 'keywords',
-    key: 'keywords',
-    render: (keywords) => {
-      return keywords?.map((keyword) => <Tag key={keyword}>{i18n.t(keyword)}</Tag>);
-    },
-  },
-  {
-    title: i18n.t('Description'),
-    dataIndex: 'description',
-    key: 'description',
-    render: (description, record) => {
-      return <PluginDescription description={description} record={record} />;
-    },
-  },
-  {
-    title: i18n.t('Action'),
-    key: 'action',
-    render: (_, record) => {
-      return (
-        <Space size="middle">
-          <ViewAction record={record} />
-          <SwitchAction {...record} />
-        </Space>
-      );
-    },
-  },
-];
-
 const LocalPlugins = () => {
   const { t } = useTranslation();
   const { theme } = useStyles();
@@ -121,6 +84,46 @@ const LocalPlugins = () => {
   const [searchValue, setSearchValue] = useState('');
   const [enabled, setEnabled] = useState('all');
   const [keywords, setKeywords] = useState([]);
+
+  const columns: TableProps<IPluginData>['columns'] = useMemo(() => {
+    return [
+      {
+        title: t('Name'),
+        dataIndex: 'name',
+        key: 'name',
+        render: (_, { displayName, name, packageName }) => <span>{displayName || name || packageName}</span>,
+      },
+      {
+        title: t('Keywords'),
+        dataIndex: 'keywords',
+        key: 'keywords',
+        render: (keywords) => {
+          return keywords?.map((keyword) => <Tag key={keyword}>{t(keyword)}</Tag>);
+        },
+      },
+      {
+        title: t('Description'),
+        dataIndex: 'description',
+        key: 'description',
+        render: (description, record) => {
+          return <PluginDescription description={description} record={record} />;
+        },
+      },
+      {
+        title: t('Action'),
+        key: 'action',
+        render: (_, record) => {
+          return (
+            <Space size="middle">
+              <ViewAction record={record} />
+              <SwitchAction {...record} />
+            </Space>
+          );
+        },
+      },
+    ];
+  }, []);
+
   const filteredList = (data?.data || [])
     .filter(
       (data) =>
