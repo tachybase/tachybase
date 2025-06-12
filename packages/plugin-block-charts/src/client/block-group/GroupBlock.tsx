@@ -95,13 +95,11 @@ export const InternalGroupBlock = (props) => {
       service.params = dataBlocks[dataBlocks.length - 1].service.params[0].filter;
     }
   }
-
   if (service.params?.[0]?.filter) {
     service.params[0].filter = filterByCleanedFields(service.params[0].filter);
   }
-
   useAsyncEffect(async () => {
-    const filter = service?.params[0] ? service.params[0].filter : service?.params;
+    const filter = service?.params[0] ? service.params[0].filter : service?.params || {};
     if (configItem.reqUrl) {
       setResult(
         (await api.request({
@@ -114,7 +112,7 @@ export const InternalGroupBlock = (props) => {
         })) ?? {},
       );
     }
-  }, [service.params, service.params[0]]);
+  }, [service.params?.[0]]);
   if (configItem.style === 'describe') {
     const item: DescriptionsProps['items'] = describeItem(configItem, result, service, params, api);
     return <Descriptions style={{ marginBottom: '10px' }} items={item} />;
