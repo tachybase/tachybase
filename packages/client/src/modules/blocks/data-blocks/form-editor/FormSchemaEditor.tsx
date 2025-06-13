@@ -3,10 +3,12 @@ import { RecordProvider, useAPIClient, useCurrentAppInfo, useRequest, useTransla
 import { ArrayCollapse, ArrayTable, FormLayout } from '@tachybase/components';
 import {
   action,
+  autorun,
   createForm,
   FormContext,
   ISchema,
   Schema,
+  SchemaContext,
   uid,
   useField,
   useFieldSchema,
@@ -25,7 +27,15 @@ import { App, Button, Col, Collapse, Drawer, Flex, Input, Layout, Menu, Modal, R
 import { CheckboxGroupProps } from 'antd/es/checkbox';
 import _, { cloneDeep } from 'lodash';
 
-import { SchemaInitializerItemType, useApp } from '../../../../application';
+import {
+  ContextCleaner,
+  FieldContext,
+  SchemaComponentsContext,
+  SchemaExpressionScopeContext,
+  SchemaMarkupContext,
+  SchemaOptionsContext,
+} from '../../../../../../schema/src/react';
+import { SchemaInitializerItemType, SchemaSettingsWrapper, useApp } from '../../../../application';
 import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import {
   CollectionOptions,
@@ -41,6 +51,7 @@ import {
 import * as components from '../../../../collection-manager/Configuration/components';
 import useDialect from '../../../../collection-manager/hooks/useDialect';
 import {
+  CollectionFieldProvider,
   CollectionProvider,
   CollectionRecordContext,
   useContextConfigSetting,
@@ -59,6 +70,7 @@ import {
 } from '../../../../schema-component';
 import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
 import { useStyles } from '../form/styles';
+import { createEditableDesignable } from './EditableDesignable';
 import { EditableGrid } from './EditableGrid';
 import { useEditableSelectedField } from './EditableSelectedFieldContext';
 
@@ -71,10 +83,19 @@ interface CreateFormBlockUISchemaOptions {
 }
 
 export const FormSchemaEditor = ({ open, onCancel, options }) => {
-  const [schema, setSchema] = useState({});
+  const [schema, setSchema] = useState<Schema>(() => new Schema({}));
   const [schemakey, setSchemakey] = useState(uid());
+  const { refresh } = useDesignable();
+  const api = useAPIClient();
+  const { t } = useTranslation();
   const { styles } = useStyles();
   const collectionName = options?.item?.name || null;
+  const eddn = createEditableDesignable({
+    t,
+    api,
+    refresh,
+    current: schema,
+  });
   useEffect(() => {
     if (options?.schema) {
       setSchema(options?.schema);
@@ -87,9 +108,9 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
           <Layout style={{ height: '100%' }}>
             <EditorHeader onCancel={onCancel} schema={schema} />
             <Layout>
-              <EditorFieldsSider schema={schema} setSchemakey={setSchemakey} />
+              <EditorFieldsSider schema={schema} setSchemakey={setSchemakey} eddn={eddn} />
               <EditorContent key={schemakey} schema={schema} />
-              <EditorFieldFormProperty schema={schema} setSchemakey={setSchemakey} />
+              <EditorFieldFormProperty schema={schema} setSchemakey={setSchemakey} eddn={eddn} />
             </Layout>
           </Layout>
         </DndContext>
@@ -204,6 +225,7 @@ const EditorHeader = ({ onCancel, schema }) => {
           <Menu
             key="EditPageMenu"
             mode="horizontal"
+            overflowedIndicator={null}
             selectedKeys={['formEdit']}
             items={[
               {
@@ -364,7 +386,7 @@ const MobilePreviewContent = ({ schema }) => {
   );
 };
 
-const EditorFieldsSider = ({ schema, setSchemakey }) => {
+const EditorFieldsSider = ({ schema, setSchemakey, eddn }) => {
   const record = useCollection_deprecated();
   const { Sider } = Layout;
   const { t } = useTranslation();
@@ -887,7 +909,7 @@ const EditorContent = ({ schema }) => {
   );
 };
 
-const EditorFieldFormProperty = ({ schema, setSchemakey }) => {
+const EditorFieldFormProperty = ({ schema, setSchemakey, eddn }) => {
   const { Sider } = Layout;
   const { styles } = useStyles();
   const { t } = useTranslation();
@@ -902,7 +924,7 @@ const EditorFieldFormProperty = ({ schema, setSchemakey }) => {
           {
             label: t('字段属性'),
             key: 'field',
-            children: <EditorFieldProperty schema={schema} setSchemakey={setSchemakey} />,
+            children: <EditorFieldProperty schema={schema} setSchemakey={setSchemakey} eddn={eddn} />,
           },
           {
             label: t('表单属性'),
@@ -915,160 +937,24 @@ const EditorFieldFormProperty = ({ schema, setSchemakey }) => {
   );
 };
 
-const EditorFieldProperty = ({ schema, setSchemakey }) => {
+const EditorFieldProperty = ({ schema, setSchemakey, eddn }) => {
+  const app = useApp();
   const { fieldSchema: currentSchema, field } = useEditableSelectedField();
   const schemaUID = currentSchema?.['x-uid'] || null;
-  const { getField } = useCollection_deprecated();
-  const { getInterface, getCollectionJoinField } = useCollectionManager_deprecated();
-  // const { t } = useTranslation();
-  // const api = useAPIClient();
-  // const { refresh } = useDesignable();
-  const [optionsSchema, setOptionsSchema] = useState({});
   const fieldSchema = findSchema(schema, 'x-uid', schemaUID) || null;
+  if (!fieldSchema) {
+    return <div>未选中字段</div>;
+  }
+  const { getField } = useCollection_deprecated();
+  const { getInterface, getCollectionJoinField, getCollectionField } = useCollectionManager_deprecated();
+  const [optionsSchema, setOptionsSchema] = useState({});
   const { layoutDirection = 'column' } = useContextConfigSetting();
   const collectionField = fieldSchema
     ? getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field'])
     : null;
   const interfaceConfig = getInterface(collectionField?.interface);
   const validateSchema = interfaceConfig?.['validateSchema']?.(fieldSchema);
-  // const dn = useMemo(() => {
-  //   if (!fieldSchema) return null;
-  //   const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
-  //   setOptionsSchema(createOptionsSchema({ title, fieldSchema, layoutDirection, validateSchema }));
-  //   return createDesignable({ t, api, refresh, current: fieldSchema });
-  // }, [fieldSchema]);
-  // useEffect(() => {
-  //   if (dn) {
-  //     dn.loadAPIClientEvents();
-  //   }
-  // }, [dn]);
-  useEffect(() => {
-    if (fieldSchema) {
-      const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
-      setOptionsSchema(createOptionsSchema({ title, fieldSchema, layoutDirection, validateSchema }));
-    }
-  }, [schemaUID]);
-
-  if (!fieldSchema) {
-    return <div>未选中字段</div>;
-  }
-
-  const useEditFieldActionProps = () => {
-    const form = useForm();
-
-    return {
-      async onClick() {
-        try {
-          const {
-            editFieldTitle = '',
-            displayTitle,
-            editDescription = '',
-            editTooltip,
-            setDefaultValue,
-            layoutDirection = 'row',
-            required = true,
-            pattern,
-            setValidationRules = [],
-          } = form.values || {};
-
-          const oldStyle = fieldSchema['x-decorator-props']?.style || {};
-          const newStyle = {
-            ...oldStyle,
-            display: 'flex',
-            flexDirection: layoutDirection,
-            alignItems: layoutDirection === 'row' ? 'baseline' : 'unset',
-          };
-
-          let readPretty = false;
-          let disabled = false;
-
-          switch (pattern) {
-            case 'readonly':
-              readPretty = false;
-              disabled = true;
-              break;
-            case 'read-pretty':
-              readPretty = true;
-              disabled = false;
-              break;
-            default:
-              readPretty = false;
-              disabled = false;
-          }
-
-          const cleanedRules = setValidationRules.map((rule) => {
-            const cleaned = _.pickBy(rule, _.identity);
-            return cleaned;
-          });
-
-          if (['percent'].includes(collectionField?.interface)) {
-            for (const rule of cleanedRules) {
-              if (rule.maxValue != null || rule.minValue != null) {
-                rule.percentMode = true;
-              }
-              if (rule.percentFormat) {
-                rule.percentFormats = true;
-              }
-            }
-          }
-
-          const patchSchema = {
-            'x-uid': fieldSchema['x-uid'],
-            title: editFieldTitle,
-            default: setDefaultValue,
-            description: editDescription,
-            required,
-            'x-read-pretty': readPretty,
-            'x-disabled': disabled,
-            'x-validator': cleanedRules,
-            'x-decorator-props': {
-              ...(fieldSchema['x-decorator-props'] || {}),
-              showTitle: !!displayTitle,
-              tooltip: editTooltip,
-              layoutDirection,
-              style: newStyle,
-            },
-          };
-
-          Object.assign(fieldSchema, patchSchema);
-
-          // await dn.emit('patch', { schema: patchSchema });
-          // dn.refresh?.();
-          // await fetchSchema();
-          setSchemakey(uid());
-        } catch (e) {
-          console.error('更新字段失败:', e);
-        }
-      },
-    };
-  };
-
-  const useFieldDestroyActionProps = () => {
-    return {
-      async onClick() {
-        // dn.remove(fieldSchema, {
-        //   removeParentsIfNoChildren: true,
-        //   breakRemoveOn: {
-        //     'x-component': 'Grid',
-        //   },
-        // });
-      },
-    };
-  };
-
-  return (
-    <div key={schemaUID} style={{ padding: '10px' }}>
-      <SchemaComponent
-        schema={optionsSchema}
-        scope={{ useEditFieldActionProps, useFieldDestroyActionProps }}
-        components={{ ArrayCollapse, FormLayout }}
-      />
-    </div>
-  );
-};
-
-const createOptionsSchema = (props) => {
-  const { title, fieldSchema, layoutDirection, validateSchema } = props;
+  const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
   let readOnlyMode = 'editable';
   if (fieldSchema['x-disabled'] === true) {
     readOnlyMode = 'readonly';
@@ -1076,64 +962,206 @@ const createOptionsSchema = (props) => {
   if (fieldSchema['x-read-pretty'] === true) {
     readOnlyMode = 'read-pretty';
   }
+  const form = useMemo(
+    () =>
+      createForm({
+        values: {
+          editFieldTitle: fieldSchema.title ?? title,
+          displayTitle: fieldSchema['x-decorator-props']?.['showTitle'] ?? true,
+          editDescription: fieldSchema?.description,
+          editTooltip: fieldSchema?.['x-decorator-props']?.tooltip,
+          setDefaultValue: fieldSchema?.default,
+          layoutDirection: fieldSchema['x-decorator-props']?.layoutDirection ?? layoutDirection,
+          required: fieldSchema.required ?? false,
+          pattern: readOnlyMode,
+          setValidationRules: fieldSchema?.['x-validator'],
+        },
+      }),
+    [schemaUID],
+  );
+  const fieldComponentName = collectionField?.uiSchema['x-component'];
+  const componentSettings = app.schemaSettingsManager.get(`fieldSettings:component:${fieldComponentName}`);
+  console.log('%c Line:971 🌮 componentSettings', 'font-size:18px;color:#2eafb0;background:#3f7cff', componentSettings);
+
+  useEffect(() => {
+    if (fieldSchema) {
+      setOptionsSchema(createOptionsSchema({ form, fieldSchema, validateSchema }));
+    }
+  }, [schemaUID]);
+  useEffect(() => {
+    if (!form || !fieldSchema) return;
+    const disposer = autorun(() => {
+      const {
+        editFieldTitle,
+        displayTitle,
+        editDescription,
+        editTooltip,
+        setDefaultValue,
+        layoutDirection,
+        required,
+        pattern,
+        setValidationRules = [],
+      } = form.values || {};
+
+      const oldStyle = fieldSchema['x-decorator-props']?.style || {};
+      const newStyle = {
+        ...oldStyle,
+        display: 'flex',
+        flexDirection: layoutDirection,
+        alignItems: layoutDirection === 'row' ? 'baseline' : 'unset',
+      };
+
+      let readPretty = false;
+      let disabled = false;
+
+      switch (pattern) {
+        case 'readonly':
+          readPretty = false;
+          disabled = true;
+          break;
+        case 'read-pretty':
+          readPretty = true;
+          disabled = false;
+          break;
+        default:
+          readPretty = false;
+          disabled = false;
+      }
+
+      const cleanedRules = (setValidationRules || []).map((rule) => {
+        const cleaned = _.pickBy(rule, _.identity);
+        return cleaned;
+      });
+
+      if (['percent'].includes(collectionField?.interface)) {
+        for (const rule of cleanedRules) {
+          if (rule.maxValue != null || rule.minValue != null) {
+            rule.percentMode = true;
+          }
+          if (rule.percentFormat) {
+            rule.percentFormats = true;
+          }
+        }
+      }
+
+      const patchSchema = {
+        'x-uid': fieldSchema['x-uid'],
+        title: editFieldTitle,
+        default: setDefaultValue,
+        description: editDescription,
+        required,
+        'x-read-pretty': readPretty,
+        'x-disabled': disabled,
+        'x-validator': cleanedRules,
+        'x-decorator-props': {
+          ...(fieldSchema['x-decorator-props'] || {}),
+          showTitle: !!displayTitle,
+          tooltip: editTooltip,
+          layoutDirection,
+          style: newStyle,
+        },
+      };
+      const nextPatch = {
+        'x-uid': fieldSchema['x-uid'],
+        title: editFieldTitle,
+        default: setDefaultValue,
+        description: editDescription,
+        required,
+        'x-read-pretty': readPretty,
+        'x-disabled': disabled,
+        'x-validator': cleanedRules,
+        'x-decorator-props': {
+          ...(fieldSchema['x-decorator-props'] || {}),
+          showTitle: !!displayTitle,
+          tooltip: editTooltip,
+          layoutDirection,
+          style: newStyle,
+        },
+      };
+      const hasChanged = !_.isEqual(
+        _.pick(fieldSchema, Object.keys(nextPatch)),
+        _.pick(nextPatch, Object.keys(nextPatch)),
+      );
+      const oldDecorator = fieldSchema['x-decorator-props'] || {};
+      const newDecorator = nextPatch['x-decorator-props'];
+      const decoratorChanged = !_.isEqual(oldDecorator, newDecorator);
+      if (hasChanged || decoratorChanged) {
+        Object.assign(fieldSchema, nextPatch);
+        setSchemakey(uid());
+      }
+    });
+
+    return () => {
+      disposer(); // 清理 reaction
+    };
+  }, [form, fieldSchema, collectionField?.interface]);
+
+  return (
+    <div key={schemaUID} style={{ padding: '10px' }}>
+      <SchemaComponent schema={optionsSchema} components={{ ArrayCollapse, FormLayout }} />
+    </div>
+  );
+};
+
+const createOptionsSchema = (props) => {
+  const { form, fieldSchema, validateSchema } = props;
+
   return {
     type: 'void',
     properties: {
       [uid()]: {
-        type: 'object',
+        type: 'void',
         'x-component': 'FormV2',
+        'x-component-props': { form },
         properties: {
-          actions: {
-            type: 'void',
-            'x-component': 'ActionBar',
-            'x-component-props': {
-              style: {
-                marginBottom: 16,
-              },
-            },
-            properties: {
-              delete: {
-                type: 'void',
-                title: '{{ t("Delete") }}',
-                'x-action': 'destroy',
-                'x-component': 'Action',
-                'x-use-component-props': 'useFieldDestroyActionProps',
-                'x-component-props': {
-                  icon: 'DeleteOutlined',
-                  confirm: {
-                    title: "{{t('Delete')}}",
-                    content: "{{t('Are you sure you want to delete it?')}}",
-                  },
-                },
-              },
-              update: {
-                title: '{{ t("Submit") }}',
-                'x-action': 'submit',
-                'x-component': 'Action',
-                'x-use-component-props': 'useEditFieldActionProps',
-                'x-component-props': {
-                  type: 'primary',
-                  htmlType: 'submit',
-                },
-              },
-            },
-          },
+          // actions: {
+          //   type: 'void',
+          //   'x-component': 'ActionBar',
+          //   'x-component-props': {
+          //     style: {
+          //       marginBottom: 16,
+          //     },
+          //   },
+          //   properties: {
+          //     // delete: {
+          //     //   type: 'void',
+          //     //   title: '{{ t("Delete") }}',
+          //     //   'x-action': 'destroy',
+          //     //   'x-component': 'Action',
+          //     //   'x-use-component-props': 'useFieldDestroyActionProps',
+          //     //   'x-component-props': {
+          //     //     icon: 'DeleteOutlined',
+          //     //     confirm: {
+          //     //       title: "{{t('Delete')}}",
+          //     //       content: "{{t('Are you sure you want to delete it?')}}",
+          //     //     },
+          //     //   },
+          //     // },
+          //     // update: {
+          //     //   title: '{{ t("Submit") }}',
+          //     //   'x-action': 'submit',
+          //     //   'x-component': 'Action',
+          //     //   'x-use-component-props': 'useEditFieldActionProps',
+          //     //   'x-component-props': {
+          //     //     type: 'primary',
+          //     //     htmlType: 'submit',
+          //     //   },
+          //     // },
+          //   },
+          // },
           editFieldTitle: {
             title: '{{t("Title")}}',
-            default: fieldSchema.title ?? title,
             type: 'string',
             'x-component': 'Input',
             'x-decorator': 'FormItem',
           },
           displayTitle: {
-            default: fieldSchema['x-decorator-props']?.['showTitle'] ?? true,
             type: 'boolean',
             'x-content': '{{t("Display title")}}',
             'x-component': 'Checkbox',
             'x-decorator': 'FormItem',
           },
           required: {
-            default: fieldSchema.required ?? false,
             type: 'boolean',
             'x-content': '{{t("Required")}}',
             'x-component': 'Checkbox',
@@ -1147,14 +1175,12 @@ const createOptionsSchema = (props) => {
             },
           },
           editDescription: {
-            default: fieldSchema?.description,
             type: 'string',
             title: '{{t("Edit description")}}',
             'x-component': 'Input.TextArea',
             'x-decorator': 'FormItem',
           },
           editTooltip: {
-            default: fieldSchema?.['x-decorator-props']?.tooltip,
             type: 'string',
             title: '{{t("Edit tooltip")}}',
             'x-component': 'Input',
@@ -1168,7 +1194,6 @@ const createOptionsSchema = (props) => {
             'x-component': 'Input',
           },
           layoutDirection: {
-            default: fieldSchema['x-decorator-props']?.layoutDirection ?? layoutDirection,
             type: 'string',
             title: '{{t("Layout Direction")}}',
             'x-decorator': 'FormItem',
@@ -1182,7 +1207,6 @@ const createOptionsSchema = (props) => {
             ],
           },
           pattern: {
-            default: readOnlyMode,
             type: 'string',
             title: '{{t("Pattern")}}',
             'x-decorator': 'FormItem',
@@ -1199,7 +1223,6 @@ const createOptionsSchema = (props) => {
           setValidationRules: {
             type: 'array',
             title: '{{t("Set validation rules")}}',
-            default: fieldSchema?.['x-validator'],
             'x-component': 'ArrayCollapse',
             'x-decorator': 'FormItem',
             'x-component-props': {
@@ -1279,8 +1302,72 @@ const createOptionsSchema = (props) => {
   };
 };
 
+const AllSchemaProviders = ({
+  children,
+  form = null,
+  field = null,
+  fieldSchema = null,
+  schemaMarkup = null,
+  expressionScope = null,
+  schemaComponents = null,
+  schemaOptions = null,
+}) => {
+  return (
+    <ContextCleaner>
+      <FormContext.Provider value={form}>
+        <FieldContext.Provider value={field}>
+          <SchemaMarkupContext.Provider value={schemaMarkup}>
+            <SchemaContext.Provider value={fieldSchema}>
+              <SchemaExpressionScopeContext.Provider value={expressionScope}>
+                <SchemaComponentsContext.Provider value={schemaComponents}>
+                  <SchemaOptionsContext.Provider value={schemaOptions}>
+                    <CollectionFieldProvider name={fieldSchema.name}>{children}</CollectionFieldProvider>
+                  </SchemaOptionsContext.Provider>
+                </SchemaComponentsContext.Provider>
+              </SchemaExpressionScopeContext.Provider>
+            </SchemaContext.Provider>
+          </SchemaMarkupContext.Provider>
+        </FieldContext.Provider>
+      </FormContext.Provider>
+    </ContextCleaner>
+  );
+};
+
 const EditorFormProperty = ({ schema }) => {
-  return <div></div>;
+  const allCTX = useEditableSelectedField();
+  const { setEditableField, ...ctxValues } = allCTX;
+  if (!ctxValues) {
+    return <div>未选中字段</div>;
+  }
+  return (
+    <AllSchemaProviders {...ctxValues}>
+      <ShowCTX />
+    </AllSchemaProviders>
+  );
+};
+
+const ShowCTX = () => {
+  const app = useApp();
+  const { getField } = useCollection_deprecated();
+  const { getInterface, getCollectionJoinField, getCollectionField } = useCollectionManager_deprecated();
+  const fieldSchema = useFieldSchema();
+  console.log('%c Line:1342 🥪 fieldSchema', 'font-size:18px;color:#b03734;background:#93c0a4', fieldSchema);
+  const collectionField = fieldSchema
+    ? getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field'])
+    : null;
+  const fieldComponentName = collectionField?.uiSchema['x-component'];
+  const componentSettings = app.schemaSettingsManager.get('fieldSettings:FormItem');
+  console.log(
+    '%c Line:1347 🌰 componentSettings',
+    'font-size:18px;color:#ed9ec7;background:#93c0a4',
+    componentSettings,
+  );
+  const options = componentSettings?.options;
+  return (
+    <div>
+      <SchemaSettingsWrapper {...options} />
+    </div>
+  );
 };
 
 const useFormFieldButtonWrappers = (options?: any) => {

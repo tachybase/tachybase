@@ -1,8 +1,13 @@
 import React, { FC, useContext, useEffect, useMemo, useRef } from 'react';
-import { useField, useFieldSchema } from '@tachybase/schema';
+import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import { DragOutlined, PlusOutlined } from '@ant-design/icons';
 
+import {
+  SchemaComponentsContext,
+  SchemaExpressionScopeContext,
+  SchemaMarkupContext,
+} from '../../../../../../schema/src/react';
 import { useSchemaInitializerRender, useSchemaSettingsRender } from '../../../../application';
 import { useDataSource, useDataSourceManager } from '../../../../data-source';
 import {
@@ -13,6 +18,8 @@ import {
   useDesignable,
   useGridContext,
   useGridRowContext,
+  useSchemaComponentContext,
+  useSchemaOptionsContext,
 } from '../../../../schema-component';
 import { gridRowColWrap } from '../../../../schema-initializer';
 import { SchemaToolbarProps, useGetAriaLabelOfDesigner } from '../../../../schema-settings';
@@ -37,6 +44,11 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
   const { title, initializer, settings, showBackground, showBorder = true } = props;
   const { designable } = useDesignable();
   const fieldSchema = useFieldSchema();
+  const form = useForm();
+  const schemaMarkup = useContext(SchemaMarkupContext);
+  const expressionScope = useContext(SchemaExpressionScopeContext);
+  const schemaComponents = useContext(SchemaComponentsContext);
+  const schemaOptions = useSchemaOptionsContext();
   const field = useField();
   const compile = useCompile();
   const { styles } = useStyles();
@@ -46,9 +58,7 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
   const dataSources = dm?.getDataSources();
   const dataSourceContext = useDataSource();
   const { draggable } = useContext(SortableContext);
-  const { attributes, listeners, setNodeRef } = draggable;
   const dataSource = dataSources?.length > 1 && dataSourceContext;
-
   const titleArr = useMemo(() => {
     if (!title) return undefined;
     if (typeof title === 'string') return [compile(title)];
@@ -80,14 +90,14 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
     };
   }, [getAriaLabel, rowCtx?.cols?.length]);
 
-  // const dragElement = useMemo(() => {
-  //   if (draggable === false) return null;
-  //   return (
-  //     <DragHandler>
-  //       <DragOutlined role="button" aria-label={getAriaLabel('drag-handler')} />
-  //     </DragHandler>
-  //   );
-  // }, [draggable, getAriaLabel]);
+  const dragElement = useMemo(() => {
+    if (draggable === false) return null;
+    return (
+      <DragHandler>
+        <DragOutlined role="button" aria-label={getAriaLabel('drag-handler')} />
+      </DragHandler>
+    );
+  }, [draggable, getAriaLabel]);
 
   const initializerElement = useMemo(() => {
     if (initializer === false) return null;
@@ -128,7 +138,7 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       const isInsideToolbar = toolbarElement?.contains(target);
       if (!isInsideToolbar) {
         // const uid = fieldSchema?.['x-uid'] || null;
-        setEditableField({ field, fieldSchema });
+        setEditableField({ field, fieldSchema, schemaMarkup, expressionScope, schemaComponents, schemaOptions, form });
       }
     }
 
@@ -180,34 +190,12 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
           {settingsElement}
         </Space>
       </div> */}
-      <div
-        style={{
-          display: 'inline-block',
-          width: 14,
-          height: 14,
-          lineHeight: '14px',
-          textAlign: 'left',
-        }}
-      >
-        <div
-          ref={setNodeRef}
-          style={{
-            // ...style,
-            position: 'relative',
-            zIndex: 1,
-            backgroundColor: '#333',
-            lineHeight: 0,
-            fontSize: 0,
-            display: 'inline-block',
-          }}
-          {...listeners}
-          {...attributes}
-          role="none"
-        >
-          <span style={{ cursor: 'move', fontSize: 14 }}>
-            <DragOutlined role="button" aria-label={getAriaLabel('drag-handler')} />
-          </span>
-        </div>
+      <div className={styles.toolbarIcons}>
+        <Space size={3} align={'center'}>
+          {dragElement}
+          {/* {initializerElement}
+          {settingsElement} */}
+        </Space>
       </div>
     </div>
   );
