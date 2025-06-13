@@ -1,6 +1,8 @@
 import { Plugin } from '@tachybase/client';
 
 import { lang } from './locale';
+import { statisticsDetailsPane } from './StatisticsDetailsPane';
+import { statisticsHistoricalPane } from './statisticsHistorical';
 import { TrackingConfigPane } from './TrackingConfigPane';
 import { TrackingLogPane } from './TrackingLogPane';
 import { TrackingStatisticsPane } from './TrackingStatisticsPane';
@@ -28,6 +30,18 @@ class ModuleInstrumentationClient extends Plugin {
       title: lang('Tracking statistics'),
       Component: TrackingStatisticsPane,
       aclSnippet: 'pm.system-services.custom-instrumentation.trackingStatistics',
+    });
+    this.app.systemSettingsManager.add('system-services.custom-instrumentation.statisticsDetails', {
+      icon: 'MonitorOutlined',
+      title: lang('Statistics details'),
+      Component: statisticsDetailsPane,
+      aclSnippet: 'pm.system-services.custom-instrumentation.statisticsDetails',
+    });
+    this.app.systemSettingsManager.add('system-services.custom-instrumentation.statisticsHistorical', {
+      icon: 'MonitorOutlined',
+      title: lang('Statistics Historical'),
+      Component: statisticsHistoricalPane,
+      aclSnippet: 'pm.system-services.custom-instrumentation.statisticsHistorical',
     });
   }
 }
