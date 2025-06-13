@@ -54,7 +54,7 @@ export class DatabaseEventTrigger extends EventSourceTrigger {
         { data: webhookCtx.body },
         { dbModel: model, dbOptions: options, ...options },
       )) as Processor;
-      if (result?.lastSavedJob.status === JOB_STATUS.ERROR) {
+      if (result?.lastSavedJob?.status === JOB_STATUS.ERROR) {
         throw new Error(result.lastSavedJob?.result);
       }
     };
