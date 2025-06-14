@@ -211,7 +211,7 @@ function normalizePath(path: string) {
 
 export function generateAppDir() {
   const defaultServerRoot = join(process.cwd(), 'apps/app-server');
-  const defaultClientRoot = join(process.cwd(), 'apps/app-rs');
+  const defaultClientRoot = join(process.cwd(), 'apps/app-web');
   process.env.APP_SERVER_ROOT = process.env.APP_SERVER_ROOT || defaultServerRoot;
   process.env.APP_CLIENT_ROOT = process.env.APP_CLIENT_ROOT || defaultClientRoot;
 }

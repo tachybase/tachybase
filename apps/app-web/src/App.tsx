@@ -1,7 +1,7 @@
 import { Application } from '@tachybase/client';
-import { TachyBaseClientPresetPlugin } from '@tachybase/preset-tachybase/client';
 
 import devDynamicImport from './dynamic-import';
+import { PluginWeb } from './PluginWeb';
 
 declare global {
   interface Window {
@@ -17,7 +17,7 @@ export const app = new Application({
     baseURL: window['__tachybase_api_base_url__'] || process.env.API_BASE_URL || '/api/',
   },
   publicPath: window['__tachybase_public_path__'] || process.env.APP_PUBLIC_PATH || '/',
-  plugins: [TachyBaseClientPresetPlugin],
+  plugins: [PluginWeb],
   ws: {
     url: window['__tachybase_ws_url__'] || process.env.WEBSOCKET_URL || '',
     basename: window['__tachybase_ws_path__'] || process.env.WS_PATH || '/ws',

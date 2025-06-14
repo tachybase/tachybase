@@ -1,5 +1,5 @@
 {
-  "name": "@tachybase/app-rs",
+  "name": "@tachybase/app-web",
   "version": "0.23.8",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

@@ -92,7 +92,7 @@ export async function build(pkgs: string[]) {
   // core/app
   const appClient = packages.find((item) => item.dir === CORE_APP);
   if (appClient) {
-    await runScript(['rsbuild', 'build', '-r', 'apps/app-rs'], ROOT_PATH);
+    await runScript(['rsbuild', 'build', '-r', 'apps/app-web'], ROOT_PATH);
   }
 }
 

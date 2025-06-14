@@ -85,14 +85,14 @@ initEnv();
 
 const baseDir = process.cwd();
 
-const distPath = path.join(baseDir, 'apps/app-rs/dist/index.html');
+const distPath = path.join(baseDir, 'apps/app-web/dist/index.html');
 const clientPath = path.join(baseDir, 'client/index.html');
 
 let servePath = '';
 
 if (fs.existsSync(distPath)) {
   console.log(`Found: ${distPath}`);
-  servePath = path.join(baseDir, 'apps/app-rs/dist');
+  servePath = path.join(baseDir, 'apps/app-web/dist');
 } else if (fs.existsSync(clientPath)) {
   console.log(`Found: ${clientPath}`);
   servePath = path.join(baseDir, 'client');
