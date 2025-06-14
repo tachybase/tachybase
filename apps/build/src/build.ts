@@ -13,7 +13,6 @@ import {
   ESM_PACKAGES,
   getCjsPackages,
   getPluginPackages,
-  getPresetsPackages,
   PACKAGES_PATH,
   ROOT_PATH,
 } from './constant';
@@ -60,7 +59,6 @@ export async function build(pkgs: string[]) {
 
   const pluginPackages = getPluginPackages(packages);
   const cjsPackages = getCjsPackages(packages);
-  const presetsPackages = getPresetsPackages(packages);
 
   // core/*
   await buildPackages(cjsPackages, 'lib', buildCjs, messages);
@@ -71,15 +69,10 @@ export async function build(pkgs: string[]) {
   const esmPackages = cjsPackages.filter((pkg) => ESM_PACKAGES.includes(pkg.manifest.name));
   await buildPackages(esmPackages, 'es', buildEsm, messages);
 
-  // plugins/*、samples/*
+  // plugins/*
   await buildPackages(pluginPackages, 'dist', buildPlugin, messages);
 
-  // presets/*
-  await buildPackages(presetsPackages, 'lib', buildCjs, messages);
-
-  // writeToCache(BUILD_ERROR, { messages });
-
-  // throw error before umi build
+  // throw error before client build
   if (messages.length > 0) {
     console.log('❌ build errors:');
     messages.forEach((message) => {

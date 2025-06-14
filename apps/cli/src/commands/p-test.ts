@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, readFileSync } from 'fs';
-import { resolve } from 'path';
+import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 import { parse } from 'dotenv';
 import { execa } from 'execa';

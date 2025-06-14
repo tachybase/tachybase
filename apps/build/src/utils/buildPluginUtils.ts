@@ -1,6 +1,6 @@
-import fs from 'fs';
-import { builtinModules } from 'module';
-import path from 'path';
+import fs from 'node:fs';
+import { builtinModules } from 'node:module';
+import path from 'node:path';
 
 import chalk from 'chalk';
 

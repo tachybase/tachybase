@@ -1,6 +1,6 @@
-import Application from '../application';
+import REPL from 'repl';
 
-const REPL = require('repl');
+import Application from '../application';
 
 export default (app: Application) => {
   app
