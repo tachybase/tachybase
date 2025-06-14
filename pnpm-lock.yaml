@@ -52,9 +52,6 @@ importers:
       '@tachybase/cli':
         specifier: workspace:*
         version: link:apps/cli
-      '@tachybase/preset-tachybase':
-        specifier: workspace:*
-        version: link:packages/preset-tachybase
       '@tachybase/test':
         specifier: workspace:*
         version: link:packages/test
@@ -130,15 +127,9 @@ importers:
       '@tachybase/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@tachybase/preset-tachybase':
-        specifier: workspace:*
-        version: link:../../packages/preset-tachybase
       '@tachybase/server':
         specifier: workspace:*
         version: link:../../packages/server
-      '@tachybase/telemetry':
-        specifier: workspace:*
-        version: link:../../packages/telemetry
     devDependencies:
       '@tachybase/cache':
         specifier: workspace:*
@@ -4971,31 +4962,6 @@ importers:
       lodash:
         specifier: 4.17.21
         version: 4.17.21
-
-  packages/preset-tachybase:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/database':
-        specifier: workspace:*
-        version: link:../database
-      '@tachybase/schema':
-        specifier: workspace:*
-        version: link:../schema
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      cronstrue:
-        specifier: ^2.52.0
-        version: 2.52.0
-      lodash:
-        specifier: 4.17.21
-        version: 4.17.21
-    devDependencies:
-      '@types/lodash':
-        specifier: ^4.17.13
-        version: 4.17.13
 
   packages/requirejs: {}
 

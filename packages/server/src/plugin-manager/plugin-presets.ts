@@ -1,8 +1,9 @@
-import { Plugin, PluginManager } from '@tachybase/server';
-
 import _ from 'lodash';
 
-export class PresetTachyBase extends Plugin {
+import { Plugin } from '../plugin';
+import PluginManager from './plugin-manager';
+
+export class PluginPresets extends Plugin {
   #builtInPlugins = [
     'acl',
     'app-info',
@@ -315,4 +316,4 @@ export class PresetTachyBase extends Plugin {
   }
 }
 
-export default PresetTachyBase;
+export default PluginPresets;

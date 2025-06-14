@@ -7,7 +7,6 @@
   "types": "./lib/index.d.ts",
   "dependencies": {
     "@tachybase/database": "{{version}}",
-    "@tachybase/preset-tachybase": "{{version}}",
     "@tachybase/server": "{{version}}",
     "@tachybase/telemetry": "{{version}}",
     "@tachybase/cache": "{{version}}",

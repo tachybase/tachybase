@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "pm2": "^5.2.0",
-    "@tachybase/preset-tachybase": "{{{version}}}",
     "@tachybase/build": "{{{version}}}",
     "@tachybase/cli": "{{{version}}}",
     {{{dependencies}}}
