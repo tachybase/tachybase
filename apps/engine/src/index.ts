@@ -87,7 +87,7 @@ const baseDir = process.cwd();
 
 const distPath = path.join(baseDir, 'apps/app-web/dist/index.html');
 const clientPath = path.join(baseDir, 'client/index.html');
-const nodeModulePath = path.join(process.NODE_MODULES_PATH, '@tachybase/app-web/dist/index.html');
+const nodeModulePath = path.join(process.env.NODE_MODULES_PATH, '@tachybase/app-web/dist/index.html');
 
 let servePath = '';
 
@@ -99,7 +99,7 @@ if (fs.existsSync(distPath)) {
   servePath = path.join(baseDir, 'client');
 } else if (fs.existsSync(nodeModulePath)) {
   console.log(`Found: ${nodeModulePath}`);
-  servePath = path.join(process.NODE_MODULES_PATH, '@tachybase/app-web/dist');
+  servePath = path.join(process.env.NODE_MODULES_PATH, '@tachybase/app-web/dist');
 } else {
   if (!process.env.SERVE_PATH) {
     throw new Error('Neither dist nor client index.html found.');
