@@ -7,19 +7,18 @@ import fastGlob from 'fast-glob';
 import lodash from 'lodash';
 import pAll from 'p-all';
 
-let ENV_FILE = resolve(process.cwd(), '.env.e2e');
-
-if (!existsSync(ENV_FILE)) {
-  ENV_FILE = resolve(process.cwd(), '.env.e2e.example');
-}
-
-const data = readFileSync(ENV_FILE, 'utf-8');
-const config = {
-  ...parse(data),
-  ...process.env,
-};
-
 async function runApp(dir: string, index = 0) {
+  let ENV_FILE = resolve(process.cwd(), '.env.e2e');
+
+  if (!existsSync(ENV_FILE)) {
+    ENV_FILE = resolve(process.cwd(), '.env.e2e.example');
+  }
+
+  const data = readFileSync(ENV_FILE, 'utf-8');
+  const config = {
+    ...parse(data),
+    ...process.env,
+  };
   // 一个进程需要占用两个端口? (一个是应用端口，一个是 socket 端口)
   index = index * 2;
   const { Client } = require('pg');
