@@ -161,15 +161,20 @@ WORKER_COUNT_MAX_SUB=1
 export default (cli: Command) => {
   cli
     .command('init')
+    .option('--plugins <list>', 'Comma-separated list of plugins to install', (value) => {
+      return value
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+    })
     .allowUnknownOption()
-    .action(async () => {
+    .action(async (options) => {
       initEnv();
 
       const prefix = 'plugins/node_modules';
       // 安装前端代码
       console.log('🚀 ~ start download ~ front end files');
       const spinner = yoctoSpinner({ text: `Loading @tachybase/app-web` }).start();
-      // TODO
       await downloadTar('@tachybase/app-web', `${prefix}/@tachybase/app-web`);
       spinner.success();
       console.log();
@@ -188,7 +193,9 @@ export default (cli: Command) => {
       console.log('🚀 ~ start download ~ plugins');
       // 安装可选的模块，由参数指定
       index = 1;
-      const pluginNames = plugins.map((pluginName) => `@tachybase/plugin-${pluginName}`);
+      const pluginNames = (options.plugins ? options.plugins : plugins).map(
+        (pluginName: string) => `@tachybase/plugin-${pluginName}`,
+      );
       for (const pluginName of pluginNames) {
         const spinner = yoctoSpinner({ text: `[${index++}/${pluginNames.length}] Loading ${pluginName}` }).start();
         await downloadTar(pluginName, `${prefix}/${pluginName}`);
