@@ -6,7 +6,7 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "bin": {
-    "tachybase-engine": "./lib/index.js"
+    "tachybase-engine": "./bin/tachybase-engine.js"
   },
   "scripts": {
     "build": "pkg --compress Brotli .",
