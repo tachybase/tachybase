@@ -336,24 +336,6 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@20.17.10)(less@4.2.1)(lightningcss@1.26.0)(sass@1.77.8)(terser@5.37.0)
 
-  apps/create-tachybase-app:
-    dependencies:
-      '@umijs/utils':
-        specifier: 3.5.43
-        version: 3.5.43
-      axios:
-        specifier: 1.7.7
-        version: 1.7.7
-      chalk:
-        specifier: ^4.1.2
-        version: 4.1.2
-      commander:
-        specifier: ^9.5.0
-        version: 9.5.0
-      tar:
-        specifier: 6.2.1
-        version: 6.2.1
-
   apps/engine:
     dependencies:
       '@koa/cors':
@@ -5166,6 +5148,9 @@ importers:
         specifier: ^1.0.8
         version: 1.0.8
     devDependencies:
+      '@types/fs-extra':
+        specifier: 11.0.4
+        version: 11.0.4
       '@types/koa':
         specifier: ^2.15.0
         version: 2.15.0
