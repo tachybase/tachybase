@@ -782,9 +782,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       if (!this.cli.hasCommand(commandName)) {
         await this.pm.loadCommands();
       }
-      console.log('start1');
       const command = await this.cli.parseAsync(argv, options);
-      console.log('error1');
 
       this.setMaintaining({
         status: 'command_end',
