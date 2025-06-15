@@ -1,5 +1,5 @@
 import { execSync } from 'node:child_process';
-import { cpus } from 'os';
+import { cpus } from 'node:os';
 
 import axios from 'axios';
 import chalk from 'chalk';

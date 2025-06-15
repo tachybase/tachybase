@@ -42,7 +42,7 @@ function initEnv() {
     SOCKET_PATH: 'storage/gateway.sock',
     NODE_MODULES_PATH: resolve(process.cwd(), 'node_modules'),
     PM2_HOME: resolve(process.cwd(), './storage/.pm2'),
-    PLUGIN_PACKAGE_PREFIX: '@tachybase/plugin-,@tachybase/preset-,@tachybase/module-',
+    PLUGIN_PACKAGE_PREFIX: '@tachybase/plugin-,@tachybase/module-',
     SERVER_TSCONFIG_PATH: './tsconfig.server.json',
     PLAYWRIGHT_AUTH_FILE: resolve(process.cwd(), 'storage/playwright/.auth/admin.json'),
     CACHE_DEFAULT_STORE: 'memory',
@@ -85,14 +85,14 @@ initEnv();
 
 const baseDir = process.cwd();
 
-const distPath = path.join(baseDir, 'apps/app-rs/dist/index.html');
+const distPath = path.join(baseDir, 'apps/app-web/dist/index.html');
 const clientPath = path.join(baseDir, 'client/index.html');
 
 let servePath = '';
 
 if (fs.existsSync(distPath)) {
   console.log(`Found: ${distPath}`);
-  servePath = path.join(baseDir, 'apps/app-rs/dist');
+  servePath = path.join(baseDir, 'apps/app-web/dist');
 } else if (fs.existsSync(clientPath)) {
   console.log(`Found: ${clientPath}`);
   servePath = path.join(baseDir, 'client');

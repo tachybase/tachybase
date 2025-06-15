@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 
 import { Command } from 'commander';
 
@@ -16,7 +16,7 @@ export default (cli: Command) => {
       nodeCheck();
       if (options.compile || options.watch || isPackageValid('@tachybase/build/src/index.ts')) {
         await run('pnpm', ['build', options.watch ? '--watch' : ''], {
-          cwd: resolve(process.cwd(), 'packages/core/build'),
+          cwd: resolve(process.cwd(), 'apps/build'),
         });
         if (options.watch) return;
       }

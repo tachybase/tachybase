@@ -8,6 +8,7 @@ import createPlugin from './create-plugin';
 import dev from './dev';
 import e2e from './e2e';
 import global from './global';
+import init from './init';
 import pm2 from './pm2';
 import postinstall from './postinstall';
 import start from './start';
@@ -30,4 +31,5 @@ export default async (cli: Command) => {
   upgrade(cli);
   postinstall(cli);
   createPlugin(cli);
+  init(cli);
 };

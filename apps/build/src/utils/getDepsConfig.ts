@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import fs from 'fs-extra';
 
@@ -29,13 +29,12 @@ export function getRltExternalsFromDeps(
   }, {});
 }
 
-function findPackageJson(filePath) {
+function findPackageJson(filePath: string) {
   const directory = path.dirname(filePath);
   const packageJsonPath = path.resolve(directory, 'package.json');
 
   if (fs.existsSync(packageJsonPath)) {
     return directory; // 返回找到的 package.json 所在目录
-    // FIXME 这个在 windows 上应该跑不了
   } else if (directory !== '/') {
     // 递归寻找直到根目录
     return findPackageJson(directory);

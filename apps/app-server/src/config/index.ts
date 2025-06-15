@@ -1,5 +1,3 @@
-import { telemetryOptions as telemetry } from '@tachybase/telemetry';
-
 import { cacheManager } from './cache';
 import { parseDatabaseOptions } from './database';
 import logger from './logger';
@@ -13,7 +11,6 @@ export async function getConfig() {
     plugins,
     cacheManager,
     logger,
-    telemetry,
     perfHooks: process.env.ENABLE_PERF_HOOKS ? true : false,
   };
 }

@@ -1,5 +1,6 @@
-import fs from 'fs';
-import { resolve } from 'path';
+import fs from 'node:fs';
+import { resolve } from 'node:path';
+import { performance } from 'node:perf_hooks';
 import { fsExists } from '@tachybase/utils';
 
 import Application from '../application';
@@ -44,6 +45,6 @@ export default (app: Application) => {
         cliArgs,
         checkInstall: true,
       });
-      app.logger.info('app has been started');
+      app.logger.info(`app has been started at ${performance.now().toFixed(2)} ms`);
     });
 };

@@ -1,7 +1,7 @@
-import { existsSync } from 'fs';
-import { readFile } from 'fs/promises';
-import { join, resolve } from 'path';
-import { URL } from 'url';
+import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
+import { URL } from 'node:url';
 
 import { Generator } from '@umijs/utils';
 import chalk from 'chalk';

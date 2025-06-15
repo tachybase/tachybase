@@ -28,7 +28,7 @@ import {
   ToposortOptions,
 } from '@tachybase/utils';
 
-import { Command, CommandOptions, ParseOptions } from 'commander';
+import { Command, CommanderError, CommandOptions, ParseOptions } from 'commander';
 import { globSync } from 'glob';
 import { i18n, InitOptions } from 'i18next';
 import Koa, { DefaultContext as KoaDefaultContext, DefaultState as KoaDefaultState } from 'koa';
@@ -684,6 +684,10 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       });
 
     command.exitOverride((err) => {
+      if (err instanceof CommanderError && err.code === 'commander.helpDisplayed') {
+        // ✅ 用户只是显示了 help，不需要报错
+        return;
+      }
       throw err;
     });
 
@@ -965,26 +969,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this.setMaintainingMessage('call beforeInstall hook...');
     await this.emitAsync('beforeInstall', this, options);
 
-    // await app.db.sync();
     await this.pm.install();
     await this.version.update();
-    // this.setMaintainingMessage('installing app...');
-    // this.log.debug('Database dialect: ' + this.db.sequelize.getDialect(), { method: 'install' });
-
-    // if (options?.clean || options?.sync?.force) {
-    //   this.log.debug('truncate database', { method: 'install' });
-    //   await this.db.clean({ drop: true });
-    //   this.log.debug('app reloading', { method: 'install' });
-    //   await this.reload();
-    // } else if (await this.isInstalled()) {
-    //   this.log.warn('app is installed', { method: 'install' });
-    //   return;
-    // }
-
-    // this.log.debug('start install plugins', { method: 'install' });
-    // await this.pm.install(options);
-    // this.log.debug('update version', { method: 'install' });
-    // await this.version.update();
 
     this.logger.debug('emit afterInstall', { method: 'install' });
     this.setMaintainingMessage('call afterInstall hook...');

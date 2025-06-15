@@ -1,7 +1,9 @@
+import { createHash } from 'node:crypto';
 import {
   cpSync as _cpSync,
   existsSync as _existsSync,
   writeFileSync as _writeFileSync,
+  createWriteStream,
   existsSync,
   readFileSync,
   rmSync,
@@ -9,15 +11,18 @@ import {
   unlinkSync,
   writeFileSync,
 } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { Socket } from 'node:net';
 import { dirname, join, resolve, sep } from 'node:path';
+import { pipeline } from 'node:stream/promises';
 
 import chalk from 'chalk';
 import { config } from 'dotenv';
 import { execa, Options } from 'execa';
 import fastGlob from 'fast-glob';
+import packageJson from 'package-json';
+import * as tar from 'tar';
 
 const require = createRequire(import.meta.url);
 
@@ -28,6 +33,32 @@ export function isPackageValid(pkg: string) {
   } catch (error) {
     return false;
   }
+}
+
+export async function downloadTar(packageName: string, target: string) {
+  const info = await packageJson(packageName, { fullMetadata: true });
+  const url = info.dist.tarball;
+  const tarballFile = join(target, '..', `${createHash('md5').update(packageName).digest('hex')}-tarball.gz`);
+  await mkdir(dirname(tarballFile), { recursive: true });
+  const writer = createWriteStream(tarballFile);
+  const response = await fetch(url);
+  if (!response.ok || !response.body) {
+    throw new Error(`Failed to fetch tarball: ${response.statusText}`);
+  }
+
+  // 使用 pipeline 将 response.body 写入文件
+  await pipeline(response.body, writer);
+
+  await mkdir(target, { recursive: true });
+  await tar.x({
+    file: tarballFile,
+    gzip: true,
+    cwd: target,
+    strip: 1,
+    k: true,
+  });
+
+  await unlink(tarballFile);
 }
 
 export function hasCorePackages() {
@@ -211,7 +242,7 @@ function normalizePath(path: string) {
 
 export function generateAppDir() {
   const defaultServerRoot = join(process.cwd(), 'apps/app-server');
-  const defaultClientRoot = join(process.cwd(), 'apps/app-rs');
+  const defaultClientRoot = join(process.cwd(), 'apps/app-web');
   process.env.APP_SERVER_ROOT = process.env.APP_SERVER_ROOT || defaultServerRoot;
   process.env.APP_CLIENT_ROOT = process.env.APP_CLIENT_ROOT || defaultClientRoot;
 }
@@ -308,7 +339,7 @@ export function initEnv() {
     SOCKET_PATH: 'storage/gateway.sock',
     NODE_MODULES_PATH: resolve(process.cwd(), 'node_modules'),
     PM2_HOME: resolve(process.cwd(), './storage/.pm2'),
-    PLUGIN_PACKAGE_PREFIX: '@tachybase/plugin-,@tachybase/preset-,@tachybase/module-,@hera/plugin-,@hera/module-',
+    PLUGIN_PACKAGE_PREFIX: '@tachybase/plugin-,@tachybase/module-',
     SERVER_TSCONFIG_PATH: './tsconfig.server.json',
     PLAYWRIGHT_AUTH_FILE: resolve(process.cwd(), 'storage/playwright/.auth/admin.json'),
     CACHE_DEFAULT_STORE: 'memory',

@@ -1,6 +1,6 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
-import { URL } from 'url';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { URL } from 'node:url';
 
 import { Command } from 'commander';
 

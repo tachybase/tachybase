@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 
 import ncc from '@vercel/ncc';
 import react from '@vitejs/plugin-react';
@@ -112,10 +112,7 @@ const external = [
   'lodash',
   'china-division',
 ];
-const pluginPrefix = (
-  process.env.PLUGIN_PACKAGE_PREFIX ||
-  '@tachybase/plugin-,@tachybase/preset-,@tachybase/module-,@hera/plugin-,@hera/module-'
-).split(',');
+const pluginPrefix = (process.env.PLUGIN_PACKAGE_PREFIX || '@tachybase/plugin-,@tachybase/module-').split(',');
 
 const target_dir = 'dist';
 
@@ -307,7 +304,7 @@ export async function buildPluginClient(cwd: string, userConfig: UserConfig, sou
   const outDir = path.join(cwd, target_dir, 'client');
 
   const globals = excludePackages.reduce<Record<string, string>>((prev, curr) => {
-    if (curr.startsWith('@tachybase') || curr.startsWith('@hera') || curr.startsWith('@tachybase')) {
+    if (curr.startsWith('@tachybase')) {
       prev[`${curr}/client`] = curr;
     }
     prev[curr] = curr;
