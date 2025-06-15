@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-file",
   "displayName": "File manager",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Provides files storage services with files collection template and attachment field.",
   "keywords": [
     "Collections",

@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-ai-chat",
   "displayName": "AI Chat",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "AI chatbot, providing operational help, intelligent Q&A",
   "keywords": [
     "Others"
