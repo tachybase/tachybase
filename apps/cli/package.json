@@ -35,14 +35,17 @@
     "fs-extra": "^11.2.0",
     "lodash": "^4.17.21",
     "p-all": "3.0.0",
+    "package-json": "10.0.1",
     "pm2": "^5.4.3",
     "portfinder": "^1.0.32",
     "semver": "^7.6.3",
     "serve": "^14.2.4",
+    "tar": "7.4.3",
     "tree-kill": "^1.2.2",
     "tsconfig-paths": "^4.2.0",
     "tsup": "8.3.5",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "yocto-spinner": "1.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",

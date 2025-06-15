@@ -16,13 +16,13 @@ export class PluginPresets extends Plugin {
     'error-handler',
     'event-source',
     'file',
+    'workflow',
     'message',
     'pdf',
     'ui-schema',
     'user',
     'web',
     'worker-thread',
-    'workflow',
     'env-secrets',
   ];
 
