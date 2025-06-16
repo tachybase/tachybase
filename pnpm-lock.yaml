@@ -1080,7 +1080,7 @@ importers:
         specifier: ^5.0.2
         version: 5.0.2
       glob:
-        specifier: ^11.0.0
+        specifier: 11.0.0
         version: 11.0.0
       graphlib:
         specifier: ^2.1.8
@@ -4953,7 +4953,7 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1
       glob:
-        specifier: ^11.0.0
+        specifier: 11.0.0
         version: 11.0.0
       koa-compose:
         specifier: ^4.1.0
@@ -5118,7 +5118,7 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       glob:
-        specifier: ^11.0.0
+        specifier: 11.0.0
         version: 11.0.0
       i18next:
         specifier: 23.16.8
