@@ -58,7 +58,7 @@ export default class ApprovalCarbonCopyInstruction extends Instruction {
             .collectionManager.getCollection(approval.collectionName);
           const message = {
             userId,
-            title: '{{t("Approval Carbon Copy", { ns: "@tachybase/plugin-workflow-approval" })}}',
+            title: '{{t("Approval Carbon Copy", { ns: "workflow-approval" })}}',
             content: '',
             jsonContent: approval.summary,
             collectionName: approval.collectionName,

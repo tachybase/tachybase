@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useCurrentUserContext } from '@tachybase/client';
+import { useCompile, useCurrentUserContext } from '@tachybase/client';
 import { EXECUTION_STATUS } from '@tachybase/module-workflow/client';
 import { dayjs } from '@tachybase/utils/client';
 
@@ -15,12 +15,13 @@ import { useContextApprovalExecution } from '../context/ApprovalExecution';
 import { ContextWithActionEnabled } from '../context/WithActionEnabled';
 
 export const ApprovalProcess = (props) => {
+  const compile = useCompile();
   const { t } = useTranslation();
   const { approval: approvalContext } = useContextApprovalExecution();
   const { data } = useCurrentUserContext();
   const { Step } = Steps;
   const results = useMemo(() => getResults({ approval: approvalContext, currentUser: data }), [approvalContext, data]);
-  const stepsResult = getStepsResult(results, t);
+  const stepsResult = getStepsResult(results, t, { compile });
 
   return (
     <ContextWithActionEnabled.Provider value={{ actionEnabled: props.actionEnabled }}>
@@ -28,7 +29,7 @@ export const ApprovalProcess = (props) => {
         {stepsResult.map((item, index) => {
           return (
             <Step
-              title={item.title}
+              title={compile(item.title)}
               key={index}
               description={
                 <Space direction="vertical">
@@ -37,7 +38,7 @@ export const ApprovalProcess = (props) => {
                       <Space key={indexs}>
                         {deItem.userName}
                         <Tag color={deItem.status.color} fill="outline">
-                          {t(deItem.status.label)}
+                          {compile(deItem.status.label)}
                         </Tag>
                         {deItem.date}
                       </Space>
@@ -125,7 +126,7 @@ function getResults({ approval, currentUser }) {
   );
 }
 
-const getStepsResult = (result, t) => {
+const getStepsResult = (result, t, { compile }) => {
   const stepData = [];
   result.forEach((item) => {
     const stepItem = {};
@@ -143,7 +144,7 @@ const getStepsResult = (result, t) => {
         const approvalStatus = approvalTodoStatusOptions.find((option) => option.value === value.status);
         const approvalActionStatus = approvalStatusEnums.find((option) => option.value === value.status);
         if (value.nodeId) {
-          status['label'] = approvalStatus?.label || approvalActionStatus?.label;
+          status['label'] = compile(approvalStatus?.label) || compile(approvalActionStatus?.label);
           status['color'] = approvalStatus?.color || approvalActionStatus?.color || 'default';
         } else {
           status['label'] = approvalActionStatus?.label || approvalStatus?.label;
