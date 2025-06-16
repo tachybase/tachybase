@@ -93,7 +93,7 @@ export const schemaTableInitiated = {
             },
           },
         },
-        updatedAt: {
+        createdAt: {
           type: 'void',
           'x-decorator': 'TableV2.Column.Decorator',
           'x-component': 'TableV2.Column',
@@ -101,7 +101,7 @@ export const schemaTableInitiated = {
             width: 160,
           },
           properties: {
-            updatedAt: {
+            createdAt: {
               type: 'string',
               'x-component': 'CollectionField',
               'x-read-pretty': true,

@@ -129,7 +129,7 @@ const changService = (api, setData, user, filter, t, setDefaultData, cm, compile
           ...item,
           title: `${user.data.data.nickname}的${categoryTitle}`,
           categoryTitle: categoryTitle,
-          statusTitle: t(statusType?.label),
+          statusTitle: compile(statusType?.label),
           statusColor: statusType?.color || 'default',
           reason: summary || [],
           priorityTitle: priorityType?.label,

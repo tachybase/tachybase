@@ -66,7 +66,7 @@ export const collectionApprovals = {
       interface: 'createdAt',
       uiSchema: {
         type: 'datetime',
-        title: '{{t("Created at")}}',
+        title: tval('Launched time'),
         'x-component': 'DatePicker',
         'x-component-props': { showTime: true },
       },
