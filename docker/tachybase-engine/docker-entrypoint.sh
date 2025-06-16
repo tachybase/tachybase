@@ -2,7 +2,7 @@
 set -e
 
 # cp dist files
-cp -r /app/apps/app-web/dist/* /app/public/
+cp -r /app/plugins/node_modules/@tachybase/app-web/dist/* /app/public/
 
 # handle sentry
 original_file="/app/apps/app-web/dist/index.html"
@@ -20,4 +20,4 @@ output_file="/app/public/index.html"
     fi
 } > "$output_file"
 
-pnpm start --quickstart
+tachybase-engine start --quickstart
