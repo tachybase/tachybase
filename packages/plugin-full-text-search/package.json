@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-full-text-search",
   "displayName": "Full-text Search",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Provides full text search capability",
   "keywords": [
     "System management"
