@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-action-bulk-update",
   "displayName": "Action: Batch update",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Batch update all records or selected records.",
   "keywords": [
     "Actions"
