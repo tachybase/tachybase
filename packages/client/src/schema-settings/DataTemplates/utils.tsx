@@ -3,7 +3,7 @@ import { ArrayBase } from '@tachybase/components';
 import { useForm } from '@tachybase/schema';
 
 import { App } from 'antd';
-import LRUCache from 'lru-cache';
+import { LRUCache } from 'lru-cache';
 import { useTranslation } from 'react-i18next';
 
 import { getAssociationPath } from '../../block-provider/hooks';

@@ -706,9 +706,10 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     };
     const extensions = ['js', 'ts'];
     const patten = `${directory}/*.{${extensions.join(',')}}`;
+    // NOTE: filter to fix npx run problem
     const files = globSync(patten, {
       ignore: ['**/*.d.ts'],
-    });
+    }).filter((f) => !f.endsWith('.d.ts'));
     const appVersion = await this.version.get();
     for (const file of files) {
       let filename = basename(file);
