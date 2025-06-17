@@ -684,7 +684,7 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       });
 
     command.exitOverride((err) => {
-      if (err instanceof CommanderError && err.code === 'commander.helpDisplayed') {
+      if ((err instanceof CommanderError && err.code === 'commander.helpDisplayed') || err.code === 'commander.help') {
         // ✅ 用户只是显示了 help，不需要报错
         return;
       }
