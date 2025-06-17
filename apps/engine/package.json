@@ -59,7 +59,7 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/logger": "workspace:*",
-    "@tachybase/pkg": "workspace:*"
+    "@yao-pkg/pkg": "6.5.1"
   },
   "pkg": {
     "targets": [

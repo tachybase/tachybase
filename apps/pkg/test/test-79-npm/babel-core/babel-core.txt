@@ -1,4 +1,0 @@
-let p = process;
-Object.keys(p).some((key) => {
-  console.log(key);
-});

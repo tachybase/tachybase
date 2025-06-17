@@ -1,9 +1,0 @@
-{
-  "parserOptions": {
-    "sourceType": "script"
-  },
-  "rules": {
-    "no-var": "off",
-    "vars-on-top": "off"
-  }
-}
