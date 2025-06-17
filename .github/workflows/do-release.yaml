@@ -19,6 +19,8 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    outputs:
+      version: ${{ steps.do_version.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
