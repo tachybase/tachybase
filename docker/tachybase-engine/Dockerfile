@@ -7,9 +7,7 @@ ENV COREPACK_NPM_REGISTRY=$NPM_REGISTRY
 RUN npm install -g corepack@latest
 RUN corepack enable
 
-COPY . /app
 WORKDIR /app
-
 
 ENV NODE_MODULES_PATH=/app/plugins/node_modules
 RUN npm i -g @tachybase/cli && npm i -g @tachybase/engine

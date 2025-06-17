@@ -1,8 +1,7 @@
-FROM node:20-bookworm as builder
+FROM node:20-bookworm AS builder
 
 ARG NPM_REGISTRY=https://registry.npmjs.org
 
-COPY . /app
 WORKDIR /app
 
 ENV NODE_MODULES_PATH=/app/plugins/node_modules
