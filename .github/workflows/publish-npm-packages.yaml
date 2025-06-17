@@ -31,6 +31,24 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
           pnpm -r publish --provenance --access public --no-git-checks
+      - name: Build with pkg
+        run: pnpm --filter '@tachybase/engine' run build
+
+      - name: Rename files for release
+        run: |
+          mv apps/engine/dist/engine-linux apps/engine/dist/engine-linux-x64
+          mv apps/engine/dist/engine-macos apps/engine/dist/engine-macos-x64
+          mv apps/engine/dist/engine-win apps/engine/dist/engine-win-x64
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            apps/engine/dist/engine-linux-x64
+            apps/engine/dist/engine-macos-x64
+            apps/engine/dist/engine-win-x64
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   tachybase:
     needs: publish
