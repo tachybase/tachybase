@@ -265,9 +265,6 @@ importers:
       '@umijs/utils':
         specifier: 3.5.43
         version: 3.5.43
-      axios:
-        specifier: 1.7.7
-        version: 1.7.7
       chalk:
         specifier: ^5.4.0
         version: 5.4.0
