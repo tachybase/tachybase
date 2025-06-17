@@ -59,6 +59,8 @@ jobs:
       contents: write
       id-token: write
     steps:
+      - name: echo
+        run: echo ${{ needs.release.outputs.version }}
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup pnpm
@@ -72,13 +74,13 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
-      - name: Publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-          pnpm -r publish --provenance --access public --no-git-checks
+      # - name: Publish
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #   run: |
+      #     echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+      #     pnpm -r publish --provenance --access public --no-git-checks
       - name: Build with pkg
         run: pnpm --filter '@tachybase/engine' run build
 
