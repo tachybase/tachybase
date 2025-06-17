@@ -82,12 +82,6 @@ jobs:
       - name: Build with pkg
         run: pnpm --filter '@tachybase/engine' run build
 
-      - name: Rename files for release
-        run: |
-          mv apps/engine/dist/engine-linux apps/engine/dist/engine-linux-x64
-          mv apps/engine/dist/engine-macos apps/engine/dist/engine-macos-x64
-          mv apps/engine/dist/engine-win.exe apps/engine/dist/engine-win-x64.exe
-
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         with:
@@ -96,6 +90,9 @@ jobs:
             apps/engine/dist/engine-linux-x64
             apps/engine/dist/engine-macos-x64
             apps/engine/dist/engine-win-x64.exe
+            apps/engine/dist/engine-linux-arm64
+            apps/engine/dist/engine-macos-arm64
+            apps/engine/dist/engine-win-arm64.exe
 
   tachybase:
     needs: [publish, release]
