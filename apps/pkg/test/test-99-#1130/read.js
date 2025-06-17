@@ -3,8 +3,8 @@
 // Thanks to @roberttod
 // https://github.com/vercel/pkg/blob/59b1afdb39613777150c17f77b45595864ba072e/test/test-1103-readdirsync-withfiletypes/read.js
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 console.log('Starting sync read');
 

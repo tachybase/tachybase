@@ -2,16 +2,16 @@
 
 require('../beta');
 
-if (process.pkg && require('path').sep === '/') {
+if (process.pkg && require('node:path').sep === '/') {
   if (__dirname === '/snapshot/pkg/test/test-50-package-json-6c/beta') {
     try {
       console.log(
-        require('fs').readFileSync('/snapshot/pkg/package.json', 'utf-8'),
+        require('node:fs').readFileSync('/snapshot/pkg/package.json', 'utf-8'),
       );
     } catch (_) {
       // must not take pkg/package.json into executable
     }
   } else {
-    require('assert')(__dirname === '/snapshot/beta');
+    require('node:assert')(__dirname === '/snapshot/beta');
   }
 }

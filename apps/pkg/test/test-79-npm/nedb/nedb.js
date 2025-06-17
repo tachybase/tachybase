@@ -1,7 +1,7 @@
 'use strict';
 
 var Nedb = require('nedb');
-var fs = require('fs');
+var fs = require('node:fs');
 var filename = 'database.db';
 var db = new Nedb({ filename: filename });
 

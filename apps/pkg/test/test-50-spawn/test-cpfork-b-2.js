@@ -2,9 +2,9 @@
 
 'use strict';
 
-var assert = require('assert');
-var path = require('path');
-var cp = require('child_process');
+var assert = require('node:assert');
+var path = require('node:path');
+var cp = require('node:child_process');
 var child;
 
 assert(!process.send);

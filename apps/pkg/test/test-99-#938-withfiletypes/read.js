@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 
 function isLastEntryString(files) {
   const last = files[files.length - 1];

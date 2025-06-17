@@ -2,7 +2,7 @@
 
 'use strict';
 
-const { spawn } = require('child_process');
+const { spawn } = require('node:child_process');
 
 const { argv } = process;
 

@@ -1,9 +1,9 @@
 /* eslint-disable require-atomic-updates */
 
-import assert from 'assert';
-import fs from 'fs/promises';
-import path from 'path';
-import module, { builtinModules } from 'module';
+import assert from 'node:assert';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import module, { builtinModules } from 'node:module';
 import picomatch from 'picomatch';
 import { globSync } from 'tinyglobby';
 
@@ -122,11 +122,11 @@ function isPublic(config: PackageJson) {
     return false;
   }
 
-  if (/^\(/.test(license)) {
+  if (license.startsWith('(')) {
     license = license.slice(1);
   }
 
-  if (/\)$/.test(license)) {
+  if (license.endsWith(')')) {
     license = license.slice(0, -1);
   }
 
@@ -235,11 +235,11 @@ async function stepRead(record: FileRecord) {
 function stepStrip(record: FileRecord) {
   let body = (record.body || '').toString('utf8');
 
-  if (/^\ufeff/.test(body)) {
+  if (body.startsWith('﻿')) {
     body = body.replace(/^\ufeff/, '');
   }
 
-  if (/^#!/.test(body)) {
+  if (body.startsWith('#!')) {
     body = body.replace(/^#![^\n]*\n/, '\n');
   }
 
@@ -1080,7 +1080,7 @@ class Walker {
     const files = await fs.readdir(dd);
 
     for (const file of files) {
-      if (/\.js$/.test(file)) {
+      if (file.endsWith('.js')) {
         const name = file.slice(0, -3);
 
         if (this.params.noDictionary?.includes(file)) {

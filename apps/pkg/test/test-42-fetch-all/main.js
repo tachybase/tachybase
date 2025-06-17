@@ -2,13 +2,13 @@
 
 'use strict';
 
-const assert = require('assert');
+const assert = require('node:assert');
 const fetch = require('@yao-pkg/pkg-fetch');
 const items = [];
 
 // eslint-disable-next-line no-unused-vars
 function nodeRangeToNodeVersion(nodeRange) {
-  assert(/^node/.test(nodeRange));
+  assert(nodeRange.startsWith('node'));
   return 'v' + nodeRange.slice(4);
 }
 

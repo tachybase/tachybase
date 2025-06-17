@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 if (!fs.existsSync('package.json')) {
   fs.writeFileSync('package.json', '{}');
 }

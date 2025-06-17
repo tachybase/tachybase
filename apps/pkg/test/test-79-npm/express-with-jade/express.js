@@ -1,6 +1,6 @@
 'use strict';
 
-var http = require('http');
+var http = require('node:http');
 var express = require('express');
 var app = express();
 app.set('views', 'views');

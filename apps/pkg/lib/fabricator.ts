@@ -1,5 +1,5 @@
-import { spawn, ChildProcessByStdio } from 'child_process';
-import { Readable, Writable } from 'stream';
+import { spawn, ChildProcessByStdio } from 'node:child_process';
+import { Readable, Writable } from 'node:stream';
 import { log } from './log';
 import { Target } from './types';
 

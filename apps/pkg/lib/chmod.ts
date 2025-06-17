@@ -1,4 +1,4 @@
-import { chmod, stat } from 'fs/promises';
+import { chmod, stat } from 'node:fs/promises';
 
 export async function plusx(file: string) {
   const s = await stat(file);

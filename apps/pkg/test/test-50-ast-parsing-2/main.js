@@ -2,8 +2,8 @@
 
 'use strict';
 
-const fs = require('fs');
-const assert = require('assert');
+const fs = require('node:fs');
+const assert = require('node:assert');
 const utils = require('../utils.js');
 
 assert(!module.parent);

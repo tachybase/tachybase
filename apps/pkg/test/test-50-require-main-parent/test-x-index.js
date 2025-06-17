@@ -2,7 +2,7 @@
 
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 
 console.log(
   [

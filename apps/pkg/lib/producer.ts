@@ -1,12 +1,12 @@
-import { createBrotliCompress, createGzip } from 'zlib';
+import { createBrotliCompress, createGzip } from 'node:zlib';
 import Multistream from 'multistream';
-import assert from 'assert';
-import { execFileSync } from 'child_process';
-import fs from 'fs';
+import assert from 'node:assert';
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
 import intoStream from 'into-stream';
-import path from 'path';
+import path from 'node:path';
 import streamMeter from 'stream-meter';
-import { Readable } from 'stream';
+import { Readable } from 'node:stream';
 
 import { STORE_BLOB, STORE_CONTENT, isDotNODE, snapshotify } from './common';
 import { log, wasReported } from './log';

@@ -2,11 +2,11 @@
 
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 const pc = require('picocolors');
 const { globSync } = require('tinyglobby');
 const utils = require('./utils.js');
-const { spawn } = require('child_process');
+const { spawn } = require('node:child_process');
 const host = 'node' + utils.getNodeMajorVersion();
 let target = process.argv[2] || 'host';
 if (target === 'host') target = host;

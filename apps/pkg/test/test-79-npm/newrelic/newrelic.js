@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 process.env.NEW_RELIC_APP_NAME = 'pkg-test';
 process.env.NEW_RELIC_NO_CONFIG_FILE = true;
 var Agent = require('newrelic/lib/agent.js');

@@ -2,7 +2,7 @@
 
 'use strict';
 
-var execSync = require('child_process').execSync;
+var execSync = require('node:child_process').execSync;
 
 execSync(
   '"' +

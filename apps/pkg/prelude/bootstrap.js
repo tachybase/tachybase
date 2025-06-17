@@ -16,22 +16,22 @@
 
 'use strict';
 
-const childProcess = require('child_process');
-const { createHash } = require('crypto');
-const fs = require('fs');
-const { isRegExp } = require('util').types;
-const Module = require('module');
-const path = require('path');
-const { promisify } = require('util');
-const { Script } = require('vm');
-const { homedir, tmpdir } = require('os');
-const util = require('util');
+const childProcess = require('node:child_process');
+const { createHash } = require('node:crypto');
+const fs = require('node:fs');
+const { isRegExp } = require('node:util').types;
+const Module = require('node:module');
+const path = require('node:path');
+const { promisify } = require('node:util');
+const { Script } = require('node:vm');
+const { homedir, tmpdir } = require('node:os');
+const util = require('node:util');
 const {
   brotliDecompress,
   brotliDecompressSync,
   gunzip,
   gunzipSync,
-} = require('zlib');
+} = require('node:zlib');
 
 const common = {};
 REQUIRE_COMMON(common);
@@ -66,7 +66,7 @@ if (process.env.PKG_EXECPATH === 'PKG_INVOKE_NODEJS') {
   return { undoPatch: true };
 }
 
-if (NODE_VERSION_MAJOR < 12 || require('worker_threads').isMainThread) {
+if (NODE_VERSION_MAJOR < 12 || require('node:worker_threads').isMainThread) {
   if (process.argv[1] !== 'PKG_DUMMY_ENTRYPOINT') {
     // expand once patchless is introduced, that
     // will obviously lack any work in node_main.cc
@@ -1766,7 +1766,7 @@ function payloadFileSync(pointer) {
   }
 
   function revertMakingLong(f) {
-    if (/^\\\\\?\\/.test(f)) return f.slice(4);
+    if (f.startsWith('\\\\?\\')) return f.slice(4);
     return f;
   }
 
@@ -2220,7 +2220,7 @@ function payloadFileSync(pointer) {
   };
 
   function revertMakingLong(f) {
-    if (/^\\\\\?\\/.test(f)) return f.slice(4);
+    if (f.startsWith('\\\\?\\')) return f.slice(4);
     return f;
   }
 

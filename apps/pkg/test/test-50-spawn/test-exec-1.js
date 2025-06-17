@@ -4,7 +4,7 @@
 
 // AppVeyor: unquoted execPath inside 'Program Files'
 if (process.platform === 'win32') return;
-var exec = require('child_process').exec;
+var exec = require('node:child_process').exec;
 
 var child = exec(
   process.execPath +

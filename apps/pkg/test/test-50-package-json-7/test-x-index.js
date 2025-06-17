@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 
 var dataPath1 = 'delta';
 require(dataPath1);

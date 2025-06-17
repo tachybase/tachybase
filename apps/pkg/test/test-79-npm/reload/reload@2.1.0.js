@@ -1,6 +1,6 @@
 'use strict';
 
-var http = require('http');
+var http = require('node:http');
 require('reload/bin/reload');
 
 setTimeout(function () {

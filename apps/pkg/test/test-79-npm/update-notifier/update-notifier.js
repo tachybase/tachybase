@@ -4,8 +4,8 @@
 require('ci-info').isCI = false;
 
 var spawnWasCalled;
-var save = require('child_process').spawn;
-require('child_process').spawn = function () {
+var save = require('node:child_process').spawn;
+require('node:child_process').spawn = function () {
   spawnWasCalled = true;
   return save.apply(this, arguments); // eslint-disable-line prefer-rest-params
 };

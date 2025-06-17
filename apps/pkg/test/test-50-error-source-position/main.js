@@ -2,8 +2,8 @@
 
 'use strict';
 
-const path = require('path');
-const assert = require('assert');
+const path = require('node:path');
+const assert = require('node:assert');
 const utils = require('../utils.js');
 
 assert(!module.parent);
@@ -28,6 +28,6 @@ if (!/^(node|v)?0/.test(target)) {
   assert(right.stderr.indexOf('x.parse is not a function') >= 0);
 }
 
-const errorPointer = 'x.parse();' + require('os').EOL + '  ^';
+const errorPointer = 'x.parse();' + require('node:os').EOL + '  ^';
 assert(right.stderr.indexOf(errorPointer) >= 0);
 utils.vacuum.sync(output);

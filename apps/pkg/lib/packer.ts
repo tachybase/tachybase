@@ -1,8 +1,8 @@
 /* eslint-disable complexity */
 
-import assert from 'assert';
-import { readFileSync } from 'fs';
-import path from 'path';
+import assert from 'node:assert';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 
 import {
   STORE_BLOB,

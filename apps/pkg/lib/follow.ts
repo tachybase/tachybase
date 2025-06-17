@@ -1,6 +1,6 @@
 import { sync, SyncOpts } from 'resolve';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { toNormalizedRealPath } from './common';
 
 import type { PackageJson } from './types';

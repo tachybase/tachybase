@@ -1,12 +1,12 @@
-import { exec as cExec } from 'child_process';
-import util from 'util';
-import { basename, dirname, join, resolve } from 'path';
-import { copyFile, writeFile, rm, mkdir, stat, readFile } from 'fs/promises';
-import { createWriteStream } from 'fs';
-import { pipeline } from 'stream/promises';
-import { ReadableStream } from 'stream/web';
-import { createHash } from 'crypto';
-import { homedir, tmpdir } from 'os';
+import { exec as cExec } from 'node:child_process';
+import util from 'node:util';
+import { basename, dirname, join, resolve } from 'node:path';
+import { copyFile, writeFile, rm, mkdir, stat, readFile } from 'node:fs/promises';
+import { createWriteStream } from 'node:fs';
+import { pipeline } from 'node:stream/promises';
+import { ReadableStream } from 'node:stream/web';
+import { createHash } from 'node:crypto';
+import { homedir, tmpdir } from 'node:os';
 import unzipper from 'unzipper';
 import { extract as tarExtract } from 'tar';
 import { log } from './log';
@@ -369,10 +369,9 @@ export default async function sea(entryPoint: string, opts: SeaOptions) {
     const seaConfig = {
       main: entryPoint,
       output: blobPath,
-      ...{
+      
         ...defaultSeaConfig,
         ...(opts.seaConfig || {}),
-      },
     };
 
     log.info('Creating sea-config.json file...');

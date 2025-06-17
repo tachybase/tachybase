@@ -1,6 +1,6 @@
 'use strict';
 
-var path = require('path');
+var path = require('node:path');
 var callsites = require('callsites');
 var fns = callsites().map(function (c) {
   return c.getFileName();

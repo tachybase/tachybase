@@ -1,11 +1,11 @@
 /* eslint-disable require-atomic-updates */
 
-import assert from 'assert';
-import { existsSync, readFileSync, writeFileSync, copyFileSync } from 'fs';
-import { mkdir, readFile, rm, stat } from 'fs/promises';
+import assert from 'node:assert';
+import { existsSync, readFileSync, writeFileSync, copyFileSync } from 'node:fs';
+import { mkdir, readFile, rm, stat } from 'node:fs/promises';
 import minimist from 'minimist';
 import { need, system } from '@yao-pkg/pkg-fetch';
-import path from 'path';
+import path from 'node:path';
 
 import { log, wasReported } from './log';
 import help from './help';

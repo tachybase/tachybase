@@ -1,6 +1,6 @@
 'use strict';
 
-var path = require('path');
+var path = require('node:path');
 var xlsx = require('xlsx');
 
 var xls = xlsx.readFileSync(path.join(__dirname, 'registry.xls'));

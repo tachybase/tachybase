@@ -1,6 +1,6 @@
 'use strict';
 
-var path = require('path');
+var path = require('node:path');
 var content = path.join(__dirname, 'test-x1-content.js');
 
 console.log(
