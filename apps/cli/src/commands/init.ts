@@ -54,8 +54,8 @@ const plugins = [
   'manual-notification',
 ];
 
-function initEnv() {
-  const envPath = path.resolve(process.cwd(), '.env');
+function initEnv(name: string) {
+  const envPath = path.resolve(process.cwd(), name, '.env');
 
   if (!fs.existsSync(envPath)) {
     const content = `
@@ -167,11 +167,17 @@ export default (cli: Command) => {
         .map((s) => s.trim())
         .filter(Boolean);
     })
+    .argument('[name]', 'project name', 'my-app')
     .allowUnknownOption()
-    .action(async (options) => {
-      initEnv();
+    .action(async (name: string, options) => {
+      if (fs.existsSync(name)) {
+        console.log(`project folder ${name} already exists, exit now.`);
+        return;
+      }
+      fs.mkdirSync(name);
+      initEnv(name);
 
-      const prefix = 'plugins/node_modules';
+      const prefix = `${name}/plugins/node_modules`;
       // 安装前端代码
       console.log('🚀 ~ start download ~ front end files');
       const spinner = yoctoSpinner({ text: `Loading @tachybase/app-web` }).start();

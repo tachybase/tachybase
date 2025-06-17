@@ -3,6 +3,7 @@ import './intercept';
 import fs from 'node:fs';
 import path, { resolve } from 'node:path';
 import { performance } from 'node:perf_hooks';
+import process from 'node:process';
 import { Gateway } from '@tachybase/server';
 
 import { config } from 'dotenv';
@@ -23,6 +24,12 @@ function parseEnv(name: string) {
   }
 }
 
+// 猜测所在位置
+let guessPath;
+if (fs.existsSync(path.join(process.cwd(), 'plugins/node_modules'))) {
+  guessPath = path.join(process.cwd(), 'plugins/node_modules');
+}
+
 function initEnv() {
   const env = {
     APP_ENV: 'development',
@@ -40,7 +47,7 @@ function initEnv() {
     MFSU_AD: 'none',
     WS_PATH: '/ws',
     SOCKET_PATH: 'storage/gateway.sock',
-    NODE_MODULES_PATH: resolve(process.cwd(), 'node_modules'),
+    NODE_MODULES_PATH: guessPath ? resolve(process.cwd(), 'node_modules') : guessPath,
     PM2_HOME: resolve(process.cwd(), './storage/.pm2'),
     PLUGIN_PACKAGE_PREFIX: '@tachybase/plugin-,@tachybase/module-',
     SERVER_TSCONFIG_PATH: './tsconfig.server.json',
