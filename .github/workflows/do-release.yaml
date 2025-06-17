@@ -1,18 +1,62 @@
-name: Publish NPM Packages And Build Tachybase Engine Docker
+name: Release New Version
 
-# on:
-#   release:
-#     types: [published]
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+    bump:
+      description: 'Version bump type'
+      required: true
+      default: 'patch'
+      type: choice
+      options:
+        - patch
+        - minor
+        - major
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.18.0
+      - name: Do major version release
+        id: do_version
+        run: |
+          echo "bump=${{ github.event.inputs.bump }}" >> $GITHUB_ENV
+          if [ "$bump" = "major" ]; then
+            pnpm -r exec -- npm version major
+            version=$(npm version major --no-git-tag-version)
+          elif [ "$bump" = "minor" ]; then
+            pnpm -r exec -- npm version minor
+            version=$(npm version minor --no-git-tag-version)
+          else
+            pnpm -r exec -- npm version patch
+            version=$(npm version patch --no-git-tag-version)
+          fi
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          tagging_message: ${{ steps.do_version.outputs.version }}
+          commit_message: "chore(version): release ${{ steps.do_version.outputs.version }}"
+
+  publish:
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
       id-token: write
     steps:
       - name: Checkout
@@ -53,7 +97,7 @@ jobs:
             apps/engine/dist/engine-win-x64.exe
 
   tachybase:
-    needs: publish
+    needs: [publish, release]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -71,10 +115,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Extract Tag Name
-        id: extract_tag
-        run: echo version=`echo "${{ github.ref }}" | cut -d'/' -f3` >> "$GITHUB_OUTPUT"
-
       - name: Build and push multi-arch image
         uses: docker/build-push-action@v6
         with:
@@ -83,13 +123,13 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
-            TACHYBASE_VERSION=${{ github.event.release.tag_name }}
+            TACHYBASE_VERSION=${{ needs.release.outputs.version }}
           tags: |
-            tachybase/tachybase-all:${{ github.event.release.tag_name }}
+            tachybase/tachybase-all:${{ needs.release.outputs.version }}
             tachybase/tachybase-all:latest
 
   tachybase-all:
-    needs: publish
+    needs: [publish, release]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -114,13 +154,13 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
-            TACHYBASE_VERSION=${{ github.event.release.tag_name }}
+            TACHYBASE_VERSION=${{ needs.release.outputs.version }}
           tags: |
-            tachybase/tachybase-all:${{ github.event.release.tag_name }}
+            tachybase/tachybase-all:${{ needs.release.outputs.version }}
             tachybase/tachybase-all:latest
 
   tachybase-engine:
-    needs: publish
+    needs: [publish, release]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -145,7 +185,8 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
-            TACHYBASE_VERSION=${{ github.event.release.tag_name }}
+            TACHYBASE_VERSION=${{ needs.release.outputs.version }}
           tags: |
-            tachybase/tachybase-engine:${{ github.event.release.tag_name }}
+            tachybase/tachybase-engine:${{ needs.release.outputs.version }}
             tachybase/tachybase-engine:latest
+
