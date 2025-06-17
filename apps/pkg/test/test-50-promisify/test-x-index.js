@@ -1,10 +1,10 @@
 'use strict';
 
-var promisify = require('util').promisify;
+var promisify = require('node:util').promisify;
 if (!promisify) return console.log('ok');
 
-var fs = require('fs');
-var execAsync = promisify(require('child_process').exec);
+var fs = require('node:fs');
+var execAsync = promisify(require('node:child_process').exec);
 var existsAsync = promisify(fs.exists);
 var readAsync = promisify(fs.read);
 

@@ -2,9 +2,9 @@
 
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const assert = require('assert');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert');
 const utils = require('../utils.js');
 
 assert(!module.parent);
@@ -20,7 +20,7 @@ function rnd() {
 const pairs = fs
   .readdirSync('.')
   .filter(function (f) {
-    return /\.js$/.test(f) && f !== 'main.js' && !/-child\.js$/.test(f);
+    return f.endsWith('.js') && f !== 'main.js' && !f.endsWith('-child.js');
   })
   .map(function (f) {
     return {

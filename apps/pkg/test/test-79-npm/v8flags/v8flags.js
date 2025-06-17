@@ -2,9 +2,9 @@
 
 'use strict';
 
-var cp = require('child_process');
+var cp = require('node:child_process');
 
-require('module')._extensions['.json'] = function () {
+require('node:module')._extensions['.json'] = function () {
   throw new Error('prevent loading json cache');
 };
 

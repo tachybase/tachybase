@@ -2,9 +2,9 @@
 
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const assert = require('assert');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert');
 const theFile = path.join(__dirname, 'test-z-asset.css');
 const theDirectory = __dirname;
 

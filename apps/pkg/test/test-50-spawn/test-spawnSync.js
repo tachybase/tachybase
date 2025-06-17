@@ -2,7 +2,7 @@
 
 'use strict';
 
-var spawnSync = require('child_process').spawnSync;
+var spawnSync = require('node:child_process').spawnSync;
 
 var child = spawnSync(
   process.execPath,

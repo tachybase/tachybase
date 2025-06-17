@@ -1,6 +1,6 @@
 'use strict';
 
-var http = require('http');
+var http = require('node:http');
 var engine = require('engine.io');
 engine.listen(3000);
 

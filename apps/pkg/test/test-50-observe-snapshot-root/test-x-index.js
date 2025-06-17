@@ -1,7 +1,7 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
+var fs = require('node:fs');
+var path = require('node:path');
 
 if (process.platform === 'win32') {
   var root = path.parse(process.argv[1]).root; // D:\\

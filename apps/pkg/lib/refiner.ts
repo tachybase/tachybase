@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { pc } from './colors';
 import {
   STORE_LINKS,

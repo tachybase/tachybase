@@ -3,9 +3,9 @@
 
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var assert = require('assert');
+var fs = require('node:fs');
+var path = require('node:path');
+var assert = require('node:assert');
 var theRequireContentA = './test-z-asset-A.css';
 var theRequireContentB = 'test-z-asset-B.css';
 

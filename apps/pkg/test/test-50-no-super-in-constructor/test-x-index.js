@@ -1,7 +1,7 @@
 'use strict';
 
-var events = require('events');
-var util = require('util');
+var events = require('node:events');
+var util = require('node:util');
 
 class UpnpService {
   constructor() {

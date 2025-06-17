@@ -2,8 +2,8 @@
 
 'use strict';
 
-var assert = require('assert');
-var cp = require('child_process');
+var assert = require('node:assert');
+var cp = require('node:child_process');
 var child;
 
 assert(!process.send);

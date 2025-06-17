@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 var client = require('socket.io-client');
 if (typeof client.protocol === 'number') {
   var literal = 'socket.io-client/socket.io.js';

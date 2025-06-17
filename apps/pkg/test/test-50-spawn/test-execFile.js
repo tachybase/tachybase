@@ -2,7 +2,7 @@
 
 'use strict';
 
-var execFile = require('child_process').execFile;
+var execFile = require('node:child_process').execFile;
 
 var child = execFile(
   process.execPath,

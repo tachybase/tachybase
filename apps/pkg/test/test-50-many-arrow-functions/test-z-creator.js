@@ -22,4 +22,4 @@ s += "ee.emit('message', 'hooray');\n";
 
 s = "'use strict';\n\n" + s;
 
-require('fs').writeFileSync('test-x-index.js', s);
+require('node:fs').writeFileSync('test-x-index.js', s);

@@ -1,8 +1,8 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var crypto = require('crypto');
+var fs = require('node:fs');
+var path = require('node:path');
+var crypto = require('node:crypto');
 
 function sha256(s) {
   return crypto.createHash('sha256').update(s).digest('hex');

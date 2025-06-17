@@ -3,7 +3,7 @@
 'use strict';
 
 if (process.platform !== 'win32') return;
-var spawn = require('child_process').spawn;
+var spawn = require('node:child_process').spawn;
 
 var child = spawn(
   'cmd.exe',

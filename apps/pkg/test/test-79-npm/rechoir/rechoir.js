@@ -1,6 +1,6 @@
 'use strict';
 
-var path = require('path');
+var path = require('node:path');
 var config = require('interpret').extensions;
 var rechoir = require('rechoir');
 require('coffee-script/register');

@@ -1,6 +1,6 @@
 'use strict';
 
-var path = require('path');
+var path = require('node:path');
 var xlsx = require('node-xlsx');
 
 var xls = xlsx.parse(path.join(__dirname, 'registry.xls'));

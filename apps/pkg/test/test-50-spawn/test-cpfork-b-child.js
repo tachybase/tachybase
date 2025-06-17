@@ -2,8 +2,8 @@
 
 'use strict';
 
-var assert = require('assert');
-var cluster = require('cluster');
+var assert = require('node:assert');
+var cluster = require('node:cluster');
 
 assert(process.send);
 assert(!cluster.worker);
@@ -16,7 +16,7 @@ process.on('message', function (value) {
   process.send(value * 2);
 });
 
-var fs = require('fs');
+var fs = require('node:fs');
 
 try {
   // must patch fs even if entrypoint is not in snapshot

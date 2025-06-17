@@ -1,17 +1,17 @@
 'use strict';
 
-const assert = require('assert');
-const path = require('path');
+const assert = require('node:assert');
+const path = require('node:path');
 const rimraf = require('rimraf');
 const { globSync } = require('tinyglobby');
-const { execSync, spawnSync } = require('child_process');
+const { execSync, spawnSync } = require('node:child_process');
 const {
   existsSync,
   statSync,
   copyFileSync,
   mkdirSync,
   readdirSync,
-} = require('fs');
+} = require('node:fs');
 const stableStringify = require('json-stable-stringify');
 
 /** Create a directory and if it doesn't exists */

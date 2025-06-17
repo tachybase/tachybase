@@ -21,8 +21,8 @@ function humanSize(bytes) {
 }
 
 (function installDiagnostic() {
-  const fs = require('fs');
-  const path = require('path');
+  const fs = require('node:fs');
+  const path = require('node:path');
   const win32 = process.platform === 'win32';
 
   const sizeLimit = process.env.SIZE_LIMIT_PKG

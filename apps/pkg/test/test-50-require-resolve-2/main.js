@@ -2,9 +2,9 @@
 
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const assert = require('assert');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert');
 const utils = require('../utils.js');
 
 assert(!module.parent);
@@ -24,7 +24,7 @@ left = utils.spawn.sync('node', [path.basename(input)], {
 });
 
 fs.readdirSync('./').some(function (file) {
-  if (/^test-/.test(file)) {
+  if (file.startsWith('test-')) {
     const nf = path.join(
       path.dirname(file),
       path.basename(path.dirname(output)),

@@ -8,9 +8,9 @@
 //       of the npm cache folder.
 const UPM = process.env.USE_PREINSTALLED_MODULES || false; // USE_PREINSTALLED_MODULES
 
-const fs = require('fs');
-const path = require('path');
-const assert = require('assert');
+const fs = require('node:fs');
+const path = require('node:path');
+const assert = require('node:assert');
 const { globSync } = require('tinyglobby');
 const utils = require('../utils.js');
 

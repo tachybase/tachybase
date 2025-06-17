@@ -1,7 +1,7 @@
 'use strict';
 
 var feathers = require('feathers');
-var http = require('http');
+var http = require('node:http');
 var app = feathers();
 
 app.get('/', function (req, res) {

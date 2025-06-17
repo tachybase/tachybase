@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
-var Module = require('module');
-var fs = require('fs');
+var Module = require('node:module');
+var fs = require('node:fs');
 
 Module._extensions['.js'] = function (module, filename) {
   var content = fs.readFileSync(filename, 'utf8');

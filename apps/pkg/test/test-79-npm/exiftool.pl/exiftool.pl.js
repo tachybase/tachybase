@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 var exiftool = require('exiftool.pl');
 
 if (fs.existsSync(exiftool)) {

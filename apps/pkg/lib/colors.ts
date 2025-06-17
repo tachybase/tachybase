@@ -1,5 +1,5 @@
 import picocolors from 'picocolors';
-import { WriteStream } from 'tty';
+import { WriteStream } from 'node:tty';
 
 // makes color detection more accurate using node's own API for it
 // https://github.com/alexeyraspopov/picocolors/issues/85

@@ -1,6 +1,6 @@
 'use strict';
 
-var path = require('path');
+var path = require('node:path');
 var async = 'async';
 var config = 'config';
 var i = 0;

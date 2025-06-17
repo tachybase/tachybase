@@ -1,4 +1,4 @@
-import { execFileSync } from 'child_process';
+import { execFileSync } from 'node:child_process';
 
 function parseCStr(buf: Buffer) {
   for (let i = 0; i < buf.length; i += 1) {

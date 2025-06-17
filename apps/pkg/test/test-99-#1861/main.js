@@ -2,9 +2,9 @@
 
 'use strict';
 
-const assert = require('assert');
+const assert = require('node:assert');
 const utils = require('../utils.js');
-const path = require('path');
+const path = require('node:path');
 
 assert(!module.parent);
 assert(__dirname === process.cwd());

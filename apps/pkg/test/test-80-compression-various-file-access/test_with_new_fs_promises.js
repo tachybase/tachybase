@@ -1,15 +1,15 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 
 let fs_promises;
 const MAJOR_VERSION = parseInt(process.version.match(/v([0-9]+)/)[1], 10);
 
 if (MAJOR_VERSION >= 14) {
   // only work with nodeJs >= 14.0
-  fs_promises = require('fs/promises');
+  fs_promises = require('node:fs/promises');
 } else {
-  fs_promises = require('fs').promises;
+  fs_promises = require('node:fs').promises;
 }
 
 // note: this file will be packed in the virtual file system by PKG

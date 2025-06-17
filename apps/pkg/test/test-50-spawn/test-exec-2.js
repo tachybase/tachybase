@@ -2,7 +2,7 @@
 
 'use strict';
 
-var exec = require('child_process').exec;
+var exec = require('node:child_process').exec;
 
 var child = exec(
   '"' +

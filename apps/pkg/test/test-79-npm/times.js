@@ -1,6 +1,6 @@
 'use strict';
 
-const https = require('https');
+const https = require('node:https');
 const foldyNames = process.argv[2].split(',');
 
 const results = {};

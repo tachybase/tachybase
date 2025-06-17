@@ -1,7 +1,7 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
+var fs = require('node:fs');
+var path = require('node:path');
 var spawn = require('cross-spawn-async');
 var bin = path.join(__dirname, 'fixture.js');
 var args = [];

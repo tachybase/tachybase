@@ -1,14 +1,14 @@
 'use strict';
 
-const path = require('path');
-const util = require('util');
-const fs = require('fs');
+const path = require('node:path');
+const util = require('node:util');
+const fs = require('node:fs');
 let fsp;
 
 try {
-  fsp = require('fs/promises');
+  fsp = require('node:fs/promises');
 } catch (_) {
-  fsp = require('fs').promises;
+  fsp = require('node:fs').promises;
 }
 
 const filePath = path.join(__dirname, 'files/test.txt');

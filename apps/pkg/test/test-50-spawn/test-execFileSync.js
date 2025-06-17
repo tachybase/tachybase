@@ -2,7 +2,7 @@
 
 'use strict';
 
-var execFileSync = require('child_process').execFileSync;
+var execFileSync = require('node:child_process').execFileSync;
 
 execFileSync(
   process.execPath,

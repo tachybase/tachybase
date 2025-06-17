@@ -1,6 +1,6 @@
-import assert from 'assert';
-import fs from 'fs';
-import path from 'path';
+import assert from 'node:assert';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export const STORE_BLOB = 0;
 export const STORE_CONTENT = 1;
@@ -105,7 +105,7 @@ function replaceSlashes(file: string, slash: string) {
     if (slash === '/') {
       return file.slice(2).replace(/\\/g, '/');
     }
-  } else if (/^\//.test(file)) {
+  } else if (file.startsWith('/')) {
     if (slash === '\\') {
       return `C:${file.replace(/\//g, '\\')}`;
     }
@@ -125,7 +125,7 @@ function injectSnapshot(file: string) {
     return `C:\\snapshot${file.slice(2)}`;
   }
 
-  if (/^\//.test(file)) {
+  if (file.startsWith('/')) {
     // /home/user/project
     if (file.length === 1) {
       // /
@@ -220,7 +220,7 @@ export function stripSnapshot(f: string) {
     return '/**/';
   }
 
-  if (/^\/snapshot\//.test(file)) {
+  if (file.startsWith('/snapshot/')) {
     return `/**${file.slice(9)}`;
   }
 

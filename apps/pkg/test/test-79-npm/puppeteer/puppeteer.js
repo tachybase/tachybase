@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 var puppeteer = require('puppeteer');
 
 puppeteer.launch().then(function (browser) {

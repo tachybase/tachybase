@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 var heapdump = require('heapdump');
 var name = './heapdump.heapsnapshot';
 heapdump.writeSnapshot(name, function (error1, filename) {

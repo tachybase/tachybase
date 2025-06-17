@@ -1,7 +1,7 @@
 'use strict';
 
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
 
 const file = path.join(__dirname, 'myfile.txt');
 const binaryFile = path.join(__dirname, 'myfile.bin');

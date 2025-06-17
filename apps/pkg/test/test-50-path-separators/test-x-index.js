@@ -1,7 +1,7 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
+var fs = require('node:fs');
+var path = require('node:path');
 
 console.log(
   fs.readdirSync(path.join(__dirname, 'sub')),

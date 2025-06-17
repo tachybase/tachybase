@@ -4,7 +4,7 @@
 
 'use strict';
 
-const assert = require('assert');
+const assert = require('node:assert');
 const common = require('../../lib-es5/common.js');
 
 function substituteMany(files) {

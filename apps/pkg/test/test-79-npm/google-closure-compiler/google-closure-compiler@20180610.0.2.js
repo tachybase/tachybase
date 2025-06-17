@@ -1,6 +1,6 @@
 'use strict';
 
-var fs = require('fs');
+var fs = require('node:fs');
 var Compiler = require('google-closure-compiler').compiler;
 if (
   fs.existsSync(Compiler.JAR_PATH) &&

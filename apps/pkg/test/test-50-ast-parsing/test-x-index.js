@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('node:fs');
 const detector = require('../../lib-es5/detector.js');
 const body = fs.readFileSync('./test-y-data.txt', 'utf8');
 
