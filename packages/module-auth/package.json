@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-auth",
   "displayName": "Authentication",
-  "version": "1.1.24",
+  "version": "1.1.25",
   "description": "User authentication management, including password, SMS, and support for Single Sign-On (SSO) protocols, with extensibility.",
   "keywords": [
     "Authentication",
