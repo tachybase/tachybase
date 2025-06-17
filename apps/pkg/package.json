@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/pkg",
-  "version": "6.5.14",
+  "version": "6.5.15",
   "description": "Package your Node.js project into an executable",
   "main": "lib-es5/index.js",
   "license": "MIT",
