@@ -53,7 +53,7 @@
     "sqlite3": "5.1.7",
     "umzug": "3.8.2",
     "winston": "3.17.0",
-    "winston-daily-rotate-file": "^4.7.1"
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@tachybase/cache": "workspace:*",

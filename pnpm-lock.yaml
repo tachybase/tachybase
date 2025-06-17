@@ -450,8 +450,8 @@ importers:
         specifier: 3.17.0
         version: 3.17.0
       winston-daily-rotate-file:
-        specifier: ^4.7.1
-        version: 4.7.1(winston@3.17.0)
+        specifier: ^5.0.0
+        version: 5.0.0(winston@3.17.0)
     devDependencies:
       '@tachybase/client':
         specifier: workspace:*
@@ -1139,8 +1139,8 @@ importers:
         specifier: ^3.17.0
         version: 3.17.0
       winston-daily-rotate-file:
-        specifier: ^4.7.1
-        version: 4.7.1(winston@3.17.0)
+        specifier: ^5.0.0
+        version: 5.0.0(winston@3.17.0)
       winston-transport:
         specifier: ^4.9.0
         version: 4.9.0
@@ -15389,6 +15389,10 @@ packages:
     resolution: {integrity: sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==}
     engines: {node: '>= 6'}
 
+  object-hash@3.0.0:
+    resolution: {integrity: sha512-RSn9F68PjH9HqtltsSnqYC1XXoWe9Bju5+213R98cNGttag9q9yAOTzdbsqvIa7aNm5WffBZFpWYr2aWrklWAw==}
+    engines: {node: '>= 6'}
+
   object-inspect@1.12.3:
     resolution: {integrity: sha512-geUvdk7c+eizMNUDkRpW1wJwgfOiOeHbxBR/hLXK1aT6zmVSO0jsQcs7fj6MGw89jC/cjGfLcNOrtMYtGqm81g==}
 
@@ -19008,8 +19012,8 @@ packages:
     resolution: {integrity: sha512-NMD00arvqcq2nwqc5Q6KtrSRHK+fVD31erE5FEMahAw5PmVCgD7MUXodq3pdZSUkqA9Cda2iWx6s1XYwiJWRmw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  winston-daily-rotate-file@4.7.1:
-    resolution: {integrity: sha512-7LGPiYGBPNyGHLn9z33i96zx/bd71pjBn9tqQzO3I4Tayv94WPmBNwKC7CO1wPHdP9uvu+Md/1nr6VSH9h0iaA==}
+  winston-daily-rotate-file@5.0.0:
+    resolution: {integrity: sha512-JDjiXXkM5qvwY06733vf09I2wnMXpZEhxEVOSPenZMii+g7pcDcTBt2MRugnoi8BwVSuCT2jfRXBUy+n1Zz/Yw==}
     engines: {node: '>=8'}
     peerDependencies:
       winston: ^3
@@ -32031,6 +32035,8 @@ snapshots:
 
   object-hash@2.2.0: {}
 
+  object-hash@3.0.0: {}
+
   object-inspect@1.12.3: {}
 
   object-inspect@1.13.3: {}
@@ -36288,10 +36294,10 @@ snapshots:
     dependencies:
       execa: 5.1.1
 
-  winston-daily-rotate-file@4.7.1(winston@3.17.0):
+  winston-daily-rotate-file@5.0.0(winston@3.17.0):
     dependencies:
       file-stream-rotator: 0.6.1
-      object-hash: 2.2.0
+      object-hash: 3.0.0
       triple-beam: 1.4.1
       winston: 3.17.0
       winston-transport: 4.9.0
