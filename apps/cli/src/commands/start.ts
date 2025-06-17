@@ -46,11 +46,10 @@ export default (cli: Command) => {
       } else {
         run(
           'pm2-runtime',
-          // @ts-ignore
           [
             'start',
             `${APP_SERVER_ROOT}/lib/index.js`,
-            NODE_ARGS ? `--node-args="${NODE_ARGS}"` : undefined,
+            NODE_ARGS ? `--node-args="${NODE_ARGS}"` : '',
             '--',
             ...process.argv.slice(2),
           ].filter(Boolean),

@@ -52,6 +52,9 @@ importers:
       '@tachybase/cli':
         specifier: workspace:*
         version: link:apps/cli
+      '@tachybase/engine':
+        specifier: workspace:*
+        version: link:apps/engine
       '@tachybase/test':
         specifier: workspace:*
         version: link:packages/test
