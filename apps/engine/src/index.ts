@@ -1,5 +1,4 @@
 import './intercept';
-import 'pg';
 
 import fs from 'node:fs';
 import path, { resolve } from 'node:path';
