@@ -125,7 +125,7 @@ async function convertByTsCode(code, data, processor: Processor) {
     filename: 'a.tsx',
     presets: [
       [
-        '@babel/preset-env',
+        require('@babel/preset-env'),
         {
           modules: 'commonjs',
           targets: {
@@ -133,8 +133,8 @@ async function convertByTsCode(code, data, processor: Processor) {
           },
         },
       ],
-      '@babel/preset-react',
-      '@babel/preset-typescript',
+      require('@babel/preset-react'),
+      require('@babel/preset-typescript'),
     ],
   }).code;
 
