@@ -87,6 +87,7 @@ jobs:
           context: .
           file: docker/tachybase-engine/Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           build-args: |
             TACHYBASE_VERSION=${{ github.event.release.tag_name }}
           tags: |
