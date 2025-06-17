@@ -9,6 +9,7 @@ interface EditableFieldInfo {
   schemaComponents: SchemaReactComponents | null;
   schemaOptions: ISchemaFieldReactFactoryOptions | null;
   form: Form | null;
+  formBlockValue: any;
   setEditableField: (info: EditableFieldInfoPartial) => void;
 }
 
@@ -28,6 +29,7 @@ export const EditableSelectedFieldProvider: React.FC<{ children: React.ReactNode
     schemaComponents: null,
     schemaOptions: null,
     form: null,
+    formBlockValue: null,
   });
 
   // 包装 setFieldInfo，支持部分更新

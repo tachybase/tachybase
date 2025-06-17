@@ -1,10 +1,21 @@
 import React, { FC, memo, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { RecordProvider, useAPIClient, useCurrentAppInfo, useRequest, useTranslation } from '@tachybase/client';
+import {
+  FormActiveFieldsProvider,
+  FormBlockContext,
+  RecordProvider,
+  useAPIClient,
+  useCurrentAppInfo,
+  useFieldComponentName,
+  useFormActiveFields,
+  useRequest,
+  useTranslation,
+} from '@tachybase/client';
 import { ArrayCollapse, ArrayTable, FormLayout } from '@tachybase/components';
 import {
   action,
   autorun,
   createForm,
+  Field,
   FormContext,
   ISchema,
   Schema,
@@ -23,13 +34,30 @@ import {
   MobileOutlined,
   QuestionCircleOutlined,
 } from '@ant-design/icons';
-import { App, Button, Col, Collapse, Drawer, Flex, Input, Layout, Menu, Modal, Radio, Row, Tabs, Tooltip } from 'antd';
+import {
+  App,
+  Button,
+  Col,
+  Collapse,
+  Drawer,
+  Flex,
+  Form,
+  Input,
+  Layout,
+  Menu,
+  Modal,
+  Radio,
+  Row,
+  Tabs,
+  Tooltip,
+} from 'antd';
 import { CheckboxGroupProps } from 'antd/es/checkbox';
-import _, { cloneDeep } from 'lodash';
+import _, { cloneDeep, isEqual } from 'lodash';
 
 import {
   ContextCleaner,
   FieldContext,
+  observer,
   SchemaComponentsContext,
   SchemaExpressionScopeContext,
   SchemaMarkupContext,
@@ -54,6 +82,7 @@ import {
   CollectionFieldProvider,
   CollectionProvider,
   CollectionRecordContext,
+  useCollectionField,
   useContextConfigSetting,
   useExtendCollections,
 } from '../../../../data-source';
@@ -64,13 +93,19 @@ import {
   SchemaComponent,
   SchemaComponentContext,
   useActionContext,
+  useColumnSchema,
   useCompile,
   useDesignable,
+  useFieldModeOptions,
+  useFindComponent,
+  useIsAddNewForm,
   useSchemaComponentContext,
 } from '../../../../schema-component';
+import { isSubMode } from '../../../../schema-component/antd/association-field/util';
+import { useIsMuiltipleAble } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
 import { useStyles } from '../form/styles';
-import { createEditableDesignable } from './EditableDesignable';
+import { createEditableDesignable, useEditableDesignable } from './EditableDesignable';
 import { EditableGrid } from './EditableGrid';
 import { useEditableSelectedField } from './EditableSelectedFieldContext';
 
@@ -898,7 +933,21 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
   );
 };
 
-const EditorContent = ({ schema }) => {
+export const EditorContent = observer<EditorContentProps>(({ schema }) => {
+  const { Content } = Layout;
+  const { styles } = useStyles();
+  return (
+    <Content style={{ padding: '5px', overflow: 'auto' }}>
+      <SchemaComponent schema={schema} components={{ EditableGrid }} />
+    </Content>
+  );
+});
+interface EditorContentProps {
+  schema: Schema;
+}
+
+// 2. 先写一个「纯」的 React 组件并加上明确的类型注解
+const EditorContentBase: React.FC<EditorContentProps> = ({ schema }) => {
   const { Content } = Layout;
   const { styles } = useStyles();
 
@@ -924,12 +973,12 @@ const EditorFieldFormProperty = ({ schema, setSchemakey, eddn }) => {
           {
             label: t('字段属性'),
             key: 'field',
-            children: <EditorFieldProperty schema={schema} setSchemakey={setSchemakey} eddn={eddn} />,
+            children: <EditorFieldProperty schema={schema} setSchemakey={setSchemakey} />,
           },
           {
             label: t('表单属性'),
             key: 'form',
-            children: <EditorFormProperty schema={schema} />,
+            children: <EditorFormProperty schema={schema} setSchemakey={setSchemakey} />,
           },
         ]}
       />
@@ -937,7 +986,16 @@ const EditorFieldFormProperty = ({ schema, setSchemakey, eddn }) => {
   );
 };
 
-const EditorFieldProperty = ({ schema, setSchemakey, eddn }) => {
+const EditorFieldProperty = ({ schema, setSchemakey }) => {
+  return (
+    <div>
+      {/* <GenericProperties schema={schema} setSchemakey={setSchemakey} /> */}
+      <SpecificProperties schema={schema} setSchemakey={setSchemakey} />
+    </div>
+  );
+};
+
+const GenericProperties = ({ schema, setSchemakey }) => {
   const app = useApp();
   const { fieldSchema: currentSchema, field } = useEditableSelectedField();
   const schemaUID = currentSchema?.['x-uid'] || null;
@@ -979,9 +1037,8 @@ const EditorFieldProperty = ({ schema, setSchemakey, eddn }) => {
       }),
     [schemaUID],
   );
-  const fieldComponentName = collectionField?.uiSchema['x-component'];
-  const componentSettings = app.schemaSettingsManager.get(`fieldSettings:component:${fieldComponentName}`);
-  console.log('%c Line:971 🌮 componentSettings', 'font-size:18px;color:#2eafb0;background:#3f7cff', componentSettings);
+  // const fieldComponentName = collectionField?.uiSchema['x-component'];
+  // const componentSettings = app.schemaSettingsManager.get(`fieldSettings:component:${fieldComponentName}`);
 
   useEffect(() => {
     if (fieldSchema) {
@@ -1061,36 +1118,18 @@ const EditorFieldProperty = ({ schema, setSchemakey, eddn }) => {
           style: newStyle,
         },
       };
-      const nextPatch = {
-        'x-uid': fieldSchema['x-uid'],
-        title: editFieldTitle,
-        default: setDefaultValue,
-        description: editDescription,
-        required,
-        'x-read-pretty': readPretty,
-        'x-disabled': disabled,
-        'x-validator': cleanedRules,
-        'x-decorator-props': {
-          ...(fieldSchema['x-decorator-props'] || {}),
-          showTitle: !!displayTitle,
-          tooltip: editTooltip,
-          layoutDirection,
-          style: newStyle,
-        },
-      };
       const hasChanged = !_.isEqual(
-        _.pick(fieldSchema, Object.keys(nextPatch)),
-        _.pick(nextPatch, Object.keys(nextPatch)),
+        _.pick(fieldSchema, Object.keys(patchSchema)),
+        _.pick(patchSchema, Object.keys(patchSchema)),
       );
       const oldDecorator = fieldSchema['x-decorator-props'] || {};
-      const newDecorator = nextPatch['x-decorator-props'];
+      const newDecorator = patchSchema['x-decorator-props'];
       const decoratorChanged = !_.isEqual(oldDecorator, newDecorator);
       if (hasChanged || decoratorChanged) {
-        Object.assign(fieldSchema, nextPatch);
+        Object.assign(fieldSchema, patchSchema);
         setSchemakey(uid());
       }
     });
-
     return () => {
       disposer(); // 清理 reaction
     };
@@ -1302,7 +1341,26 @@ const createOptionsSchema = (props) => {
   };
 };
 
-const AllSchemaProviders = ({
+const SpecificProperties = ({ schema, setSchemakey }) => {
+  const allCTX = useEditableSelectedField();
+  const { setEditableField, fieldSchema: currentSchema, ...ctxValues } = allCTX;
+  const schemaUID = currentSchema?.['x-uid'] || null;
+
+  const fieldSchema = useMemo(() => {
+    if (!schema || !schemaUID) return null;
+    return findSchema(schema, 'x-uid', schemaUID) || null;
+  }, [schema, schemaUID]);
+
+  const shouldRender = schema && schemaUID && fieldSchema?.name;
+
+  return shouldRender ? (
+    <AllSchemaProviders fieldSchema={fieldSchema} {...ctxValues}>
+      <SpecificPropertiesContent key={schemaUID} fieldSchema={fieldSchema} setSchemakey={setSchemakey} />
+    </AllSchemaProviders>
+  ) : null;
+};
+
+export const AllSchemaProviders = ({
   children,
   form = null,
   field = null,
@@ -1311,7 +1369,9 @@ const AllSchemaProviders = ({
   expressionScope = null,
   schemaComponents = null,
   schemaOptions = null,
+  formBlockValue = null,
 }) => {
+  const upLevelActiveFields = useFormActiveFields();
   return (
     <ContextCleaner>
       <FormContext.Provider value={form}>
@@ -1321,7 +1381,16 @@ const AllSchemaProviders = ({
               <SchemaExpressionScopeContext.Provider value={expressionScope}>
                 <SchemaComponentsContext.Provider value={schemaComponents}>
                   <SchemaOptionsContext.Provider value={schemaOptions}>
-                    <CollectionFieldProvider name={fieldSchema.name}>{children}</CollectionFieldProvider>
+                    <CollectionFieldProvider name={fieldSchema.name}>
+                      <FormBlockContext.Provider value={formBlockValue}>
+                        <FormActiveFieldsProvider
+                          name="form"
+                          getActiveFieldsName={upLevelActiveFields?.getActiveFieldsName}
+                        >
+                          {children}
+                        </FormActiveFieldsProvider>
+                      </FormBlockContext.Provider>
+                    </CollectionFieldProvider>
                   </SchemaOptionsContext.Provider>
                 </SchemaComponentsContext.Provider>
               </SchemaExpressionScopeContext.Provider>
@@ -1333,41 +1402,127 @@ const AllSchemaProviders = ({
   );
 };
 
-const EditorFormProperty = ({ schema }) => {
-  const allCTX = useEditableSelectedField();
-  const { setEditableField, ...ctxValues } = allCTX;
-  if (!ctxValues) {
-    return <div>未选中字段</div>;
-  }
+const EditorFormProperty = ({ schema, setSchemakey }) => {
+  return <div></div>;
+};
+
+export const SpecificPropertiesContent = ({ fieldSchema, setSchemakey }) => {
+  const app = useApp();
+  const fieldComponentName = useFieldComponentName();
+  const componentSettings = app.editableSchemaSettingsManager.get(
+    `editableFieldSettings:component:${fieldComponentName}`,
+  );
+  const items = componentSettings?.options?.items ?? [];
+
+  const [itemStates, setItemStates] = useState([]);
+  // const [schemaKey, setSchemaKey] = useState(uid());
+  const [form] = useState(() => createForm());
+
+  const handleItemUpdate = useCallback((index, state) => {
+    setItemStates((prev) => {
+      const updated = [...prev];
+      updated[index] = state;
+      return updated;
+    });
+  }, []);
+
+  const fieldSchemas = useMemo(() => {
+    const result = {};
+    for (const item of itemStates) {
+      if (!item?.isVisible || !item?.schema) continue;
+
+      result[item.name] = {
+        ...item.schema,
+        name: item.name,
+        'x-component-props': {
+          ...(item.schema['x-component-props'] || {}),
+          ...item.props,
+        },
+      };
+    }
+    return result;
+  }, [itemStates]);
+
+  const initialValues = useMemo(() => {
+    const values = {};
+    for (const item of itemStates) {
+      if (item?.name && item.props?.value !== undefined) {
+        values[item.name] = item.props.value;
+      }
+    }
+    return values;
+  }, [itemStates]);
+
+  // const onChangeMap = useMemo(() => {
+  //   const map = new Map();
+  //   for (const item of itemStates) {
+  //     if (item.name && typeof item.props?.onChange === 'function') {
+  //       map.set(item.name, item.props.onChange);
+  //     }
+  //   }
+  //   return map;
+  // }, [itemStates]);
+
+  useEffect(() => {
+    form.setValues(initialValues);
+  }, [initialValues, form]);
+
+  useEffect(() => {
+    if (!form) return;
+
+    const subId = form.subscribe((e) => {
+      if (e.type === 'onFieldValueChange') {
+        setSchemakey(uid());
+      }
+    });
+
+    return () => form.unsubscribe(subId);
+  }, [form, setSchemakey]);
+
+  const fullSchema = useMemo(() => {
+    return {
+      type: 'void',
+      properties: {
+        [uid()]: {
+          type: 'void',
+          'x-component': 'FormV2',
+          'x-component-props': { form },
+          properties: fieldSchemas,
+        },
+      },
+    };
+  }, [fieldSchemas, form]);
+
   return (
-    <AllSchemaProviders {...ctxValues}>
-      <ShowCTX />
-    </AllSchemaProviders>
+    <div style={{ padding: '10px' }}>
+      {items.map((item, index) => (
+        <ItemHookRunner key={item.name || index} item={item} onUpdate={(state) => handleItemUpdate(index, state)} />
+      ))}
+      {form && <SchemaComponent schema={fullSchema} />}
+    </div>
   );
 };
 
-const ShowCTX = () => {
-  const app = useApp();
-  const { getField } = useCollection_deprecated();
-  const { getInterface, getCollectionJoinField, getCollectionField } = useCollectionManager_deprecated();
-  const fieldSchema = useFieldSchema();
-  console.log('%c Line:1342 🥪 fieldSchema', 'font-size:18px;color:#b03734;background:#93c0a4', fieldSchema);
-  const collectionField = fieldSchema
-    ? getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field'])
-    : null;
-  const fieldComponentName = collectionField?.uiSchema['x-component'];
-  const componentSettings = app.schemaSettingsManager.get('fieldSettings:FormItem');
-  console.log(
-    '%c Line:1347 🌰 componentSettings',
-    'font-size:18px;color:#ed9ec7;background:#93c0a4',
-    componentSettings,
-  );
-  const options = componentSettings?.options;
-  return (
-    <div>
-      <SchemaSettingsWrapper {...options} />
-    </div>
-  );
+const ItemHookRunner = ({ item, onUpdate }) => {
+  const props = item.useComponentProps?.() ?? {};
+  const isVisible = item.useVisible?.() ?? true;
+  const schema = item.useSchema?.();
+
+  const hasUpdated = useRef(false);
+
+  useEffect(() => {
+    if (!hasUpdated.current) {
+      hasUpdated.current = true;
+      onUpdate({
+        ...item,
+        props,
+        isVisible,
+        schema,
+      });
+    }
+  }, []); // <--- 注意：空依赖数组，确保只在挂载时运行一次
+
+  return null;
 };
 
 const useFormFieldButtonWrappers = (options?: any) => {

@@ -55,6 +55,7 @@ import { subformComponentFieldSettings } from '../modules/fields/component/Neste
 import { recordPickerComponentFieldSettings } from '../modules/fields/component/Picker/recordPickerComponentFieldSettings';
 import { subformPopoverComponentFieldSettings } from '../modules/fields/component/PopoverNester/subformPopoverComponentFieldSettings';
 import { radioComponentFieldSettings } from '../modules/fields/component/Radio/radioComponentFieldSettings';
+import { selectComponentFieldEditableSettings } from '../modules/fields/component/Select/selectComponentFieldEditableSettings';
 import { selectComponentFieldSettings } from '../modules/fields/component/Select/selectComponentFieldSettings';
 import { subTablePopoverComponentFieldSettings } from '../modules/fields/component/SubTable/subTablePopoverComponentFieldSettings';
 import { tagComponentFieldSettings } from '../modules/fields/component/Tag/tagComponentFieldSettings';
@@ -108,6 +109,7 @@ export class SchemaSettingsPlugin extends Plugin {
 
     // field component settings
     this.schemaSettingsManager.add(selectComponentFieldSettings);
+    this.app.editableSchemaSettingsManager.add(selectComponentFieldEditableSettings);
     this.schemaSettingsManager.add(recordPickerComponentFieldSettings);
     this.schemaSettingsManager.add(subformComponentFieldSettings);
     this.schemaSettingsManager.add(subformPopoverComponentFieldSettings);

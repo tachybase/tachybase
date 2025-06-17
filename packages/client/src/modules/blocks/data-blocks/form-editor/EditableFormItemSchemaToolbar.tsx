@@ -9,6 +9,7 @@ import {
   SchemaMarkupContext,
 } from '../../../../../../schema/src/react';
 import { useSchemaInitializerRender, useSchemaSettingsRender } from '../../../../application';
+import { useFormBlockContext } from '../../../../block-provider';
 import { useDataSource, useDataSourceManager } from '../../../../data-source';
 import {
   DragHandler,
@@ -48,6 +49,7 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
   const schemaMarkup = useContext(SchemaMarkupContext);
   const expressionScope = useContext(SchemaExpressionScopeContext);
   const schemaComponents = useContext(SchemaComponentsContext);
+  const formBlockValue = useFormBlockContext();
   const schemaOptions = useSchemaOptionsContext();
   const field = useField();
   const compile = useCompile();
@@ -138,7 +140,16 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       const isInsideToolbar = toolbarElement?.contains(target);
       if (!isInsideToolbar) {
         // const uid = fieldSchema?.['x-uid'] || null;
-        setEditableField({ field, fieldSchema, schemaMarkup, expressionScope, schemaComponents, schemaOptions, form });
+        setEditableField({
+          field,
+          fieldSchema,
+          schemaMarkup,
+          expressionScope,
+          schemaComponents,
+          schemaOptions,
+          form,
+          formBlockValue,
+        });
       }
     }
 

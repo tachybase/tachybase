@@ -13,7 +13,8 @@ import {
 import { cloneDeep, get, set } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { APIClient } from '../../../../api-client';
+import { APIClient, useAPIClient } from '../../../../api-client';
+import { SchemaComponentContext } from '../../../../schema-component';
 
 interface CreateDesignableProps {
   current: Schema;
@@ -688,4 +689,139 @@ class EditableDesignable {
     // });
     this.refresh();
   }
+}
+
+export function useEditableDesignable() {
+  const { designable, setDesignable, refresh, reset } = useContext(SchemaComponentContext);
+  const schemaOptions = useContext(SchemaOptionsContext);
+  const components = useMemo(() => schemaOptions?.components || {}, [schemaOptions]);
+  const DesignableBar = useMemo(
+    () => () => {
+      return <></>;
+    },
+    [],
+  );
+  const field = useField();
+  const fieldSchema = useFieldSchema();
+  const api = useAPIClient();
+  const { t } = useTranslation();
+  const dn = useMemo(() => {
+    return createEditableDesignable({ t, api, refresh, current: fieldSchema, model: field });
+  }, [t, api, refresh, fieldSchema, field]);
+
+  return {
+    dn,
+    designable,
+    reset,
+    refresh,
+    setDesignable,
+    DesignableBar,
+    findComponent: useCallback(
+      (component: any) => {
+        if (!component) {
+          return null;
+        }
+        if (typeof component !== 'string') {
+          return component;
+        }
+        return get(components, component);
+      },
+      [get],
+    ),
+    // on: dn.on.bind(dn),
+    // TODO
+    patch: useCallback(
+      (key: ISchema | string, value?: any) => {
+        const update = (obj: any) => {
+          Object.keys(obj).forEach((k) => {
+            const val = obj[k];
+            if (k === 'title') {
+              field.title = val;
+              fieldSchema['title'] = val;
+            }
+            if (k === 'x-decorator-props') {
+              if (!field.decoratorProps) {
+                field.decoratorProps = {};
+              }
+              if (!fieldSchema['x-decorator-props']) {
+                fieldSchema['x-decorator-props'] = {};
+              }
+              Object.keys(val).forEach((i) => {
+                field.decoratorProps[i] = val[i];
+                fieldSchema['x-decorator-props'][i] = val[i];
+              });
+            }
+            if (k === 'x-component-props') {
+              if (!field.componentProps) {
+                field.componentProps = {};
+              }
+              if (!fieldSchema['x-component-props']) {
+                fieldSchema['x-component-props'] = {};
+              }
+              Object.keys(val).forEach((i) => {
+                field.componentProps[i] = val[i];
+                fieldSchema['x-component-props'][i] = val[i];
+              });
+            }
+          });
+        };
+        if (typeof key === 'string') {
+          const obj = {};
+          set(obj, key, value);
+          return update(obj);
+        }
+        update(key);
+        refresh();
+      },
+      [dn],
+    ),
+    shallowMerge: useCallback(
+      (schema: ISchema) => {
+        dn.shallowMerge(schema);
+      },
+      [dn],
+    ),
+    deepMerge: useCallback(
+      (schema: ISchema) => {
+        dn.deepMerge(schema);
+      },
+      [dn],
+    ),
+    remove: useCallback(
+      (schema?: any, options?: RemoveOptions) => {
+        dn.remove(schema, options);
+      },
+      [dn],
+    ),
+    insertAdjacent: useCallback(
+      (position: Position, schema: ISchema, options?: InsertAdjacentOptions) => {
+        dn.insertAdjacent(position, schema, options);
+      },
+      [dn],
+    ),
+    insertBeforeBegin: useCallback(
+      (schema: ISchema) => {
+        dn.insertBeforeBegin(schema);
+      },
+      [dn],
+    ),
+    insertAfterBegin: useCallback(
+      (schema: ISchema) => {
+        dn.insertAfterBegin(schema);
+      },
+      [dn],
+    ),
+    insertBeforeEnd: useCallback(
+      (schema: ISchema) => {
+        dn.insertBeforeEnd(schema);
+      },
+      [dn],
+    ),
+    insertAfterEnd: useCallback(
+      (schema: ISchema) => {
+        dn.insertAfterEnd(schema);
+      },
+      [dn],
+    ),
+  };
 }
