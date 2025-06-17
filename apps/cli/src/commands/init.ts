@@ -27,6 +27,7 @@ const modules = [
   'instrumentation',
   'workflow',
   'env-secrets',
+  'hera', // FIXME: refactor later
 ];
 
 const plugins = [
