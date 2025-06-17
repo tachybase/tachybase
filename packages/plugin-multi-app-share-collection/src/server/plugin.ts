@@ -1,7 +1,7 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import Database from '@tachybase/database';
 import PluginMultiAppManager from '@tachybase/module-multi-app';
-import { Application, AppSupervisor, Plugin } from '@tachybase/server';
+import { Application, AppSupervisor, Plugin, PluginPresets } from '@tachybase/server';
 
 import lodash from 'lodash';
 
@@ -266,7 +266,7 @@ export class MultiAppShareCollectionPlugin extends Plugin {
             application_name: `tachybase.${appName}`,
           },
         }),
-        plugins: plugins.includes('tachybase') ? ['tachybase'] : plugins,
+        plugins: plugins.includes('tachybase') ? [PluginPresets] : plugins,
         resourcer: {
           prefix: process.env.API_BASE_PATH,
         },

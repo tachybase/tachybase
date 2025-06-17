@@ -1,6 +1,6 @@
-import path from 'path';
+import path from 'node:path';
 import { Database, IDatabaseOptions, Transactionable } from '@tachybase/database';
-import Application, { AppSupervisor, Gateway, Plugin } from '@tachybase/server';
+import Application, { AppSupervisor, Gateway, Plugin, PluginPresets } from '@tachybase/server';
 
 import lodash from 'lodash';
 
@@ -148,7 +148,7 @@ const defaultAppOptionsFactory = (appName: string, mainApp: Application, preset:
       ...rawDatabaseOptions,
       tablePrefix: '',
     },
-    plugins: [preset],
+    plugins: preset === 'tachybase' ? [PluginPresets] : [preset],
     resourcer: {
       prefix: process.env.API_BASE_PATH,
     },
