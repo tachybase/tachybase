@@ -23,7 +23,7 @@ export const enableCopierSettingItem = {
       title: t('Display copy button'),
       checked: !!schema['x-component-props']?.enableCopier,
       onChange: async (checked) => {
-        // TODO: 需要优化, 没有考虑其他已有 addonAfter 的情况
+        // TODO: Need to optimize, current implementation doesn't handle existing addonAfter cases
         if (checked) {
           field.componentProps.addonAfter = TextCopyButtonNode;
           _.set(schema, 'x-component-props.addonAfter', '{{TextCopyButtonNode}}');
