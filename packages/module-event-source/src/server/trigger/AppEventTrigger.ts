@@ -32,6 +32,10 @@ export class AppEventTrigger extends EventSourceTrigger {
     } else if (!model.enabled && this.workSet.has(model.id)) {
       this.app.db.off(model.options.eventName, this.eventMap.get(model.id));
       this.eventMap.delete(model.id);
+    } else if (this.changeWithOutType(model)) {
+      this.app.db.off(model.options.eventName, this.eventMap.get(model.id));
+      this.eventMap.delete(model.id);
+      this.load(model);
     }
   }
 
