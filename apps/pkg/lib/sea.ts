@@ -1,7 +1,14 @@
 import { exec as cExec } from 'node:child_process';
 import util from 'node:util';
 import { basename, dirname, join, resolve } from 'node:path';
-import { copyFile, writeFile, rm, mkdir, stat, readFile } from 'node:fs/promises';
+import {
+  copyFile,
+  writeFile,
+  rm,
+  mkdir,
+  stat,
+  readFile,
+} from 'node:fs/promises';
 import { createWriteStream } from 'node:fs';
 import { pipeline } from 'node:stream/promises';
 import { ReadableStream } from 'node:stream/web';
@@ -369,9 +376,9 @@ export default async function sea(entryPoint: string, opts: SeaOptions) {
     const seaConfig = {
       main: entryPoint,
       output: blobPath,
-      
-        ...defaultSeaConfig,
-        ...(opts.seaConfig || {}),
+
+      ...defaultSeaConfig,
+      ...(opts.seaConfig || {}),
     };
 
     log.info('Creating sea-config.json file...');
