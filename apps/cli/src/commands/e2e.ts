@@ -1,7 +1,6 @@
 import { execSync } from 'node:child_process';
 import { cpus } from 'node:os';
 
-import axios from 'axios';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import treeKill from 'tree-kill';
@@ -23,17 +22,15 @@ const checkServer = async (duration = 1000, max = 60 * 10) => {
 
       const url = `${process.env.APP_BASE_URL}/api/__health_check`;
 
-      axios
-        .get(url)
-        .then((response) => {
-          if (response.status === 200) {
-            clearInterval(timer);
-            resolve(true);
-          }
-        })
-        .catch((error) => {
-          console.error('Request error:', error?.response?.data?.error);
-        });
+      try {
+        const response = await fetch(url);
+        if (response.status === 200) {
+          clearInterval(timer);
+          resolve(true);
+        }
+      } catch (error) {
+        console.error('Request error:', error);
+      }
     }, duration);
   });
 };
@@ -51,22 +48,21 @@ const checkUI = async (duration = 1000, max = 60 * 10) => {
         return reject(new Error('UI start timeout.'));
       }
 
-      axios
-        .get(`${process.env.APP_BASE_URL}/__umi/api/bundle-status`)
-        .then((response) => {
-          if (response.data === 'ok') {
-            clearInterval(timer);
-            resolve(true);
-            return;
-          }
-          if (response.data.bundleStatus.done) {
-            clearInterval(timer);
-            resolve(true);
-          }
-        })
-        .catch((error) => {
-          console.error('Request error:', error.message);
-        });
+      try {
+        const response = await fetch(`${process.env.APP_BASE_URL}/__umi/api/bundle-status`);
+        const result = (await response.json()) as any;
+        if (result === 'ok') {
+          clearInterval(timer);
+          resolve(true);
+          return;
+        }
+        if (result.bundleStatus.done) {
+          clearInterval(timer);
+          resolve(true);
+        }
+      } catch (error) {
+        console.error('Request error:', error);
+      }
     }, duration);
   });
 };
