@@ -28,6 +28,7 @@ const modules = [
   'workflow',
   'env-secrets',
   'hera', // FIXME: refactor later
+  'multi-app',
 ];
 
 const plugins = [
