@@ -12,10 +12,6 @@
     "plugin:promise/recommended",
     "plugin:prettier/recommended"
   ],
-  "globals": {
-    "sleep": true,
-    "prettyFormat": true
-  },
   "overrides": [
     {
       "files": ["**/e2e/**/*.{ts,js,tsx,jsx}", "**/__e2e__/**/*.{ts,js,tsx,jsx}"],
@@ -33,8 +29,9 @@
     },
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier", "promise", "jest-dom", "testing-library"],
+  "plugins": ["oxc", "typescript", "unicorn", "react", "promise", "import", "node"],
   "rules": {
+    "unicorn/prefer-node-protocol": "error",
     "@typescript-eslint/no-this-alias": "off",
     "@typescript-eslint/ban-types": "off",
     "no-unused-vars": "off",

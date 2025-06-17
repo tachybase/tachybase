@@ -656,7 +656,7 @@ function peg$parse(input, options) {
   var peg$r12 = /^[0-9]/;
   var peg$r13 = /^[0-9a-fA-F]/;
   var peg$r14 = /^[eE]/;
-  var peg$r15 = /^[+\-]/;
+  var peg$r15 = /^[+-]/;
   var peg$r16 = /^[ \t\n\r]/;
   var peg$r17 = /^[^$]/;
 

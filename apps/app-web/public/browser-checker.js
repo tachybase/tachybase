@@ -36,7 +36,7 @@ function css_browser_selector(u) {
     dv = 'device_',
     html = document.documentElement,
     b = [
-      (!/opera|webtv/i.test(ua) && /msie\s(\d+)/.test(ua)) || /trident\/.*rv:([0-9]{1,}[\.0-9]{0,})/.test(ua)
+      (!/opera|webtv/i.test(ua) && /msie\s(\d+)/.test(ua)) || /trident\/.*rv:([0-9]{1,}[.0-9]{0,})/.test(ua)
         ? 'ie ie' + (/trident\/4\.0/.test(ua) ? '8' : RegExp.$1 == '11.0' ? '11' : RegExp.$1)
         : is('firefox/')
           ? g +
@@ -60,7 +60,7 @@ function css_browser_selector(u) {
                   ? bb +
                     (/Version\/(\d+)(\.(\d+)+)/i.test(ua)
                       ? ' ' + bb + RegExp.$1 + ' ' + bb + RegExp.$1 + RegExp.$2.replace('.', '_')
-                      : /Blackberry ?(([0-9]+)([a-z]?))[\/|;]/gi.test(ua)
+                      : /Blackberry ?(([0-9]+)([a-z]?))[/|;]/gi.test(ua)
                         ? ' ' + bb + RegExp.$2 + (RegExp.$3 ? ' ' + bb + RegExp.$2 + RegExp.$3 : '')
                         : '')
                   : is('android')
@@ -104,7 +104,7 @@ function css_browser_selector(u) {
       is('j2me')
         ? 'j2me'
         : is('ipad|ipod|iphone')
-          ? (/CPU( iPhone)? OS (\d+[_|\.]\d+([_|\.]\d+)*)/i.test(ua) ? 'ios' + version('ios', RegExp.$2) : '') +
+          ? (/CPU( iPhone)? OS (\d+[_|.]\d+([_|.]\d+)*)/i.test(ua) ? 'ios' + version('ios', RegExp.$2) : '') +
             ' ' +
             (/(ip(ad|od|hone))/gi.test(ua) ? RegExp.$1 : '')
           : is('playbook')
@@ -138,7 +138,7 @@ function css_browser_selector(u) {
                       : is('x11|linux')
                         ? 'linux'
                         : '',
-      /[; |\[](([a-z]{2})(\-[a-z]{2})?)[)|;|\]]/i.test(ua)
+      /[; |[](([a-z]{2})(-[a-z]{2})?)[)|;|\]]/i.test(ua)
         ? (lang + RegExp.$2).replace('-', '_') + (RegExp.$3 != '' ? (' ' + lang + RegExp.$1).replace('-', '_') : '')
         : '',
       is('ipad|iphone|ipod') && !is('safari') ? 'ipad_app' : '',
