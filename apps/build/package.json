@@ -28,7 +28,7 @@
     "fs-extra": "^11.2.0",
     "tar": "^6.2.1",
     "tsup": "8.3.5",
-    "typescript": "5.7.2",
+    "typescript": "5.8.3",
     "update-notifier": "3.0.1",
     "vite": "^5.4.11",
     "vite-plugin-css-injected-by-js": "^3.5.2",

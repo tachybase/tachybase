@@ -253,7 +253,7 @@ function stepDetect(
 ) {
   let { body = '' } = record;
 
-  if (body instanceof Buffer) {
+  if (typeof body !== 'string') {
     body = body.toString();
   }
 

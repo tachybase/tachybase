@@ -163,10 +163,8 @@ export const lazyMerge = <T extends object | Function>(target: T, ...args: T[]):
       const source = getSource();
       const target = getTarget();
       if (key in source) {
-        // @ts-ignore
         source[key] = value;
       } else if (key in target) {
-        // @ts-ignore
         target[key] = value;
       } else {
         source[key] = value;
@@ -175,11 +173,9 @@ export const lazyMerge = <T extends object | Function>(target: T, ...args: T[]):
     };
     const get = (_: object, key: PropertyKey) => {
       const source = getSource();
-      // @ts-ignore
       if (key in source) {
         return source[key];
       }
-      // @ts-ignore
       return getTarget()[key];
     };
     const ownKeys = () => {

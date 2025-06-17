@@ -6,7 +6,7 @@ const toString = Object.prototype.toString;
 
 export const isUndef = (val: any) => val === undefined;
 
-export const isValid = (val: any) => val !== undefined && val !== null;
+export const isValid = (value: any): value is NonNullable<any> => value !== undefined && value !== null;
 
 export function isEmpty(val: any, strict = false): boolean {
   // Null and Undefined...
