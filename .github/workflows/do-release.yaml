@@ -35,7 +35,7 @@ jobs:
       - name: Do major version release
         id: do_version
         run: |
-          echo "bump=${{ github.event.inputs.bump }}" >> $GITHUB_ENV
+          bump="${{ github.event.inputs.bump }}"
           if [ "$bump" = "major" ]; then
             pnpm -r exec -- npm version major
             version=$(npm version major --no-git-tag-version)
