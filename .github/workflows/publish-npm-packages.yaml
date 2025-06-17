@@ -38,7 +38,7 @@ jobs:
         run: |
           mv apps/engine/dist/engine-linux apps/engine/dist/engine-linux-x64
           mv apps/engine/dist/engine-macos apps/engine/dist/engine-macos-x64
-          mv apps/engine/dist/engine-win apps/engine/dist/engine-win-x64
+          mv apps/engine/dist/engine-win.exe apps/engine/dist/engine-win-x64.exe
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
@@ -46,9 +46,7 @@ jobs:
           files: |
             apps/engine/dist/engine-linux-x64
             apps/engine/dist/engine-macos-x64
-            apps/engine/dist/engine-win-x64
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            apps/engine/dist/engine-win-x64.exe
 
   tachybase:
     needs: publish
