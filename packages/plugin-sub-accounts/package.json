@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-sub-accounts",
   "displayName": "sub-accounts",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Generates synthetic roles, each user can create their own sub-accounts (unfinished)",
   "keywords": [
     "Users & permissions"
