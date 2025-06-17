@@ -16,7 +16,7 @@
     "e2e": "tachybase e2e",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "tachybase postinstall",
-    "lint": "oxlint -c oxlintrc.json --import-plugin",
+    "lint": "oxlint",
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
     "prepare": "husky",
@@ -38,7 +38,7 @@
       "prettier --write"
     ],
     "*.ts?(x)": [
-      "oxlint -c oxlintrc.json --import-plugin --fix"
+      "oxlint --fix"
     ]
   },
   "dependencies": {

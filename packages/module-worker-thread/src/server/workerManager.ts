@@ -1,6 +1,6 @@
-import { randomUUID } from 'crypto';
-import path from 'path';
-import { isMainThread, Worker } from 'worker_threads';
+import { randomUUID } from 'node:crypto';
+import path from 'node:path';
+import { isMainThread, Worker } from 'node:worker_threads';
 import { Application } from '@tachybase/server';
 import { fsExists } from '@tachybase/utils';
 
@@ -101,9 +101,8 @@ export class WorkerManager {
         },
         env: {
           ...process.env,
-          ...{
-            NODE_OPTIONS: maxOldSpaceSize,
-          },
+
+          NODE_OPTIONS: maxOldSpaceSize,
         },
       });
     } else {
@@ -115,9 +114,8 @@ export class WorkerManager {
         },
         env: {
           ...process.env,
-          ...{
-            NODE_OPTIONS: maxOldSpaceSize,
-          },
+
+          NODE_OPTIONS: maxOldSpaceSize,
         },
       });
     }

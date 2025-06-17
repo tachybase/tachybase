@@ -339,7 +339,7 @@ function peg$parse(input, options) {
   var peg$r10 = /^[1-9]/;
   var peg$r11 = /^[0-9a-fA-F]/;
   var peg$r12 = /^[eE]/;
-  var peg$r13 = /^[+\-]/;
+  var peg$r13 = /^[+-]/;
   var peg$r14 = /^[ \t\n\r]/;
 
   var peg$e0 = peg$literalExpectation('(', false);
