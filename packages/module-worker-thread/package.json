@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-worker-thread",
   "displayName": "Worker thread",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Worker thread for executing time-consuming tasks",
   "keywords": [
     "Workflow"
