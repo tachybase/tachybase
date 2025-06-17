@@ -167,7 +167,7 @@ export default (cli: Command) => {
         .map((s) => s.trim())
         .filter(Boolean);
     })
-    .argument('<name>')
+    .argument('<name>', 'project name', 'my-app')
     .allowUnknownOption()
     .action(async (name: string, options) => {
       if (fs.existsSync(name)) {
