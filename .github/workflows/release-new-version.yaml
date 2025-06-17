@@ -126,14 +126,14 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/tachybase-all/Dockerfile
+          file: docker/tachybase/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
             TACHYBASE_VERSION=${{ needs.release.outputs.version }}
           tags: |
-            tachybase/tachybase-all:${{ needs.release.outputs.version }}
-            tachybase/tachybase-all:latest
+            tachybase/tachybase:${{ needs.release.outputs.version }}
+            tachybase/tachybase:latest
 
   tachybase-all:
     needs: [publish, release]
