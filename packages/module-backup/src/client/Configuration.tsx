@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Checkbox, DatePicker, useAPIClient, useCompile, useNoticeSub } from '@tachybase/client';
 import { FormItem } from '@tachybase/components';
 
@@ -21,6 +21,7 @@ import {
   Tabs,
   Upload,
   UploadProps,
+  type CheckboxProps,
 } from 'antd';
 import { saveAs } from 'file-saver';
 
@@ -172,6 +173,9 @@ const Restore = ({ ButtonComponent = Button, title, upload = false, fileData }: 
   }, [apiClient]);
   const [dataSource, setDataSource] = useState([]);
 
+  const indeterminate = dataTypes.length > 0 && dataTypes.length < dataSource.length;
+  const checkAll = dataSource.length === dataTypes.length;
+
   useEffect(() => {
     setDataSource(
       Object.keys(restoreData?.dumpableCollectionsGroupByGroup || []).map((key) => ({
@@ -214,6 +218,11 @@ const Restore = ({ ButtonComponent = Button, title, upload = false, fileData }: 
     setRestoreData(null);
     setDataTypes(['required']);
   };
+
+  const onCheckAllChange: CheckboxProps['onChange'] = (e) => {
+    setDataTypes(e.target.checked ? dataSource.map((item) => item.value) : ['required']);
+  };
+
   return (
     <>
       <ButtonComponent onClick={showModal}>{title}</ButtonComponent>
@@ -241,6 +250,10 @@ const Restore = ({ ButtonComponent = Button, title, upload = false, fileData }: 
                   value={dataTypes}
                   onChange={(checkValue) => setDataTypes(checkValue)}
                 />
+                <Divider />
+                <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
+                  {t('Check all')}
+                </Checkbox>
               </FormItem>
             </div>,
           ]}
