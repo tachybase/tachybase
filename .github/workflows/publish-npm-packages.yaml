@@ -1,8 +1,12 @@
 name: Publish NPM Packages And Build Tachybase Engine Docker
 
+# on:
+#   release:
+#     types: [published]
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   publish:
