@@ -1,7 +1,0 @@
-{
-  "bin": "test-x-index.js",
-  "dependencies": {
-    "delta": "*",
-    "normalize.css": "*"
-  }
-}

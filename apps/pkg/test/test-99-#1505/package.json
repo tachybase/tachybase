@@ -1,6 +1,0 @@
-{
-  "bin": "stat.js",
-  "pkg": {
-    "scripts": "files/*"
-  }
-}

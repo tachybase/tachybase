@@ -1,6 +1,0 @@
-{
-  "bin": "rechoir.js",
-  "pkg": {
-    "assets": ["fixture.coffee"]
-  }
-}
