@@ -21,6 +21,9 @@ const count = {
 
 const lookingPaths = process.env.NODE_MODULES_PATH ? [appRoot, process.env.NODE_MODULES_PATH] : [appRoot];
 
+// 带给子进程加载路径
+process.env.TACHYBASE_WORKER_PATHS = lookingPaths.join(',');
+
 // @ts-ignore
 Module._load = function (request: string, parent, isMain) {
   count.total++;

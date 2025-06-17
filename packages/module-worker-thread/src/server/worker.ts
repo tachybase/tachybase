@@ -1,5 +1,7 @@
+import './intercept';
+
 import { isMainThread, parentPort, workerData } from 'node:worker_threads';
-import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
+import { getLoggerTransport } from '@tachybase/logger';
 import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
 import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
