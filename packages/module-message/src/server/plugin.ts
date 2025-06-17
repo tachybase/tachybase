@@ -2,7 +2,6 @@ import { PluginWorkflow } from '@tachybase/module-workflow';
 import { Gateway, Plugin } from '@tachybase/server';
 import { Registry } from '@tachybase/utils';
 
-import jwt from 'jsonwebtoken';
 import WebSocket from 'ws';
 
 import { COLLECTION_NAME_MESSAGES_PROVIDERS } from '../common/collections/messages_providers';
@@ -76,7 +75,7 @@ class ModuleMessagesServer extends Plugin {
     const gateway = Gateway.getInstance();
     const ws = gateway['wsServer'];
 
-    ws?.wss?.on('connection', async (websocket: WebSocket) => {
+    ws?.wss?.on('connection', async (websocket: WebSocket & { id: string }) => {
       websocket.on('message', async (data) => {
         if (data.toString() !== 'ping') {
           const userMeg = JSON.parse(data.toString());
