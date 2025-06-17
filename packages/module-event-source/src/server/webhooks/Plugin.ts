@@ -147,8 +147,8 @@ export class PluginWebhook extends Plugin {
         }
         return;
       }
-      trigger.effectConfigSet(model.id, model.toJSON());
       await trigger.afterUpdate(model);
+      trigger.effectConfigSet(model.id, model.toJSON());
       this.ws.sendToConnectionsByTag('app', this.app.name, {
         type: 'maintaining',
         payload: {
