@@ -33,7 +33,14 @@ export class SchemaSettingsManager {
     });
   }
 
-  addItem(schemaSettingName: string, itemName: string, data: SchemaSettingsItemTypeWithoutName) {
+  addItem(schemaSettingName: string | string[], itemName: string, data: SchemaSettingsItemTypeWithoutName) {
+    if (Array.isArray(schemaSettingName)) {
+      schemaSettingName.forEach((name) => {
+        this.addItem(name, itemName, data);
+      });
+      return;
+    }
+
     const schemaSetting = this.get(schemaSettingName);
     if (!schemaSetting) {
       if (!this.actionList[schemaSettingName]) {
