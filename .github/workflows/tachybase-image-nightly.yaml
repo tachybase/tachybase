@@ -1,7 +1,12 @@
-name: Manual Build Tachybase
+name: Tachybase Image Nightly
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+        docker_tag:
+          description: 'The nightly Docker tag to publish (e.g., "20250317", "latest")'
+          required: true
+          default: 'latest'
 
 jobs:
   docker:
@@ -22,19 +27,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Echo Tag Name
-        run: echo "${{ github.ref }}"
-      - name: Extract Tag Name
-        id: extract_tag
-        run: echo version=`echo "${{ github.ref }}" | cut -d'/' -f3` >> "$GITHUB_OUTPUT"
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           context: .
           file: docker/tachybase/Dockerfile
           push: true
-          build-args: |
-            TACHYBASE_VERSION=${{ steps.extract_tag.outputs.version }}
           tags: |
-            tachybase/tachybase:${{ steps.extract_tag.outputs.version }}
-            tachybase/tachybase:latest
+            tachybase/tachybase:nightly-${{ github.event.inputs.docker_tag }}
+            tachybase/tachybase:nightly-latest

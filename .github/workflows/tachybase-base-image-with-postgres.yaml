@@ -1,4 +1,4 @@
-name: Manual Build Tachybase Node With Pg-client
+name: Tachybase Base Image With Postgres
 
 on:
   workflow_dispatch:
