@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-lark",
   "displayName": "Auth: Lark",
-  "version": "1.1.28",
+  "version": "1.1.29",
   "description": "Lark for auth",
   "keywords": [
     "Authentication"
