@@ -1334,8 +1334,8 @@ importers:
         specifier: 1.21.0
         version: 1.21.0(bytemd@1.21.0)
       '@bytemd/plugin-highlight':
-        specifier: 1.21.0
-        version: 1.21.0(bytemd@1.21.0)
+        specifier: 1.22.0
+        version: 1.22.0(bytemd@1.21.0)
       '@bytemd/react':
         specifier: 1.21.0
         version: 1.21.0(react@18.3.1)
@@ -6334,8 +6334,8 @@ packages:
     peerDependencies:
       bytemd: ^1.5.0
 
-  '@bytemd/plugin-highlight@1.21.0':
-    resolution: {integrity: sha512-JM9rwzj9pFBXVwxmD9mgGIQPO4cTFVHvDhffS93IMK+tqvo0Vw76zDIqJWT3f421j8iNxffGsVQQs6389u3Z9A==}
+  '@bytemd/plugin-highlight@1.22.0':
+    resolution: {integrity: sha512-fMLEvsY8KQrVrtokIWeBFu8/JGGSX0V3Hf6Fhbdn9Q8vsz6u/WuI+wo78xRX7OWhUHpx99UxUcwEy/Hq4+NbpQ==}
     peerDependencies:
       bytemd: ^1.5.0
 
@@ -19626,7 +19626,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@bytemd/plugin-highlight@1.21.0(bytemd@1.21.0)':
+  '@bytemd/plugin-highlight@1.22.0(bytemd@1.21.0)':
     dependencies:
       bytemd: 1.21.0
       highlight.js: 11.11.0
