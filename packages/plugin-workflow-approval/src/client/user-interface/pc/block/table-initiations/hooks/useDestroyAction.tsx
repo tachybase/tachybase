@@ -4,7 +4,7 @@ import { useField } from '@tachybase/schema';
 import _ from 'lodash';
 
 import { useApproval } from '../../../common/ApprovalData.provider';
-import { useHandleRefresh } from '../../common/useHandleRefresh';
+import { useHandleRefresh } from '../../common/hooks/useHandleRefresh';
 
 export function useDestroyAction() {
   const { refreshTable } = useHandleRefresh();

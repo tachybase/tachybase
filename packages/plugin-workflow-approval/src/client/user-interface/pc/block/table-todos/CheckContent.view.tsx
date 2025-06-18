@@ -9,7 +9,7 @@ import { DetailsBlockProvider } from '@tachybase/module-workflow/client';
 import _ from 'lodash';
 
 import { FormBlockProvider } from '../../../../common/components/FormBlock.provider';
-import { SchemaComponentContextProvider } from '../common/SchemaComponent.provider';
+import { SchemaComponentContextProvider } from '../common/providers/SchemaComponentContextProvider';
 import { getSchemaActionTodosContent } from './CheckContent.schema';
 import { useApprovalDetailBlockProps } from './hooks/useApprovalDetailBlockProps';
 import { useApprovalFormBlockProps } from './hooks/useApprovalFormBlockProps';

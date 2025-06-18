@@ -14,14 +14,14 @@ import { useFieldSchema } from '@tachybase/schema';
 
 import { Button, Col, Row } from 'antd';
 
-import { ActionBarProvider } from '../table-initiations/apply-button/ActionBar.provider';
-import { ApplyActionStatusProvider } from '../table-initiations/apply-button/ActionStatus.provider';
-import { useSubmitCreate } from '../table-initiations/apply-button/hooks/useSubmitCreate';
-import { useActionReminder } from '../table-initiations/hooks/useActionReminder';
-import { useActionResubmit } from '../table-initiations/hooks/useActionResubmit';
-import { useWithdrawAction } from '../table-initiations/hooks/useWithdrawAction';
-import { ProviderActionReminder } from '../table-initiations/providers/ActionReminder.provider';
-import { WithdrawActionProvider } from '../table-initiations/WithdrawAction.provider';
+import { useActionReminder } from '../common/hooks/useActionReminder';
+import { useActionResubmit } from '../common/hooks/useActionResubmit';
+import { useSubmitCreate } from '../common/hooks/useSubmitCreate';
+import { useWithdrawAction } from '../common/hooks/useWithdrawAction';
+import { ActionBarProvider } from '../common/providers/ActionBar.provider';
+import { ProviderActionReminder } from '../common/providers/ActionReminder.provider';
+import { ApplyActionStatusProvider } from '../common/providers/ActionStatus.provider';
+import { WithdrawActionProvider } from '../common/providers/WithdrawAction.provider';
 
 /**
  * DOC:
