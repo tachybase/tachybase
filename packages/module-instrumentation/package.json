@@ -8,6 +8,7 @@
   ],
   "main": "dist/server/index.js",
   "devDependencies": {
+    "@ant-design/icons": "^6.0.0",
     "@antv/g2": "^5.3.0",
     "antd": "5.22.5",
     "dayjs": "1.11.13",
@@ -16,6 +17,7 @@
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/components": "workspace:*",
     "@tachybase/database": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/server": "workspace:*",
