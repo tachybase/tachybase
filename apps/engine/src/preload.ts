@@ -1,7 +1,14 @@
 import { isBuiltin, Module } from 'node:module';
 import { isAbsolute } from 'node:path';
 
-// @ts-ignore
+// improve error stack
+Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
+
+declare module 'node:module' {
+  // 扩展 NodeJS.Module 静态属性
+  export function _load(request: string, parent: NodeModule | null, isMain: boolean): any;
+}
+
 const originalLoad = Module._load;
 const appRoot = __dirname;
 
@@ -64,7 +71,6 @@ const lookingPaths = process.env.NODE_MODULES_PATH ? [appRoot, process.env.NODE_
 // 带给子进程加载路径
 process.env.TACHYBASE_WORKER_PATHS = lookingPaths.join(',');
 
-// @ts-ignore
 Module._load = function (request: string, parent, isMain) {
   count.total++;
   // 内置模块不拦截
