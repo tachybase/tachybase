@@ -15,7 +15,7 @@
     "build:linux:debug": "pkg --debug -t node22-linux-x64 .",
     "build:mac": "pkg --compress Brotli -t node22-macos-arm64 .",
     "build:mac:debug": "pkg --debug -t node22-macos-arm64 .",
-    "build:no-compress": "pkg .",
+    "build:no-compress": "pkg --no-bytecode --public-packages \"*\" --public .",
     "build:win": "pkg --compress Brotli -t node22-win-x64 .",
     "build:win:debug": "pkg --debug -t node22-win-x64 ."
   },
@@ -69,6 +69,7 @@
   "pkg": {
     "targets": [
       "node22-macos-x64",
+      "node22-macos-arm64",
       "node22-win-x64",
       "node22-linux-x64"
     ],
