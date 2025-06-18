@@ -1,9 +1,9 @@
-import { IncomingMessage } from 'http';
+import { IncomingMessage } from 'node:http';
 import { Logger } from '@tachybase/logger';
 
 import lodash from 'lodash';
 import { nanoid } from 'nanoid';
-import WebSocket, { WebSocketServer } from 'ws';
+import { WebSocket, WebSocketServer } from 'ws';
 
 import { AppSupervisor } from '../app-supervisor';
 import { Gateway, IncomingRequest } from '../gateway';
@@ -40,7 +40,7 @@ function getPayloadByErrorCode(code, options) {
 }
 
 export class WSServer {
-  wss: WebSocket.Server;
+  wss: WebSocketServer;
   webSocketClients = new Map<string, WebSocketClient>();
   static KEY_CORE_MESSAGE = 'KEY_CORE_MESSAGE';
   private currentId = nanoid();
