@@ -1,8 +1,8 @@
 import { ISchema } from '@tachybase/schema';
 
-import { statisticsConfigCollection } from '../collections/statisticsConfig.collection';
+import { historyConfigCollection } from '../collections/historyConfig.collection';
 
-export const createStatisticsConfig: ISchema = {
+export const createHistoryConfig: ISchema = {
   type: 'void',
   'x-action': 'create',
   'x-acl-action': 'create',
@@ -32,12 +32,12 @@ export const createStatisticsConfig: ISchema = {
           'x-acl-action-props': {
             skipScopeCheck: true,
           },
-          'x-acl-action': `${statisticsConfigCollection.name}:create`,
+          'x-acl-action': `${historyConfigCollection.name}:create`,
           'x-decorator': 'FormBlockProvider',
           'x-use-decorator-props': 'useCreateFormBlockDecoratorProps',
           'x-decorator-props': {
             dataSource: 'main',
-            collection: statisticsConfigCollection,
+            collection: historyConfigCollection,
           },
           'x-component': 'CardItem',
           properties: {
@@ -81,17 +81,16 @@ export const createStatisticsConfig: ISchema = {
                   'x-component': 'CollectionField',
                   'x-decorator': 'FormItem',
                 },
-                statisticsOptions: {
+                historyOptions: {
                   type: 'json',
                   default: {
                     filterKey: '',
                     filterValues: {
                       $and: [{ meta: { userId: { $gt: 1 } } }],
                     },
-                    collection: '',
-                    collectionFilter: {},
                     dedupBy: '',
                     minCount: 1,
+                    timeGroup: '',
                     timeFilter: {
                       after: '',
                       before: '',

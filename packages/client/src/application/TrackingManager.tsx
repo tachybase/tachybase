@@ -9,7 +9,9 @@ export interface TrackingData {
 
 export class TrackingManager {
   api: APIClient;
-  constructor(private app: Application) {}
+  constructor(private app: Application) {
+    this.api = this.app.apiClient;
+  }
 
   async logEvent(type: string, key: string, values?: Record<string, any>) {
     const data: TrackingData = {
@@ -17,7 +19,8 @@ export class TrackingManager {
       key,
       values,
     };
-    this.api.resource('instrumentation').create({
+
+    await this.api.resource('instrumentation').create({
       values: {
         ...data,
       },
