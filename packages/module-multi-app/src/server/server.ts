@@ -148,7 +148,7 @@ const defaultAppOptionsFactory = (appName: string, mainApp: Application, preset:
       ...rawDatabaseOptions,
       tablePrefix: '',
     },
-    plugins: preset === 'tachybase' ? [PluginPresets] : [preset],
+    plugins: preset === 'tachybase' || !preset ? [PluginPresets] : [preset],
     resourcer: {
       prefix: process.env.API_BASE_PATH,
     },
