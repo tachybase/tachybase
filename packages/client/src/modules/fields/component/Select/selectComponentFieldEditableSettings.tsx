@@ -2,12 +2,13 @@ import React, { useCallback } from 'react';
 import { Field, ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import _, { property } from 'lodash';
+import { useSchemaByType } from 'packages/client/src/schema-settings/utils/util';
 import { useTranslation } from 'react-i18next';
 
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
 import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
-import { useCollectionFilterOptionsV2 } from '../../../../collection-manager/action-hooks';
+import { useCollectionFilterOptionsV2, useSortFields } from '../../../../collection-manager/action-hooks';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
 import { useCollectionField } from '../../../../data-source';
 import { FlagProvider, useFlag } from '../../../../flag-provider';
@@ -52,17 +53,8 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
     {
       name: 'fieldComponent',
       useSchema() {
-        return {
-          type: 'string',
-          title: '{{t("Field component")}}',
-          'x-decorator': 'FormItem',
-          'x-component': 'Select',
-        };
-      },
-      useVisible: useIsMuiltipleAble,
-      useComponentProps() {
         const { t } = useTranslation();
-        const eddn = useEditableDesignable();
+        const { refresh } = useEditableDesignable();
         const field = useField<Field>();
         const isAddNewForm = useIsAddNewForm();
         const fieldMode = useFieldComponentName();
@@ -77,30 +69,39 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
           { label: t('Radio group'), value: 'Radio group' },
         ];
         return {
-          options: isMuiltipleSelect ? optionsMuiltipleSelect : fieldModeOptions,
-          onChange: (mode) => {
-            const schema = {
-              ['x-uid']: fieldSchema['x-uid'],
-            };
-            fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-            fieldSchema['x-component-props']['mode'] = mode;
-            schema['x-component-props'] = fieldSchema['x-component-props'];
-            field.componentProps = field.componentProps || {};
-            field.componentProps.mode = mode;
+          type: 'string',
+          title: '{{t("Field component")}}',
+          default: fieldMode,
+          'x-decorator': 'FormItem',
+          'x-component': 'Select',
+          'x-component-props': {
+            allowClear: false,
+            showSearch: false,
+            options: isMuiltipleSelect ? optionsMuiltipleSelect : fieldModeOptions,
+            onChange: (mode) => {
+              const schema = {
+                ['x-uid']: fieldSchema['x-uid'],
+              };
+              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+              fieldSchema['x-component-props']['mode'] = mode;
+              schema['x-component-props'] = fieldSchema['x-component-props'];
+              field.componentProps = field.componentProps || {};
+              field.componentProps.mode = mode;
 
-            // 子表单状态不允许设置默认值
-            if (isSubMode(fieldSchema) && isAddNewForm) {
-              // @ts-ignore
-              schema.default = null;
-              fieldSchema.default = null;
-              field?.setInitialValue?.(null);
-              field?.setValue?.(null);
-            }
-            eddn.refresh();
+              // 子表单状态不允许设置默认值
+              if (isSubMode(fieldSchema) && isAddNewForm) {
+                // @ts-ignore
+                schema.default = null;
+                fieldSchema.default = null;
+                field?.setInitialValue?.(null);
+                field?.setValue?.(null);
+              }
+              refresh();
+            },
           },
-          value: fieldMode,
         };
       },
+      useVisible: useIsMuiltipleAble,
     },
     {
       name: 'setTheDataScope',
@@ -121,7 +122,7 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
         const { isInSubForm, isInSubTable } = useFlag() || {};
         const variables = useVariables();
         const localVariables = useLocalVariables();
-        const { dn } = useEditableDesignable();
+        const { refresh } = useEditableDesignable();
         const dynamicComponent = (props: DynamicComponentProps) => {
           return (
             <VariableInput
@@ -154,6 +155,9 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
               'x-component': 'Action.Modal',
               title: t('Set the data scope'),
               'x-decorator': 'FormV2',
+              'x-decorator-props': {
+                componentType: 'div',
+              },
               properties: {
                 filter: {
                   enum: getFields(),
@@ -172,9 +176,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                     collectionName: collectionField?.target,
                     dynamicComponent: dynamicComponent,
                     defaultFilter: fieldSchema?.['x-component-props']?.service?.params?.filter || {},
-                    onChange: (data) => {
-                      console.log('%c Line:158 🥑 data', 'font-size:18px;color:#4fff4B;background:#7f2b82', data);
-                    },
                   },
                 },
                 footer: {
@@ -189,10 +190,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                     submit: {
                       title: '{{t("Submit")}}',
                       'x-component': 'Action',
-                      // 'x-component-props': {
-                      //   type: 'primary',
-                      //   // useAction: useSubmitAction,
-                      // },
                       'x-use-component-props': () => {
                         const form = useForm();
                         const ctx = useActionContext();
@@ -202,7 +199,7 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                             filter = removeNullCondition(filter);
                             _.set(fieldSchema['x-component-props'], 'service.params.filter', filter);
                             ctx?.setVisible?.(false);
-                            dn.refresh();
+                            refresh();
                           },
                         };
                       },
@@ -220,110 +217,371 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
         return isSelectFieldMode && !isFieldReadPretty;
       },
     },
-    // {
-    //   ...setDefaultSortingRules,
-    //   useComponentProps() {
-    //     const { fieldSchema } = useColumnSchema();
-    //     return {
-    //       fieldSchema,
-    //     };
-    //   },
-    //   useVisible() {
-    //     const isSelectFieldMode = useIsSelectFieldMode();
-    //     const isFieldReadPretty = useIsFieldReadPretty();
-    //     return isSelectFieldMode && !isFieldReadPretty;
-    //   },
-    // },
-    // {
-    //   ...quickCreate,
-    //   useVisible() {
-    //     const isAssociationField = useIsAssociationField();
-    //     const readPretty = useIsFieldReadPretty();
-    //     const { fieldSchema } = useColumnSchema();
-    //     return isAssociationField && !fieldSchema && !readPretty;
-    //   },
-    // },
-    // {
-    //   ...allowMultiple,
-    //   useVisible() {
-    //     const isAssociationField = useIsAssociationField();
-    //     const IsShowMultipleSwitch = useIsShowMultipleSwitch();
-    //     return isAssociationField && IsShowMultipleSwitch();
-    //   },
-    // },
-    // {
-    //   ...titleField,
-    //   useVisible: useIsAssociationField,
-    // },
-    // {
-    //   ...enableLink,
-    //   useVisible() {
-    //     const readPretty = useIsFieldReadPretty();
-    //     return useIsAssociationField() && readPretty;
-    //   },
-    // }
+    {
+      name: 'setDefaultSortingRules',
+      useSchema() {
+        const field = useField();
+        const { t } = useTranslation();
+        const { refresh } = useEditableDesignable();
+        const fieldSchema = useFieldSchema();
+        const { getField } = useCollection_deprecated();
+        const { getCollectionJoinField } = useCollectionManager_deprecated();
+        const collectionField =
+          getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field']);
+        const sortFields = useSortFields(collectionField?.target);
+        const defaultSort = fieldSchema['x-component-props']?.service?.params?.sort || [];
+        const sort = defaultSort?.map((item: string) => {
+          return item?.startsWith('-')
+            ? {
+                field: item.substring(1),
+                direction: 'desc',
+              }
+            : {
+                field: item,
+                direction: 'asc',
+              };
+        });
+        return {
+          type: 'object',
+          title: t('Set default sorting rules'),
+          'x-decorator': 'FormItem',
+          'x-component': 'Action',
+          'x-component-props': {
+            style: {
+              width: '100%',
+            },
+          },
+          properties: {
+            modal: {
+              type: 'void',
+              'x-component': 'Action.Modal',
+              title: t('Set default sorting rules'),
+              'x-decorator': 'FormV2',
+              'x-decorator-props': {
+                componentType: 'div',
+              },
+              properties: {
+                sort: {
+                  type: 'array',
+                  default: sort,
+                  'x-component': 'ArrayItems',
+                  'x-decorator': 'FormItem',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      space: {
+                        type: 'void',
+                        'x-component': 'Space',
+                        properties: {
+                          sort: {
+                            type: 'void',
+                            'x-decorator': 'FormItem',
+                            'x-component': 'ArrayItems.SortHandle',
+                          },
+                          field: {
+                            type: 'string',
+                            enum: sortFields,
+                            required: true,
+                            'x-decorator': 'FormItem',
+                            'x-component': 'Select',
+                            'x-component-props': {
+                              style: {
+                                width: 260,
+                              },
+                              optionLabelProp: 'fullLabel',
+                            },
+                          },
+                          direction: {
+                            type: 'string',
+                            'x-decorator': 'FormItem',
+                            'x-component': 'Radio.Group',
+                            'x-component-props': {
+                              optionType: 'button',
+                            },
+                            enum: [
+                              {
+                                label: t('ASC'),
+                                value: 'asc',
+                              },
+                              {
+                                label: t('DESC'),
+                                value: 'desc',
+                              },
+                            ],
+                          },
+                          remove: {
+                            type: 'void',
+                            'x-decorator': 'FormItem',
+                            'x-component': 'ArrayItems.Remove',
+                          },
+                        },
+                      },
+                    },
+                  },
+                  properties: {
+                    add: {
+                      type: 'void',
+                      title: t('Add sort field'),
+                      'x-component': 'ArrayItems.Addition',
+                    },
+                  },
+                },
+                footer: {
+                  'x-component': 'Action.Modal.Footer',
+                  type: 'void',
+                  properties: {
+                    cancel: {
+                      title: '{{t("Cancel")}}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{t("Submit")}}',
+                      'x-component': 'Action',
+                      'x-use-component-props': () => {
+                        const form = useForm();
+                        const ctx = useActionContext();
+                        return {
+                          async onClick() {
+                            let sort = form.values.sort;
+                            const sortArr = sort.map((item) => {
+                              return item.direction === 'desc' ? `-${item.field}` : item.field;
+                            });
+
+                            field.query(new RegExp(`[0-9]+\\.${fieldSchema.name}$`)).forEach((item) => {
+                              _.set(item, 'componentProps.service.params.sort', sortArr);
+                            });
+                            _.set(fieldSchema, 'x-component-props.service.params.sort', sortArr);
+                            // props?.onSubmitCallBack?.(sortArr);
+                            field.componentProps = fieldSchema['x-component-props'];
+                            ctx?.setVisible?.(false);
+                            refresh();
+                          },
+                        };
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+      },
+      useVisible() {
+        const isSelectFieldMode = useIsSelectFieldMode();
+        const isFieldReadPretty = useIsFieldReadPretty();
+        return isSelectFieldMode && !isFieldReadPretty;
+      },
+    },
+    {
+      name: 'quickCreate',
+      useSchema() {
+        const { t } = useTranslation();
+        const { refresh, insertAdjacent } = useEditableDesignable();
+        const field = useField<Field>();
+        const fieldSchema = useFieldSchema();
+        return {
+          type: 'string',
+          title: '{{t("Quick create")}}',
+          default: field.componentProps?.addMode || 'none',
+          'x-decorator': 'FormItem',
+          'x-component': 'Select',
+          'x-component-props': {
+            allowClear: false,
+            showSearch: false,
+            options: [
+              { label: t('None'), value: 'none' },
+              { label: t('Dropdown'), value: 'quickAdd' },
+              { label: t('Pop-up'), value: 'modalAdd' },
+            ],
+            onChange: (mode) => {
+              if (mode === 'modalAdd') {
+                const hasAddNew = fieldSchema.reduceProperties((buf, schema) => {
+                  if (schema['x-component'] === 'Action') {
+                    return schema;
+                  }
+                  return buf;
+                }, null);
+
+                if (!hasAddNew) {
+                  const addNewActionschema = {
+                    'x-action': 'create',
+                    'x-acl-action': 'create',
+                    title: "{{t('Add new')}}",
+                    // 'x-designer': 'Action.Designer',
+                    'x-toolbar': 'ActionSchemaToolbar',
+                    'x-settings': 'actionSettings:addNew',
+                    'x-component': 'Action',
+                    'x-decorator': 'ACLActionProvider',
+                    'x-component-props': {
+                      openMode: 'drawer',
+                      type: 'default',
+                      component: 'CreateRecordAction',
+                    },
+                  };
+                  insertAdjacent('afterBegin', addNewActionschema);
+                }
+              }
+              const schema = {
+                ['x-uid']: fieldSchema['x-uid'],
+              };
+              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+              fieldSchema['x-component-props']['addMode'] = mode;
+              schema['x-component-props'] = fieldSchema['x-component-props'];
+              field.componentProps = field.componentProps || {};
+              field.componentProps.addMode = mode;
+              refresh();
+            },
+          },
+        };
+      },
+      useVisible() {
+        const isAssociationField = useIsAssociationField();
+        const readPretty = useIsFieldReadPretty();
+        const { fieldSchema } = useColumnSchema();
+        return isAssociationField && !fieldSchema && !readPretty;
+      },
+    },
+    {
+      name: 'allowMultiple',
+      useSchema() {
+        const { t } = useTranslation();
+        const field = useField<Field>();
+        const { fieldSchema: tableColumnSchema } = useColumnSchema();
+        const schema = useFieldSchema();
+        const fieldSchema = tableColumnSchema || schema;
+        const { refresh } = useEditableDesignable();
+        return {
+          type: 'boolean',
+          // title: '{{t("Allow multiple")}}',
+          default:
+            fieldSchema['x-component-props']?.multiple === undefined ? true : fieldSchema['x-component-props'].multiple,
+          'x-decorator': 'FormItem',
+          'x-component': 'Checkbox',
+          'x-content': '{{t("Allow multiple")}}',
+          'x-component-props': {
+            onInput: (e) => {
+              const value = e?.target?.checked ?? false;
+              const schema = {
+                ['x-uid']: fieldSchema['x-uid'],
+              };
+              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+              field.componentProps = field.componentProps || {};
+
+              fieldSchema['x-component-props'].multiple = value;
+              field.componentProps.multiple = value;
+
+              schema['x-component-props'] = fieldSchema['x-component-props'];
+              refresh();
+            },
+          },
+        };
+      },
+      useVisible() {
+        const isAssociationField = useIsAssociationField();
+        const IsShowMultipleSwitch = useIsShowMultipleSwitch();
+        return isAssociationField && IsShowMultipleSwitch();
+      },
+    },
+    {
+      name: 'titleField',
+      useSchema() {
+        const { t } = useTranslation();
+        const field = useField<Field>();
+        const { refresh } = useEditableDesignable();
+        const options = useTitleFieldOptions();
+        const { uiSchema, fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
+        const schema = useFieldSchema();
+        const fieldSchema = tableColumnSchema || schema;
+        const targetCollectionField = useCollectionField();
+        const collectionField = tableColumnField || targetCollectionField;
+        // 处理多对一关系标题显示
+        const { getCollectionFields } = useCollectionManager_deprecated();
+        const fieldNames = {
+          ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
+          ...field?.componentProps?.fieldNames,
+          ...fieldSchema?.['x-component-props']?.['fieldNames'],
+        };
+        return {
+          type: 'string',
+          title: '{{t("Title field")}}',
+          default: fieldNames?.label,
+          'x-decorator': 'FormItem',
+          'x-component': 'Select',
+          'x-component-props': {
+            allowClear: false,
+            showSearch: false,
+            options,
+            onChange(label) {
+              const schema = {
+                ['x-uid']: fieldSchema['x-uid'],
+              };
+              const newFieldNames = {
+                ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
+                ...fieldSchema['x-component-props']?.['fieldNames'],
+                label,
+              };
+              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+              fieldSchema['x-component-props']['fieldNames'] = newFieldNames;
+              // 处理多对一关系标题显示
+              const target = getCollectionFields(collectionField.target).find((field) => field.name === label);
+              if (target.interface === 'm2o') {
+                fieldSchema['x-component-props']['x-next-title'] = {
+                  label,
+                  collection: target.collectionName,
+                };
+              } else {
+                fieldSchema['x-component-props']['x-next-title'] = null;
+              }
+              schema['x-component-props'] = fieldSchema['x-component-props'];
+              field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
+              const path = field.path?.splice(field.path?.length - 1, 1);
+              field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
+                f.componentProps.fieldNames = fieldNames;
+              });
+              refresh();
+            },
+          },
+        };
+      },
+      useVisible: useIsAssociationField,
+    },
+    {
+      name: 'enableLink',
+      useSchema() {
+        const { t } = useTranslation();
+        const field = useField<Field>();
+        const { fieldSchema: tableColumnSchema } = useColumnSchema();
+        const schema = useFieldSchema();
+        const fieldSchema = tableColumnSchema || schema;
+        const { refresh } = useEditableDesignable();
+        return {
+          type: 'boolean',
+          // title: '{{t("Enable link")}}',
+          default: fieldSchema['x-component-props']?.enableLink !== false,
+          'x-decorator': 'FormItem',
+          'x-component': 'Checkbox',
+          'x-content': '{{t("Enable link")}}',
+          'x-component-props': {
+            onInput(e) {
+              const flag = e?.target?.checked ?? false;
+              fieldSchema['x-component-props'] = {
+                ...fieldSchema?.['x-component-props'],
+                enableLink: flag,
+              };
+              field.componentProps['enableLink'] = flag;
+              refresh();
+            },
+          },
+        };
+      },
+      useVisible() {
+        const readPretty = useIsFieldReadPretty();
+        return useIsAssociationField() && readPretty;
+      },
+    },
   ],
 });
-
-export const EditableSchemaSettingsDataScope = (props) => {
-  const { t } = useTranslation();
-  const { getFields } = useCollectionFilterOptionsV2(props.collectionName);
-  const record = useRecord();
-  const { form } = useFormBlockContext();
-  const variables = useVariables();
-  const localVariables = useLocalVariables();
-  const { getAllCollectionsInheritChain } = useCollectionManager_deprecated();
-  const { isInSubForm, isInSubTable } = useFlag() || {};
-
-  const dynamicComponent = useCallback(
-    (props: DynamicComponentProps) => {
-      return (
-        <DatePickerProvider value={{ utc: false }}>
-          <VariableInput
-            {...props}
-            form={form}
-            record={record}
-            shouldChange={getShouldChange({
-              collectionField: props.collectionField,
-              variables,
-              localVariables,
-              getAllCollectionsInheritChain,
-            })}
-          />
-        </DatePickerProvider>
-      );
-    },
-    [form, getAllCollectionsInheritChain, localVariables, record, variables],
-  );
-  const getSchema = () => {
-    return {
-      type: 'object',
-      title: t('Set the data scope'),
-      properties: {
-        filter: {
-          enum: props.collectionFilterOption || getFields(),
-          'x-decorator': (props) => (
-            <BaseVariableProvider {...props}>
-              <FlagProvider isInSubForm={isInSubForm} isInSubTable={isInSubTable}>
-                {props.children}
-              </FlagProvider>
-            </BaseVariableProvider>
-          ),
-          'x-decorator-props': {
-            isDisabled,
-          },
-          'x-component': 'Filter',
-          'x-component-props': {
-            collectionName: props.collectionName,
-            dynamicComponent: props.dynamicComponent || dynamicComponent,
-          },
-        },
-      },
-    };
-  };
-
-  return <SchemaComponent schema={getSchema()} />;
-};
 
 function isDisabled(params: IsDisabledParams) {
   const { option, collectionField, uiSchema } = params;

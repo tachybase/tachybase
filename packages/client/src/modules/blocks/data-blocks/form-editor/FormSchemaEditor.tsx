@@ -331,6 +331,7 @@ const PreviewDrawer = ({ open, onClose, schema }) => {
 };
 
 const PCPreviewContent = ({ schema }) => {
+  console.log('%c Line:334 🍩 schema', 'font-size:18px;color:#4fff4B;background:#ea7e5c', schema);
   const designerCtx = useSchemaComponentContext();
   return (
     <div style={{ width: '100%', maxWidth: '700px', height: '100%' }}>
@@ -962,7 +963,6 @@ const EditorFieldFormProperty = ({ schema, setSchemakey, eddn }) => {
   const { Sider } = Layout;
   const { styles } = useStyles();
   const { t } = useTranslation();
-
   return (
     <Sider width={300} style={{ background: 'white', overflow: 'auto' }}>
       <Tabs
@@ -987,18 +987,29 @@ const EditorFieldFormProperty = ({ schema, setSchemakey, eddn }) => {
 };
 
 const EditorFieldProperty = ({ schema, setSchemakey }) => {
-  return (
-    <div>
-      {/* <GenericProperties schema={schema} setSchemakey={setSchemakey} /> */}
-      <SpecificProperties schema={schema} setSchemakey={setSchemakey} />
+  const allCTX = useEditableSelectedField();
+  const { setEditableField, fieldSchema: currentSchema, ...ctxValues } = allCTX;
+  const schemaUID = currentSchema?.['x-uid'] || null;
+  const fieldSchema = useMemo(() => {
+    if (!schema || !schemaUID) return null;
+    return findSchema(schema, 'x-uid', schemaUID) || null;
+  }, [schema, schemaUID]);
+
+  const shouldRender = schema && schemaUID && fieldSchema?.name;
+
+  return shouldRender ? (
+    <div key={schemaUID}>
+      <AllSchemaProviders fieldSchema={fieldSchema} {...ctxValues}>
+        <GenericProperties schema={schema} setSchemakey={setSchemakey} schemaUID={schemaUID} />
+        <SpecificProperties />
+      </AllSchemaProviders>
     </div>
-  );
+  ) : null;
 };
 
-const GenericProperties = ({ schema, setSchemakey }) => {
+const GenericProperties = ({ schema, setSchemakey, schemaUID }) => {
   const app = useApp();
-  const { fieldSchema: currentSchema, field } = useEditableSelectedField();
-  const schemaUID = currentSchema?.['x-uid'] || null;
+
   const fieldSchema = findSchema(schema, 'x-uid', schemaUID) || null;
   if (!fieldSchema) {
     return <div>未选中字段</div>;
@@ -1341,23 +1352,10 @@ const createOptionsSchema = (props) => {
   };
 };
 
-const SpecificProperties = ({ schema, setSchemakey }) => {
-  const allCTX = useEditableSelectedField();
-  const { setEditableField, fieldSchema: currentSchema, ...ctxValues } = allCTX;
-  const schemaUID = currentSchema?.['x-uid'] || null;
+const SpecificProperties = () => {
+  const fieldComponentName = useFieldComponentName();
 
-  const fieldSchema = useMemo(() => {
-    if (!schema || !schemaUID) return null;
-    return findSchema(schema, 'x-uid', schemaUID) || null;
-  }, [schema, schemaUID]);
-
-  const shouldRender = schema && schemaUID && fieldSchema?.name;
-
-  return shouldRender ? (
-    <AllSchemaProviders fieldSchema={fieldSchema} {...ctxValues}>
-      <SpecificPropertiesContent key={schemaUID} fieldSchema={fieldSchema} setSchemakey={setSchemakey} />
-    </AllSchemaProviders>
-  ) : null;
+  return <SpecificPropertiesContent key={fieldComponentName} fieldComponentName={fieldComponentName} />;
 };
 
 export const AllSchemaProviders = ({
@@ -1406,18 +1404,10 @@ const EditorFormProperty = ({ schema, setSchemakey }) => {
   return <div></div>;
 };
 
-export const SpecificPropertiesContent = ({ fieldSchema, setSchemakey }) => {
+export const SpecificPropertiesContent = ({ fieldComponentName }) => {
   const app = useApp();
-  const fieldComponentName = useFieldComponentName();
-  const componentSettings = app.editableSchemaSettingsManager.get(
-    `editableFieldSettings:component:${fieldComponentName}`,
-  );
-  const items = componentSettings?.options?.items ?? [];
-
   const [itemStates, setItemStates] = useState([]);
-  // const [schemaKey, setSchemaKey] = useState(uid());
   const [form] = useState(() => createForm());
-
   const handleItemUpdate = useCallback((index, state) => {
     setItemStates((prev) => {
       const updated = [...prev];
@@ -1425,6 +1415,13 @@ export const SpecificPropertiesContent = ({ fieldSchema, setSchemakey }) => {
       return updated;
     });
   }, []);
+
+  const items = useMemo(() => {
+    const componentSettings = app.editableSchemaSettingsManager.get(
+      `editableFieldSettings:component:${fieldComponentName}`,
+    );
+    return componentSettings?.options?.items ?? [];
+  }, [fieldComponentName]);
 
   const fieldSchemas = useMemo(() => {
     const result = {};
@@ -1453,31 +1450,9 @@ export const SpecificPropertiesContent = ({ fieldSchema, setSchemakey }) => {
     return values;
   }, [itemStates]);
 
-  // const onChangeMap = useMemo(() => {
-  //   const map = new Map();
-  //   for (const item of itemStates) {
-  //     if (item.name && typeof item.props?.onChange === 'function') {
-  //       map.set(item.name, item.props.onChange);
-  //     }
-  //   }
-  //   return map;
-  // }, [itemStates]);
-
   useEffect(() => {
     form.setValues(initialValues);
   }, [initialValues, form]);
-
-  useEffect(() => {
-    if (!form) return;
-
-    const subId = form.subscribe((e) => {
-      if (e.type === 'onFieldValueChange') {
-        setSchemakey(uid());
-      }
-    });
-
-    return () => form.unsubscribe(subId);
-  }, [form, setSchemakey]);
 
   const fullSchema = useMemo(() => {
     return {
@@ -1496,7 +1471,11 @@ export const SpecificPropertiesContent = ({ fieldSchema, setSchemakey }) => {
   return (
     <div style={{ padding: '10px' }}>
       {items.map((item, index) => (
-        <ItemHookRunner key={item.name || index} item={item} onUpdate={(state) => handleItemUpdate(index, state)} />
+        <ItemHookRunner
+          key={`${fieldComponentName}_${item.name || index}`}
+          item={item}
+          onUpdate={(state) => handleItemUpdate(index, state)}
+        />
       ))}
       {form && <SchemaComponent schema={fullSchema} />}
     </div>
@@ -1505,22 +1484,12 @@ export const SpecificPropertiesContent = ({ fieldSchema, setSchemakey }) => {
 
 const ItemHookRunner = ({ item, onUpdate }) => {
   const props = item.useComponentProps?.() ?? {};
-  const isVisible = item.useVisible?.() ?? true;
+  const isVisible = item.useVisible ? (item.useVisible() ?? false) : true;
   const schema = item.useSchema?.();
 
-  const hasUpdated = useRef(false);
-
   useEffect(() => {
-    if (!hasUpdated.current) {
-      hasUpdated.current = true;
-      onUpdate({
-        ...item,
-        props,
-        isVisible,
-        schema,
-      });
-    }
-  }, []); // <--- 注意：空依赖数组，确保只在挂载时运行一次
+    onUpdate({ ...item, props, isVisible, schema });
+  }, [item.name]);
 
   return null;
 };

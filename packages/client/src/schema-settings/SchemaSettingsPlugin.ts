@@ -44,11 +44,14 @@ import { filterTreeBlockSettings } from '../modules/blocks/filter-blocks/tree/fi
 import { markdownBlockSettings } from '../modules/blocks/other-blocks/markdown/markdownBlockSettings';
 import { cascaderComponentFieldSettings } from '../modules/fields/component/Cascader/cascaderComponentFieldSettings';
 import { cascadeSelectComponentFieldSettings } from '../modules/fields/component/CascadeSelect/cascadeSelectComponentFieldSettings';
+import { checkboxComponentFieldEditableSettings } from '../modules/fields/component/Checkbox/checkboxComponentFieldEditableSettings';
 import { checkboxComponentFieldSettings } from '../modules/fields/component/Checkbox/checkboxComponentFieldSettings';
 import { CustomTitleComponentFieldSettings } from '../modules/fields/component/CustomTitle/customTitleComponentFieldSettings';
+import { datePickerComponentFieldEditableSettings } from '../modules/fields/component/DatePicker/datePickerComponentFieldEditableSettings';
 import { datePickerComponentFieldSettings } from '../modules/fields/component/DatePicker/datePickerComponentFieldSettings';
 import { drawerSubTableComponentFieldSettings } from '../modules/fields/component/DrawerSubTable/drawerSubTableComponentFieldSettings';
 import { fileManagerComponentFieldSettings } from '../modules/fields/component/FileManager/fileManagerComponentFieldSettings';
+import { uploadAttachmentComponentFieldEditableSettings } from '../modules/fields/component/FileManager/uploadAttachmentComponentFieldEditableSettings';
 import { uploadAttachmentComponentFieldSettings } from '../modules/fields/component/FileManager/uploadAttachmentComponentFieldSettings';
 import { inputNumberComponentFieldSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldSettings';
 import { subformComponentFieldSettings } from '../modules/fields/component/Nester/subformComponentFieldSettings';
@@ -59,6 +62,7 @@ import { selectComponentFieldEditableSettings } from '../modules/fields/componen
 import { selectComponentFieldSettings } from '../modules/fields/component/Select/selectComponentFieldSettings';
 import { subTablePopoverComponentFieldSettings } from '../modules/fields/component/SubTable/subTablePopoverComponentFieldSettings';
 import { tagComponentFieldSettings } from '../modules/fields/component/Tag/tagComponentFieldSettings';
+import { unixTimestampComponentFieldEditableSettings } from '../modules/fields/component/UnixTimestamp/unixTimestampComponentFieldEditableSettings';
 import { unixTimestampComponentFieldSettings } from '../modules/fields/component/UnixTimestamp/unixTimestampComponentFieldSettings';
 
 export class SchemaSettingsPlugin extends Plugin {
@@ -109,7 +113,6 @@ export class SchemaSettingsPlugin extends Plugin {
 
     // field component settings
     this.schemaSettingsManager.add(selectComponentFieldSettings);
-    this.app.editableSchemaSettingsManager.add(selectComponentFieldEditableSettings);
     this.schemaSettingsManager.add(recordPickerComponentFieldSettings);
     this.schemaSettingsManager.add(subformComponentFieldSettings);
     this.schemaSettingsManager.add(subformPopoverComponentFieldSettings);
@@ -126,5 +129,12 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(cascadeSelectComponentFieldSettings);
     this.schemaSettingsManager.add(uploadAttachmentComponentFieldSettings);
     this.schemaSettingsManager.add(cascaderComponentFieldSettings);
+
+    // editable field component settings
+    this.app.editableSchemaSettingsManager.add(selectComponentFieldEditableSettings);
+    this.app.editableSchemaSettingsManager.add(checkboxComponentFieldEditableSettings);
+    this.app.editableSchemaSettingsManager.add(datePickerComponentFieldEditableSettings);
+    this.app.editableSchemaSettingsManager.add(unixTimestampComponentFieldEditableSettings);
+    this.app.editableSchemaSettingsManager.add(uploadAttachmentComponentFieldEditableSettings);
   }
 }
