@@ -2,7 +2,7 @@ import { useAPIClient } from '@tachybase/client';
 import { useField } from '@tachybase/schema';
 
 import { useApproval } from '../../../common/ApprovalData.provider';
-import { useHandleRefresh } from '../../common/useHandleRefresh';
+import { useHandleRefresh } from './useHandleRefresh';
 
 // 撤回
 export function useWithdrawAction() {

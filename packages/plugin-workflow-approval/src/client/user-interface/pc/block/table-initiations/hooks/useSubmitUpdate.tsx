@@ -6,8 +6,8 @@ import _ from 'lodash';
 
 import { useApproval } from '../../../common/ApprovalData.provider';
 import { useResubmit } from '../../../common/Resubmit.provider';
-import { useHandleRefresh } from '../../common/useHandleRefresh';
-import { useSubmitCreate } from '../apply-button/hooks/useSubmitCreate';
+import { useHandleRefresh } from '../../common/hooks/useHandleRefresh';
+import { useSubmitCreate } from '../../common/hooks/useSubmitCreate';
 import { useContextApprovalStatus } from '../ApprovalStatus.context';
 
 export function useSubmitUpdate() {

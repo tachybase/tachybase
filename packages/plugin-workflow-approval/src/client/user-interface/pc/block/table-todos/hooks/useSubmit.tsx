@@ -1,7 +1,7 @@
 import { useAPIClient, useCollection } from '@tachybase/client';
 import { useField, useForm } from '@tachybase/schema';
 
-import { useHandleRefresh } from '../../common/useHandleRefresh';
+import { useHandleRefresh } from '../../common/hooks/useHandleRefresh';
 import { useContextApprovalAction } from '../providers/ApprovalAction.provider';
 import { useContextApprovalRecords } from '../providers/ApprovalExecutions.provider';
 

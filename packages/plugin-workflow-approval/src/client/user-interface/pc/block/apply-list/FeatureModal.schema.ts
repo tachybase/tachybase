@@ -11,9 +11,11 @@ export const getSchemaFeatureModal = (workflow) => {
       [`drawer-${id}`]: {
         type: 'void',
         title: title,
-        'x-decorator': 'FlowContextProvider',
+        'x-decorator': 'ProviderContextWorkflow',
         'x-decorator-props': {
-          workflow: workflow,
+          value: {
+            workflow,
+          },
         },
         'x-component': 'Action.Drawer',
         'x-component-props': {
