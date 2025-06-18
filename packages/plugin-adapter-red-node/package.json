@@ -13,7 +13,7 @@
   "devDependencies": {
     "@node-red/editor-api": "4.0.8",
     "@node-red/nodes": "4.0.8",
-    "@node-red/runtime": "4.0.8",
+    "@node-red/runtime": "4.0.9",
     "@node-red/util": "4.0.8",
     "@types/express": "5.0.2",
     "@types/node-red": "1.3.5",

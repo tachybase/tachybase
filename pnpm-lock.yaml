@@ -2755,8 +2755,8 @@ importers:
         specifier: 4.0.8
         version: 4.0.8
       '@node-red/runtime':
-        specifier: 4.0.8
-        version: 4.0.8
+        specifier: 4.0.9
+        version: 4.0.9
       '@node-red/util':
         specifier: 4.0.8
         version: 4.0.8
@@ -7511,11 +7511,20 @@ packages:
   '@node-red/registry@4.0.8':
     resolution: {integrity: sha512-yZLeMi4crXehsU5VZ9l/TpU9gzVijFlxykDiUB//errA415sdtMMk02yKq+yZVlRyBPAhQRkL97t4/Y3wcWJog==}
 
+  '@node-red/registry@4.0.9':
+    resolution: {integrity: sha512-hczmbEGVNJm4HX20rvGjxYnEcl9TF3x3hAzKtpr8OWWMWvGS3UHzZPM13c3KeItzg3WN/bap8/12wGRzHE1RdA==}
+
   '@node-red/runtime@4.0.8':
     resolution: {integrity: sha512-TYYyDytZr4nYJgkAKwDduCUjOMrIorUnn28aSorHgWCVJEdlllJAbBQgrdDJm6GGqsDNx2iFwmVbgKC3PJbTKg==}
 
+  '@node-red/runtime@4.0.9':
+    resolution: {integrity: sha512-frKqZl6VESSgosJcMqu0ADO3p3zO+HNHQSQaqe+BlsPKLmJCZfM82jPXGFf741hoRDvN6naei4QkwdZiHCuRTA==}
+
   '@node-red/util@4.0.8':
     resolution: {integrity: sha512-Kl2e4i+Oryq5waTMYvY3ntrQtMfy4+hRTMmeXwpkdCa27DTnWfz0grJHIfy0k9F97K7S47gKFOpR6EjRCm0mWw==}
+
+  '@node-red/util@4.0.9':
+    resolution: {integrity: sha512-JAeHlwq7BgNvDyTPzN5uXY03WWJKEnTakYJ4t/Awq1eKjSVLLuGbEZkn5bDI5muhJgHuN0uDOzE9lc86bWUlxQ==}
 
   '@node-rs/bcrypt-android-arm-eabi@1.10.4':
     resolution: {integrity: sha512-55ajutuTdfK1hKseyliflnxzNtxszQQ/EoLtgJlgCe7rI24vGP9EEEZDznB/u9OaJ14/AYzZtIhkEOYdbIdw0A==}
@@ -20682,6 +20691,15 @@ snapshots:
       tar: 7.4.3
       uglify-js: 3.17.4
 
+  '@node-red/registry@4.0.9':
+    dependencies:
+      '@node-red/util': 4.0.9
+      clone: 2.1.2
+      fs-extra: 11.2.0
+      semver: 7.6.3
+      tar: 7.4.3
+      uglify-js: 3.17.4
+
   '@node-red/runtime@4.0.8':
     dependencies:
       '@node-red/registry': 4.0.8
@@ -20695,7 +20713,30 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@node-red/runtime@4.0.9':
+    dependencies:
+      '@node-red/registry': 4.0.9
+      '@node-red/util': 4.0.9
+      async-mutex: 0.5.0
+      clone: 2.1.2
+      express: 4.21.2
+      fs-extra: 11.2.0
+      json-stringify-safe: 5.0.1
+      rfdc: 1.4.1
+    transitivePeerDependencies:
+      - supports-color
+
   '@node-red/util@4.0.8':
+    dependencies:
+      fs-extra: 11.2.0
+      i18next: 21.10.0
+      json-stringify-safe: 5.0.1
+      jsonata: 2.0.5
+      lodash.clonedeep: 4.5.0
+      moment: 2.30.1
+      moment-timezone: 0.5.46
+
+  '@node-red/util@4.0.9':
     dependencies:
       fs-extra: 11.2.0
       i18next: 21.10.0
