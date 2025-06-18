@@ -10,14 +10,6 @@ export function injectAppListMiddleware() {
       for (const application of applications) {
         const appStatus = AppSupervisor.getInstance().getAppStatus(application.name, 'stopped');
         application.status = appStatus;
-        if (application.tmpl) {
-          const matchedApp = applications.find((app) => app.name === application.tmpl);
-          if (matchedApp) {
-            application.tmpl = `${matchedApp.displayName}(${application.tmpl})`;
-          } else {
-            application.tmpl = `Not Exists(${application.tmpl})`;
-          }
-        }
       }
     }
   };
