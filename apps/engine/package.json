@@ -10,12 +10,12 @@
   },
   "scripts": {
     "build": "pkg --no-bytecode --public-packages \"*\" --public --compress Brotli .",
-    "build:debug": "pkg --debug .",
+    "build:debug": "pkg . --no-bytecode --public-packages \"*\" --public --debug",
     "build:linux": "pkg --compress Brotli -t node22-linux-x64 .",
     "build:linux:debug": "pkg --debug -t node22-linux-x64 .",
     "build:mac": "pkg --compress Brotli -t node22-macos-arm64 .",
     "build:mac:debug": "pkg --debug -t node22-macos-arm64 .",
-    "build:no-compress": "pkg --no-bytecode --public-packages \"*\" --public .",
+    "build:no-compress": "pkg . --no-bytecode --public-packages \"*\" --public",
     "build:win": "pkg --compress Brotli -t node22-win-x64 .",
     "build:win:debug": "pkg --debug -t node22-win-x64 ."
   },
@@ -74,6 +74,9 @@
       "node22-win-arm64",
       "node22-linux-x64",
       "node22-linux-arm64"
+    ],
+    "assets": [
+      "presets/**/*"
     ],
     "outputPath": "dist"
   }

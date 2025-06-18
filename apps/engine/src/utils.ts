@@ -9,7 +9,7 @@ import { mkdir, unlink } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 
-import yoctoSpinner from '@socketregistry/yocto-spinner';
+import yoctoSpinner from '@socketregistry/yocto-spinner/index.cjs';
 import { config } from 'dotenv';
 import npmRegistryFetch from 'npm-registry-fetch';
 import * as tar from 'tar';
@@ -67,7 +67,7 @@ const defaultPlugins = [
 function initEnvFile(name: string) {
   const envPath = resolve(name, '.env');
   if (!fs.existsSync(envPath)) {
-    fs.cpSync(resolve(__dirname, '../presets/.env.example'), envPath);
+    fs.copyFileSync(resolve(__dirname, '../presets/.env.example'), envPath);
     console.log('.env file created.');
   } else {
     console.log('.env file already exists.');
