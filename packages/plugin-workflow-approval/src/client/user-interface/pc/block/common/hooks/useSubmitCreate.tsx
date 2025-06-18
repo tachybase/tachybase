@@ -46,6 +46,7 @@ export function useSubmitCreate() {
         if (service) {
           service.refresh();
         }
+        setVisible(false);
       } catch (error) {
         if (field.data) {
           field.data.loading = false;
