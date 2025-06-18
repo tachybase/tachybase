@@ -41,7 +41,7 @@ const AppVisitor = () => {
         {t('View', { ns: NAMESPACE })}
       </TrackingLink>
       {record.status !== 'running' && <a onClick={() => handleStart()}>{t('Start', { ns: NAMESPACE })}</a>}
-      {record.status === 'running' && <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>}
+      {record.status !== 'stopped' && <a onClick={() => handleStop()}>{t('Stop', { ns: NAMESPACE })}</a>}
     </Space>
   );
 };

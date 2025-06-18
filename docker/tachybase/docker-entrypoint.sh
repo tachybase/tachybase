@@ -2,10 +2,10 @@
 set -e
 
 # cp dist files
-cp -r /app/apps/app-rs/dist/* /app/public/
+cp -r /app/apps/app-web/dist/* /app/public/
 
 # handle sentry
-original_file="/app/apps/app-rs/dist/index.html"
+original_file="/app/apps/app-web/dist/index.html"
 sentry_part="/app/public/index.sentry.html"
 output_file="/app/public/index.html"
 

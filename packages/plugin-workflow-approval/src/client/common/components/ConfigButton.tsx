@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ActionContextProvider } from '@tachybase/client';
 
 import { Button } from 'antd';

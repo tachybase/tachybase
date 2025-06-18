@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-hera",
   "displayName": "Hera platform - Deprecated",
-  "version": "2.0.22",
+  "version": "2.2.6",
   "description": "Hera platform - Deprecated",
   "keywords": [
     "System management"
@@ -20,6 +20,7 @@
     "@types/lodash": "~4.17.13",
     "ahooks": "^3.8.4",
     "antd": "5.22.5",
+    "axios": "1.7.7",
     "classnames": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",
     "dayjs": "1.11.13",
@@ -30,7 +31,6 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "4.17.21",
     "nanoid": "^5.0.9",
-    "path-to-regexp": "8.2.0",
     "qrcode": "^1.5.4",
     "qrcode.react": "^3.2.0",
     "react": "^18.3.1",

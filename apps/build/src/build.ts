@@ -1,6 +1,3 @@
-import { EventEmitter } from 'events';
-import path from 'path';
-
 import type { Project } from '@pnpm/workspace.find-packages';
 import chalk from 'chalk';
 import execa from 'execa';
@@ -16,7 +13,6 @@ import {
   ESM_PACKAGES,
   getCjsPackages,
   getPluginPackages,
-  getPresetsPackages,
   PACKAGES_PATH,
   ROOT_PATH,
 } from './constant';
@@ -37,6 +33,7 @@ import { getPackages } from './utils/getPackages';
 const BUILD_ERROR = 'build-error';
 
 export async function build(pkgs: string[]) {
+  console.log(`build node version: ${process.version}`);
   const messages = [];
   signals.on('build:errors', (message) => {
     messages.push(message);
@@ -62,7 +59,6 @@ export async function build(pkgs: string[]) {
 
   const pluginPackages = getPluginPackages(packages);
   const cjsPackages = getCjsPackages(packages);
-  const presetsPackages = getPresetsPackages(packages);
 
   // core/*
   await buildPackages(cjsPackages, 'lib', buildCjs, messages);
@@ -73,15 +69,10 @@ export async function build(pkgs: string[]) {
   const esmPackages = cjsPackages.filter((pkg) => ESM_PACKAGES.includes(pkg.manifest.name));
   await buildPackages(esmPackages, 'es', buildEsm, messages);
 
-  // plugins/*、samples/*
+  // plugins/*
   await buildPackages(pluginPackages, 'dist', buildPlugin, messages);
 
-  // presets/*
-  await buildPackages(presetsPackages, 'lib', buildCjs, messages);
-
-  // writeToCache(BUILD_ERROR, { messages });
-
-  // throw error before umi build
+  // throw error before client build
   if (messages.length > 0) {
     console.log('❌ build errors:');
     messages.forEach((message) => {
@@ -94,7 +85,7 @@ export async function build(pkgs: string[]) {
   // core/app
   const appClient = packages.find((item) => item.dir === CORE_APP);
   if (appClient) {
-    await runScript(['rsbuild', 'build', '-r', 'apps/app-rs'], ROOT_PATH);
+    await runScript(['rsbuild', 'build', '-r', 'apps/app-web'], ROOT_PATH);
   }
 }
 

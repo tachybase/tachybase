@@ -1,10 +1,7 @@
 export const APP_NAME = 'tachybase';
 export const DEFAULT_PLUGIN_STORAGE_PATH = 'storage/plugins';
 export const DEFAULT_PLUGIN_PATH = 'packages/';
-export const pluginPrefix = (
-  process.env.PLUGIN_PACKAGE_PREFIX ||
-  '@tachybase/plugin-,@tachybase/preset-,@tachybase/module-,@hera/plugin-,@hera/module-'
-).split(',');
+export const pluginPrefix = (process.env.PLUGIN_PACKAGE_PREFIX || '@tachybase/plugin-,@tachybase/module-').split(',');
 export const requireRegex = /require\s*\(['"`](.*?)['"`]\)/g;
 export const importRegex = /^import(?:['"\s]*([\w*${}\s,]+)from\s*)?['"\s]['"\s](.*[@\w_-]+)['"\s].*/gm;
 export const EXTERNAL = [

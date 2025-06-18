@@ -14,7 +14,7 @@ export function getGroupData(datas: any[], groupField: string[]) {
     parentGroup: any = {},
   ) => {
     // 如果已经处理完所有分组字段，返回原始数据
-    if (currentIndex + 1 >= fields.length) {
+    if (currentIndex >= fields.length) {
       return data;
     }
     // 当前分组字段

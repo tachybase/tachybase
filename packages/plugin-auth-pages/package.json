@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-pages",
   "displayName": "Auth: Pages",
-  "version": "1.0.22",
+  "version": "1.2.6",
   "description": "Pages for auth",
   "keywords": [
     "Authentication"
@@ -20,5 +20,7 @@
     "@tachybase/module-auth": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "认证：页面",
+  "displayName.zh-CN": "认证页面"
 }

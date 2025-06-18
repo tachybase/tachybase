@@ -17,7 +17,7 @@ import {
   SystemLoggerOptions,
 } from '@tachybase/logger';
 import { ResourceOptions, Resourcer } from '@tachybase/resourcer';
-import { AppTelemetryOptions, getTelemetry } from '@tachybase/telemetry';
+// import { AppTelemetryOptions, getTelemetry } from '@tachybase/telemetry';
 import {
   applyMixins,
   AsyncEmitter,
@@ -28,7 +28,7 @@ import {
   ToposortOptions,
 } from '@tachybase/utils';
 
-import { Command, CommandOptions, ParseOptions } from 'commander';
+import { Command, CommanderError, CommandOptions, ParseOptions } from 'commander';
 import { globSync } from 'glob';
 import { i18n, InitOptions } from 'i18next';
 import Koa, { DefaultContext as KoaDefaultContext, DefaultState as KoaDefaultState } from 'koa';
@@ -119,7 +119,7 @@ export interface ApplicationOptions {
   name?: string;
   authManager?: AuthManagerOptions;
   perfHooks?: boolean;
-  telemetry?: AppTelemetryOptions;
+  // telemetry?: AppTelemetryOptions;
   tmpl?: any;
 }
 
@@ -378,9 +378,9 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     return this._locales;
   }
 
-  get telemetry() {
-    return getTelemetry();
-  }
+  // get telemetry() {
+  //   return getTelemetry();
+  // }
 
   protected _version: ApplicationVersion;
 
@@ -575,13 +575,13 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.emitAsync('beforeLoad', this, options);
     }
 
-    // Telemetry is already initialized in @tachybase/app
-    if (this.options.telemetry?.enabled) {
-      // Start collecting telemetry data if enabled
-      if (!this.telemetry.started) {
-        this.telemetry.start();
-      }
-    }
+    // // Telemetry is already initialized in @tachybase/app
+    // if (this.options.telemetry?.enabled) {
+    //   // Start collecting telemetry data if enabled
+    //   if (!this.telemetry.started) {
+    //     this.telemetry.start();
+    //   }
+    // }
 
     await this.pm.load(options);
 
@@ -684,6 +684,10 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       });
 
     command.exitOverride((err) => {
+      if ((err instanceof CommanderError && err.code === 'commander.helpDisplayed') || err.code === 'commander.help') {
+        // ✅ 用户只是显示了 help，不需要报错
+        return;
+      }
       throw err;
     });
 
@@ -702,9 +706,10 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     };
     const extensions = ['js', 'ts'];
     const patten = `${directory}/*.{${extensions.join(',')}}`;
+    // NOTE: filter to fix npx run problem
     const files = globSync(patten, {
       ignore: ['**/*.d.ts'],
-    });
+    }).filter((f) => !f.endsWith('.d.ts'));
     const appVersion = await this.version.get();
     for (const file of files) {
       let filename = basename(file);
@@ -919,9 +924,9 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
       await this.cacheManager.close();
     }
 
-    if (this.telemetry.started) {
-      await this.telemetry.shutdown();
-    }
+    // if (this.telemetry.started) {
+    //   await this.telemetry.shutdown();
+    // }
 
     await this.emitAsync('afterStop', this, options);
 
@@ -965,26 +970,8 @@ export class Application<StateT = DefaultState, ContextT = DefaultContext> exten
     this.setMaintainingMessage('call beforeInstall hook...');
     await this.emitAsync('beforeInstall', this, options);
 
-    // await app.db.sync();
     await this.pm.install();
     await this.version.update();
-    // this.setMaintainingMessage('installing app...');
-    // this.log.debug('Database dialect: ' + this.db.sequelize.getDialect(), { method: 'install' });
-
-    // if (options?.clean || options?.sync?.force) {
-    //   this.log.debug('truncate database', { method: 'install' });
-    //   await this.db.clean({ drop: true });
-    //   this.log.debug('app reloading', { method: 'install' });
-    //   await this.reload();
-    // } else if (await this.isInstalled()) {
-    //   this.log.warn('app is installed', { method: 'install' });
-    //   return;
-    // }
-
-    // this.log.debug('start install plugins', { method: 'install' });
-    // await this.pm.install(options);
-    // this.log.debug('update version', { method: 'install' });
-    // await this.version.update();
 
     this.logger.debug('emit afterInstall', { method: 'install' });
     this.setMaintainingMessage('call afterInstall hook...');

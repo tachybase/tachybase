@@ -33,7 +33,7 @@ export class AppCommand extends Command {
     return new AppCommand(name);
   }
 
-  parseHandleByIPCServer(argv, parseOptions?): Boolean {
+  parseHandleByIPCServer(argv, parseOptions?): boolean {
     //@ts-ignore
     const userArgs = this._prepareUserArgs(argv, parseOptions);
 

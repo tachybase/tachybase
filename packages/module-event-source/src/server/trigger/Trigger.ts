@@ -38,6 +38,17 @@ export class EventSourceTrigger implements IEventSourceTrigger {
     return this.workSet.has(model.id);
   }
 
+  // 在type未发生变化的情况下发生变化
+  changeWithOutType(model: EventSourceModel) {
+    if (model.changed('type')) {
+      return false;
+    }
+    if (!model.enabled) {
+      return false;
+    }
+    return model.changed('workflowKey') || model.changed('code') || model.changed('options');
+  }
+
   afterCreate(model: EventSourceModel) {}
 
   afterUpdate(model: EventSourceModel) {}

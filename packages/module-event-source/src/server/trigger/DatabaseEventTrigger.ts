@@ -70,6 +70,11 @@ export class DatabaseEventTrigger extends EventSourceTrigger {
     } else if (!model.enabled && this.workSet.has(model.id)) {
       this.app.db.off(model.options.eventName, this.eventMap.get(model.id));
       this.eventMap.delete(model.id);
+    } else if (this.changeWithOutType(model)) {
+      const { eventName: oldEventName } = this.effectConfigMap.get(model.id).options ?? {};
+      this.app.db.off(oldEventName, this.eventMap.get(model.id));
+      this.eventMap.delete(model.id);
+      this.load(model);
     }
   }
 

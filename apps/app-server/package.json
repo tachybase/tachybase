@@ -1,15 +1,13 @@
 {
   "name": "@tachybase/app-server",
-  "version": "1.0.22",
+  "version": "1.2.6",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "dependencies": {
     "@tachybase/database": "workspace:*",
-    "@tachybase/preset-tachybase": "workspace:*",
-    "@tachybase/server": "workspace:*",
-    "@tachybase/telemetry": "workspace:*"
+    "@tachybase/server": "workspace:*"
   },
   "devDependencies": {
     "@tachybase/cache": "workspace:*",

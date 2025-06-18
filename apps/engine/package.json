@@ -1,0 +1,73 @@
+{
+  "name": "@tachybase/engine",
+  "version": "1.2.6",
+  "description": "",
+  "license": "Apache-2.0",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "bin": {
+    "tachybase-engine": "./bin/tachybase-engine.js"
+  },
+  "scripts": {
+    "build": "pkg --no-bytecode --public-packages \"*\" --public --compress Brotli .",
+    "build:debug": "pkg --debug .",
+    "build:linux": "pkg --compress Brotli -t node22-linux-x64 .",
+    "build:linux:debug": "pkg --debug -t node22-linux-x64 .",
+    "build:mac": "pkg --compress Brotli -t node22-macos-arm64 .",
+    "build:mac:debug": "pkg --debug -t node22-macos-arm64 .",
+    "build:no-compress": "pkg .",
+    "build:win": "pkg --compress Brotli -t node22-win-x64 .",
+    "build:win:debug": "pkg --debug -t node22-win-x64 ."
+  },
+  "dependencies": {
+    "@koa/cors": "5.0.0",
+    "@koa/multer": "3.1.0",
+    "@tachybase/acl": "workspace:*",
+    "@tachybase/actions": "workspace:*",
+    "@tachybase/auth": "workspace:*",
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/data-source": "workspace:*",
+    "@tachybase/database": "workspace:*",
+    "@tachybase/evaluators": "workspace:*",
+    "@tachybase/logger": "workspace:*",
+    "@tachybase/resourcer": "workspace:*",
+    "@tachybase/schema": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/utils": "workspace:*",
+    "async-mutex": "0.3.0",
+    "axios": "0.29.0",
+    "cache-manager": "5.7.6",
+    "dayjs": "1.11.13",
+    "dotenv": "16.5.0",
+    "i18next": "25.1.2",
+    "jsonwebtoken": "8.5.1",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "4.4.1",
+    "lodash": "4.17.21",
+    "mathjs": "^10.6.4",
+    "multer": "2.0.1",
+    "mysql2": "3.14.1",
+    "pg": "^8.13.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "sequelize": "6.37.7",
+    "sqlite3": "5.1.7",
+    "umzug": "3.8.2",
+    "winston": "3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
+  },
+  "devDependencies": {
+    "@tachybase/cache": "workspace:*",
+    "@tachybase/client": "workspace:*",
+    "@tachybase/logger": "workspace:*",
+    "@yao-pkg/pkg": "6.5.1"
+  },
+  "pkg": {
+    "targets": [
+      "node22-macos-x64",
+      "node22-win-x64",
+      "node22-linux-x64"
+    ],
+    "outputPath": "dist"
+  }
+}

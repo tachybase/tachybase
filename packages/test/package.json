@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/test",
-  "version": "1.0.22",
+  "version": "1.2.6",
   "license": "Apache-2.0",
   "exports": {
     ".": {
@@ -64,7 +64,7 @@
     "mysql2": "^3.11.5",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
-    "qs": "^6.13.1",
+    "qs": "^6.14.0",
     "sqlite3": "^5.1.7",
     "supertest": "^6.3.4",
     "vite": "^5.4.11",

@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { ArrayField, useField, useFieldSchema } from '@tachybase/schema';
 
+import flat from 'flat';
 import _ from 'lodash';
 
-import { findFilterTargets } from '../../../../../block-provider/hooks';
+import { filterByCleanedFields, findFilterTargets } from '../../../../../block-provider/hooks';
 import { useTableBlockContext } from '../../../../../block-provider/TableBlockProvider';
 import { useFilterBlock } from '../../../../../filter-provider/FilterProvider';
 import { mergeFilter } from '../../../../../filter-provider/utils';
@@ -97,7 +98,7 @@ export const useTableBlockProps = () => {
       }
 
       const value = [record[ctx.rowKey]];
-
+      let prevMergedFilter = {};
       dataBlocks.forEach((block) => {
         const target = targets.find((target) => target.uid === block.uid);
         if (!target) return;
@@ -105,7 +106,6 @@ export const useTableBlockProps = () => {
         const param = block.service.params?.[0] || {};
         // 保留原有的 filter
         const storedFilter = block.service.params?.[1]?.filters || {};
-
         if (selectedRow.includes(record[ctx.rowKey])) {
           if (block.dataLoadingMode === 'manual') {
             return block.clearData();
@@ -115,24 +115,32 @@ export const useTableBlockProps = () => {
           storedFilter[uid] = {
             $and: [
               {
-                [target.field || ctx.rowKey]: {
-                  [target.field ? '$in' : '$eq']: value,
+                [target?.field || ctx.rowKey]: {
+                  [target?.field ? '$in' : '$eq']: value,
                 },
               },
             ],
           };
         }
-
+        const items = flat(block.service?.params?.[0]?.filter || {}) as any;
+        Object.entries(items).forEach(([key, value]) => {
+          if (key.includes(ctx.rowKey) && selectedRow.includes(value)) {
+            delete items[key];
+          }
+        });
         const mergedFilter = mergeFilter([
           ...Object.values(storedFilter).map((filter) => removeNullCondition(filter)),
+          flat.unflatten(items),
           block.defaultFilter,
+          prevMergedFilter,
         ]);
-
+        const currFilter = filterByCleanedFields(mergedFilter);
+        prevMergedFilter = currFilter;
         return block.doFilter(
           {
             ...param,
             page: 1,
-            filter: mergedFilter,
+            filter: currFilter,
           },
           { filters: storedFilter },
         );

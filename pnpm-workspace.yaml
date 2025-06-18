@@ -1,4 +1,6 @@
 packages:
   - 'apps/**'
   - 'packages/**'
+  - '!apps/pkg/test/**'
+  - '!apps/pkg/examples/**'
   - '.'

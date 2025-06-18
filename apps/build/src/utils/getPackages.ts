@@ -1,10 +1,10 @@
-import path from 'path';
+import path from 'node:path';
 
 import Topo from '@hapi/topo';
 import { findWorkspacePackages, type Project } from '@pnpm/workspace.find-packages';
 import fg from 'fast-glob';
 
-import { PACKAGES_PATH, ROOT_PATH } from '../constant';
+import { ROOT_PATH } from '../constant';
 import { toUnixPath } from './utils';
 
 /**
@@ -15,14 +15,11 @@ import { toUnixPath } from './utils';
  * pnpm build => all packages
  */
 function getPackagesPath(pkgs: string[]) {
-  const allPackageJson = fg.sync(
-    ['apps/*/package.json', 'packages/*/package.json','packages/*/*/package.json', 'packages/*/*/*/package.json'],
-    {
-      cwd: ROOT_PATH,
-      absolute: true,
-      onlyFiles: true,
-    },
-  );
+  const allPackageJson = fg.sync(['apps/*/package.json', 'packages/*/package.json'], {
+    cwd: ROOT_PATH,
+    absolute: true,
+    onlyFiles: true,
+  });
 
   if (pkgs.length === 0) {
     return allPackageJson.map(toUnixPath).map((item) => path.dirname(item));

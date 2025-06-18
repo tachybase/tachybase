@@ -1,10 +1,13 @@
 {
   "name": "tachybase",
-  "version": "1.0.22",
+  "version": "1.2.6",
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
     "build": "tachybase build",
+    "build:engine:linux": "pnpm --filter '@tachybase/engine' run build:linux",
+    "build:engine:mac": "pnpm --filter '@tachybase/engine' run build:mac",
+    "build:engine:win": "pnpm --filter '@tachybase/engine' run build:win",
     "build:p": "tachybase build -s --no-dts",
     "clean": "tachybase clean",
     "dev": "tachybase dev",
@@ -13,12 +16,13 @@
     "e2e": "tachybase e2e",
     "preinstall": "npx only-allow pnpm",
     "postinstall": "tachybase postinstall",
-    "lint": "oxlint -c oxlintrc.json --import-plugin",
+    "lint": "oxlint",
     "pm": "tachybase pm",
     "pm2": "tachybase pm2",
     "prepare": "husky",
     "release": "pnpm -r exec -- npm version patch && npm version patch --no-git-tag-version && git commit -a -m 'chore(version): release '$(jq -r '.version | \"v\\(.)\"' package.json | tr -d '\"') && git tag $(jq -r '.version | \"v\\(.)\"' package.json | tr -d '\"')",
     "start": "tachybase start",
+    "start:engine": "tachybase-engine start",
     "tachybase": "tachybase",
     "tar": "tachybase tar",
     "tb": "tachybase",
@@ -35,12 +39,12 @@
       "prettier --write"
     ],
     "*.ts?(x)": [
-      "oxlint -c oxlintrc.json --import-plugin --fix"
+      "oxlint --fix"
     ]
   },
   "dependencies": {
-    "pm2": "^5.4.3",
-    "rimraf": "^6.0.1"
+    "pm2": "6.0.8",
+    "rimraf": "6.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.3.0",
@@ -52,21 +56,20 @@
     "@rsbuild/core": "1.1.13",
     "@tachybase/build": "workspace:*",
     "@tachybase/cli": "workspace:*",
-    "@tachybase/preset-tachybase": "workspace:*",
+    "@tachybase/engine": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@types/node": "20.17.10",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
-    "axios": "^1.7.9",
     "commander": "^9.5.0",
     "concurrently": "9.1.0",
     "cross-env": "7.0.3",
     "globals": "^15.14.0",
     "husky": "^9.1.7",
     "lint-staged": "^13.3.0",
-    "oxlint": "^0.15.3",
+    "oxlint": "1.1.0",
     "prettier": "3.4.2",
-    "prettier-plugin-packagejson": "2.5.6",
+    "prettier-plugin-packagejson": "2.5.15",
     "prettier-plugin-sort-json": "4.0.0",
     "prettier-plugin-sql": "0.18.1",
     "pretty-format": "29.7.0",
@@ -74,11 +77,11 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tsx": "^4.19.2",
-    "typescript": "5.7.2",
+    "typescript": "5.8.3",
     "vitest": "^3.0.5",
     "xlsx": "^0.18.5"
   },
-  "packageManager": "pnpm@10.8.1",
+  "packageManager": "pnpm@10.12.1",
   "engines": {
     "node": ">=20.18.0"
   },
@@ -89,10 +92,12 @@
     "overrides": {
       "@types/node": "20.17.10",
       "antd": "5.22.5",
-      "axios": "1.7.7",
       "dayjs": "1.11.13",
       "react-router": "6.28.1",
-      "react-router-dom": "6.28.1"
+      "react-router-dom": "6.28.1",
+      "string-width": "4.2.3",
+      "strip-ansi": "6.0.1",
+      "wrap-ansi": "7.0.0"
     }
   }
 }

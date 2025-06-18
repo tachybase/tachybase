@@ -365,7 +365,7 @@ export class PluginManager {
     const packageNames: string[] = items.map((item) => item.packageName);
     const source = [];
     for (const packageName of packageNames) {
-      const file = require.resolve(packageName);
+      const file = require.resolve(packageName, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
       const sourceDir = basename(dirname(file)) === 'src' ? 'src' : 'dist';
       const directory = join(
         packageName,
@@ -377,7 +377,7 @@ export class PluginManager {
     for (const plugin of this.options.plugins || []) {
       if (typeof plugin === 'string') {
         const packageName = await PluginManager.getPackageName(plugin);
-        const file = require.resolve(packageName);
+        const file = require.resolve(packageName, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
         const sourceDir = basename(dirname(file)) === 'src' ? 'src' : 'lib';
         const directory = join(packageName, sourceDir, 'server/commands/*.' + (sourceDir === 'src' ? 'ts' : 'js'));
         source.push(directory.replaceAll(sep, '/'));

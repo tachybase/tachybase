@@ -1,3 +1,3 @@
-import { PluginConfiguration } from '@tachybase/server';
+import { PluginPresets, type PluginConfiguration } from '@tachybase/server';
 
-export default ['tachybase'] as PluginConfiguration[];
+export default [PluginPresets] as PluginConfiguration[];

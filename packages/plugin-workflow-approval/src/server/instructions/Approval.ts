@@ -62,7 +62,7 @@ export default class ApprovalInstruction extends Instruction {
         .collectionManager.getCollection(approval.collectionName);
       const message = {
         userId,
-        title: '{{t("Approval", { ns: "@tachybase/plugin-workflow-approval" })}}',
+        title: '{{t("Approval", { ns: "workflow-approval" })}}',
         content: '',
         collectionName: approval.collectionName,
         jsonContent: approval.summary,

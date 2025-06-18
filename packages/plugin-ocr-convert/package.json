@@ -1,16 +1,24 @@
 {
   "name": "@tachybase/plugin-ocr-convert",
-  "version": "1.0.22",
+  "displayName": "OCR Conversion Plugin",
+  "version": "1.2.6",
+  "description": "OCR Conversion Plugin",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "dependencies": {},
   "devDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "@tachybase/utils": "workspace:*",
+    "@vercel/ncc": "0.38.3",
     "antd": "5.22.5",
+    "axios": "1.7.7",
     "dayjs": "1.11.13",
     "docxtemplater": "^3.55.8",
     "exceljs": "^4.4.0",
+    "fs-extra": "11.3.0",
     "pizzip": "^3.0.7",
     "react": "~18.3.1",
     "react-i18next": "^15.2.0",

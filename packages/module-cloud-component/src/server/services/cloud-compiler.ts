@@ -13,13 +13,13 @@ export class CloudCompiler {
       filename: `cloud-library-${uid()}.tsx`,
       presets: [
         [
-          '@babel/preset-env',
+          require('@babel/preset-env'),
           {
             modules: 'amd',
           },
         ],
-        '@babel/preset-react',
-        '@babel/preset-typescript',
+        require('@babel/preset-react'),
+        require('@babel/preset-typescript'),
       ],
     }).code;
     return compiledCode;
@@ -31,7 +31,7 @@ export class CloudCompiler {
       filename: `cloud-component-${uid()}.tsx`,
       presets: [
         [
-          '@babel/preset-env',
+          require('@babel/preset-env'),
           {
             modules: 'commonjs',
             targets: {
@@ -39,8 +39,8 @@ export class CloudCompiler {
             },
           },
         ],
-        '@babel/preset-react',
-        '@babel/preset-typescript',
+        require('@babel/preset-react'),
+        require('@babel/preset-typescript'),
       ],
     }).code;
     return compiledCode;

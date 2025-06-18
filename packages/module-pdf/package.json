@@ -1,19 +1,26 @@
 {
   "name": "@tachybase/module-pdf",
-  "version": "1.0.22",
+  "displayName": "PDF",
+  "version": "1.2.6",
+  "description": "PDF",
+  "keywords": [
+    "Others"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-pdf"
   },
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "7.26.0",
-    "@babel/preset-env": "7.26.0",
-    "@babel/preset-react": "7.26.3",
-    "@babel/preset-typescript": "7.26.0",
+    "@babel/core": "7.27.4",
+    "@babel/parser": "7.27.5",
+    "@babel/preset-env": "7.27.2",
+    "@babel/preset-react": "7.27.1",
+    "@babel/preset-typescript": "7.27.1",
     "@react-pdf/renderer": "^3.4.5",
     "@types/babel__core": "7.20.5",
     "@types/lodash": "4.17.13",
+    "axios": "1.7.7",
     "fs-extra": "11.2.0",
     "lodash": "4.17.21",
     "react-use": "17.6.0"
@@ -27,5 +34,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "PDF",
+  "displayName.zh-CN": "PDF"
 }

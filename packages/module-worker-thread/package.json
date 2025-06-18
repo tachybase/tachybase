@@ -1,7 +1,11 @@
 {
   "name": "@tachybase/module-worker-thread",
-  "version": "1.0.22",
+  "displayName": "Worker thread",
+  "version": "1.2.6",
   "description": "Worker thread for executing time-consuming tasks",
+  "keywords": [
+    "Workflow"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/module-worker-thread"
