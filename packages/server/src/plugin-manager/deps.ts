@@ -15,7 +15,7 @@ const deps: Record<string, string> = {
   'winston-daily-rotate-file': '4.x',
   koa: '2.x',
   '@koa/cors': '3.x',
-  multer: '1.x',
+  multer: '2.x',
   '@koa/multer': '3.x',
   'koa-bodyparser': '4.x',
   react: '18.x',
