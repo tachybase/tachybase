@@ -9,7 +9,9 @@ import { mkdir, unlink } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 
+import yoctoSpinner from '@socketregistry/yocto-spinner';
 import { config } from 'dotenv';
+import npmRegistryFetch from 'npm-registry-fetch';
 import * as tar from 'tar';
 
 const modules = [
@@ -165,10 +167,15 @@ export function guessServePath() {
   return false;
 }
 
+async function getTarballUrl(pkgName, version = 'latest') {
+  const info = await npmRegistryFetch.json(`/${pkgName}/${version}`, {
+    query: { fullMetadata: true },
+  });
+  return info.dist.tarball;
+}
+
 export async function downloadTar(packageName: string, target: string) {
-  const { default: packageJson } = await import('package-json');
-  const info = await packageJson(packageName, { fullMetadata: true });
-  const url = info.dist.tarball;
+  const url = await getTarballUrl(packageName);
   const tarballFile = join(target, '..', `${createHash('md5').update(packageName).digest('hex')}-tarball.gz`);
   await mkdir(dirname(tarballFile), { recursive: true });
   const writer = createWriteStream(tarballFile);
@@ -193,7 +200,6 @@ export async function downloadTar(packageName: string, target: string) {
 }
 
 export async function prepare(name: string, plugins = defaultPlugins) {
-  const { default: yoctoSpinner } = await import('yocto-spinner');
   if (fs.existsSync(name)) {
     console.log(`project folder ${name} already exists, exit now.`);
     return;

@@ -22,6 +22,7 @@
   "dependencies": {
     "@koa/cors": "5.0.0",
     "@koa/multer": "3.1.0",
+    "@socketregistry/yocto-spinner": "1.0.19",
     "@tachybase/acl": "workspace:*",
     "@tachybase/actions": "workspace:*",
     "@tachybase/auth": "workspace:*",
@@ -48,7 +49,7 @@
     "mathjs": "^10.6.4",
     "multer": "2.0.1",
     "mysql2": "3.14.1",
-    "package-json": "10.0.1",
+    "npm-registry-fetch": "18.0.2",
     "pg": "^8.13.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
@@ -57,8 +58,7 @@
     "tar": "7.4.3",
     "umzug": "3.8.2",
     "winston": "3.17.0",
-    "winston-daily-rotate-file": "^5.0.0",
-    "yocto-spinner": "1.0.0"
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@tachybase/cache": "workspace:*",
@@ -71,7 +71,9 @@
       "node22-macos-x64",
       "node22-macos-arm64",
       "node22-win-x64",
-      "node22-linux-x64"
+      "node22-win-arm64",
+      "node22-linux-x64",
+      "node22-linux-arm64"
     ],
     "outputPath": "dist"
   }
