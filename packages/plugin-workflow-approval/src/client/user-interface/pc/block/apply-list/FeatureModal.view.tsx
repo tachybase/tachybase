@@ -30,7 +30,7 @@ export const ViewFeatureModal = (props) => {
           components={{
             RemoteSchemaComponent,
             CollectionProvider_deprecated,
-            FlowContextProvider: ProviderContextWorkflow,
+            ProviderContextWorkflow,
             ApplyActionStatusProvider,
             ActionBarProvider,
             WithdrawActionProvider,

@@ -7,7 +7,7 @@ import {
   SchemaComponentProvider,
   useAPIClient,
 } from '@tachybase/client';
-import { DetailsBlockProvider, FlowContext, linkNodes } from '@tachybase/module-workflow/client';
+import { DetailsBlockProvider, linkNodes, ProviderContextWorkflow } from '@tachybase/module-workflow/client';
 import { observer } from '@tachybase/schema';
 
 import { Result } from 'antd';
@@ -78,7 +78,7 @@ export const ViewTodosWorkflowNoticeContent = observer((props) => {
       </NavBar>
       <div className="approvalContext">
         {noticeData && schemaId ? (
-          <FlowContext.Provider value={flowContext}>
+          <ProviderContextWorkflow value={flowContext}>
             <CollectionProvider name={noticeData['collectionName']}>
               <ContextApprovalExecution.Provider value={noticeData}>
                 <SchemaComponent
@@ -121,7 +121,7 @@ export const ViewTodosWorkflowNoticeContent = observer((props) => {
                 />
               </ContextApprovalExecution.Provider>
             </CollectionProvider>
-          </FlowContext.Provider>
+          </ProviderContextWorkflow>
         ) : (
           <div>
             <Skeleton.Title animated />

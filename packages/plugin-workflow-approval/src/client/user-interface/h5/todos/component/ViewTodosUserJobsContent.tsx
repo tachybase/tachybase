@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { MobileProvider, SchemaComponent, useAPIClient, useFormBlockContext, usePlugin } from '@tachybase/client';
 import PluginWorkflowClient, {
   DetailsBlockProvider,
-  FlowContext,
   linkNodes,
+  ProviderContextWorkflow,
   useAvailableUpstreams,
 } from '@tachybase/module-workflow/client';
 import { observer } from '@tachybase/schema';
@@ -84,7 +84,7 @@ export const ViewTodosUserJobsContent = observer((props) => {
       </NavBar>
       <div className="approvalContext">
         {node && flowContext ? (
-          <FlowContext.Provider value={flowContext}>
+          <ProviderContextWorkflow value={flowContext}>
             <ContextApprovalExecution.Provider value={jobsData}>
               <SchemaComponent
                 components={{
@@ -125,7 +125,7 @@ export const ViewTodosUserJobsContent = observer((props) => {
                 }}
               />
             </ContextApprovalExecution.Provider>
-          </FlowContext.Provider>
+          </ProviderContextWorkflow>
         ) : (
           <div>
             <Skeleton.Title animated />

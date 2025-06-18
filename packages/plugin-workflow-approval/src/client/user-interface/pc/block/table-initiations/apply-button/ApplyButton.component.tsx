@@ -23,9 +23,11 @@ export const ApplyButton = () => {
           [`drawer-${targetItems.id}`]: {
             type: 'void',
             title: targetItems.title,
-            'x-decorator': 'FlowContextProvider',
+            'x-decorator': 'ProviderContextWorkflow',
             'x-decorator-props': {
-              workflow: targetItems,
+              value: {
+                workflow: targetItems,
+              },
             },
             'x-component': 'Action.Drawer',
             'x-component-props': {
