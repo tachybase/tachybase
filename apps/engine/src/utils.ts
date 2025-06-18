@@ -144,10 +144,9 @@ export function parseEnvironment() {
 
   if (!process.env.SERVE_PATH) {
     const servePath = guessServePath();
-    if (!servePath) {
-      throw new Error('SERVE_PATH not found');
+    if (servePath) {
+      process.env.SERVE_PATH = servePath;
     }
-    process.env.SERVE_PATH = servePath;
   }
 }
 
