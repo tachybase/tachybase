@@ -26,8 +26,8 @@ function parseEnv(name: string) {
 
 // 猜测所在位置
 let guessPath;
-if (fs.existsSync(path.join(process.cwd(), 'plugins/node_modules'))) {
-  guessPath = path.join(process.cwd(), 'plugins/node_modules');
+if (fs.existsSync(path.join(process.cwd(), 'plugins', 'node_modules'))) {
+  guessPath = path.join(process.cwd(), 'plugins', 'node_modules');
 }
 
 function initEnv() {
