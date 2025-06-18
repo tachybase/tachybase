@@ -27,7 +27,7 @@ export class ModuleInstrumentationServer extends Plugin {
             resourceName: 'auth',
             action: 'signIn',
             trackingOptions: {
-              meta: ['userId', 'recordId', 'createdAt', 'user-agent'],
+              meta: ['userId', 'recordId', 'createdAt'],
               filter: {
                 $and: [
                   {
@@ -39,7 +39,7 @@ export class ModuleInstrumentationServer extends Plugin {
                   },
                 ],
               },
-              payload: ['errors', 'account', 'phone'],
+              payload: ['errors', 'account'],
             },
           },
         });
@@ -67,7 +67,7 @@ export class ModuleInstrumentationServer extends Plugin {
       this.addServerTrackingListener();
     }
     this.app.acl.allow('instrumentation', 'create', 'public');
-    this.app.acl.allow('instrumentation', ['list', 'query'], 'loggedIn');
+    this.app.acl.allow('instrumentation', 'list', 'loggedIn');
     this.app.acl.registerSnippet({
       name: `pm.system-services.custom-instrumentation.clientTracking`,
       actions: ['trackingEvents:*'],
@@ -79,14 +79,6 @@ export class ModuleInstrumentationServer extends Plugin {
     this.app.acl.registerSnippet({
       name: `pm.system-services.custom-instrumentation.trackingStatistics`,
       actions: ['statisticsConfig:*'],
-    });
-    this.app.acl.registerSnippet({
-      name: `pm.system-services.custom-instrumentation.statisticsDetails`,
-      actions: ['instrumentation:*'],
-    });
-    this.app.acl.registerSnippet({
-      name: `pm.system-services.custom-instrumentation.statisticsHistorical`,
-      actions: ['trackingHistoryOptions:*'],
     });
   }
 }

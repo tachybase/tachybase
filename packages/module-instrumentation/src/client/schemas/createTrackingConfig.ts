@@ -103,7 +103,7 @@ export const createTrackingConfig: ISchema = {
                 trackingOptions: {
                   type: 'json',
                   default: {
-                    meta: ['userId', 'recordId', 'createdAt', 'user-agent'],
+                    meta: ['userId', 'recordId', 'createdAt'],
                     payload: ['resourceName'],
                     filter: {
                       $and: [{ meta: { userId: { $gt: 1 } } }],

@@ -53,13 +53,11 @@ export async function handleOtherAction(ctx: Context, next, whiteList: WhiteList
     const currentRecordId = ctx.body?.[collection?.filterTargetKey] || null;
     const currentUserId = ctx.auth?.user?.id || null;
     const currentTime = new Date().toISOString();
-    const currentUserDevice = ctx.req?.headers?.['user-agent'] || null;
 
     const baseValues: Record<string, any> = {};
     if (configKeys.meta.includes('userId')) baseValues.userId = currentUserId;
     if (configKeys.meta.includes('recordId')) baseValues.recordId = currentRecordId;
     if (configKeys.meta.includes('createdAt')) baseValues.createdAt = currentTime;
-    if (configKeys.meta.includes('user-agent')) baseValues.userAgent = currentUserDevice;
 
     const nestedValuesMap = findValuesByKeys({ params, data }, configKeys.payload);
 

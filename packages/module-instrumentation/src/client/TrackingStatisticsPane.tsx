@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
 import { ExtendCollectionsProvider, SchemaComponent, useAPIClient, useRequest } from '@tachybase/client';
 
-import { ReloadOutlined } from '@ant-design/icons';
 import { Chart } from '@antv/g2';
-import { Button, Card } from 'antd';
+import { Card } from 'antd';
 import { chunk } from 'lodash';
 
-import { statisticsConfigCollection } from './collections/statisticsConfig.collection';
-import { tval, useTranslation } from './locale';
 import { schemaStatisticsConfigs } from './schemas/schemaStatisticsConfigs';
 
 type StatisticsData = {
@@ -17,9 +14,8 @@ type StatisticsData = {
 };
 
 export const TrackingStatisticsPane = () => {
-  const { t } = useTranslation();
   const api = useAPIClient();
-  const { data, refresh } = useRequest<StatisticsData>(() =>
+  const { data } = useRequest<StatisticsData>(() =>
     api
       .resource('instrumentation')
       .list()
@@ -118,6 +114,57 @@ export const TrackingStatisticsPane = () => {
   }, [data?.users]);
 
   useEffect(() => {
+    if (!data?.customDataByTime) return;
+
+    const container = document.getElementById('statisticsByTime-line-wrapper');
+    if (!container) return;
+
+    container.innerHTML = '';
+
+    const entries = Object.entries(data.customDataByTime);
+
+    entries.forEach(([title, timeSeries], index) => {
+      const chartId = `line-statistics-${index}`;
+      const chartDiv = document.createElement('div');
+      chartDiv.id = chartId;
+      chartDiv.style.width = '100%';
+      chartDiv.style.height = '300px';
+      chartDiv.style.marginBottom = '24px';
+      container.appendChild(chartDiv);
+
+      const lineData = Object.entries(timeSeries)
+        .map(([date, value]) => ({ date, value }))
+        .sort((a, b) => a.date.localeCompare(b.date));
+
+      const chart = new Chart({
+        container: chartId,
+        autoFit: true,
+      });
+
+      chart
+        .line()
+        .data(lineData)
+        .encode('x', 'date')
+        .encode('y', 'value')
+        .encode('series', () => title)
+        .label({
+          text: 'value',
+          style: {
+            dx: -10,
+            dy: -12,
+          },
+        })
+        .style('strokeWidth', 2);
+
+      chart.render();
+    });
+
+    return () => {
+      container.innerHTML = ''; // 清理 DOM
+    };
+  }, [data?.customDataByTime]);
+
+  useEffect(() => {
     const container = document.getElementById('statistics-wrapper');
     if (!container) return;
 
@@ -134,13 +181,6 @@ export const TrackingStatisticsPane = () => {
       chartDiv.style.marginBottom = '24px';
       container.appendChild(chartDiv);
 
-      const paddedGroup = [...group];
-      if (index === chunks.length - 1 && paddedGroup.length < 5) {
-        while (paddedGroup.length < 5) {
-          paddedGroup.push({ title: '', count: 0 });
-        }
-      }
-
       const chart = new Chart({
         container: chartId,
         autoFit: true,
@@ -148,7 +188,7 @@ export const TrackingStatisticsPane = () => {
 
       chart
         .interval()
-        .data(paddedGroup)
+        .data(group)
         .encode('x', 'title')
         .encode('y', 'count')
         .label({
@@ -167,36 +207,21 @@ export const TrackingStatisticsPane = () => {
     };
   }, [customDataArray]);
 
-  const handleRefresh = () => {
-    // 点击按钮后手动刷新数据
-    refresh();
-  };
-
   return (
     <div>
       <div>
         <Card bordered={false}>
-          <div style={{ marginTop: 20, textAlign: 'right' }}>
-            <Button onClick={handleRefresh} icon={<ReloadOutlined />}>
-              {t('Refresh')}
-            </Button>
-          </div>
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: 24,
-            }}
-          >
+          <div style={{ display: 'flex', gap: 24 }}>
             <div id="user-pie-chart" style={{ flex: 1, width: '100%', height: 300 }} />
             <div id="users-dailyActive" style={{ flex: 1, width: '100%', height: 300 }} />
           </div>
+          <div id="statisticsByTime-line-wrapper" style={{ width: '100%', height: 400 }} />
           <div id="statistics-wrapper" style={{ width: '100%', height: 400 }} />
         </Card>
       </div>
       <div style={{ marginTop: 24 }}>
         <Card bordered={false}>
-          <ExtendCollectionsProvider collections={[statisticsConfigCollection]}>
+          <ExtendCollectionsProvider collections={[]}>
             <SchemaComponent schema={schemaStatisticsConfigs} scope={{}} />
           </ExtendCollectionsProvider>
         </Card>
