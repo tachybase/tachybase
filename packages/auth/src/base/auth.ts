@@ -224,8 +224,6 @@ export class BaseAuth extends Auth {
           { userId: user.id, roleName, temp, signInTime, iat: Math.floor(renewedResult.issuedTime / 1000) },
           { jwtid: renewedResult.jti, expiresIn },
         );
-        console.log('renewedResult.issuedTime', renewedResult.issuedTime);
-        console.log('expiresIn', expiresIn);
         this.ctx.res.setHeader('x-new-token', newToken);
       } catch (err) {
         this.ctx.logger.error('token renew failed', {
