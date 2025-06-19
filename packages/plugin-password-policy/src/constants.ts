@@ -11,3 +11,5 @@ export enum PasswordStrengthLevel {
 
 export const WINDOW_SECONDS = 300; // 默认5分钟内操作
 export const LOCK_SECONDS = 1800; // 默认锁定30分钟
+
+export const COLLECTION_PASSWORD_POLICY = 'passwordPolicy';
