@@ -132,12 +132,13 @@ export class BaseAuth extends Auth {
 
     const tokenPolicy = await this.tokenController.getConfig();
 
-    if (signInTime && Date.now() - signInTime > tokenPolicy.sessionExpirationTime) {
-      this.ctx.throw(401, {
-        message: this.ctx.t('Your session has expired. Please sign in again.', { ns: localeNamespace }),
-        code: AuthErrorCode.EXPIRED_SESSION,
-      });
-    }
+    // 这个sessionExpirationTime比如设为7天,则会在第7天立即出现重新登录,使用体验不好
+    // if (signInTime && Date.now() - signInTime > tokenPolicy.sessionExpirationTime) {
+    //   this.ctx.throw(401, {
+    //     message: this.ctx.t('Your session has expired. Please sign in again.', { ns: localeNamespace }),
+    //     code: AuthErrorCode.EXPIRED_SESSION,
+    //   });
+    // }
 
     if (tokenStatus === 'valid' && Date.now() - iat * 1000 > tokenPolicy.tokenExpirationTime) {
       tokenStatus = 'expired';

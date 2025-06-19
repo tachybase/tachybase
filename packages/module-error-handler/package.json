@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-error-handler",
   "displayName": "Error handler",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "Handling application errors and exceptions.",
   "keywords": [
     "System management"
