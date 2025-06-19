@@ -89,7 +89,7 @@ export default {
     },
     {
       name: 'token',
-      type: 'string',
+      type: 'text',
       hidden: true,
     },
     {

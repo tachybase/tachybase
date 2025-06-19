@@ -27,6 +27,10 @@ export class PluginAdapterBullmqServer extends Plugin {
     const EXTENSION_UI_BASE_PATH = process.env.EXTENSION_UI_BASE_PATH || '/adapters/';
     serverAdapter.setBasePath(EXTENSION_UI_BASE_PATH + 'mqui');
     this.app.use(serverAdapter.registerPlugin(), { before: 'bodyParser' });
+
+    this.app.on('beforeStop', async () => {
+      await defaultQueue?.close?.();
+    });
   }
 
   async install() {}

@@ -37,7 +37,7 @@ export const unique = {
   'x-content': '{{t("Unique")}}',
   'x-decorator': 'FormItem',
   'x-component': 'Checkbox',
-  'x-disabled': '{{ !createMainOnly }}',
+  // 'x-disabled': '{{ !createMainOnly }}',
   'x-reactions': [
     {
       dependencies: ['primaryKey'],
@@ -55,7 +55,7 @@ export const primaryKey = {
   'x-content': '{{t("Primary")}}',
   'x-decorator': 'FormItem',
   'x-component': 'Checkbox',
-  'x-disabled': '{{ !createMainOnly }}',
+  // 'x-disabled': '{{ !createMainOnly }}',
   'x-reactions': [
     {
       dependencies: ['unique'],
@@ -385,7 +385,7 @@ export const recordPickerViewer = {
       type: 'void',
       'x-component': 'Tabs',
       'x-component-props': {},
-      'x-initializer': 'TabPaneInitializers',
+      'x-initializer': 'popup:addTab',
       properties: {
         tab1: {
           type: 'void',

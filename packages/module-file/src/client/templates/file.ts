@@ -86,7 +86,7 @@ export class FileCollectionTemplate extends CollectionTemplate {
         uiSchema: {
           type: 'string',
           title: `{{t("Path", { ns: "${NAMESPACE}" })}}`,
-          'x-component': 'Input',
+          'x-component': 'TextAreaWithGlobalScope',
           'x-read-pretty': true,
         },
       },

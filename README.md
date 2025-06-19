@@ -1,6 +1,3 @@
-> [!CAUTION]
-> Tachybase is still in the alpha stage. If you plan to use it in production, please proceed with caution. The codebase contains many experimental features and will undergo significant refactoring. Please feel free to contact us if you encounter any issues.
-
 <h1 align="center" style="border-bottom: none">
     <div>
         <a style="color:#36f" href="https://www.tachybase.com">
@@ -26,59 +23,11 @@
    <a href="https://github.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/Github-lightblack"></a>
 </p>
 
-# Project Overview
-
-Tachybase is designed with a three-layer structure: Kernel Layer, Module Layer, and Plugin Layer.
-
-- __Kernel Layer__ provides core plugin mechanisms and unified interfaces.
-- __Module Layer__ implements specific application functions, such as building a low-code platform or creating a service orchestration tool with Tachybase.
-- __Plugin Layer__ offers more choices, for example, in the authentication module, different authentication sources can be implemented as plugins.
-
-Currently, Tachybase aims to handle the framework's core functions and some common business logic, while providing low-code and AI capabilities for easier use. In the future, Tachybase will evolve into a flexible foundation, with different product layers based on it, offering unique positioning. Future versions will continue along the core, module, and plugin design route, while becoming increasingly productized.
-
-# Snapshots
-
-For developers, by developers, we provide a variety of application templates and examples.
-
-Using the Tachybase, you will not be limited to any specific development form. It can be an independent npm package loaded within the platform, embedded into an existing system, or a combination of both for development. Alternatively, if Tachybase earns your full trust, you can use it as the core to develop the next application.
-
-![case1](https://assets.tachybase.com/imgs/case1.png)
-![case2](https://assets.tachybase.com/imgs/case4.png)
-![case3](https://assets.tachybase.com/imgs/case3.png)
-![case5](https://assets.tachybase.com/imgs/case5.gif)
-
-
-# Development Roadmap
-
-The following is a general development roadmap. The detailed development plan will be announced by March 31, 2025, and will be released along with the related application templates.
-
-- [x] Kernel: Kernel API
-- [ ] Kernel: Message Mechanism
-- [x] Kernel: Module API
-- [x] Module: Ant Design-based UI Library
-- [x] Module: Workflow
-- [x] Module: No-code Capability
-- [x] Module: Cloud Components
-- [ ] Module: Message Queue
-- [x] Module: Scheduled Tasks
-- [x] Plugin: Workflow - Approval
-- [ ] Plugin: Workflow - Data Templates
-
-UI planning principles: The core mechanisms are designed in the Kernel Layer, and the specific components are provided in the Module Layer.
-
-- [x] Kernel: Modal Interaction (for context-sensitive interactions)
-- [x] Kernel: Tab Interaction (for interactions when a single page cannot contain too much content)
-- [x] Kernel: Independent Pages (for core or shared content)
-- [x] Module: Basic Components (single-line text, multi-line text, numbers, etc.)
-- [x] Module: Related Components (sub-table, sub-detail, etc.)
-- [x] Module: Specialized Components (dashboard, calendar, Gantt chart, file browser, etc.)
-
-
 # Try
 
-[Demo application](https://demos.tachybase.com/) 
+[SaaS Version](https://apps.tachybase.com/) 
 
-You can register an account and password on your own, create sub-applications within the system to explore, and experience the features. Please note that the test environment is not the latest version and may have some issues.
+You can register an account and password by yourself and create sub-applications within the system to try it out. The system is currently in public beta. If you encounter any issues, feel free to provide feedback, and we will address them as soon as possible.
 
 # Quick Start with Docker Compose
 

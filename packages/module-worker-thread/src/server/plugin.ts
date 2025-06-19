@@ -1,6 +1,7 @@
 import { isMainThread } from 'worker_threads';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
+import { NAMESPACE } from '../constants';
 import { WORKER_COUNT, WORKER_COUNT_SUB } from './constants';
 import { WorkerManager } from './workerManager';
 import { WorkerWebController } from './workerWebController';
@@ -47,7 +48,7 @@ export class ModuleWorkerThreadServer extends Plugin {
 
     // 严格控制管理员才能设置
     this.app.acl.registerSnippet({
-      name: `pm.system-services.${this.name}`,
+      name: `pm.system-services.${NAMESPACE}`,
       actions: ['worker_thread:*'],
     });
   }

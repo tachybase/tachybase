@@ -60,7 +60,7 @@ export const SignInPage = () => {
         component: createElement<{
           authenticator: Authenticator;
         }>(C, { authenticator }),
-        tabTitle: authenticator.title || defaultTabTitle,
+        tabTitle: authenticator.title || authenticator.name === 'basic' ? defaultTabTitle : `${t(authenticator.name)}`,
         ...authenticator,
       };
     })

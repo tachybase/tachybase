@@ -222,7 +222,7 @@ export class Gateway extends EventEmitter {
       req.url = req.url.substring(APP_PUBLIC_PATH.length - 1);
       await compress(req, res);
       return handler(req, res, {
-        public: `${process.env.APP_CLIENT_ROOT}/dist`,
+        public: process.env.SERVE_PATH ? process.env.SERVE_PATH : `${process.env.APP_CLIENT_ROOT}/dist`,
         rewrites: [{ source: '/**', destination: '/index.html' }],
       });
     }

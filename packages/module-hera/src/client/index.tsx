@@ -13,7 +13,6 @@ import {
   Expression,
   SignatureInput,
 } from './components';
-import { PluginGroupBlock } from './features/block-group';
 import { PluginCustomComponents } from './features/custom-components';
 import { EmbedPlugin } from './features/embed';
 import { PluginFieldAppends } from './features/field-appends';
@@ -51,7 +50,6 @@ export class PluginCoreClient extends Plugin {
   locale: Locale;
 
   async afterAdd() {
-    await this.app.pm.add(PluginGroupBlock);
     await this.app.pm.add(EmbedPlugin);
     await this.app.pm.add(PluginHeraVersion);
     await this.app.pm.add(PluginPDF);

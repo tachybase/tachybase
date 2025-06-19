@@ -1,8 +1,11 @@
 {
   "name": "@tachybase/module-error-handler",
   "displayName": "Error handler",
-  "version": "0.23.40",
+  "version": "1.1.5",
   "description": "Handling application errors and exceptions.",
+  "keywords": [
+    "System management"
+  ],
   "license": "Apache-2.0",
   "main": "./dist/server/index.js",
   "scripts": {
@@ -10,7 +13,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@formily/json-schema": "2.3.2",
+    "@tachybase/schema": "workspace:*",
     "lodash": "4.17.21",
     "supertest": "^6.3.4"
   },

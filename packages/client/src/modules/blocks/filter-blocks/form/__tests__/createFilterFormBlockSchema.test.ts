@@ -1,6 +1,6 @@
 import { createFilterFormBlockSchema } from '../createFilterFormBlockSchema';
 
-vi.mock('@formily/shared', () => {
+vi.mock('@tachybase/schema', () => {
   return {
     uid: () => 'mocked-uid',
   };

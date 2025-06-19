@@ -42,6 +42,7 @@ export const CORE_CLIENT = path.join(PACKAGES_PATH, 'client');
 export const ESM_PACKAGES = ['@tachybase/test'];
 export const CJS_EXCLUDE_PACKAGES = [
   path.join(ROOT_PATH, 'apps/build'),
+  path.join(ROOT_PATH, 'apps/pkg'),
   path.join(ROOT_PATH, 'apps/cli'),
   CORE_CLIENT,
   CORE_APP,

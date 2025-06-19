@@ -92,13 +92,13 @@ export const InternalTabs = observer((props) => {
     const optionsItem = [];
     if (tabparams?.filter && !fieldServiceFilter) return;
     if ((quickAddField || quickAddField !== 'none' || !isQuickAdd) && fieldSchema.properties) {
-      const params = { pageSize: 99999, filter: JSON.stringify(fieldServiceFilter) };
+      const params = { paginate: false, filter: JSON.stringify(fieldServiceFilter) };
       if (quickAddParentField && quickAddParentField?.value !== 'none') {
         params['appends'] = [quickAddParentField.value];
         const collection = cm.getCollection(quickAddParentField.collectionField);
         const parentItem = await api.request({
           url: collection.name + ':list',
-          params: { pageSize: 99999 },
+          params: { paginate: false },
         });
         itemParams['parentTitleField'] = collection.titleField;
         itemParams['parentOptions'] = parentItem?.data?.data;
@@ -171,6 +171,7 @@ export const InternalTabs = observer((props) => {
   useDeepCompareEffect(() => {
     if (!defOptions.length) return;
     const fieldTabs = field.value;
+    if (!fieldTabs) return;
     if (quickAddParentField && quickAddParentField?.value !== 'none') {
       const filterParantOptions = tabsParantFilterOptions(defOptions, fieldTabs, quickAddField);
       setDefOptions(filterParantOptions);
@@ -254,7 +255,7 @@ export const InternalTabs = observer((props) => {
                     });
                   }}
                 >
-                  {item.label}
+                  {item.label || null}
                 </div>
               ))}
           </div>

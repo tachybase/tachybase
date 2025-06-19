@@ -1,6 +1,3 @@
-import { EventEmitter } from 'events';
-import path from 'path';
-
 import type { Project } from '@pnpm/workspace.find-packages';
 import chalk from 'chalk';
 import execa from 'execa';
@@ -37,6 +34,7 @@ import { getPackages } from './utils/getPackages';
 const BUILD_ERROR = 'build-error';
 
 export async function build(pkgs: string[]) {
+  console.log(`build node version: ${process.version}`);
   const messages = [];
   signals.on('build:errors', (message) => {
     messages.push(message);

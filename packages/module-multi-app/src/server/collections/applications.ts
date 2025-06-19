@@ -1,4 +1,5 @@
 import { defineCollection } from '@tachybase/database';
+import { uid } from '@tachybase/utils';
 
 export default defineCollection({
   dumpRules: {
@@ -42,6 +43,12 @@ export default defineCollection({
     {
       type: 'string',
       name: 'icon',
+      interface: 'icon',
+    },
+    {
+      type: 'string',
+      name: 'color',
+      interface: 'color',
     },
     {
       type: 'string',
@@ -56,6 +63,14 @@ export default defineCollection({
       type: 'boolean',
       name: 'isTemplate',
       defaultValue: false,
+    },
+    {
+      type: 'string',
+      // APPKEY的后缀,为了防止被推断出来
+      name: 'appKeySuffix',
+      defaultValue: () => {
+        return uid(16); // Longer suffix for improved security
+      },
     },
   ],
 });

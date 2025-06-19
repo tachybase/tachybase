@@ -90,12 +90,20 @@ export class WorkerManager {
   }
 
   private async addWorker() {
+    const maxMemory = process.env.WORKER_MAX_MEMORY || 4096;
+    const maxOldSpaceSize = `--max-old-space-size=${maxMemory}`;
     let worker: Worker;
     if (this.isProd) {
       worker = new Worker(path.resolve(__dirname, `${WORKER_FILE}.js`), {
         workerData: {
           appName: this.app.name,
           databaseOptions: this.databaseOptions,
+        },
+        env: {
+          ...process.env,
+          ...{
+            NODE_OPTIONS: maxOldSpaceSize,
+          },
         },
       });
     } else {
@@ -104,6 +112,12 @@ export class WorkerManager {
           scriptPath: path.resolve(__dirname, `${WORKER_FILE}.ts`),
           appName: this.app.name,
           databaseOptions: this.databaseOptions,
+        },
+        env: {
+          ...process.env,
+          ...{
+            NODE_OPTIONS: maxOldSpaceSize,
+          },
         },
       });
     }
@@ -346,7 +360,11 @@ export class WorkerManager {
           worker.off('message', handleMessage);
           worker.off('error', handleError);
           worker.off('exit', handleExit);
-          this.handleWorkerCompletion(worker, reqId, resolve, message.result);
+          if (message.error) {
+            this.handleWorkerCompletion(worker, reqId, resolve, undefined, reject, message.error);
+          } else {
+            this.handleWorkerCompletion(worker, reqId, resolve, message.result);
+          }
         }
       };
 

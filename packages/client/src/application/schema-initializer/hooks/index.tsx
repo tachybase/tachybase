@@ -148,7 +148,6 @@ export function useSchemaInitializerRender<P1 = ButtonProps, P2 = {}>(
         render: () => null,
       };
     }
-
     if (!initializer) {
       console.error(`[tachybase]: SchemaInitializer "${name}" not found`);
       return {

@@ -328,7 +328,10 @@ export class PluginManager {
 
     this.pluginInstances.set(P, instance);
     if (options.name) {
-      this.pluginAliases.set(options.name, instance);
+      // 禁止子应用显示的插件
+      if (this.app.name === 'main' || options.subView) {
+        this.pluginAliases.set(options.name, instance);
+      }
     }
     if (insert && options.name) {
       await this.repository.updateOrCreate({

@@ -12,6 +12,6 @@ DB_DIALECT={{{env.DB_DIALECT}}}
 {{{envs}}}
 
 INIT_ROOT_EMAIL=admin@tachybase.com
-INIT_ROOT_PASSWORD=admin123
+INIT_ROOT_PASSWORD=!Admin123.
 INIT_ROOT_NICKNAME=Super Admin
 INIT_ROOT_USERNAME=tachybase

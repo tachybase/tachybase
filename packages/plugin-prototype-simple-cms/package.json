@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-simple-cms",
-  "version": "0.23.40",
+  "displayName": "Simple CMS",
+  "version": "1.1.5",
+  "description": "simple content management system",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-simple-cms"
@@ -15,5 +20,7 @@
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@tachybase/utils": "workspace:*"
-  }
+  },
+  "description.zh-CN": "内容管理",
+  "displayName.zh-CN": "内容管理"
 }

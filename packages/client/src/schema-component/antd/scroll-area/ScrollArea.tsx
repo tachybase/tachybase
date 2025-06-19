@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { useTranslation } from '../../..';
 import { useJoystick } from '../../../built-in/scroll-assistant/useJoystick';
 
-export const ScrollArea = () => {
+export const ScrollArea = (props) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const { t } = useTranslation();
@@ -24,6 +24,7 @@ export const ScrollArea = () => {
         cursor: 'pointer',
         userSelect: 'none',
       }}
+      {...props}
     >
       {t('Horizontal scrolling area')}
     </div>

@@ -50,7 +50,7 @@ export class WebSocketClient {
       return;
     }
     const subApp = getSubAppName(this.app.getPublicPath());
-    const queryString = subApp ? `?__appName=${subApp}` : '';
+    const queryString = subApp ? `?__appName=${subApp}` : `?__hostname=${window.location.hostname}`;
     const wsPath = this.options.basename || '/ws';
     if (this.options.url) {
       const url = new URL(this.options.url);

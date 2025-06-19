@@ -66,7 +66,9 @@ export class StaticScheduleTrigger {
       if (!changed) {
         return;
       }
-      this.on(cronjob);
+      if (cronjob.get('enabled')) {
+        this.on(cronjob);
+      }
     });
 
     this.db.on(`${DATABASE_CRON_JOBS}.afterDestroy`, async (cronjob) => {

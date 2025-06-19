@@ -53,59 +53,6 @@ export class PluginACL extends Plugin {
     this.associationFieldsActions[associationType] = value;
   }
 
-  registerAssociationFieldsActions() {
-    // if grant create action to role, it should
-    // also grant add action and association target's view action
-
-    this.registerAssociationFieldAction('hasOne', {
-      view: {
-        associationActions: ['list', 'get', 'view'],
-      },
-      create: {
-        associationActions: ['create', 'set'],
-      },
-      update: {
-        associationActions: ['update', 'remove', 'set'],
-      },
-    });
-
-    this.registerAssociationFieldAction('hasMany', {
-      view: {
-        associationActions: ['list', 'get', 'view'],
-      },
-      create: {
-        associationActions: ['create', 'set', 'add'],
-      },
-      update: {
-        associationActions: ['update', 'remove', 'set'],
-      },
-    });
-
-    this.registerAssociationFieldAction('belongsTo', {
-      view: {
-        associationActions: ['list', 'get', 'view'],
-      },
-      create: {
-        associationActions: ['create', 'set'],
-      },
-      update: {
-        associationActions: ['update', 'remove', 'set'],
-      },
-    });
-
-    this.registerAssociationFieldAction('belongsToMany', {
-      view: {
-        associationActions: ['list', 'get', 'view'],
-      },
-      create: {
-        associationActions: ['create', 'set', 'add'],
-      },
-      update: {
-        associationActions: ['update', 'remove', 'set', 'toggle'],
-      },
-    });
-  }
-
   async writeResourceToACL(resourceModel: RoleResourceModel, transaction) {
     await resourceModel.writeToACL({
       acl: this.acl,
@@ -183,6 +130,13 @@ export class PluginACL extends Plugin {
         'uiSchemas:getProperties',
         'roles.menuUiSchemas:*',
         'roles.users:*',
+        'dataSources.roles:*',
+        'dataSources:list',
+        'dataSources.rolesResourcesScopes:*',
+        'roles.dataSourcesCollections:*',
+        'roles.dataSourceResources:*',
+        'dataSourcesRolesResourcesScopes:*',
+        'rolesResourcesScopes:*',
       ],
     });
 
@@ -214,8 +168,6 @@ export class PluginACL extends Plugin {
         };
       }
     });
-
-    this.registerAssociationFieldsActions();
 
     this.app.resourcer.define(availableActionResource);
     this.app.resourcer.define(roleCollectionsResource);
@@ -678,39 +630,6 @@ export class PluginACL extends Plugin {
       },
     );
 
-    // throw error when user has no fixed params permissions
-    this.app.acl.use(
-      async (ctx: any, next) => {
-        const action = ctx.permission?.can?.action;
-
-        if (action === 'destroy' && !ctx.action.resourceName.includes('.')) {
-          const repository = actionUtils.getRepositoryFromParams(ctx);
-
-          if (!repository) {
-            await next();
-            return;
-          }
-
-          // params after merge with fixed params
-          const filteredCount = await repository.count(ctx.permission.mergedParams);
-
-          // params user requested
-          const queryCount = await repository.count(ctx.permission.rawParams);
-
-          if (queryCount > filteredCount) {
-            ctx.throw(403, 'No permissions');
-            return;
-          }
-        }
-
-        await next();
-      },
-      {
-        after: 'core',
-        group: 'after',
-      },
-    );
-
     const withACLMeta = createWithACLMetaMiddleware();
 
     // append allowedActions to list & get response
@@ -722,8 +641,24 @@ export class PluginACL extends Plugin {
           ctx.logger.error(error);
         }
       },
-      { after: 'restApi', group: 'after' },
+      { after: 'dataSource', group: 'after' },
     );
+
+    this.db.on('afterUpdateCollection', async (collection) => {
+      if (collection.options.loadedFromCollectionManager || collection.options.asStrategyResource) {
+        this.app.acl.appendStrategyResource(collection.name);
+      }
+    });
+
+    this.db.on('afterDefineCollection', async (collection) => {
+      if (collection.options.loadedFromCollectionManager || collection.options.asStrategyResource) {
+        this.app.acl.appendStrategyResource(collection.name);
+      }
+    });
+
+    this.db.on('afterRemoveCollection', (collection) => {
+      this.app.acl.removeStrategyResource(collection.name);
+    });
   }
 
   async install() {

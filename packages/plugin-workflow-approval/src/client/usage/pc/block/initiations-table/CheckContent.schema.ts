@@ -28,6 +28,10 @@ export const getSchemaCheckContent = (params) => {
                     noForm: true,
                   },
                 },
+                timeline: {
+                  type: 'void',
+                  'x-component': 'ApprovalCommon.ViewComponent.ApprovalProcessTimeLine',
+                },
               },
             },
           },

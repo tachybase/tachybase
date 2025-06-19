@@ -89,7 +89,7 @@ export const DndContext = observer(
             easing: 'cubic-bezier(0.18, 0.67, 0.6, 1.22)',
           }}
         >
-          {visible && <span style={{ whiteSpace: 'nowrap' }}>{t('Dragging')}</span>}
+          {/* {visible && <span style={{ whiteSpace: 'nowrap' }}>{t('Dragging')}</span>} */}
         </DragOverlay>
         {props.children}
       </DndKitContext>

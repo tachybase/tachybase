@@ -17,7 +17,7 @@ export async function update(context: Context, next) {
       'options',
       'type',
       'sync',
-      'tags',
+      'category',
       // TODO: 这里的 icon 和 color 是审批插件的特有字段，后续办法是在审批里覆盖这个方法, 以便分离扩展字段和核心字段
       'color',
       'icon',
@@ -235,6 +235,7 @@ export async function revision(context: Context, next: Next) {
           allExecuted: origin.allExecuted,
           sync: origin.sync,
           initAt: origin.initAt,
+          ...values,
         }
       : values;
 
@@ -375,4 +376,70 @@ export async function trigger(ctx: Context, next: Next) {
   } else {
     await next();
   }
+}
+
+export async function moveWorkflow(ctx: Context, next: Next) {
+  const { id, targetKey } = ctx.action.params;
+  if (!id || !targetKey) {
+    ctx.throw(400, 'params error');
+  }
+  const workflowRepo = ctx.db.getRepository('workflows');
+  // 为了防止出现问题,目标workflow必须是启用的
+  const targetWorkflow = await workflowRepo.findOne({
+    filter: {
+      key: targetKey,
+      enabled: true,
+    },
+  });
+  if (!targetWorkflow) {
+    ctx.throw(400, 'target workflow not found');
+  }
+  const sourceWorkflow = await workflowRepo.findOne({
+    filter: {
+      id,
+    },
+  });
+  if (!sourceWorkflow) {
+    ctx.throw(400, 'source workflow not found');
+  }
+  if (sourceWorkflow.key === targetKey) {
+    ctx.throw(400, 'same workflow');
+  }
+  if (sourceWorkflow.current) {
+    ctx.throw(400, 'cannot move current workflow');
+  }
+  if (sourceWorkflow.type !== targetWorkflow.type) {
+    ctx.throw(400, 'the type is different');
+  }
+  const { allExecuted } = targetWorkflow;
+  const transaction = await ctx.db.sequelize.transaction();
+  await workflowRepo.update({
+    values: { key: targetKey, current: null, allExecuted },
+    filter: { id },
+    hooks: false, // 不触发钩子
+    transaction,
+  });
+
+  // 执行记录的key也要更新,方便查看执行记录
+  const executionRepo = ctx.db.getRepository('executions');
+  await executionRepo.update({
+    values: { key: targetKey },
+    filter: { workflow: { id } },
+    silent: true, // 不修改updatedAt等数据
+    hooks: false, // 不触发钩子
+    transaction,
+  });
+  // 允许未启动/或者关闭approvals的也能平稳move
+  const repo = ctx.db.getRepository('approvals');
+  if (repo) {
+    // resubmit就是workflow最新的,而不是move的那一份
+    await repo.update({
+      values: { workflowKey: targetKey },
+      filter: { workflowId: id },
+      hooks: false, // 不触发钩子
+      transaction,
+    });
+  }
+  await transaction.commit();
+  ctx.body = {};
 }

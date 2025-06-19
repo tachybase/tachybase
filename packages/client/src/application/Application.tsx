@@ -20,7 +20,7 @@ import { CSSVariableProvider } from '../style/css-variable';
 import { AntdAppProvider, GlobalThemeProvider } from '../style/theme';
 import { AppSchemaComponentProvider } from './AppSchemaComponentProvider';
 import { AttachmentPreviewManager, PluginAttachmentItemsOptions } from './AttachmentPreviewManager';
-import { AppComponent, BlankComponent, defaultAppComponents } from './components';
+import { AppComponent, BlankComponent, defaultAppComponents, SharePage, ShareSchemaComponent } from './components';
 import { NoticeManager } from './NoticesManager';
 import type { Plugin } from './Plugin';
 import { PluginContextMenu, PluginItemsOptions } from './PluginContextMenu';
@@ -30,6 +30,7 @@ import { SchemaInitializer, SchemaInitializerManager } from './schema-initialize
 import * as schemaInitializerComponents from './schema-initializer/components';
 import { SchemaSettings, SchemaSettingsManager } from './schema-settings';
 import { PluginSettingOptions, SystemSettingsManager } from './SystemSettingsManager';
+import { TrackingManager } from './TrackingManager';
 import { UserSettingOptions, UserSettingsManager } from './UserSettingsManager';
 import { compose, normalizeContainer } from './utils';
 import { defineGlobalDeps } from './utils/globalDeps';
@@ -92,9 +93,11 @@ export class Application {
   public schemaSettingsManager: SchemaSettingsManager;
   public dataSourceManager: DataSourceManager;
   public noticeManager: NoticeManager;
+  public trackingManager: TrackingManager;
   public pluginContextMenu: PluginContextMenu;
   public AttachmentPreviewManager: AttachmentPreviewManager;
   public name: string;
+  public globalVars: Record<string, any> = {};
 
   loading = true;
   maintained = false;
@@ -132,6 +135,7 @@ export class Application {
     this.schemaInitializerManager = new SchemaInitializerManager(options.schemaInitializers, this);
     this.dataSourceManager = new DataSourceManager(options.dataSourceManager, this);
     this.noticeManager = new NoticeManager(this);
+    this.trackingManager = new TrackingManager(this);
     this.addDefaultProviders();
     this.addReactRouterComponents();
     this.addProviders(options.providers || []);
@@ -142,6 +146,10 @@ export class Application {
     this.name = this.options.name || getSubAppName(options.publicPath) || 'main';
     this.pluginContextMenu = new PluginContextMenu(options.pluginMenuItems);
     this.AttachmentPreviewManager = new AttachmentPreviewManager(options.attachmentItem, this);
+
+    this.i18n.on('languageChanged', (lng) => {
+      this.apiClient.auth.locale = lng;
+    });
   }
 
   private initRequireJs() {
@@ -179,6 +187,12 @@ export class Application {
       path: '*',
       Component: this.components['AppNotFound'],
     });
+    this.router.add('share', {
+      path: '/share',
+      Component: SharePage,
+    });
+    this.router.add('share.page', { path: '/share/:name', Component: ShareSchemaComponent });
+    this.router.add('share.notAuthorized', { path: '/share/not-authorized', element: null });
   }
 
   getOptions() {
@@ -204,6 +218,14 @@ export class Application {
 
   getRouteUrl(pathname: string) {
     return this.options.publicPath.replace(/\/$/g, '') + pathname;
+  }
+
+  getHref(pathname: string) {
+    const name = this.name;
+    if (name && name !== 'main') {
+      return this.getPublicPath() + 'apps/' + name + '/' + pathname.replace(/^\//g, '');
+    }
+    return this.getPublicPath() + pathname.replace(/^\//g, '');
   }
 
   getCollectionManager(dataSource?: string) {
@@ -360,5 +382,13 @@ export class Application {
       fieldName,
       componentOption,
     );
+  }
+
+  addGlobalVar(key: string, value: any) {
+    set(this.globalVars, key, value);
+  }
+
+  getGlobalVar(key) {
+    return get(this.globalVars, key);
   }
 }

@@ -271,19 +271,14 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
   };
 
   const handleOk = (method) => {
-    
-    apiClient
-      .request({
-        url: 'backupFiles:create',
-        method: 'post',
-        data: {
-          dataTypes,
-          method,
-        },
-      })
-      .finally(() => {
-        notification.destroy('backup');
-      });
+    apiClient.request({
+      url: 'backupFiles:create',
+      method: 'post',
+      data: {
+        dataTypes,
+        method,
+      },
+    });
     notification.info({
       key: 'backup',
       message: (
@@ -431,6 +426,7 @@ export const BackupAndRestoreList = () => {
   };
   const handleDownload = async (fileData) => {
     setDownloadTarget(fileData.name);
+    // TODO: 优化成断点续传下载
     const data = await apiClient.request({
       url: 'backupFiles:download',
       method: 'get',
@@ -438,6 +434,28 @@ export const BackupAndRestoreList = () => {
         filterByTk: fileData.name,
       },
       responseType: 'blob',
+      onDownloadProgress: (progressEvent) => {
+        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        const success = percentCompleted >= 100;
+        if (!success) {
+          notification.info({
+            key: 'downloadBackup',
+            message: (
+              <span>
+                {t('Downloading ') + percentCompleted + '%'} &nbsp; &nbsp;
+                <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+              </span>
+            ),
+            duration: 0,
+          });
+        } else {
+          notification.success({
+            key: 'downloadBackup',
+            message: <span>{t('Downloaded success!')}</span>,
+            duration: 1,
+          });
+        }
+      },
     });
     setDownloadTarget(false);
     const blob = new Blob([data.data]);
@@ -492,6 +510,10 @@ export const BackupAndRestoreList = () => {
                   <div style={{ color: 'rgba(0, 0, 0, 0.88)' }}>
                     {name}({t('Backing up')}...)
                   </div>
+                ) : data.status === 'error' ? (
+                  <div style={{ color: 'red' }}>
+                    {name}({t('Error')})
+                  </div>
                 ) : (
                   <div>{name}</div>
                 ),
@@ -533,10 +555,14 @@ export const BackupAndRestoreList = () => {
               },
               render: (_, record) => (
                 <Space split={<Divider type="vertical" />}>
-                  <Restore ButtonComponent={'a'} title={t('Restore')} fileData={record} />
-                  <a type="link" onClick={() => handleDownload(record)}>
-                    {t('Download')}
-                  </a>
+                  {record.status !== 'error' && (
+                    <Restore ButtonComponent={'a'} title={t('Restore')} fileData={record} />
+                  )}
+                  {record.status !== 'error' && (
+                    <a type="link" onClick={() => handleDownload(record)}>
+                      {t('Download')}
+                    </a>
+                  )}
                   <a onClick={() => handleDestory(record)}>{t('Delete')}</a>
                 </Space>
               ),

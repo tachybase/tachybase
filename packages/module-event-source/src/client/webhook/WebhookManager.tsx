@@ -1,26 +1,37 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ExtendCollectionsProvider,
   SchemaComponent,
   TableBlockProvider,
+  useBlockRequestContext,
+  useCollectionRecord,
   useCollectionRecordData,
+  useCollections,
+  useCompile,
+  useDataBlock,
+  useDataBlockRequest,
   useDataBlockResource,
+  usePlugin,
+  useTableBlockContext,
+  withDynamicSchemaProps,
   WorkflowSelect,
 } from '@tachybase/client';
 import { CodeMirror } from '@tachybase/components';
 import {
   ExecutionLink,
+  ExecutionRetryAction,
   executionSchema,
   ExecutionStatusColumn,
-  ExecutionTime,
   OpenDrawer,
 } from '@tachybase/module-workflow/client';
-import { ISchema, useForm } from '@tachybase/schema';
+import { ISchema, useField, useForm } from '@tachybase/schema';
 
-import { Button, Space } from 'antd';
+import { Alert as AntdAlert, Button, Space, Tag, Typography } from 'antd';
 
-import { lang } from '../locale';
+import ModuleEventSourceClient from '..';
+import { lang, tval } from '../locale';
 import { dispatchers } from './collections/dispatchers';
+import { TypeContainer } from './components/TypeContainer';
 
 // TODO
 export const ExecutionResourceProvider = ({ params, filter = {}, ...others }) => {
@@ -83,77 +94,20 @@ const properties = {
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
     'x-collection-field': 'webhooks.type',
-    'x-component-props': {},
   },
-  resourceName: {
-    type: 'string',
+  options: {
+    type: 'object',
     'x-component': 'CollectionField',
     'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.resourceName',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
-          },
+    'x-reactions': {
+      dependencies: ['type'],
+      fulfill: {
+        schema: {
+          'x-component-props': '{{ useTypeOptions($deps[0]) }}',
         },
       },
-    ],
-    'x-component-props': {},
-  },
-  triggerOnAssociation: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.triggerOnAssociation',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource" }}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
-  },
-  actionName: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-collection-field': 'webhooks.actionName',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden:
-              '{{ $deps[0] !== "action" && $deps[0] !== "resource" && $deps[0] !== "beforeResource" && $deps[0] !== "afterResource"}}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
-  },
-  eventName: {
-    type: 'string',
-    'x-component': 'CollectionField',
-    'x-decorator': 'FormItem',
-    'x-reactions': [
-      {
-        dependencies: ['.type'],
-        fulfill: {
-          state: {
-            hidden: '{{ $deps[0] !== "databaseEvent" && $deps[0] !== "applicationEvent" }}',
-          },
-        },
-      },
-    ],
-    'x-component-props': {},
+    },
+    'x-collection-field': 'webhooks.options',
   },
   code: {
     type: 'string',
@@ -163,6 +117,21 @@ const properties = {
       tooltip: 'ctx.request\nctx.body\nlib.JSON\nlib.Math\nlib.dayjs',
     },
     'x-collection-field': 'webhooks.code',
+  },
+  effectConfig: {
+    title: tval('Effect config'),
+    type: 'string',
+    'x-component': 'CodeMirror',
+    'x-component-props': {
+      options: {
+        readOnly: true,
+      },
+    },
+    'x-decorator': 'FormItem',
+    'x-decorator-props': {
+      tooltip: tval('The real effect of the server, not the preset configuration'),
+    },
+    'x-collection-field': 'webhooks.effectConfig',
   },
 };
 
@@ -425,6 +394,8 @@ const schema: ISchema = {
         action: 'list',
         params: {
           pageSize: 20,
+          appends: ['updatedBy'],
+          sort: ['-createdAt'],
         },
         rowKey: 'id',
         showIndex: true,
@@ -454,6 +425,11 @@ const schema: ISchema = {
               'x-component-props': {
                 icon: 'FilterOutlined',
               },
+              'x-align': 'left',
+            },
+            fuzzySearch: {
+              type: 'void',
+              'x-component': 'FuzzySearchInput',
               'x-align': 'left',
             },
             refresh: {
@@ -498,6 +474,18 @@ const schema: ISchema = {
             },
           },
         },
+        alert: {
+          type: 'void',
+          'x-component': 'Alert',
+          'x-use-component-props': 'useShowAlertProps',
+          'x-component-props': {
+            message: tval(
+              'configuration has changed, please click the restart in the upper right corner, or configure the service with EVENT_SOURCE_REALTIME=1 to start in real time',
+            ),
+            type: 'warning',
+            showIcon: true,
+          },
+        },
         table: {
           type: 'array',
           'x-component': 'TableV2',
@@ -515,6 +503,7 @@ const schema: ISchema = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 50,
+                sorter: true,
               },
               properties: {
                 name: {
@@ -572,7 +561,7 @@ const schema: ISchema = {
                   'x-read-pretty': true,
                   'x-decorator': 'OpenDrawer',
                   'x-decorator-props': {
-                    component: function Com({ children, onClick }) {
+                    component: ({ children, onClick }) => {
                       const webhook = useCollectionRecordData();
                       return (
                         <Space size="small">
@@ -598,6 +587,7 @@ const schema: ISchema = {
               'x-component': 'TableV2.Column',
               'x-component-props': {
                 width: 20,
+                sorter: true,
               },
               properties: {
                 type: {
@@ -611,6 +601,75 @@ const schema: ISchema = {
                       display: 'none',
                     },
                   },
+                },
+              },
+            },
+            effectColumn: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                width: 20,
+                sorter: true,
+              },
+              properties: {
+                effect: {
+                  type: 'boolean',
+                  'x-collection-field': 'webhooks.effect',
+                  'x-component': 'CollectionField',
+                  'x-component-props': {
+                    ellipsis: true,
+                  },
+                  'x-read-pretty': true,
+                  'x-decorator': null,
+                  'x-decorator-props': {
+                    labelStyle: {
+                      display: 'none',
+                    },
+                  },
+                },
+              },
+            },
+            updatedAt: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                sorter: true,
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
+              properties: {
+                updatedAt: {
+                  type: 'string',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
+                },
+              },
+            },
+            updatedBy: {
+              type: 'void',
+              'x-decorator': 'TableV2.Column.Decorator',
+              'x-component': 'TableV2.Column',
+              'x-component-props': {
+                sorter: true,
+                width: 20,
+                align: 'center',
+                style: {
+                  display: 'grid',
+                  placeItems: 'center',
+                },
+              },
+              properties: {
+                updatedBy: {
+                  type: 'string',
+                  'x-collection-field': 'webhooks.updatedBy',
+                  'x-component': 'CollectionField',
+                  'x-read-pretty': true,
                 },
               },
             },
@@ -643,21 +702,69 @@ const schema: ISchema = {
   },
 };
 
+const useShowAlertProps = (props) => {
+  const service: any = useDataBlockRequest();
+  const isChanged = service?.data?.meta?.changed;
+
+  return {
+    style: {
+      ...props.style,
+      visibility: isChanged ? 'visible' : 'hidden',
+    },
+  };
+};
+
 export const WebhookManager = () => {
+  const plugin = usePlugin(ModuleEventSourceClient);
+  const typeList = [];
+  for (const type of plugin.triggers.getKeys()) {
+    typeList.push({
+      label: plugin.triggers.get(type).title,
+      description: plugin.triggers.get(type).description,
+      value: type,
+    });
+  }
+
+  const useTypeOptions = (type) => {
+    return {
+      options: plugin.triggers?.get(type)?.options,
+    };
+  };
+
+  const useTriggersOptions = () => {
+    const compile = useCompile();
+    const result = Array.from(plugin.triggers.getEntities())
+      .map(([value, { title, ...options }]) => ({
+        value,
+        label: compile(title),
+        color: 'gold',
+        options,
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
+    return result;
+  };
+
   return (
     <ExtendCollectionsProvider collections={[dispatchers]}>
       <SchemaComponent
         name="eventSource"
         schema={schema}
-        scope={{ useTestActionProps }}
+        scope={{
+          useTestActionProps,
+          useTriggersOptions,
+          useTypeOptions,
+          ExecutionRetryAction,
+          useShowAlertProps,
+        }}
         components={{
+          Alert: withDynamicSchemaProps(AntdAlert),
           ExecutionStatusColumn,
           ExecutionResourceProvider,
           OpenDrawer,
           ExecutionLink,
-          ExecutionTime,
           WorkflowSelect,
           CodeMirror,
+          TypeContainer,
         }}
       />
     </ExtendCollectionsProvider>

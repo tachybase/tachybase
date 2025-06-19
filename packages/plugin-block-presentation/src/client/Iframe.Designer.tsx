@@ -106,7 +106,7 @@ export const IframeDesigner = () => {
                 title: t('html'),
                 type: 'string',
                 'x-decorator': 'FormItem',
-                'x-component': 'Input.TextArea',
+                'x-component': 'CodeMirror',
                 required: true,
                 'x-reactions': {
                   dependencies: ['mode'],

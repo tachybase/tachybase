@@ -3,8 +3,8 @@ import { createContext, useContext } from 'react';
 export interface ContextMenuContextProps {
   contextMenuEnabled: boolean;
   setContextMenuEnable: (enabled: boolean) => void;
-  hiddenScrollArea: boolean;
-  setHiddenScrollArea: (isHidden: boolean) => void;
+  showScrollArea: boolean;
+  setShowScrollArea: (isShow: boolean) => void;
   position: any;
   setPosition: (any) => void;
 }

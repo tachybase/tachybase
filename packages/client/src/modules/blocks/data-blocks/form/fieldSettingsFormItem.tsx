@@ -13,10 +13,12 @@ import { fieldComponentSettingsItem, useContextConfigSetting } from '../../../..
 import { useDesignable, useValidateSchema } from '../../../../schema-component';
 import { useIsFormReadPretty } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { getTempFieldState } from '../../../../schema-component/antd/form-v2/utils';
-import { isPatternDisabled } from '../../../../schema-settings';
-import { useIsAllowToSetDefaultValue } from '../../../../schema-settings/hooks/useIsAllowToSetDefaultValue';
+import {
+  isPatternDisabled,
+  SchemaSettingsDefaultValue,
+  useIsAllowToSetDefaultValue,
+} from '../../../../schema-settings';
 import { ActionType } from '../../../../schema-settings/LinkageRules/type';
-import { SchemaSettingsDefaultValue } from '../../../../schema-settings/SchemaSettingsDefaultValue';
 
 export const fieldSettingsFormItem = new SchemaSettings({
   name: 'fieldSettings:FormItem',
@@ -219,10 +221,6 @@ export const fieldSettingsFormItem = new SchemaSettings({
           },
           {
             name: 'setDefaultValue',
-            useVisible() {
-              const { isAllowToSetDefaultValue } = useIsAllowToSetDefaultValue();
-              return isAllowToSetDefaultValue();
-            },
             Component: SchemaSettingsDefaultValue,
           },
           {

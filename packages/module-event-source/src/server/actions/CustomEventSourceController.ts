@@ -1,5 +1,6 @@
 import { Context, Next, utils } from '@tachybase/actions';
-import { Action, Controller } from '@tachybase/utils';
+import { Application } from '@tachybase/server';
+import { Action, App, Controller } from '@tachybase/utils';
 
 import { QueryTypes } from 'sequelize';
 

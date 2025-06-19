@@ -1,6 +1,11 @@
 {
   "name": "@tachybase/plugin-adapter-bullmq",
-  "version": "0.23.40",
+  "displayName": "Adapter bullmq",
+  "version": "1.1.5",
+  "description": "Integrate and manage BullMQ message queues.",
+  "keywords": [
+    "System management"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-adapter-bullmq"
@@ -15,5 +20,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "集成和管理BullMQ消息队列",
+  "displayName.zh-CN": "BullMQ管理"
 }

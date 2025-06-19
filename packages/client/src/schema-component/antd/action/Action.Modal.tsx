@@ -4,34 +4,12 @@ import { observer, RecursionField, useField, useFieldSchema } from '@tachybase/s
 import { CloseOutlined, FullscreenExitOutlined, FullscreenOutlined } from '@ant-design/icons';
 import { css } from '@emotion/css';
 import { Button, Modal, ModalProps } from 'antd';
-import { createStyles } from 'antd-style';
 import classNames from 'classnames';
 
 import { OpenSize, useActionContext } from '.';
+import { useStyles } from './Action.Modal.style';
 import { useSetAriaLabelForModal } from './hooks/useSetAriaLabelForModal';
 import { ComposedActionDrawer } from './types';
-
-const useStyles = createStyles(({ css }) => {
-  return {
-    container: css`
-      &.tb-action-popup {
-        .ant-modal-header {
-          // TODO: theme variables
-          margin-top: -20px;
-          margin-left: -24px;
-          margin-right: -24px;
-          padding-top: 20px;
-          padding-left: 24px;
-          padding-right: 24px;
-          padding-bottom: 20px;
-        }
-        .ant-modal-content {
-          background: var(--tb-box-bg);
-        }
-      }
-    `,
-  };
-});
 
 const openSizeWidthMap = new Map<OpenSize, string>([
   ['small', '40%'],
@@ -59,6 +37,11 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
 
     return (
       <Modal
+        className={classNames(others.className, modalProps?.className, styles.container, 'amplifier-block')}
+        style={{
+          ...modalProps?.style,
+          ...others?.style,
+        }}
         width={actualWidth}
         title={
           <div style={{ display: 'flex' }}>
@@ -79,14 +62,9 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
         }
         {...(others as ModalProps)}
         {...modalProps}
-        style={{
-          ...modalProps?.style,
-          ...others?.style,
-        }}
         destroyOnClose
         open={visible}
         closable={false}
-        className={classNames(others.className, modalProps?.className, styles.container, 'amplifier-block')}
         footer={
           footerSchema ? (
             <RecursionField
@@ -102,14 +80,16 @@ export const ActionModal: ComposedActionDrawer<ModalProps> = observer(
           )
         }
       >
-        <RecursionField
-          basePath={field.address}
-          schema={schema}
-          onlyRenderProperties
-          filterProperties={(s) => {
-            return s['x-component'] !== footerNodeName;
-          }}
-        />
+        <div className={styles.modalClassName}>
+          <RecursionField
+            basePath={field.address}
+            schema={schema}
+            onlyRenderProperties
+            filterProperties={(s) => {
+              return s['x-component'] !== footerNodeName;
+            }}
+          />
+        </div>
       </Modal>
     );
   },

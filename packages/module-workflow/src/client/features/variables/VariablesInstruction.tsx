@@ -1,6 +1,6 @@
 import { useCollectionDataSource } from '@tachybase/client';
 
-import { tval } from '../../locale';
+import { NAMESPACE, tval } from '../../locale';
 import { Instruction } from '../../nodes/default-node/interface';
 import { defaultFieldNames, WorkflowVariableInput } from '../../variable';
 import { VariableTargetSelect } from './VariableTargetSelect';
@@ -30,6 +30,18 @@ export class VariablesInstruction extends Instruction {
         changeOnSelect: true,
       },
       default: '',
+    },
+    remarks: {
+      type: 'string',
+      title: `{{t("Remarks", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormItem',
+      'x-component': 'Input.TextArea',
+      'x-component-props': {
+        autoSize: {
+          minRows: 3,
+        },
+        placeholder: `{{t("Input remarks", { ns: "${NAMESPACE}" })}}`,
+      },
     },
   };
   scope = { useCollectionDataSource };

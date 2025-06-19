@@ -11,7 +11,6 @@ import { useContextApprovalExecution } from '../../common/ApprovalExecution.prov
 export function useFormBlockProps() {
   const approval = useApproval() as any;
   const approvalExecution = useContextApprovalExecution();
-  const { workflow } = useFlowContext();
   const form = useForm();
   const { data } = useCurrentUserContext();
   const { isResubmit } = useResubmit();
@@ -21,8 +20,7 @@ export function useFormBlockProps() {
   const needEditable =
     (isResubmit || editable) &&
     approval?.latestExecutionId === approvalExecution.id &&
-    approval?.createdById === data?.data.id &&
-    workflow.enabled;
+    approval?.createdById === data?.data.id;
 
   useEffect(() => {
     if (!approval) {

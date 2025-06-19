@@ -1,6 +1,7 @@
 import { ISchema, useField, useFieldSchema } from '@tachybase/schema';
 
 import { useTranslation } from 'react-i18next';
+import { useMatch } from 'react-router';
 
 import { useDesignable } from '../..';
 import { SchemaSettings } from '../../../application/schema-settings';
@@ -34,6 +35,39 @@ export const pageSettings = new SchemaSettings({
               schema: {
                 ['x-uid']: fieldSchema['x-uid'],
                 ['x-component-props']: fieldSchema['x-component-props'],
+              },
+            });
+            dn.refresh();
+          },
+        };
+      },
+    },
+    {
+      name: 'enablesharePage',
+      type: 'switch',
+      useVisible() {
+        const isShare = useMatch('/share/:name');
+        return !isShare;
+      },
+      useComponentProps() {
+        const { dn } = useDesignable();
+        const { t } = useTranslation();
+        const fieldSchema = useFieldSchema();
+        const { title } = useSchemaToolbar();
+        return {
+          title: t('Enable Share page'),
+          checked: fieldSchema['x-component-props']?.enableSharePage,
+          onChange(v) {
+            fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+            fieldSchema['x-component-props']['enableSharePage'] = v;
+            if (!fieldSchema.title) {
+              fieldSchema.title = title;
+            }
+            dn.emit('patch', {
+              schema: {
+                ['x-uid']: fieldSchema['x-uid'],
+                ['x-component-props']: fieldSchema['x-component-props'],
+                title: fieldSchema.title,
               },
             });
             dn.refresh();

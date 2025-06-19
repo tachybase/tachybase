@@ -22,6 +22,7 @@ export class PresetTachyBase extends Plugin {
     'web',
     'worker-thread',
     'workflow',
+    'env-secrets',
   ];
 
   get builtInPlugins() {
@@ -48,7 +49,11 @@ export class PresetTachyBase extends Plugin {
     ['field-encryption', '0.23.8', true],
     ['log-viewer', '0.22.67', true],
     ['otp', '0.22.67', true],
+    ['instrumentation', '1.0.18', true],
     ['full-text-search', '0.23.24', true],
+    ['password-policy', '0.23.65', true],
+    ['auth-pages', '0.23.65', true],
+    ['manual-notification', '1.0.4', true],
     // default disable
     ['adapter-bullmq', '0.21.76', false],
     ['adapter-red-node', '0.22.8', false],
@@ -59,13 +64,13 @@ export class PresetTachyBase extends Plugin {
     ['auth-dingtalk', '0.21.76', false],
     ['auth-lark', '0.22.42', false],
     ['auth-oidc', '0.9.2', false],
-    ['auth-pages', '0.22.42', false],
     ['auth-saml', '0.8.1', false],
     ['auth-sms', '0.10.0', false],
     ['auth-wechat', '0.21.89', false],
     ['auth-wecom', '0.21.76', false],
     ['block-comments', '0.22.6', false],
     ['block-map', '0.8.1', false],
+    ['block-step-form', '1.0.0', false],
     ['data-source-common', '0.22.5', false],
     ['demos-game-runesweeper', '0.22.20', false],
     ['devtools', '0.22.82', false],
@@ -82,6 +87,9 @@ export class PresetTachyBase extends Plugin {
     ['workflow-approval', '0.22.37', false],
     ['ai-chat', '0.23.8', false],
     ['department', '0.23.22', false],
+    ['workflow-analysis', '0.23.41', false],
+    ['api-logs', '0.23.49', false],
+    ['ocr-convert', '1.0.12', false],
   ];
 
   get localPlugins() {
@@ -247,6 +255,7 @@ export class PresetTachyBase extends Plugin {
     const existPlugins = await repository.find();
     const existPluginNames = existPlugins.map((item) => item.name);
     const plugins = (await this.allPlugins()).filter((item) => !existPluginNames.includes(item.name));
+    this.filterForbidSubAppPlugin(plugins);
     await repository.create({ values: plugins });
   }
 
@@ -261,7 +270,48 @@ export class PresetTachyBase extends Plugin {
 
   async upgrade() {
     this.log.info('update built-in plugins');
+    await this.forbidSubAppPlugin();
     await this.updateOrCreatePlugins();
+  }
+
+  getForbidSubAppPlugin() {
+    if (this.app.name === 'main') {
+      return [];
+    }
+    const { FORBID_SUB_APP_PLUGINS } = process.env;
+    return FORBID_SUB_APP_PLUGINS ? FORBID_SUB_APP_PLUGINS.split(',') : [];
+  }
+  // 从环境变量读取禁止子应用装载的插件
+  async forbidSubAppPlugin() {
+    if (this.app.name === 'main') {
+      return;
+    }
+    const forbidPlugins = this.getForbidSubAppPlugin();
+    const repository = this.pm.repository;
+    await repository.update({
+      values: {
+        subView: false,
+        enabled: false,
+      },
+      filter: {
+        name: {
+          $in: forbidPlugins,
+        },
+      },
+    });
+  }
+
+  async filterForbidSubAppPlugin(plugins: any[]) {
+    if (this.app.name === 'main') {
+      return;
+    }
+    const forbidPlugins = this.getForbidSubAppPlugin();
+    plugins.forEach((plugin) => {
+      if (forbidPlugins.includes(plugin.name)) {
+        plugin.subView = false;
+        plugin.enabled = false;
+      }
+    });
   }
 }
 

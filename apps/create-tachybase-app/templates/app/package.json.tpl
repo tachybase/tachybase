@@ -29,5 +29,8 @@
     "@tachybase/build": "{{{version}}}",
     "@tachybase/cli": "{{{version}}}",
     {{{dependencies}}}
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
   }
 }

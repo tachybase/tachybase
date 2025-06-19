@@ -232,12 +232,7 @@ export const parseFieldAndAssociations = async (ctx: Context, next: Next) => {
     collection,
   });
   const { where, include: filterInclude } = filterParser.toSequelizeParams();
-  const parsedFilterInclude = filterInclude?.map((item) => {
-    if (fields.get(item.association)?.type === 'belongsToMany') {
-      item.through = { attributes: [] };
-    }
-    return item;
-  });
+  addBelongsToManyThrough(filterInclude, collectionName, ctx.db);
 
   ctx.action.params.values = {
     ...ctx.action.params.values,
@@ -245,10 +240,30 @@ export const parseFieldAndAssociations = async (ctx: Context, next: Next) => {
     measures: parsedMeasures,
     dimensions: parsedDimensions,
     orders: parsedOrders,
-    include: [...include, ...(parsedFilterInclude || [])],
+    include: [...include, ...(filterInclude || [])],
   };
   await next();
 };
+
+// 针对多对多添加{ through: { attributes: [] } }
+function addBelongsToManyThrough(include, collectionName, db) {
+  if (!include) {
+    return;
+  }
+  const collection = db.getCollection(collectionName);
+  if (!collection) {
+    return;
+  }
+  const fields = collection.fields;
+  for (const item of include) {
+    if (fields.get(item.association)?.type === 'belongsToMany') {
+      item.through = { attributes: [] };
+    }
+    if (item.include) {
+      addBelongsToManyThrough(item.include, fields.get(item.association)?.target, db);
+    }
+  }
+}
 
 export const parseVariables = async (ctx: Context, next: Next) => {
   const { filter } = ctx.action.params.values;

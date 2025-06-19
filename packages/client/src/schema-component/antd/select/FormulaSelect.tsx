@@ -135,7 +135,7 @@ const useLabelOptions = (others) => {
     resource: collectionField?.target || fieldSchema['collectionName'],
     action: 'list',
     params: {
-      pageSize: 99999,
+      paginate: false,
     },
   };
   const regex = /{{(.*?)}}/g;
@@ -177,7 +177,7 @@ const useLabelOptions = (others) => {
               const value = opvalue ? opValue[match[1].split('.')[0]][match[1].split('.')[1]] : '';
               valueOject[match[1]] = value ?? '';
             } else {
-              valueOject[match[1]] = op[match[1]] || '';
+              valueOject[match[1]] = opValue[match[1]] || '';
             }
           }
           outputStr = replacePlaceholders(formula, valueOject);
@@ -205,7 +205,7 @@ const FormulaSelect = (props) => {
       .request({
         url: others.collection + ':list',
         params: {
-          pageSize: 99999,
+          paginate: false,
           filter: filterField ? { ...filterField.filter } : {},
         },
       })

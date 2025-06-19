@@ -1,5 +1,5 @@
 import { Collection, DataSource } from '@tachybase/data-source';
-import { parse } from '@tachybase/utils';
+import { dayjs, parse } from '@tachybase/utils';
 
 import axios from 'axios';
 import _ from 'lodash';
@@ -14,14 +14,29 @@ function compileTemplate(template, context) {
   return parse(template)(context);
 }
 function mergeRequestOptions(options) {
-  const { baseRequestConfig, actionOptions, templateContext = {} } = options;
+  const { baseRequestConfig, actionOptions, templateContext = {}, environment } = options;
+  const $env = environment;
+  const baseHeaders = baseRequestConfig.headers;
+  const actionHeaders = actionOptions.headers;
+  if ($env) {
+    if (baseHeaders) {
+      for (const key of Object.keys(baseHeaders)) {
+        baseHeaders[key] = $env.renderJsonTemplate(baseHeaders[key]);
+      }
+    }
+    if (actionHeaders) {
+      for (const key of Object.keys(actionHeaders)) {
+        actionHeaders[key] = $env.renderJsonTemplate(actionHeaders[key]);
+      }
+    }
+  }
   const rawConfig = {
     method: actionOptions.method,
     url: actionOptions.path,
     baseURL: baseRequestConfig.baseUrl,
     headers: {
-      ...baseRequestConfig.headers,
-      ...actionOptions.headers,
+      ...baseHeaders,
+      ...actionHeaders,
     },
     params: actionOptions.params,
     data: null,
@@ -66,17 +81,22 @@ function buildTemplateContext(options) {
 }
 function rawTypeToFieldType(rawType, exampleValue) {
   const typeInfers = {
-    string: 'string',
+    string: () => {
+      if (dayjs(exampleValue).isValid()) {
+        return ['string', 'date'];
+      }
+      return 'string';
+    },
     number: () => {
       if (Number.isInteger(exampleValue)) {
-        return 'integer';
+        return ['integer', 'float', 'date', 'bigInt'];
       }
       return 'float';
     },
     boolean: 'boolean',
     object: () => {
       if (_.isNull(exampleValue)) {
-        return ['string', 'integer', 'float', 'boolean', 'json'];
+        return ['string', 'integer', 'float', 'boolean', 'json', 'date', 'bigInt'];
       }
       return 'json';
     },
@@ -149,8 +169,9 @@ export class HttpCollection extends Collection {
     parseField?: boolean;
     debugVars?: any;
     runAsDebug?: boolean;
+    environment?: any;
   }) {
-    const { dataSource, actionOptions, templateContext = {}, parseField, debugVars, runAsDebug } = options;
+    const { dataSource, actionOptions, templateContext = {}, parseField, debugVars, runAsDebug, environment } = options;
     normalizeRequestOptions(actionOptions);
     const dataSourceRequestConfig = dataSource.requestConfig();
     buildTemplateContext({
@@ -162,6 +183,7 @@ export class HttpCollection extends Collection {
       baseRequestConfig: dataSourceRequestConfig,
       actionOptions,
       templateContext,
+      environment,
     });
     if (runAsDebug) {
       requestConfig.validateStatus = () => true;

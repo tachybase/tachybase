@@ -1,7 +1,11 @@
 {
   "name": "@tachybase/plugin-auth-lark",
   "displayName": "Auth: Lark",
-  "version": "0.23.40",
+  "version": "1.1.5",
+  "description": "Lark for auth",
+  "keywords": [
+    "Authentication"
+  ],
   "main": "dist/server/index.js",
   "scripts": {
     "build": "tachybase-build --no-dts @tachybase/plugin-auth-lark"
@@ -12,5 +16,7 @@
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",
     "@tachybase/test": "workspace:*"
-  }
+  },
+  "description.zh-CN": "认证: Lark",
+  "displayName.zh-CN": "认证Lark"
 }

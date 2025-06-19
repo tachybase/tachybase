@@ -1,0 +1,411 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`all methods 1`] = `
+{
+  "_isJSONSchemaObject": true,
+  "additionalProperties": {
+    "_isJSONSchemaObject": true,
+    "type": "string",
+    "version": "2.0",
+  },
+  "patternProperties": {
+    "^[a-zA-Z0-9]*$": {
+      "_isJSONSchemaObject": true,
+      "name": "^[a-zA-Z0-9]*$",
+      "properties": {
+        "made": {
+          "_isJSONSchemaObject": true,
+          "name": "made",
+          "type": "string",
+          "version": "2.0",
+          "x-index": 1,
+        },
+        "model": {
+          "_isJSONSchemaObject": true,
+          "name": "model",
+          "type": "string",
+          "version": "2.0",
+          "x-index": 2,
+        },
+        "year": {
+          "_isJSONSchemaObject": true,
+          "name": "year",
+          "type": "string",
+          "version": "2.0",
+          "x-index": 0,
+        },
+      },
+      "version": "2.0",
+    },
+  },
+  "properties": {
+    "array": {
+      "_isJSONSchemaObject": true,
+      "additionalItems": {
+        "_isJSONSchemaObject": true,
+        "type": "string",
+        "version": "2.0",
+      },
+      "items": [
+        {
+          "_isJSONSchemaObject": true,
+          "type": "integer",
+          "version": "2.0",
+        },
+        {
+          "_isJSONSchemaObject": true,
+          "type": "integer",
+          "version": "2.0",
+        },
+      ],
+      "name": "array",
+      "title": "string",
+      "type": "string",
+      "version": "2.0",
+    },
+    "string": {
+      "_isJSONSchemaObject": true,
+      "description": null,
+      "name": "string",
+      "title": "string",
+      "type": "string",
+      "version": "2.0",
+      "x-reactions": [
+        {
+          "fulfill": {
+            "schema": {},
+          },
+          "target": "xxx",
+          "when": true,
+        },
+      ],
+    },
+  },
+  "type": "object",
+  "version": "2.0",
+  "x-reactions": null,
+}
+`;
+
+exports[`all methods 2`] = `
+{
+  "_isJSONSchemaObject": true,
+  "additionalProperties": {
+    "_isJSONSchemaObject": true,
+    "type": "string",
+    "version": "2.0",
+  },
+  "patternProperties": {
+    "^[a-zA-Z0-9]*$": {
+      "_isJSONSchemaObject": true,
+      "name": "^[a-zA-Z0-9]*$",
+      "properties": {
+        "made": {
+          "_isJSONSchemaObject": true,
+          "name": "made",
+          "type": "string",
+          "version": "2.0",
+          "x-index": 1,
+        },
+        "model": {
+          "_isJSONSchemaObject": true,
+          "name": "model",
+          "type": "string",
+          "version": "2.0",
+          "x-index": 2,
+        },
+        "year": {
+          "_isJSONSchemaObject": true,
+          "name": "year",
+          "type": "string",
+          "version": "2.0",
+          "x-index": 0,
+        },
+      },
+      "version": "2.0",
+    },
+  },
+  "properties": {
+    "array": {
+      "_isJSONSchemaObject": true,
+      "additionalItems": {
+        "_isJSONSchemaObject": true,
+        "type": "string",
+        "version": "2.0",
+      },
+      "items": [
+        {
+          "_isJSONSchemaObject": true,
+          "type": "integer",
+          "version": "2.0",
+        },
+        {
+          "_isJSONSchemaObject": true,
+          "type": "integer",
+          "version": "2.0",
+        },
+      ],
+      "name": "array",
+      "title": "string",
+      "type": "string",
+      "version": "2.0",
+    },
+    "string": {
+      "_isJSONSchemaObject": true,
+      "description": null,
+      "name": "string",
+      "title": "string",
+      "type": "string",
+      "version": "2.0",
+      "x-reactions": [
+        {
+          "fulfill": {
+            "schema": {},
+          },
+          "target": "xxx",
+          "when": true,
+        },
+      ],
+    },
+  },
+  "type": "object",
+  "version": "2.0",
+  "x-reactions": null,
+}
+`;
+
+exports[`all methods 3`] = `
+{
+  "_isJSONSchemaObject": true,
+  "additionalProperties": {
+    "_isJSONSchemaObject": true,
+    "type": "string",
+    "version": "2.0",
+  },
+  "patternProperties": {},
+  "properties": {
+    "array": {
+      "_isJSONSchemaObject": true,
+      "additionalItems": {
+        "_isJSONSchemaObject": true,
+        "type": "string",
+        "version": "2.0",
+      },
+      "items": [
+        {
+          "_isJSONSchemaObject": true,
+          "type": "integer",
+          "version": "2.0",
+        },
+        {
+          "_isJSONSchemaObject": true,
+          "type": "integer",
+          "version": "2.0",
+        },
+      ],
+      "name": "array",
+      "title": "string",
+      "type": "string",
+      "version": "2.0",
+    },
+  },
+  "type": "object",
+  "version": "2.0",
+  "x-reactions": null,
+}
+`;
+
+exports[`all methods 4`] = `
+{
+  "_isJSONSchemaObject": true,
+  "description": null,
+  "name": "string",
+  "title": "string",
+  "type": "string",
+  "version": "2.0",
+  "x-reactions": [
+    {
+      "fulfill": {
+        "schema": {},
+      },
+      "target": "xxx",
+      "when": true,
+    },
+  ],
+}
+`;
+
+exports[`all methods 5`] = `
+{
+  "_isJSONSchemaObject": true,
+  "additionalItems": undefined,
+  "additionalProperties": undefined,
+  "items": [
+    undefined,
+  ],
+  "properties": {
+    "xxx": undefined,
+  },
+  "type": "object",
+  "version": "2.0",
+}
+`;
+
+exports[`all methods 6`] = `
+{
+  "_isJSONSchemaObject": true,
+  "additionalItems": undefined,
+  "additionalProperties": undefined,
+  "items": [
+    undefined,
+  ],
+  "properties": {
+    "xxx": undefined,
+  },
+  "type": "object",
+  "version": "2.0",
+}
+`;
+
+exports[`all props 1`] = `
+{
+  "_isJSONSchemaObject": true,
+  "additionalProperties": {
+    "_isJSONSchemaObject": true,
+    "type": "string",
+    "version": "2.0",
+  },
+  "description": "description",
+  "patternProperties": {
+    "^[a-zA-Z0-9]*$": {
+      "_isJSONSchemaObject": true,
+      "name": "^[a-zA-Z0-9]*$",
+      "properties": {
+        "made": {
+          "_isJSONSchemaObject": true,
+          "name": "made",
+          "type": "string",
+          "version": "2.0",
+        },
+        "model": {
+          "_isJSONSchemaObject": true,
+          "name": "model",
+          "type": "string",
+          "version": "2.0",
+        },
+        "year": {
+          "_isJSONSchemaObject": true,
+          "name": "year",
+          "type": "string",
+          "version": "2.0",
+        },
+      },
+      "version": "2.0",
+    },
+  },
+  "properties": {
+    "array": {
+      "_isJSONSchemaObject": true,
+      "additionalItems": {
+        "_isJSONSchemaObject": true,
+        "type": "number",
+        "version": "2.0",
+      },
+      "items": {
+        "_isJSONSchemaObject": true,
+        "type": "string",
+        "version": "2.0",
+      },
+      "name": "array",
+      "type": "array",
+      "version": "2.0",
+    },
+    "array2": {
+      "_isJSONSchemaObject": true,
+      "items": [
+        {
+          "_isJSONSchemaObject": true,
+          "type": "string",
+          "version": "2.0",
+        },
+        {
+          "_isJSONSchemaObject": true,
+          "type": "object",
+          "version": "2.0",
+        },
+      ],
+      "name": "array2",
+      "type": "array",
+      "version": "2.0",
+    },
+    "boolean": {
+      "_isJSONSchemaObject": true,
+      "default": false,
+      "name": "boolean",
+      "type": "boolean",
+      "version": "2.0",
+    },
+    "date": {
+      "_isJSONSchemaObject": true,
+      "default": "2020-12-23",
+      "name": "date",
+      "type": "date",
+      "version": "2.0",
+    },
+    "datetime": {
+      "_isJSONSchemaObject": true,
+      "default": "2020-12-23 23:00:00",
+      "name": "datetime",
+      "type": "datetime",
+      "version": "2.0",
+    },
+    "number": {
+      "_isJSONSchemaObject": true,
+      "default": 100,
+      "name": "number",
+      "type": "number",
+      "version": "2.0",
+    },
+    "string": {
+      "_isJSONSchemaObject": true,
+      "default": "default",
+      "name": "string",
+      "required": true,
+      "type": "string",
+      "version": "2.0",
+      "x-component": "Input",
+      "x-component-props": {
+        "placeholder": "placeholder",
+      },
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelCol": 3,
+      },
+      "x-disabled": true,
+      "x-display": "visible",
+      "x-editable": false,
+      "x-hidden": false,
+      "x-pattern": "readPretty",
+      "x-reactions": [
+        {
+          "target": "xxx",
+          "when": "{{aa > bb}}",
+        },
+      ],
+      "x-read-only": true,
+      "x-validator": [
+        "phone",
+      ],
+    },
+    "void": {
+      "_isJSONSchemaObject": true,
+      "name": "void",
+      "type": "void",
+      "version": "2.0",
+    },
+  },
+  "title": "title",
+  "type": "object",
+  "version": "2.0",
+}
+`;

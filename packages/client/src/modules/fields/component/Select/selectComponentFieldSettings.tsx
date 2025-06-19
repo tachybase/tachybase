@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, useField, useFieldSchema } from '@tachybase/schema';
+import { Field, ISchema, useField, useFieldSchema } from '@tachybase/schema';
 
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,7 @@ import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Tabl
 import {
   EditFormulaTitleField,
   getShouldChange,
+  useFormulaTitleOptions,
   useFormulaTitleVisible,
   VariableInput,
 } from '../../../../schema-settings';
@@ -32,7 +33,7 @@ import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSetti
 import { SchemaSettingsSortingRule } from '../../../../schema-settings/SchemaSettingsSortingRule';
 import { useLocalVariables, useVariables } from '../../../../variables';
 
-const enableLink = {
+export const enableLink = {
   name: 'enableLink',
   type: 'switch',
   useVisible() {
@@ -69,7 +70,7 @@ const enableLink = {
   },
 };
 
-const titleField: any = {
+export const titleField: any = {
   name: 'titleField',
   type: 'select',
   useComponentProps() {
@@ -168,7 +169,7 @@ export const allowMultiple: any = {
   },
 };
 
-const quickCreate: any = {
+export const quickCreate: any = {
   name: 'quickCreate',
   type: 'select',
   useComponentProps() {
@@ -229,12 +230,12 @@ const quickCreate: any = {
   },
 };
 
-const setDefaultSortingRules = {
+export const setDefaultSortingRules = {
   name: 'setDefaultSortingRules',
   Component: SchemaSettingsSortingRule,
 };
 
-const setTheDataScope: any = {
+export const setTheDataScope: any = {
   name: 'setTheDataScope',
   Component: SchemaSettingsDataScope,
   useComponentProps() {
@@ -285,7 +286,7 @@ const setTheDataScope: any = {
   },
 };
 
-const fieldComponent: any = {
+export const fieldComponent: any = {
   name: 'fieldComponent',
   type: 'select',
   useComponentProps() {
@@ -336,6 +337,65 @@ const fieldComponent: any = {
         void dn.emit('patch', {
           schema,
         });
+        dn.refresh();
+      },
+    };
+  },
+};
+
+export const CustomTitle = {
+  name: 'customTitle',
+  type: 'modal',
+  useComponentProps() {
+    const schema = useFieldSchema();
+    const { fieldSchema: tableColumnSchema } = useColumnSchema();
+    const fieldSchema = tableColumnSchema || schema;
+    const { t } = useTranslation();
+    const { dn } = useDesignable();
+    const options = useFormulaTitleOptions();
+    const def = fieldSchema['x-component-props']?.fieldNames?.formula;
+    const field = useField();
+    return {
+      title: t('Custom option label'),
+      schema: {
+        type: 'object',
+        title: t('Custom option label'),
+        properties: {
+          formula: {
+            required: true,
+            'x-decorator': 'FormItem',
+            'x-component': 'Variable.TextArea',
+            'x-component-props': {
+              scope: options,
+            },
+            default: def,
+          },
+        },
+      } as ISchema,
+      onSubmit: ({ formula }) => {
+        if (formula) {
+          const componentProps = {
+            ...fieldSchema['x-component-props'],
+            fieldNames: {
+              ...fieldSchema['x-component-props']?.['fieldNames'],
+              formula,
+            },
+          };
+          field.componentProps = {
+            ...field.componentProps,
+            fieldNames: {
+              ...field.componentProps?.fieldNames,
+              formula,
+            },
+          };
+          fieldSchema['x-component-props'] = componentProps;
+          dn.emit('patch', {
+            schema: {
+              'x-uid': fieldSchema['x-uid'],
+              'x-component-props': componentProps,
+            },
+          });
+        }
         dn.refresh();
       },
     };
@@ -398,11 +458,6 @@ export const selectComponentFieldSettings = new SchemaSettings({
         const readPretty = useIsFieldReadPretty();
         return useIsAssociationField() && readPretty;
       },
-    },
-    {
-      name: 'formulatitleField',
-      Component: EditFormulaTitleField,
-      useVisible: useFormulaTitleVisible,
     },
   ],
 });

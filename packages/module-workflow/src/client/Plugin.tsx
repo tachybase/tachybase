@@ -29,6 +29,7 @@ import DestroyInstruction from './nodes/destroy';
 import EndInstruction from './nodes/end';
 import QueryInstruction from './nodes/query';
 import UpdateInstruction from './nodes/update';
+import UpdateOrCreateInstruction from './nodes/updateOrCreate';
 import { customizeSubmitToWorkflowActionSettings } from './settings/customizeSubmitToWorkflowActionSettings';
 import { Trigger } from './triggers';
 import CollectionTrigger from './triggers/collection';
@@ -134,7 +135,7 @@ export class PluginWorkflow extends Plugin {
     this.registerInstruction('calculation', CalculationInstruction);
     this.registerInstruction('condition', ConditionInstruction);
     this.registerInstruction('end', EndInstruction);
-
+    this.registerInstruction('updateorcreate', UpdateOrCreateInstruction);
     this.registerInstruction('query', QueryInstruction);
     this.registerInstruction('create', CreateInstruction);
     this.registerInstruction('update', UpdateInstruction);
