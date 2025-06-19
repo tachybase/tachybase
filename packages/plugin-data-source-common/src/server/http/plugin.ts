@@ -25,6 +25,7 @@ export class PluginHttpDatasource extends Plugin {
             parseField: inferFields,
             runAsDebug: debug,
             debugVars,
+            environment: ctx.app.environment,
           });
           await next();
         },

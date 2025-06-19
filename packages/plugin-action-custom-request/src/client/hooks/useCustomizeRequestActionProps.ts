@@ -8,13 +8,32 @@ import {
   useRecord,
 } from '@tachybase/client';
 import { useField, useFieldSchema, useForm } from '@tachybase/schema';
-import { isURL } from '@tachybase/utils/client';
+import { isURL, parse } from '@tachybase/utils/client';
 
 import { App } from 'antd';
 import { saveAs } from 'file-saver';
 import { useNavigate } from 'react-router-dom';
 
 import { useTranslation } from '../locale';
+
+// 从header提取下载文件名
+function getFilenameFromHeader(header) {
+  if (!header) return null;
+
+  // 匹配 filename="example.txt"
+  let match = header.match(/filename="([^"]+)"/i);
+  if (match) {
+    return match[1];
+  }
+
+  // 匹配 filename*=UTF-8''example%20file.txt
+  match = header.match(/filename\*=UTF-8''(.+)/i);
+  if (match) {
+    return decodeURIComponent(match[1]); // 解码 URL 编码的文件名
+  }
+
+  return null;
+}
 
 export const useCustomizeRequestActionProps = () => {
   const apiClient = useAPIClient();
@@ -56,13 +75,19 @@ export const useCustomizeRequestActionProps = () => {
               appends: service.params[0]?.appends,
               data: formValues,
             },
+            successMessage: onSuccess.successMessage,
+          },
+          headers: {
+            'X-Response-Type': onSuccess?.down ? 'blob' : 'json',
           },
         })) as any;
+
         const headerContentType = res.headers.getContentType();
+        let filename = getFilenameFromHeader(res.headers['content-disposition']);
         if (onSuccess?.down) {
           if (headerContentType === 'application/octet-stream') {
             const downTitle = onSuccess.downTitle;
-            saveAs(res.data, downTitle);
+            saveAs(res.data, parse(downTitle)({ filename: filename || '' }));
           } else {
             message.error(t('The current return type is not a document type'));
           }
@@ -75,21 +100,14 @@ export const useCustomizeRequestActionProps = () => {
         if (xAction === 'customize:form:request') {
           setVisible?.(false);
         }
-
-        if (actionSchema?.['x-component-props']?.showData) {
-          modal.confirm({
-            title: 'Test Data',
-            content: `${JSON.stringify(res.data)}`,
-            okText: t('Confirm'),
-            cancelText: t('Cancel'),
-          });
-        } else {
-          if (!onSuccess?.successMessage) {
-            return;
+        if (onSuccess?.successMessage) {
+          let messageStr = parse(onSuccess?.successMessage)({ res, filename });
+          if (typeof messageStr !== 'string') {
+            messageStr = JSON.stringify(messageStr);
           }
           if (onSuccess?.manualClose) {
             modal.success({
-              title: compile(onSuccess?.successMessage),
+              title: compile(messageStr),
               onOk: async () => {
                 if (onSuccess?.redirecting && onSuccess?.redirectTo) {
                   if (isURL(onSuccess.redirectTo)) {
@@ -101,7 +119,7 @@ export const useCustomizeRequestActionProps = () => {
               },
             });
           } else {
-            message.success(compile(onSuccess?.successMessage));
+            message.success(compile(messageStr));
             if (onSuccess?.redirecting && onSuccess?.redirectTo) {
               if (isURL(onSuccess.redirectTo)) {
                 window.location.href = onSuccess.redirectTo;
@@ -110,6 +128,8 @@ export const useCustomizeRequestActionProps = () => {
               }
             }
           }
+        } else {
+          message.success(t('Request success'));
         }
       } finally {
         actionField.data.loading = false;

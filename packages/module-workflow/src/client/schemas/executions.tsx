@@ -1,10 +1,17 @@
 import React from 'react';
-import { useActionContext, useDataBlockRequest, useDataBlockResource } from '@tachybase/client';
+import {
+  Input,
+  useActionContext,
+  useCollectionRecordData,
+  useDataBlockRequest,
+  useDataBlockResource,
+} from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
 import { message } from 'antd';
 import { Link } from 'react-router-dom';
 
+import { getExecutionTime } from '../components/ExecutionTime';
 import { ExecutionStatusOptions } from '../constants';
 import { NAMESPACE, useTranslation } from '../locale';
 import { getWorkflowDetailPath } from '../utils';
@@ -33,6 +40,21 @@ export const executionCollection = {
         title: `{{t("Triggered at", { ns: "${NAMESPACE}" })}}`,
         'x-component': 'DatePicker',
         'x-component-props': {},
+        'x-read-pretty': true,
+      } as ISchema,
+    },
+    {
+      interface: 'bigInt',
+      type: 'bigInt',
+      name: 'executionCost',
+      uiSchema: {
+        type: 'bigInt',
+        title: `{{t("Execution time", { ns: "${NAMESPACE}" })}}`,
+        'x-component': ({ value }) => {
+          const record = useCollectionRecordData();
+          const timeCount = getExecutionTime(value, record);
+          return <Input type="text" value={timeCount} />;
+        },
         'x-read-pretty': true,
       } as ISchema,
     },
@@ -173,6 +195,12 @@ export const getExecutionSchema = (params?) => {
                         type: 'void',
                         'x-component': 'ExecutionLink',
                       },
+                      retry: {
+                        type: 'void',
+                        title: `{{t("Retry", { ns: "${NAMESPACE}" })}}`,
+                        'x-component': 'Action.Link',
+                        'x-use-component-props': 'ExecutionRetryAction',
+                      },
                     },
                   },
                 },
@@ -211,7 +239,7 @@ export const getExecutionSchema = (params?) => {
                   },
                 },
               },
-              executionTime: {
+              executionCost: {
                 type: 'void',
                 title: `{{t("Executed time", { ns: "${NAMESPACE}" })}}`,
                 'x-decorator': 'TableV2.Column.Decorator',
@@ -220,9 +248,8 @@ export const getExecutionSchema = (params?) => {
                   width: 50,
                 },
                 properties: {
-                  executionTime: {
-                    type: 'string',
-                    'x-decorator': 'ExecutionTime',
+                  executionCost: {
+                    type: 'bigInt',
                     'x-component': 'CollectionField',
                     'x-read-pretty': true,
                   },

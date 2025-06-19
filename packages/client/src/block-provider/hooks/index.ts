@@ -268,6 +268,26 @@ const useJumpDetails = () => {
   };
 };
 
+export function getAfterWorkflows(triggerWorkflows: any[]): string | undefined {
+  if (!triggerWorkflows?.length) {
+    return undefined;
+  }
+  return triggerWorkflows
+    .filter((row) => row && row.order !== 'before')
+    .map((row) => [row.workflowKey, row.context].join('!'))
+    .join(',');
+}
+
+export function getBeforeWorkflows(triggerWorkflows: any[]): string | undefined {
+  if (!triggerWorkflows?.length) {
+    return undefined;
+  }
+  return triggerWorkflows
+    .filter((row) => row && row.order === 'before')
+    .map((row) => [row.workflowKey, row.context].join('!'))
+    .join(',');
+}
+
 export const useCreateActionProps = () => {
   const record = useCollectionRecord();
   const form = useForm();
@@ -298,9 +318,8 @@ export const useCreateActionProps = () => {
           values: await collectValues(),
           filterKeys: filterKeys,
           // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
           updateAssociationValues,
         });
         actionField.data.loading = false;
@@ -433,9 +452,8 @@ export const useAssociationCreateActionProps = () => {
           },
           filterKeys: filterKeys,
           // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         });
         actionField.data.loading = false;
         actionField.data.data = data;
@@ -498,8 +516,8 @@ export const useFilterBlockActionProps = () => {
   return {
     async onClick() {
       const { targets = [], uid } = findFilterTargets(fieldSchema);
-
       actionField.data.loading = true;
+      let prevMergedFilter = {};
       try {
         // 收集 filter 的值
         await Promise.all(
@@ -544,8 +562,9 @@ export const useFilterBlockActionProps = () => {
               ...Object.values(storedFilter).map((filter) => removeNullCondition(filter)),
               block.defaultFilter,
               filter.customFilter,
+              prevMergedFilter,
             ]);
-
+            prevMergedFilter = mergedFilter;
             if (block.dataLoadingMode === 'manual' && _.isEmpty(mergedFilter)) {
               return block.clearData();
             }
@@ -582,6 +601,7 @@ export const useResetBlockActionProps = () => {
 
       form.reset();
       actionField.data.loading = true;
+      let prevMergedFilter = {};
       try {
         // 收集 filter 的值
         await Promise.all(
@@ -598,8 +618,8 @@ export const useResetBlockActionProps = () => {
             const storedFilter = block.service.params?.[1]?.filters || {};
 
             delete storedFilter[uid];
-            const mergedFilter = mergeFilter([...Object.values(storedFilter), block.defaultFilter]);
-
+            const mergedFilter = mergeFilter([...Object.values(storedFilter), block.defaultFilter, prevMergedFilter]);
+            prevMergedFilter = mergedFilter;
             return block.doFilter(
               {
                 ...param,
@@ -668,9 +688,8 @@ export const useCustomizeUpdateActionProps = () => {
         filterByTk,
         values: { ...assignedValues },
         // TODO(refactor): should change to inject by plugin
-        triggerWorkflows: triggerWorkflows?.length
-          ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-          : undefined,
+        triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+        beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
       });
       service?.refresh?.();
       if (!(resource instanceof TableFieldResource)) {
@@ -890,9 +909,8 @@ export const useUpdateActionProps = () => {
           ...data,
           updateAssociationValues,
           // TODO(refactor): should change to inject by plugin
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         });
         actionField.data.loading = false;
         __parent?.service?.refresh?.();
@@ -943,9 +961,8 @@ export const useDestroyActionProps = () => {
       await resource.destroy({
         filterByTk,
         // TODO(refactor): should change to inject by plugin
-        triggerWorkflows: triggerWorkflows?.length
-          ? triggerWorkflows.map((row) => [row.workflowKey, row.context].filter(Boolean).join('!')).join(',')
-          : undefined,
+        triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+        beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         ...data,
       });
 
@@ -1313,7 +1330,6 @@ export const useAssociationNames = (dataSource?: string) => {
       const isAssociationSubfield = s.name.includes('.');
       const isAssociationField =
         collectionField && ['hasOne', 'hasMany', 'belongsTo', 'belongsToMany'].includes(collectionField.type);
-
       // 从属性中取 appends
       if (s['x-component-props']?.['appends']) {
         _.forEach(s['x-component-props']?.['appends'], (append) => {
@@ -1321,8 +1337,26 @@ export const useAssociationNames = (dataSource?: string) => {
         });
       }
 
-      // 根据联动规则中条件的字段获取一些 appends
+      //从自定义字段中取appends
+      if (s['x-component-props']?.fieldNames?.formula) {
+        appends.add(s['name']);
+        const regex = /{{(.*?)}}/g;
+        const formula = s['x-component-props']?.fieldNames?.formula;
+        let match;
+        while ((match = regex.exec(formula))) {
+          if (match[1].includes('.')) {
+            const matchList = match[1].split('.');
+            let appendsValue = s['name'];
+            matchList.forEach((item, index) => {
+              if (index === matchList.length - 1) return;
+              appendsValue += '.' + item;
+              appends.add(appendsValue);
+            });
+          }
+        }
+      }
       if (s['x-linkage-rules']) {
+        // 根据联动规则中条件的字段获取一些 appends
         const collectAppends = (obj) => {
           const type = Object.keys(obj)[0] || '$and';
           const list = obj[type];
@@ -1393,7 +1427,6 @@ export const useAssociationNames = (dataSource?: string) => {
     _getAssociationAppends(fieldSchema, '');
     return { appends: [...appends], updateAssociationValues: [...updateAssociationValues] };
   };
-
   return { getAssociationAppends };
 };
 

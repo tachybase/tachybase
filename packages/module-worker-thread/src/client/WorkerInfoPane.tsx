@@ -117,6 +117,13 @@ const schema: ISchema = {
           'x-component': 'InputNumber',
           'x-disabled': true,
         },
+        max: {
+          type: 'digit',
+          title: i18nText('Max count'),
+          'x-decorator': 'FormItem',
+          'x-component': 'InputNumber',
+          'x-disabled': true,
+        },
         footer1: {
           type: 'void',
           'x-component': 'ActionBar',

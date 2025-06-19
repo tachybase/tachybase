@@ -4,8 +4,8 @@ import { FieldBase } from './dialects/FieldBase';
 import { handleFieldParams, ProcessFieldParams } from './types';
 
 const fieldTypes = {
-  string: ['string', 'text', 'sequence', 'uid', 'integer', 'float'],
-  number: ['bigInt', 'double'],
+  string: ['string', 'text', 'sequence', 'uid'],
+  number: ['bigInt', 'double', 'integer', 'float'],
   date: ['date', 'datetime', 'timestamp'],
   json: ['json', 'jsonb'],
   array: ['array'],
@@ -44,6 +44,7 @@ export function handleField(
   extraParams: {
     timezone?: string;
     dateStr?: string;
+    collectionName?: string;
   } = {},
 ): any[] {
   const conditions = [];
@@ -54,6 +55,7 @@ export function handleField(
       keyword,
       timezone: extraParams.timezone,
       dateStr: extraParams.dateStr,
+      collectionName: extraParams.collectionName,
     };
     const condition = func.call(handler, params);
     if (condition) {
@@ -88,15 +90,19 @@ export function processField({ field, handler, collection, ctx, search, timezone
   } else if (isFieldType(type, 'number')) {
     // 暂不支持关联字段 TODO 后续考虑抽成装饰器
     if (!field.includes('.')) {
-      return handleField(handler, handler.number, field, fields, search.keywords);
+      return handleField(handler, handler.number, field, fields, search.keywords, {
+        collectionName: collection.name,
+      });
     }
   } else if (isFieldType(type, 'date')) {
     // 暂不支持关联字段
     if (!field.includes('.')) {
       const dateStr = handler.getFormateDateStr(field, fields);
+      // 不含有数字则不能搜索时间字段
       return handleField(handler, handler.date, field, fields, search.keywords, {
         timezone,
         dateStr,
+        collectionName: collection.name,
       });
     }
   } else if (isFieldType(type, 'json')) {

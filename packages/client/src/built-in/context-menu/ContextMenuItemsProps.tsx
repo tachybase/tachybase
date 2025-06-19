@@ -57,16 +57,16 @@ export const disableRightMenu = {
 };
 
 // 显示隐藏滚动区域开关
-export const hiddenScrollArea = {
-  name: 'hiddenScrollArea',
+export const showScrollArea = {
+  name: 'showScrollArea',
   sort: 3,
-  useLoadMethod: ({ hiddenScrollArea, setHiddenScrollArea }) => {
+  useLoadMethod: ({ showScrollArea, setShowScrollArea }) => {
     const { t } = useTranslation();
     return {
-      title: hiddenScrollArea ? t('Show scroll area') : t('Hidden scroll area'),
+      title: showScrollArea ? t('Hidden scroll area') : t('Show scroll area'),
       actionProps: {
         onClick: () => {
-          setHiddenScrollArea(!hiddenScrollArea);
+          setShowScrollArea(!showScrollArea);
         },
       },
     };

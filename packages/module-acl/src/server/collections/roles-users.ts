@@ -5,5 +5,20 @@ export default defineCollection({
   dumpRules: {
     group: 'user',
   },
-  fields: [{ type: 'boolean', name: 'default' }],
+  fields: [
+    {
+      type: 'boolean',
+      name: 'default',
+    },
+    {
+      type: 'bigInt',
+      name: 'userId',
+      primaryKey: true,
+    },
+    {
+      type: 'string',
+      name: 'roleName',
+      primaryKey: true,
+    },
+  ],
 });

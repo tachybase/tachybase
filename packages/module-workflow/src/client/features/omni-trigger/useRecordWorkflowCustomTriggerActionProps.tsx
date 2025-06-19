@@ -1,4 +1,11 @@
-import { useActionContext, useBlockRequestContext, useCompile, useFilterByTk } from '@tachybase/client';
+import {
+  getAfterWorkflows,
+  getBeforeWorkflows,
+  useActionContext,
+  useBlockRequestContext,
+  useCompile,
+  useFilterByTk,
+} from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
 import { isURL } from '@tachybase/utils/client';
 
@@ -21,11 +28,8 @@ export function useRecordWorkflowCustomTriggerActionProps() {
       try {
         await resource.trigger({
           filterByTk: filterByTk,
-          triggerWorkflows: triggerWorkflows?.length
-            ? triggerWorkflows
-                .map((workflow) => [workflow.workflowKey, workflow.context].filter(Boolean).join('!'))
-                .join(',')
-            : undefined,
+          triggerWorkflows: getAfterWorkflows(triggerWorkflows),
+          beforeWorkflows: getBeforeWorkflows(triggerWorkflows),
         });
         callback?.();
         setVisible?.(false);

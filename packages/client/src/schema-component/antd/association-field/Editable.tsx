@@ -53,13 +53,12 @@ const EditableAssociationField = observer(
         },
       };
     };
-
     return (
       <SchemaComponentOptions scope={{ useCreateActionProps }} components={{ CreateRecordAction }}>
         {currentMode === 'Picker' && <InternalPicker {...props} />}
         {currentMode === 'Nester' && <InternalNester {...props} />}
         {currentMode === 'PopoverNester' && <InternaPopoverNester {...props} />}
-        {currentMode === 'Select' && <AssociationSelect {...props} />}
+        {(currentMode === 'Select' || currentMode === 'CustomTitle') && <AssociationSelect {...props} />}
         {currentMode === 'SubTable' && <InternalSubTable {...props} />}
         {currentMode === 'FileManager' && <InternalFileManager {...props} />}
         {currentMode === 'CascadeSelect' && <InternalCascadeSelect {...props} />}

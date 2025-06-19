@@ -23,6 +23,18 @@ export const Options = () => {
                     title: '{{t("Sign up automatically when the user does not exist")}}',
                     'x-component': 'Checkbox',
                   },
+                  agreeMust: {
+                    'x-decorator': 'FormItem',
+                    type: 'boolean',
+                    title: '{{t("Must agree to the agreement")}}',
+                    'x-component': 'Checkbox',
+                  },
+                  agreeCode: {
+                    'x-decorator': 'FormItem',
+                    type: 'string',
+                    title: '{{t("Agree to the agreement text (html supported)")}}',
+                    'x-component': 'Input.TextArea',
+                  },
                 },
               },
             },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { css, cx, useCompile, Variable } from '@tachybase/client';
 import { evaluators } from '@tachybase/evaluators/client';
 import { Registry } from '@tachybase/utils/client';
@@ -117,6 +117,26 @@ calculators.register('concat', {
   type: 'string',
   group: 'string',
 });
+calculators.register('isEmpty', {
+  name: `{{t("is empty", { ns: "${NAMESPACE}" })}}`,
+  type: 'boolean',
+  group: 'existence',
+});
+calculators.register('isNotEmpty', {
+  name: `{{t("is not empty", { ns: "${NAMESPACE}" })}}`,
+  type: 'boolean',
+  group: 'existence',
+});
+calculators.register('isTrue', {
+  name: `{{t("is true", { ns: "${NAMESPACE}" })}}`,
+  type: 'boolean',
+  group: 'existence',
+});
+calculators.register('isFalse', {
+  name: `{{t("is false", { ns: "${NAMESPACE}" })}}`,
+  type: 'boolean',
+  group: 'existence',
+});
 
 const calculatorGroups = [
   {
@@ -135,15 +155,30 @@ const calculatorGroups = [
     value: 'date',
     title: `{{t("Date", { ns: "${NAMESPACE}" })}}`,
   },
+  {
+    value: 'existence',
+    title: `{{t("Existence check", { ns: "${NAMESPACE}" })}}`,
+  },
 ];
 
 function getGroupCalculators(group) {
   return Array.from(calculators.getEntities()).filter(([key, value]) => value.group === group);
 }
 
-function Calculation({ calculator, operands = [], onChange }) {
+function Calculation({ calculator: initialCalculator, operands = [], onChange }) {
+  const [calculator, setCalculator] = useState(initialCalculator);
   const compile = useCompile();
   const options = useWorkflowVariableOptions();
+
+  const isExistenceGroup = (calc: string) => {
+    const calcItem = calculators.get(calc);
+    return calcItem?.group === 'existence';
+  };
+
+  const handleCalculatorChange = (v) => {
+    setCalculator(v);
+    onChange({ operands, calculator: v });
+  };
   return (
     <fieldset
       className={css`
@@ -164,7 +199,7 @@ function Calculation({ calculator, operands = [], onChange }) {
         role="button"
         aria-label="select-operator-calc"
         value={calculator}
-        onChange={(v) => onChange({ operands, calculator: v })}
+        onChange={handleCalculatorChange}
         placeholder={lang('Operator')}
         popupMatchSelectWidth={false}
         className="auto-width"
@@ -181,12 +216,14 @@ function Calculation({ calculator, operands = [], onChange }) {
             </Select.OptGroup>
           ))}
       </Select>
-      <Variable.Input
-        value={operands[1]}
-        onChange={(v) => onChange({ calculator, operands: [operands[0], v] })}
-        scope={options}
-        useTypedConstant
-      />
+      {!isExistenceGroup(calculator) && (
+        <Variable.Input
+          value={operands[1]}
+          onChange={(v) => onChange({ calculator, operands: [operands[0], v] })}
+          scope={options}
+          useTypedConstant
+        />
+      )}
     </fieldset>
   );
 }
@@ -410,6 +447,18 @@ export default class extends Instruction {
         },
       },
       required: true,
+    },
+    remarks: {
+      type: 'string',
+      title: `{{t("Remarks", { ns: "${NAMESPACE}" })}}`,
+      'x-decorator': 'FormItem',
+      'x-component': 'Input.TextArea',
+      'x-component-props': {
+        autoSize: {
+          minRows: 3,
+        },
+        placeholder: `{{t("Input remarks", { ns: "${NAMESPACE}" })}}`,
+      },
     },
   };
   options = [

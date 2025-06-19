@@ -13,13 +13,25 @@ export class SystemSettingsPlugin extends Plugin {
         enabledLanguages: [this.getInitAppLang(options)],
         logo: {
           title: 'tachybase-logo',
-          filename: '5257a6a1b5fb1f2572763a2c0e230c85.png',
+          filename: 'tachybase-logo',
           extname: '.png',
           mimetype: 'image/png',
-          url: 'https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/5257a6a1b5fb1f2572763a2c0e230c85.png',
+          url: '/tachybase-logo.png',
         },
       },
     });
+  }
+
+  async getSystemSettingsInstance() {
+    const repository = this.db.getRepository('systemSettings');
+    const instance = await repository.findOne({
+      filterByTk: 1,
+      appends: ['logo'],
+    });
+    const json = instance.toJSON();
+    json.raw_title = json.title;
+    json.title = this.app.environment.renderJsonTemplate(instance.title);
+    return json;
   }
 
   beforeLoad() {
@@ -29,8 +41,8 @@ export class SystemSettingsPlugin extends Plugin {
     }
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.system-settings`,
-      actions: ['systemSettings:update'],
+      name: `pm.system-settings.system-settings`,
+      actions: ['systemSettings:put'],
     });
   }
 
@@ -39,6 +51,33 @@ export class SystemSettingsPlugin extends Plugin {
       return {
         'id.$ne': 1,
       };
+    });
+
+    this.app.resourcer.define({
+      name: 'systemSettings',
+      actions: {
+        get: async (ctx, next) => {
+          try {
+            ctx.body = await this.getSystemSettingsInstance();
+          } catch (error) {
+            throw error;
+          }
+          await next();
+        },
+        put: async (ctx, next) => {
+          const repository = this.db.getRepository('systemSettings');
+          const values = ctx.action.params.values;
+          await repository.update({
+            filterByTk: 1,
+            values: {
+              ...values,
+              title: values.raw_title,
+            },
+          });
+          ctx.body = await this.getSystemSettingsInstance();
+          await next();
+        },
+      },
     });
 
     this.app.acl.allow('systemSettings', 'get', 'public');

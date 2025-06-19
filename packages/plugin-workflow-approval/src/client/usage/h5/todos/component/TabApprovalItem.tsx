@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAPIClient, useCollectionManager, useCompile } from '@tachybase/client';
 import { observer } from '@tachybase/schema';
 import { dayjs } from '@tachybase/utils/client';
@@ -7,13 +7,8 @@ import { useAsyncEffect } from 'ahooks';
 import { Empty, List, Space, Tag } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  APPROVAL_STATUS,
-  ApprovalPriorityType,
-  ApprovalStatusEnums,
-  approvalStatusOptions,
-  ExecutionStatusOptions,
-} from '../../constants';
+import { approvalStatusEnums } from '../../../../common/constants/approval-initiation-status-options';
+import { APPROVAL_STATUS, ApprovalPriorityType, approvalStatusOptions, ExecutionStatusOptions } from '../../constants';
 import { useTranslation } from '../../locale';
 
 export const TabApprovalItem = observer((props) => {
@@ -30,7 +25,7 @@ export const TabApprovalItem = observer((props) => {
     } else if (collectionName === 'users_jobs') {
       changeUsersJobsService(api, t, cm, compile, input, setData, params?.[tabKey], filter);
     } else if (collectionName === 'workflowNotice') {
-      const user = await api.request({ url: 'users:list', params: { pageSize: 99999 } });
+      const user = await api.request({ url: 'users:list', params: { paginate: false } });
       changeWorkflowNoticeService(api, t, cm, compile, input, setData, params?.[tabKey], filter, user?.data?.data);
     }
   }, [filter, params, input]);
@@ -170,7 +165,7 @@ const changeUsersJobsService = (api, t, cm, compile, input, setData, params, fil
     .request({
       url: 'users_jobs:list',
       params: {
-        pageSize: 9999,
+        paginate: false,
         filter: { ...params, ...filter },
         appends: ['execution', 'job', 'node', 'user', 'workflow'],
       },
@@ -215,7 +210,7 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
     .request({
       url: 'approvalCarbonCopy:listCentralized',
       params: {
-        pageSize: 9999,
+        paginate: false,
         filter: { ...params, ...filter },
         appends: [
           'createdBy.id',
@@ -264,7 +259,7 @@ export const changeWorkflowNoticeService = (api, t, cm, compile, input, setData,
             });
           }
         });
-        const statusType = ApprovalStatusEnums.find((value) => value.value === item.approval?.status);
+        const statusType = approvalStatusEnums.find((value) => value.value === item.approval?.status);
         const nickName = user.find((userItem) => userItem.id === item.snapshot?.createdById)?.nickname;
         return {
           ...item,

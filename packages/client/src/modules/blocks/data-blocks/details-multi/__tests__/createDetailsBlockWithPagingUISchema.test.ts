@@ -1,6 +1,6 @@
 import { createDetailsWithPaginationUISchema } from '../createDetailsWithPaginationUISchema';
 
-vi.mock('@formily/shared', () => ({
+vi.mock('@tachybase/schema', () => ({
   uid: vi.fn().mockReturnValue('mocked-uid'),
 }));
 

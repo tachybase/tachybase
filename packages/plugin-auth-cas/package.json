@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-cas",
   "displayName": "Auth: CAS",
-  "version": "0.23.40",
+  "version": "1.1.5",
   "description": "CAS authentication.",
   "keywords": [
     "Authentication"
@@ -15,6 +15,7 @@
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
     "antd": "5.22.5",
+    "axios": "1.7.7",
     "react-i18next": "^15.2.0",
     "react-router-dom": "6.28.1"
   },

@@ -380,7 +380,7 @@ export class Resourcer {
         }
         return compose(ctx.action.getHandlers())(ctx, next);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         return next();
       }
     };

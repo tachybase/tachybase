@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Schema, useFieldSchema } from '@tachybase/schema';
-import { flatten, getValuesByPath } from '@tachybase/utils/client';
+import { dayjs, flatten, getValuesByPath } from '@tachybase/utils/client';
 
 import _ from 'lodash';
 
@@ -159,6 +159,17 @@ export const transformToFilter = (
                 $isFalsy: true,
               },
             };
+          }
+        } else if (operators[key] === '$dateBetween') {
+          if (Array.isArray(value)) {
+            for (const index in value) {
+              if (!value[index]) {
+                continue;
+              }
+              if (typeof value[index] !== 'string' && !(value[index] instanceof Date)) {
+                value[index] = dayjs(value[index]).toISOString();
+              }
+            }
           }
         }
         return {

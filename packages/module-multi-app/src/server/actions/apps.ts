@@ -12,7 +12,7 @@ export async function start(ctx: Context, next: Next) {
     ctx.body = 'ok';
     await next();
   } else {
-    ctx.throw(400, ctx.t('App already started', { ns: NAMESPACE }));
+    ctx.throw(205, ctx.t('App already started', { ns: NAMESPACE }));
   }
 }
 

@@ -19,9 +19,13 @@ export default class PluginFileManager extends Plugin {
     });
     const map = new Map();
     for (const storage of storages) {
-      map.set(storage.get('id'), storage.toJSON());
+      map.set(storage.get('id'), this.parseStorage(storage));
     }
     this.db['_fileStorages'] = map;
+  }
+
+  parseStorage(instance) {
+    return this.app.environment.renderJsonTemplate(instance.toJSON());
   }
 
   async install() {
@@ -72,7 +76,7 @@ export default class PluginFileManager extends Plugin {
     });
 
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.storages`,
+      name: `pm.file-manager.storages`,
       actions: ['storages:*'],
     });
 

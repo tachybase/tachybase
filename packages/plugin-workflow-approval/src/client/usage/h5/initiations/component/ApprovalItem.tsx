@@ -7,7 +7,8 @@ import { useDeepCompareEffect } from 'ahooks';
 import { Empty, List, Space, Tag } from 'antd-mobile';
 import { useNavigate } from 'react-router-dom';
 
-import { ApprovalPriorityType, ApprovalStatusEnums } from '../../constants';
+import { approvalStatusEnums } from '../../../../common/constants/approval-initiation-status-options';
+import { ApprovalPriorityType } from '../../constants';
 import { useTranslation } from '../../locale';
 import { InitiationsBlockContext } from '../InitiationsBlock';
 
@@ -88,14 +89,14 @@ export const ApprovalItem = observer((props) => {
 
 const approvalTodoListStatus = (item, t) => {
   const { status } = item;
-  return ApprovalStatusEnums.find((value) => value.value === status);
+  return approvalStatusEnums.find((value) => value.value === status);
 };
 
 const changService = (api, setData, user, filter, t, setDefaultData, cm, compile) => {
   api
     .request({
       url: 'approvals:listCentralized',
-      params: { pageSize: 99999, appends: ['workflow'], filter },
+      params: { paginate: false, appends: ['workflow'], filter },
     })
     .then((res) => {
       const result = res.data?.data.map((item) => {

@@ -84,7 +84,7 @@ const EditOperator = () => {
   const { t } = useChartsTranslation();
   const { dn } = useDesignable();
   const { setField } = useContext(ChartFilterContext);
-  const fieldName = fieldSchema['x-collection-field'];
+  const fieldName = fieldSchema['x-collection-field'] ?? '';
   const dataSource = fieldSchema['x-data-source'] || DEFAULT_DATA_SOURCE_KEY;
   const { cm, fim } = useChartDataSource(dataSource);
   if (!cm) {
@@ -264,7 +264,7 @@ const EditTitleField = () => {
   const collectionField = getCollectionJoinField(fieldSchema['x-collection-field']);
   const targetFields = collectionField?.target
     ? getCollectionFields(collectionField?.target)
-    : getCollectionFields(collectionField?.targetCollection) ?? [];
+    : (getCollectionFields(collectionField?.targetCollection) ?? []);
   const options = targetFields
     .filter((field) => {
       if (field?.target || field.type === 'boolean') {

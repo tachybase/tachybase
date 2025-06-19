@@ -4,7 +4,6 @@ import path from 'path';
 import * as process from 'process';
 import stream from 'stream';
 import util from 'util';
-import { isMainThread } from 'worker_threads';
 import {
   Collection,
   CollectionGroupManager as DBCollectionGroupManager,
@@ -25,6 +24,7 @@ const finished = util.promisify(stream.finished);
 type DumpOptions = {
   groups: Set<DumpRulesGroupType>;
   fileName?: string;
+  appName?: string;
 };
 
 type BackUpStatusOk = {
@@ -38,6 +38,12 @@ type BackUpStatusDoing = {
   name: string;
   inProgress: true;
   status: 'in_progress';
+};
+
+type BackUpStatusError = {
+  name: string;
+  createdAt: Date;
+  status: 'error';
 };
 
 export class Dumper extends AppMigrator {
@@ -56,7 +62,7 @@ export class Dumper extends AppMigrator {
     return this.dumpTasks.get(taskId);
   }
 
-  static async getFileStatus(filePath: string): Promise<BackUpStatusOk | BackUpStatusDoing> {
+  static async getFileStatus(filePath: string): Promise<BackUpStatusOk | BackUpStatusDoing | BackUpStatusError> {
     const lockFile = filePath + '.lock';
     const fileName = path.basename(filePath);
 
@@ -64,11 +70,20 @@ export class Dumper extends AppMigrator {
       .stat(lockFile)
       .then((lockFileStat) => {
         if (lockFileStat.isFile()) {
-          return {
-            name: fileName,
-            inProgress: true,
-            status: 'in_progress',
-          } as BackUpStatusDoing;
+          // 超过2小时认为是失败
+          if (lockFileStat.ctime.getTime() < Date.now() - 2 * 60 * 60 * 1000) {
+            return {
+              name: fileName,
+              createdAt: lockFileStat.ctime,
+              status: 'error',
+            } as BackUpStatusError;
+          } else {
+            return {
+              name: fileName,
+              inProgress: true,
+              status: 'in_progress',
+            } as BackUpStatusDoing;
+          }
         } else {
           throw new Error('Lock file is not a file');
         }
@@ -162,12 +177,15 @@ export class Dumper extends AppMigrator {
     return Object.fromEntries(Object.entries(grouped).map(([key, value]) => [key, value.map((item) => item.name)]));
   }
 
-  backUpStorageDir() {
+  backUpStorageDir(appName?: string) {
+    if (appName && appName !== 'main') {
+      return path.resolve(process.cwd(), 'storage', 'backups', appName);
+    }
     return path.resolve(process.cwd(), 'storage', 'backups');
   }
 
-  async allBackUpFilePaths(options?: { includeInProgress?: boolean; dir?: string }) {
-    const dirname = options?.dir || this.backUpStorageDir();
+  async allBackUpFilePaths(options?: { includeInProgress?: boolean; dir?: string; appName?: string }) {
+    const dirname = options?.dir || this.backUpStorageDir(options?.appName);
     const includeInProgress = options?.includeInProgress;
 
     try {
@@ -204,59 +222,43 @@ export class Dumper extends AppMigrator {
     }
   }
 
-  backUpFilePath(fileName: string) {
-    const dirname = this.backUpStorageDir();
+  backUpFilePath(fileName: string, appName?: string) {
+    const dirname = this.backUpStorageDir(appName);
     return path.resolve(dirname, fileName);
   }
 
-  lockFilePath(fileName: string) {
+  lockFilePath(fileName: string, appName?: string) {
     const lockFile = fileName + '.lock';
-    const dirname = this.backUpStorageDir();
+    const dirname = this.backUpStorageDir(appName);
     return path.resolve(dirname, lockFile);
   }
 
-  async writeLockFile(fileName: string) {
-    const dirname = this.backUpStorageDir();
+  async writeLockFile(fileName: string, appName?: string) {
+    const dirname = this.backUpStorageDir(appName);
     await mkdirp(dirname);
 
-    const filePath = this.lockFilePath(fileName);
+    const filePath = this.lockFilePath(fileName, appName);
     await fsPromises.writeFile(filePath, 'lock', 'utf8');
+    return filePath;
   }
 
-  async cleanLockFile(fileName: string) {
-    const filePath = this.lockFilePath(fileName);
+  async cleanLockFile(fileName: string, appName: string) {
+    const filePath = this.lockFilePath(fileName, appName);
     await fsPromises.unlink(filePath);
   }
 
-  async runDumpTask(options: Omit<DumpOptions, 'fileName'>) {
+  async getLockFile(appName: string) {
     const backupFileName = Dumper.generateFileName();
-    await this.writeLockFile(backupFileName);
-
-    if (isMainThread) {
-      const promise = this.dump({
-        groups: options.groups,
-        fileName: backupFileName,
-      }).finally(() => {
-        this.cleanLockFile(backupFileName);
-        Dumper.dumpTasks.delete(backupFileName);
-        // 主线程通知备份完成 TODO: 同一个浏览器开两个窗口会有BUG
-        this.app.noticeManager.notify('backup', { msg: 'Done' });
-      });
-      Dumper.dumpTasks.set(backupFileName, promise);
-    } else {
-      try {
-        await this.dump({
-          groups: options.groups,
-          fileName: backupFileName,
-        });
-      } catch (err) {
-        throw err;
-      } finally {
-        this.cleanLockFile(backupFileName);
-      }
-    }
-
+    await this.writeLockFile(backupFileName, appName);
     return backupFileName;
+  }
+
+  async runDumpTask(options: DumpOptions) {
+    await this.dump({
+      groups: options.groups,
+      fileName: options.fileName,
+      appName: options.appName,
+    });
   }
 
   async dumpableCollectionsGroupByGroup() {
@@ -294,7 +296,7 @@ export class Dumper extends AppMigrator {
     await this.dumpDb(options);
 
     const backupFileName = options.fileName || Dumper.generateFileName();
-    const filePath = await this.packDumpedDir(backupFileName);
+    const filePath = await this.packDumpedDir(backupFileName, options.appName);
     await this.clearWorkDir();
     return filePath;
   }
@@ -475,8 +477,8 @@ export class Dumper extends AppMigrator {
     await fsPromises.writeFile(path.resolve(collectionDataDir, 'meta'), JSON.stringify(meta), 'utf8');
   }
 
-  async packDumpedDir(fileName: string) {
-    const dirname = this.backUpStorageDir();
+  async packDumpedDir(fileName: string, appName?: string) {
+    const dirname = this.backUpStorageDir(appName);
     await mkdirp(dirname);
 
     const filePath = path.resolve(dirname, fileName);

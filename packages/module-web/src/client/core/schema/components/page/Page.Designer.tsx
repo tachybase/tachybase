@@ -1,5 +1,5 @@
 import React from 'react';
-import { SchemaSettingsDropdown, SchemaSettingsSwitchItem, useDesignable } from '@tachybase/client';
+import { SchemaSettingsDropdown, SchemaSettingsSwitchItem, useDesignable, useSchemaToolbar } from '@tachybase/client';
 import { uid, useField, useFieldSchema } from '@tachybase/schema';
 
 import { MenuOutlined } from '@ant-design/icons';
@@ -20,6 +20,7 @@ export const PageDesigner = (props) => {
   const isHeaderEnabled = !!headerSchema && field.componentProps?.headerEnabled !== false;
   const tabsSchema = fieldSchema?.properties?.['tabs'];
   const isTabsEnabled = !!tabsSchema && field.componentProps?.tabsEnabled !== false;
+  const { title } = useSchemaToolbar();
   const schemaSettingsProps = {
     dn,
     field,
@@ -76,7 +77,7 @@ export const PageDesigner = (props) => {
               name: 'tabs',
               'x-component': 'Tabs',
               'x-component-props': {},
-              'x-initializer': 'TabPaneInitializers',
+              'x-initializer': 'popup:addTab',
               'x-initializer-props': {
                 gridInitializer: 'mobilePage:addBlock',
               },
@@ -101,6 +102,25 @@ export const PageDesigner = (props) => {
           await onUpdateComponentProps({
             tabsEnabled: v,
           });
+        }}
+      />
+      <SchemaSettingsSwitchItem
+        checked={fieldSchema['x-component-props']?.enableSharePage}
+        title={t('Enable Share page')}
+        onChange={async (v) => {
+          fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+          fieldSchema['x-component-props']['enableSharePage'] = v;
+          if (!fieldSchema.title) {
+            fieldSchema.title = title;
+          }
+          dn.emit('patch', {
+            schema: {
+              ['x-uid']: fieldSchema['x-uid'],
+              ['x-component-props']: fieldSchema['x-component-props'],
+              title: fieldSchema.title,
+            },
+          });
+          dn.refresh();
         }}
       />
     </SchemaSettingsDropdown>

@@ -66,4 +66,32 @@ export class CloudLibrariesController {
 
     await actions.update(ctx, next);
   }
+
+  @Action('destroy')
+  async destroy(ctx: Context, next: Next) {
+    const { filterByTk } = ctx.action.params;
+    const cloudRepo = ctx.db.getRepository('cloudLibraries');
+    const effectRepo = ctx.db.getRepository('effectLibraries');
+    try {
+      await ctx.db.sequelize.transaction(async (transaction) => {
+        const cloudComponent = await cloudRepo.findOne({
+          filterByTk,
+          transaction,
+        });
+        await effectRepo.destroy({
+          filter: {
+            name: cloudComponent.name,
+            module: cloudComponent.module,
+          },
+          transaction,
+        });
+        await cloudRepo.destroy({
+          filterByTk,
+          transaction,
+        });
+      });
+    } catch (error) {
+      console.error('Error deleting cloud component:', error);
+    }
+  }
 }

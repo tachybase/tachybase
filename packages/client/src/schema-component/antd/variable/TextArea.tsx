@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useForm } from '@tachybase/schema';
+import { useFieldSchema, useForm } from '@tachybase/schema';
 import { error } from '@tachybase/utils/client';
 
 import { Space } from 'antd';
@@ -187,7 +187,10 @@ function getCurrentRange(element: HTMLElement): RangeIndexes {
 }
 
 export function TextArea(props) {
-  const { value = '', scope, onChange, multiline = true, changeOnSelect } = props;
+  const { value: propsValue, scope, onChange, multiline = true, changeOnSelect } = props;
+  const fieldSchema = useFieldSchema();
+  //如果值是默认label的字段或选择label的字段，value会为空，这里临时读取schema的default字段
+  const value = propsValue || fieldSchema?.default || '';
   const { styles } = useStyles({ multiline });
   const inputRef = useRef<HTMLDivElement>(null);
   const [options, setOptions] = useState([]);
@@ -198,7 +201,6 @@ export function TextArea(props) {
   const [html, setHtml] = useState(() => renderHTML(value ?? '', keyLabelMap));
   // NOTE: e.g. [startElementIndex, startOffset, endElementIndex, endOffset]
   const [range, setRange] = useState<[number, number, number, number]>([-1, 0, -1, 0]);
-
   useEffect(() => {
     preloadOptions(scope, value)
       .then((preloaded) => {

@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect, isValid, mapProps, mapReadPretty, useField } from '@tachybase/schema';
+import React, { useState } from 'react';
+import { connect, isValid, mapProps, mapReadPretty, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Checkbox as AntdCheckbox, Radio, Tag } from 'antd';
@@ -41,11 +41,21 @@ export const InternalCheckbox: ComposedCheckbox = connect(
 
 export const InternalRadioGroup: ComposedCheckbox = connect((props: any) => {
   const { t } = useTranslation();
+  const [value, setValue] = useState();
   return (
     <Radio.Group
       {...props}
+      onChange={(value) => {
+        if (value.target.value !== 'null') {
+          props.onChange(value.target.value);
+        } else {
+          props.onChange(null);
+        }
+        setValue(value.target.value);
+      }}
+      value={props.value || value}
       options={[
-        { label: t('?'), value: undefined },
+        { label: t('?'), value: 'null' },
         { label: t('Yes'), value: 'true' },
         { label: t('No'), value: 'false' },
       ]}

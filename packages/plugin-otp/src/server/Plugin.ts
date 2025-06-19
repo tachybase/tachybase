@@ -148,7 +148,7 @@ export default class PluginOtp extends Plugin {
 
     app.acl.allow('verifications', 'create', 'public');
     this.app.acl.registerSnippet({
-      name: `pm.${this.name}.providers`,
+      name: `pm.verification.providers`,
       actions: ['verifications_providers:*'],
     });
   }

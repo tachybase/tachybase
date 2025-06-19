@@ -1,7 +1,22 @@
-import { CollectionOptions } from '@tachybase/client';
+import { CollectionOptions, Space, useCompile } from '@tachybase/client';
 import { ISchema } from '@tachybase/schema';
 
+import { Tag, Typography } from 'antd';
+
 import { tval } from '../../locale';
+
+export function TriggerOptionRender({ data }) {
+  const { label, color, options } = data;
+  const compile = useCompile();
+  return (
+    <Space direction="vertical">
+      <Tag color={color}>{compile(label)}</Tag>
+      <Typography.Text type="secondary" style={{ whiteSpace: 'normal' }}>
+        {compile(options.description)}
+      </Typography.Text>
+    </Space>
+  );
+}
 
 export const dispatchers: CollectionOptions = {
   name: 'webhooks',
@@ -54,69 +69,26 @@ export const dispatchers: CollectionOptions = {
     {
       type: 'string',
       name: 'type',
-      interface: 'radioGroup',
       uiSchema: {
         title: tval('Type'),
-        type: 'string',
-        required: true,
-        enum: [
-          { label: tval('Application Event'), value: 'applicationEvent' },
-          { label: tval('Database Event'), value: 'databaseEvent' },
-          { label: tval('Resource'), value: 'resource' },
-          { label: tval('Before Resource'), value: 'beforeResource' },
-          { label: tval('After Resource'), value: 'afterResource' },
-          // Hide below for now
-          // { label: tval('HTTP endpoint'), value: 'code' },
-          // { label: tval('Scheduler'), value: 'cron' },
-          // { label: tval('API action'), value: 'action' },
-        ],
         'x-component': 'Select',
         'x-decorator': 'FormItem',
-        default: 'code',
-      } as ISchema,
+        enum: '{{useTriggersOptions()}}',
+        'x-component-props': {
+          optionRender: TriggerOptionRender,
+          popupMatchSelectWidth: true,
+          listHeight: 300,
+        },
+      },
     },
     {
-      type: 'string',
-      name: 'triggerOnAssociation',
-      interface: 'boolean',
+      type: 'json',
+      name: 'options',
+      interface: 'object',
       uiSchema: {
-        title: tval('TriggerOnAssociation'),
-        type: 'boolean',
-        'x-component': 'Checkbox',
-        required: true,
-      } as ISchema,
-    },
-    {
-      type: 'string',
-      name: 'resourceName',
-      interface: 'input',
-      uiSchema: {
-        title: tval('Resource'),
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
-      } as ISchema,
-    },
-    {
-      type: 'string',
-      name: 'actionName',
-      interface: 'input',
-      uiSchema: {
-        title: tval('Action'),
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
-      } as ISchema,
-    },
-    {
-      type: 'string',
-      name: 'eventName',
-      interface: 'input',
-      uiSchema: {
-        title: tval('Event Name'),
-        type: 'string',
-        'x-component': 'Input',
-        required: true,
+        type: 'object',
+        title: tval('Options'),
+        'x-component': 'TypeContainer',
       } as ISchema,
     },
     {
@@ -129,9 +101,60 @@ export const dispatchers: CollectionOptions = {
         'x-component': 'CodeMirror',
         'x-component-props': {
           defaultValue:
-            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// const { changed, data, error } = await ctx.getChanged(); can get changed fields and raw data\n// ctx.body to pass your data to workflow or to client who invoke this.\n// ctx.body = ctx.action.params.values',
+            '// ctx.action.params can get user query\n// ctx.action.params.values can get user body\n// const { changed, data, error } = await ctx.getChanged(); can get changed fields and raw data\n// ctx.body to pass your data to workflow or to client who invoke this.\n// ctx.body = ctx.action.params.values\n// ctx.body=ctx.model',
         },
       } as ISchema,
+    },
+    {
+      type: 'boolean',
+      name: 'effect',
+      interface: 'radioGroup',
+      uiSchema: {
+        title: tval('Real effect'),
+        type: 'string',
+        required: true,
+        enum: [
+          { label: tval('On'), value: true, color: '#52c41a' },
+          { label: tval('Off'), value: false },
+        ],
+        'x-component': 'Radio.Group',
+        'x-decorator': 'FormItem',
+        default: false,
+      } as ISchema,
+    },
+    {
+      name: 'updatedAt',
+      type: 'date',
+      interface: 'updatedAt',
+      uiSchema: {
+        type: 'datetime',
+        title: tval('Updated at'),
+        'x-component': 'DatePicker',
+        'x-component-props': {
+          showTime: true,
+        },
+      },
+    },
+    {
+      name: 'updatedBy',
+      type: 'belongsTo',
+      interface: 'updatedBy',
+      target: 'users',
+      targetKey: 'id',
+      foreignKey: 'updatedById',
+      collectionName: 'webhooks',
+      uiSchema: {
+        type: 'object',
+        title: '{{t("Last updated by")}}',
+        'x-component': 'AssociationField',
+        'x-component-props': {
+          fieldNames: {
+            value: 'id',
+            label: 'nickname',
+          },
+        },
+        'x-read-pretty': true,
+      },
     },
   ],
 };

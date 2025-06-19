@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode, useContext, useEffect } from 'react';
 import { define, observable } from '@tachybase/schema';
 
-import { message, notification } from 'antd';
+import { message, Modal, notification } from 'antd';
 import mitt, { Emitter, EventType } from 'mitt';
 
 import { Application } from './Application';
@@ -20,6 +20,7 @@ export enum NoticeType {
   TOAST = 'toast',
   NOTIFICATION = 'notification',
   CUSTOM = 'custom',
+  MODAL = 'modal',
 }
 
 export enum NoticeDuration {
@@ -72,12 +73,25 @@ export class NoticeManager {
   currentStatus = '';
   currentStatusUpdatedAt = Date.now();
 
-  on(data: { type: NoticeType; title?: string; content: string; level: NoticeLevel; eventType?: string; event?: any }) {
+  on(data: {
+    type: NoticeType;
+    title?: string;
+    content: string;
+    level: NoticeLevel;
+    eventType?: string;
+    event?: any;
+    duration: null | number;
+  }) {
     if (data.type === NoticeType.NOTIFICATION) {
-      this[data.type](data.title, data.content, data.level);
+      this.notification(data.title, data.content, data.level, data.duration);
+    } else if (data.type === NoticeType.MODAL) {
+      this.modal(data.title, data.content, data.level, data.duration);
+    } else if (data.type === NoticeType.TOAST) {
+      this.toast(data.content, data.level, data.duration);
     } else if (data.type === NoticeType.CUSTOM) {
       this.emitter.emit(data.eventType, data.event);
     } else {
+      // TODO 后续status也能有duration
       this[data.type](data.content, data.level);
     }
   }
@@ -88,14 +102,54 @@ export class NoticeManager {
     this.currentStatusUpdatedAt = Date.now();
   }
 
-  toast(content: string, level: NoticeLevel) {
-    message[level](content);
+  toast(content: string, level: NoticeLevel, duration: number = 3) {
+    message[level]({
+      content,
+      duration,
+    });
   }
 
-  notification(title: string, content: string, level: NoticeLevel) {
+  notification(
+    title: string,
+    content: string,
+    level: NoticeLevel,
+    duration: null | number = null,
+    placement: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | 'top' | 'bottom' = 'topRight',
+  ) {
     notification[level]({
       message: title,
       description: content,
+      placement,
+      duration,
     });
+  }
+
+  modal(
+    title: string,
+    content: string,
+    level: NoticeLevel,
+    duration: null | number = null,
+    options: {
+      destroyOnClose?: boolean;
+      maskClosable?: boolean;
+      okText?: string;
+      onOk?: () => void;
+      onCancel?: () => void;
+    } = {},
+  ) {
+    const modal = Modal[level]({
+      title,
+      content,
+      destroyOnClose: true,
+      maskClosable: false,
+      ...options,
+    });
+    if (!duration) {
+      // 默认30秒
+      duration = 30;
+    }
+    setTimeout(() => {
+      modal?.destroy();
+    }, duration * 1000);
   }
 }

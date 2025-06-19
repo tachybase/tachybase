@@ -56,6 +56,10 @@ export default class ApprovalInstruction extends Instruction {
 
     // 构造好审批数据后, 依次通知审批人审批
     for (const userId of assignees) {
+      const [dataSourceName] = parseCollectionName(approval.collectionName);
+      const collection = this.workflow.app.dataSourceManager.dataSources
+        .get(dataSourceName)
+        .collectionManager.getCollection(approval.collectionName);
       const message = {
         userId,
         title: '{{t("Approval", { ns: "@tachybase/plugin-workflow-approval" })}}',
@@ -63,6 +67,7 @@ export default class ApprovalInstruction extends Instruction {
         collectionName: approval.collectionName,
         jsonContent: approval.summary,
         schemaName: node.config.applyDetail,
+        dataKey: approval.data[collection.filterTargetKey],
       };
       this.workflow.app.messageManager.sendMessage(+userId, message);
     }

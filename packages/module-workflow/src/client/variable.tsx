@@ -1,5 +1,5 @@
 import React from 'react';
-import { parseCollectionName, useCompile, usePlugin, Variable } from '@tachybase/client';
+import { parseCollectionName, useCompile, useGlobalVariable, usePlugin, Variable } from '@tachybase/client';
 
 import WorkflowPlugin from '.';
 import { useFlowContext } from './FlowContext';
@@ -258,7 +258,8 @@ export function useWorkflowVariableOptions(options: UseVariableOptions = {}) {
     useOptions(nodesOptions, opts),
     useOptions(triggerOptions, opts),
     useOptions(systemOptions, opts),
-  ];
+    useGlobalVariable('$env'),
+  ].filter(Boolean);
   // const cache = useMemo(() => result, [result]);
 
   return result;

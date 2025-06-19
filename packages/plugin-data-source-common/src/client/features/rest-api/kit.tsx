@@ -10,7 +10,7 @@ import { DataSourceSettingsForm } from './form-data-source/DataSourceSettingsFor
 export class KitHttpDatasource extends Plugin {
   async load() {
     this.app.pm.get(PluginDataSourceManagerClient).registerType('http', {
-      label: tval('REST API'),
+      label: tval('HTTP'),
       allowCollectionCreate: true,
       allowCollectionDeletion: true,
       disabledConfigureFields: false,

@@ -15,6 +15,12 @@ export default defineCollection({
   updatedBy: true,
   logging: true,
   fields: [
+    {
+      name: 'id',
+      type: 'bigInt',
+      autoIncrement: true,
+      allowNull: false,
+    },
     /**
      * uuid:
      * Unique user id of the authentication method, such as wechat openid, phone number, etc.
@@ -63,6 +69,16 @@ export default defineCollection({
       type: 'json',
       name: 'meta',
       defaultValue: {},
+    },
+    {
+      type: 'bigInt',
+      name: 'userId',
+      primaryKey: true,
+    },
+    {
+      type: 'string',
+      name: 'authenticator',
+      primaryKey: true,
     },
   ],
 });

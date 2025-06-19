@@ -5,6 +5,7 @@
   "Environment count": "Environment count",
   "If the current preset count is less than the number of worker threads, it will wait for the worker threads to be idle before exiting": "If the current preset count is less than the number of worker threads, it will wait for the worker threads to be idle before exiting",
   "Invalid worker count": "Invalid worker count",
+  "Max count": "Max count",
   "No worker thread": "No worker thread",
   "Preset count": "Preset count",
   "Restart all forcely": "Restart all forcely",

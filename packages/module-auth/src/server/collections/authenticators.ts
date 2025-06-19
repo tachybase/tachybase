@@ -16,14 +16,6 @@ export default defineCollection({
   logging: true,
   fields: [
     {
-      name: 'id',
-      type: 'bigInt',
-      autoIncrement: true,
-      primaryKey: true,
-      allowNull: false,
-      interface: 'id',
-    },
-    {
       interface: 'input',
       type: 'string',
       name: 'name',

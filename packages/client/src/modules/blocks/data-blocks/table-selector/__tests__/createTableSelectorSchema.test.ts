@@ -1,6 +1,6 @@
 import { createTableSelectorUISchema } from '../createTableSelectorUISchema';
 
-vi.mock('@formily/shared', () => {
+vi.mock('@tachybase/schema', () => {
   return {
     uid: () => 'mocked-uid',
   };

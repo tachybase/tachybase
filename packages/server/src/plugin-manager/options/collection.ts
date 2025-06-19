@@ -13,5 +13,6 @@ export default defineCollection({
     { type: 'boolean', name: 'installed' },
     { type: 'boolean', name: 'builtIn' },
     { type: 'json', name: 'options' },
+    { type: 'boolean', name: 'subView', defaultValue: true },
   ],
 });

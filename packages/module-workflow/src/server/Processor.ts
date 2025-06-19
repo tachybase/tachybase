@@ -337,6 +337,7 @@ export default class Processor {
       $jobsMapByNodeKey: this.jobsMapByNodeKey,
       $system: systemFns,
       $scopes,
+      $env: this.options.plugin.app.environment.getVariables(),
     };
   }
 

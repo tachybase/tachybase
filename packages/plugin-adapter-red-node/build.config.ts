@@ -5,12 +5,28 @@ import { defineConfig } from '@tachybase/build';
 
 export default defineConfig({
   afterBuild: async (log) => {
-    const dir = path.resolve(__dirname, './dist/node_modules/@node-red');
-    if (existsSync(dir)) {
-      await fs.rm(dir, { recursive: true });
-    }
+    // fix grant & exchange
+    for (const key of ['grant', 'exchange']) {
+      const src = path.resolve(__dirname, `./dist/node_modules/@node-red/editor-api/${key}`);
+      const dest = path.resolve(__dirname, `./dist/node_modules/@node-red/editor-api/lib/${key}`);
+      // const dir = path.resolve(__dirname, './dist/node_modules/@node-red');
+      if (existsSync(dest)) {
+        await fs.rm(dest, { recursive: true });
+      }
 
-    await fs.cp(path.resolve(__dirname, './node_modules/@node-red'), dir, {
+      await fs.cp(src, dest, {
+        recursive: true,
+        force: true,
+      });
+    }
+    // fix @node-red/nodes
+    const src = path.join(__dirname, './node_modules/@node-red/nodes');
+    const dest = path.join(__dirname, `./dist/node_modules/@node-red/nodes`);
+
+    if (existsSync(dest)) {
+      await fs.rm(dest, { recursive: true });
+    }
+    await fs.cp(src, dest, {
       recursive: true,
       force: true,
     });

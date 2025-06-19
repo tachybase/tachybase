@@ -53,6 +53,7 @@ import {
   TreeCollectionTemplate,
   ViewCollectionTemplate,
 } from './templates';
+import { ImportXlsxTemplate } from './templates/xlsx';
 
 class MainDataSource extends DataSource {
   async getDataSource() {
@@ -172,6 +173,7 @@ export class CollectionPlugin extends Plugin {
       TreeCollectionTemplate,
       ViewCollectionTemplate,
       ImportCollectionTemplate,
+      ImportXlsxTemplate,
     ]);
   }
 }

@@ -12,7 +12,7 @@ import { PinnedPluginListProvider } from '../pinned-list';
 import { ContextMenuContext, useContextMenu } from './useContextMenu';
 
 const STORAGE_KEYS = {
-  HIDDEN_SCROLL_AREA: 'hidden-scroll-area',
+  SHOW_SCROLL_AREA: 'show-scroll-area',
   CONTEXT_MENU_ENABLED: 'context-menu-enabled',
 } as const;
 
@@ -20,7 +20,7 @@ export const ContextMenuProvider = ({ children }) => {
   const [enable, setEnable] = useLocalStorageState<boolean>(STORAGE_KEYS.CONTEXT_MENU_ENABLED, {
     defaultValue: true,
   });
-  const [hiddenScrollArea, setHiddenScrollArea] = useLocalStorageState<boolean>(STORAGE_KEYS.HIDDEN_SCROLL_AREA, {
+  const [showScrollArea, setShowScrollArea] = useLocalStorageState<boolean>(STORAGE_KEYS.SHOW_SCROLL_AREA, {
     defaultValue: false,
   });
 
@@ -34,8 +34,8 @@ export const ContextMenuProvider = ({ children }) => {
     const { actionProps, title, icon } = item.useLoadMethod({
       enable,
       setEnable,
-      hiddenScrollArea,
-      setHiddenScrollArea,
+      showScrollArea,
+      setShowScrollArea,
       position,
     });
     items.push({
@@ -51,8 +51,8 @@ export const ContextMenuProvider = ({ children }) => {
       value={{
         contextMenuEnabled: enable,
         setContextMenuEnable: setEnable,
-        hiddenScrollArea,
-        setHiddenScrollArea,
+        showScrollArea,
+        setShowScrollArea,
         position,
       }}
     >

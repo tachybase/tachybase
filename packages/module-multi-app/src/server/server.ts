@@ -238,25 +238,14 @@ export class PluginMultiAppManager extends Plugin {
       await this.subAppUpgradeHandler(app);
     });
 
-    // 主动告知客户端状态变化
-    AppSupervisor.getInstance().on('appStatusChanged', async ({ appName, status, options }) => {
-      if (appName === 'main') {
-        return;
-      }
-      const app = await AppSupervisor.getInstance().getApp(appName, {
-        withOutBootStrap: true,
-      });
-      const level = ['error', 'not_found'].includes(status) ? 'error' : 'info';
-      this.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, {
-        app: appName,
-        status: status,
-        level,
-        message: options.error?.message,
-      });
+    const notifyStatusChange = this.notifyStatusChange.bind(this);
+    this.app.on('beforeStop', async (app) => {
+      AppSupervisor.getInstance().off('appStatusChanged', notifyStatusChange);
     });
+    // 主动告知客户端状态变化
+    AppSupervisor.getInstance().on('appStatusChanged', notifyStatusChange);
 
-    this.app.acl.allow('applications', 'listPinned', 'loggedIn');
-    this.app.acl.allow('applications', 'list', 'loggedIn');
+    this.app.acl.allow('applications', ['list', 'create', 'update', 'destroy', 'start', 'stop'], 'loggedIn');
 
     this.app.acl.registerSnippet({
       name: `pm.${this.name}.applications`,
@@ -281,11 +270,24 @@ export class PluginMultiAppManager extends Plugin {
           ctx.logger.error(error);
         }
       },
-      { tag: 'error-handling' },
+      { tag: 'error-handling', after: 'dataWrapping' },
     );
 
     for (const [key, action] of Object.entries(actions)) {
       this.app.resourcer.registerActionHandler(`applications:${key}`, action);
     }
+  }
+
+  notifyStatusChange({ appName, status, options }) {
+    if (appName === 'main') {
+      return;
+    }
+    const level = ['error', 'not_found'].includes(status) ? 'error' : 'info';
+    this.app.noticeManager.notify(NOTIFY_STATUS_EVENT_KEY, {
+      app: appName,
+      status: status,
+      level,
+      message: options.error?.message,
+    });
   }
 }

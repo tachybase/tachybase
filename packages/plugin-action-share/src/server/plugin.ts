@@ -21,7 +21,7 @@ export class PluginShareServer extends Plugin {
           ctx.logger.error(error);
         }
       },
-      { after: 'restApi', group: 'after' },
+      { after: 'dataSource', group: 'after' },
     );
 
     this.app.acl.addFixedParams('users', 'destroy', () => {

@@ -53,7 +53,7 @@ export const useDebugAction = () => {
         setResponseValidationErrorMessage(responseValidationErrorMessage);
       } catch (error) {
         field.data.loading = false;
-        console.log(error);
+        console.error(error);
       }
     },
   };

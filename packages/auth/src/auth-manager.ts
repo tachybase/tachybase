@@ -4,6 +4,7 @@ import { Registry } from '@tachybase/utils';
 import { Auth, AuthExtend } from './auth';
 import { JwtOptions, JwtService } from './base/jwt-service';
 import { ITokenBlacklistService } from './base/token-blacklist-service';
+import { ITokenControlService } from './base/token-control-service';
 
 export interface Authenticator {
   authType: string;
@@ -24,10 +25,13 @@ export type AuthManagerOptions = {
 type AuthConfig = {
   auth: AuthExtend<Auth>; // The authentication class.
   title?: string; // The display name of the authentication type.
+  getPublicOptions?: (options: Record<string, any>) => Record<string, any>; // Get the public options.
 };
 
 export class AuthManager {
   jwt: JwtService;
+  tokenController: ITokenControlService;
+
   protected options: AuthManagerOptions;
   protected authTypes: Registry<AuthConfig> = new Registry();
   // authenticators collection manager.
@@ -44,6 +48,10 @@ export class AuthManager {
 
   setTokenBlacklistService(service: ITokenBlacklistService) {
     this.jwt.blacklist = service;
+  }
+
+  setTokenControlService(service: ITokenControlService) {
+    this.tokenController = service;
   }
 
   /**
@@ -92,16 +100,13 @@ export class AuthManager {
 
   /**
    * middleware
-   * @description Auth middleware, used to check the authentication status.
+   * @description Auth middleware, used to check the user status.
    */
   middleware() {
-    return async (ctx: Context & { auth: Auth }, next: Next) => {
-      const token = ctx.getBearerToken();
-      if (token && (await ctx.app.authManager.jwt.blacklist?.has(token))) {
-        return ctx.throw(403, ctx.t('token is not available'));
-      }
+    const self = this;
 
-      const name = ctx.get(this.options.authKey) || this.options.default;
+    return async function AuthManagerMiddleware(ctx: Context & { auth: Auth }, next: Next) {
+      const name = ctx.get(self.options.authKey) || self.options.default;
       let authenticator: Auth;
       try {
         authenticator = await ctx.app.authManager.get(name, ctx);
@@ -111,16 +116,22 @@ export class AuthManager {
         ctx.logger.warn(err.message, { method: 'check', authenticator: name });
         return next();
       }
-      if (authenticator) {
-        const user = await ctx.auth.check();
-        if (user) {
-          ctx.auth.user = user;
-        }
+
+      if (!authenticator) {
+        return next();
+      }
+
+      if (await ctx.auth.skipCheck()) {
+        return next();
+      }
+
+      const user = await ctx.auth.check();
+      if (user) {
+        ctx.auth.user = user;
       }
       await next();
     };
   }
-
   async getOptions(name: string) {
     const authenticator = await this.storer.get(name);
     return authenticator.options;

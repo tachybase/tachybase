@@ -48,6 +48,18 @@ export class IntegerFieldInterface extends CollectionFieldInterface {
       },
     },
     autoIncrement,
+    'uiSchema.x-component-props.addonBefore': {
+      type: 'string',
+      title: '{{t("Prefix")}}',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+    },
+    'uiSchema.x-component-props.addonAfter': {
+      type: 'string',
+      title: '{{t("Suffix")}}',
+      'x-decorator': 'FormItem',
+      'x-component': 'Input',
+    },
   };
   filterable = {
     operators: operators.number,

@@ -22,6 +22,8 @@ export interface ProcessFieldParams {
 }
 
 export type handleFieldParams = {
+  // TODO: 这样做只能做到一级关联, 以后需要支持多级关联
+  collectionName?: string;
   field: string;
   keyword: string;
   fields: Map<string, any>;

@@ -1,8 +1,11 @@
 {
   "name": "@tachybase/app-rs",
-  "version": "0.23.40",
+  "version": "1.1.5",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rsbuild build",
     "dev": "rsbuild dev --open",

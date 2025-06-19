@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/database",
-  "version": "0.23.40",
+  "version": "1.1.5",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
@@ -15,7 +15,9 @@
     "chalk": "^4.1.2",
     "cron-parser": "4.9.0",
     "dayjs": "1.11.13",
+    "debug": "4.4.0",
     "deepmerge": "^4.3.1",
+    "dottie": "2.0.6",
     "excel-date-to-js": "^1.1.5",
     "exponential-backoff": "^3.1.1",
     "flat": "^5.0.2",
