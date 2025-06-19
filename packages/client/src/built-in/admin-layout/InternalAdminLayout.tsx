@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import { Layout } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { CurrentUser, PinnedPluginList, useApp, useSystemSettings } from '../..';
 import { AdminContent } from './AdminContent';
@@ -19,11 +19,6 @@ export const InternalAdminLayout = (props: any) => {
   // 动态页面是 /:entry/:name 这种格式，所以只要 params['*'] 存在，就说明是动态页面, 否则就是普通页面
   // 暂时用这种判断方式, 需要替换为更严谨的特征值, 比如上下文
   const isDynamicPage = !!params['*'];
-  const navigate = useNavigate();
-
-  const handleBack = () => {
-    navigate(-1);
-  };
 
   return (
     <Layout className={styles.layout}>
@@ -55,13 +50,9 @@ export const InternalAdminLayout = (props: any) => {
           <Layout.Sider className={styles.sider} theme={'light'} ref={sideMenuRef}></Layout.Sider>
         )}
         <Layout.Content className={styles.main}>
-          {isDynamicPage ? (
-            <div onClick={handleBack}>动态页面</div>
-          ) : (
-            <div className="amplifier-block">
-              <AdminContent />
-            </div>
-          )}
+          <div className="amplifier-block">
+            <AdminContent />
+          </div>
         </Layout.Content>
       </Layout>
     </Layout>
