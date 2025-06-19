@@ -122,6 +122,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
               s['x-component'] === 'Action.Container' ? s : buf,
             );
             // TODO: 增加上下文判断
+
             if (pageMode?.enable && containerSchema) {
               const target = PathHandler.getInstance().toWildcardPath({
                 collection: collection.name,

@@ -6,7 +6,7 @@ interface PathParams {
   tab?: string; // 可选字段
 }
 
-interface ParsedPath extends PathParams {} // 直接扩展 PathParams，可灵活调整需求
+export interface ParsedPath extends PathParams {} // 直接扩展 PathParams，可灵活调整需求
 
 export class PathHandler {
   private static instance: PathHandler;
