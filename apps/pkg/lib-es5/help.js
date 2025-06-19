@@ -1,9 +1,9 @@
-'use strict';
-Object.defineProperty(exports, '__esModule', { value: true });
-const colors_1 = require('./colors');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const colors_1 = require("./colors");
 function help() {
-  // eslint-disable-next-line no-console
-  console.log(`
+    // eslint-disable-next-line no-console
+    console.log(`
   ${colors_1.pc.bold('pkg')} [options] <input>
 
   ${colors_1.pc.dim('Options:')}

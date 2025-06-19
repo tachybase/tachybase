@@ -8,5 +8,5 @@
 declare function patchMachOExecutable(file: Buffer): Buffer;
 declare function signMachOExecutable(executable: string): void;
 declare function removeMachOExecutableSignature(executable: string): void;
-export { patchMachOExecutable, removeMachOExecutableSignature, signMachOExecutable };
+export { patchMachOExecutable, removeMachOExecutableSignature, signMachOExecutable, };
 //# sourceMappingURL=mach-o.d.ts.map
