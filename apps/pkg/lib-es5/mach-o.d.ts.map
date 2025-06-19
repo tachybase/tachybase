@@ -1,0 +1,1 @@
+{"version":3,"file":"mach-o.d.ts","sourceRoot":"","sources":["../lib/mach-o.ts"],"names":[],"mappings":";;AAkCA;;;;GAIG;AACH,iBAAS,oBAAoB,CAAC,IAAI,EAAE,MAAM,UAuBzC;AAED,iBAAS,mBAAmB,CAAC,UAAU,EAAE,MAAM,QAQ9C;AAED,iBAAS,8BAA8B,CAAC,UAAU,EAAE,MAAM,QAIzD;AAED,OAAO,EACL,oBAAoB,EACpB,8BAA8B,EAC9B,mBAAmB,GACpB,CAAC"}
