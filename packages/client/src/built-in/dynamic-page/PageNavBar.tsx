@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { Button, Typography } from 'antd';
+import { Typography } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { useCompile } from '../../schema-component';
@@ -29,7 +29,6 @@ export const PageNavBar = () => {
         zIndex: 1000,
       }}
     >
-      {/* 标题和操作区域 */}
       <div
         style={{
           display: 'flex',
@@ -37,10 +36,18 @@ export const PageNavBar = () => {
           alignItems: 'center',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <Button icon={<ArrowLeftOutlined />} onClick={handleBack} style={{ marginRight: 8 }}>
-            返回
-          </Button>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            fontSize: 16,
+            color: '#000',
+            cursor: 'pointer',
+          }}
+          onClick={handleBack}
+        >
+          <ArrowLeftOutlined />
           <Title level={4} style={{ margin: 0 }}>
             {compile(documentTitle)}
           </Title>

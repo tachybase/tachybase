@@ -1,5 +1,6 @@
 interface PathParams {
   schemaId: string; // 必需字段
+  subSchemaId?: string; // 可选字段
   collection?: string; // 可选字段
   filterByTk?: string; // 可选字段
   sourceId?: string; // 可选字段
@@ -44,6 +45,9 @@ export class PathHandler {
 
       let validKey = true;
       switch (key) {
+        case 'sub':
+          result.subSchemaId = value;
+          break;
         case 'collection':
           result.collection = value;
           break;
@@ -74,9 +78,10 @@ export class PathHandler {
    * @returns 生成的通配符路径字符串
    */
   public toWildcardPath(params: Omit<PathParams, 'schemaId'>): string {
-    const { collection, filterByTk, sourceId, tab } = params;
+    const { collection, filterByTk, sourceId, tab, subSchemaId } = params;
 
     const segments: string[] = [];
+    if (subSchemaId) segments.push('sub', subSchemaId);
     if (collection) segments.push('collection', collection);
     if (filterByTk) segments.push('filter-by-tk', filterByTk);
     if (sourceId) segments.push('source-id', sourceId);

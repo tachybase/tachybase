@@ -128,7 +128,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
                 collection: collection.name,
                 filterByTk: record[collection.getPrimaryKey()],
               });
-              navigate('../' + containerSchema['x-uid'] + '/' + target);
+              navigate('./sub/' + containerSchema['x-uid'] + '/' + target);
             } else {
               setVisible(true);
             }

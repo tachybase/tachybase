@@ -290,7 +290,7 @@ const useJumpDetails = () => {
     });
     if (targetSchema) {
       navigate(
-        `../${targetSchema['x-uid']}/${PathHandler.getInstance().toWildcardPath({
+        `./sub/${targetSchema['x-uid']}/${PathHandler.getInstance().toWildcardPath({
           collection: collection.name,
           filterByTk,
         })}`,
