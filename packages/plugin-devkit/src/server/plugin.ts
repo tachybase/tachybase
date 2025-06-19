@@ -1,8 +1,8 @@
-import path from 'node:path';
 import { Plugin } from '@tachybase/server';
 
 import { createRsbuild, type StartServerResult } from '@rsbuild/core';
-import { pluginReact } from '@rsbuild/plugin-react';
+
+import config from './config';
 
 export class PluginDevkitServer extends Plugin {
   #result: StartServerResult;
@@ -12,13 +12,7 @@ export class PluginDevkitServer extends Plugin {
 
   async load() {
     const rsbuild = await createRsbuild({
-      rsbuildConfig: {
-        // Rsbuild configuration
-        plugins: [pluginReact()],
-        source: {
-          entry: { index: path.resolve('./web/index.tsx') },
-        },
-      },
+      rsbuildConfig: config,
     });
     this.app.once('afterStart', async () => {
       this.#result = await rsbuild.startDevServer();
