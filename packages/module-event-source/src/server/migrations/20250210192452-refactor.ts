@@ -7,6 +7,12 @@ export default class extends Migration {
   appVersion = '<0.23.46';
 
   async up() {
+    // 获取当前数据库中所有表名
+    const tables: string[] = await this.db.sequelize.getQueryInterface().showAllTables();
+    if (!tables.includes('webhooks')) {
+      this.app.logger.info(`[migration skipped] table webhooks does not exist`);
+      return;
+    }
     const sql = `
       UPDATE "webhooks"
       SET "options" = jsonb_build_object(
