@@ -12,7 +12,7 @@
     "@tachybase/logger": "workspace:*",
     "@tachybase/utils": "workspace:*",
     "async-mutex": "^0.3.2",
-    "chalk": "^4.1.2",
+    "chalk": "^5.4.1",
     "cron-parser": "4.9.0",
     "dayjs": "1.11.13",
     "debug": "4.4.0",

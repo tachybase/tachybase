@@ -27,7 +27,7 @@
     "@types/multer": "^1.4.12",
     "async-mutex": "^0.3.2",
     "axios": "0.29.0",
-    "chalk": "^4.1.2",
+    "chalk": "^5.4.1",
     "commander": "^9.5.0",
     "compression": "^1.7.5",
     "cron": "^2.4.4",

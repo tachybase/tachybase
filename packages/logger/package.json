@@ -9,7 +9,7 @@
     "build": "tachybase-build --no-dts @tachybase/logger"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.4.1",
     "koa": "^2.15.3",
     "lodash": "^4.17.21",
     "triple-beam": "^1.4.1",
