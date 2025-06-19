@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 import { Plugin } from '../../application/Plugin';
+import { useCompile } from '../../schema-component';
 import { useSystemSettings } from '../system-settings';
 
 interface DocumentTitleContextProps {
@@ -22,10 +23,11 @@ export const DocumentTitleProvider = (props: {
   addonAfter?: string;
   children: React.ReactNode;
 }) => {
+  const compile = useCompile();
   const { addonBefore, addonAfter } = props;
   const { t } = useTranslation();
   const [title, setTitle] = useState('');
-  const documentTitle = `${addonBefore ? ` - ${t(addonBefore)}` : ''}${t(title || '')}${
+  const documentTitle = `${addonBefore ? ` - ${t(addonBefore)}` : ''}${t(compile(title) || '')}${
     addonAfter ? ` - ${t(addonAfter)}` : ''
   }`;
   return (
