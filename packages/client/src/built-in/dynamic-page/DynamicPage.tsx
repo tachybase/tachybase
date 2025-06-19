@@ -25,13 +25,7 @@ export const DynamicPage = () => {
           }}
         >
           <PageNavBar />
-          <Card
-            style={{
-              margin: 16,
-            }}
-          >
-            <RemoteSchemaComponent uid={params.name} onlyRenderProperties />
-          </Card>
+          <RemoteSchemaComponent uid={pathParams.sub} onlyRenderProperties />
         </RecordContext_deprecated.Provider>
       </DataBlockProvider>
     );
