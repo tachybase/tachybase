@@ -7,7 +7,7 @@ on:
     paths:
       - 'packages/plugin-*/**'
       - 'scripts/generate-plugin-list.mjs'
-      - '.github/workflows/sync-doc-to-b-repo.yml'
+      - '.github/workflows/sync-plugin-list-to-docs-repo.yml'
   workflow_dispatch:
 
 permissions:
