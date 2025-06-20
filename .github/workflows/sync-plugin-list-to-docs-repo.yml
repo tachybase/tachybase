@@ -38,15 +38,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.12.1
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
 
       - name: Generate plugins list
         run: node scripts/generate-plugin-list.mjs
