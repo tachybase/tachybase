@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@hapi/topo": "^6.0.2",
-    "@pnpm/workspace.find-packages": "^1.1.12",
+    "@pnpm/workspace.find-packages": "^1000.0.26",
     "@rsbuild/plugin-less": "1.1.0",
     "@rsbuild/plugin-react": "^1.1.0",
     "@rslib/core": "0.2.2",
