@@ -16,7 +16,7 @@
     "@opentelemetry/resources": "^1.30.0",
     "@opentelemetry/sdk-metrics": "^1.30.0",
     "@opentelemetry/sdk-trace-base": "^1.30.0",
-    "@opentelemetry/sdk-trace-node": "^1.30.0",
+    "@opentelemetry/sdk-trace-node": "^2.0.1",
     "@opentelemetry/semantic-conventions": "^1.28.0",
     "@opentelemetry/winston-transport": "^0.5.0",
     "@tachybase/opentelemetry-auto-instrumentations": "^0.1.1",
