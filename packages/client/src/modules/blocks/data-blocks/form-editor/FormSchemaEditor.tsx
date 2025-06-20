@@ -987,7 +987,7 @@ const EditorFieldProperty = ({ schema, setSchemakey }) => {
   return shouldRender ? (
     <div key={schemaUID}>
       <AllSchemaProviders fieldSchema={fieldSchema} {...ctxValues}>
-        <GenericProperties schema={schema} setSchemakey={setSchemakey} schemaUID={schemaUID} />
+        {/* <GenericProperties schema={schema} setSchemakey={setSchemakey} schemaUID={schemaUID} /> */}
         <SpecificProperties />
       </AllSchemaProviders>
     </div>
@@ -1356,6 +1356,7 @@ export const AllSchemaProviders = ({
   formBlockValue = null,
 }) => {
   const upLevelActiveFields = useFormActiveFields();
+  const designerCtx = useSchemaComponentContext();
   return (
     <ContextCleaner>
       <FormContext.Provider value={form}>
@@ -1371,7 +1372,9 @@ export const AllSchemaProviders = ({
                           name="form"
                           getActiveFieldsName={upLevelActiveFields?.getActiveFieldsName}
                         >
-                          {children}
+                          <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
+                            {children}
+                          </SchemaComponentContext.Provider>
                         </FormActiveFieldsProvider>
                       </FormBlockContext.Provider>
                     </CollectionFieldProvider>
@@ -1395,9 +1398,12 @@ export const SpecificPropertiesContent = ({ fieldComponentName }) => {
   const [form] = useState(() => createForm());
   const [itemStates, setItemStates] = useState({});
 
-  const items =
+  const specificItems =
     app.editableSchemaSettingsManager.get(`editableFieldSettings:component:${fieldComponentName}`)?.options?.items ??
     [];
+  const genericItems = app.editableSchemaSettingsManager.get('editableFieldSettings:FormItem')?.options?.items ?? [];
+
+  const items = [...genericItems, ...specificItems];
 
   const handleUpdate = useCallback((name, state) => {
     setItemStates((prev) => {
@@ -1410,6 +1416,13 @@ export const SpecificPropertiesContent = ({ fieldComponentName }) => {
       };
     });
   }, []);
+
+  const components = items.reduce((acc, item) => {
+    if (item.components && typeof item.components === 'object') {
+      Object.assign(acc, item.components);
+    }
+    return acc;
+  }, {});
 
   const fieldSchemas = {};
   const initialValues = {};
@@ -1444,7 +1457,6 @@ export const SpecificPropertiesContent = ({ fieldComponentName }) => {
       },
     },
   };
-
   return (
     <div style={{ padding: '10px' }}>
       {items.map((item, index) => (
@@ -1454,7 +1466,7 @@ export const SpecificPropertiesContent = ({ fieldComponentName }) => {
           onUpdate={(state) => handleUpdate(item.name || index, state)}
         />
       ))}
-      <SchemaComponent schema={fullSchema} />
+      <SchemaComponent schema={fullSchema} components={components} />
     </div>
   );
 };

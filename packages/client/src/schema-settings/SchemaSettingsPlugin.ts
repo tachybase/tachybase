@@ -24,6 +24,7 @@ import {
   detailsBlockSettings,
   singleDataDetailsBlockSettings,
 } from '../modules/blocks/data-blocks/details-single/detailsBlockSettings';
+import { formItemFieldEditableSettings } from '../modules/blocks/data-blocks/form-editor/formItemFieldEditableSettings';
 import {
   createFormBlockSettings,
   creationFormBlockSettings,
@@ -141,6 +142,9 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(cascadeSelectComponentFieldSettings);
     this.schemaSettingsManager.add(uploadAttachmentComponentFieldSettings);
     this.schemaSettingsManager.add(cascaderComponentFieldSettings);
+
+    // editable formItem settings
+    this.app.editableSchemaSettingsManager.add(formItemFieldEditableSettings);
 
     // editable field component settings
     this.app.editableSchemaSettingsManager.add(selectComponentFieldEditableSettings);
