@@ -12,7 +12,7 @@
     "bullmq": "^5.34.3",
     "docxtemplater": "^3.55.8",
     "koa-bodyparser": "^4.4.1",
-    "pizzip": "^3.1.7",
+    "pizzip": "^3.2.0",
     "ts-node": "10.9.2",
     "typescript": "5.8.3",
     "xml2js": "^0.6.2"

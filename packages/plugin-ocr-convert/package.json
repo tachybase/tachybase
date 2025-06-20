@@ -19,7 +19,7 @@
     "docxtemplater": "^3.55.8",
     "exceljs": "^4.4.0",
     "fs-extra": "11.3.0",
-    "pizzip": "^3.0.7",
+    "pizzip": "^3.2.0",
     "react": "~18.3.1",
     "react-i18next": "^15.2.0",
     "tencentcloud-sdk-nodejs": "^4.0.996"
