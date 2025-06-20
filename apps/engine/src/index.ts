@@ -6,7 +6,8 @@ import { Gateway } from '@tachybase/server';
 import { Command } from 'commander';
 
 import { getConfig } from './config';
-import { parseEnvironment, prepare } from './utils';
+import { prepare } from './prepare';
+import { parseEnvironment } from './utils';
 
 // 解析环境变量
 parseEnvironment();
