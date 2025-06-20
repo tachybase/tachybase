@@ -215,7 +215,7 @@ importers:
         version: 2.4.2
       esbuild-register:
         specifier: ^3.6.0
-        version: 3.6.0(esbuild@0.24.2)
+        version: 3.6.0(esbuild@0.24.0)
       execa:
         specifier: ^5.1.1
         version: 5.1.1
@@ -1214,12 +1214,6 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
-      cron-parser:
-        specifier: 4.9.0
-        version: 4.9.0
-      react-js-cron:
-        specifier: ^3.2.0
-        version: 3.2.0(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@ant-design/icons':
         specifier: ^5.5.2
@@ -1251,6 +1245,9 @@ importers:
       content-disposition:
         specifier: ^0.5.4
         version: 0.5.4
+      cron-parser:
+        specifier: 4.9.0
+        version: 4.9.0
       dayjs:
         specifier: 1.11.13
         version: 1.11.13
@@ -1281,6 +1278,9 @@ importers:
       react-i18next:
         specifier: ^15.2.0
         version: 15.2.0(i18next@25.1.2(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-js-cron:
+        specifier: ^3.2.0
+        version: 3.2.0(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       semver:
         specifier: 7.7.2
         version: 7.7.2
@@ -2000,12 +2000,6 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
-      antd:
-        specifier: 5.22.5
-        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      qs:
-        specifier: ^6.14.0
-        version: 6.14.0
     devDependencies:
       '@ant-design/icons':
         specifier: ^5.5.2
@@ -2013,6 +2007,9 @@ importers:
       '@tachybase/schema':
         specifier: workspace:*
         version: link:../schema
+      antd:
+        specifier: 5.22.5
+        version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       async-mutex:
         specifier: ^0.3.2
         version: 0.3.2
@@ -2025,6 +2022,9 @@ importers:
       pg:
         specifier: ^8.13.1
         version: 8.13.1
+      qs:
+        specifier: ^6.14.0
+        version: 6.14.0
       react:
         specifier: ~18.3.1
         version: 18.3.1
@@ -4427,9 +4427,6 @@ importers:
 
   packages/plugin-password-policy:
     dependencies:
-      '@ant-design/icons':
-        specifier: ^5.5.2
-        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tachybase/actions':
         specifier: workspace:*
         version: link:../actions
@@ -4448,6 +4445,10 @@ importers:
       '@tachybase/utils':
         specifier: workspace:*
         version: link:../utils
+    devDependencies:
+      '@ant-design/icons':
+        specifier: ^5.5.2
+        version: 5.6.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd:
         specifier: 5.22.5
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -28291,10 +28292,10 @@ snapshots:
 
   esbuild-plugin-file-path-extensions@2.1.4: {}
 
-  esbuild-register@3.6.0(esbuild@0.24.2):
+  esbuild-register@3.6.0(esbuild@0.24.0):
     dependencies:
       debug: 4.4.0(supports-color@5.5.0)
-      esbuild: 0.24.2
+      esbuild: 0.24.0
     transitivePeerDependencies:
       - supports-color
 
