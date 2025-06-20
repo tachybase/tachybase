@@ -92,7 +92,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          repository: tachybase/docs
+          path: docs
           commit-message: "chore: sync plugins-list.md from tachybase/tachybase repo"
           title: "chore: sync plugins-list.md from tachybase/tachybase repo"
           body: |
@@ -119,7 +119,6 @@ jobs:
             automated
             documentation
             sync
-
       - name: Comment on PR if no changes
         if: steps.check-changes.outputs.no-changes == 'true'
         run: |
