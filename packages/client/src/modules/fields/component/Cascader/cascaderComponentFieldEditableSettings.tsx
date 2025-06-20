@@ -1,13 +1,20 @@
-import React, { useCallback } from 'react';
-import { createForm, Field, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import React from 'react';
+// import { useCollectionField } from '../utils';
+import { ArrayItems } from '@tachybase/components';
+import { createForm, Field, ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
+import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
-import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
-import { useCollectionFilterOptionsV2, useSortFields } from '../../../../collection-manager/action-hooks';
+import {
+  useCollection_deprecated,
+  useCollectionManager_deprecated,
+  useSortFields,
+} from '../../../../collection-manager';
+import { useCollectionFilterOptionsV2 } from '../../../../collection-manager/action-hooks';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
 import { useCollectionField } from '../../../../data-source';
 import { FlagProvider, useFlag } from '../../../../flag-provider';
@@ -15,6 +22,7 @@ import { useRecord } from '../../../../record-provider';
 import {
   removeNullCondition,
   useActionContext,
+  useDesignable,
   useFieldModeOptions,
   useIsAddNewForm,
 } from '../../../../schema-component';
@@ -23,37 +31,38 @@ import { DynamicComponentProps } from '../../../../schema-component/antd/filter/
 import {
   useIsAssociationField,
   useIsFieldReadPretty,
-  useIsMuiltipleAble,
   useIsSelectFieldMode,
   useTitleFieldOptions,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { BaseVariableProvider, getShouldChange, IsDisabledParams, VariableInput } from '../../../../schema-settings';
-import { useIsShowMultipleSwitch } from '../../../../schema-settings/hooks/useIsShowMultipleSwitch';
+import {
+  BaseVariableProvider,
+  getShouldChange,
+  IsDisabledParams,
+  SchemaSettingsModalItem,
+  SchemaSettingsSwitchItem,
+  VariableInput,
+} from '../../../../schema-settings';
+import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
 import { useLocalVariables, useVariables } from '../../../../variables';
 import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 
-export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
-  name: 'editableFieldSettings:component:Select',
+export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings({
+  name: 'editableFieldSettings:component:Cascader',
   items: [
     {
       name: 'fieldComponent',
+      useVisible: useIsAssociationField,
       useSchema() {
         const { t } = useTranslation();
-        const { refresh } = useEditableDesignable();
         const field = useField<Field>();
-        const isAddNewForm = useIsAddNewForm();
-        const fieldMode = useFieldComponentName();
-        const collectionFieldCurrent = useCollectionField();
         const { fieldSchema: tableColumnSchema, collectionField } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
         const fieldModeOptions = useFieldModeOptions({ fieldSchema: tableColumnSchema, collectionField });
-        const isMuiltipleSelect = ['select'].includes(collectionFieldCurrent?.interface);
-        const optionsMuiltipleSelect = [
-          { label: t('Select'), value: 'Select' },
-          { label: t('Radio group'), value: 'Radio group' },
-        ];
+        const isAddNewForm = useIsAddNewForm();
+        const fieldMode = useFieldComponentName();
+        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -61,10 +70,10 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
           'x-decorator': 'FormItem',
           'x-component': 'Select',
           'x-component-props': {
+            options: fieldModeOptions,
             allowClear: false,
             showSearch: false,
-            options: isMuiltipleSelect ? optionsMuiltipleSelect : fieldModeOptions,
-            onChange: (mode) => {
+            onChange(mode) {
               const schema = {
                 ['x-uid']: fieldSchema['x-uid'],
               };
@@ -87,28 +96,37 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
           },
         };
       },
-      useVisible: useIsMuiltipleAble,
     },
     {
       name: 'setTheDataScope',
+      useVisible() {
+        const isFieldReadPretty = useIsFieldReadPretty();
+        return !isFieldReadPretty;
+      },
       useSchema() {
-        const { t } = useTranslation();
         const { getCollectionJoinField, getAllCollectionsInheritChain } = useCollectionManager_deprecated();
         const { getField } = useCollection_deprecated();
+        const { t } = useTranslation();
         const { form } = useFormBlockContext();
         const record = useRecord();
+        const field = useField();
         const { fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
+        const { isInSubForm, isInSubTable } = useFlag() || {};
         const collectionField =
           tableColumnField ||
           getField(fieldSchema['name']) ||
           getCollectionJoinField(fieldSchema['x-collection-field']);
-        const { getFields } = useCollectionFilterOptionsV2(collectionField?.target);
-        const { isInSubForm, isInSubTable } = useFlag() || {};
         const variables = useVariables();
         const localVariables = useLocalVariables();
         const { refresh } = useEditableDesignable();
+        console.log(
+          "%c Line:170 🥛 fieldSchema?.['x-component-props']?.service?.params?.filter",
+          'font-size:18px;color:#4fff4B;background:#7f2b82',
+          fieldSchema?.['x-component-props']?.service?.params?.filter,
+        );
+        const { getFields } = useCollectionFilterOptionsV2(collectionField?.target);
         const dynamicComponent = (props: DynamicComponentProps) => {
           return (
             <VariableInput
@@ -150,8 +168,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
               },
               properties: {
                 filter: {
-                  type: 'object',
-                  // default: fieldSchema?.['x-component-props']?.service?.params?.filter || {},
                   enum: getFields(),
                   'x-decorator': (props) => (
                     <BaseVariableProvider {...props}>
@@ -166,8 +182,7 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                   'x-component': 'Filter',
                   'x-component-props': {
                     collectionName: collectionField?.target,
-                    dynamicComponent: dynamicComponent,
-                    // value: fieldSchema?.['x-component-props']?.service?.params?.filter || {},
+                    dynamicComponent,
                   },
                 },
                 footer: {
@@ -189,7 +204,22 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                           async onClick() {
                             let filter = form.values.filter;
                             filter = removeNullCondition(filter);
-                            _.set(fieldSchema['x-component-props'], 'service.params.filter', filter);
+                            _.set(field.componentProps, 'service.params.filter', filter);
+                            const service = fieldSchema['x-component-props']?.service;
+                            if (service) {
+                              service.params['filter'] = filter;
+                            } else {
+                              fieldSchema['x-component-props']['service'] = {
+                                params: {
+                                  filter: { ...filter },
+                                },
+                              };
+                            }
+                            const componentProps = fieldSchema['x-component-props'];
+                            const path = field.path?.splice(field.path?.length - 1, 1);
+                            field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
+                              f.componentProps = componentProps;
+                            });
                             ctx?.setVisible?.(false);
                             refresh();
                           },
@@ -203,21 +233,22 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
           },
         };
       },
-      useVisible() {
-        const isSelectFieldMode = useIsSelectFieldMode();
-        const isFieldReadPretty = useIsFieldReadPretty();
-        return isSelectFieldMode && !isFieldReadPretty;
-      },
     },
     {
       name: 'setDefaultSortingRules',
+      useVisible() {
+        const isFieldReadPretty = useIsFieldReadPretty();
+        return !isFieldReadPretty;
+      },
       useSchema() {
         const field = useField();
-        const { t } = useTranslation();
         const { refresh } = useEditableDesignable();
-        const fieldSchema = useFieldSchema();
+        const { t } = useTranslation();
+        const currentSchema = useFieldSchema();
         const { getField } = useCollection_deprecated();
         const { getCollectionJoinField } = useCollectionManager_deprecated();
+        const { columnSchema } = useColumnSchema();
+        const fieldSchema = columnSchema ?? currentSchema;
         const collectionField =
           getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field']);
         const sortFields = useSortFields(collectionField?.target);
@@ -342,13 +373,23 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                             const sortArr = sort.map((item) => {
                               return item.direction === 'desc' ? `-${item.field}` : item.field;
                             });
-
-                            field.query(new RegExp(`[0-9]+\\.${fieldSchema.name}$`)).forEach((item) => {
-                              _.set(item, 'componentProps.service.params.sort', sortArr);
-                            });
-                            _.set(fieldSchema, 'x-component-props.service.params.sort', sortArr);
+                            _.set(field.componentProps, 'service.params.sort', sortArr);
                             // props?.onSubmitCallBack?.(sortArr);
-                            field.componentProps = fieldSchema['x-component-props'];
+                            const service = fieldSchema['x-component-props']?.service;
+                            if (service) {
+                              service.params['sort'] = field.componentProps?.service.params?.sort;
+                            } else {
+                              fieldSchema['x-component-props']['service'] = {
+                                params: {
+                                  sort: field.componentProps?.service.params?.sort,
+                                },
+                              };
+                            }
+                            const componentProps = fieldSchema['x-component-props'];
+                            const path = field.path?.splice(field.path?.length - 1, 1);
+                            field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
+                              f.componentProps = componentProps;
+                            });
                             ctx?.setVisible?.(false);
                             refresh();
                           },
@@ -362,123 +403,10 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
           },
         };
       },
-      useVisible() {
-        const isSelectFieldMode = useIsSelectFieldMode();
-        const isFieldReadPretty = useIsFieldReadPretty();
-        return isSelectFieldMode && !isFieldReadPretty;
-      },
-    },
-    {
-      name: 'quickCreate',
-      useSchema() {
-        const { t } = useTranslation();
-        const { refresh, insertAdjacent } = useEditableDesignable();
-        const field = useField<Field>();
-        const fieldSchema = useFieldSchema();
-        return {
-          type: 'string',
-          title: '{{t("Quick create")}}',
-          default: field.componentProps?.addMode || 'none',
-          'x-decorator': 'FormItem',
-          'x-component': 'Select',
-          'x-component-props': {
-            allowClear: false,
-            showSearch: false,
-            options: [
-              { label: t('None'), value: 'none' },
-              { label: t('Dropdown'), value: 'quickAdd' },
-              { label: t('Pop-up'), value: 'modalAdd' },
-            ],
-            onChange: (mode) => {
-              if (mode === 'modalAdd') {
-                const hasAddNew = fieldSchema.reduceProperties((buf, schema) => {
-                  if (schema['x-component'] === 'Action') {
-                    return schema;
-                  }
-                  return buf;
-                }, null);
-
-                if (!hasAddNew) {
-                  const addNewActionschema = {
-                    'x-action': 'create',
-                    'x-acl-action': 'create',
-                    title: "{{t('Add new')}}",
-                    // 'x-designer': 'Action.Designer',
-                    'x-toolbar': 'ActionSchemaToolbar',
-                    'x-settings': 'actionSettings:addNew',
-                    'x-component': 'Action',
-                    'x-decorator': 'ACLActionProvider',
-                    'x-component-props': {
-                      openMode: 'drawer',
-                      type: 'default',
-                      component: 'CreateRecordAction',
-                    },
-                  };
-                  insertAdjacent('afterBegin', addNewActionschema);
-                }
-              }
-              const schema = {
-                ['x-uid']: fieldSchema['x-uid'],
-              };
-              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-              fieldSchema['x-component-props']['addMode'] = mode;
-              schema['x-component-props'] = fieldSchema['x-component-props'];
-              field.componentProps = field.componentProps || {};
-              field.componentProps.addMode = mode;
-              refresh();
-            },
-          },
-        };
-      },
-      useVisible() {
-        const isAssociationField = useIsAssociationField();
-        const readPretty = useIsFieldReadPretty();
-        const { fieldSchema } = useColumnSchema();
-        return isAssociationField && !fieldSchema && !readPretty;
-      },
-    },
-    {
-      name: 'allowMultiple',
-      useSchema() {
-        const { t } = useTranslation();
-        const field = useField<Field>();
-        const { fieldSchema: tableColumnSchema } = useColumnSchema();
-        const schema = useFieldSchema();
-        const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
-        return {
-          type: 'boolean',
-          default:
-            fieldSchema['x-component-props']?.multiple === undefined ? true : fieldSchema['x-component-props'].multiple,
-          'x-decorator': 'FormItem',
-          'x-component': 'Checkbox',
-          'x-content': '{{t("Allow multiple")}}',
-          'x-component-props': {
-            onInput: (e) => {
-              const value = e?.target?.checked ?? false;
-              const schema = {
-                ['x-uid']: fieldSchema['x-uid'],
-              };
-              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-              field.componentProps = field.componentProps || {};
-
-              fieldSchema['x-component-props'].multiple = value;
-              field.componentProps.multiple = value;
-
-              schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
-            },
-          },
-        };
-      },
-      useVisible() {
-        const isAssociationField = useIsAssociationField();
-        const IsShowMultipleSwitch = useIsShowMultipleSwitch();
-        return isAssociationField && IsShowMultipleSwitch();
-      },
     },
     {
       name: 'titleField',
+      useVisible: useIsAssociationField,
       useSchema() {
         const { t } = useTranslation();
         const field = useField<Field>();
@@ -503,9 +431,9 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
           'x-decorator': 'FormItem',
           'x-component': 'Select',
           'x-component-props': {
+            options,
             allowClear: false,
             showSearch: false,
-            options,
             onChange(label) {
               const schema = {
                 ['x-uid']: fieldSchema['x-uid'],
@@ -531,47 +459,41 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
               field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
               const path = field.path?.splice(field.path?.length - 1, 1);
               field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
-                f.componentProps.fieldNames = fieldNames;
+                f.componentProps.fieldNames = newFieldNames;
               });
               refresh();
             },
           },
         };
       },
-      useVisible: useIsAssociationField,
     },
     {
-      name: 'enableLink',
+      name: 'changeOnSelect',
+      useVisible: useIsAssociationField,
       useSchema() {
+        const { refresh } = useEditableDesignable();
         const { t } = useTranslation();
+        const { fieldSchema: tableColumnSchema, collectionField } = useColumnSchema();
         const field = useField<Field>();
-        const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
-          // title: '{{t("Enable link")}}',
-          default: fieldSchema['x-component-props']?.enableLink !== false,
+          default: !!fieldSchema?.['x-component-props']?.changeOnSelect,
           'x-decorator': 'FormItem',
           'x-component': 'Checkbox',
-          'x-content': '{{t("Enable link")}}',
+          'x-content': '{{t("Chang on Parent")}}',
           'x-component-props': {
             onInput(e) {
-              const flag = e?.target?.checked ?? false;
-              fieldSchema['x-component-props'] = {
-                ...fieldSchema?.['x-component-props'],
-                enableLink: flag,
-              };
-              field.componentProps['enableLink'] = flag;
+              const value = e?.target?.checked ?? false;
+              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
+              field.componentProps = field.componentProps || {};
+              fieldSchema['x-component-props']['changeOnSelect'] = value;
+              field.componentProps.changeOnSelect = value;
               refresh();
             },
           },
         };
-      },
-      useVisible() {
-        const readPretty = useIsFieldReadPretty();
-        return useIsAssociationField() && readPretty;
       },
     },
   ],

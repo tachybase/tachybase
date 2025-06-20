@@ -256,11 +256,11 @@ const EditorHeader = ({ onCancel, schema }) => {
             <EditOutlined style={{ marginLeft: 4 }} />
           </span>
         </div>
-        <div className="center-menu">
+        <div className="center-menu" style={{ minWidth: 200 }}>
           <Menu
             key="EditPageMenu"
             mode="horizontal"
-            overflowedIndicator={null}
+            overflowedIndicator={false}
             selectedKeys={['formEdit']}
             items={[
               {
@@ -331,7 +331,6 @@ const PreviewDrawer = ({ open, onClose, schema }) => {
 };
 
 const PCPreviewContent = ({ schema }) => {
-  console.log('%c Line:334 🍩 schema', 'font-size:18px;color:#4fff4B;background:#ea7e5c', schema);
   const designerCtx = useSchemaComponentContext();
   return (
     <div style={{ width: '100%', maxWidth: '700px', height: '100%' }}>
@@ -947,18 +946,6 @@ interface EditorContentProps {
   schema: Schema;
 }
 
-// 2. 先写一个「纯」的 React 组件并加上明确的类型注解
-const EditorContentBase: React.FC<EditorContentProps> = ({ schema }) => {
-  const { Content } = Layout;
-  const { styles } = useStyles();
-
-  return (
-    <Content style={{ padding: '5px', overflow: 'auto' }}>
-      <SchemaComponent schema={schema} components={{ EditableGrid }} />
-    </Content>
-  );
-};
-
 const EditorFieldFormProperty = ({ schema, setSchemakey, eddn }) => {
   const { Sider } = Layout;
   const { styles } = useStyles();
@@ -1354,7 +1341,6 @@ const createOptionsSchema = (props) => {
 
 const SpecificProperties = () => {
   const fieldComponentName = useFieldComponentName();
-
   return <SpecificPropertiesContent key={fieldComponentName} fieldComponentName={fieldComponentName} />;
 };
 
@@ -1406,91 +1392,83 @@ const EditorFormProperty = ({ schema, setSchemakey }) => {
 
 export const SpecificPropertiesContent = ({ fieldComponentName }) => {
   const app = useApp();
-  const [itemStates, setItemStates] = useState([]);
   const [form] = useState(() => createForm());
-  const handleItemUpdate = useCallback((index, state) => {
+  const [itemStates, setItemStates] = useState({});
+
+  const items =
+    app.editableSchemaSettingsManager.get(`editableFieldSettings:component:${fieldComponentName}`)?.options?.items ??
+    [];
+
+  const handleUpdate = useCallback((name, state) => {
     setItemStates((prev) => {
-      const updated = [...prev];
-      updated[index] = state;
-      return updated;
+      if (prev[name] === state) {
+        return prev;
+      }
+      return {
+        ...prev,
+        [name]: state,
+      };
     });
   }, []);
 
-  const items = useMemo(() => {
-    const componentSettings = app.editableSchemaSettingsManager.get(
-      `editableFieldSettings:component:${fieldComponentName}`,
-    );
-    return componentSettings?.options?.items ?? [];
-  }, [fieldComponentName]);
+  const fieldSchemas = {};
+  const initialValues = {};
+  for (const name in itemStates) {
+    const item = itemStates[name];
+    if (!item?.isVisible || !item?.schema) continue;
 
-  const fieldSchemas = useMemo(() => {
-    const result = {};
-    for (const item of itemStates) {
-      if (!item?.isVisible || !item?.schema) continue;
-
-      result[item.name] = {
-        ...item.schema,
-        name: item.name,
-        'x-component-props': {
-          ...(item.schema['x-component-props'] || {}),
-          ...item.props,
-        },
-      };
-    }
-    return result;
-  }, [itemStates]);
-
-  const initialValues = useMemo(() => {
-    const values = {};
-    for (const item of itemStates) {
-      if (item?.name && item.props?.value !== undefined) {
-        values[item.name] = item.props.value;
-      }
-    }
-    return values;
-  }, [itemStates]);
-
-  useEffect(() => {
-    form.setValues(initialValues);
-  }, [initialValues, form]);
-
-  const fullSchema = useMemo(() => {
-    return {
-      type: 'void',
-      properties: {
-        [uid()]: {
-          type: 'void',
-          'x-component': 'FormV2',
-          'x-component-props': { form },
-          properties: fieldSchemas,
-        },
+    fieldSchemas[name] = {
+      ...item.schema,
+      name,
+      'x-component-props': {
+        ...(item.schema['x-component-props'] || {}),
+        ...item.props,
       },
     };
-  }, [fieldSchemas, form]);
+
+    if (item.props?.value !== undefined) {
+      initialValues[name] = item.props.value;
+    }
+  }
+
+  form.setValues(initialValues);
+
+  const fullSchema = {
+    type: 'void',
+    properties: {
+      [uid()]: {
+        type: 'void',
+        'x-component': 'FormV2',
+        'x-component-props': { form },
+        properties: fieldSchemas,
+      },
+    },
+  };
 
   return (
     <div style={{ padding: '10px' }}>
       {items.map((item, index) => (
-        <ItemHookRunner
-          key={`${fieldComponentName}_${item.name || index}`}
+        <ItemWithHooks
+          key={item.name || index}
           item={item}
-          onUpdate={(state) => handleItemUpdate(index, state)}
+          onUpdate={(state) => handleUpdate(item.name || index, state)}
         />
       ))}
-      {form && <SchemaComponent schema={fullSchema} />}
+      <SchemaComponent schema={fullSchema} />
     </div>
   );
 };
 
-const ItemHookRunner = ({ item, onUpdate }) => {
-  const props = item.useComponentProps?.() ?? {};
+const ItemWithHooks = ({ item, onUpdate }) => {
   const isVisible = item.useVisible ? (item.useVisible() ?? false) : true;
   const schema = item.useSchema?.();
-
   useEffect(() => {
-    onUpdate({ ...item, props, isVisible, schema });
-  }, [item.name]);
-
+    onUpdate({
+      name: item.name,
+      isVisible,
+      schema,
+    });
+  }, [item.name, isVisible]);
   return null;
 };
 

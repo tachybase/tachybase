@@ -1,4 +1,4 @@
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { createForm, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import { createStyles } from 'antd-style';
 import _ from 'lodash';
@@ -56,6 +56,14 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
           fieldSchema?.['x-component-props']?.timeFormat ||
           collectionField?.uiSchema?.['x-component-props']?.timeFormat ||
           'HH:mm:ss';
+        const modalForm = createForm({
+          initialValues: {
+            dateFormat: dateFormatDefaultValue,
+            showTime:
+              isShowTime === undefined ? collectionField?.uiSchema?.['x-component-props']?.showTime : isShowTime,
+            timeFormat: timeFormatDefaultValue,
+          },
+        });
         return {
           type: 'object',
           title: t('Date display format'),
@@ -74,6 +82,7 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
               'x-decorator': 'FormV2',
               'x-decorator-props': {
                 componentType: 'div',
+                form: modalForm,
               },
               properties: {
                 dateFormat: {
@@ -87,7 +96,6 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
                     defaultValue: 'dddd',
                     formats: ['MMMM Do YYYY', 'YYYY-MM-DD', 'MM/DD/YY', 'YYYY/MM/DD', 'DD/MM/YYYY'],
                   },
-                  default: dateFormatDefaultValue,
                   enum: [
                     {
                       label: DateFormatCom({ format: 'MMMM Do YYYY' }),
@@ -116,8 +124,6 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
                   ],
                 },
                 showTime: {
-                  default:
-                    isShowTime === undefined ? collectionField?.uiSchema?.['x-component-props']?.showTime : isShowTime,
                   type: 'boolean',
                   'x-decorator': 'FormItem',
                   'x-component': 'Checkbox',
@@ -144,7 +150,6 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
                     formats: ['hh:mm:ss a', 'HH:mm:ss'],
                     timeFormat: true,
                   },
-                  default: timeFormatDefaultValue,
                   enum: [
                     {
                       label: DateFormatCom({ format: 'hh:mm:ss a' }),

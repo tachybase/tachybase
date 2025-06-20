@@ -13,8 +13,11 @@ import { useCollectionField } from '../../../../data-source';
 import { FlagProvider, useFlag } from '../../../../flag-provider';
 import { useRecord } from '../../../../record-provider';
 import {
+  DatePickerProvider,
   removeNullCondition,
+  SchemaComponent,
   useActionContext,
+  useDesignable,
   useFieldModeOptions,
   useIsAddNewForm,
 } from '../../../../schema-component';
@@ -28,13 +31,19 @@ import {
   useTitleFieldOptions,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { BaseVariableProvider, getShouldChange, IsDisabledParams, VariableInput } from '../../../../schema-settings';
+import {
+  BaseVariableProvider,
+  getShouldChange,
+  IsDisabledParams,
+  useFormulaTitleOptions,
+  VariableInput,
+} from '../../../../schema-settings';
 import { useIsShowMultipleSwitch } from '../../../../schema-settings/hooks/useIsShowMultipleSwitch';
 import { useLocalVariables, useVariables } from '../../../../variables';
 import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 
-export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
-  name: 'editableFieldSettings:component:Select',
+export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSettings({
+  name: 'editableFieldSettings:component:CustomTitle',
   items: [
     {
       name: 'fieldComponent',
@@ -88,6 +97,99 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
         };
       },
       useVisible: useIsMuiltipleAble,
+    },
+    {
+      name: 'customTitle',
+      useVisible: useIsMuiltipleAble,
+      useSchema() {
+        const schema = useFieldSchema();
+        const { fieldSchema: tableColumnSchema } = useColumnSchema();
+        const fieldSchema = tableColumnSchema || schema;
+        const { t } = useTranslation();
+        const { refresh } = useEditableDesignable();
+        const options = useFormulaTitleOptions();
+        const def = fieldSchema['x-component-props']?.fieldNames?.formula;
+        const field = useField();
+        const modalForm = createForm({
+          initialValues: { formula: def },
+        });
+        return {
+          type: 'object',
+          title: t('Custom option label'),
+          'x-decorator': 'FormItem',
+          'x-component': 'Action',
+          'x-component-props': {
+            style: {
+              width: '100%',
+            },
+          },
+          properties: {
+            modal: {
+              type: 'void',
+              'x-component': 'Action.Modal',
+              title: t('Custom option label'),
+              'x-decorator': 'FormV2',
+              'x-decorator-props': {
+                componentType: 'div',
+                form: modalForm,
+              },
+              properties: {
+                formula: {
+                  required: true,
+                  'x-decorator': 'FormItem',
+                  'x-component': 'Variable.TextArea',
+                  'x-component-props': {
+                    scope: options,
+                  },
+                },
+                footer: {
+                  'x-component': 'Action.Modal.Footer',
+                  type: 'void',
+                  properties: {
+                    cancel: {
+                      title: '{{t("Cancel")}}',
+                      'x-component': 'Action',
+                      'x-use-component-props': 'useCancelActionProps',
+                    },
+                    submit: {
+                      title: '{{t("Submit")}}',
+                      'x-component': 'Action',
+                      'x-use-component-props': () => {
+                        const form = useForm();
+                        const ctx = useActionContext();
+                        return {
+                          async onClick() {
+                            let formula = form.values.formula;
+                            if (formula) {
+                              const componentProps = {
+                                ...fieldSchema['x-component-props'],
+                                fieldNames: {
+                                  ...fieldSchema['x-component-props']?.['fieldNames'],
+                                  formula,
+                                },
+                              };
+                              field.componentProps = {
+                                ...field.componentProps,
+                                fieldNames: {
+                                  ...field.componentProps?.fieldNames,
+                                  formula,
+                                },
+                              };
+                              fieldSchema['x-component-props'] = componentProps;
+                            }
+                            ctx?.setVisible?.(false);
+                            refresh();
+                          },
+                        };
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        };
+      },
     },
     {
       name: 'setTheDataScope',
@@ -362,6 +464,12 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
           },
         };
       },
+      useComponentProps() {
+        const { fieldSchema } = useColumnSchema();
+        return {
+          fieldSchema,
+        };
+      },
       useVisible() {
         const isSelectFieldMode = useIsSelectFieldMode();
         const isFieldReadPretty = useIsFieldReadPretty();
@@ -448,6 +556,7 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
         const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
+          // title: '{{t("Allow multiple")}}',
           default:
             fieldSchema['x-component-props']?.multiple === undefined ? true : fieldSchema['x-component-props'].multiple,
           'x-decorator': 'FormItem',
@@ -476,69 +585,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
         const IsShowMultipleSwitch = useIsShowMultipleSwitch();
         return isAssociationField && IsShowMultipleSwitch();
       },
-    },
-    {
-      name: 'titleField',
-      useSchema() {
-        const { t } = useTranslation();
-        const field = useField<Field>();
-        const { refresh } = useEditableDesignable();
-        const options = useTitleFieldOptions();
-        const { uiSchema, fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
-        const schema = useFieldSchema();
-        const fieldSchema = tableColumnSchema || schema;
-        const targetCollectionField = useCollectionField();
-        const collectionField = tableColumnField || targetCollectionField;
-        // 处理多对一关系标题显示
-        const { getCollectionFields } = useCollectionManager_deprecated();
-        const fieldNames = {
-          ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
-          ...field?.componentProps?.fieldNames,
-          ...fieldSchema?.['x-component-props']?.['fieldNames'],
-        };
-        return {
-          type: 'string',
-          title: '{{t("Title field")}}',
-          default: fieldNames?.label,
-          'x-decorator': 'FormItem',
-          'x-component': 'Select',
-          'x-component-props': {
-            allowClear: false,
-            showSearch: false,
-            options,
-            onChange(label) {
-              const schema = {
-                ['x-uid']: fieldSchema['x-uid'],
-              };
-              const newFieldNames = {
-                ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
-                ...fieldSchema['x-component-props']?.['fieldNames'],
-                label,
-              };
-              fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
-              fieldSchema['x-component-props']['fieldNames'] = newFieldNames;
-              // 处理多对一关系标题显示
-              const target = getCollectionFields(collectionField.target).find((field) => field.name === label);
-              if (target.interface === 'm2o') {
-                fieldSchema['x-component-props']['x-next-title'] = {
-                  label,
-                  collection: target.collectionName,
-                };
-              } else {
-                fieldSchema['x-component-props']['x-next-title'] = null;
-              }
-              schema['x-component-props'] = fieldSchema['x-component-props'];
-              field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
-              const path = field.path?.splice(field.path?.length - 1, 1);
-              field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
-                f.componentProps.fieldNames = fieldNames;
-              });
-              refresh();
-            },
-          },
-        };
-      },
-      useVisible: useIsAssociationField,
     },
     {
       name: 'enableLink',
