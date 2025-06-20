@@ -9,6 +9,16 @@ on:
       - 'scripts/generate-plugin-list.mjs'
       - '.github/workflows/sync-plugin-list-to-docs-repo.yml'
   workflow_dispatch:
+    inputs:
+      branch:
+        description: '要同步的分支名称'
+        required: false
+        default: 'main'
+        type: string
+      reason:
+        description: '同步原因（可选）'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -22,6 +32,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.event.inputs.branch || github.ref }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -94,7 +105,7 @@ jobs:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
           path: docs
           commit-message: "chore: sync plugins-list.md from tachybase/tachybase repo"
-          title: "chore: sync plugins-list.md from tachybase/tachybase repo"
+          title: "chore: sync plugins-list.md from tachybase/tachybase repo ${{ github.event.inputs.branch && format('(branch: {0})', github.event.inputs.branch) || '' }}"
           body: |
             ## 插件列表同步
 
@@ -104,6 +115,8 @@ jobs:
             - 更新了 `zh/plugins/plugin-list.md` 文件
             - 同步时间: ${{ github.event.head_commit.timestamp || '手动触发' }}
             - 触发提交: ${{ github.sha }}
+            ${{ github.event.inputs.branch && format('- 源分支: {0}', github.event.inputs.branch) || '' }}
+            ${{ github.event.inputs.reason && format('- 同步原因: {0}', github.event.inputs.reason) || '' }}
 
             ### 相关链接
             - 源仓库: https://github.com/tachybase/tachybase
