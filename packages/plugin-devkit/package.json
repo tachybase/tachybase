@@ -2,7 +2,7 @@
   "name": "@tachybase/plugin-devkit",
   "version": "1.2.10",
   "main": "dist/server/index.js",
-  "devDependencies": {
+  "dependencies": {
     "@rsbuild/core": "1.3.22",
     "@rsbuild/plugin-less": "1.2.4",
     "@rsbuild/plugin-node-polyfill": "1.3.0",
