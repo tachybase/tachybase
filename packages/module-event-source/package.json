@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-event-source",
   "displayName": "Event Source",
-  "version": "1.2.12",
+  "version": "1.2.13",
   "description": "Registering and managing custom event sources.",
   "keywords": [
     "System management"
