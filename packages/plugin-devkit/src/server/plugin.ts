@@ -2,7 +2,7 @@ import path from 'node:path';
 import { Plugin } from '@tachybase/server';
 
 import { createRsbuild, type RsbuildInstance, type StartServerResult } from '@rsbuild/core';
-import { build, defineConfig } from '@rslib/core';
+// import { build, defineConfig } from '@rslib/core';
 import fg from 'fast-glob';
 
 import config from './config';
@@ -21,7 +21,7 @@ const serverGlobalFiles: string[] = ['src/**', '!src/client/**', ...globExcludeF
 
 export class PluginDevkitServer extends Plugin {
   #result: StartServerResult;
-  #pluginBuilding: Awaited<ReturnType<typeof build>>;
+  // #pluginBuilding: Awaited<ReturnType<typeof build>>;
   async afterAdd() {}
 
   async beforeLoad() {}
@@ -30,30 +30,29 @@ export class PluginDevkitServer extends Plugin {
     const rsbuild = await createRsbuild({
       rsbuildConfig: config,
     });
-    const cwd = '/Users/seal/Documents/projects/tachybase/packages/plugin-example-hello';
-    const serverFiles = fg.globSync(serverGlobalFiles, { cwd, absolute: true });
-    const pluginConfig = defineConfig({
-      source: {
-        entry: {
-          index: serverFiles,
-        },
-      },
-      lib: [
-        {
-          output: {
-            distPath: {
-              root: path.join(cwd, 'lib'),
-            },
-          },
-          bundle: false,
-          dts: false,
-          format: 'cjs',
-        },
-      ],
-    });
+    // const cwd = '/Users/seal/Documents/projects/tachybase/packages/plugin-example-hello';
+    // const serverFiles = fg.globSync(serverGlobalFiles, { cwd, absolute: true });
+    // const pluginConfig = defineConfig({
+    //   source: {
+    //     entry: {
+    //       index: serverFiles,
+    //     },
+    //   },
+    //   lib: [
+    //     {
+    //       output: {
+    //         distPath: {
+    //           root: path.join(cwd, 'lib'),
+    //         },
+    //       },
+    //       bundle: false,
+    //       dts: false,
+    //       format: 'cjs',
+    //     },
+    //   ],
+    // });
     this.app.once('afterStart', async () => {
       this.#result = await rsbuild.startDevServer();
-      this.#pluginBuilding = await build(pluginConfig);
     });
 
     this.app.once('beforeStop', async () => {

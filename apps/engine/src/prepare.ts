@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
 
 import yoctoSpinner from '@socketregistry/yocto-spinner/index.cjs';
 import execa from 'execa';
@@ -9,13 +10,25 @@ import { defaultModules } from './defaultModules';
 import { defaultPlugins } from './defaultPlugins';
 import { downloadTar, initEnvFile } from './utils';
 
-export async function prepare(name: string, plugins = defaultPlugins) {
-  if (fs.existsSync(name)) {
-    console.log(`project folder ${name} already exists, exit now.`);
-    return;
+export async function prepare({
+  name,
+  plugins = defaultPlugins,
+  init = false,
+}: {
+  name?: string;
+  plugins: string[];
+  init?: boolean;
+}) {
+  if (init) {
+    if (fs.existsSync(name)) {
+      console.log(`project folder ${name} already exists, exit now.`);
+      return;
+    }
+    fs.mkdirSync(name);
+    initEnvFile(name);
+  } else {
+    name = process.cwd();
   }
-  fs.mkdirSync(name);
-  initEnvFile(name);
 
   let npmExist = true;
   // 判断 npm 是否存在
