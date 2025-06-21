@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import { basename, resolve } from 'node:path';
-import { isMainThread } from 'worker_threads';
+import { isMainThread } from 'node:worker_threads';
 import { Model, Transactionable } from '@tachybase/database';
 import { LoggerOptions } from '@tachybase/logger';
 import { Container, fsExists, importModule } from '@tachybase/utils';
