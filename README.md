@@ -59,10 +59,10 @@ This project is licensed under the [Apache 2.0](LICENSE) License。
 
 # Third-party Code Notice
 
-The project includes a significant amount of code from third-party libraries such as RequireJS, JsonLogic, NocoBase, Formily, and Ant Design (antd). This code adheres to their original licenses and agreements. It will be gradually rewritten in the future. Please be mindful of this when using it in the early stages of the project.
+The project includes a significant amount of code from third-party libraries such as RequireJS、JsonLogic、NocoBase、Formily and Ant Design. This code adheres to their original licenses and agreements. It will be gradually rewritten in the future. Please be mindful of this when using it in the early stages of the project.
 
 # Contributing
 
-- Provide background information on deployment and usage, and describe the situations where the current system services fall short. Depending on the impact, we will categorize this into different development levels (Kernel, Module, or Plugin).
+- Provide background information on deployment and usage, and describe the situations where the current system services fall short.
 - Share usage cases where the current interaction methods do not meet your needs. We will address these based on their impact level.
 - You are welcome to directly contribute code. We currently do not have a dedicated community group, but you can submit ideas through tickets, and we can discuss them together.
