@@ -1,6 +1,6 @@
 import { Plugin } from '@tachybase/client';
 
-class {{{pascalCaseName}}}Client extends Plugin {
+class PluginDevkitClient extends Plugin {
   async afterAdd() {}
 
   async beforeLoad() {}
@@ -8,4 +8,4 @@ class {{{pascalCaseName}}}Client extends Plugin {
   async load() {}
 }
 
-export default {{{pascalCaseName}}}Client;
+export default PluginDevkitClient;

@@ -348,6 +348,7 @@ export class PluginManager {
    * @internal
    */
   async initPlugins() {
+    await this.initRuntimePlugins();
     await this.initPresetPlugins();
     await this.initOtherPlugins();
   }
@@ -1080,6 +1081,23 @@ export class PluginManager {
       await this.add(p, { enabled: true, isPreset: true, ...opts });
     }
     this['_initPresetPlugins'] = true;
+  }
+
+  /**
+   * @internal
+   */
+  async initRuntimePlugins() {
+    if (this['_initRuntimePlugins']) {
+      return;
+    }
+    if (process.env.RUNTIME_PLUGINS) {
+      const runtimePlugins = process.env.RUNTIME_PLUGINS.split(',');
+      for (const plugin of runtimePlugins) {
+        await this.add(plugin, { enabled: true });
+      }
+    }
+
+    this['_initRuntimePlugins'] = true;
   }
 }
 

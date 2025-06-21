@@ -6,7 +6,8 @@ import { Gateway } from '@tachybase/server';
 import { Command } from 'commander';
 
 import { getConfig } from './config';
-import { parseEnvironment, prepare } from './utils';
+import { prepare } from './prepare';
+import { parseEnvironment } from './utils';
 
 // 解析环境变量
 parseEnvironment();
@@ -27,8 +28,8 @@ program.allowUnknownOption().action(async () => {
 });
 
 program
-  .command('prepare')
-  .description('prepare plugins')
+  .command('init')
+  .description('init a tachybase application project')
   .option('--plugins <list>', 'Comma-separated list of plugins to install', (value) => {
     return value
       .split(',')
@@ -37,7 +38,20 @@ program
   })
   .argument('[name]', 'project name or path', 'my-app')
   .action(async (name, options) => {
-    await prepare(name, options.plugins);
+    await prepare({ name, plugins: options.plugins, init: true });
+  });
+
+program
+  .command('sync')
+  .description('sync latest packages in current project')
+  .option('--plugins <list>', 'Comma-separated list of plugins to sync', (value) => {
+    return value
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+  })
+  .action(async (options) => {
+    await prepare({ plugins: options.plugins });
   });
 
 program.parse();

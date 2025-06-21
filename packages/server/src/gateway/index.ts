@@ -1,10 +1,10 @@
-import { randomUUID } from 'crypto';
-import { EventEmitter } from 'events';
-import fs from 'fs';
-import http, { IncomingMessage, ServerResponse } from 'http';
+import { randomUUID } from 'node:crypto';
+import { EventEmitter } from 'node:events';
+import fs from 'node:fs';
+import http, { IncomingMessage, ServerResponse } from 'node:http';
+import { resolve } from 'node:path';
+import { parse } from 'node:url';
 import { promisify } from 'node:util';
-import { resolve } from 'path';
-import { parse } from 'url';
 import { createSystemLogger, getLoggerFilePath, SystemLogger } from '@tachybase/logger';
 import { createStoragePluginsSymlink, Registry, Toposort, ToposortOptions, uid } from '@tachybase/utils';
 
@@ -62,8 +62,8 @@ export class Gateway extends EventEmitter {
 
   public server: http.Server | null = null;
   public ipcSocketServer: IPCSocketServer | null = null;
-  private port: number = process.env.APP_PORT ? parseInt(process.env.APP_PORT) : null;
-  private host = '0.0.0.0';
+  #port: number = process.env.APP_PORT ? parseInt(process.env.APP_PORT) : null;
+  #host = '0.0.0.0';
   private wsServer: WSServer;
   private socketPath = resolve(process.cwd(), 'storage', 'gateway.sock');
   private handlers: Map<string, Handler> = new Map();
@@ -367,11 +367,19 @@ export class Gateway extends EventEmitter {
   }
 
   get runAt() {
-    return `http://${this.host}:${this.port}`;
+    return `http://${this.#host}:${this.#port}`;
   }
 
   get runAtLoop() {
-    return `http://127.0.0.1:${this.port}`;
+    return `http://127.0.0.1:${this.#port}`;
+  }
+
+  get port() {
+    return this.#port;
+  }
+
+  get host() {
+    return this.#host;
   }
 
   isHelp() {
@@ -406,14 +414,14 @@ export class Gateway extends EventEmitter {
 
   startHttpServer(options: StartHttpServerOptions) {
     if (options?.port !== null) {
-      this.port = options.port;
+      this.#port = options.port;
     }
 
     if (options?.host) {
-      this.host = options.host;
+      this.#host = options.host;
     }
 
-    if (this.port === null) {
+    if (this.#port === null) {
       console.log('gateway port is not set, http server will not start');
       return;
     }
@@ -434,8 +442,8 @@ export class Gateway extends EventEmitter {
       }
     });
 
-    this.server.listen(this.port, this.host, () => {
-      console.log(`Gateway HTTP Server running at http://${this.host}:${this.port}/`);
+    this.server.listen(this.#port, this.#host, () => {
+      console.log(`Gateway HTTP Server running at http://${this.#host}:${this.#port}/`);
       if (options?.callback) {
         options.callback(this.server);
       }
