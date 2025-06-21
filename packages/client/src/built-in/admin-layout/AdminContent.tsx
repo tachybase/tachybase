@@ -9,6 +9,7 @@ export const AdminContent = () => {
   const app = useApp();
   const CustomAdminContent = app.getComponent('CustomAdminContent');
   const isMatchAdmin = useMatch('/admin');
+
   if (isMatchAdmin) {
     return <WelcomeCard />;
   } else {

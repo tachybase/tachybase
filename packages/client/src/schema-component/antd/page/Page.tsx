@@ -23,7 +23,6 @@ import { useGetAriaLabelOfSchemaInitializer } from '../../../schema-initializer/
 import { useGlobalTheme } from '../../../style/theme';
 import { DndContext } from '../../common';
 import { SortableItem } from '../../common/sortable-item';
-import { DragHandleMenu } from '../../common/sortable-item/DragHandleMenu';
 import { DragHandlePageTab } from '../../common/sortable-item/DragHandlePageTab';
 import { SchemaComponent, SchemaComponentOptions } from '../../core';
 import { useCompile, useDesignable } from '../../hooks';
