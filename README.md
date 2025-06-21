@@ -38,6 +38,8 @@ npx @tachybase/engine init my-app
 cd my-app
 # Start the application
 npx @tachybase/engine start --quickstart
+# Visit the application
+http://localhost:3000
 ```
 
 Default username：`tachybase`，password: `!Admin123.`

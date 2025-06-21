@@ -38,6 +38,8 @@ npx @tachybase/engine init my-app
 cd my-app
 # 启动应用
 npx @tachybase/engine start --quickstart
+# 访问应用
+http://localhost:3000
 ```
 
 默认用户名：`tachybase`，默认密码: `!Admin123.`
