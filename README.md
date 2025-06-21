@@ -29,40 +29,29 @@
 
 You can register an account and password by yourself and create sub-applications within the system to try it out. The system is currently in public beta. If you encounter any issues, feel free to provide feedback, and we will address them as soon as possible.
 
-# Quick Start with Docker Compose
-
-We provides multiple Docker Compose test environments. Here's an example using a PostgreSQL database. You can quickly start with the following commands:
+# Quick Start
 
 ```bash 
-cd docker-compose-samples/app-postgres
-docker compose up -d
-# View startup logs
-docker logs -f
-
-# Visit app
-http://localhost:3000
-# Visit pgadmin
-http://localhost:3080
-```
-
-# Quick Start from Source Code
-
-```bash 
-pnpm install
-pnpm tachybase install
-pnpm dev
-```
-
-# Upgrade From Previous Version
-
-```bash
-pnpm install
-pnpm tbu
-pnpm dev
+# Create a new Tachybase application
+npx @tachybase/engine init my-app
+# Change directory to the new application
+cd my-app
+# Start the application
+npx @tachybase/engine start --quickstart
 ```
 
 Default username：`tachybase`，password: `!Admin123.`
 The default database is `sqlite`, you can change it in .env file.
+Visit [tachybase.org](https://tachybase.org/en/) to discover more ways to use Tachybase.
+
+# Upgrade From Previous Version
+
+```bash
+# Sync latest packages
+npx @tachybase/engine sync
+# Start the application
+npx @tachybase/engine start --quickstart
+```
 
 # License
 

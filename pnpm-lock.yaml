@@ -3889,18 +3889,6 @@ importers:
         specifier: ^5.18.2
         version: 5.18.2
 
-  packages/plugin-example-hello:
-    dependencies:
-      '@tachybase/client':
-        specifier: workspace:*
-        version: link:../client
-      '@tachybase/server':
-        specifier: workspace:*
-        version: link:../server
-      '@tachybase/test':
-        specifier: workspace:*
-        version: link:../test
-
   packages/plugin-field-china-region:
     dependencies:
       '@tachybase/client':

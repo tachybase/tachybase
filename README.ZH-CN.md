@@ -29,40 +29,29 @@
 
 可以自行注册账号密码，在内部建立子应用体验，目前系统处于公测阶段，有任何问题可以及时反馈，我们会在收到的第一时间解决。
 
-# 从 docker compose 快速开始
-
-项目中提供了多个 docker compose 的测试环境，下面以 postgresql 数据例子，您可以通过以下命令快速启动：
+# 快速开始
 
 ```bash 
-cd docker-compose-samples/app-postgres
-docker compose up -d
-# 查看启动日志
-docker logs -f
-
-# 访问应用
-http://localhost:3000
-# 访问 pgadmin 数据库管理
-http://localhost:3080
+# 创建一个新的灵矶应用
+npx @tachybase/engine init my-app
+# 切换到刚创建的目录中
+cd my-app
+# 启动应用
+npx @tachybase/engine start --quickstart
 ```
 
-# 从源代码快速开始
+默认用户名：`tachybase`，默认密码: `!Admin123.`
+默认数据库为 `sqlite`, 你可以在 .env 文件中修改。
+访问 [tachybase.org](https://tachybase.org/) 发现更多方式来使用灵矶。
 
-```bash 
-pnpm install
-pnpm tachybase install
-pnpm dev
-```
-
-# 从之前的版本升级
+# 从之前的版本更新
 
 ```bash
-pnpm install
-pnpm tbu
-pnpm dev
+# 同步最新的包
+npx @tachybase/engine sync
+# 启动应用
+npx @tachybase/engine start --quickstart
 ```
-
-默认的账号为：`tachybase`，默认密码为 `!Admin123.`
-默认初始化使用的是 `sqlite` 数据库，可以在 `.env` 文件中修改为其他数据库。
 
 # 开源许可证
 
