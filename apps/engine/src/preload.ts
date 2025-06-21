@@ -1,4 +1,4 @@
-import { isBuiltin, Module } from 'node:module';
+import { Module } from 'node:module';
 
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
@@ -12,8 +12,8 @@ const originalLoad = Module._load;
 const appRoot = __dirname;
 
 // 使用加载白名单的机制
-// TODO 在服务器端、worker 和这里进行同步
-const whitelists = new Set([
+// TODO 考虑服务端校验的版本也和这个保持同步（服务端要求的版本要和这里以及引擎的 package.json 一致）
+const defaultWhitelists = [
   '@koa/cors',
   '@koa/multer',
   'async-mutex',
@@ -37,13 +37,24 @@ const whitelists = new Set([
   'umzug',
   'winston',
   'winston-daily-rotate-file',
-]);
+];
+
+const whitelists = new Set(defaultWhitelists);
+
+// 允许环境变量设置模块
+// 额外添加的模块会被放在指定目录 NODE_MODULES_PATH 中
+if (process.env.ENGINE_MODULES) {
+  process.env.ENGINE_MODULES.split(',').forEach((item: string) => {
+    whitelists.add(item);
+  });
+}
 
 // 加载路径包含两个，一个是引擎的启动目录，另一个是指定的插件目录
 const lookingPaths = process.env.NODE_MODULES_PATH ? [appRoot, process.env.NODE_MODULES_PATH] : [appRoot];
 
 // 带给子进程加载路径
 process.env.TACHYBASE_WORKER_PATHS = lookingPaths.join(',');
+process.env.TACHYBASE_WORKER_MODULES = [...whitelists].join(',');
 
 // 整个加载过程允许报错，保持和默认加载器一样的行为
 Module._load = function (request: string, parent: NodeModule | null, isMain: boolean) {
