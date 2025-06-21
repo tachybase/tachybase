@@ -1,5 +1,4 @@
 import { isBuiltin, Module } from 'node:module';
-import { isAbsolute } from 'node:path';
 
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
@@ -12,37 +11,11 @@ declare module 'node:module' {
 const originalLoad = Module._load;
 const appRoot = __dirname;
 
-// 判断是否是裸模块名（例如 'lodash'、'react'）
-function isBareModule(name: string) {
-  return !name.startsWith('.') && !name.startsWith('/') && !isAbsolute(name);
-}
-
-// 统计路径加载情况
-const count = {
-  total: 0,
-  builtin: 0,
-  main: 0,
-  path: 0,
-  fallback: 0,
-};
-
 // 使用加载白名单的机制
 // TODO 在服务器端、worker 和这里进行同步
 const whitelists = new Set([
   '@koa/cors',
   '@koa/multer',
-  '@tachybase/acl',
-  '@tachybase/actions',
-  '@tachybase/auth',
-  '@tachybase/cache',
-  '@tachybase/data-source',
-  '@tachybase/database',
-  '@tachybase/evaluators',
-  '@tachybase/logger',
-  '@tachybase/resourcer',
-  '@tachybase/schema',
-  '@tachybase/server',
-  '@tachybase/utils',
   'async-mutex',
   'axios',
   'cache-manager',
@@ -66,35 +39,27 @@ const whitelists = new Set([
   'winston-daily-rotate-file',
 ]);
 
+// 加载路径包含两个，一个是引擎的启动目录，另一个是指定的插件目录
 const lookingPaths = process.env.NODE_MODULES_PATH ? [appRoot, process.env.NODE_MODULES_PATH] : [appRoot];
 
 // 带给子进程加载路径
 process.env.TACHYBASE_WORKER_PATHS = lookingPaths.join(',');
 
-Module._load = function (request: string, parent, isMain) {
-  count.total++;
-  // 内置模块不拦截
-  if (isBuiltin(request)) {
-    count.builtin++;
-    return originalLoad(request, parent, isMain);
-  }
-
-  // 在白名单中的进行处理
-  // TODO 增加环境变量
-  if (isBareModule(request) && (whitelists.has(request) || request.startsWith('@tachybase/'))) {
+// 整个加载过程允许报错，保持和默认加载器一样的行为
+Module._load = function (request: string, parent: NodeModule | null, isMain: boolean) {
+  // 使用白名单拦截，以及所有符合 '@tachybase/' 前缀的包
+  if (whitelists.has(request) || request.startsWith('@tachybase/')) {
     try {
       const resolvedFromApp = require.resolve(request, { paths: lookingPaths });
-      count.main++;
       return originalLoad(resolvedFromApp, parent, isMain);
     } catch (err) {
+      // 这里不应该发生，但是我们依旧提供回退的机制，使用默认行为来加载模块
       if (err.code === 'MODULE_NOT_FOUND') {
-        count.fallback++;
         return originalLoad(request, parent, isMain);
       }
     }
   }
 
   // 相对路径、绝对路径不动
-  count.path++;
   return originalLoad(request, parent, isMain);
 };
