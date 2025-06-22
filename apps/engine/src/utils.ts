@@ -8,6 +8,7 @@ import fs, {
 import { mkdir, unlink } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { pipeline } from 'node:stream/promises';
+import TachybaseGlobal from '@tachybase/globals';
 
 import { config } from 'dotenv';
 import npmRegistryFetch from 'npm-registry-fetch';
@@ -99,14 +100,18 @@ export function parseEnvironment() {
 export function guessServePath() {
   const distPath = resolve('apps/app-web/dist/index.html');
   const clientPath = resolve('client/index.html');
-  const nodeModulePath = resolve(process.env.NODE_MODULES_PATH, '@tachybase/app-web/dist/index.html');
 
   if (fs.existsSync(distPath)) {
     return resolve('apps/app-web/dist');
   } else if (fs.existsSync(clientPath)) {
     return resolve('client');
-  } else if (fs.existsSync(nodeModulePath)) {
-    return resolve(process.env.NODE_MODULES_PATH, '@tachybase/app-web/dist');
+  }
+
+  const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+  for (const basePath of pluginPaths) {
+    if (fs.existsSync(resolve(basePath, '@tachybase/app-web/dist/index.html'))) {
+      return resolve(basePath, '@tachybase/app-web/dist');
+    }
   }
 
   return false;

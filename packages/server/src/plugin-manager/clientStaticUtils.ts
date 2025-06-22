@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import TachybaseGlobal from '@tachybase/globals';
 
 export const PLUGIN_STATICS_PATH = '/static/plugins/';
 
@@ -21,10 +22,11 @@ function findPackageJson(filePath) {
  * get package.json path for specific NPM package
  */
 export function getDepPkgPath(packageName: string, cwd?: string) {
+  const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
   try {
-    return require.resolve(`${packageName}/package.json`, { paths: cwd ? [cwd] : [process.env.NODE_MODULES_PATH] });
+    return require.resolve(`${packageName}/package.json`, { paths: cwd ? [cwd] : pluginPaths });
   } catch {
-    const mainFile = require.resolve(`${packageName}`, { paths: cwd ? [cwd] : [process.env.NODE_MODULES_PATH] });
+    const mainFile = require.resolve(`${packageName}`, { paths: cwd ? [cwd] : pluginPaths });
     const packageDir = mainFile.slice(0, mainFile.indexOf(packageName.replace('/', path.sep)) + packageName.length);
     const result = path.join(packageDir, 'package.json');
     if (!fs.existsSync(result)) {

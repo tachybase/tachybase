@@ -1,4 +1,5 @@
 import path from 'node:path';
+import TachybaseGlobal from '@tachybase/globals';
 import { requireModule } from '@tachybase/utils';
 
 const arr2obj = (items: any[]) => {
@@ -10,6 +11,7 @@ const arr2obj = (items: any[]) => {
 };
 
 export const getResource = (packageName: string, lang: string, isPlugin = true) => {
+  const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
   const resources = [];
   const prefixes = [isPlugin ? 'dist' : 'lib'];
   if (process.env.APP_ENV !== 'production') {
@@ -26,7 +28,7 @@ export const getResource = (packageName: string, lang: string, isPlugin = true) 
   for (const prefix of prefixes) {
     try {
       let file = `${packageName}/${prefix}/locale/${lang}`;
-      const f = require.resolve(file, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
+      const f = require.resolve(file, { paths: [process.cwd(), ...pluginPaths] });
       if (process.env.APP_ENV !== 'production') {
         delete require.cache[f];
       }

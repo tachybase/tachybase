@@ -1,6 +1,6 @@
-import { builtinModules } from 'module';
-import os from 'os';
-import path from 'path';
+import { builtinModules } from 'node:module';
+import os from 'node:os';
+import path from 'node:path';
 import { createStoragePluginSymLink, importModule, isURL } from '@tachybase/utils';
 
 import axios, { AxiosRequestConfig } from 'axios';
@@ -62,10 +62,6 @@ export function getLocalPluginDir(packageDirBasename: string) {
   }
 
   return localPluginDir;
-}
-
-export function getNodeModulesPluginDir(packageName: string) {
-  return path.join(process.env.NODE_MODULES_PATH, packageName);
 }
 
 export function getAuthorizationHeaders(registry?: string, authToken?: string) {
@@ -324,12 +320,6 @@ export function getServerPackages(packageDir: string) {
 
   const srcServerPlugins = getSrcPlugins(path.join(packageDir, 'src/server'));
   return srcServerPlugins;
-}
-
-export function removePluginPackage(packageName: string) {
-  const packageDir = getStoragePluginDir(packageName);
-  const nodeModulesPluginDir = getNodeModulesPluginDir(packageName);
-  return Promise.all([fs.remove(packageDir), fs.remove(nodeModulesPluginDir)]);
 }
 
 /**
