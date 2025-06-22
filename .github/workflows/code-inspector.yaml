@@ -30,4 +30,6 @@ jobs:
       - name: Build
         run: pnpm build
       - name: Tests
+        env:
+          TEST_ENV: server-side
         run: pnpm vitest apps/app-server
