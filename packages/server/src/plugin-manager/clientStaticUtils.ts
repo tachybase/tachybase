@@ -1,6 +1,7 @@
 import fs from 'node:fs';
-import path from 'node:path';
+import path, { resolve } from 'node:path';
 import TachybaseGlobal from '@tachybase/globals';
+import { fsExists } from '@tachybase/utils';
 
 export const PLUGIN_STATICS_PATH = '/static/plugins/';
 
@@ -20,19 +21,39 @@ function findPackageJson(filePath) {
 
 /**
  * get package.json path for specific NPM package
+ * TODO：这里在支持多路径后逻辑不好维护
  */
 export function getDepPkgPath(packageName: string, cwd?: string) {
-  const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
-  try {
-    return require.resolve(`${packageName}/package.json`, { paths: cwd ? [cwd] : pluginPaths });
-  } catch {
-    const mainFile = require.resolve(`${packageName}`, { paths: cwd ? [cwd] : pluginPaths });
-    const packageDir = mainFile.slice(0, mainFile.indexOf(packageName.replace('/', path.sep)) + packageName.length);
-    const result = path.join(packageDir, 'package.json');
-    if (!fs.existsSync(result)) {
-      return path.join(findPackageJson(mainFile), 'package.json');
+  if (cwd) {
+    try {
+      return require.resolve(`${packageName}/package.json`, { paths: [cwd] });
+    } catch {
+      const mainFile = require.resolve(`${packageName}`, { paths: [cwd] });
+      const packageDir = mainFile.slice(0, mainFile.indexOf(packageName.replace('/', path.sep)) + packageName.length);
+      const result = path.join(packageDir, 'package.json');
+      if (!fs.existsSync(result)) {
+        return path.join(findPackageJson(mainFile), 'package.json');
+      }
+      return result;
     }
-    return result;
+  } else {
+    const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+    for (const basePath of pluginPaths) {
+      if (!fsExists(resolve(basePath, packageName))) {
+        break;
+      }
+      try {
+        return require.resolve(`${resolve(basePath, packageName)}/package.json`);
+      } catch {
+        const mainFile = require.resolve(`${resolve(basePath, packageName)}`);
+        const packageDir = mainFile.slice(0, mainFile.indexOf(packageName.replace('/', path.sep)) + packageName.length);
+        const result = path.join(packageDir, 'package.json');
+        if (!fs.existsSync(result)) {
+          return path.join(findPackageJson(mainFile), 'package.json');
+        }
+        return result;
+      }
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import { Module } from 'node:module';
+import { createRequire, Module } from 'node:module';
 import { resolve } from 'node:path';
 import TachybaseGlobal from '@tachybase/globals';
 
@@ -82,6 +82,15 @@ Module._load = function (request: string, parent: NodeModule | null, isMain: boo
       const resolvedFromApp = require.resolve(request, { paths: lookingPaths });
       return originalLoad(resolvedFromApp, parent, isMain);
     } catch (err) {
+      for (const basePath of lookingPaths) {
+        // 支持非 node_modules 的加载
+        try {
+          const pluginRoot = resolve(basePath, request);
+          const fakeRequire = createRequire(pluginRoot + '/index.js');
+          const resolved = fakeRequire.resolve(pluginRoot);
+          return originalLoad(resolved, parent, isMain);
+        } catch {}
+      }
       // 这里不应该发生，但是我们依旧提供回退的机制，使用默认行为来加载模块
       if (err.code === 'MODULE_NOT_FOUND') {
         return originalLoad(request, parent, isMain);

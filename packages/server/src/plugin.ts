@@ -290,7 +290,20 @@ export abstract class Plugin implements PluginInterface {
     if (!this.options.packageName) {
       return false;
     }
-    const file = await fs.promises.realpath(resolve(resolve(process.cwd(), 'node_modules'), this.options.packageName));
+
+    const pluginPaths = [
+      ...TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS'),
+      resolve(process.cwd(), 'node_modules'),
+    ];
+    let path;
+    for (const basePath of pluginPaths) {
+      if (fsExists(resolve(basePath, this.options.packageName))) {
+        path = resolve(basePath, this.options.packageName);
+        break;
+      }
+    }
+
+    const file = await fs.promises.realpath(path);
     if (file.startsWith(resolve(process.cwd(), 'packages'))) {
       return !!process.env.IS_DEV_CMD;
     }
