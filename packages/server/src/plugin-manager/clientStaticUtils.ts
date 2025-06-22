@@ -21,19 +21,10 @@ function findPackageJson(filePath) {
  * get package.json path for specific NPM package
  */
 export function getDepPkgPath(packageName: string, cwd?: string) {
-  if (process.env.RUN_MODE === 'engine') {
-    try {
-      // try find in current path or in specified path
-      return require.resolve(`${packageName}/package.json`, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
-    } catch {
-      // ignore errors
-    }
-  }
-
   try {
-    return require.resolve(`${packageName}/package.json`, { paths: cwd ? [cwd] : undefined });
+    return require.resolve(`${packageName}/package.json`, { paths: cwd ? [cwd] : [process.env.NODE_MODULES_PATH] });
   } catch {
-    const mainFile = require.resolve(`${packageName}`, { paths: cwd ? [cwd] : undefined });
+    const mainFile = require.resolve(`${packageName}`, { paths: cwd ? [cwd] : [process.env.NODE_MODULES_PATH] });
     const packageDir = mainFile.slice(0, mainFile.indexOf(packageName.replace('/', path.sep)) + packageName.length);
     const result = path.join(packageDir, 'package.json');
     if (!fs.existsSync(result)) {

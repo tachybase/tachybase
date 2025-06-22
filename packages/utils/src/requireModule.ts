@@ -3,16 +3,7 @@ import { pathToFileURL } from 'node:url';
 
 export function requireModule(m: any) {
   if (typeof m === 'string') {
-    if (process.env.RUN_MODE === 'engine') {
-      if (path.isAbsolute(m)) {
-        m = require(m);
-      } else {
-        // adapter to vercel apk environment
-        m = require(path.join(process.env.NODE_MODULES_PATH, m));
-      }
-    } else {
-      m = require(m);
-    }
+    m = require(m);
   }
 
   if (typeof m !== 'object') {

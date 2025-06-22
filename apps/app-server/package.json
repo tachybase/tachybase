@@ -12,6 +12,9 @@
   "devDependencies": {
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
-    "@tachybase/logger": "workspace:*"
+    "@tachybase/logger": "workspace:*",
+    "axios": "0.29.0",
+    "execa": "^5.1.1",
+    "portfinder": "1.0.37"
   }
 }
