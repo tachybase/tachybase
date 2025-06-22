@@ -63,6 +63,35 @@ const createDatabase = async () => {
   return name;
 };
 
+test('install', async () => {
+  const database = await createDatabase();
+  const port = await getPortPromise({
+    port: 3000,
+  });
+  console.log(process.env.DB_DIALECT, port);
+  const dbFile = `storage/tests/db/tachybase-${uid()}.sqlite`;
+  const env = {
+    ...process.env,
+    APP_PORT: `${port}`,
+    DB_STORAGE: dbFile,
+    DB_DATABASE: database,
+    SOCKET_PATH: `storage/tests/gateway-e2e-${uid()}.sock`,
+    PM2_HOME: resolve(process.cwd(), `storage/tests/.pm2-${uid()}`),
+  };
+  const subprocess1 = await execa('pnpm', ['tachybase', 'install'], {
+    env,
+  });
+  expect(subprocess1.stdout.includes('app installed successfully')).toBeTruthy();
+  const subprocess2 = await execa('pnpm', ['tachybase', 'install'], {
+    env,
+  });
+  expect(subprocess2.stdout.includes('app is installed')).toBeTruthy();
+  const subprocess3 = await execa('pnpm', ['tachybase', 'install', '-f'], {
+    env,
+  });
+  expect(subprocess3.stdout.includes('app reinstalled successfully')).toBeTruthy();
+});
+
 describe.skip('cli', () => {
   test('install', async () => {
     const database = await createDatabase();

@@ -29,3 +29,5 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
+      - name: Tests
+        run: pnpm vitest apps/app-server
