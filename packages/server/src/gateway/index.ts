@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import { parse } from 'node:url';
 import { promisify } from 'node:util';
 import { createSystemLogger, getLoggerFilePath, SystemLogger } from '@tachybase/logger';
-import { Registry, Toposort, ToposortOptions, uid } from '@tachybase/utils';
+import { createStoragePluginsSymlink, Registry, Toposort, ToposortOptions, uid } from '@tachybase/utils';
 
 import { Command } from 'commander';
 import compression from 'compression';
@@ -333,6 +333,10 @@ export class Gateway extends EventEmitter {
           return;
         }
       }
+    }
+
+    if (isStart || !ipcClient) {
+      await createStoragePluginsSymlink();
     }
 
     const mainApp = AppSupervisor.getInstance().bootMainApp(options.mainAppOptions);
