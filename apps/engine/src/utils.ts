@@ -14,6 +14,8 @@ import { config } from 'dotenv';
 import npmRegistryFetch from 'npm-registry-fetch';
 import * as tar from 'tar';
 
+import { DEFAULT_WEB_PACKAGE_NAME } from './constants';
+
 export function initEnvFile(name: string) {
   const envPath = resolve(name, '.env');
   if (!fs.existsSync(envPath)) {
@@ -109,8 +111,8 @@ export function guessServePath() {
 
   const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
   for (const basePath of pluginPaths) {
-    if (fs.existsSync(resolve(basePath, '@tachybase/app-web/dist/index.html'))) {
-      return resolve(basePath, '@tachybase/app-web/dist');
+    if (fs.existsSync(resolve(basePath, DEFAULT_WEB_PACKAGE_NAME, 'dist/index.html'))) {
+      return resolve(basePath, DEFAULT_WEB_PACKAGE_NAME, 'dist');
     }
   }
 
