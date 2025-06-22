@@ -1,6 +1,6 @@
-import fs from 'fs'; //导入Node.js的文件系统模块，用于文件操作
-import path from 'path'; //导入Node.js的路径模块，用于处理文件路径
-import { Readable } from 'stream'; // 从'stream'模块导入Readable类，用于创建可读流
+import fs from 'node:fs'; //导入Node.js的文件系统模块，用于文件操作
+import path from 'node:path'; //导入Node.js的路径模块，用于处理文件路径
+import { Readable } from 'node:stream'; // 从'stream'模块导入Readable类，用于创建可读流
 import { Context } from '@tachybase/actions'; //一个自定义库，用于处理请求上下文
 import { Model } from '@tachybase/database'; //用于数据库操作的模型
 

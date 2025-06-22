@@ -297,9 +297,11 @@ export abstract class Plugin implements PluginInterface {
     ];
     let path;
     for (const basePath of pluginPaths) {
-      if (fsExists(resolve(basePath, this.options.packageName))) {
-        path = resolve(basePath, this.options.packageName);
-        break;
+      for (const name of [this.options.packageName, this.options.packageName.slice('@tachybase/'.length)]) {
+        if (await fsExists(resolve(basePath, name))) {
+          path = resolve(basePath, name);
+          break;
+        }
       }
     }
 

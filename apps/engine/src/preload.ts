@@ -9,11 +9,18 @@ Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR
 // 处理 NODE_MODULES_PATH
 // 如果不存在的话，按照约定路径猜测
 if (!process.env.NODE_MODULES_PATH) {
+  const paths = [];
+  process.env.NODE_MODULES_PATH = '';
   if (fs.existsSync(resolve('plugins'))) {
-    process.env.NODE_MODULES_PATH = resolve('plugins');
-  } else {
-    process.env.NODE_MODULES_PATH = resolve('node_modules');
+    paths.push(resolve('plugins'));
   }
+  if (fs.existsSync(resolve('packages'))) {
+    paths.push(resolve('packages'));
+  }
+  if (paths.length === 0) {
+    paths.push(resolve('node_modules'));
+  }
+  process.env.NODE_MODULES_PATH = paths.join(',');
 }
 
 // 解析 process.env.NODE_MODULES_PATH
@@ -86,6 +93,13 @@ Module._load = function (request: string, parent: NodeModule | null, isMain: boo
         // 支持非 node_modules 的加载
         try {
           const pluginRoot = resolve(basePath, request);
+          const fakeRequire = createRequire(pluginRoot + '/index.js');
+          const resolved = fakeRequire.resolve(pluginRoot);
+          return originalLoad(resolved, parent, isMain);
+        } catch {}
+        // 支持去掉 scope 的加载，目前只支持 @tachybase/
+        try {
+          const pluginRoot = resolve(basePath, request.slice('@tachybase/'.length));
           const fakeRequire = createRequire(pluginRoot + '/index.js');
           const resolved = fakeRequire.resolve(pluginRoot);
           return originalLoad(resolved, parent, isMain);

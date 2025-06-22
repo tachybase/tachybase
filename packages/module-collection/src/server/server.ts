@@ -1,6 +1,6 @@
-import path from 'path';
-import * as process from 'process';
-import { isMainThread } from 'worker_threads';
+import path from 'node:path';
+import * as process from 'node:process';
+import { isMainThread } from 'node:worker_threads';
 import { Filter, InheritedCollection, UniqueConstraintError } from '@tachybase/database';
 import PluginErrorHandler from '@tachybase/module-error-handler';
 import { Plugin } from '@tachybase/server';
@@ -271,7 +271,6 @@ export class CollectionManagerPlugin extends Plugin {
   }
 
   async load() {
-    await this.importCollections(path.resolve(__dirname, './collections'));
     this.db.getRepository<CollectionRepository>('collections').setApp(this.app);
 
     const errorHandlerPlugin = this.app.getPlugin<PluginErrorHandler>('error-handler');

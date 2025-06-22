@@ -1,7 +1,7 @@
 import { builtinModules } from 'node:module';
 import os from 'node:os';
 import path from 'node:path';
-import { createStoragePluginSymLink, importModule, isURL } from '@tachybase/utils';
+import { importModule, isURL } from '@tachybase/utils';
 
 import axios, { AxiosRequestConfig } from 'axios';
 import decompress from 'decompress';
@@ -213,9 +213,6 @@ export async function copyTempPackageToStorageAndLinkToNodeModules(
   // move to plugin storage dir
   await fs.remove(packageDir);
   await fs.move(tempPackageContentDir, packageDir, { overwrite: true });
-
-  // symlink to node_modules
-  await createStoragePluginSymLink(packageName);
 
   // remove temp dir
   await removeTmpDir(tempFile, tempPackageContentDir);

@@ -119,18 +119,21 @@ export class PluginManager {
    */
   static async getPackageJson(packageName: string) {
     const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+    console.log('🚀 ~ PluginManager ~ getPackageJson ~ pluginPaths:', pluginPaths);
     for (const basePath of pluginPaths) {
-      const pkgPath = resolve(basePath, packageName, 'package.json');
-      try {
-        const realPath = await fs.realpath(pkgPath);
-        const data = await fs.readFile(realPath, { encoding: 'utf-8' });
-        return JSON.parse(data);
-      } catch (err) {
-        // 跳过不存在的路径或读取失败的情况
+      for (const name of [packageName, packageName.slice('@tachybase/'.length)]) {
+        const pkgPath = resolve(basePath, name, 'package.json');
+        console.log('🚀 ~ PluginManager ~ getPackageJson ~ pkgPath:', pkgPath);
+        try {
+          const realPath = await fs.realpath(pkgPath);
+          const data = await fs.readFile(realPath, { encoding: 'utf-8' });
+          return JSON.parse(data);
+        } catch (err) {
+          // 跳过不存在的路径或读取失败的情况
+        }
       }
-
-      throw new Error(`package.json for ${packageName} not found in any PLUGIN_PATHS`);
     }
+    throw new Error(`package.json for ${packageName} not found in any PLUGIN_PATHS`);
   }
 
   /**

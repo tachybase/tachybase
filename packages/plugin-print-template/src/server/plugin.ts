@@ -1,6 +1,6 @@
-import { exec } from 'child_process';
-import path from 'path';
-import util from 'util';
+import { exec } from 'node:child_process';
+import path from 'node:path';
+import util from 'node:util';
 import Database from '@tachybase/database';
 import { Plugin } from '@tachybase/server';
 
