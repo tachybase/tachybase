@@ -265,9 +265,6 @@ importers:
 
   apps/cli:
     dependencies:
-      '@tachybase/utils':
-        specifier: 1.1.20
-        version: 1.1.20
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -9797,9 +9794,6 @@ packages:
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
-
-  '@tachybase/utils@1.1.20':
-    resolution: {integrity: sha512-B6O/HQf+oZEcYVa1wv6M3zKuLzBsaGzcmqaJx1/t4HjbdLI1PlZSJvddvo2sZHHqndBQQDN0PfMoh91KcZK1ug==}
 
   '@tanem/svg-injector@10.1.68':
     resolution: {integrity: sha512-UkJajeR44u73ujtr5GVSbIlELDWD/mzjqWe54YMK61ljKxFcJoPd9RBSaO7xj02ISCWUqJW99GjrS+sVF0UnrA==}
@@ -24977,19 +24971,6 @@ snapshots:
     dependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-
-  '@tachybase/utils@1.1.20':
-    dependencies:
-      '@hapi/topo': 6.0.2
-      '@rc-component/mini-decimal': 1.1.0
-      dayjs: 1.11.13
-      dedupe: 3.0.3
-      deepmerge: 4.3.1
-      flat-to-nested: 1.1.1
-      graphlib: 2.1.8
-      lodash: 4.17.21
-      multer: 2.0.1
-      object-path: 0.11.8
 
   '@tanem/svg-injector@10.1.68':
     dependencies:

@@ -9,10 +9,20 @@ Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR
 // 处理 NODE_MODULES_PATH
 // 如果不存在的话，按照约定路径猜测
 if (!process.env.NODE_MODULES_PATH) {
+  const paths = [];
+  if (fs.existsSync(resolve('storage', '.packages'))) {
+    paths.push(resolve('storage', '.packages'));
+  }
   if (fs.existsSync(resolve('plugins'))) {
-    process.env.NODE_MODULES_PATH = resolve('plugins');
-  } else {
+    paths.push(resolve('storage', 'plugins'));
+  }
+  if (fs.existsSync(resolve('storage', '.plugins'))) {
+    paths.push(resolve('storage', '.plugins'));
+  }
+  if (paths.length === 0) {
     process.env.NODE_MODULES_PATH = resolve('node_modules');
+  } else {
+    process.env.NODE_MODULES_PATH = paths.join(',');
   }
 }
 
