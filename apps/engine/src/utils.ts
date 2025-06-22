@@ -52,9 +52,6 @@ export function parseEnvironment() {
     MFSU_AD: 'none',
     WS_PATH: '/ws',
     SOCKET_PATH: 'storage/gateway.sock',
-    NODE_MODULES_PATH: fs.existsSync(resolve('plugins', 'node_modules'))
-      ? resolve('plugins', 'node_modules')
-      : resolve('node_modules'),
     PM2_HOME: resolve(process.cwd(), './storage/.pm2'),
     PLUGIN_PACKAGE_PREFIX: '@tachybase/plugin-,@tachybase/module-',
     SERVER_TSCONFIG_PATH: './tsconfig.server.json',

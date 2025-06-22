@@ -20,7 +20,7 @@ export default (cli: Command) => {
       nodeCheck();
       if (options.compile || options.watch || isPackageValid('@tachybase/build/src/index.ts')) {
         await run('pnpm', ['build', options.watch ? '--watch' : ''], {
-          cwd: resolve(process.cwd(), 'packages/core/build'),
+          cwd: resolve(process.cwd(), 'packages/build'),
         });
         if (options.watch) return;
       }

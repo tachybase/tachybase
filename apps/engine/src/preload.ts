@@ -1,7 +1,19 @@
+import fs from 'node:fs';
 import { Module } from 'node:module';
+import { resolve } from 'node:path';
 
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
+
+// 处理 NODE_MODULES_PATH
+// 如果不存在的话，按照约定路径猜测
+if (!process.env.NODE_MODULES_PATH) {
+  if (fs.existsSync(resolve('plugins', 'node_modules'))) {
+    process.env.NODE_MODULES_PATH = resolve('plugins', 'node_modules');
+  } else {
+    process.env.NODE_MODULES_PATH = resolve('node_modules');
+  }
+}
 
 declare module 'node:module' {
   // 扩展 NodeJS.Module 静态属性

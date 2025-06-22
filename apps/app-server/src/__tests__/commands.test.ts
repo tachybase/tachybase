@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import { mockDatabase } from '@tachybase/database';
 import { uid } from '@tachybase/utils';
 

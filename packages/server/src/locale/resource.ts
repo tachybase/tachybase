@@ -26,10 +26,7 @@ export const getResource = (packageName: string, lang: string, isPlugin = true) 
   for (const prefix of prefixes) {
     try {
       let file = `${packageName}/${prefix}/locale/${lang}`;
-      if (isPlugin && process.env.RUN_MODE === 'engine') {
-        file = path.join(process.env.NODE_MODULES_PATH, file);
-      }
-      const f = require.resolve(file);
+      const f = require.resolve(file, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
       if (process.env.APP_ENV !== 'production') {
         delete require.cache[f];
       }

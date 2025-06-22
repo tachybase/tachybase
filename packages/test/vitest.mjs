@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path, { resolve } from 'path';
-import { URL } from 'url';
+import fs from 'node:fs';
+import path, { resolve } from 'node:path';
+import { URL } from 'node:url';
 
 import react from '@vitejs/plugin-react';
 import { defineConfig as vitestConfig } from 'vitest/config';
@@ -57,7 +57,7 @@ export const defineConfig = (config = {}) => {
             globals: true,
             setupFiles: resolve(__dirname, './setup/server.ts'),
             alias: tsConfigPathsToAlias(),
-            include: ['packages/**/__tests__/**/*.test.ts'],
+            include: ['packages/**/__tests__/**/*.test.ts', 'apps/**/__tests__/**/*.test.ts'],
             exclude: [
               '**/node_modules/**',
               '**/dist/**',
