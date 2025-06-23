@@ -1,7 +1,9 @@
 import React, { FC, useContext, useEffect, useMemo, useRef } from 'react';
-import { useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { Field, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
-import { DragOutlined, PlusOutlined } from '@ant-design/icons';
+import { DeleteOutlined, DragOutlined, PlusOutlined } from '@ant-design/icons';
+import { Popconfirm } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import {
   SchemaComponentsContext,
@@ -9,7 +11,7 @@ import {
   SchemaMarkupContext,
 } from '../../../../../../schema/src/react';
 import { useSchemaInitializerRender, useSchemaSettingsRender } from '../../../../application';
-import { useFormBlockContext } from '../../../../block-provider';
+import { useFormActiveFields, useFormBlockContext } from '../../../../block-provider';
 import { useDataSource, useDataSourceManager } from '../../../../data-source';
 import {
   DragHandler,
@@ -25,6 +27,8 @@ import {
 import { gridRowColWrap } from '../../../../schema-initializer';
 import { SchemaToolbarProps, useGetAriaLabelOfDesigner } from '../../../../schema-settings';
 import { useStyles } from '../../../../schema-settings/styles';
+import { useBlockTemplateContext } from '../../../../schema-templates/BlockTemplate';
+import { useEditableDesignable } from './EditableDesignable';
 import { useEditableSelectedField } from './EditableSelectedFieldContext';
 
 export const EditableFormItemSchemaToolbar = (props) => {
@@ -51,11 +55,14 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
   const schemaComponents = useContext(SchemaComponentsContext);
   const formBlockValue = useFormBlockContext();
   const schemaOptions = useSchemaOptionsContext();
-  const field = useField();
+  const { t } = useTranslation();
+  const field = useField<Field>();
   const compile = useCompile();
   const { styles } = useStyles();
   const { getAriaLabel } = useGetAriaLabelOfDesigner();
   const { setEditableField } = useEditableSelectedField();
+  const { removeActiveFieldName } = useFormActiveFields() || {};
+  const { dn } = useEditableDesignable();
   const dm = useDataSourceManager();
   const dataSources = dm?.getDataSources();
   const dataSourceContext = useDataSource();
@@ -100,6 +107,37 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       </DragHandler>
     );
   }, [draggable, getAriaLabel]);
+
+  const deleteElement = useMemo(() => {
+    return (
+      <Popconfirm
+        title={t('Delete field')}
+        okText={t('Delete')}
+        cancelText={t('Cancel')}
+        onConfirm={() => {
+          const options = {
+            removeParentsIfNoChildren: true,
+            breakRemoveOn: {
+              'x-component': 'EditableGrid',
+            },
+          };
+          if (field?.required) {
+            field.required = false;
+            fieldSchema['required'] = false;
+          }
+          dn.remove(null, options);
+          delete form.values[fieldSchema.name];
+          removeActiveFieldName?.(fieldSchema.name as string);
+          if (field?.setInitialValue && field?.reset) {
+            field.setInitialValue(null);
+            field.reset();
+          }
+        }}
+      >
+        <DeleteOutlined role="button" style={{ color: 'red', cursor: 'pointer' }} />
+      </Popconfirm>
+    );
+  }, []);
 
   const initializerElement = useMemo(() => {
     if (initializer === false) return null;
@@ -204,6 +242,7 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       <div className={styles.toolbarIcons}>
         <Space size={3} align={'center'}>
           {dragElement}
+          {deleteElement}
           {/* {initializerElement}
           {settingsElement} */}
         </Space>
