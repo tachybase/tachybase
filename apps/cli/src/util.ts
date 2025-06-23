@@ -225,30 +225,6 @@ export async function updateJsonFile(target: string, fn: any) {
   await writeFile(target, JSON.stringify(fn(json), null, 2), 'utf-8');
 }
 
-export async function getVersion() {
-  const { stdout } = await execa('npm', ['v', '@tachybase/app-server', 'versions']);
-  const versions = new Function(`return (${stdout})`)();
-  return versions[versions.length - 1];
-}
-
-function getPackagePath(moduleName: string) {
-  try {
-    return dirname(dirname(new URL(import.meta.resolve(`${moduleName}`)).pathname));
-  } catch {
-    return dirname(dirname(new URL(import.meta.resolve(`${moduleName}/src/index.ts`)).pathname));
-  }
-}
-
-function normalizePath(path: string) {
-  const isWindows = process.platform === 'win32';
-  if (isWindows) {
-    // windows /c:/xxx -> c:/xxx
-    return path.substring(1);
-  } else {
-    return path;
-  }
-}
-
 export function generateAppDir() {
   const defaultServerRoot = join(process.cwd(), 'apps/engine');
   const defaultClientRoot = join(process.cwd(), 'apps/app-web');

@@ -3,9 +3,6 @@
   "version": "1.2.13",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "build": "rsbuild build",
     "dev": "rsbuild dev --open",
