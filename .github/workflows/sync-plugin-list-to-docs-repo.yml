@@ -74,7 +74,7 @@ jobs:
         with:
           repository: tachybase/docs
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          path: docs
+          path: ../docs
           fetch-depth: 0
 
       - name: Debug - Check current directory after checkout docs
@@ -101,7 +101,7 @@ jobs:
           echo "🔍 复制文件前 - 当前工作目录: $(pwd)"
           # 确保目标目录存在
           mkdir -p ./docs/zh/plugins/
-          cp ./docs-dist/plugin-list.md ./docs/zh/plugins/plugin-list.md
+          cp ../tachybase/docs-dist/plugin-list.md ./docs/zh/plugins/plugin-list.md
           echo "✅ plugin-list.md copied to docs repo"
           echo "🔍 复制文件后 - 当前工作目录: $(pwd)"
 
