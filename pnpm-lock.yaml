@@ -2283,6 +2283,9 @@ importers:
       '@tachybase/client':
         specifier: workspace:*
         version: link:../client
+      '@tachybase/globals':
+        specifier: workspace:*
+        version: link:../globals
       '@tachybase/logger':
         specifier: workspace:*
         version: link:../logger

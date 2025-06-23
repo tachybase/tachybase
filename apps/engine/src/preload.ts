@@ -1,4 +1,3 @@
-import fs from 'node:fs';
 import { createRequire, Module } from 'node:module';
 import { resolve } from 'node:path';
 import TachybaseGlobal from '@tachybase/globals';
@@ -6,24 +5,16 @@ import TachybaseGlobal from '@tachybase/globals';
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
 
-// 处理 NODE_MODULES_PATH
-// 如果不存在的话，按照约定路径猜测
+// 默认 NODE_MODULES_PATH 搜索路径
 if (!process.env.NODE_MODULES_PATH) {
-  const paths = [];
-  if (fs.existsSync(resolve('storage', '.packages'))) {
-    paths.push(resolve('storage', '.packages'));
-  }
-  if (fs.existsSync(resolve('plugins'))) {
-    paths.push(resolve('storage', 'plugins'));
-  }
-  if (fs.existsSync(resolve('storage', '.plugins'))) {
-    paths.push(resolve('storage', '.plugins'));
-  }
-  if (paths.length === 0) {
-    process.env.NODE_MODULES_PATH = resolve('node_modules');
-  } else {
-    process.env.NODE_MODULES_PATH = paths.join(',');
-  }
+  process.env.NODE_MODULES_PATH = [
+    // 开发包
+    resolve('storage', '.packages'),
+    // 引擎初始化下载的插件
+    resolve('plugins'),
+    // 下载插件
+    resolve('storage', '.plugins'),
+  ].join(',');
 }
 
 // 解析 process.env.NODE_MODULES_PATH
@@ -92,15 +83,6 @@ Module._load = function (request: string, parent: NodeModule | null, isMain: boo
       const resolvedFromApp = require.resolve(request, { paths: lookingPaths });
       return originalLoad(resolvedFromApp, parent, isMain);
     } catch (err) {
-      for (const basePath of lookingPaths) {
-        // 支持非 node_modules 的加载
-        try {
-          const pluginRoot = resolve(basePath, request);
-          const fakeRequire = createRequire(pluginRoot + '/index.js');
-          const resolved = fakeRequire.resolve(pluginRoot);
-          return originalLoad(resolved, parent, isMain);
-        } catch {}
-      }
       // 这里不应该发生，但是我们依旧提供回退的机制，使用默认行为来加载模块
       if (err.code === 'MODULE_NOT_FOUND') {
         return originalLoad(request, parent, isMain);
