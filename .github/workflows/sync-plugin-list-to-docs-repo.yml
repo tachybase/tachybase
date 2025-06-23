@@ -69,26 +69,18 @@ jobs:
           echo "File size: $(wc -l < ./docs-dist/plugin-list.md) lines"
           echo "🔍 检查文件后 - 当前工作目录: $(pwd)"
 
-      - name: Checkout tachybase/docs Repo
-        uses: actions/checkout@v4
-        with:
-          repository: tachybase/docs
-          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          path: ../docs
-          fetch-depth: 0
-
-      - name: Debug - Check current directory after checkout docs
+      - name: Clone tachybase/docs Repo to parent directory
         run: |
-          echo "🔍 当前工作目录: $(pwd)"
-          echo "📁 主目录内容:"
+          echo "🔍 克隆 docs 仓库前 - 当前工作目录: $(pwd)"
+          git clone https://github.com/tachybase/docs.git docs-repo-temp
+          echo "🔍 克隆 docs 仓库后 - 当前工作目录: $(pwd)"
+          echo "📁 当前目录内容:"
           ls -la
-          echo "📁 父目录内容:"
-          ls -la ../ || echo "父目录不存在"
-          echo "📁 父目录下的 docs 子目录内容:"
-          ls -la ../docs/ || echo "docs 目录不存在"
+          echo "📁 docs-repo-temp 目录内容:"
+          ls -la docs-repo-temp/ || echo "docs-repo-temp 目录不存在"
 
       - name: Create backup of current plugin-list.md
-        working-directory: ../docs
+        working-directory: ./docs-repo-temp/docs
         run: |
           echo "🔍 创建备份前 - 当前工作目录: $(pwd)"
           if [ -f "./zh/plugins/plugin-list.md" ]; then
@@ -100,18 +92,18 @@ jobs:
           echo "🔍 创建备份后 - 当前工作目录: $(pwd)"
 
       - name: Copy plugins-list.md
-        working-directory: ../docs
+        working-directory: .
         run: |
           echo "🔍 复制文件前 - 当前工作目录: $(pwd)"
           # 确保目标目录存在
           mkdir -p ./zh/plugins/
-          cp ../tachybase/docs-dist/plugin-list.md ./zh/plugins/plugin-list.md
+          cp ./docs-dist/plugin-list.md ./docs-repo-temp/docs/zh/plugins/plugin-list.md
           echo "✅ plugin-list.md copied to docs repo"
           echo "🔍 复制文件后 - 当前工作目录: $(pwd)"
 
       - name: Check for changes
         id: check-changes
-        working-directory: ../docs
+        working-directory: ./docs-repo-temp/docs
         run: |
           echo "🔍 检查变更前 - 当前工作目录: $(pwd)"
           if git diff --quiet zh/plugins/plugin-list.md; then
@@ -125,7 +117,7 @@ jobs:
           echo "🔍 检查变更后 - 当前工作目录: $(pwd)"
 
       - name: Debug - Check current directory before PR creation
-        working-directory: ../docs
+        working-directory: ./docs-repo-temp/docs
         run: |
           echo "🔍 创建 PR 前 - 当前工作目录: $(pwd)"
           echo "📁 当前目录内容:"
@@ -136,7 +128,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          path: ../docs
+          path: ./docs-repo-temp/docs
           commit-message: "chore: sync plugins-list.md from tachybase/tachybase repo"
           title: "chore: sync plugins-list.md from tachybase/tachybase repo ${{ github.event.inputs.branch && format('(branch: {0})', github.event.inputs.branch) || '' }}"
           body: |
@@ -174,7 +166,7 @@ jobs:
 
       - name: Comment on PR if no changes
         if: steps.check-changes.outputs.no-changes == 'true'
-        working-directory: ../docs
+        working-directory: ./docs-repo-temp/docs
         run: |
           echo "🔍 无变更处理前 - 当前工作目录: $(pwd)"
           echo "ℹ️ No changes detected in plugin-list.md, skipping PR creation"
