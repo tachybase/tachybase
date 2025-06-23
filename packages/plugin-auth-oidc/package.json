@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-auth-oidc",
   "displayName": "Auth: OIDC",
-  "version": "1.2.13",
+  "version": "1.2.14",
   "description": "OIDC (OpenID Connect) authentication.",
   "keywords": [
     "Authentication"
