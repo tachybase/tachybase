@@ -5,12 +5,9 @@ import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
-import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useActionContext } from '../../../../schema-component';
-import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
 import { DateFormatCom, ExpiresRadio } from '../../../../schema-settings/DateFormat/ExpiresRadio';
-import { SchemaSettingsDateFormat } from '../../../../schema-settings/SchemaSettingsDateFormat';
 import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 
 const useStyles = createStyles(({ css }) => {

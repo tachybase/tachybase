@@ -21,6 +21,7 @@ import { useDetailsWithPaginationProps } from '../../modules/blocks/data-blocks/
 import { useDetailsDecoratorProps } from '../../modules/blocks/data-blocks/details-single/hooks/useDetailsDecoratorProps';
 import { useDetailsProps } from '../../modules/blocks/data-blocks/details-single/hooks/useDetailsProps';
 import { EditableFormItemSchemaToolbar } from '../../modules/blocks/data-blocks/form-editor/EditableFormItemSchemaToolbar';
+import { EditableFormToolbar } from '../../modules/blocks/data-blocks/form-editor/EditableFormToolbar';
 import { EditableSelectedFieldProvider } from '../../modules/blocks/data-blocks/form-editor/EditableSelectedFieldContext';
 import { FormItemSchemaToolbar } from '../../modules/blocks/data-blocks/form/FormItemSchemaToolbar';
 import { useCreateFormBlockDecoratorProps } from '../../modules/blocks/data-blocks/form/hooks/useCreateFormBlockDecoratorProps';
@@ -42,7 +43,6 @@ export class PluginBlockSchemaComponent extends Plugin {
   async load() {
     this.addComponents();
     this.addScopes();
-    this.addProvider();
   }
 
   addComponents() {
@@ -60,6 +60,7 @@ export class PluginBlockSchemaComponent extends Plugin {
       ActionSchemaToolbar,
       FormItemSchemaToolbar,
       EditableFormItemSchemaToolbar,
+      EditableFormToolbar,
       CollapseItemSchemaToolbar,
       TableColumnSchemaToolbar,
     });
@@ -94,9 +95,5 @@ export class PluginBlockSchemaComponent extends Plugin {
       useFilterFormBlockDecoratorProps,
       useGridCardBlockDecoratorProps,
     });
-  }
-
-  addProvider() {
-    this.app.addProvider(EditableSelectedFieldProvider);
   }
 }

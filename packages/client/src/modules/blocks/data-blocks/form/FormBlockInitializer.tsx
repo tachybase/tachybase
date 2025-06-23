@@ -9,7 +9,8 @@ import { Collection, CollectionFieldOptions } from '../../../../data-source/coll
 import { useDesignable, useSchemaComponentContext } from '../../../../schema-component';
 import { DataBlockInitializer } from '../../../../schema-initializer/items/DataBlockInitializer';
 import { findSchema } from '../../../../schema-initializer/utils';
-import { createCreateFormEditUISchema, FormSchemaEditor } from '../form-editor';
+import { createCreateFormEditUISchema, EditableSelectedFieldProvider, FormSchemaEditor } from '../form-editor';
+import { EditableSelectedFormProvider } from '../form-editor/EditableSelectedFormContent';
 import { createCreateFormBlockUISchema } from './createCreateFormBlockUISchema';
 
 export const FormBlockInitializer = ({
@@ -91,7 +92,11 @@ export const FormBlockInitializer = ({
         currentText={currentText}
         otherText={otherText}
       />
-      <FormSchemaEditor key={schemaUID} open={visible} onCancel={handleClose} options={pendingOptions} />
+      <EditableSelectedFormProvider>
+        <EditableSelectedFieldProvider>
+          <FormSchemaEditor key={schemaUID} open={visible} onCancel={handleClose} options={pendingOptions} />
+        </EditableSelectedFieldProvider>
+      </EditableSelectedFormProvider>
     </>
   );
 };

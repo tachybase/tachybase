@@ -9,12 +9,10 @@ import { useTranslation } from 'react-i18next';
 
 import { useApp, useSchemaToolbar } from '../../../../application';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
-import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext, useTableBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useCollectionFilterOptionsV2 } from '../../../../collection-manager/action-hooks';
-import { useFieldComponentName } from '../../../../common/useFieldComponentName';
-import { fieldComponentSettingsItem, useContextConfigSetting } from '../../../../data-source';
+import { useContextConfigSetting } from '../../../../data-source';
 import { FlagProvider, useFlag } from '../../../../flag-provider';
 import { useRecord } from '../../../../record-provider';
 import {
@@ -31,8 +29,6 @@ import {
   getFieldDefaultValue,
   getShouldChange,
   isPatternDisabled,
-  SchemaSettingsDefaultValue,
-  useIsAllowToSetDefaultValue,
   VariableInput,
 } from '../../../../schema-settings';
 import { ActionType } from '../../../../schema-settings/LinkageRules/type';

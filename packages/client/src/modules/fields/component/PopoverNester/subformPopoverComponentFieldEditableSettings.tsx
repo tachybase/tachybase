@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
 import { useFieldComponentName } from '../../../../common/useFieldComponentName';
 import { useCollectionField } from '../../../../data-source';
-import { useDesignable, useFieldModeOptions, useIsAddNewForm } from '../../../../schema-component';
+import { useFieldModeOptions, useIsAddNewForm } from '../../../../schema-component';
 import { isSubMode } from '../../../../schema-component/antd/association-field/util';
 import {
   useIsFieldReadPretty,

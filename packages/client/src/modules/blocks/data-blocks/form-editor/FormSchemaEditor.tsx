@@ -107,7 +107,8 @@ import { findSchema, removeGridFormItem } from '../../../../schema-initializer/u
 import { useStyles } from '../form/styles';
 import { createEditableDesignable, useEditableDesignable } from './EditableDesignable';
 import { EditableGrid } from './EditableGrid';
-import { useEditableSelectedField } from './EditableSelectedFieldContext';
+import { EditableSelectedFieldProvider, useEditableSelectedField } from './EditableSelectedFieldContext';
+import { useEditableSelectedForm } from './EditableSelectedFormContent';
 
 interface CreateFormBlockUISchemaOptions {
   dataSource: string;
@@ -159,6 +160,10 @@ function patchSchemaToolbars(schema: ISchema) {
     if (!node || typeof node !== 'object') return;
     if (node['x-toolbar'] === 'EditableFormItemSchemaToolbar') {
       node['x-toolbar'] = 'FormItemSchemaToolbar';
+    }
+    if (node['x-component'] === 'CardItem' || node['x-toolbar'] === 'EditableFormToolbar') {
+      node['x-toolbar'] = 'BlockSchemaToolbar';
+      node['x-settings'] = 'blockSettings:createForm';
     }
     if (node['x-component'] === 'EditableGrid') {
       node['x-initializer'] = 'form:configureFields';
@@ -965,7 +970,7 @@ const EditorFieldFormProperty = ({ schema, setSchemakey, eddn }) => {
           {
             label: t('表单属性'),
             key: 'form',
-            children: <EditorFormProperty schema={schema} setSchemakey={setSchemakey} />,
+            children: <EditorFormProperty schema={schema} />,
           },
         ]}
       />
@@ -987,361 +992,30 @@ const EditorFieldProperty = ({ schema, setSchemakey }) => {
   return shouldRender ? (
     <div key={schemaUID}>
       <AllSchemaProviders fieldSchema={fieldSchema} {...ctxValues}>
-        {/* <GenericProperties schema={schema} setSchemakey={setSchemakey} schemaUID={schemaUID} /> */}
-        <SpecificProperties />
+        <CollectionFieldProvider name={fieldSchema.name}>
+          <FieldProperties />
+        </CollectionFieldProvider>
       </AllSchemaProviders>
     </div>
-  ) : null;
-};
-
-const GenericProperties = ({ schema, setSchemakey, schemaUID }) => {
-  const app = useApp();
-
-  const fieldSchema = findSchema(schema, 'x-uid', schemaUID) || null;
-  if (!fieldSchema) {
-    return <div>未选中字段</div>;
-  }
-  const { getField } = useCollection_deprecated();
-  const { getInterface, getCollectionJoinField, getCollectionField } = useCollectionManager_deprecated();
-  const [optionsSchema, setOptionsSchema] = useState({});
-  const { layoutDirection = 'column' } = useContextConfigSetting();
-  const collectionField = fieldSchema
-    ? getField(fieldSchema['name']) || getCollectionJoinField(fieldSchema['x-collection-field'])
-    : null;
-  const interfaceConfig = getInterface(collectionField?.interface);
-  const validateSchema = interfaceConfig?.['validateSchema']?.(fieldSchema);
-  const title = getField(fieldSchema['name'])?.uiSchema?.title || null;
-  let readOnlyMode = 'editable';
-  if (fieldSchema['x-disabled'] === true) {
-    readOnlyMode = 'readonly';
-  }
-  if (fieldSchema['x-read-pretty'] === true) {
-    readOnlyMode = 'read-pretty';
-  }
-  const form = useMemo(
-    () =>
-      createForm({
-        values: {
-          editFieldTitle: fieldSchema.title ?? title,
-          displayTitle: fieldSchema['x-decorator-props']?.['showTitle'] ?? true,
-          editDescription: fieldSchema?.description,
-          editTooltip: fieldSchema?.['x-decorator-props']?.tooltip,
-          setDefaultValue: fieldSchema?.default,
-          layoutDirection: fieldSchema['x-decorator-props']?.layoutDirection ?? layoutDirection,
-          required: fieldSchema.required ?? false,
-          pattern: readOnlyMode,
-          setValidationRules: fieldSchema?.['x-validator'],
-        },
-      }),
-    [schemaUID],
-  );
-  // const fieldComponentName = collectionField?.uiSchema['x-component'];
-  // const componentSettings = app.schemaSettingsManager.get(`fieldSettings:component:${fieldComponentName}`);
-
-  useEffect(() => {
-    if (fieldSchema) {
-      setOptionsSchema(createOptionsSchema({ form, fieldSchema, validateSchema }));
-    }
-  }, [schemaUID]);
-  useEffect(() => {
-    if (!form || !fieldSchema) return;
-    const disposer = autorun(() => {
-      const {
-        editFieldTitle,
-        displayTitle,
-        editDescription,
-        editTooltip,
-        setDefaultValue,
-        layoutDirection,
-        required,
-        pattern,
-        setValidationRules = [],
-      } = form.values || {};
-
-      const oldStyle = fieldSchema['x-decorator-props']?.style || {};
-      const newStyle = {
-        ...oldStyle,
+  ) : (
+    <div
+      style={{
+        height: '100%',
         display: 'flex',
-        flexDirection: layoutDirection,
-        alignItems: layoutDirection === 'row' ? 'baseline' : 'unset',
-      };
-
-      let readPretty = false;
-      let disabled = false;
-
-      switch (pattern) {
-        case 'readonly':
-          readPretty = false;
-          disabled = true;
-          break;
-        case 'read-pretty':
-          readPretty = true;
-          disabled = false;
-          break;
-        default:
-          readPretty = false;
-          disabled = false;
-      }
-
-      const cleanedRules = (setValidationRules || []).map((rule) => {
-        const cleaned = _.pickBy(rule, _.identity);
-        return cleaned;
-      });
-
-      if (['percent'].includes(collectionField?.interface)) {
-        for (const rule of cleanedRules) {
-          if (rule.maxValue != null || rule.minValue != null) {
-            rule.percentMode = true;
-          }
-          if (rule.percentFormat) {
-            rule.percentFormats = true;
-          }
-        }
-      }
-
-      const patchSchema = {
-        'x-uid': fieldSchema['x-uid'],
-        title: editFieldTitle,
-        default: setDefaultValue,
-        description: editDescription,
-        required,
-        'x-read-pretty': readPretty,
-        'x-disabled': disabled,
-        'x-validator': cleanedRules,
-        'x-decorator-props': {
-          ...(fieldSchema['x-decorator-props'] || {}),
-          showTitle: !!displayTitle,
-          tooltip: editTooltip,
-          layoutDirection,
-          style: newStyle,
-        },
-      };
-      const hasChanged = !_.isEqual(
-        _.pick(fieldSchema, Object.keys(patchSchema)),
-        _.pick(patchSchema, Object.keys(patchSchema)),
-      );
-      const oldDecorator = fieldSchema['x-decorator-props'] || {};
-      const newDecorator = patchSchema['x-decorator-props'];
-      const decoratorChanged = !_.isEqual(oldDecorator, newDecorator);
-      if (hasChanged || decoratorChanged) {
-        Object.assign(fieldSchema, patchSchema);
-        setSchemakey(uid());
-      }
-    });
-    return () => {
-      disposer(); // 清理 reaction
-    };
-  }, [form, fieldSchema, collectionField?.interface]);
-
-  return (
-    <div key={schemaUID} style={{ padding: '10px' }}>
-      <SchemaComponent schema={optionsSchema} components={{ ArrayCollapse, FormLayout }} />
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#999',
+        fontSize: '14px',
+      }}
+    >
+      点击选择字段来设置属性
     </div>
   );
 };
 
-const createOptionsSchema = (props) => {
-  const { form, fieldSchema, validateSchema } = props;
-
-  return {
-    type: 'void',
-    properties: {
-      [uid()]: {
-        type: 'void',
-        'x-component': 'FormV2',
-        'x-component-props': { form },
-        properties: {
-          // actions: {
-          //   type: 'void',
-          //   'x-component': 'ActionBar',
-          //   'x-component-props': {
-          //     style: {
-          //       marginBottom: 16,
-          //     },
-          //   },
-          //   properties: {
-          //     // delete: {
-          //     //   type: 'void',
-          //     //   title: '{{ t("Delete") }}',
-          //     //   'x-action': 'destroy',
-          //     //   'x-component': 'Action',
-          //     //   'x-use-component-props': 'useFieldDestroyActionProps',
-          //     //   'x-component-props': {
-          //     //     icon: 'DeleteOutlined',
-          //     //     confirm: {
-          //     //       title: "{{t('Delete')}}",
-          //     //       content: "{{t('Are you sure you want to delete it?')}}",
-          //     //     },
-          //     //   },
-          //     // },
-          //     // update: {
-          //     //   title: '{{ t("Submit") }}',
-          //     //   'x-action': 'submit',
-          //     //   'x-component': 'Action',
-          //     //   'x-use-component-props': 'useEditFieldActionProps',
-          //     //   'x-component-props': {
-          //     //     type: 'primary',
-          //     //     htmlType: 'submit',
-          //     //   },
-          //     // },
-          //   },
-          // },
-          editFieldTitle: {
-            title: '{{t("Title")}}',
-            type: 'string',
-            'x-component': 'Input',
-            'x-decorator': 'FormItem',
-          },
-          displayTitle: {
-            type: 'boolean',
-            'x-content': '{{t("Display title")}}',
-            'x-component': 'Checkbox',
-            'x-decorator': 'FormItem',
-          },
-          required: {
-            type: 'boolean',
-            'x-content': '{{t("Required")}}',
-            'x-component': 'Checkbox',
-            'x-decorator': 'FormItem',
-            'x-reactions': {
-              fulfill: {
-                state: {
-                  visible: `{{!${fieldSchema['x-read-pretty']}}}`,
-                },
-              },
-            },
-          },
-          editDescription: {
-            type: 'string',
-            title: '{{t("Edit description")}}',
-            'x-component': 'Input.TextArea',
-            'x-decorator': 'FormItem',
-          },
-          editTooltip: {
-            type: 'string',
-            title: '{{t("Edit tooltip")}}',
-            'x-component': 'Input',
-            'x-decorator': 'FormItem',
-          },
-          setDefaultValue: {
-            default: fieldSchema?.default,
-            type: 'string',
-            title: '{{t("Default value")}}',
-            'x-decorator': 'FormItem',
-            'x-component': 'Input',
-          },
-          layoutDirection: {
-            type: 'string',
-            title: '{{t("Layout Direction")}}',
-            'x-decorator': 'FormItem',
-            'x-component': 'Select',
-            'x-component-props': {
-              showSearch: false,
-            },
-            enum: [
-              { label: '{{t("Row")}}', value: 'row' },
-              { label: '{{t("Column")}}', value: 'column' },
-            ],
-          },
-          pattern: {
-            type: 'string',
-            title: '{{t("Pattern")}}',
-            'x-decorator': 'FormItem',
-            'x-component': 'Select',
-            'x-component-props': {
-              showSearch: false,
-            },
-            enum: [
-              { label: '{{t("Editable")}}', value: 'editable' },
-              { label: '{{t("Readonly")}}', value: 'readonly' },
-              { label: '{{t("Easy-reading")}}', value: 'read-pretty' },
-            ],
-          },
-          setValidationRules: {
-            type: 'array',
-            title: '{{t("Set validation rules")}}',
-            'x-component': 'ArrayCollapse',
-            'x-decorator': 'FormItem',
-            'x-component-props': {
-              accordion: true,
-            },
-            maxItems: 3,
-            items: {
-              type: 'object',
-              'x-component': 'ArrayCollapse.CollapsePanel',
-              'x-component-props': {
-                header: '{{ t("Validation rule") }}',
-              },
-              properties: {
-                index: {
-                  type: 'void',
-                  'x-component': 'ArrayCollapse.Index',
-                },
-                layout: {
-                  type: 'void',
-                  'x-component': 'FormLayout',
-                  'x-component-props': {
-                    labelStyle: {
-                      marginTop: '6px',
-                    },
-                    labelCol: 8,
-                    wrapperCol: 16,
-                  },
-                  properties: {
-                    ...validateSchema,
-                    message: {
-                      type: 'string',
-                      title: '{{ t("Error message") }}',
-                      'x-decorator': 'FormItem',
-                      'x-component': 'Input.TextArea',
-                      'x-component-props': {
-                        autoSize: {
-                          minRows: 2,
-                          maxRows: 2,
-                        },
-                      },
-                    },
-                  },
-                },
-                remove: {
-                  type: 'void',
-                  'x-component': 'ArrayCollapse.Remove',
-                },
-                moveUp: {
-                  type: 'void',
-                  'x-component': 'ArrayCollapse.MoveUp',
-                },
-                moveDown: {
-                  type: 'void',
-                  'x-component': 'ArrayCollapse.MoveDown',
-                },
-              },
-            },
-            properties: {
-              add: {
-                type: 'void',
-                title: '{{ t("Add validation rule") }}',
-                'x-component': 'ArrayCollapse.Addition',
-                'x-reactions': {
-                  dependencies: ['setValidationRules'],
-                  fulfill: {
-                    state: {
-                      disabled: '{{$deps[0].length >= 3}}',
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  };
-};
-
-const SpecificProperties = () => {
+const FieldProperties = () => {
   const fieldComponentName = useFieldComponentName();
-  return <SpecificPropertiesContent key={fieldComponentName} fieldComponentName={fieldComponentName} />;
+  return <FieldPropertiesContent key={fieldComponentName} fieldComponentName={fieldComponentName} />;
 };
 
 export const AllSchemaProviders = ({
@@ -1366,18 +1040,16 @@ export const AllSchemaProviders = ({
               <SchemaExpressionScopeContext.Provider value={expressionScope}>
                 <SchemaComponentsContext.Provider value={schemaComponents}>
                   <SchemaOptionsContext.Provider value={schemaOptions}>
-                    <CollectionFieldProvider name={fieldSchema.name}>
-                      <FormBlockContext.Provider value={formBlockValue}>
-                        <FormActiveFieldsProvider
-                          name="form"
-                          getActiveFieldsName={upLevelActiveFields?.getActiveFieldsName}
-                        >
-                          <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
-                            {children}
-                          </SchemaComponentContext.Provider>
-                        </FormActiveFieldsProvider>
-                      </FormBlockContext.Provider>
-                    </CollectionFieldProvider>
+                    <FormBlockContext.Provider value={formBlockValue}>
+                      <FormActiveFieldsProvider
+                        name="form"
+                        getActiveFieldsName={upLevelActiveFields?.getActiveFieldsName}
+                      >
+                        <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
+                          {children}
+                        </SchemaComponentContext.Provider>
+                      </FormActiveFieldsProvider>
+                    </FormBlockContext.Provider>
                   </SchemaOptionsContext.Provider>
                 </SchemaComponentsContext.Provider>
               </SchemaExpressionScopeContext.Provider>
@@ -1389,40 +1061,51 @@ export const AllSchemaProviders = ({
   );
 };
 
-const EditorFormProperty = ({ schema, setSchemakey }) => {
-  return <div></div>;
-};
-
-export const SpecificPropertiesContent = ({ fieldComponentName }) => {
+export const FieldPropertiesContent = ({ fieldComponentName }) => {
   const app = useApp();
   const [form] = useState(() => createForm());
-  const [itemStates, setItemStates] = useState({});
-
   const specificItems =
     app.editableSchemaSettingsManager.get(`editableFieldSettings:component:${fieldComponentName}`)?.options?.items ??
     [];
   const genericItems = app.editableSchemaSettingsManager.get('editableFieldSettings:FormItem')?.options?.items ?? [];
 
   const items = [...genericItems, ...specificItems];
+  const { handleUpdate, components, fullSchema, itemStates, initialValues } = useEditableItems(items);
+
+  form.setValues(initialValues);
+
+  return (
+    <div style={{ padding: '10px' }}>
+      {items.map((item, index) => (
+        <ItemWithHooks
+          key={item.name || index}
+          item={item}
+          onUpdate={(state) => handleUpdate(item.name || index, state)}
+        />
+      ))}
+      <SchemaComponent schema={fullSchema} components={components} />
+    </div>
+  );
+};
+
+const useEditableItems = (items: any[]) => {
+  const [itemStates, setItemStates] = useState({});
 
   const handleUpdate = useCallback((name, state) => {
     setItemStates((prev) => {
-      if (prev[name] === state) {
-        return prev;
-      }
-      return {
-        ...prev,
-        [name]: state,
-      };
+      if (prev[name] === state) return prev;
+      return { ...prev, [name]: state };
     });
   }, []);
 
-  const components = items.reduce((acc, item) => {
-    if (item.components && typeof item.components === 'object') {
-      Object.assign(acc, item.components);
-    }
-    return acc;
-  }, {});
+  const components = useMemo(() => {
+    return items.reduce((acc, item) => {
+      if (item.components && typeof item.components === 'object') {
+        Object.assign(acc, item.components);
+      }
+      return acc;
+    }, {});
+  }, [items]);
 
   const fieldSchemas = {};
   const initialValues = {};
@@ -1444,31 +1127,26 @@ export const SpecificPropertiesContent = ({ fieldComponentName }) => {
     }
   }
 
-  form.setValues(initialValues);
-
-  const fullSchema = {
+  const schema = {
     type: 'void',
     properties: {
       [uid()]: {
         type: 'void',
         'x-component': 'FormV2',
-        'x-component-props': { form },
+        'x-component-props': {},
         properties: fieldSchemas,
       },
     },
   };
-  return (
-    <div style={{ padding: '10px' }}>
-      {items.map((item, index) => (
-        <ItemWithHooks
-          key={item.name || index}
-          item={item}
-          onUpdate={(state) => handleUpdate(item.name || index, state)}
-        />
-      ))}
-      <SchemaComponent schema={fullSchema} components={components} />
-    </div>
-  );
+
+  return {
+    itemStates,
+    handleUpdate,
+    components,
+    fieldSchemas,
+    initialValues,
+    fullSchema: schema,
+  };
 };
 
 const ItemWithHooks = ({ item, onUpdate }) => {
@@ -1482,6 +1160,43 @@ const ItemWithHooks = ({ item, onUpdate }) => {
     });
   }, [item.name, isVisible]);
   return null;
+};
+
+const EditorFormProperty = ({ schema }) => {
+  const allCTX = useEditableSelectedForm();
+  const { setEditableForm, fieldSchema, ...ctxValues } = allCTX;
+
+  const shouldRender = schema && fieldSchema?.name;
+  return shouldRender ? (
+    <div>
+      <AllSchemaProviders fieldSchema={fieldSchema} {...ctxValues}>
+        <FormPropertyContent />
+      </AllSchemaProviders>
+    </div>
+  ) : null;
+};
+
+const FormPropertyContent = () => {
+  const app = useApp();
+  const [form] = useState(() => createForm());
+  const formPropertyItems =
+    app.editableSchemaSettingsManager.get('blockEditableSettings:createForm')?.options?.items ?? [];
+  const { handleUpdate, components, fullSchema, itemStates, initialValues } = useEditableItems(formPropertyItems);
+
+  form.setValues(initialValues);
+
+  return (
+    <div style={{ padding: '10px' }}>
+      {formPropertyItems.map((item, index) => (
+        <ItemWithHooks
+          key={item.name || index}
+          item={item}
+          onUpdate={(state) => handleUpdate(item.name || index, state)}
+        />
+      ))}
+      <SchemaComponent schema={fullSchema} components={components} />
+    </div>
+  );
 };
 
 const useFormFieldButtonWrappers = (options?: any) => {
@@ -1776,8 +1491,8 @@ export function createCreateFormEditUISchema(options: CreateFormBlockUISchemaOpt
       association,
       // isCusomeizeCreate,
     },
-    'x-toolbar': 'BlockSchemaToolbar',
-    'x-settings': 'blockSettings:createForm',
+    'x-toolbar': 'EditableFormToolbar',
+    // 'x-settings': 'blockEditableSettings:createForm',
     'x-component': 'CardItem',
     properties: {
       [uid()]: {

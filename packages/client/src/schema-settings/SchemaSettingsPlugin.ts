@@ -24,6 +24,7 @@ import {
   detailsBlockSettings,
   singleDataDetailsBlockSettings,
 } from '../modules/blocks/data-blocks/details-single/detailsBlockSettings';
+import { createFormBlockEditableSettings } from '../modules/blocks/data-blocks/form-editor/createFormBlockEditableSettings';
 import { formItemFieldEditableSettings } from '../modules/blocks/data-blocks/form-editor/formItemFieldEditableSettings';
 import {
   createFormBlockSettings,
@@ -145,6 +146,7 @@ export class SchemaSettingsPlugin extends Plugin {
 
     // editable formItem settings
     this.app.editableSchemaSettingsManager.add(formItemFieldEditableSettings);
+    this.app.editableSchemaSettingsManager.add(createFormBlockEditableSettings);
 
     // editable field component settings
     this.app.editableSchemaSettingsManager.add(selectComponentFieldEditableSettings);

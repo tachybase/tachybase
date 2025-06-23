@@ -1,13 +1,11 @@
 import React from 'react';
 // import { useCollectionField } from '../utils';
-import { ArrayItems } from '@tachybase/components';
 import { createForm, Field, ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
-import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
 import { useFormBlockContext } from '../../../../block-provider';
 import {
   useCollection_deprecated,
@@ -22,7 +20,6 @@ import { useRecord } from '../../../../record-provider';
 import {
   removeNullCondition,
   useActionContext,
-  useDesignable,
   useFieldModeOptions,
   useIsAddNewForm,
 } from '../../../../schema-component';
@@ -31,19 +28,10 @@ import { DynamicComponentProps } from '../../../../schema-component/antd/filter/
 import {
   useIsAssociationField,
   useIsFieldReadPretty,
-  useIsSelectFieldMode,
   useTitleFieldOptions,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import {
-  BaseVariableProvider,
-  getShouldChange,
-  IsDisabledParams,
-  SchemaSettingsModalItem,
-  SchemaSettingsSwitchItem,
-  VariableInput,
-} from '../../../../schema-settings';
-import { SchemaSettingsDataScope } from '../../../../schema-settings/SchemaSettingsDataScope';
+import { BaseVariableProvider, getShouldChange, IsDisabledParams, VariableInput } from '../../../../schema-settings';
 import { useLocalVariables, useVariables } from '../../../../variables';
 import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 
@@ -121,11 +109,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
         const variables = useVariables();
         const localVariables = useLocalVariables();
         const { refresh } = useEditableDesignable();
-        console.log(
-          "%c Line:170 🥛 fieldSchema?.['x-component-props']?.service?.params?.filter",
-          'font-size:18px;color:#4fff4B;background:#7f2b82',
-          fieldSchema?.['x-component-props']?.service?.params?.filter,
-        );
         const { getFields } = useCollectionFilterOptionsV2(collectionField?.target);
         const dynamicComponent = (props: DynamicComponentProps) => {
           return (

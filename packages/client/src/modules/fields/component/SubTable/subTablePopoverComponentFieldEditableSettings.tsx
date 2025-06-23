@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { ArrayItems, Switch } from '@tachybase/components';
 import { createForm, Field, ISchema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 

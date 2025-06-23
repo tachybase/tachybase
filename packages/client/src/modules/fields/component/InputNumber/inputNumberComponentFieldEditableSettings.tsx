@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
 import { useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useCollectionField, useDataSourceManager } from '../../../../data-source';
-import { useActionContext, useCompile, useDesignable } from '../../../../schema-component';
+import { useActionContext, useCompile } from '../../../../schema-component';
 import { useIsFieldReadPretty } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
 import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';

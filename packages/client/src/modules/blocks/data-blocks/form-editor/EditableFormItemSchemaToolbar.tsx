@@ -10,24 +10,16 @@ import {
   SchemaExpressionScopeContext,
   SchemaMarkupContext,
 } from '../../../../../../schema/src/react';
-import { useSchemaInitializerRender, useSchemaSettingsRender } from '../../../../application';
 import { useFormActiveFields, useFormBlockContext } from '../../../../block-provider';
-import { useDataSource, useDataSourceManager } from '../../../../data-source';
 import {
   DragHandler,
   SortableContext,
   Space,
-  useCompile,
   useDesignable,
-  useGridContext,
-  useGridRowContext,
-  useSchemaComponentContext,
   useSchemaOptionsContext,
 } from '../../../../schema-component';
-import { gridRowColWrap } from '../../../../schema-initializer';
 import { SchemaToolbarProps, useGetAriaLabelOfDesigner } from '../../../../schema-settings';
 import { useStyles } from '../../../../schema-settings/styles';
-import { useBlockTemplateContext } from '../../../../schema-templates/BlockTemplate';
 import { useEditableDesignable } from './EditableDesignable';
 import { useEditableSelectedField } from './EditableSelectedFieldContext';
 
@@ -57,47 +49,13 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
   const schemaOptions = useSchemaOptionsContext();
   const { t } = useTranslation();
   const field = useField<Field>();
-  const compile = useCompile();
   const { styles } = useStyles();
   const { getAriaLabel } = useGetAriaLabelOfDesigner();
   const { setEditableField } = useEditableSelectedField();
   const { removeActiveFieldName } = useFormActiveFields() || {};
   const { dn } = useEditableDesignable();
-  const dm = useDataSourceManager();
-  const dataSources = dm?.getDataSources();
-  const dataSourceContext = useDataSource();
-  const { draggable } = useContext(SortableContext);
-  const dataSource = dataSources?.length > 1 && dataSourceContext;
-  const titleArr = useMemo(() => {
-    if (!title) return undefined;
-    if (typeof title === 'string') return [compile(title)];
-    if (Array.isArray(title)) return title.map((item) => compile(item));
-  }, [compile, title]);
-  const { render: schemaSettingsRender, exists: schemaSettingsExists } = useSchemaSettingsRender(
-    fieldSchema['x-settings'] || settings,
-    fieldSchema['x-settings-props'],
-  );
-  const { render: schemaInitializerRender, exists: schemaInitializerExists } = useSchemaInitializerRender(
-    fieldSchema['x-initializer'] || initializer,
-    fieldSchema['x-initializer-props'],
-  );
-  const rowCtx = useGridRowContext();
-  const gridContext = useGridContext();
 
-  const initializerProps: any = useMemo(() => {
-    return {
-      insertPosition: 'afterEnd',
-      wrap: rowCtx?.cols?.length > 1 ? undefined : gridRowColWrap,
-      Component: (props: any) => (
-        <PlusOutlined
-          {...props}
-          role="button"
-          aria-label={getAriaLabel('schema-initializer')}
-          style={{ cursor: 'pointer', fontSize: 14 }}
-        />
-      ),
-    };
-  }, [getAriaLabel, rowCtx?.cols?.length]);
+  const { draggable } = useContext(SortableContext);
 
   const dragElement = useMemo(() => {
     if (draggable === false) return null;
@@ -138,23 +96,6 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       </Popconfirm>
     );
   }, []);
-
-  const initializerElement = useMemo(() => {
-    if (initializer === false) return null;
-    if (gridContext?.InitializerComponent || gridContext?.renderSchemaInitializer) {
-      return gridContext?.InitializerComponent ? (
-        <gridContext.InitializerComponent {...initializerProps} />
-      ) : (
-        gridContext.renderSchemaInitializer?.(initializerProps)
-      );
-    }
-    if (!schemaInitializerExists) return null;
-    return schemaInitializerRender(initializerProps);
-  }, [gridContext, initializer, initializerProps, schemaInitializerExists, schemaInitializerRender]);
-
-  const settingsElement = useMemo(() => {
-    return settings !== false && schemaSettingsExists ? schemaSettingsRender() : null;
-  }, [schemaSettingsExists, schemaSettingsRender, settings]);
 
   const toolbarRef = useRef<HTMLDivElement>(null);
 
@@ -221,30 +162,10 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
       className={styles.toolbar}
       style={{ border: showBorder ? 'auto' : 0, background: showBackground ? 'auto' : 0 }}
     >
-      {/* {titleArr && (
-        <div className={styles.toolbarTitle}>
-          <Space size={2}>
-            {titleArr.map((item) => (
-              <span key={item} className={styles.toolbarTitleTag}>
-                {dataSource ? `${compile(dataSource?.displayName)} > ${item}` : item}
-              </span>
-            ))}
-          </Space>
-        </div>
-      )}
-      <div className={styles.toolbarIcons}>
-        <Space size={3} align={'center'}>
-          {dragElement}
-          {initializerElement}
-          {settingsElement}
-        </Space>
-      </div> */}
       <div className={styles.toolbarIcons}>
         <Space size={3} align={'center'}>
           {dragElement}
           {deleteElement}
-          {/* {initializerElement}
-          {settingsElement} */}
         </Space>
       </div>
     </div>
