@@ -85,8 +85,6 @@ jobs:
           echo "🔍 创建备份前 - 当前工作目录: $(pwd)"
           if [ -f "./zh/plugins/plugin-list.md" ]; then
             cp ./zh/plugins/plugin-list.md ./zh/plugins/plugin-list.md.backup
-          if [ -f "./zh/plugins/plugin-list.md" ]; then
-            cp ./zh/plugins/plugin-list.md ./zh/plugins/plugin-list.md.backup
             echo "✅ Backup created"
           else
             echo "⚠️ No existing plugin-list.md found"
