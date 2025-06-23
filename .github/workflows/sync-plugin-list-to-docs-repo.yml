@@ -34,23 +34,40 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.inputs.branch || github.ref }}
 
+      - name: Debug - Check current directory after checkout tachybase
+        run: |
+          echo "🔍 当前工作目录: $(pwd)"
+          echo "📁 目录内容:"
+          ls -la
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
+      - name: Debug - Check current directory after setup Node
+        run: |
+          echo "🔍 当前工作目录: $(pwd)"
+          echo "📁 目录内容:"
+          ls -la
+
       - name: Generate plugins list
-        run: node scripts/generate-plugin-list.mjs
+        run: |
+          echo "🔍 生成插件列表前 - 当前工作目录: $(pwd)"
+          node scripts/generate-plugin-list.mjs
+          echo "🔍 生成插件列表后 - 当前工作目录: $(pwd)"
         id: generate-plugins
 
       - name: Check if plugin-list.md was generated
         run: |
+          echo "🔍 检查文件前 - 当前工作目录: $(pwd)"
           if [ ! -f "./docs-dist/plugin-list.md" ]; then
             echo "❌ plugin-list.md was not generated"
             exit 1
           fi
           echo "✅ plugin-list.md generated successfully"
           echo "File size: $(wc -l < ./docs-dist/plugin-list.md) lines"
+          echo "🔍 检查文件后 - 当前工作目录: $(pwd)"
 
       - name: Checkout tachybase/docs Repo
         uses: actions/checkout@v4
@@ -60,26 +77,40 @@ jobs:
           path: docs
           fetch-depth: 0
 
+      - name: Debug - Check current directory after checkout docs
+        run: |
+          echo "🔍 当前工作目录: $(pwd)"
+          echo "📁 主目录内容:"
+          ls -la
+          echo "📁 docs 子目录内容:"
+          ls -la docs/ || echo "docs 目录不存在"
+
       - name: Create backup of current plugin-list.md
         run: |
+          echo "🔍 创建备份前 - 当前工作目录: $(pwd)"
           if [ -f "./docs/zh/plugins/plugin-list.md" ]; then
             cp ./docs/zh/plugins/plugin-list.md ./docs/zh/plugins/plugin-list.md.backup
             echo "✅ Backup created"
           else
             echo "⚠️ No existing plugin-list.md found"
           fi
+          echo "🔍 创建备份后 - 当前工作目录: $(pwd)"
 
       - name: Copy plugins-list.md
         run: |
+          echo "🔍 复制文件前 - 当前工作目录: $(pwd)"
           # 确保目标目录存在
           mkdir -p ./docs/zh/plugins/
           cp ./docs-dist/plugin-list.md ./docs/zh/plugins/plugin-list.md
           echo "✅ plugin-list.md copied to docs repo"
+          echo "🔍 复制文件后 - 当前工作目录: $(pwd)"
 
       - name: Check for changes
         id: check-changes
         run: |
+          echo "🔍 检查变更前 - 当前工作目录: $(pwd)"
           cd docs
+          echo "🔍 切换到 docs 目录后 - 当前工作目录: $(pwd)"
           if git diff --quiet zh/plugins/plugin-list.md; then
             echo "no-changes=true" >> $GITHUB_OUTPUT
             echo "ℹ️ No changes detected in plugin-list.md"
@@ -88,6 +119,13 @@ jobs:
             echo "✅ Changes detected in plugin-list.md"
             git diff --stat zh/plugins/plugin-list.md
           fi
+          echo "🔍 检查变更后 - 当前工作目录: $(pwd)"
+
+      - name: Debug - Check current directory before PR creation
+        run: |
+          echo "🔍 创建 PR 前 - 当前工作目录: $(pwd)"
+          echo "📁 当前目录内容:"
+          ls -la
 
       - name: Commit and push to docs Repo
         if: steps.check-changes.outputs.no-changes == 'false'
@@ -123,7 +161,16 @@ jobs:
             automated
             documentation
             sync
+
+      - name: Debug - Check current directory after PR creation
+        run: |
+          echo "🔍 创建 PR 后 - 当前工作目录: $(pwd)"
+          echo "📁 当前目录内容:"
+          ls -la
+
       - name: Comment on PR if no changes
         if: steps.check-changes.outputs.no-changes == 'true'
         run: |
+          echo "🔍 无变更处理前 - 当前工作目录: $(pwd)"
           echo "ℹ️ No changes detected in plugin-list.md, skipping PR creation"
+          echo "🔍 无变更处理后 - 当前工作目录: $(pwd)"
