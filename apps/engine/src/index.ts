@@ -2,6 +2,7 @@ import './preload';
 
 import { performance } from 'node:perf_hooks';
 import { Gateway } from '@tachybase/server';
+import { createDevPluginsSymlink, createStoragePluginsSymlink } from '@tachybase/utils';
 
 import { Command } from 'commander';
 
@@ -16,6 +17,10 @@ const program = new Command();
 program.name('tachybase-engine').version(require('../package.json').version);
 
 const run = async () => {
+  // 初始化插件链接
+  await createDevPluginsSymlink();
+  await createStoragePluginsSymlink();
+
   console.log(`Engine loaded at ${performance.now().toFixed(2)} ms`);
   await Gateway.getInstance().run({
     mainAppOptions: (await getConfig()) as any,

@@ -18,6 +18,7 @@
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
     "@tachybase/client": "workspace:*",
+    "@tachybase/globals": "workspace:*",
     "@tachybase/logger": "workspace:*",
     "@tachybase/module-collection": "workspace:*",
     "@tachybase/module-user": "workspace:*",

@@ -19,6 +19,7 @@ export const EXTERNAL = [
   '@tachybase/server',
   '@tachybase/test',
   '@tachybase/utils',
+  '@tachybase/globals',
 
   // @tachybase/auth
   'jsonwebtoken',

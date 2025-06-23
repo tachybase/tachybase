@@ -2,11 +2,12 @@ import fs from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { isMainThread } from 'node:worker_threads';
 import { Model, Transactionable } from '@tachybase/database';
+import TachybaseGlobal from '@tachybase/globals';
 import { LoggerOptions } from '@tachybase/logger';
 import { Container, fsExists, importModule } from '@tachybase/utils';
 
 import { globSync } from 'glob';
-import type { ParseKeys, TFunction, TOptions } from 'i18next';
+import type { ParseKeys, TOptions } from 'i18next';
 
 import { Application } from './application';
 import { getExposeChangelogUrl, getExposeReadmeUrl, InstallOptions } from './plugin-manager';
@@ -189,13 +190,15 @@ export abstract class Plugin implements PluginInterface {
    * @internal
    */
   async loadCommands() {
+    const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+    for (const basePath of pluginPaths) {
+      await this.loadCommandFromPath(basePath);
+    }
+  }
+
+  async loadCommandFromPath(basePath: string) {
     const extensions = ['js', 'ts'];
-    const directory = resolve(
-      process.env.NODE_MODULES_PATH,
-      this.options.packageName,
-      await this.getSourceDir(),
-      'server/commands',
-    );
+    const directory = resolve(basePath, this.options.packageName, await this.getSourceDir(), 'server/commands');
     const patten = `${directory}/*.{${extensions.join(',')}}`;
     const files = globSync(patten, {
       ignore: ['**/*.d.ts'],
@@ -215,12 +218,24 @@ export abstract class Plugin implements PluginInterface {
    * @internal
    */
   async loadMigrations() {
+    const result = { beforeLoad: [], afterSync: [], afterLoad: [] };
+    const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+    for (const basePath of pluginPaths) {
+      const { beforeLoad, afterSync, afterLoad } = await this.loadMigrationsFromPath(basePath);
+      result.beforeLoad.push(...beforeLoad);
+      result.afterSync.push(...afterSync);
+      result.afterLoad.push(...afterLoad);
+    }
+    return result;
+  }
+
+  async loadMigrationsFromPath(basePath: string) {
     this.app.logger.debug(`load plugin migrations [${this.name}]`);
     if (!this.options.packageName) {
       return { beforeLoad: [], afterSync: [], afterLoad: [] };
     }
     const directory = resolve(
-      process.env.NODE_MODULES_PATH,
+      basePath,
       this.options.packageName,
       await this.getSourceDir(),
       'server/migrations',
@@ -238,15 +253,16 @@ export abstract class Plugin implements PluginInterface {
    * @internal
    */
   async loadCollections() {
+    const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+    for (const basePath of pluginPaths) {
+      await this.loadCollectionsFromPath(basePath);
+    }
+  }
+  async loadCollectionsFromPath(basePath: string) {
     if (!this.options.packageName) {
       return;
     }
-    const directory = resolve(
-      process.env.NODE_MODULES_PATH,
-      this.options.packageName,
-      await this.getSourceDir(),
-      'server/collections',
-    );
+    const directory = resolve(basePath, this.options.packageName, await this.getSourceDir(), 'server/collections');
     if (await fsExists(directory)) {
       await this.db.import({
         directory,
@@ -268,14 +284,26 @@ export abstract class Plugin implements PluginInterface {
 
   /**
    * @internal
+   * TODO 换一种判断，这类替换 NODE_MODULES_PATH 有点奇怪
    */
   protected async isDev() {
     if (!this.options.packageName) {
       return false;
     }
-    const file = await fs.promises.realpath(
-      resolve(process.env.NODE_MODULES_PATH || resolve(process.cwd(), 'node_modules'), this.options.packageName),
-    );
+
+    const pluginPaths = [
+      ...TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS'),
+      resolve(process.cwd(), 'node_modules'),
+    ];
+    let path;
+    for (const basePath of pluginPaths) {
+      if (fsExists(resolve(basePath, this.options.packageName))) {
+        path = resolve(basePath, this.options.packageName);
+        break;
+      }
+    }
+
+    const file = await fs.promises.realpath(path);
     if (file.startsWith(resolve(process.cwd(), 'packages'))) {
       return !!process.env.IS_DEV_CMD;
     }
@@ -305,9 +333,25 @@ export abstract class Plugin implements PluginInterface {
     };
 
     if (!options.withOutOpenFile) {
-      const file = await fs.promises.realpath(
-        resolve(process.env.NODE_MODULES_PATH || resolve(process.cwd(), 'node_modules'), packageName),
-      );
+      const pluginPaths =
+        TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS') ||
+        [process.env.NODE_MODULES_PATH, resolve(process.cwd(), 'node_modules')].filter(Boolean); // 过滤 undefined
+
+      let file: string | undefined;
+
+      for (const basePath of pluginPaths) {
+        const fullPath = resolve(basePath, packageName);
+        try {
+          file = await fs.promises.realpath(fullPath);
+          break;
+        } catch {
+          // 不存在，跳过
+        }
+      }
+
+      if (!file) {
+        throw new Error(`Cannot resolve real path for ${packageName} in any PLUGIN_PATHS`);
+      }
 
       return {
         ...results,

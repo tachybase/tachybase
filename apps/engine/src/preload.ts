@@ -1,19 +1,26 @@
-import fs from 'node:fs';
-import { Module } from 'node:module';
+import { createRequire, Module } from 'node:module';
 import { resolve } from 'node:path';
+import TachybaseGlobal from '@tachybase/globals';
 
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
 
-// 处理 NODE_MODULES_PATH
-// 如果不存在的话，按照约定路径猜测
+// 默认 NODE_MODULES_PATH 搜索路径
 if (!process.env.NODE_MODULES_PATH) {
-  if (fs.existsSync(resolve('plugins', 'node_modules'))) {
-    process.env.NODE_MODULES_PATH = resolve('plugins', 'node_modules');
-  } else {
-    process.env.NODE_MODULES_PATH = resolve('node_modules');
-  }
+  process.env.NODE_MODULES_PATH = [
+    // 开发包
+    resolve('storage', '.packages'),
+    // 引擎初始化下载的插件
+    resolve('plugins'),
+    // 下载插件
+    resolve('storage', '.plugins'),
+  ].join(',');
 }
+
+// 解析 process.env.NODE_MODULES_PATH
+// TODO 我们马上切换到配置文件的形式，而不是环境变量
+const paths = process.env.NODE_MODULES_PATH.split(',');
+TachybaseGlobal.getInstance().set('PLUGIN_PATHS', paths);
 
 declare module 'node:module' {
   // 扩展 NodeJS.Module 静态属性
@@ -62,7 +69,7 @@ if (process.env.ENGINE_MODULES) {
 }
 
 // 加载路径包含两个，一个是引擎的启动目录，另一个是指定的插件目录
-const lookingPaths = process.env.NODE_MODULES_PATH ? [appRoot, process.env.NODE_MODULES_PATH] : [appRoot];
+const lookingPaths = [appRoot, ...TachybaseGlobal.getInstance().get('PLUGIN_PATHS')];
 
 // 带给子进程加载路径
 process.env.TACHYBASE_WORKER_PATHS = lookingPaths.join(',');

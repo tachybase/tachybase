@@ -1,9 +1,20 @@
-import fs from 'fs';
-import { dirname, resolve } from 'path';
+import fs from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import TachybaseGlobal from '@tachybase/globals';
 
 import dayjs from 'dayjs';
 
 import Application from '../application';
+
+async function findRealPathFromPaths(paths: string[], subPath: string): Promise<string> {
+  for (const base of paths) {
+    const fullPath = resolve(base, subPath);
+    try {
+      return await fs.promises.realpath(fullPath);
+    } catch {}
+  }
+  throw new Error(`Cannot resolve real path for ${subPath}`);
+}
 
 export default (app: Application) => {
   app
@@ -13,7 +24,8 @@ export default (app: Application) => {
     .option('--on [on]')
     .action(async (name, options) => {
       const pkg = options.pkg;
-      const dir = await fs.promises.realpath(resolve(process.env.NODE_MODULES_PATH, pkg));
+      const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+      const dir = await findRealPathFromPaths(pluginPaths, pkg);
       const filename = resolve(
         dir,
         pkg === '@tachybase/server' ? 'src' : 'src/server',
