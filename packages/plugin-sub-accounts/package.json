@@ -12,7 +12,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "minimatch": "^5.1.6"
+    "minimatch": "^10.0.3"
   },
   "peerDependencies": {
     "@tachybase/acl": "workspace:*",
