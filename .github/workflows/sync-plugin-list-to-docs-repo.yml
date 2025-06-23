@@ -11,12 +11,12 @@ on:
   workflow_dispatch:
     inputs:
       branch:
-        description: '要同步的分支名称'
+        description: 'Branch name to sync'
         required: false
         default: 'main'
         type: string
       reason:
-        description: '同步原因（可选）'
+        description: 'Sync reason (optional)'
         required: false
         type: string
 
@@ -52,18 +52,15 @@ jobs:
           echo "✅ plugin-list.md generated successfully"
           echo "File size: $(wc -l < ./docs-dist/plugin-list.md) lines"
 
-      - name: Checkout tachybase/docs Repo
-        uses: actions/checkout@v4
-        with:
-          repository: tachybase/docs
-          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          path: docs
-          fetch-depth: 0
+      - name: Clone tachybase/docs Repo
+        run: |
+          git clone https://github.com/tachybase/docs.git docs-repo-temp
 
       - name: Create backup of current plugin-list.md
+        working-directory: ./docs-repo-temp/docs
         run: |
-          if [ -f "./docs/zh/plugins/plugin-list.md" ]; then
-            cp ./docs/zh/plugins/plugin-list.md ./docs/zh/plugins/plugin-list.md.backup
+          if [ -f "./zh/plugins/plugin-list.md" ]; then
+            cp ./zh/plugins/plugin-list.md ./zh/plugins/plugin-list.md.backup
             echo "✅ Backup created"
           else
             echo "⚠️ No existing plugin-list.md found"
@@ -71,15 +68,14 @@ jobs:
 
       - name: Copy plugins-list.md
         run: |
-          # 确保目标目录存在
-          mkdir -p ./docs/zh/plugins/
-          cp ./docs-dist/plugin-list.md ./docs/zh/plugins/plugin-list.md
+          mkdir -p ./docs-repo-temp/docs/zh/plugins/
+          cp ./docs-dist/plugin-list.md ./docs-repo-temp/docs/zh/plugins/plugin-list.md
           echo "✅ plugin-list.md copied to docs repo"
 
       - name: Check for changes
         id: check-changes
+        working-directory: ./docs-repo-temp/docs
         run: |
-          cd docs
           if git diff --quiet zh/plugins/plugin-list.md; then
             echo "no-changes=true" >> $GITHUB_OUTPUT
             echo "ℹ️ No changes detected in plugin-list.md"
@@ -94,28 +90,28 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          path: docs
+          path: ./docs-repo-temp
           commit-message: "chore: sync plugins-list.md from tachybase/tachybase repo"
           title: "chore: sync plugins-list.md from tachybase/tachybase repo ${{ github.event.inputs.branch && format('(branch: {0})', github.event.inputs.branch) || '' }}"
           body: |
-            ## 插件列表同步
+            ## Plugin List Sync
 
-            此 PR 自动同步了来自 tachybase/tachybase 仓库的最新插件列表。
+            This PR automatically syncs the latest plugin list from tachybase/tachybase repository.
 
-            ### 变更内容
-            - 更新了 `zh/plugins/plugin-list.md` 文件
-            - 同步时间: ${{ github.event.head_commit.timestamp || '手动触发' }}
-            - 触发提交: ${{ github.sha }}
-            ${{ github.event.inputs.branch && format('- 源分支: {0}', github.event.inputs.branch) || '' }}
-            ${{ github.event.inputs.reason && format('- 同步原因: {0}', github.event.inputs.reason) || '' }}
+            ### Changes
+            - Updated `zh/plugins/plugin-list.md` file
+            - Sync time: ${{ github.event.head_commit.timestamp || 'Manual trigger' }}
+            - Trigger commit: ${{ github.sha }}
+            ${{ github.event.inputs.branch && format('- Source branch: {0}', github.event.inputs.branch) || '' }}
+            ${{ github.event.inputs.reason && format('- Sync reason: {0}', github.event.inputs.reason) || '' }}
 
-            ### 相关链接
-            - 源仓库: https://github.com/tachybase/tachybase
-            - 触发提交: https://github.com/tachybase/tachybase/commit/${{ github.sha }}
+            ### Related Links
+            - Source repository: https://github.com/tachybase/tachybase
+            - Trigger commit: https://github.com/tachybase/tachybase/commit/${{ github.sha }}
 
             ---
 
-            *此 PR 由 GitHub Actions 自动创建*
+            *This PR is automatically created by GitHub Actions*
           branch: sync/plugins-list-${{ github.sha }}
           base: main
           delete-branch: true
@@ -123,7 +119,9 @@ jobs:
             automated
             documentation
             sync
+
       - name: Comment on PR if no changes
         if: steps.check-changes.outputs.no-changes == 'true'
+        working-directory: ./docs-repo-temp/docs
         run: |
           echo "ℹ️ No changes detected in plugin-list.md, skipping PR creation"
