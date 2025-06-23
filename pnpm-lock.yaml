@@ -2782,8 +2782,8 @@ importers:
         specifier: 4.0.8
         version: 4.0.8
       '@node-red/util':
-        specifier: 4.0.8
-        version: 4.0.8
+        specifier: 4.0.9
+        version: 4.0.9
       '@types/express':
         specifier: 5.0.2
         version: 5.0.2
@@ -7957,6 +7957,9 @@ packages:
 
   '@node-red/util@4.0.8':
     resolution: {integrity: sha512-Kl2e4i+Oryq5waTMYvY3ntrQtMfy4+hRTMmeXwpkdCa27DTnWfz0grJHIfy0k9F97K7S47gKFOpR6EjRCm0mWw==}
+
+  '@node-red/util@4.0.9':
+    resolution: {integrity: sha512-JAeHlwq7BgNvDyTPzN5uXY03WWJKEnTakYJ4t/Awq1eKjSVLLuGbEZkn5bDI5muhJgHuN0uDOzE9lc86bWUlxQ==}
 
   '@node-rs/bcrypt-android-arm-eabi@1.10.4':
     resolution: {integrity: sha512-55ajutuTdfK1hKseyliflnxzNtxszQQ/EoLtgJlgCe7rI24vGP9EEEZDznB/u9OaJ14/AYzZtIhkEOYdbIdw0A==}
@@ -22600,6 +22603,16 @@ snapshots:
       - supports-color
 
   '@node-red/util@4.0.8':
+    dependencies:
+      fs-extra: 11.2.0
+      i18next: 21.10.0
+      json-stringify-safe: 5.0.1
+      jsonata: 2.0.5
+      lodash.clonedeep: 4.5.0
+      moment: 2.30.1
+      moment-timezone: 0.5.46
+
+  '@node-red/util@4.0.9':
     dependencies:
       fs-extra: 11.2.0
       i18next: 21.10.0
