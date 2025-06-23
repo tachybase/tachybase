@@ -92,11 +92,10 @@ jobs:
           echo "🔍 创建备份后 - 当前工作目录: $(pwd)"
 
       - name: Copy plugins-list.md
-        working-directory: .
         run: |
           echo "🔍 复制文件前 - 当前工作目录: $(pwd)"
           # 确保目标目录存在
-          mkdir -p ./zh/plugins/
+          mkdir -p ./docs-repo-temp/docs/zh/plugins/
           cp ./docs-dist/plugin-list.md ./docs-repo-temp/docs/zh/plugins/plugin-list.md
           echo "✅ plugin-list.md copied to docs repo"
           echo "🔍 复制文件后 - 当前工作目录: $(pwd)"
@@ -128,7 +127,7 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          path: ./docs-repo-temp/docs
+          path: ./docs-repo-temp
           commit-message: "chore: sync plugins-list.md from tachybase/tachybase repo"
           title: "chore: sync plugins-list.md from tachybase/tachybase repo ${{ github.event.inputs.branch && format('(branch: {0})', github.event.inputs.branch) || '' }}"
           body: |
