@@ -297,7 +297,7 @@ export abstract class Plugin implements PluginInterface {
     ];
     let path;
     for (const basePath of pluginPaths) {
-      if (fsExists(resolve(basePath, this.options.packageName))) {
+      if (await fsExists(resolve(basePath, this.options.packageName))) {
         path = resolve(basePath, this.options.packageName);
         break;
       }

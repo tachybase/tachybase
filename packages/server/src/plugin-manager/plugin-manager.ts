@@ -128,9 +128,8 @@ export class PluginManager {
       } catch (err) {
         // 跳过不存在的路径或读取失败的情况
       }
-
-      throw new Error(`package.json for ${packageName} not found in any PLUGIN_PATHS`);
     }
+    throw new Error(`package.json for ${packageName} not found in any PLUGIN_PATHS`);
   }
 
   /**

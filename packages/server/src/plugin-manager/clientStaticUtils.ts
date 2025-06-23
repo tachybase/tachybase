@@ -39,8 +39,8 @@ export function getDepPkgPath(packageName: string, cwd?: string) {
   } else {
     const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
     for (const basePath of pluginPaths) {
-      if (!fsExists(resolve(basePath, packageName))) {
-        break;
+      if (!fs.existsSync(resolve(basePath, packageName))) {
+        continue;
       }
       try {
         return require.resolve(`${resolve(basePath, packageName)}/package.json`);
