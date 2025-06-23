@@ -65,7 +65,7 @@
     "oxlint": "1.1.0",
     "prettier": "3.4.2",
     "prettier-plugin-packagejson": "2.5.15",
-    "prettier-plugin-sort-json": "4.0.0",
+    "prettier-plugin-sort-json": "4.1.1",
     "prettier-plugin-sql": "0.18.1",
     "pretty-format": "29.7.0",
     "pretty-quick": "4.0.0",
