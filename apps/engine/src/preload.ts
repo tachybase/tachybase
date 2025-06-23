@@ -1,8 +1,19 @@
-import { isBuiltin, Module } from 'node:module';
-import { isAbsolute } from 'node:path';
+import fs from 'node:fs';
+import { Module } from 'node:module';
+import { resolve } from 'node:path';
 
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
+
+// 处理 NODE_MODULES_PATH
+// 如果不存在的话，按照约定路径猜测
+if (!process.env.NODE_MODULES_PATH) {
+  if (fs.existsSync(resolve('plugins', 'node_modules'))) {
+    process.env.NODE_MODULES_PATH = resolve('plugins', 'node_modules');
+  } else {
+    process.env.NODE_MODULES_PATH = resolve('node_modules');
+  }
+}
 
 declare module 'node:module' {
   // 扩展 NodeJS.Module 静态属性
@@ -12,37 +23,11 @@ declare module 'node:module' {
 const originalLoad = Module._load;
 const appRoot = __dirname;
 
-// 判断是否是裸模块名（例如 'lodash'、'react'）
-function isBareModule(name: string) {
-  return !name.startsWith('.') && !name.startsWith('/') && !isAbsolute(name);
-}
-
-// 统计路径加载情况
-const count = {
-  total: 0,
-  builtin: 0,
-  main: 0,
-  path: 0,
-  fallback: 0,
-};
-
 // 使用加载白名单的机制
-// TODO 在服务器端、worker 和这里进行同步
-const whitelists = new Set([
+// TODO 考虑服务端校验的版本也和这个保持同步（服务端要求的版本要和这里以及引擎的 package.json 一致）
+const defaultWhitelists = [
   '@koa/cors',
   '@koa/multer',
-  '@tachybase/acl',
-  '@tachybase/actions',
-  '@tachybase/auth',
-  '@tachybase/cache',
-  '@tachybase/data-source',
-  '@tachybase/database',
-  '@tachybase/evaluators',
-  '@tachybase/logger',
-  '@tachybase/resourcer',
-  '@tachybase/schema',
-  '@tachybase/server',
-  '@tachybase/utils',
   'async-mutex',
   'axios',
   'cache-manager',
@@ -64,37 +49,40 @@ const whitelists = new Set([
   'umzug',
   'winston',
   'winston-daily-rotate-file',
-]);
+];
 
+const whitelists = new Set(defaultWhitelists);
+
+// 允许环境变量设置模块
+// 额外添加的模块会被放在指定目录 NODE_MODULES_PATH 中
+if (process.env.ENGINE_MODULES) {
+  process.env.ENGINE_MODULES.split(',').forEach((item: string) => {
+    whitelists.add(item);
+  });
+}
+
+// 加载路径包含两个，一个是引擎的启动目录，另一个是指定的插件目录
 const lookingPaths = process.env.NODE_MODULES_PATH ? [appRoot, process.env.NODE_MODULES_PATH] : [appRoot];
 
 // 带给子进程加载路径
 process.env.TACHYBASE_WORKER_PATHS = lookingPaths.join(',');
+process.env.TACHYBASE_WORKER_MODULES = [...whitelists].join(',');
 
-Module._load = function (request: string, parent, isMain) {
-  count.total++;
-  // 内置模块不拦截
-  if (isBuiltin(request)) {
-    count.builtin++;
-    return originalLoad(request, parent, isMain);
-  }
-
-  // 在白名单中的进行处理
-  // TODO 增加环境变量
-  if (isBareModule(request) && (whitelists.has(request) || request.startsWith('@tachybase/'))) {
+// 整个加载过程允许报错，保持和默认加载器一样的行为
+Module._load = function (request: string, parent: NodeModule | null, isMain: boolean) {
+  // 使用白名单拦截，以及所有符合 '@tachybase/' 前缀的包
+  if (whitelists.has(request) || request.startsWith('@tachybase/')) {
     try {
       const resolvedFromApp = require.resolve(request, { paths: lookingPaths });
-      count.main++;
       return originalLoad(resolvedFromApp, parent, isMain);
     } catch (err) {
+      // 这里不应该发生，但是我们依旧提供回退的机制，使用默认行为来加载模块
       if (err.code === 'MODULE_NOT_FOUND') {
-        count.fallback++;
         return originalLoad(request, parent, isMain);
       }
     }
   }
 
   // 相对路径、绝对路径不动
-  count.path++;
   return originalLoad(request, parent, isMain);
 };

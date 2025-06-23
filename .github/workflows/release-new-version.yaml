@@ -25,6 +25,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
           ref: main
       - name: Setup pnpm
         uses: pnpm/action-setup@v4

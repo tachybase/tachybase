@@ -1,6 +1,6 @@
 {
   "name": "@tachybase/engine",
-  "version": "1.2.10",
+  "version": "1.2.15",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
@@ -41,6 +41,7 @@
     "commander": "^9.5.0",
     "dayjs": "1.11.13",
     "dotenv": "16.5.0",
+    "execa": "^5.1.1",
     "i18next": "25.1.2",
     "jsonwebtoken": "8.5.1",
     "koa": "^2.15.3",

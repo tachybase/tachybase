@@ -271,6 +271,17 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
   const { notification } = App.useApp();
   const [dataSource, setDataSource] = useState([]);
 
+  const indeterminate =
+    dataTypes.length > 0 && dataTypes.length < dataSource.filter((item) => item.value !== 'skipped').length;
+
+  const checkAll = dataSource.filter((item) => item.value !== 'skipped').length === dataTypes.length;
+
+  const onCheckAllChange: CheckboxProps['onChange'] = (e) => {
+    setBackupData(
+      e.target.checked ? dataSource.filter((item) => item.value !== 'skipped').map((item) => item.value) : ['required'],
+    );
+  };
+
   const showModal = async () => {
     const { data } = await apiClient.resource('backupFiles').dumpableCollections();
     setDataSource(
@@ -366,6 +377,10 @@ const NewBackup = ({ ButtonComponent = Button, refresh }) => {
             onChange={(checkValue) => setBackupData(checkValue)}
             value={dataTypes}
           />
+          <Divider />
+          <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
+            {t('Check all')}
+          </Checkbox>
         </div>
       </Modal>
     </>

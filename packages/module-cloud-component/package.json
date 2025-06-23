@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-cloud-component",
   "displayName": "Cloud component",
-  "version": "1.2.10",
+  "version": "1.2.15",
   "description": "Cloud component",
   "keywords": [
     "System management"

@@ -4,3 +4,6 @@ packages:
   - '!apps/pkg/test/**'
   - '!apps/pkg/examples/**'
   - '.'
+allowedDeprecatedVersions:
+  cache-manager-redis-yet: "4.2.0"
+  react-beautiful-dnd: "13.1.1"
