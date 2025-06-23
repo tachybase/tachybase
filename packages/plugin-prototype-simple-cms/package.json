@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/plugin-simple-cms",
   "displayName": "Simple CMS",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "description": "simple content management system",
   "keywords": [
     "System management"
