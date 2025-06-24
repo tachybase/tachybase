@@ -12,6 +12,8 @@ export default (cli: Command) => {
     .argument('[name]', 'project name', 'my-app')
     .allowUnknownOption()
     .action(async (name: string, options) => {
-      console.error('using npx @tachybase/engine init <project-name> to init a project');
+      console.error('❌ This command has been deprecated.');
+      console.log('✅ Please use: npx @tachybase/engine init <project-name>');
+      process.exit(1);
     });
 };
