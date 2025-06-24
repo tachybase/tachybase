@@ -73,7 +73,8 @@
     "react-transition-group": "^4.4.5",
     "react-zoom-pan-pinch": "^3.6.1",
     "sanitize-html": "2.14.0",
-    "use-deep-compare-effect": "^1.8.1"
+    "use-deep-compare-effect": "^1.8.1",
+    "xlsx": "0.18.5"
   },
   "devDependencies": {
     "@testing-library/react": "^16.2.0",
