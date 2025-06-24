@@ -10,8 +10,8 @@ import { PageStyle } from './PageStyle.provider';
 
 export const useTabSettings = () => {
   return {
-    key: 'tab',
-    eventKey: 'tab',
+    key: PageStyle.PAGE_TAB,
+    eventKey: PageStyle.PAGE_TAB,
     label: <Label />,
   };
 };

@@ -22,7 +22,9 @@ export const DynamicPage = () => {
       // FIXME 这里是通过 DataBlock + RecordContext 来让它工作，实际上需要重构一个新的上下文，原来的卡片上下文用在这里无助于内部卡片判断
       <div className={styles['dynamic-page']}>
         <DataBlockProvider
-          params={{ filterByTk: pathParams.filterByTk }}
+          params={{
+            filterByTk: pathParams.filterByTk,
+          }}
           action="get"
           collection={pathParams.collection}
         >
