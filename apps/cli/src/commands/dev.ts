@@ -27,8 +27,8 @@ export default (cli: Command) => {
       }
 
       if (process.argv.includes('-h') || process.argv.includes('--help')) {
-        run('ts-node', [
-          '-P',
+        run('tsx', [
+          '--tsconfig',
           SERVER_TSCONFIG_PATH,
           '-r',
           'tsconfig-paths/register',

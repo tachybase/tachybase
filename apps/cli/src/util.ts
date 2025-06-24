@@ -76,7 +76,7 @@ export function hasCorePackages() {
 }
 
 export function hasTsNode() {
-  return isPackageValid('ts-node/dist/bin');
+  return isPackageValid('tsx');
 }
 
 export function isDev() {
