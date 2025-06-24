@@ -1,6 +1,6 @@
 import { Module } from 'node:module';
 import TachybaseGlobal from '@tachybase/globals';
-import { defineLoader } from '@tachybase/loader/loader';
+import { defineLoader } from '@tachybase/loader';
 
 import { DEFAULT_ENGINE_PACKAGES_PATH, DEFAULT_ENGINE_PLUGIN_PATH } from './constants';
 

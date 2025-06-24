@@ -1022,11 +1022,7 @@ importers:
 
   packages/globals: {}
 
-  packages/loader:
-    dependencies:
-      fast-glob:
-        specifier: ^3.3.2
-        version: 3.3.2
+  packages/loader: {}
 
   packages/logger:
     dependencies:

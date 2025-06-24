@@ -47,6 +47,7 @@ const external = [
   '@tachybase/test',
   '@tachybase/utils',
   '@tachybase/globals',
+  '@tachybase/loader',
 
   // @tachybase/auth
   'jsonwebtoken',

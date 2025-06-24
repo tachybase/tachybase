@@ -1,7 +1,7 @@
 import { Module } from 'node:module';
 import { isMainThread } from 'node:worker_threads';
 import TachybaseGlobal from '@tachybase/globals';
-import { defineLoader } from '@tachybase/loader/loader';
+import { defineLoader } from '@tachybase/loader';
 
 declare module 'node:module' {
   // 扩展 NodeJS.Module 静态属性

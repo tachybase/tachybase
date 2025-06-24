@@ -1,7 +1,7 @@
 import { createRequire } from 'node:module';
 import { resolve } from 'node:path';
 
-exports.defineLoader = (whitelists, originalLoad, lookingPaths) =>
+export const defineLoader = (whitelists, originalLoad, lookingPaths) =>
   function (request, parent, isMain) {
     // 使用白名单拦截，以及所有符合 '@tachybase/' 前缀的包
     if (whitelists.has(request) || request.startsWith('@tachybase/')) {

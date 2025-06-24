@@ -3,11 +3,5 @@
   "version": "1.3.5",
   "description": "",
   "license": "Apache-2.0",
-  "main": "./src/index.js",
-  "scripts": {
-    "build": "tachybase-build --no-dts @tachybase/devtools"
-  },
-  "dependencies": {
-    "fast-glob": "^3.3.2"
-  }
+  "main": "./define-loader.mjs"
 }
