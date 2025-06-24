@@ -33,7 +33,6 @@ export const ActionPage: ComposedActionDrawer = observer(
 
     const field = useField();
     const schema = useFieldSchema();
-    console.log('%c Line:36 🍰 schema', 'font-size:18px;color:#ed9ec7;background:#ffdd4d', schema);
     const footerSchema = schema.reduceProperties((buf, s) => {
       if (s['x-component'] === footerNodeName) {
         return s;
