@@ -2,6 +2,8 @@ import { createRequire, Module } from 'node:module';
 import { resolve } from 'node:path';
 import TachybaseGlobal from '@tachybase/globals';
 
+import { DEFAULT_ENGINE_PACKAGES_PATH, DEFAULT_ENGINE_PLUGIN_PATH } from './constants';
+
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
 
@@ -9,11 +11,9 @@ Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR
 if (!process.env.NODE_MODULES_PATH) {
   process.env.NODE_MODULES_PATH = [
     // 开发包
-    resolve('storage', '.packages'),
-    // 引擎初始化下载的插件
-    resolve('plugins'),
+    DEFAULT_ENGINE_PACKAGES_PATH,
     // 下载插件
-    resolve('storage', '.plugins'),
+    DEFAULT_ENGINE_PLUGIN_PATH,
   ].join(',');
 }
 
