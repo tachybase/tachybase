@@ -91,7 +91,7 @@ class SubAppPlugin extends Plugin {
         INSERT INTO ${subAppPluginsCollection.quotedTableName()} (${columnsInSql})
         SELECT ${columnsInSql}
         FROM ${mainAppPluginsCollection.quotedTableName()}
-        WHERE "name" not in ('multi-app-manager', 'multi-app-share-collection');
+        WHERE "name" not in ('multi-app', 'multi-app-share-collection');
       `);
 
       const sequenceNameSql = `SELECT pg_get_serial_sequence('"${subAppPluginsCollection.collectionSchema()}"."${
@@ -119,9 +119,9 @@ export class MultiAppShareCollectionPlugin extends Plugin {
     if (!this.db.inDialect('postgres')) {
       throw new Error('multi-app-share-collection plugin only support postgres');
     }
-    const plugin = this.pm.get('multi-app-manager');
+    const plugin = this.pm.get('multi-app');
     if (!plugin.enabled) {
-      throw new Error(`${this.name} plugin need multi-app-manager plugin enabled`);
+      throw new Error(`${this.name} plugin need multi-app plugin enabled`);
     }
   }
 
