@@ -2,7 +2,7 @@ import { Module } from 'node:module';
 import TachybaseGlobal from '@tachybase/globals';
 import { defineLoader } from '@tachybase/loader';
 
-import { DEFAULT_ENGINE_PACKAGES_PATH, DEFAULT_ENGINE_PLUGIN_PATH } from './constants';
+import { DEFAULT_BUILTIN_PLUGINS_PATH, DEFAULT_DEV_PLUGINS_PATH, DEFAULT_REMOTE_PLUGINS_PATH } from './constants';
 
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
@@ -10,10 +10,12 @@ Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR
 // 默认 NODE_MODULES_PATH 搜索路径
 if (!process.env.NODE_MODULES_PATH) {
   process.env.NODE_MODULES_PATH = [
-    // 开发包
-    DEFAULT_ENGINE_PACKAGES_PATH,
-    // 下载插件
-    DEFAULT_ENGINE_PLUGIN_PATH,
+    // 开发插件
+    DEFAULT_DEV_PLUGINS_PATH,
+    // 远程插件
+    DEFAULT_REMOTE_PLUGINS_PATH,
+    // 内置插件
+    DEFAULT_BUILTIN_PLUGINS_PATH,
   ].join(',');
 }
 

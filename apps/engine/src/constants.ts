@@ -1,6 +1,7 @@
 import path from 'node:path';
 
-export const DEFAULT_ENGINE_PACKAGES_PATH = path.resolve('storage', 'packages');
-export const DEFAULT_ENGINE_PLUGIN_PATH = path.resolve('storage', 'plugins');
-export const DEFAULT_ENGINE_PLUGIN_RELATIVE_PATH = path.join('storage', 'plugins');
+export const DEFAULT_DEV_PLUGINS_PATH = path.resolve('plugins', 'dev');
+export const DEFAULT_REMOTE_PLUGINS_PATH = path.resolve('plugins', 'remote');
+export const DEFAULT_BUILTIN_PLUGINS_PATH = path.resolve('plugins', 'builtin');
+export const DEFAULT_BUILTIN_PLUGINS_RELATIVE_PATH = path.join('plugins', 'builtin');
 export const DEFAULT_WEB_PACKAGE_NAME = '@tachybase/app-web';
