@@ -31,6 +31,7 @@
     "@tachybase/database": "workspace:*",
     "@tachybase/evaluators": "workspace:*",
     "@tachybase/globals": "workspace:*",
+    "@tachybase/loader": "workspace:*",
     "@tachybase/logger": "workspace:*",
     "@tachybase/resourcer": "workspace:*",
     "@tachybase/schema": "workspace:*",

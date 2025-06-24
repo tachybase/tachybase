@@ -358,6 +358,9 @@ importers:
       '@tachybase/globals':
         specifier: workspace:*
         version: link:../../packages/globals
+      '@tachybase/loader':
+        specifier: workspace:*
+        version: link:../../packages/loader
       '@tachybase/logger':
         specifier: workspace:*
         version: link:../../packages/logger
@@ -1018,6 +1021,8 @@ importers:
         version: 20.17.10
 
   packages/globals: {}
+
+  packages/loader: {}
 
   packages/logger:
     dependencies:
@@ -2228,6 +2233,9 @@ importers:
       '@tachybase/globals':
         specifier: workspace:*
         version: link:../globals
+      '@tachybase/loader':
+        specifier: workspace:*
+        version: link:../loader
       '@tachybase/logger':
         specifier: workspace:*
         version: link:../logger
