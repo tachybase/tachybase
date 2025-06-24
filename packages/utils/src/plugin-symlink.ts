@@ -23,37 +23,37 @@ async function getStoragePluginNames(target) {
 }
 
 export async function createStoragePluginSymLink(pluginName) {
-  // const storagePluginsPath = resolve(process.cwd(), 'storage', 'plugins');
-  // const nodeModulesPath = resolve(process.cwd(), 'storage', '.plugins');
-  // try {
-  //   if (pluginName.startsWith('@')) {
-  //     const [orgName] = pluginName.split('/');
-  //     if (!(await fsExists(resolve(nodeModulesPath, orgName)))) {
-  //       await mkdir(resolve(nodeModulesPath, orgName), { recursive: true });
-  //     }
-  //   }
-  //   const link = resolve(nodeModulesPath, pluginName);
-  //   if (await fsExists(link)) {
-  //     await unlink(link);
-  //   }
-  //   await symlink(resolve(storagePluginsPath, pluginName), link, 'dir');
-  // } catch (error) {
-  //   console.error(error);
-  // }
+  const storagePluginsPath = resolve(process.cwd(), 'storage', 'plugins');
+  const nodeModulesPath = resolve(process.cwd(), 'plugins', 'remote');
+  try {
+    if (pluginName.startsWith('@')) {
+      const [orgName] = pluginName.split('/');
+      if (!(await fsExists(resolve(nodeModulesPath, orgName)))) {
+        await mkdir(resolve(nodeModulesPath, orgName), { recursive: true });
+      }
+    }
+    const link = resolve(nodeModulesPath, pluginName);
+    if (await fsExists(link)) {
+      await unlink(link);
+    }
+    await symlink(resolve(storagePluginsPath, pluginName), link, 'dir');
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function createStoragePluginsSymlink() {
-  // const storagePluginsPath = resolve(process.cwd(), 'storage/plugins');
-  // if (!(await fsExists(storagePluginsPath))) {
-  //   return;
-  // }
-  // const pluginNames = await getStoragePluginNames(storagePluginsPath);
-  // await Promise.all(pluginNames.map((pluginName) => createStoragePluginSymLink(pluginName)));
+  const storagePluginsPath = resolve(process.cwd(), 'storage/plugins');
+  if (!(await fsExists(storagePluginsPath))) {
+    return;
+  }
+  const pluginNames = await getStoragePluginNames(storagePluginsPath);
+  await Promise.all(pluginNames.map((pluginName) => createStoragePluginSymLink(pluginName)));
 }
 
 export async function createDevPluginSymLink(pluginName: string) {
   const packagePluginsPath = resolve(process.cwd(), 'packages');
-  const nodeModulesPath = resolve(process.cwd(), 'storage', 'packages');
+  const nodeModulesPath = resolve(process.cwd(), 'plugins', 'dev');
   try {
     const packageJson = JSON.parse(
       readFileSync(join(packagePluginsPath, pluginName, 'package.json'), { encoding: 'utf-8' }),

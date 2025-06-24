@@ -335,9 +335,9 @@ export class Gateway extends EventEmitter {
       }
     }
 
-    // if (isStart || !ipcClient) {
-    //   await createStoragePluginsSymlink();
-    // }
+    if (isStart || !ipcClient) {
+      await createStoragePluginsSymlink();
+    }
 
     const mainApp = AppSupervisor.getInstance().bootMainApp(options.mainAppOptions);
 

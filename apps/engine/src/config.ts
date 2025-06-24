@@ -1,8 +1,6 @@
 import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
 
-import PluginPresets from './plugin-presets';
-
 const DbTypeMap = {
   sqlite: require('sqlite3'),
   mysql: require('mysql2'),

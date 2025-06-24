@@ -31,17 +31,13 @@ async function buildClientEsm(
   external: External,
   log: PkgLog,
 ) {
-  const entry = path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/**';
-  const ignoreMd = '!' + path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/**/*.md';
-  const ignoreTests = '!' + path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/__tests__/**';
-  const ignoreDemos = '!' + path.join(cwd, 'src').replaceAll(/\\/g, '/') + '/demos/**';
+  const entry = fg.globSync(['src/**', ...globExcludeFiles], { cwd, absolute: true });
 
   const { build } = await import('@rslib/core');
-  log('build client rslib');
   await build({
     source: {
       entry: {
-        index: [entry, ignoreMd, ignoreTests, ignoreDemos],
+        index: entry,
       },
       define: {
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),

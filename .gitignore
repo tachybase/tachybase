@@ -34,6 +34,7 @@ lib/
 ncc-cache/
 node_modules/
 storage/*
+plugins/*
 tsconfig.paths.json
 v8-compile-cache-**
 docs-repo-temp/

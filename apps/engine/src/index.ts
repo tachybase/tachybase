@@ -26,7 +26,7 @@ const run = async () => {
 
   // 初始化插件链接
   await createDevPluginsSymlink();
-  // await createStoragePluginsSymlink();
+  await createStoragePluginsSymlink();
 
   console.log(`Engine loaded at ${performance.now().toFixed(2)} ms`);
   await Gateway.getInstance().run({
