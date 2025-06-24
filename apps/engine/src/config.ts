@@ -19,7 +19,7 @@ export async function getConfig() {
     resourcer: {
       prefix: process.env.API_BASE_PATH || '/api/',
     },
-    plugins: [[PluginPresets, { name: 'tachybase' }]],
+    plugins: ['tachybase'],
     cacheManager: {
       defaultStore: process.env.CACHE_DEFAULT_STORE || 'memory',
       stores: {

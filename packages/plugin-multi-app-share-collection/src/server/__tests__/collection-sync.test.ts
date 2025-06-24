@@ -1,4 +1,4 @@
-import * as process from 'process';
+import * as process from 'node:process';
 import { BelongsToManyRepository, Database } from '@tachybase/database';
 import { AppSupervisor } from '@tachybase/server';
 import { createMockServer, isPg, MockServer } from '@tachybase/test';
@@ -31,7 +31,7 @@ describe.runIf(isPg())('enable plugin', () => {
       error = e;
     }
 
-    expect(error.message).toBe('multi-app-share-collection plugin need multi-app-manager plugin enabled');
+    expect(error.message).toBe('multi-app-share-collection plugin need multi-app plugin enabled');
   });
 });
 
@@ -69,7 +69,7 @@ describe.runIf(isPg())('collection sync after main', () => {
       },
     });
 
-    await mainApp.runCommand('pm', 'enable', 'multi-app-manager');
+    await mainApp.runCommand('pm', 'enable', 'multi-app');
     await mainApp.runCommand('pm', 'enable', 'multi-app-share-collection');
 
     await mainApp.db.sync();
@@ -110,7 +110,7 @@ describe.runIf(isPg())('collection sync', () => {
       },
     });
 
-    await app.pm.enable('multi-app-manager');
+    await app.pm.enable('multi-app');
     await app.pm.enable('multi-app-share-collection');
 
     mainApp = app;
