@@ -307,7 +307,7 @@ export class PluginManager {
       options.name = plugin;
     }
     try {
-      if (typeof plugin === 'string' && options.name && !options.packageName) {
+      if (typeof plugin === 'string' && options.name && !options.packageName && !options.isPreset) {
         const packageName = await PluginManager.getPackageName(options.name);
         options['packageName'] = packageName;
       }
@@ -328,7 +328,11 @@ export class PluginManager {
     });
     let P: any;
     try {
-      P = await PluginManager.resolvePlugin(options.packageName || plugin, isUpgrade, !!options.packageName);
+      if (options.isPreset) {
+        P = TachybaseGlobal.getInstance().get<Record<string, any>>('PRESETS')[options.name];
+      } else {
+        P = await PluginManager.resolvePlugin(options.packageName || plugin, isUpgrade, !!options.packageName);
+      }
     } catch (error) {
       if (process.env.APP_ENV === 'development') {
         throw error;

@@ -1,11 +1,11 @@
 import { resolve } from 'node:path';
 import Database from '@tachybase/database';
 import PluginMultiAppManager from '@tachybase/module-multi-app';
-import { Application, AppSupervisor, Plugin, PluginPresets } from '@tachybase/server';
+import { Application, AppSupervisor, Plugin } from '@tachybase/server';
 
 import lodash from 'lodash';
 
-const subAppFilteredPlugins = ['multi-app-share-collection', 'multi-app-manager'];
+const subAppFilteredPlugins = ['multi-app-share-collection', 'multi-app'];
 const unSyncPlugins = ['localization-management'];
 
 class SubAppPlugin extends Plugin {
@@ -229,10 +229,10 @@ export class MultiAppShareCollectionPlugin extends Plugin {
   }
 
   async load() {
-    const multiAppManager = this.app.getPlugin<any>('multi-app-manager');
+    const multiAppManager = this.app.getPlugin<any>('multi-app');
 
     if (!multiAppManager) {
-      this.app.logger.warn('multi-app-share-collection plugin need multi-app-manager plugin enabled');
+      this.app.logger.warn('multi-app-share-collection plugin need multi-app plugin enabled');
       return;
     }
 
@@ -257,7 +257,7 @@ export class MultiAppShareCollectionPlugin extends Plugin {
       };
 
       const plugins = [...mainApp.pm.getAliases()].filter(
-        (name) => name !== 'multi-app-manager' && name !== 'multi-app-share-collection',
+        (name) => name !== 'multi-app' && name !== 'multi-app-share-collection',
       );
 
       return {
@@ -266,7 +266,7 @@ export class MultiAppShareCollectionPlugin extends Plugin {
             application_name: `tachybase.${appName}`,
           },
         }),
-        plugins: plugins.includes('tachybase') ? [PluginPresets] : plugins,
+        plugins,
         resourcer: {
           prefix: process.env.API_BASE_PATH,
         },

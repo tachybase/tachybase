@@ -1,12 +1,14 @@
 import './preload';
 
 import { performance } from 'node:perf_hooks';
+import TachybaseGlobal from '@tachybase/globals';
 import { Gateway } from '@tachybase/server';
 import { createDevPluginsSymlink, createStoragePluginsSymlink } from '@tachybase/utils';
 
 import { Command } from 'commander';
 
 import { getConfig } from './config';
+import PluginPresets from './plugin-presets';
 import { prepare } from './prepare';
 import { parseEnvironment } from './utils';
 
@@ -17,6 +19,11 @@ const program = new Command();
 program.name('tachybase-engine').version(require('../package.json').version);
 
 const run = async () => {
+  // 注册 presets 插件
+  TachybaseGlobal.getInstance().set('PRESETS', {
+    tachybase: PluginPresets,
+  });
+
   // 初始化插件链接
   await createDevPluginsSymlink();
   // await createStoragePluginsSymlink();
