@@ -1,4 +1,7 @@
+import path from 'node:path';
+
 import type { Project } from '@pnpm/workspace.find-packages';
+import { createRsbuild, loadConfig } from '@rsbuild/core';
 import chalk from 'chalk';
 import execa from 'execa';
 
@@ -85,7 +88,14 @@ export async function build(pkgs: string[]) {
   // core/app
   const appClient = packages.find((item) => item.dir === CORE_APP);
   if (appClient) {
-    await runScript(['rsbuild', 'build', '-r', 'apps/app-web'], ROOT_PATH);
+    const config = await loadConfig({
+      cwd: path.join(ROOT_PATH, 'apps/app-web'),
+    });
+    const rsbuild = await createRsbuild({
+      rsbuildConfig: config.content,
+      cwd: path.join(ROOT_PATH, 'apps/app-web'),
+    });
+    await rsbuild.build();
   }
 }
 
