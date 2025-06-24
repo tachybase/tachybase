@@ -1004,11 +1004,7 @@ importers:
 
   packages/globals: {}
 
-  packages/loader:
-    devDependencies:
-      '@types/node':
-        specifier: 20.17.10
-        version: 20.17.10
+  packages/loader: {}
 
   packages/logger:
     dependencies:
