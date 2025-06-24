@@ -1,7 +1,7 @@
 {
   "name": "@tachybase/module-cron",
   "displayName": "Cron job",
-  "version": "1.2.16-alpha.4",
+  "version": "1.2.16-alpha.5",
   "description": "Schedule tasks to run at specific times, using a workflow approach",
   "keywords": [
     "System management"
