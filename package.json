@@ -62,7 +62,7 @@
     "globals": "^15.14.0",
     "husky": "^9.1.7",
     "lint-staged": "^13.3.0",
-    "oxlint": "1.1.0",
+    "oxlint": "1.3.0",
     "prettier": "3.4.2",
     "prettier-plugin-packagejson": "2.5.15",
     "prettier-plugin-sort-json": "4.1.1",
