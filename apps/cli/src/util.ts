@@ -37,7 +37,7 @@ export async function fsExists(path: string) {
 
 export function isPackageValid(pkg: string) {
   try {
-    require(pkg);
+    require.resolve(pkg);
     return true;
   } catch (error) {
     return false;
