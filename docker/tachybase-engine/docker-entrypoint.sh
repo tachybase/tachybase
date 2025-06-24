@@ -2,10 +2,10 @@
 set -e
 
 # cp dist files
-cp -r /app/plugins/node_modules/@tachybase/app-web/dist/* /app/public/
+cp -r /app/storage/plugins/@tachybase/app-web/dist/* /app/public/
 
 # handle sentry
-original_file="/app/plugins/node_modules/@tachybase/app-web/dist/index.html"
+original_file="/app/storage/plugins/@tachybase/app-web/dist/index.html"
 sentry_part="/app/public/index.sentry.html"
 output_file="/app/public/index.html"
 
