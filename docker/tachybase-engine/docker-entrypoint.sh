@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# TODO
+rm -rf /app/storage/plugins && mv /app/plugins /app/storage/plugins
+
 # cp dist files
 cp -r /app/storage/plugins/@tachybase/app-web/dist/* /app/public/
 
