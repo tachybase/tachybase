@@ -66,6 +66,7 @@
     "@tachybase/cache": "workspace:*",
     "@tachybase/client": "workspace:*",
     "@tachybase/logger": "workspace:*",
+    "@types/lodash": "4.17.18",
     "@yao-pkg/pkg": "6.5.1"
   },
   "pkg": {

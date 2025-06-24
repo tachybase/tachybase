@@ -1,7 +1,6 @@
-import _ from 'lodash';
+import { Plugin, PluginManager } from '@tachybase/server';
 
-import { Plugin } from '../plugin';
-import PluginManager from './plugin-manager';
+import _ from 'lodash';
 
 export class PluginPresets extends Plugin {
   #builtInPlugins = [
