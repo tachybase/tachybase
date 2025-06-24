@@ -182,7 +182,7 @@ export default function devDynamicImport(packageName: string): Promise<any> {
     }
     mkdirSync(this.outputPath);
     const validPluginPaths = this.pluginsPath.filter((pluginsPath) => _existsSync(pluginsPath));
-    if (!validPluginPaths.length || process.env.NODE_ENV === 'production') {
+    if (process.env.NODE_ENV === 'production') {
       writeFileSync(this.indexPath, this.emptyIndexContent);
       return;
     }
