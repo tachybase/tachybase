@@ -22,7 +22,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@rsbuild/core": "1.3.22",
+    "@rsbuild/core": "1.4.0-beta.4",
     "@types/fs-extra": "^11.0.4",
     "@umijs/utils": "3.5.43",
     "chalk": "^5.4.1",

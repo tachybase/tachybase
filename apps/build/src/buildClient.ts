@@ -31,7 +31,7 @@ async function buildClientEsm(
   external: External,
   log: PkgLog,
 ) {
-  const entry = fg.globSync(['src/**', ...globExcludeFiles], { cwd, absolute: true });
+  const entry = fg.globSync(['src/**', ...globExcludeFiles, '!src/**/*.json'], { cwd, absolute: true });
 
   const { build } = await import('@rslib/core');
   await build({
