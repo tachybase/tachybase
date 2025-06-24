@@ -181,7 +181,9 @@ export default function devDynamicImport(packageName: string): Promise<any> {
       rmSync(this.outputPath, { recursive: true, force: true });
     }
     mkdirSync(this.outputPath);
-    const validPluginPaths = this.pluginsPath.filter((pluginsPath) => _existsSync(pluginsPath));
+    const validPluginPaths = this.pluginsPath.filter((pluginsPath) => {
+      return _existsSync(pluginsPath);
+    });
     if (process.env.NODE_ENV === 'production') {
       writeFileSync(this.indexPath, this.emptyIndexContent);
       return;
@@ -206,24 +208,13 @@ export default function devDynamicImport(packageName: string): Promise<any> {
   }
 
   getContent(pluginsPath) {
-    const pluginFolders = sync(['plugin-*/package.json', 'module-*/package.json', '*/*/package.json'], {
+    const pluginFolders = sync(['plugin-*/package.json', 'module-*/package.json'], {
       cwd: pluginsPath,
       onlyFiles: true,
       absolute: true,
     });
 
-    const storagePluginFolders = sync(['*/package.json', '*/*/package.json'], {
-      cwd: process.env.PLUGIN_STORAGE_PATH,
-      onlyFiles: true,
-      absolute: true,
-    });
-
-    const tachybasePluginFolders = sync(['plugin-*/package.json'], {
-      cwd: this.tachybaseDir,
-      onlyFiles: true,
-      absolute: true,
-    }).map((item) => realpathSync(item));
-    const pluginInfos = Array.from(new Set([...pluginFolders, ...storagePluginFolders, ...tachybasePluginFolders]))
+    const pluginInfos = Array.from(new Set(pluginFolders))
       .filter((item) => {
         const dirname = _dirname(item);
         const clientJs = join(dirname, 'client.js');
