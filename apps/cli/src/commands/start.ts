@@ -23,8 +23,8 @@ export default (cli: Command) => {
       }
       if (process.argv.includes('-h') || process.argv.includes('--help')) {
         promptForTs();
-        run('ts-node', [
-          '-P',
+        run('tsx', [
+          '--tsconfig',
           process.env.SERVER_TSCONFIG_PATH ?? '',
           '-r',
           'tsconfig-paths/register',
