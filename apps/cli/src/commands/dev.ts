@@ -1,3 +1,4 @@
+import { createRsbuild, loadConfig } from '@rsbuild/core';
 import { Command } from 'commander';
 import { getPortPromise } from 'portfinder';
 
@@ -109,7 +110,7 @@ export default (cli: Command) => {
       }
 
       if (client || !server) {
-        const runClient = () => {
+        const runClient = async () => {
           const getDevEnvironment = (clientPort: number, proxyPort: number) => ({
             PORT: clientPort + '',
             NO_OPEN: opts.open ? undefined : '1',
@@ -122,7 +123,19 @@ export default (cli: Command) => {
           const proxyPort = opts.proxyPort || serverPort || clientPort + 10;
           console.log('starting client', 1 * clientPort, 'proxy port', proxyPort);
           const env = getDevEnvironment(clientPort, proxyPort);
-          run('rsbuild', ['dev', '-r', APP_CLIENT_ROOT as string], { env });
+          process.env.PORT = env.PORT;
+          process.env.NO_OPEN = env.NO_OPEN;
+          process.env.WEBSOCKET_URL = env.WEBSOCKET_URL;
+          process.env.PROXY_TARGET_URL = env.PROXY_TARGET_URL;
+          process.env.NODE_ENV = 'development';
+          const config = await loadConfig({
+            cwd: APP_CLIENT_ROOT,
+          });
+          const rsbuild = await createRsbuild({
+            rsbuildConfig: config.content,
+            cwd: APP_CLIENT_ROOT,
+          });
+          await rsbuild.startDevServer();
         };
 
         async function runMqServer() {
@@ -134,7 +147,7 @@ export default (cli: Command) => {
             if (res !== 'ok') {
               throw new Error('server not ready');
             }
-            runClient();
+            await runClient();
           } catch {
             setTimeout(() => {
               runMqServer();

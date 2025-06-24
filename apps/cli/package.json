@@ -22,36 +22,38 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@rsbuild/core": "1.3.22",
     "@types/fs-extra": "^11.0.4",
     "@umijs/utils": "3.5.43",
-    "chalk": "^5.4.0",
+    "chalk": "^5.4.1",
     "commander": "^12.1.0",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.5.0",
     "esbuild-plugin-file-path-extensions": "2.1.4",
     "execa": "^8.0.1",
-    "fast-glob": "^3.3.2",
-    "fs-extra": "^11.2.0",
+    "fast-glob": "^3.3.3",
+    "fs-extra": "^11.3.0",
     "lodash": "^4.17.21",
+    "open": "10.1.2",
     "p-all": "3.0.0",
     "package-json": "10.0.1",
     "pm2": "6.0.8",
-    "portfinder": "^1.0.32",
+    "portfinder": "^1.0.37",
     "semver": "7.7.2",
     "serve": "^14.2.4",
     "tar": "7.4.3",
     "tree-kill": "^1.2.2",
     "tsconfig-paths": "^4.2.0",
     "tsup": "8.3.5",
-    "tsx": "^4.19.2",
+    "tsx": "^4.20.3",
     "yocto-spinner": "1.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
-    "@types/lodash": "^4.17.13",
+    "@types/lodash": "^4.17.18",
     "@types/node": "20.17.10",
-    "@types/semver": "^7.5.8",
+    "@types/semver": "^7.7.0",
     "cross-env": "^7.0.3",
     "rimraf": "6.0.1",
-    "vite": "^5.4.11"
+    "vite": "^5.4.19"
   }
 }

@@ -24,6 +24,8 @@ import fastGlob from 'fast-glob';
 import packageJson from 'package-json';
 import * as tar from 'tar';
 
+import { DEFAULT_DEV_HOST } from './constants';
+
 const require = createRequire(import.meta.url);
 
 export async function fsExists(path: string) {
@@ -388,3 +390,22 @@ export function initEnv() {
     process.env.__env_modified__ = true;
   }
 }
+
+export const getHostInUrl = async (host: string): Promise<string> => {
+  if (host === DEFAULT_DEV_HOST) {
+    return 'localhost';
+  }
+
+  const { isIPv6 } = await import('node:net');
+  if (isIPv6(host)) {
+    return host === '::' ? '[::1]' : `[${host}]`;
+  }
+  return host;
+};
+
+export const castArray = <T>(arr?: T | T[]): T[] => {
+  if (arr === undefined) {
+    return [];
+  }
+  return Array.isArray(arr) ? arr : [arr];
+};

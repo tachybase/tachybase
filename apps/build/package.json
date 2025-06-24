@@ -10,8 +10,7 @@
     "tachybase-build": "./bin/tachybase-build.js"
   },
   "scripts": {
-    "build": "tsup",
-    "prepare": "tsup"
+    "build": "tsup"
   },
   "dependencies": {
     "@hapi/topo": "^6.0.2",
