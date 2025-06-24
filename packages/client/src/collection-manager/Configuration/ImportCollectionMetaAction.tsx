@@ -68,9 +68,7 @@ const ImportUpload = (props: any) => {
   const uploadProps: UploadProps = {
     multiple: false,
     action: '/collections:importMeta',
-    data: {
-      category: category?.[0] || undefined,
-    },
+    data: (category?.[0] && { category: category[0] }) || {},
     async onChange(info) {
       if (info.fileList.length > 1) {
         info.fileList.splice(0, info.fileList.length - 1); // 只保留一个文件
