@@ -6,8 +6,8 @@ import yoctoSpinner from '@socketregistry/yocto-spinner/index.cjs';
 import execa from 'execa';
 
 import { DEFAULT_ENGINE_PLUGIN_RELATIVE_PATH, DEFAULT_WEB_PACKAGE_NAME } from './constants';
-import { defaultModules } from './defaultModules';
-import { defaultPlugins } from './defaultPlugins';
+import { defaultModules } from './default-modules';
+import { defaultPlugins } from './default-plugins';
 import { downloadTar, initEnvFile } from './utils';
 
 export async function prepare({
