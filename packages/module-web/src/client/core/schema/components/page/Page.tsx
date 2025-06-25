@@ -12,7 +12,7 @@ import { RecursionField, useField, useFieldSchema } from '@tachybase/schema';
 
 import { ShareAltOutlined } from '@ant-design/icons';
 import { Button, TabsProps } from 'antd';
-import { useLocation, useMatch, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useMatch, useNavigate } from 'react-router-dom';
 
 import { countGridCol, findSchema } from '../../helpers';
 import { ShareModal } from '../header/HeaderShareModal';

@@ -5,5 +5,5 @@ import { usePageStyle } from './usePageStyle';
 export const CustomAdminHeader = () => {
   const pageStyle = usePageStyle();
 
-  return pageStyle === PageStyle.PAGE_TAB ? <TabHeader /> : null;
+  return pageStyle === PageStyle.TAB_STYLE ? <TabHeader /> : null;
 };

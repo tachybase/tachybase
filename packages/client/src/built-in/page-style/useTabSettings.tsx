@@ -10,8 +10,8 @@ import { PageStyle } from './PageStyle.provider';
 
 export const useTabSettings = () => {
   return {
-    key: PageStyle.PAGE_TAB,
-    eventKey: PageStyle.PAGE_TAB,
+    key: PageStyle.TAB_STYLE,
+    eventKey: PageStyle.TAB_STYLE,
     label: <Label />,
   };
 };
@@ -32,7 +32,7 @@ export function Label() {
         },
         {
           label: t('tabs'),
-          value: PageStyle.PAGE_TAB,
+          value: PageStyle.TAB_STYLE,
         },
       ]}
       onChange={updateUserPageStyle}

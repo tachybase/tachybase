@@ -58,5 +58,5 @@ export const TabContent = () => {
 export const CustomAdminContent = () => {
   const params = useParams<any>();
   const pageStyle = usePageStyle();
-  return params.name && pageStyle === PageStyle.PAGE_TAB ? <TabContent /> : <Outlet />;
+  return params.name && pageStyle === PageStyle.TAB_STYLE ? <TabContent /> : <Outlet />;
 };

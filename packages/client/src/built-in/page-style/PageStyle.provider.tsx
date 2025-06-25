@@ -7,7 +7,7 @@ import { useTabSettings } from './useTabSettings';
 
 export enum PageStyle {
   CLASSICAL = 'classical',
-  PAGE_TAB = 'page-tab',
+  TAB_STYLE = 'tab-style',
 }
 
 export interface PageStyleContextValue {
