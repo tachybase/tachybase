@@ -75,7 +75,6 @@ export const Page = (props) => {
       setTitle(t(fieldSchema.title));
     }
   }, [fieldSchema.title, title]);
-  console.log('%c Line:85 🥤 pageTabActiveKey', 'font-size:18px;color:#b03734;background:#465975', pageTabActiveKey);
   return wrapSSR(
     <FilterBlockProvider>
       <div className={`${componentCls} ${hashId} ${aclStyles.styles}`}>
@@ -277,7 +276,6 @@ const TabComponent = (props) => {
       setHasMounted(true);
     });
   }, []);
-  console.log('%c Line:287 🥚 activeKey', 'font-size:18px;color:#4fff4B;background:#f5ce50', activeKey);
   return (
     <DndContext sensors={sensors}>
       <Tabs
