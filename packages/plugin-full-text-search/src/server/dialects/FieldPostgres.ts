@@ -33,7 +33,7 @@ export class FieldPostgres extends FieldBase {
             fn(
               'TIMEZONE',
               timezone, // 参数1：目标时区
-              fn('TIMEZONE', 'UTC', col(`"${collectionName}"."${field}"`)), // 参数2：UTC 转换后的字段
+              fn('TIMEZONE', 'UTC', this.getCollectionField(field, collectionName)), // 参数2：UTC 转换后的字段
             ),
             dateStr, // 参数3：格式化字符串
           ),
@@ -64,7 +64,7 @@ export class FieldPostgres extends FieldBase {
     return {
       [Op.and]: [
         where(
-          literal(`CAST("${collectionName}"."${field}" AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
+          literal(`CAST(${this.getCollectionFieldColName(field, collectionName)} AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
           {
             [Op.like]: `%${escapeLike(keyword)}%`,
           },
