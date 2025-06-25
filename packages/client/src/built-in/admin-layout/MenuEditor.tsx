@@ -26,6 +26,7 @@ export const MenuEditor = (props) => {
   const params = useParams<any>();
   const location = useLocation();
   const isMatchAdmin = useMatch('/admin');
+  const isMatchWelcome = useMatch('/admin/welcome');
   const isMatchAdminName = useMatch('/admin/:name');
   const defaultSelectedUid = params.name;
   const ctx = useACLRoleContext();
@@ -48,19 +49,20 @@ export const MenuEditor = (props) => {
       onSuccess(data) {
         const schema = filterByACL(data?.data, ctx);
         // url 为 `/admin` 的情况
-        if (isMatchAdmin) {
+        if (isMatchAdmin && !isMatchWelcome) {
           const s = findMenuItem(schema);
           if (s) {
             navigate(`/admin/${s['x-uid']}`);
             setTitle(s.title);
           } else {
-            navigate(`/admin/`);
+            // 如果找不到菜单，则跳转到欢迎引导页面
+            navigate(`/admin/welcome`);
           }
           return;
         }
 
         // url 不为 `/admin/xxx` 的情况，不做处理
-        if (!isMatchAdminName) return;
+        if (!isMatchAdminName || isMatchWelcome) return;
 
         // url 为 `admin/xxx` 的情况
         const s = findByUid(schema, defaultSelectedUid);
