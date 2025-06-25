@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { isMainThread, Worker } from 'node:worker_threads';
 import { Application } from '@tachybase/server';
 import { fsExists } from '@tachybase/utils';
@@ -108,7 +109,7 @@ export class WorkerManager {
     } else {
       worker = new Worker(path.resolve(__dirname, '../../worker-starter.mjs'), {
         workerData: {
-          scriptPath: path.resolve(__dirname, `${WORKER_FILE}.ts`),
+          scriptPath: pathToFileURL(path.resolve(__dirname, `${WORKER_FILE}.ts`)).href,
           appName: this.app.name,
           databaseOptions: this.databaseOptions,
         },
