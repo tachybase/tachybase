@@ -1,6 +1,5 @@
 import { parseDatabaseOptionsFromEnv } from '@tachybase/database';
 import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
-import { PluginPresets } from '@tachybase/server';
 
 const DbTypeMap = {
   sqlite: require('sqlite3'),
@@ -18,7 +17,7 @@ export async function getConfig() {
     resourcer: {
       prefix: process.env.API_BASE_PATH || '/api/',
     },
-    plugins: [[PluginPresets, { name: 'tachybase' }]],
+    plugins: ['tachybase'],
     cacheManager: {
       defaultStore: process.env.CACHE_DEFAULT_STORE || 'memory',
       stores: {

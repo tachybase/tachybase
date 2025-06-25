@@ -5,9 +5,9 @@ import process from 'node:process';
 import yoctoSpinner from '@socketregistry/yocto-spinner/index.cjs';
 import execa from 'execa';
 
-import { DEFAULT_ENGINE_PLUGIN_PATH, DEFAULT_WEB_PACKAGE_NAME } from './constants';
-import { defaultModules } from './defaultModules';
-import { defaultPlugins } from './defaultPlugins';
+import { DEFAULT_BUILTIN_PLUGINS_RELATIVE_PATH, DEFAULT_WEB_PACKAGE_NAME } from './constants';
+import { defaultModules } from './default-modules';
+import { defaultPlugins } from './default-plugins';
 import { downloadTar, initEnvFile } from './utils';
 
 export async function prepare({
@@ -38,7 +38,7 @@ export async function prepare({
     npmExist = false;
   }
 
-  const prefix = path.join(name, DEFAULT_ENGINE_PLUGIN_PATH);
+  const prefix = path.join(name, DEFAULT_BUILTIN_PLUGINS_RELATIVE_PATH);
   // 安装前端代码
   console.log('🚀 ~ start download ~ front end files');
   const spinner = yoctoSpinner({ text: `Loading ${DEFAULT_WEB_PACKAGE_NAME}` }).start();

@@ -1,4 +1,5 @@
 import path from 'node:path';
+import TachybaseGlobal from '@tachybase/globals';
 import { requireModule } from '@tachybase/utils';
 
 const arr2obj = (items: any[]) => {
@@ -26,10 +27,6 @@ export const getResource = (packageName: string, lang: string, isPlugin = true) 
   for (const prefix of prefixes) {
     try {
       let file = `${packageName}/${prefix}/locale/${lang}`;
-      const f = require.resolve(file, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
-      if (process.env.APP_ENV !== 'production') {
-        delete require.cache[f];
-      }
       const resource = requireModule(file);
       resources.push(resource);
     } catch (error) {

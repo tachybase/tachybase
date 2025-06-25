@@ -11,7 +11,7 @@ import {
   unlinkSync,
   writeFileSync,
 } from 'node:fs';
-import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, stat, unlink, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { Socket } from 'node:net';
 import { dirname, join, resolve, sep } from 'node:path';
@@ -24,11 +24,22 @@ import fastGlob from 'fast-glob';
 import packageJson from 'package-json';
 import * as tar from 'tar';
 
+import { DEFAULT_DEV_HOST } from './constants';
+
 const require = createRequire(import.meta.url);
+
+export async function fsExists(path: string) {
+  try {
+    await stat(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 export function isPackageValid(pkg: string) {
   try {
-    require(pkg);
+    require.resolve(pkg);
     return true;
   } catch (error) {
     return false;
@@ -67,7 +78,7 @@ export function hasCorePackages() {
 }
 
 export function hasTsNode() {
-  return isPackageValid('ts-node/dist/bin');
+  return isPackageValid('tsx');
 }
 
 export function isDev() {
@@ -216,30 +227,6 @@ export async function updateJsonFile(target: string, fn: any) {
   await writeFile(target, JSON.stringify(fn(json), null, 2), 'utf-8');
 }
 
-export async function getVersion() {
-  const { stdout } = await execa('npm', ['v', '@tachybase/app-server', 'versions']);
-  const versions = new Function(`return (${stdout})`)();
-  return versions[versions.length - 1];
-}
-
-function getPackagePath(moduleName: string) {
-  try {
-    return dirname(dirname(new URL(import.meta.resolve(`${moduleName}`)).pathname));
-  } catch {
-    return dirname(dirname(new URL(import.meta.resolve(`${moduleName}/src/index.ts`)).pathname));
-  }
-}
-
-function normalizePath(path: string) {
-  const isWindows = process.platform === 'win32';
-  if (isWindows) {
-    // windows /c:/xxx -> c:/xxx
-    return path.substring(1);
-  } else {
-    return path;
-  }
-}
-
 export function generateAppDir() {
   const defaultServerRoot = join(process.cwd(), 'apps/engine');
   const defaultClientRoot = join(process.cwd(), 'apps/app-web');
@@ -337,7 +324,6 @@ export function initEnv() {
     MFSU_AD: 'none',
     WS_PATH: '/ws',
     SOCKET_PATH: 'storage/gateway.sock',
-    NODE_MODULES_PATH: resolve(process.cwd(), 'node_modules'),
     PM2_HOME: resolve(process.cwd(), './storage/.pm2'),
     PLUGIN_PACKAGE_PREFIX: '@tachybase/plugin-,@tachybase/module-',
     SERVER_TSCONFIG_PATH: './tsconfig.server.json',
@@ -404,3 +390,22 @@ export function initEnv() {
     process.env.__env_modified__ = true;
   }
 }
+
+export const getHostInUrl = async (host: string): Promise<string> => {
+  if (host === DEFAULT_DEV_HOST) {
+    return 'localhost';
+  }
+
+  const { isIPv6 } = await import('node:net');
+  if (isIPv6(host)) {
+    return host === '::' ? '[::1]' : `[${host}]`;
+  }
+  return host;
+};
+
+export const castArray = <T>(arr?: T | T[]): T[] => {
+  if (arr === undefined) {
+    return [];
+  }
+  return Array.isArray(arr) ? arr : [arr];
+};

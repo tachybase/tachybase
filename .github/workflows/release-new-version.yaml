@@ -167,4 +167,6 @@ jobs:
           tags: |
             tachybase/tachybase-engine:${{ needs.release.outputs.version }}
             tachybase/tachybase-engine:latest
+            tachybase/tachybase:${{ needs.release.outputs.version }}
+            tachybase/tachybase:latest
 

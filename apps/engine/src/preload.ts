@@ -1,19 +1,28 @@
-import fs from 'node:fs';
 import { Module } from 'node:module';
-import { resolve } from 'node:path';
+import TachybaseGlobal from '@tachybase/globals';
+import { defineLoader } from '@tachybase/loader';
+
+import { DEFAULT_BUILTIN_PLUGINS_PATH, DEFAULT_DEV_PLUGINS_PATH, DEFAULT_REMOTE_PLUGINS_PATH } from './constants';
 
 // improve error stack
 Error.stackTraceLimit = process.env.ERROR_STACK_TRACE_LIMIT ? +process.env.ERROR_STACK_TRACE_LIMIT : 10;
 
-// 处理 NODE_MODULES_PATH
-// 如果不存在的话，按照约定路径猜测
+// 默认 NODE_MODULES_PATH 搜索路径
 if (!process.env.NODE_MODULES_PATH) {
-  if (fs.existsSync(resolve('plugins', 'node_modules'))) {
-    process.env.NODE_MODULES_PATH = resolve('plugins', 'node_modules');
-  } else {
-    process.env.NODE_MODULES_PATH = resolve('node_modules');
-  }
+  process.env.NODE_MODULES_PATH = [
+    // 开发插件
+    DEFAULT_DEV_PLUGINS_PATH,
+    // 远程插件
+    DEFAULT_REMOTE_PLUGINS_PATH,
+    // 内置插件
+    DEFAULT_BUILTIN_PLUGINS_PATH,
+  ].join(',');
 }
+
+// 解析 process.env.NODE_MODULES_PATH
+// TODO 我们马上切换到配置文件的形式，而不是环境变量
+const paths = process.env.NODE_MODULES_PATH.split(',');
+TachybaseGlobal.getInstance().set('PLUGIN_PATHS', paths);
 
 declare module 'node:module' {
   // 扩展 NodeJS.Module 静态属性
@@ -62,27 +71,11 @@ if (process.env.ENGINE_MODULES) {
 }
 
 // 加载路径包含两个，一个是引擎的启动目录，另一个是指定的插件目录
-const lookingPaths = process.env.NODE_MODULES_PATH ? [appRoot, process.env.NODE_MODULES_PATH] : [appRoot];
+const lookingPaths = [appRoot, ...TachybaseGlobal.getInstance().get('PLUGIN_PATHS')];
 
 // 带给子进程加载路径
 process.env.TACHYBASE_WORKER_PATHS = lookingPaths.join(',');
 process.env.TACHYBASE_WORKER_MODULES = [...whitelists].join(',');
 
 // 整个加载过程允许报错，保持和默认加载器一样的行为
-Module._load = function (request: string, parent: NodeModule | null, isMain: boolean) {
-  // 使用白名单拦截，以及所有符合 '@tachybase/' 前缀的包
-  if (whitelists.has(request) || request.startsWith('@tachybase/')) {
-    try {
-      const resolvedFromApp = require.resolve(request, { paths: lookingPaths });
-      return originalLoad(resolvedFromApp, parent, isMain);
-    } catch (err) {
-      // 这里不应该发生，但是我们依旧提供回退的机制，使用默认行为来加载模块
-      if (err.code === 'MODULE_NOT_FOUND') {
-        return originalLoad(request, parent, isMain);
-      }
-    }
-  }
-
-  // 相对路径、绝对路径不动
-  return originalLoad(request, parent, isMain);
-};
+Module._load = defineLoader(whitelists, originalLoad, lookingPaths);

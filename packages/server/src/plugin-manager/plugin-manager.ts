@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import net from 'node:net';
 import { basename, dirname, join, resolve, sep } from 'node:path';
 import { CleanOptions, Collection, SyncOptions } from '@tachybase/database';
+import TachybaseGlobal from '@tachybase/globals';
 import { Container, fsExists, importModule, isURL } from '@tachybase/utils';
 
 import execa from 'execa';
@@ -117,21 +118,33 @@ export class PluginManager {
    * @internal
    */
   static async getPackageJson(packageName: string) {
-    const file = await fs.realpath(resolve(process.env.NODE_MODULES_PATH, packageName, 'package.json'));
-    const data = await fs.readFile(file, { encoding: 'utf-8' });
-    return JSON.parse(data);
+    const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+    for (const basePath of pluginPaths) {
+      const pkgPath = resolve(basePath, packageName, 'package.json');
+      try {
+        const realPath = await fs.realpath(pkgPath);
+        const data = await fs.readFile(realPath, { encoding: 'utf-8' });
+        return JSON.parse(data);
+      } catch (err) {
+        // 跳过不存在的路径或读取失败的情况
+      }
+    }
+    throw new Error(`package.json for ${packageName} not found in any PLUGIN_PATHS`);
   }
 
   /**
    * @internal
    */
   static async getPackageName(name: string) {
+    const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
     const prefixes = this.getPluginPkgPrefix();
     for (const prefix of prefixes) {
-      const pkg = resolve(process.env.NODE_MODULES_PATH, `${prefix}${name}`, 'package.json');
-      const exists = await fsExists(pkg);
-      if (exists) {
-        return `${prefix}${name}`;
+      for (const basePath of pluginPaths) {
+        const pkg = resolve(basePath, `${prefix}${name}`, 'package.json');
+        const exists = await fsExists(pkg);
+        if (exists) {
+          return `${prefix}${name}`;
+        }
       }
     }
     throw new Error(`${name} plugin does not exist`);
@@ -294,7 +307,7 @@ export class PluginManager {
       options.name = plugin;
     }
     try {
-      if (typeof plugin === 'string' && options.name && !options.packageName) {
+      if (typeof plugin === 'string' && options.name && !options.packageName && !options.isPreset) {
         const packageName = await PluginManager.getPackageName(options.name);
         options['packageName'] = packageName;
       }
@@ -315,7 +328,11 @@ export class PluginManager {
     });
     let P: any;
     try {
-      P = await PluginManager.resolvePlugin(options.packageName || plugin, isUpgrade, !!options.packageName);
+      if (options.isPreset) {
+        P = TachybaseGlobal.getInstance().get<Record<string, any>>('PRESETS')[options.name];
+      } else {
+        P = await PluginManager.resolvePlugin(options.packageName || plugin, isUpgrade, !!options.packageName);
+      }
     } catch (error) {
       if (process.env.APP_ENV === 'development') {
         throw error;
@@ -365,8 +382,9 @@ export class PluginManager {
     });
     const packageNames: string[] = items.map((item) => item.packageName);
     const source = [];
+    const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
     for (const packageName of packageNames) {
-      const file = require.resolve(packageName, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
+      const file = require.resolve(packageName, { paths: [process.cwd(), ...pluginPaths] });
       const sourceDir = basename(dirname(file)) === 'src' ? 'src' : 'dist';
       const directory = join(
         packageName,
@@ -378,19 +396,22 @@ export class PluginManager {
     for (const plugin of this.options.plugins || []) {
       if (typeof plugin === 'string') {
         const packageName = await PluginManager.getPackageName(plugin);
-        const file = require.resolve(packageName, { paths: [process.cwd(), process.env.NODE_MODULES_PATH] });
+        const file = require.resolve(packageName, { paths: [process.cwd(), ...pluginPaths] });
         const sourceDir = basename(dirname(file)) === 'src' ? 'src' : 'lib';
         const directory = join(packageName, sourceDir, 'server/commands/*.' + (sourceDir === 'src' ? 'ts' : 'js'));
         source.push(directory.replaceAll(sep, '/'));
       }
     }
-    const files = await fg(source, {
-      ignore: ['**/*.d.ts'],
-      cwd: process.env.NODE_MODULES_PATH,
-    });
-    for (const file of files) {
-      const callback = await importModule(file);
-      callback(this.app);
+    for (const basePath of pluginPaths) {
+      const files = await fg(source, {
+        ignore: ['**/*.d.ts'],
+        cwd: basePath,
+      });
+
+      for (const file of files) {
+        const callback = await importModule(file);
+        callback(this.app);
+      }
     }
   }
 
@@ -643,12 +664,17 @@ export class PluginManager {
     const removeDir = async () => {
       await Promise.all(
         records.map(async (plugin) => {
-          const dir = resolve(process.env.NODE_MODULES_PATH, plugin.packageName);
-          try {
-            const realDir = await fs.realpath(dir);
-            this.app.logger.debug(`rm -rf ${realDir}`);
-            return fs.rm(realDir, { force: true, recursive: true });
-          } catch (error) {
+          const pluginPaths = TachybaseGlobal.getInstance().get<string[]>('PLUGIN_PATHS');
+          for (const basePath of pluginPaths) {
+            const dir = resolve(basePath, plugin.packageName);
+            try {
+              const realDir = await fs.realpath(dir);
+              this.app.logger.debug(`rm -rf ${realDir}`);
+              await fs.rm(realDir, { force: true, recursive: true });
+              return true; // 一旦成功就跳出循环
+            } catch (error) {
+              // 忽略错误，继续尝试下一个路径
+            }
             return false;
           }
         }),

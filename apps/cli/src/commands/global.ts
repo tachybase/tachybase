@@ -7,7 +7,6 @@ export default (cli: Command) => {
   cli
     .allowUnknownOption()
     .option('-h, --help')
-    .option('--ts-node-dev')
     .action((options) => {
       if (isDev()) {
         promptForTs();
