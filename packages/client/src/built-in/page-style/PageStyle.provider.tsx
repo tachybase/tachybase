@@ -10,14 +10,14 @@ export enum PageStyle {
   TAB_STYLE = 'tab-style',
 }
 
-export interface PageStyleContextValue {
-  style: PageStyle;
+interface PageStyleContextValue {
+  pageStyle: PageStyle;
   items: TabsProps['items'];
   setItems: React.Dispatch<React.SetStateAction<TabsProps['items']>>;
 }
 
 export const PageStyleContext = createContext<Partial<PageStyleContextValue>>({
-  style: PageStyle.CLASSICAL,
+  pageStyle: PageStyle.CLASSICAL,
 });
 
 export const PageStyleProvider = ({ children }) => {
@@ -32,7 +32,7 @@ export const PageStyleProvider = ({ children }) => {
   return (
     <PageStyleContext.Provider
       value={{
-        style: currentUser?.data?.data?.systemSettings?.pageStyle || PageStyle.CLASSICAL,
+        pageStyle: currentUser?.data?.data?.systemSettings?.pageStyle || PageStyle.CLASSICAL,
         items,
         setItems,
       }}

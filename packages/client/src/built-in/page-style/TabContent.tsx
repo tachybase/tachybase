@@ -30,7 +30,6 @@ export const TabContent = () => {
   const { items, setItems } = useContext(PageStyleContext);
   const targetKey = location.pathname;
   const outlet = useOutlet();
-
   useEffect(() => {
     if (targetKey && title) {
       const targetItem = items.find((value) => value.key === targetKey);
