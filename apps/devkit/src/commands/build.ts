@@ -2,6 +2,7 @@ import { resolve } from 'node:path';
 
 import { type Command } from 'commander';
 
+import { build } from '../build';
 import { isPackageValid, nodeCheck, run } from '../util';
 
 export default (cli: Command) => {
@@ -20,17 +21,19 @@ export default (cli: Command) => {
       nodeCheck();
       process.env['VITE_CJS_IGNORE_WARNING'] = 'true';
 
-      try {
-        await run('tachybase-build', [
-          ...pkgs,
-          options.version ? '--version' : '',
-          !options.dts ? '--no-dts' : '',
-          options.sourcemap ? '--sourcemap' : '',
-          options.retry ? '--retry' : '',
-        ]);
-      } catch (error) {
-        // console.warn((error as Error).message);
-        process.exit(1);
-      }
+      await build(pkgs);
+
+      // try {
+      //   await run('tachybase-build', [
+      //     ...pkgs,
+      //     options.version ? '--version' : '',
+      //     !options.dts ? '--no-dts' : '',
+      //     options.sourcemap ? '--sourcemap' : '',
+      //     options.retry ? '--retry' : '',
+      //   ]);
+      // } catch (error) {
+      //   // console.warn((error as Error).message);
+      //   process.exit(1);
+      // }
     });
 };

@@ -2,6 +2,8 @@ import path from 'node:path';
 
 import fs from 'fs-extra';
 
+import { readJsonSync } from './utils';
+
 export function winPath(path: string) {
   const isExtendedLengthPath = path.startsWith('\\\\?\\');
   if (isExtendedLengthPath) {
@@ -80,7 +82,7 @@ export function getDepsConfig(cwd: string, outDir: string, depsName: string[], e
   const deps = depsName.reduce<Record<string, IDepPkg>>((acc, packageName) => {
     const depEntryPath = require.resolve(packageName, { paths: [cwd] });
     const depPkgPath = getDepPkgPath(packageName, cwd);
-    const depPkg = require(depPkgPath);
+    const depPkg = readJsonSync(depPkgPath);
     const depDir = path.dirname(depPkgPath);
     const outputDir = path.join(outDir, packageName);
     const mainFile = path.join(outputDir, depEntryPath.replace(depDir, ''));

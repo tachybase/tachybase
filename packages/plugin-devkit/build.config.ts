@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { defineConfig } from '@tachybase/build';
+import { defineConfig } from '@tachybase/devkit';
 
 export default defineConfig({
   afterBuild: async (log) => {

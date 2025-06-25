@@ -21,7 +21,7 @@ export function toUnixPath(filepath: string) {
 }
 
 export function getPackageJson(cwd: string) {
-  return require(path.join(cwd, 'package.json'));
+  return readJsonSync(path.join(cwd, 'package.json'));
 }
 
 export interface UserConfig {
@@ -47,7 +47,7 @@ export function getUserConfig(cwd: string) {
   }
   if (buildConfigs.length === 1) {
     const { unregister } = register({});
-    const userConfig = require(path.join(cwd, buildConfigs[0]));
+    const userConfig = readJsonSync(path.join(cwd, buildConfigs[0]));
     unregister();
     Object.assign(config, userConfig.default || userConfig);
   }
@@ -67,4 +67,9 @@ export function readFromCache(key: string) {
     return fs.readJsonSync(cachePath);
   }
   return {};
+}
+
+export function readJsonSync(filePath: string) {
+  const content = fs.readFileSync(filePath, 'utf-8');
+  return JSON.parse(content);
 }

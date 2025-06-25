@@ -1,5 +1,5 @@
-import path from 'path';
-import { defineConfig } from '@tachybase/build';
+import path from 'node:path';
+import { defineConfig } from '@tachybase/devkit';
 
 import ncc from '@vercel/ncc';
 import fs from 'fs-extra';

@@ -3,7 +3,7 @@ import path from 'node:path';
 import type { Project } from '@pnpm/workspace.find-packages';
 import { createRsbuild, loadConfig } from '@rsbuild/core';
 import chalk from 'chalk';
-import execa from 'execa';
+import { execa } from 'execa';
 
 import { buildCjs } from './buildCjs';
 import { buildClient } from './buildClient';

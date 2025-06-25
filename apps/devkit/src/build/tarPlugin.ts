@@ -2,7 +2,7 @@ import path from 'node:path';
 
 import fg from 'fast-glob';
 import fs from 'fs-extra';
-import tar from 'tar';
+import * as tar from 'tar';
 
 import { TAR_OUTPUT_DIR, tarIncludesFiles } from './constant';
 import { PkgLog } from './utils';
