@@ -26,21 +26,28 @@ export class FieldSqlite extends FieldBase {
   }
 
   date(params: handleFieldParams): { [Op.and]: any[] } {
-    const { field, keyword, dateStr, timezone } = params;
+    const { field, keyword, dateStr, timezone, collectionName } = params;
     return {
       [Op.and]: [
-        where(fn('strftime', dateStr, fn('datetime', col(field), convertTimezoneOffset(timezone))), {
-          [this.like]: `%${escapeLike(keyword)}%`,
-        }),
+        where(
+          fn(
+            'strftime',
+            dateStr,
+            fn('datetime', this.getCollectionField(field, collectionName), convertTimezoneOffset(timezone)),
+          ),
+          {
+            [this.like]: `%${escapeLike(keyword)}%`,
+          },
+        ),
       ],
     };
   }
 
   json(params: handleFieldParams): { [Op.and]: any[] } {
-    const { field, keyword } = params;
+    const { field, keyword, collectionName } = params;
     return {
       [Op.and]: [
-        where(literal(`json_extract(${field}, '$')`), {
+        where(literal(`json_extract(${this.getCollectionFieldColName(field, collectionName)}, '$')`), {
           [this.like]: `%${escapeLike(keyword)}%`,
         }),
       ],
@@ -54,7 +61,7 @@ export class FieldSqlite extends FieldBase {
         literal(`
         EXISTS (
           SELECT 1
-          FROM json_each(${col(field).col})
+          FROM json_each(${this.getCollectionFieldColName(field)})
           WHERE json_each.value IN (${matchList})
         )
       `),

@@ -26,11 +26,11 @@ export class FieldMariadb extends FieldBase {
   }
 
   public number(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword } = params;
+    const { field, keyword, collectionName } = params;
     return {
       [Op.and]: [
         where(
-          literal(`CAST(${col(field).col} AS CHAR)`), // 确保不加引号，直接插入 SQL 表达式
+          literal(`CAST(${this.getCollectionFieldColName(field, collectionName)} AS CHAR)`), // 确保不加引号，直接插入 SQL 表达式
           {
             [Op.like]: `%${escapeLike(keyword)}%`,
           },
@@ -40,21 +40,28 @@ export class FieldMariadb extends FieldBase {
   }
 
   date(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword, dateStr, timezone } = params;
+    const { field, keyword, dateStr, timezone, collectionName } = params;
     return {
       [Op.and]: [
-        where(fn('DATE_FORMAT', fn('CONVERT_TZ', col(field), '+00:00', timezone), dateStr), {
-          [this.like]: `%${escapeLike(keyword)}%`,
-        }),
+        where(
+          fn(
+            'DATE_FORMAT',
+            fn('CONVERT_TZ', this.getCollectionField(field, collectionName), '+00:00', timezone),
+            dateStr,
+          ),
+          {
+            [this.like]: `%${escapeLike(keyword)}%`,
+          },
+        ),
       ],
     };
   }
 
   json(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword } = params;
+    const { field, keyword, collectionName } = params;
     return {
       [Op.and]: [
-        where(literal(`JSON_UNQUOTE(JSON_EXTRACT(${field}, '$'))`), {
+        where(literal(`JSON_UNQUOTE(JSON_EXTRACT(${this.getCollectionFieldColName(field, collectionName)}, '$'))`), {
           [Op.like]: `%${escapeLike(keyword)}%`,
         }),
       ],
@@ -63,7 +70,7 @@ export class FieldMariadb extends FieldBase {
 
   public getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
     return {
-      [Op.and]: [literal(`JSON_CONTAINS(${col(field).col}, '${JSON.stringify(matchEnum)}')`)],
+      [Op.and]: [literal(`JSON_CONTAINS(${this.getCollectionFieldColName(field)}, '${JSON.stringify(matchEnum)}')`)],
     };
   }
 }

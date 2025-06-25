@@ -39,7 +39,7 @@ export class FieldBase {
   }
 
   public number(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword } = params;
+    const { field, keyword, collectionName } = params;
     // keyword不是数字则不作为搜索条件
     if (isNaN(Number(keyword))) {
       return null;
@@ -47,7 +47,7 @@ export class FieldBase {
     return {
       [Op.and]: [
         where(
-          literal(`CAST(${col(field).col} AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
+          literal(`CAST(${this.getCollectionFieldColName(field, collectionName)} AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
           {
             [Op.like]: `%${escapeLike(keyword)}%`,
           },
@@ -83,14 +83,14 @@ export class FieldBase {
   }
 
   public array(params: handleFieldParams) {
-    const { field, keyword, fields } = params;
+    const { field, keyword, fields, collectionName } = params;
     const fieldInfo = fields.get(field);
     if (fieldInfo?.options?.uiSchema?.['x-component'] === 'Select') {
       const matchEnum = this.getMatchEnum(fieldInfo, keyword);
       if (!matchEnum.length) {
         return null;
       }
-      return this.getMultiSelectFilter(field, matchEnum);
+      return this.getMultiSelectFilter(this.getCollectionFieldColName(field, collectionName), matchEnum);
     }
     return null;
   }
@@ -105,5 +105,16 @@ export class FieldBase {
       }
     }
     return matchEnum;
+  }
+
+  protected getCollectionField(fieldName: string, collectionName?: string) {
+    if (!collectionName) {
+      return col(fieldName);
+    }
+    return col(`${collectionName}.${fieldName}`);
+  }
+
+  protected getCollectionFieldColName(fieldName: string, collectionName?: string) {
+    return this.getCollectionField(fieldName, collectionName).col;
   }
 }
