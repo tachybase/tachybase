@@ -18,12 +18,6 @@ export default (cli: Command) => {
     .option('--no-dts', 'not generate dts')
     .action(async (pkgs, options) => {
       nodeCheck();
-      if (options.compile || options.watch || isPackageValid('@tachybase/build/src/index.ts')) {
-        await run('pnpm', ['build', options.watch ? '--watch' : ''], {
-          cwd: resolve(process.cwd(), 'apps/build'),
-        });
-        if (options.watch) return;
-      }
       process.env['VITE_CJS_IGNORE_WARNING'] = 'true';
 
       try {

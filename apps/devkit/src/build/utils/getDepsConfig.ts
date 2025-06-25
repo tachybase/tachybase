@@ -3,7 +3,7 @@ import path from 'node:path';
 import fs from 'fs-extra';
 
 export function winPath(path: string) {
-  const isExtendedLengthPath = /^\\\\\?\\/.test(path);
+  const isExtendedLengthPath = path.startsWith('\\\\?\\');
   if (isExtendedLengthPath) {
     return path;
   }

@@ -6,6 +6,8 @@ import semver from 'semver';
 import commands from './commands';
 import { genTsConfigPaths, initEnv } from './util';
 
+import './notify-updates';
+
 const cli = new Command();
 
 cli.version((await import('../package.json')).version);
