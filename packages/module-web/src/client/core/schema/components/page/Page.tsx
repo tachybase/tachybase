@@ -27,7 +27,7 @@ const InternalPage: React.FC = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const match = useMatch('*/page-tab/:pageTabId/*');
+  const match = useMatch('/:entry/:entryId/page-tab/:pageTabId/*');
   const pageTabActiveKey = useMemo(() => {
     return match?.params?.pageTabId || Object.keys(fieldSchema.properties || {}).shift();
   }, [match?.params?.pageTabId, fieldSchema.properties]);

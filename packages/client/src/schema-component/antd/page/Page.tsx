@@ -49,7 +49,9 @@ export const Page = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const match = useMatch('*/page-tab/:pageTabId/*');
+  // NOTE: 是否有其他路由模式?
+  const match = useMatch('/:entry/:entryId/page-tab/:pageTabId/*');
+
   const pageTabActiveKey = useMemo(() => {
     return match?.params?.pageTabId || Object.keys(fieldSchema.properties || {}).shift();
   }, [match?.params?.pageTabId, fieldSchema.properties]);
@@ -73,7 +75,7 @@ export const Page = (props) => {
       setTitle(t(fieldSchema.title));
     }
   }, [fieldSchema.title, title]);
-
+  console.log('%c Line:85 🥤 pageTabActiveKey', 'font-size:18px;color:#b03734;background:#465975', pageTabActiveKey);
   return wrapSSR(
     <FilterBlockProvider>
       <div className={`${componentCls} ${hashId} ${aclStyles.styles}`}>
@@ -267,11 +269,7 @@ const TabComponent = (props) => {
   );
 
   const handleTabClick = (activeKey) => {
-    setLoading(true);
     setPageTabUrl(activeKey);
-    setTimeout(() => {
-      setLoading(false);
-    }, 50);
   };
 
   useEffect(() => {
@@ -279,7 +277,7 @@ const TabComponent = (props) => {
       setHasMounted(true);
     });
   }, []);
-
+  console.log('%c Line:287 🥚 activeKey', 'font-size:18px;color:#4fff4B;background:#f5ce50', activeKey);
   return (
     <DndContext sensors={sensors}>
       <Tabs
