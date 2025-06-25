@@ -54,7 +54,8 @@ export const MenuEditor = (props) => {
             navigate(`/admin/${s['x-uid']}`);
             setTitle(s.title);
           } else {
-            navigate(`/admin/`);
+            // 如果找不到菜单，则跳转到欢迎引导页面
+            navigate(`/admin/welcome`);
           }
           return;
         }

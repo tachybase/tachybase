@@ -364,6 +364,11 @@ export class BuiltInPlugin extends Plugin {
       path: '/:entry/:name',
       Component: 'RouteSchemaComponent',
     });
+
+    this.router.add('app.welcome', {
+      path: '/:entry/welcome',
+      Component: 'WelcomeCard',
+    });
   }
 
   addComponents() {
