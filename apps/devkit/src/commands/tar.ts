@@ -2,6 +2,7 @@ import { resolve } from 'node:path';
 
 import { Command } from 'commander';
 
+import { build } from '../build';
 import { isPackageValid, nodeCheck, run } from '../util';
 
 export default (cli: Command) => {
@@ -9,17 +10,9 @@ export default (cli: Command) => {
     .command('tar')
     .allowUnknownOption()
     .argument('[packages...]')
-    .option('-v, --version', 'print version')
-    .option('-c, --compile', 'compile the @tachybase/build package')
-    .option('-w, --watch', 'watch compile the @tachybase/build package')
     .action(async (pkgs, options) => {
       nodeCheck();
-      if (options.compile || options.watch || isPackageValid('@tachybase/build/src/index.ts')) {
-        await run('pnpm', ['build', options.watch ? '--watch' : ''], {
-          cwd: resolve(process.cwd(), 'apps/build'),
-        });
-        if (options.watch) return;
-      }
+      build(pkgs);
       await run('tachybase-build', [...pkgs, '--only-tar', options.version ? '--version' : '']);
     });
 };

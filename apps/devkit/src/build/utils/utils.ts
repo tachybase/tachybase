@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import chalk from 'chalk';
@@ -8,6 +9,8 @@ import { Options as TsupConfig } from 'tsup';
 import { InlineConfig as ViteConfig } from 'vite';
 
 import { NODE_MODULES } from '../constant';
+
+const require = createRequire(import.meta.url);
 
 export type PkgLog = (msg: string, ...args: any[]) => void;
 export const getPkgLog = (pkgName: string) => {
@@ -21,7 +24,7 @@ export function toUnixPath(filepath: string) {
 }
 
 export function getPackageJson(cwd: string) {
-  return readJsonSync(path.join(cwd, 'package.json'));
+  return require(path.join(cwd, 'package.json'));
 }
 
 export interface UserConfig {
@@ -47,7 +50,7 @@ export function getUserConfig(cwd: string) {
   }
   if (buildConfigs.length === 1) {
     const { unregister } = register({});
-    const userConfig = readJsonSync(path.join(cwd, buildConfigs[0]));
+    const userConfig = require(path.join(cwd, buildConfigs[0]));
     unregister();
     Object.assign(config, userConfig.default || userConfig);
   }
@@ -67,9 +70,4 @@ export function readFromCache(key: string) {
     return fs.readJsonSync(cachePath);
   }
   return {};
-}
-
-export function readJsonSync(filePath: string) {
-  const content = fs.readFileSync(filePath, 'utf-8');
-  return JSON.parse(content);
 }

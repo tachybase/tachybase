@@ -1,4 +1,7 @@
-import updateNotifier from 'update-notifier';
-import packageJson from '../package.json' assert { type: 'json' };
+import { createRequire } from 'node:module';
 
-updateNotifier({ pkg: packageJson }).notify({ defer: true });
+import updateNotifier from 'update-notifier';
+
+const require = createRequire(import.meta.url);
+
+updateNotifier({ pkg: require('../package.json') }).notify({ defer: true });

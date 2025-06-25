@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import Topo from '@hapi/topo';
@@ -5,7 +6,9 @@ import { findWorkspacePackages, type Project } from '@pnpm/workspace.find-packag
 import fg from 'fast-glob';
 
 import { ROOT_PATH } from '../constant';
-import { readJsonSync, toUnixPath } from './utils';
+import { toUnixPath } from './utils';
+
+const require = createRequire(import.meta.url);
 
 /**
  * 获取构建包的绝对路径，支持项目路径和 npm 两种形式
@@ -25,13 +28,10 @@ function getPackagesPath(pkgs: string[]) {
     return allPackageJson.map(toUnixPath).map((item) => path.dirname(item));
   }
   const allPackageInfo = allPackageJson
-    .map(
-      (packageJsonPath) =>
-        ({
-          name: readJsonSync(packageJsonPath).name,
-          path: path.dirname(toUnixPath(packageJsonPath)),
-        }) as any,
-    )
+    .map((packageJsonPath) => ({
+      name: require(packageJsonPath).name,
+      path: path.dirname(toUnixPath(packageJsonPath)),
+    }))
     .reduce((acc, cur) => {
       acc[cur.name] = cur.path;
       return acc;
@@ -69,7 +69,7 @@ export async function getPackages(pkgs: string[]) {
 export function sortPackages(packages: Project[]): Project[] {
   const sorter = new Topo.Sorter<Project>();
   for (const pkg of packages) {
-    const pkgJson = readJsonSync(`${pkg.dir}/package.json`);
+    const pkgJson = require(`${pkg.dir}/package.json`);
     const after = Object.keys({ ...pkgJson.dependencies, ...pkgJson.devDependencies, ...pkgJson.peerDependencies });
     sorter.add(pkg, { after, group: pkg.manifest.name });
   }
