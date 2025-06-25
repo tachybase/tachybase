@@ -61,7 +61,7 @@ export class FieldMariadb extends FieldBase {
     const { field, keyword, collectionName } = params;
     return {
       [Op.and]: [
-        where(literal(`JSON_UNQUOTE(JSON_EXTRACT(${field}, '$'))`), {
+        where(literal(`JSON_UNQUOTE(JSON_EXTRACT(${this.getCollectionFieldColName(field, collectionName)}, '$'))`), {
           [Op.like]: `%${escapeLike(keyword)}%`,
         }),
       ],
