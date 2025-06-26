@@ -9,7 +9,7 @@ export default class extends Migration {
     // 获取当前数据库中所有表名
     const tables: string[] = await this.db.sequelize.getQueryInterface().showAllTables();
     if (!tables.includes('apiKeys')) {
-      this.app.logger.info(`[migration skipped] table webhooks does not exist`);
+      this.app.logger.info(`[migration skipped] table apiKeys does not exist`);
       return;
     }
     const queryInterface = this.db.sequelize.getQueryInterface();
