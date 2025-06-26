@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
-import { AssociationField, css, useCollectionField, useCollectionManager } from '@tachybase/client';
-import { connect, isValid, mapProps, mapReadPretty, useField, useFieldSchema } from '@tachybase/schema';
-import { isArray } from '@tachybase/utils/client';
+import React from 'react';
+import { AssociationField, useCollectionField, useCollectionManager } from '@tachybase/client';
+import { connect, mapProps, mapReadPretty, useField, useFieldSchema } from '@tachybase/schema';
 
-import { Input, Space, Tag } from 'antd-mobile';
+import { Tag } from 'antd-mobile';
 
 import { getMobileColor } from '../../../CustomColor';
 import { AntdSelect } from './AntdSelect';
