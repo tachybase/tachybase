@@ -108,7 +108,7 @@ export class FieldBase {
   }
 
   protected getCollectionField(fieldName: string, collection: Collection, collectionName?: string) {
-    let rawFieldName = '';
+    let rawFieldName = fieldName;
     if (collection) {
       rawFieldName = collection.model.rawAttributes[fieldName]?.field || fieldName;
     }
