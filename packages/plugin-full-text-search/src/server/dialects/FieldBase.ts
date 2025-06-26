@@ -1,4 +1,4 @@
-import { literal, Op, where } from '@tachybase/database';
+import { Collection, literal, Op, where } from '@tachybase/database';
 
 import { col, WhereOptions } from 'sequelize';
 
@@ -39,7 +39,7 @@ export class FieldBase {
   }
 
   public number(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword, collectionName } = params;
+    const { field, keyword, collectionName, collection } = params;
     // keyword不是数字则不作为搜索条件
     if (isNaN(Number(keyword))) {
       return null;
@@ -47,7 +47,7 @@ export class FieldBase {
     return {
       [Op.and]: [
         where(
-          literal(`CAST(${this.getCollectionFieldColName(field, collectionName)} AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
+          literal(`CAST(${this.getCollectionFieldColName(field, collection, collectionName)} AS TEXT)`), // 确保不加引号，直接插入 SQL 表达式
           {
             [Op.like]: `%${escapeLike(keyword)}%`,
           },
@@ -78,19 +78,19 @@ export class FieldBase {
   }
 
   // 多选框如何生成filter
-  public getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
-    return this.convertToObj(field, { [Op.contains]: matchEnum });
+  public getMultiSelectFilter(rawField: string, matchEnum: string[]): WhereOptions<any> {
+    return this.convertToObj(rawField, { [Op.contains]: matchEnum });
   }
 
   public array(params: handleFieldParams) {
-    const { field, keyword, fields, collectionName } = params;
+    const { field, keyword, fields, collectionName, collection } = params;
     const fieldInfo = fields.get(field);
     if (fieldInfo?.options?.uiSchema?.['x-component'] === 'Select') {
       const matchEnum = this.getMatchEnum(fieldInfo, keyword);
       if (!matchEnum.length) {
         return null;
       }
-      return this.getMultiSelectFilter(this.getCollectionFieldColName(field, collectionName), matchEnum);
+      return this.getMultiSelectFilter(this.getCollectionFieldColName(field, collection, collectionName), matchEnum);
     }
     return null;
   }
@@ -107,14 +107,18 @@ export class FieldBase {
     return matchEnum;
   }
 
-  protected getCollectionField(fieldName: string, collectionName?: string) {
-    if (!collectionName) {
-      return col(fieldName);
+  protected getCollectionField(fieldName: string, collection: Collection, collectionName?: string) {
+    let rawFieldName = '';
+    if (collection) {
+      rawFieldName = collection.model.rawAttributes[fieldName]?.field || fieldName;
     }
-    return col(`${collectionName}.${fieldName}`);
+    if (!collectionName) {
+      return col(rawFieldName);
+    }
+    return col(`${collectionName}.${rawFieldName}`);
   }
 
-  protected getCollectionFieldColName(fieldName: string, collectionName?: string) {
-    return this.getCollectionField(fieldName, collectionName).col;
+  protected getCollectionFieldColName(fieldName: string, collection: Collection, collectionName?: string) {
+    return this.getCollectionField(fieldName, collection, collectionName).col;
   }
 }

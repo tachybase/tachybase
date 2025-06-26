@@ -29,4 +29,5 @@ export type handleFieldParams = {
   fields: Map<string, any>;
   timezone?: string;
   dateStr?: string;
+  collection?: Collection;
 };
