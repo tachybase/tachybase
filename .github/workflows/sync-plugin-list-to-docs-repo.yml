@@ -56,16 +56,6 @@ jobs:
         run: |
           git clone https://github.com/tachybase/docs.git docs-repo-temp
 
-      - name: Create backup of current plugin-list.md
-        working-directory: ./docs-repo-temp/docs
-        run: |
-          if [ -f "./zh/plugins/plugin-list.md" ]; then
-            cp ./zh/plugins/plugin-list.md ./zh/plugins/plugin-list.md.backup
-            echo "✅ Backup created"
-          else
-            echo "⚠️ No existing plugin-list.md found"
-          fi
-
       - name: Copy plugins-list.md
         run: |
           mkdir -p ./docs-repo-temp/docs/zh/plugins/
