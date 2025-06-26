@@ -1,4 +1,4 @@
-import qs from 'querystring';
+import qs from 'node:querystring';
 import { assign } from '@tachybase/utils';
 
 import { Op, QueryTypes } from 'sequelize';
@@ -91,7 +91,12 @@ async function listWithPagination(ctx: Context) {
   let filterTreeData = [];
   let filterTreeCount = 0;
   if (ctx.action.params.tree && options.filter) {
-    const foreignKey = collection.treeParentField?.foreignKey || 'parentId';
+    let foreignKey =
+      collection.treeParentField?.collection.model.rawAttributes[collection.treeParentField?.foreignKey]?.field ||
+      'parentId';
+    if (!ctx.db.isMySQLCompatibleDialect()) {
+      foreignKey = `"${foreignKey}"`;
+    }
     const params = Object.values(options.filter).flat()[0] || {};
     let dataIds = [];
     if (Object.entries(params).length) {
@@ -106,26 +111,26 @@ async function listWithPagination(ctx: Context) {
       for (const dataId of dataIds) {
         const query = `
         WITH RECURSIVE tree1 AS (
-            SELECT id, "${foreignKey}"
+            SELECT id, ${foreignKey}
             FROM ${collection.name}
             WHERE id = :dataId
 
               UNION ALL
 
-              SELECT p.id, p."${foreignKey}"
+              SELECT p.id, p.${foreignKey}
               FROM tree1 up
-              JOIN ${collection.name} p ON up."${foreignKey}" = p.id
+              JOIN ${collection.name} p ON up.${foreignKey} = p.id
           ),
           tree2 AS (
-              SELECT id, "${foreignKey}"
+              SELECT id, ${foreignKey}
               FROM ${collection.name}
               WHERE id = :dataId
 
               UNION ALL
 
-            SELECT p.id, p."${foreignKey}"
+            SELECT p.id, p.${foreignKey}
             FROM tree2 down
-            JOIN ${collection.name} p ON down.id = p."${foreignKey}"
+            JOIN ${collection.name} p ON down.id = p.${foreignKey}
         )
         SELECT DISTINCT *
         FROM (
