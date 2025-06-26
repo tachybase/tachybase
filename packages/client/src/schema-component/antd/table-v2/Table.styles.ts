@@ -113,5 +113,9 @@ export const useStyles = createStyles(({ css, token }) => {
         display: none;
       }
     `,
+    // TASK 3 表单标题居中对齐
+    shareTableCenter: css`
+      text-align: center !important;
+    `,
   };
 });

@@ -5,12 +5,16 @@ import { useTranslation } from 'react-i18next';
 
 import { useDesignable } from '../../schema-component';
 
+// TASK 1 分享页面禁用设计者模式
 // 设计模式开关
 export const designerMode = {
   name: 'designerMode',
   useLoadMethod: () => {
+    // 使用url判断是否为share界面
+    const isSharePage = window.location.pathname.includes('/share');
     const { designable, setDesignable } = useDesignable() as any;
     const { t } = useTranslation();
+    if (isSharePage) return null;
     return {
       title: t('Designer mode'),
       actionProps: {

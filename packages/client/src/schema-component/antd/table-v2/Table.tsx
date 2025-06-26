@@ -280,7 +280,7 @@ export const Table: any = withDynamicSchemaProps(
       const isTableSelector = schema?.parent?.['x-decorator'] === 'TableSelectorProvider';
       const ctx = isTableSelector ? useTableSelectorContext() : useTableBlockContext();
       const { expandFlag, allIncludesChildren } = ctx;
-      const onRowDragEnd = useMemoizedFn(others.onRowDragEnd || (() => {}));
+      const onRowDragEnd = useMemoizedFn(others.onRowDragEnd || (() => { }));
       const paginationProps = usePaginationProps(pagination1, pagination2);
       const [expandedKeys, setExpandesKeys] = useState([]);
       const [selectedRowKeys, setSelectedRowKeys] = useState<any[]>(field?.data?.selectedRowKeys || []);
@@ -392,67 +392,67 @@ export const Table: any = withDynamicSchemaProps(
       const restProps = {
         rowSelection: rowSelection
           ? {
-              type: 'checkbox',
-              selectedRowKeys: selectedRowKeys,
-              onChange(selectedRowKeys: any[], selectedRows: any[]) {
-                field.data = field.data || {};
-                field.data.selectedRowKeys = selectedRowKeys;
-                setSelectedRowKeys(selectedRowKeys);
-                onRowSelectionChange?.(selectedRowKeys, selectedRows);
-              },
-              getCheckboxProps(record) {
-                return {
-                  'aria-label': `checkbox`,
-                };
-              },
-              renderCell: (checked, record, index, originNode) => {
-                if (!dragSort && !showIndex) {
-                  return originNode;
-                }
-                const current = props?.pagination?.current;
-                const pageSize = props?.pagination?.pageSize || 20;
-                if (current) {
-                  index = index + (current - 1) * pageSize + 1;
-                } else {
-                  index = index + 1;
-                }
-                if (record.__index) {
-                  index = extractIndex(record.__index);
-                }
-                return (
-                  <div
-                    role="button"
-                    aria-label={`table-index-${index}`}
-                    className={classNames(checked ? 'checked' : null, styles.rowSelect, {
-                      [styles.rowSelectHover]: isRowSelect,
-                    })}
-                  >
-                    <div className={classNames(checked ? 'checked' : null, styles.cellChecked)}>
-                      {dragSort && <SortHandle id={getRowKey(record)} />}
-                      {showIndex && <TableIndex index={index} />}
-                    </div>
-                    {isRowSelect && (
-                      <div className={classNames('tb-origin-node', checked ? 'checked' : null, styles.cellCheckedNode)}>
-                        {originNode}
-                      </div>
-                    )}
+            type: 'checkbox',
+            selectedRowKeys: selectedRowKeys,
+            onChange(selectedRowKeys: any[], selectedRows: any[]) {
+              field.data = field.data || {};
+              field.data.selectedRowKeys = selectedRowKeys;
+              setSelectedRowKeys(selectedRowKeys);
+              onRowSelectionChange?.(selectedRowKeys, selectedRows);
+            },
+            getCheckboxProps(record) {
+              return {
+                'aria-label': `checkbox`,
+              };
+            },
+            renderCell: (checked, record, index, originNode) => {
+              if (!dragSort && !showIndex) {
+                return originNode;
+              }
+              const current = props?.pagination?.current;
+              const pageSize = props?.pagination?.pageSize || 20;
+              if (current) {
+                index = index + (current - 1) * pageSize + 1;
+              } else {
+                index = index + 1;
+              }
+              if (record.__index) {
+                index = extractIndex(record.__index);
+              }
+              return (
+                <div
+                  role="button"
+                  aria-label={`table-index-${index}`}
+                  className={classNames(checked ? 'checked' : null, styles.rowSelect, {
+                    [styles.rowSelectHover]: isRowSelect,
+                  })}
+                >
+                  <div className={classNames(checked ? 'checked' : null, styles.cellChecked)}>
+                    {dragSort && <SortHandle id={getRowKey(record)} />}
+                    {showIndex && <TableIndex index={index} />}
                   </div>
-                );
-              },
-              ...rowSelection,
-            }
+                  {isRowSelect && (
+                    <div className={classNames('tb-origin-node', checked ? 'checked' : null, styles.cellCheckedNode)}>
+                      {originNode}
+                    </div>
+                  )}
+                </div>
+              );
+            },
+            ...rowSelection,
+          }
           : undefined,
       };
       const SortableWrapper = useCallback(
         ({ children }) => {
           return dragSort
             ? React.createElement<Omit<SortableContextProps, 'children'>>(
-                SortableContext,
-                {
-                  items: field.value?.map?.(getRowKey) || [],
-                },
-                children,
-              )
+              SortableContext,
+              {
+                items: field.value?.map?.(getRowKey) || [],
+              },
+              children,
+            )
             : React.createElement(React.Fragment, {}, children);
         },
         [field, dragSort],
@@ -464,13 +464,26 @@ export const Table: any = withDynamicSchemaProps(
       const scroll = useMemo(() => {
         return fixedBlock
           ? {
-              x: 'max-content',
-              y: tableHeight,
-            }
+            x: 'max-content',
+            y: tableHeight,
+          }
           : {
-              x: 'max-content',
-            };
+            x: 'max-content',
+          };
       }, [fixedBlock, tableHeight]);
+
+      // TASK 3 表单标题居中对齐
+      const isSharePage = typeof window !== 'undefined' && window.location.pathname.includes('share');
+      let columnsWithWidth = columns;
+      if (isSharePage) {
+        columnsWithWidth = columns.map((col, idx) => {
+          if (idx === 0) return { ...col }; // 首列
+          if (idx === columns.length - 1) return { ...col, width: 50 }; // 尾列
+          // 中间列居中对齐
+          return { ...col, className: 'share-table-center' };
+        });
+      }
+
       return (
         <div className={styles.container}>
           <SortableWrapper>
@@ -489,7 +502,7 @@ export const Table: any = withDynamicSchemaProps(
               onRow={onRow}
               rowClassName={(record) => (selectedRow.includes(record[rowKey]) ? highlightRow : '')}
               scroll={scroll}
-              columns={columns}
+              columns={columnsWithWidth}
               expandable={{
                 onExpand: (flag, record) => {
                   const newKeys = flag

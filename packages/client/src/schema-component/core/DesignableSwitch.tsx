@@ -13,6 +13,13 @@ export const DesignableSwitch = () => {
   const { designable, setDesignable } = useDesignable();
   const { t } = useTranslation();
   const { token } = useToken();
+
+  // 检测是否为分享页面，如果是则不渲染
+  const isSharePage = typeof window !== 'undefined' && window.location.pathname.includes('/share');
+  if (isSharePage) {
+    return null;
+  }
+
   const style = {};
   if (designable) {
     style['backgroundColor'] = 'var(--colorSettings)';

@@ -26,6 +26,7 @@ export const ShareLayout = () => {
   const result = useSystemSettings();
   const sideMenuRef = useRef<HTMLDivElement>();
   return (
+    // TASK 2 修改页面样式
     <Layout style={{ height: '100%' }}>
       <Layout.Content
         className={css`
@@ -33,6 +34,10 @@ export const ShareLayout = () => {
           flex-direction: column;
           position: relative;
           overflow-y: auto;
+          height: 600px;
+          width: 1200px;
+          margin: 50px auto;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
           > div {
             position: relative;
           }
@@ -46,7 +51,8 @@ export const ShareLayout = () => {
           }
         `}
       >
-        <Layout.Header className={styles.header}>
+        {/* TASK 2 删除头部组件 */}
+        {/* <Layout.Header className={styles.header}>
           <div className={styles.headerA}>
             <div className={styles.headerB}>
               <div
@@ -68,7 +74,7 @@ export const ShareLayout = () => {
               <CurrentUser />
             </div>
           </div>
-        </Layout.Header>
+        </Layout.Header> */}
         <Outlet />
       </Layout.Content>
     </Layout>

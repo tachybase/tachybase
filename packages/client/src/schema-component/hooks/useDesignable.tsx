@@ -724,12 +724,17 @@ export function useDesignable() {
     dn.loadAPIClientEvents();
   }, [dn]);
 
+  // TASK 1 分享页面禁用设计者模式
+  // 检测是否为分享页面，如果是则强制禁用设计者模式
+  const isSharePage = typeof window !== 'undefined' && window.location.pathname.includes('/share');
+  const finalDesignable = isSharePage ? false : designable;
+
   return {
     dn,
-    designable,
+    designable: finalDesignable,
     reset,
     refresh,
-    setDesignable,
+    setDesignable: isSharePage ? () => { } : setDesignable, // 分享页面时禁用设置功能,
     DesignableBar,
     findComponent: useCallback(
       (component: any) => {

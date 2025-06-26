@@ -4,6 +4,13 @@ import { FloatButton } from 'antd';
 
 const DesignableButton = () => {
   const { designable, setDesignable } = useDesignable();
+
+  // 检测是否为分享页面，如果是则不渲染
+  const isSharePage = typeof window !== 'undefined' && window.location.pathname.includes('/share');
+  if (isSharePage) {
+    return null;
+  }
+
   // 快捷键切换编辑状态
   useHotkeys('Ctrl+Shift+U', () => setDesignable(!designable), [designable]);
 
