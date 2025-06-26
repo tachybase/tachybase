@@ -15,7 +15,9 @@ function findArgs(ctx: Context) {
     const [collectionName, associationName] = resourceName.split('.');
     const collection = ctx.db.getCollection(resourceName);
     if (collection.options.tree && !(associationName && collectionName === collection.name)) {
-      const foreignKey = collection.treeParentField?.foreignKey || 'parentId';
+      const foreignKey =
+        collection.treeParentField?.collection.model.rawAttributes[collection.treeParentField?.foreignKey]?.field ||
+        'parentId';
       assign(params, { filter: { [foreignKey]: null } }, { filter: 'andMerge' });
     }
   }

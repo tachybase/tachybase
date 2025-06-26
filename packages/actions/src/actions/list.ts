@@ -62,7 +62,9 @@ function findArgs(ctx: Context) {
     const collection = ctx.db.getCollection(resourceName);
     // tree collection 或者关系表是 tree collection
     if (collection.options.tree && !(associationName && collectionName === collection.name)) {
-      const foreignKey = collection.treeParentField?.foreignKey || 'parentId';
+      const foreignKey =
+        collection.treeParentField?.collection.model.rawAttributes[collection.treeParentField?.foreignKey]?.field ||
+        'parentId';
       assign(params, { filter: { [foreignKey]: null } }, { filter: 'andMerge' });
     }
   }
