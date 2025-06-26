@@ -45,6 +45,7 @@ export function handleField(
     timezone?: string;
     dateStr?: string;
     collectionName?: string;
+    collection?: Collection;
   } = {},
 ): any[] {
   const conditions = [];
@@ -56,6 +57,7 @@ export function handleField(
       timezone: extraParams.timezone,
       dateStr: extraParams.dateStr,
       collectionName: extraParams.collectionName,
+      collection: extraParams.collection,
     };
     const condition = func.call(handler, params);
     if (condition) {
@@ -86,12 +88,13 @@ export function processField({ field, handler, collection, ctx, search, timezone
 
   if (isFieldType(type, 'string')) {
     // string支持关联字段
-    return handleField(handler, handler.string, field, fields, search.keywords);
+    return handleField(handler, handler.string, field, fields, search.keywords, { collection });
   } else if (isFieldType(type, 'number')) {
     // 暂不支持关联字段 TODO 后续考虑抽成装饰器
     if (!field.includes('.')) {
       return handleField(handler, handler.number, field, fields, search.keywords, {
         collectionName: collection.name,
+        collection,
       });
     }
   } else if (isFieldType(type, 'date')) {
@@ -103,17 +106,18 @@ export function processField({ field, handler, collection, ctx, search, timezone
         timezone,
         dateStr,
         collectionName: collection.name,
+        collection,
       });
     }
   } else if (isFieldType(type, 'json')) {
     // 暂不支持关联字段
     if (!field.includes('.')) {
-      return handleField(handler, handler.json, field, fields, search.keywords);
+      return handleField(handler, handler.json, field, fields, search.keywords, { collection });
     }
   } else if (isFieldType(type, 'array')) {
     // 暂不支持关联字段
     if (!field.includes('.')) {
-      return handleField(handler, handler.array, field, fields, search.keywords);
+      return handleField(handler, handler.array, field, fields, search.keywords, { collection });
     }
   }
 

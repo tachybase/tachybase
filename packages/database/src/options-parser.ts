@@ -174,12 +174,21 @@ export class OptionsParser {
         continue;
       }
       sortField.push(direction);
+
+      // mysql null值排到最后, TODO: 多对一和一对一的环境仅考虑一层
       if (this.database.isMySQLCompatibleDialect()) {
         const fieldName = sortField[0];
-
-        // @ts-ignore
-        if (this.model.fieldRawAttributesMap[fieldName]) {
-          orderParams.push([Sequelize.fn('ISNULL', Sequelize.col(`${this.model.name}.${sortField[0]}`))]);
+        if (typeof fieldName === 'string') {
+          if (this.model.rawAttributes[fieldName]) {
+            orderParams.push([
+              Sequelize.fn('ISNULL', Sequelize.col(`${this.model.name}.${this.model.rawAttributes[fieldName].field}`)),
+              'ASC',
+            ]);
+          }
+        } else {
+          const secondField = sortField[1];
+          const secondRawField = fieldName.model.rawAttributes[secondField].field || secondField;
+          orderParams.push([Sequelize.fn('ISNULL', Sequelize.col(`${fieldName.as}.${secondRawField}`)), 'ASC']);
         }
       }
       orderParams.push(sortField);
