@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { css } from '@emotion/css';
 import { Outlet, useLocation, useOutlet, useParams } from 'react-router-dom';
 
 import { useDocumentTitle } from '../document-title';
-import { PageStyleContext } from './PageStyle.provider';
+import { PageStyle, PageStyleContext } from './PageStyle.provider';
 import { usePageStyle } from './usePageStyle';
 
 export const TabContentInternal = ({ items, activeKey }) => {
@@ -30,7 +30,6 @@ export const TabContent = () => {
   const { items, setItems } = useContext(PageStyleContext);
   const targetKey = location.pathname;
   const outlet = useOutlet();
-
   useEffect(() => {
     if (targetKey && title) {
       const targetItem = items.find((value) => value.key === targetKey);
@@ -58,5 +57,5 @@ export const TabContent = () => {
 export const CustomAdminContent = () => {
   const params = useParams<any>();
   const pageStyle = usePageStyle();
-  return params.name && pageStyle === 'tab' ? <TabContent /> : <Outlet />;
+  return params.name && pageStyle === PageStyle.TAB_STYLE ? <TabContent /> : <Outlet />;
 };

@@ -29,7 +29,7 @@ import { ActionLink } from './Action.Link';
 import { ActionModal } from './Action.Modal';
 import { ActionPage } from './Action.Page';
 import useStyles from './Action.style';
-import { ActionContextProvider } from './context';
+import { ActionContextProvider, OpenMode } from './context';
 import { useA } from './hooks';
 import { useGetAriaLabelOfAction } from './hooks/useGetAriaLabelOfAction';
 import { ComposedAction } from './types';
@@ -122,12 +122,13 @@ export const Action: ComposedAction = withDynamicSchemaProps(
               s['x-component'] === 'Action.Container' ? s : buf,
             );
             // TODO: 增加上下文判断
-            if (pageMode?.enable && containerSchema) {
+            // NOTE: 全局 pageMode 模式打开,或者当前是 openMode 明确声明为 page 的, 或者没有 openMode 的, 都走 page 模式
+            if ((pageMode?.enable || openMode === OpenMode.PAGE || !openMode) && containerSchema) {
               const target = PathHandler.getInstance().toWildcardPath({
                 collection: collection.name,
                 filterByTk: record[collection.getPrimaryKey()],
               });
-              navigate('../' + containerSchema['x-uid'] + '/' + target);
+              navigate('./sub/' + containerSchema['x-uid'] + '/' + target);
             } else {
               setVisible(true);
             }
