@@ -10,7 +10,6 @@ import {
   useRequest,
   useTranslation,
 } from '@tachybase/client';
-import { ArrayCollapse, ArrayTable, FormLayout } from '@tachybase/components';
 import {
   action,
   autorun,
@@ -63,7 +62,7 @@ import {
   useFieldSchema,
 } from '../../../../../../schema/src/react';
 import { SchemaInitializerItemType, SchemaSettingsWrapper, useApp } from '../../../../application';
-import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
+import { PageRefreshProvider, usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import {
   CollectionOptions,
   IField,
@@ -117,6 +116,9 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
   const { t } = useTranslation();
   const { styles } = useStyles();
   const collectionName = options?.item?.name || null;
+  const collectionManager = useCollectionManager();
+  const collection = collectionManager.getCollection(collectionName);
+
   const eddn = createEditableDesignable({
     t,
     api,
@@ -130,18 +132,20 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
   }, [options]);
   return (
     <Modal open={open} footer={null} width="100vw" closable={false} className={styles.editModel}>
-      <CollectionProvider name={collectionName}>
-        <DndContext>
-          <Layout style={{ height: '100%' }}>
-            <EditorHeader onCancel={onCancel} schema={schema} />
-            <Layout>
-              <EditorFieldsSider schema={schema} setSchemakey={setSchemakey} eddn={eddn} />
-              <EditorContent key={schemakey} schema={schema} />
-              <EditorFieldFormProperty schema={schema} setSchemakey={setSchemakey} eddn={eddn} />
+      <PageRefreshProvider>
+        <CollectionContext.Provider value={collection}>
+          <DndContext>
+            <Layout style={{ height: '100%' }}>
+              <EditorHeader onCancel={onCancel} schema={schema} />
+              <Layout>
+                <EditorFieldsSider schema={schema} setSchemakey={setSchemakey} eddn={eddn} />
+                <EditorContent key={schemakey} schema={schema} />
+                <EditorFieldFormProperty schema={schema} setSchemakey={setSchemakey} eddn={eddn} />
+              </Layout>
             </Layout>
-          </Layout>
-        </DndContext>
-      </CollectionProvider>
+          </DndContext>
+        </CollectionContext.Provider>
+      </PageRefreshProvider>
     </Modal>
   );
 };
@@ -853,8 +857,9 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
 export const EditorContent = observer<EditorContentProps>(({ schema }) => {
   const { Content } = Layout;
   const { styles } = useStyles();
+  const { refreshKey } = usePageRefresh();
   return (
-    <Content style={{ padding: '5px', overflow: 'auto' }}>
+    <Content key={refreshKey} style={{ padding: '5px', overflow: 'auto' }}>
       <SchemaComponent schema={schema} components={{ EditableGrid }} />
     </Content>
   );
@@ -927,7 +932,12 @@ const EditorFieldProperty = ({ schema, setSchemakey }) => {
 
 const FieldProperties = () => {
   const fieldComponentName = useFieldComponentName();
-  return <FieldPropertiesContent key={fieldComponentName} fieldComponentName={fieldComponentName} />;
+  const { refreshKey } = usePageRefresh();
+  return (
+    <div key={refreshKey}>
+      <FieldPropertiesContent key={fieldComponentName} fieldComponentName={fieldComponentName} />
+    </div>
+  );
 };
 
 export const AllSchemaProviders = ({
@@ -943,37 +953,34 @@ export const AllSchemaProviders = ({
 }) => {
   const upLevelActiveFields = useFormActiveFields();
   const designerCtx = useSchemaComponentContext();
-  const { name } = useCollection_deprecated();
-  const collectionManager = useCollectionManager();
-  const collection = collectionManager.getCollection(name);
+  const { getField } = useCollection_deprecated();
+  const record = getField(fieldSchema.name);
   return (
     <ContextCleaner>
-      <CollectionContext.Provider value={collection}>
-        <FormContext.Provider value={form}>
-          <FieldContext.Provider value={field}>
-            <SchemaMarkupContext.Provider value={schemaMarkup}>
-              <SchemaContext.Provider value={fieldSchema}>
-                <SchemaExpressionScopeContext.Provider value={expressionScope}>
-                  <SchemaComponentsContext.Provider value={schemaComponents}>
-                    <SchemaOptionsContext.Provider value={schemaOptions}>
-                      <FormBlockContext.Provider value={formBlockValue}>
-                        <FormActiveFieldsProvider
-                          name="form"
-                          getActiveFieldsName={upLevelActiveFields?.getActiveFieldsName}
-                        >
-                          <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
-                            <RecordProvider record={collection}>{children}</RecordProvider>
-                          </SchemaComponentContext.Provider>
-                        </FormActiveFieldsProvider>
-                      </FormBlockContext.Provider>
-                    </SchemaOptionsContext.Provider>
-                  </SchemaComponentsContext.Provider>
-                </SchemaExpressionScopeContext.Provider>
-              </SchemaContext.Provider>
-            </SchemaMarkupContext.Provider>
-          </FieldContext.Provider>
-        </FormContext.Provider>
-      </CollectionContext.Provider>
+      <FormContext.Provider value={form}>
+        <FieldContext.Provider value={field}>
+          <SchemaMarkupContext.Provider value={schemaMarkup}>
+            <SchemaContext.Provider value={fieldSchema}>
+              <SchemaExpressionScopeContext.Provider value={expressionScope}>
+                <SchemaComponentsContext.Provider value={schemaComponents}>
+                  <SchemaOptionsContext.Provider value={schemaOptions}>
+                    <FormBlockContext.Provider value={formBlockValue}>
+                      <FormActiveFieldsProvider
+                        name="form"
+                        getActiveFieldsName={upLevelActiveFields?.getActiveFieldsName}
+                      >
+                        <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
+                          <RecordProvider record={record}>{children}</RecordProvider>
+                        </SchemaComponentContext.Provider>
+                      </FormActiveFieldsProvider>
+                    </FormBlockContext.Provider>
+                  </SchemaOptionsContext.Provider>
+                </SchemaComponentsContext.Provider>
+              </SchemaExpressionScopeContext.Provider>
+            </SchemaContext.Provider>
+          </SchemaMarkupContext.Provider>
+        </FieldContext.Provider>
+      </FormContext.Provider>
     </ContextCleaner>
   );
 };
@@ -988,7 +995,7 @@ export const FieldPropertiesContent = ({ fieldComponentName }) => {
   const fieldsInterface =
     app.editableSchemaSettingsManager.get('editableFieldSettings:Fields:Association')?.options?.items ?? [];
   const items = [...fieldsInterface, ...genericItems, ...specificItems];
-  const { handleUpdate, components, fullSchema, itemStates, initialValues } = useEditableItems(items);
+  const { handleUpdate, components: itemsComponents, fullSchema, itemStates, initialValues } = useEditableItems(items);
   form.setValues(initialValues);
 
   return (
@@ -1000,7 +1007,7 @@ export const FieldPropertiesContent = ({ fieldComponentName }) => {
           onUpdate={(state) => handleUpdate(item.name || index, state)}
         />
       ))}
-      <SchemaComponent schema={fullSchema} components={{ components }} />
+      <SchemaComponent schema={fullSchema} components={{ ...components, ...itemsComponents }} />
     </div>
   );
 };

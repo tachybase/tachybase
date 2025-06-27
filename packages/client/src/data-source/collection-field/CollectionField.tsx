@@ -23,6 +23,7 @@ export const CollectionFieldInternalField = (props: Props) => {
   const field = useField<Field>();
   const fieldSchema = useFieldSchema();
   const { uiSchema: uiSchemaOrigin, defaultValue } = useCollectionField();
+  console.log('%c Line:26 🥥 uiSchemaOrigin', 'font-size:18px;color:#ed9ec7;background:#93c0a4', uiSchemaOrigin);
   const { isAllowToSetDefaultValue } = useIsAllowToSetDefaultValue();
   const uiSchema = compile(uiSchemaOrigin);
   const Component = useComponent(component || uiSchema?.['x-component'] || 'Input');

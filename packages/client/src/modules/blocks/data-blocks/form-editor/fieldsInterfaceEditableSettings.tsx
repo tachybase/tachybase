@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useAPIClient, useRequest } from '../../../../api-client';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
+import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import {
   IField,
   useCancelAction,
@@ -38,10 +39,7 @@ export const fieldInterfaceEditableSettings = new EditableSchemaSettings({
       useSchema() {
         const { t } = useTranslation();
         const fieldSchema = useFieldSchema();
-        const { getCollection } = useCollectionManager_deprecated();
-        const { name } = useCollection_deprecated();
-        const collection = getCollection(name);
-        const record = collection.getField(fieldSchema.name);
+        const record = useRecord();
         const field = useField<Field>();
         return {
           type: 'object',
@@ -710,7 +708,8 @@ const getProperties = (fieldInterface) => {
 export const SetCollectionFieldModalWrapper = (props) => {
   const { record, fieldSchema, field } = props;
   const { t } = useTranslation();
-  const { collections, getCollection } = useCollectionManager_deprecated();
+  const { collections, getCollection, refreshCM } = useCollectionManager_deprecated();
+  const { refresh } = usePageRefresh();
   const [schema, setSchema] = useState({});
   const [visible, setVisible] = useState(false);
   const [targetScope, setTargetScope] = useState({});
@@ -746,17 +745,16 @@ export const SetCollectionFieldModalWrapper = (props) => {
     const api = useAPIClient();
     const record = useRecord();
     const form = useForm();
-    const { refreshCM, getCollectionFields } = useCollectionManager_deprecated();
     const ctx = useActionContext();
     const { name: collectionName } = useCollection_deprecated();
     const { uiSchema, fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
     const targetCollectionField = useCollectionField();
     const collectionField = tableColumnField || targetCollectionField;
-    const fieldNames = {
-      ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
-      ...field?.componentProps?.fieldNames,
-      ...fieldSchema?.['x-component-props']?.['fieldNames'],
-    };
+    // const fieldNames = {
+    //   ...collectionField?.uiSchema?.['x-component-props']?.['fieldNames'],
+    //   ...field?.componentProps?.fieldNames,
+    //   ...fieldSchema?.['x-component-props']?.['fieldNames'],
+    // };
     return {
       async run() {
         await form.submit();
@@ -775,14 +773,16 @@ export const SetCollectionFieldModalWrapper = (props) => {
           },
         });
         const targetKey = values.targetKey || 'id';
-        const targetCollection = getCollection(collectionField.target);
+        const targetCollection = getCollection(values.target);
         const titleField = targetCollection?.titleField || targetKey;
         fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
         fieldSchema['x-component-props'].fieldNames = {
           value: targetKey,
           label: titleField,
         };
+        field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
         await refreshCM();
+        refresh();
         ctx.setVisible(false);
         await form.reset();
       },

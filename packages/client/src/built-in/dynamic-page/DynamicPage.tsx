@@ -19,23 +19,19 @@ export const DynamicPage = () => {
     }
     return (
       // FIXME 这里是通过 DataBlock + RecordContext 来让它工作，实际上需要重构一个新的上下文，原来的卡片上下文用在这里无助于内部卡片判断
-      <PageRefreshProvider>
-        <WithPageRefresh>
-          <DataBlockProvider params={{ filterByTk: path.filterByTk }} action="get" collection={path.collection}>
-            <RecordContext_deprecated.Provider value={{ id: path.filterByTk }}>
-              <RemoteSchemaComponent uid={params.name} onlyRenderProperties />
-            </RecordContext_deprecated.Provider>
-          </DataBlockProvider>
-        </WithPageRefresh>
-      </PageRefreshProvider>
+      <WithPageRefresh>
+        <DataBlockProvider params={{ filterByTk: path.filterByTk }} action="get" collection={path.collection}>
+          <RecordContext_deprecated.Provider value={{ id: path.filterByTk }}>
+            <RemoteSchemaComponent uid={params.name} onlyRenderProperties />
+          </RecordContext_deprecated.Provider>
+        </DataBlockProvider>
+      </WithPageRefresh>
     );
   } else {
     return (
-      <PageRefreshProvider>
-        <WithPageRefresh>
-          <RemoteSchemaComponent uid={params.name} onlyRenderProperties />
-        </WithPageRefresh>
-      </PageRefreshProvider>
+      <WithPageRefresh>
+        <RemoteSchemaComponent uid={params.name} onlyRenderProperties />
+      </WithPageRefresh>
     );
   }
 };
