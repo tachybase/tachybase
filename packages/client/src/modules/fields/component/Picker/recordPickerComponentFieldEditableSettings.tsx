@@ -28,7 +28,6 @@ export const recordPickerComponentFieldEditableSettings = new EditableSchemaSett
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
         const fieldModeOptions = useFieldModeOptions({ fieldSchema: tableColumnSchema, collectionField });
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -56,7 +55,6 @@ export const recordPickerComponentFieldEditableSettings = new EditableSchemaSett
                 field?.setInitialValue?.(null);
                 field?.setValue?.(null);
               }
-              refresh();
             },
           },
         };
@@ -74,7 +72,6 @@ export const recordPickerComponentFieldEditableSettings = new EditableSchemaSett
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Popup size")}}',
@@ -94,7 +91,6 @@ export const recordPickerComponentFieldEditableSettings = new EditableSchemaSett
             onChange: (value) => {
               field.componentProps.openSize = value;
               fieldSchema['x-component-props'] = { ...fieldSchema['x-component-props'], openSize: value };
-              refresh();
             },
           },
         };
@@ -111,7 +107,6 @@ export const recordPickerComponentFieldEditableSettings = new EditableSchemaSett
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default:
@@ -132,7 +127,6 @@ export const recordPickerComponentFieldEditableSettings = new EditableSchemaSett
               field.componentProps.multiple = value;
 
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };
@@ -149,7 +143,6 @@ export const recordPickerComponentFieldEditableSettings = new EditableSchemaSett
         const fieldSchema = tableColumnSchema || schema;
         const targetCollectionField = useCollectionField();
         const collectionField = tableColumnField || targetCollectionField;
-        const { refresh } = useEditableDesignable();
         const fieldNames =
           field?.componentProps?.fieldNames ||
           fieldSchema?.['x-component-props']?.['fieldNames'] ||
@@ -177,7 +170,6 @@ export const recordPickerComponentFieldEditableSettings = new EditableSchemaSett
               fieldSchema['x-component-props']['fieldNames'] = fieldNames;
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
-              refresh();
             },
           },
         };

@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { createForm, Field, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { useAPIClient } from '../../../../api-client';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
 import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
@@ -36,7 +37,10 @@ import {
 } from '../../../../schema-settings';
 import { useIsShowMultipleSwitch } from '../../../../schema-settings/hooks/useIsShowMultipleSwitch';
 import { useLocalVariables, useVariables } from '../../../../variables';
-import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
+import {
+  createEditableDesignable,
+  useEditableDesignable,
+} from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 
 export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSettings({
   name: 'editableFieldSettings:component:CustomTitle',
@@ -45,7 +49,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
       name: 'fieldComponent',
       useSchema() {
         const { t } = useTranslation();
-        const { refresh } = useEditableDesignable();
         const field = useField<Field>();
         const isAddNewForm = useIsAddNewForm();
         const fieldMode = useFieldComponentName();
@@ -87,7 +90,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
                 field?.setInitialValue?.(null);
                 field?.setValue?.(null);
               }
-              refresh();
             },
           },
         };
@@ -102,7 +104,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const fieldSchema = tableColumnSchema || schema;
         const { t } = useTranslation();
-        const { refresh } = useEditableDesignable();
         const options = useFormulaTitleOptions();
         const def = fieldSchema['x-component-props']?.fieldNames?.formula;
         const field = useField();
@@ -174,7 +175,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
                               fieldSchema['x-component-props'] = componentProps;
                             }
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -206,7 +206,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
         const { isInSubForm, isInSubTable } = useFlag() || {};
         const variables = useVariables();
         const localVariables = useLocalVariables();
-        const { refresh } = useEditableDesignable();
         const dynamicComponent = (props: DynamicComponentProps) => {
           return (
             <VariableInput
@@ -289,7 +288,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
                             filter = removeNullCondition(filter);
                             _.set(fieldSchema['x-component-props'], 'service.params.filter', filter);
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -312,7 +310,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
       useSchema() {
         const field = useField();
         const { t } = useTranslation();
-        const { refresh } = useEditableDesignable();
         const fieldSchema = useFieldSchema();
         const { getField } = useCollection_deprecated();
         const { getCollectionJoinField } = useCollectionManager_deprecated();
@@ -448,7 +445,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
                             // props?.onSubmitCallBack?.(sortArr);
                             field.componentProps = fieldSchema['x-component-props'];
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -476,9 +472,12 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
       name: 'quickCreate',
       useSchema() {
         const { t } = useTranslation();
-        const { refresh, insertAdjacent } = useEditableDesignable();
+        const api = useAPIClient();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
+        const eddn = useMemo(() => {
+          return createEditableDesignable({ t, api, current: fieldSchema, model: field });
+        }, [t, api, fieldSchema, field]);
         return {
           type: 'string',
           title: '{{t("Quick create")}}',
@@ -518,7 +517,7 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
                       component: 'CreateRecordAction',
                     },
                   };
-                  insertAdjacent('afterBegin', addNewActionschema);
+                  eddn.insertAdjacent('afterBegin', addNewActionschema);
                 }
               }
               const schema = {
@@ -529,7 +528,6 @@ export const CustomTitleComponentFieldEditableSettings = new EditableSchemaSetti
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps = field.componentProps || {};
               field.componentProps.addMode = mode;
-              refresh();
             },
           },
         };

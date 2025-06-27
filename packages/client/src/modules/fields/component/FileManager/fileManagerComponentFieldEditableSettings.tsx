@@ -28,7 +28,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
         const fieldModeOptions = useFieldModeOptions({ fieldSchema: tableColumnSchema, collectionField });
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -56,7 +55,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
                 field.setInitialValue(null);
                 field.setValue(null);
               }
-              refresh();
             },
           },
         };
@@ -76,7 +74,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default: fieldSchema['x-component-props']?.quickUpload !== (false as boolean),
@@ -93,7 +90,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
               fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
               fieldSchema['x-component-props'].quickUpload = value;
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };
@@ -114,7 +110,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default: fieldSchema['x-component-props']?.selectFile !== (false as boolean),
@@ -131,7 +126,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
               fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
               fieldSchema['x-component-props'].selectFile = value;
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };
@@ -149,7 +143,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: t('Size'),
@@ -173,7 +166,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps = field.componentProps || {};
               field.componentProps.size = size;
-              refresh();
             },
           },
         };
@@ -187,7 +179,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default:
@@ -208,7 +199,6 @@ export const fileManagerComponentFieldEditableSettings = new EditableSchemaSetti
               field.componentProps.multiple = value;
 
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };

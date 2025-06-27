@@ -22,7 +22,6 @@ export const cascadeSelectComponentFieldEditableSettings = new EditableSchemaSet
         const fieldModeOptions = useFieldModeOptions();
         const isAddNewForm = useIsAddNewForm();
         const fieldComponentName = useFieldComponentName();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -51,7 +50,6 @@ export const cascadeSelectComponentFieldEditableSettings = new EditableSchemaSet
                 field.setInitialValue(null);
                 field.setValue(null);
               }
-              refresh();
             },
           },
         };
@@ -63,7 +61,6 @@ export const cascadeSelectComponentFieldEditableSettings = new EditableSchemaSet
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         const options = useTitleFieldOptions();
         const collectionField = useCollectionField();
         return {
@@ -89,7 +86,6 @@ export const cascadeSelectComponentFieldEditableSettings = new EditableSchemaSet
               fieldSchema['x-component-props']['fieldNames'] = fieldNames;
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
-              refresh();
             },
           },
         };

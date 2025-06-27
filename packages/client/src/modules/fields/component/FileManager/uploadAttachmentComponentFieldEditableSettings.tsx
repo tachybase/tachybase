@@ -16,7 +16,6 @@ export const uploadAttachmentComponentFieldEditableSettings = new EditableSchema
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: t('Size'),
@@ -40,7 +39,6 @@ export const uploadAttachmentComponentFieldEditableSettings = new EditableSchema
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps = field.componentProps || {};
               field.componentProps.size = size;
-              refresh();
             },
           },
         };
@@ -57,7 +55,6 @@ export const uploadAttachmentComponentFieldEditableSettings = new EditableSchema
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const showCountSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'number',
           title: t('Show Count'),
@@ -75,7 +72,6 @@ export const uploadAttachmentComponentFieldEditableSettings = new EditableSchema
                 ['x-uid']: showCountSchema['x-uid'],
                 ['x-component-props']: props,
               };
-              refresh();
             },
           },
         };

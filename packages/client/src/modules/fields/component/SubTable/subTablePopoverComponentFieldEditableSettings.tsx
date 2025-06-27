@@ -26,7 +26,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
         const fieldModeOptions = useFieldModeOptions();
         const isAddNewForm = useIsAddNewForm();
         const fieldComponentName = useFieldComponentName();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -54,7 +53,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
                 field.setInitialValue(null);
                 field.setValue(null);
               }
-              refresh();
             },
           },
         };
@@ -70,7 +68,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
       useSchema() {
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default: fieldSchema['x-component-props']?.allowAddnew !== (false as boolean),
@@ -87,7 +84,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
               fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
               fieldSchema['x-component-props'].allowAddnew = value;
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };
@@ -103,7 +99,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default: fieldSchema['x-component-props']?.allowSelectExistingRecord,
@@ -120,7 +115,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
               fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
               fieldSchema['x-component-props'].allowSelectExistingRecord = value;
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };
@@ -144,7 +138,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
         const { target } = getCollectionJoinField(association) || {};
         const sortFields = useSortFields(target);
         const { t } = useTranslation();
-        const { refresh } = useEditableDesignable();
         const defaultSort = field.componentProps.sortArr || [];
         const sort = defaultSort?.map((item: string) => {
           return item?.startsWith('-')
@@ -269,7 +262,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
                             field.componentProps.sortArr = sortArr;
                             fieldSchema['x-component-props'].sortArr = sortArr;
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -293,7 +285,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         const compile = useCompile();
         const cm = useCollectionManager();
         const [firstLevelValue, setFirstLevelValue] = useState(
@@ -465,7 +456,6 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
                               field.setValue(null);
                             }
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },

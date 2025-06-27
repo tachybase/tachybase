@@ -26,7 +26,6 @@ export const tagComponentFieldEditableSettings = new EditableSchemaSettings({
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
         const fieldComponentName = useFieldComponentName();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -55,7 +54,6 @@ export const tagComponentFieldEditableSettings = new EditableSchemaSettings({
                 field.setInitialValue(null);
                 field.setValue(null);
               }
-              refresh();
             },
           },
         };
@@ -71,7 +69,6 @@ export const tagComponentFieldEditableSettings = new EditableSchemaSettings({
         const { fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
         const fieldSchema = tableColumnSchema || schema;
         const collectionField = tableColumnField || targetCollectionField;
-        const { refresh } = useEditableDesignable();
         const colorFieldOptions = useColorFields(collectionField?.target ?? collectionField?.targetCollection);
         return {
           type: 'string',
@@ -92,7 +89,6 @@ export const tagComponentFieldEditableSettings = new EditableSchemaSettings({
               fieldSchema['x-component-props']['tagColorField'] = tagColorField;
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps.tagColorField = tagColorField;
-              refresh();
             },
           },
         };
@@ -109,7 +105,6 @@ export const tagComponentFieldEditableSettings = new EditableSchemaSettings({
         const options = useTitleFieldOptions();
         const targetCollectionField = useCollectionField();
         const collectionField = tableColumnField || targetCollectionField;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Title field")}}',
@@ -133,7 +128,6 @@ export const tagComponentFieldEditableSettings = new EditableSchemaSettings({
               fieldSchema['x-component-props']['fieldNames'] = fieldNames;
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
-              refresh();
             },
           },
         };
@@ -149,7 +143,6 @@ export const tagComponentFieldEditableSettings = new EditableSchemaSettings({
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default: fieldSchema['x-component-props']?.enableLink !== false,
@@ -164,7 +157,6 @@ export const tagComponentFieldEditableSettings = new EditableSchemaSettings({
                 enableLink: flag,
               };
               field.componentProps['enableLink'] = flag;
-              refresh();
             },
           },
         };

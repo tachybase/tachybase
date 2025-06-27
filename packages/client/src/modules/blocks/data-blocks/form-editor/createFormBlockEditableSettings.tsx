@@ -93,7 +93,6 @@ export const createFormBlockEditableSettings = new EditableSchemaSettings({
         const variables = useVariables();
         const localVariables = useLocalVariables();
         const record = useRecord();
-        const { refresh } = useEditableDesignable();
         const { type: formBlockType } = useFormBlockType();
         const type = ['Action', 'Action.Link'].includes(fieldSchema['x-component']) ? 'button' : 'field';
         const gridSchema = findGridSchema(fieldSchema) || fieldSchema;
@@ -171,7 +170,6 @@ export const createFormBlockEditableSettings = new EditableSchemaSettings({
                             gridSchema['x-linkage-rules'] = rules;
                             schema['x-linkage-rules'] = rules;
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -194,7 +192,6 @@ export const createFormBlockEditableSettings = new EditableSchemaSettings({
         const { name: collectionName } = useCollection_deprecated();
         const designerCtx = useContext(SchemaComponentContext);
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         const { t } = useTranslation();
         const formSchema = findFormBlock(fieldSchema) || fieldSchema;
         const { templateData } = useDataTemplates();
@@ -257,7 +254,6 @@ export const createFormBlockEditableSettings = new EditableSchemaSettings({
                             });
                             formSchema['x-data-templates'] = data;
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },

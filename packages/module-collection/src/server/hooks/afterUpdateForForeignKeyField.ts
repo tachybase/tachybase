@@ -1,6 +1,6 @@
 import Database from '@tachybase/database';
 
-export function afterCreateForForeignKeyField(db: Database) {
+export function afterUpdateForForeignKeyField(db: Database) {
   function generateFkOptions(collectionName: string, foreignKey: string) {
     const collection = db.getCollection(collectionName);
 
@@ -100,60 +100,101 @@ export function afterCreateForForeignKeyField(db: Database) {
   }
 
   const hook = async (model, { transaction, context }) => {
-    // skip if no app context
-    if (!context) {
-      return;
-    }
+    if (!context) return;
 
     const {
-      type,
       interface: interfaceType,
       collectionName,
-      target,
+      target: newTarget,
+      foreignKey: newForeignKey,
+      otherKey: newOtherKey,
       through,
-      foreignKey,
-      otherKey,
       source,
+      type,
     } = model.get();
 
-    if (source) return;
-    if (target === '__temp__') return;
+    if (source || !interfaceType) return;
 
-    // foreign key in target collection
+    const { target: oldTarget, foreignKey: oldForeignKey, otherKey: oldOtherKey } = model.previous('options') || {};
+
+    const fieldsRepo = db.getRepository('fields');
+
+    const hasTargetChanged = oldTarget !== undefined && oldTarget !== newTarget;
+    const hasForeignKeyChanged = oldForeignKey !== undefined && oldForeignKey !== newForeignKey;
+    const hasOtherKeyChanged = oldOtherKey !== undefined && oldOtherKey !== newOtherKey;
+
+    const needUpdate = hasTargetChanged || hasForeignKeyChanged || hasOtherKeyChanged;
+    const collection = db.getCollection(model.get('collectionName'));
+    collection?.updateField(model.get('name'), model.get());
+    const field = collection?.getField(model.get('name'));
+    if (!needUpdate) return;
+
+    field.bind();
+
+    async function removeOldForeignKeyField(collection: string, fkName: string) {
+      if (!collection || !fkName) return;
+
+      const exists = await fieldsRepo.findOne({
+        filter: {
+          collectionName: collection,
+          name: fkName,
+          // isForeignKey: true,
+        },
+        transaction,
+      });
+
+      if (exists) {
+        await fieldsRepo.destroy({
+          filter: {
+            collectionName: collection,
+            name: fkName,
+            // isForeignKey: true,
+          },
+          transaction,
+        });
+      }
+    }
+
+    // 1. foreign key 在 target collection
     if (['oho', 'o2m'].includes(interfaceType)) {
-      const values = generateFkOptions(target, foreignKey);
+      await removeOldForeignKeyField(oldTarget, oldForeignKey);
+
+      const values = generateFkOptions(newTarget, newForeignKey);
       await createFieldIfNotExists({
         values: {
-          collectionName: target,
+          collectionName: newTarget,
           ...values,
         },
         transaction,
       });
     }
-
-    // foreign key in source collection
+    // 2. foreign key 在 source collection
     else if (['obo', 'm2o'].includes(interfaceType)) {
-      const values = generateFkOptions(collectionName, foreignKey);
+      await removeOldForeignKeyField(collectionName, oldForeignKey);
+
+      const values = generateFkOptions(collectionName, newForeignKey);
       await createFieldIfNotExists({
-        values: { collectionName, ...values },
+        values: {
+          collectionName,
+          ...values,
+        },
         transaction,
       });
     }
-
-    // foreign key in through collection
+    // 3. foreign key 在 through collection（多对多）
     else if (['linkTo', 'm2m'].includes(interfaceType)) {
       if (type !== 'belongsToMany') {
         return;
       }
-      const r = db.getRepository('collections');
-      const instance = await r.findOne({
+      const collectionsRepo = db.getRepository('collections');
+      let throughInstance = await collectionsRepo.findOne({
         filter: {
           name: through,
         },
         transaction,
       });
-      if (!instance) {
-        await r.create({
+      if (!throughInstance) {
+        throughInstance = await collectionsRepo.create({
           values: {
             name: through,
             title: through,
@@ -168,8 +209,14 @@ export function afterCreateForForeignKeyField(db: Database) {
           transaction,
         });
       }
-      const opts1 = generateFkOptions(through, foreignKey);
-      const opts2 = generateFkOptions(through, otherKey);
+
+      // 删除旧 through 外键字段
+      await removeOldForeignKeyField(through, oldForeignKey);
+      await removeOldForeignKeyField(through, oldOtherKey);
+
+      const opts1 = generateFkOptions(through, newForeignKey);
+      const opts2 = generateFkOptions(through, newOtherKey);
+
       await createFieldIfNotExists({
         values: {
           collectionName: through,

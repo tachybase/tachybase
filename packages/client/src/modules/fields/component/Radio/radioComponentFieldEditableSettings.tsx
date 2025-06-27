@@ -23,7 +23,6 @@ export const radioComponentFieldEditableSettings = new EditableSchemaSettings({
           { label: t('Checkbox'), value: 'Checkbox' },
           { label: t('Radio group'), value: 'Radio group' },
         ];
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -43,7 +42,6 @@ export const radioComponentFieldEditableSettings = new EditableSchemaSettings({
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps = field.componentProps || {};
               field.componentProps.mode = mode;
-              refresh();
             },
           },
         };

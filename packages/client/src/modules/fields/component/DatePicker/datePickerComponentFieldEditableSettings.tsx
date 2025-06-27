@@ -39,7 +39,6 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
       useSchema() {
         const { t } = useTranslation();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         const { styles } = useStyles();
         const field = useField();
         const { getCollectionJoinField } = useCollectionManager_deprecated();
@@ -200,7 +199,6 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
                               }
                             });
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },

@@ -40,7 +40,6 @@ export const unixTimestampComponentFieldEditableSettings = new EditableSchemaSet
       useSchema() {
         const { t } = useTranslation();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         const { styles } = useStyles();
         const field = useField();
         const { getCollectionJoinField } = useCollectionManager_deprecated();
@@ -201,7 +200,6 @@ export const unixTimestampComponentFieldEditableSettings = new EditableSchemaSet
                               }
                             });
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },

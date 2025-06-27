@@ -21,8 +21,6 @@ import {
   Schema,
   SchemaContext,
   uid,
-  useField,
-  useFieldSchema,
   useForm,
 } from '@tachybase/schema';
 
@@ -62,6 +60,7 @@ import {
   SchemaExpressionScopeContext,
   SchemaMarkupContext,
   SchemaOptionsContext,
+  useFieldSchema,
 } from '../../../../../../schema/src/react';
 import { SchemaInitializerItemType, SchemaSettingsWrapper, useApp } from '../../../../application';
 import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
@@ -77,37 +76,29 @@ import {
   useResourceContext,
 } from '../../../../collection-manager';
 import * as components from '../../../../collection-manager/Configuration/components';
-import useDialect from '../../../../collection-manager/hooks/useDialect';
 import {
+  CollectionContext,
   CollectionFieldProvider,
   CollectionProvider,
   CollectionRecordContext,
-  useCollectionField,
-  useContextConfigSetting,
+  useCollectionManager,
   useExtendCollections,
 } from '../../../../data-source';
 import {
   ActionContextProvider,
-  createDesignable,
   DndContext,
   SchemaComponent,
   SchemaComponentContext,
   useActionContext,
-  useColumnSchema,
   useCompile,
   useDesignable,
-  useFieldModeOptions,
-  useFindComponent,
-  useIsAddNewForm,
   useSchemaComponentContext,
 } from '../../../../schema-component';
-import { isSubMode } from '../../../../schema-component/antd/association-field/util';
-import { useIsMuiltipleAble } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
 import { useStyles } from '../form/styles';
-import { createEditableDesignable, useEditableDesignable } from './EditableDesignable';
+import { createEditableDesignable } from './EditableDesignable';
 import { EditableGrid } from './EditableGrid';
-import { EditableSelectedFieldProvider, useEditableSelectedField } from './EditableSelectedFieldContext';
+import { useEditableSelectedField } from './EditableSelectedFieldContext';
 import { useEditableSelectedForm } from './EditableSelectedFormContent';
 
 interface CreateFormBlockUISchemaOptions {
@@ -189,10 +180,7 @@ function patchSchemaToolbars(schema: ISchema) {
 
 const EditorHeader = ({ onCancel, schema }) => {
   const { title: collectionTitle, key } = useCollection_deprecated();
-  // const { refresh } = usePageRefresh();
   const { dn } = useDesignable();
-  // const fieldSchema = useFieldSchema();
-  // const deleteSchema = findSchema(fieldSchema, 'x-uid', schemaUID) || {};
   const api = useAPIClient();
   const { Header } = Layout;
   const compile = useCompile();
@@ -288,12 +276,22 @@ const EditorHeader = ({ onCancel, schema }) => {
             {t('Preview')}
           </Button>
           <Button type="primary" className="ant-save-button" onClick={handleSave}>
-            保存
+            {t('Save')}
           </Button>
         </div>
       </Header>
-      <Modal title="编辑表单名称" open={modalVisible} onCancel={() => setModalVisible(false)} onOk={handleTitleSave}>
-        <Input value={compile(tempTitle)} onChange={(e) => setTempTitle(e.target.value)} placeholder="请输入表单名称" />
+      <Modal
+        title={t('Collection display name')}
+        open={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        onOk={handleTitleSave}
+      >
+        <Input
+          value={compile(tempTitle)}
+          onChange={(e) => setTempTitle(e.target.value)}
+          placeholder={t('Collection display name')}
+        />
+        <span>{t('caution: changing this will directly modify the collection name')}</span>
       </Modal>
       <PreviewDrawer open={drawerVisible} onClose={() => setDrawerVisible(false)} schema={schema} />
     </>
@@ -660,51 +658,15 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
   const {
     data: { database },
   } = useCurrentAppInfo();
-  const { getInterface, getTemplate, collections, getCollection, getCollections } = useCollectionManager_deprecated();
-  const [visible, setVisible] = useState(false);
-  const [schema, setSchema] = useState({});
-  const [targetScope, setTargetScope] = useState();
+  const { getInterface, getTemplate, collections, getCollection, getCollections, refreshCM } =
+    useCollectionManager_deprecated();
+  const { refresh } = useResourceActionContext();
   const compile = useCompile();
   const { t } = useTranslation();
   const options = useFieldInterfaceOptions();
   const { styles } = useStyles();
-  const { isDialect } = useDialect();
   const fields = getCollection(record.name)?.options?.fields || record.fields || [];
-
-  const loadCollections = async (field, options, exclude?: string[]) => {
-    const { targetScope } = options;
-    const isFieldInherits = field.props?.name === 'inherits';
-    const filteredItems = getCollections().filter((item) => {
-      if (exclude?.includes(item.template)) {
-        return false;
-      }
-      const isAutoCreateAndThrough = item.autoCreate && item.isThrough;
-      if (isAutoCreateAndThrough) {
-        return false;
-      }
-      if (isFieldInherits && item.template === 'view') {
-        return false;
-      }
-      const templateIncluded = !targetScope?.template || targetScope.template.includes(item.template);
-      const nameIncluded = !targetScope?.[field.props?.name] || targetScope[field.props.name].includes(item.name);
-      return templateIncluded && nameIncluded;
-    });
-    return filteredItems.map((item) => ({
-      label: compile(item.title),
-      value: item.name,
-    }));
-  };
-  const useNewId = (prefix) => {
-    return `${prefix || ''}${uid()}`;
-  };
-  const currentCollections = useMemo(() => {
-    return collections.map((v) => {
-      return {
-        label: compile(v.title),
-        value: v.name,
-      };
-    });
-  }, []);
+  const { resource } = useResourceContext();
   const getFieldOptions = useCallback(() => {
     const { availableFieldInterfaces } = getTemplate(record.template) || {};
     const { exclude, include } = (availableFieldInterfaces || {}) as any;
@@ -796,144 +758,94 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
       })
       .filter((v) => v?.children?.length);
   }, [getFieldOptions]);
-  const scopeKeyOptions = useMemo(() => {
-    return fields
-      .filter((v) => {
-        return ['string', 'bigInt', 'integer'].includes(v.type);
-      })
-      .map((k) => {
-        return {
-          value: k.name,
-          label: compile(k.uiSchema?.title),
-        };
-      });
-  }, [fields?.length]);
 
-  const useCreateCollectionField = (props: any) => {
-    const form = useForm();
-    const { refreshCM } = useCollectionManager_deprecated();
-    const ctx = useActionContext();
-    const { refresh } = useResourceActionContext();
-    const { resource } = useResourceContext();
-    const field = useField();
-    const { readPretty = form.readPretty, block = 'Form' } = props || {};
-    const { fieldSchema } = useActionContext();
-    const action = fieldSchema?.['x-action'];
-    return {
-      async run() {
-        await form.submit();
-        field.data = field.data || {};
-        field.data.loading = true;
-        const values = cloneDeep(form.values);
-        if (values.autoCreateReverseField) {
-          /* empty */
-        } else {
-          delete values.reverseField;
-        }
-        delete values.autoCreateReverseField;
-        const interfaceConfig = getInterface(values.interface);
-        const targetCollection = getCollection(values.target);
-        const isFileCollection = values?.target && getCollection(values?.target)?.template === 'file';
-        const isAssociationField = targetCollection;
-        const fieldNames = values?.uiSchema['x-component-props']?.['fieldNames'];
-        const schema = {
-          type: 'string',
-          name: values.name,
-          'x-toolbar': 'EditableFormItemSchemaToolbar',
-          'x-settings': 'fieldSettings:FormItem',
-          'x-component': 'CollectionField',
-          'x-decorator': 'FormItem',
-          'x-collection-field': `${record.name}.${values.name}`,
-          'x-component-props': isFileCollection
-            ? {
-                fieldNames: {
-                  label: 'preview',
-                  value: 'id',
-                },
-              }
-            : isAssociationField && fieldNames
-              ? {
-                  fieldNames: { ...fieldNames, label: targetCollection?.titleField || fieldNames.label },
-                }
-              : {},
-          'x-read-pretty': values?.uiSchema?.['x-read-pretty'],
-        };
-        interfaceConfig?.schemaInitialize?.(schema, {
-          field,
-          block,
-          readPretty,
-          action,
-          targetCollection,
-        });
-        try {
-          await resource.create({ values });
-          await form.reset();
-          field.data.loading = false;
-          refresh();
-          await refreshCM();
-          handleInsert(schema);
-          ctx.setVisible(false);
-        } catch (error) {
-          field.data.loading = false;
-        }
-      },
-    };
-  };
   return (
     record.template !== 'sql' && (
-      <ActionContextProvider value={{ visible, setVisible }}>
-        <div className={styles.fieldsBlock}>
-          {items.map((group, index) => (
-            <div key={index}>
-              <p style={{ fontWeight: 500 }}>{group.title}</p>
-              <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
-                {group.children.map((item, index) => (
-                  <Col span={12} key={item.key || index}>
-                    <Button
-                      className="ant-btn-fields"
-                      color="default"
-                      variant="filled"
-                      onClick={() => {
-                        const targetScope = item['data-targetScope'];
-                        targetScope && setTargetScope(targetScope);
-                        const schema = getSchema(getInterface(item.key), record, compile);
-                        if (schema) {
-                          setSchema(schema);
-                          setVisible(true);
-                        }
-                      }}
-                    >
-                      {compile(item.title)}
-                    </Button>
-                  </Col>
-                ))}
-              </Row>
-            </div>
-          ))}
-        </div>
-        <SchemaComponent
-          schema={schema}
-          components={{ ...components, ArrayTable }}
-          scope={{
-            useCancelAction,
-            createOnly: true,
-            isOverride: false,
-            override: false,
-            useCreateCollectionField,
-            record,
-            showReverseFieldConfig: true,
-            targetScope,
-            collections: currentCollections,
-            isDialect,
-            disabledJSONB: false,
-            scopeKeyOptions,
-            createMainOnly: true,
-            loadCollections,
-            useAsyncDataSource,
-            useNewId,
-          }}
-        />
-      </ActionContextProvider>
+      <div className={styles.fieldsBlock}>
+        {items.map((group, index) => (
+          <div key={index}>
+            <p style={{ fontWeight: 500 }}>{group.title}</p>
+            <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
+              {group.children.map((item, index) => (
+                <Col span={12} key={item.key || index}>
+                  <Button
+                    className="ant-btn-fields"
+                    color="default"
+                    variant="filled"
+                    onClick={async () => {
+                      const defaultSchema = getInterface(item.key);
+                      const initialValue: any = {
+                        name: `f_${uid()}`,
+                        ...cloneDeep(defaultSchema.default),
+                        interface: defaultSchema.name,
+                      };
+                      if (!initialValue.uiSchema) {
+                        initialValue.uiSchema = {};
+                      }
+                      const relationInterfaces = ['obo', 'oho', 'o2o', 'o2m', 'm2m', 'm2o'];
+                      if (relationInterfaces.includes(initialValue.interface)) {
+                        initialValue.target = '__temp__';
+                        initialValue.targetKey = 'id';
+                      }
+                      initialValue.uiSchema.title = item.title || compile('Unnamed');
+                      if (initialValue.reverseField) {
+                        initialValue.reverseField.name = `f_${uid()}`;
+                      }
+                      if (initialValue.autoCreateReverseField) {
+                        /* empty */
+                      } else {
+                        delete initialValue.reverseField;
+                      }
+                      delete initialValue.autoCreateReverseField;
+                      const interfaceConfig = getInterface(initialValue.interface);
+                      const targetCollection = getCollection(initialValue.target);
+                      const isFileCollection =
+                        initialValue?.target && getCollection(initialValue?.target)?.template === 'file';
+                      const isAssociationField = targetCollection;
+                      const fieldNames = initialValue?.uiSchema['x-component-props']?.['fieldNames'];
+                      const editableFieldSchema = {
+                        type: 'string',
+                        name: initialValue.name,
+                        'x-toolbar': 'EditableFormItemSchemaToolbar',
+                        'x-settings': 'fieldSettings:FormItem',
+                        'x-component': 'CollectionField',
+                        'x-decorator': 'FormItem',
+                        'x-collection-field': `${record.name}.${initialValue.name}`,
+                        'x-component-props': isFileCollection
+                          ? {
+                              fieldNames: {
+                                label: 'preview',
+                                value: 'id',
+                              },
+                            }
+                          : isAssociationField && fieldNames
+                            ? {
+                                fieldNames: { ...fieldNames, label: targetCollection?.titleField || fieldNames.label },
+                              }
+                            : {},
+                        'x-read-pretty': initialValue?.uiSchema?.['x-read-pretty'],
+                      };
+                      interfaceConfig?.schemaInitialize?.(editableFieldSchema, {
+                        field: initialValue,
+                        block: 'Form',
+                        readPretty: false,
+                        action,
+                        targetCollection,
+                      });
+                      await resource.create({ values: initialValue });
+                      refresh();
+                      await refreshCM();
+                      handleInsert(editableFieldSchema);
+                    }}
+                  >
+                    {compile(item.title)}
+                  </Button>
+                </Col>
+              ))}
+            </Row>
+          </div>
+        ))}
+      </div>
     )
   );
 };
@@ -1031,32 +943,37 @@ export const AllSchemaProviders = ({
 }) => {
   const upLevelActiveFields = useFormActiveFields();
   const designerCtx = useSchemaComponentContext();
+  const { name } = useCollection_deprecated();
+  const collectionManager = useCollectionManager();
+  const collection = collectionManager.getCollection(name);
   return (
     <ContextCleaner>
-      <FormContext.Provider value={form}>
-        <FieldContext.Provider value={field}>
-          <SchemaMarkupContext.Provider value={schemaMarkup}>
-            <SchemaContext.Provider value={fieldSchema}>
-              <SchemaExpressionScopeContext.Provider value={expressionScope}>
-                <SchemaComponentsContext.Provider value={schemaComponents}>
-                  <SchemaOptionsContext.Provider value={schemaOptions}>
-                    <FormBlockContext.Provider value={formBlockValue}>
-                      <FormActiveFieldsProvider
-                        name="form"
-                        getActiveFieldsName={upLevelActiveFields?.getActiveFieldsName}
-                      >
-                        <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
-                          {children}
-                        </SchemaComponentContext.Provider>
-                      </FormActiveFieldsProvider>
-                    </FormBlockContext.Provider>
-                  </SchemaOptionsContext.Provider>
-                </SchemaComponentsContext.Provider>
-              </SchemaExpressionScopeContext.Provider>
-            </SchemaContext.Provider>
-          </SchemaMarkupContext.Provider>
-        </FieldContext.Provider>
-      </FormContext.Provider>
+      <CollectionContext.Provider value={collection}>
+        <FormContext.Provider value={form}>
+          <FieldContext.Provider value={field}>
+            <SchemaMarkupContext.Provider value={schemaMarkup}>
+              <SchemaContext.Provider value={fieldSchema}>
+                <SchemaExpressionScopeContext.Provider value={expressionScope}>
+                  <SchemaComponentsContext.Provider value={schemaComponents}>
+                    <SchemaOptionsContext.Provider value={schemaOptions}>
+                      <FormBlockContext.Provider value={formBlockValue}>
+                        <FormActiveFieldsProvider
+                          name="form"
+                          getActiveFieldsName={upLevelActiveFields?.getActiveFieldsName}
+                        >
+                          <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
+                            <RecordProvider record={collection}>{children}</RecordProvider>
+                          </SchemaComponentContext.Provider>
+                        </FormActiveFieldsProvider>
+                      </FormBlockContext.Provider>
+                    </SchemaOptionsContext.Provider>
+                  </SchemaComponentsContext.Provider>
+                </SchemaExpressionScopeContext.Provider>
+              </SchemaContext.Provider>
+            </SchemaMarkupContext.Provider>
+          </FieldContext.Provider>
+        </FormContext.Provider>
+      </CollectionContext.Provider>
     </ContextCleaner>
   );
 };
@@ -1068,10 +985,10 @@ export const FieldPropertiesContent = ({ fieldComponentName }) => {
     app.editableSchemaSettingsManager.get(`editableFieldSettings:component:${fieldComponentName}`)?.options?.items ??
     [];
   const genericItems = app.editableSchemaSettingsManager.get('editableFieldSettings:FormItem')?.options?.items ?? [];
-
-  const items = [...genericItems, ...specificItems];
+  const fieldsInterface =
+    app.editableSchemaSettingsManager.get('editableFieldSettings:Fields:Association')?.options?.items ?? [];
+  const items = [...fieldsInterface, ...genericItems, ...specificItems];
   const { handleUpdate, components, fullSchema, itemStates, initialValues } = useEditableItems(items);
-
   form.setValues(initialValues);
 
   return (
@@ -1083,7 +1000,7 @@ export const FieldPropertiesContent = ({ fieldComponentName }) => {
           onUpdate={(state) => handleUpdate(item.name || index, state)}
         />
       ))}
-      <SchemaComponent schema={fullSchema} components={components} />
+      <SchemaComponent schema={fullSchema} components={{ components }} />
     </div>
   );
 };
@@ -1746,18 +1663,4 @@ const collection: CollectionOptions = {
       },
     },
   ],
-};
-
-const useAsyncDataSource = (service: any, exclude?: string[]) => {
-  return (field: any, options?: any) => {
-    field.loading = true;
-    service(field, options, exclude)
-      .then(
-        action.bound((data: any) => {
-          field.dataSource = data;
-          field.loading = false;
-        }),
-      )
-      .catch(console.error);
-  };
 };

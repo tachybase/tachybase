@@ -26,7 +26,6 @@ export const subformComponentFieldEditableSettings = new EditableSchemaSettings(
         const fieldModeOptions = useFieldModeOptions();
         const isAddNewForm = useIsAddNewForm();
         const fieldComponentName = useFieldComponentName();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -54,7 +53,6 @@ export const subformComponentFieldEditableSettings = new EditableSchemaSettings(
                 field.setInitialValue(null);
                 field.setValue(null);
               }
-              refresh();
             },
           },
         };
@@ -71,7 +69,6 @@ export const subformComponentFieldEditableSettings = new EditableSchemaSettings(
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default:
@@ -92,7 +89,6 @@ export const subformComponentFieldEditableSettings = new EditableSchemaSettings(
               field.componentProps.multiple = value;
 
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };
@@ -108,7 +104,6 @@ export const subformComponentFieldEditableSettings = new EditableSchemaSettings(
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default:
@@ -129,7 +124,6 @@ export const subformComponentFieldEditableSettings = new EditableSchemaSettings(
               field.componentProps.allowDissociate = value;
 
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };

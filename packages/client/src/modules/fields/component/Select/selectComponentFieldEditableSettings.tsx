@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { createForm, Field, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
 import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { useAPIClient } from '../../../../api-client';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
 import { useFormBlockContext } from '../../../../block-provider';
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
@@ -31,7 +32,10 @@ import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Tabl
 import { BaseVariableProvider, getShouldChange, IsDisabledParams, VariableInput } from '../../../../schema-settings';
 import { useIsShowMultipleSwitch } from '../../../../schema-settings/hooks/useIsShowMultipleSwitch';
 import { useLocalVariables, useVariables } from '../../../../variables';
-import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
+import {
+  createEditableDesignable,
+  useEditableDesignable,
+} from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 
 export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
   name: 'editableFieldSettings:component:Select',
@@ -40,7 +44,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
       name: 'fieldComponent',
       useSchema() {
         const { t } = useTranslation();
-        const { refresh } = useEditableDesignable();
         const field = useField<Field>();
         const isAddNewForm = useIsAddNewForm();
         const fieldMode = useFieldComponentName();
@@ -82,7 +85,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                 field?.setInitialValue?.(null);
                 field?.setValue?.(null);
               }
-              refresh();
             },
           },
         };
@@ -93,10 +95,12 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
       name: 'setTheDataScope',
       useSchema() {
         const { t } = useTranslation();
+        const field = useField();
         const { getCollectionJoinField, getAllCollectionsInheritChain } = useCollectionManager_deprecated();
         const { getField } = useCollection_deprecated();
         const { form } = useFormBlockContext();
         const record = useRecord();
+        const { refresh } = useEditableDesignable();
         const { fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
@@ -108,7 +112,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
         const { isInSubForm, isInSubTable } = useFlag() || {};
         const variables = useVariables();
         const localVariables = useLocalVariables();
-        const { refresh } = useEditableDesignable();
         const dynamicComponent = (props: DynamicComponentProps) => {
           return (
             <VariableInput
@@ -190,8 +193,9 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                             let filter = form.values.filter;
                             filter = removeNullCondition(filter);
                             _.set(fieldSchema['x-component-props'], 'service.params.filter', filter);
-                            ctx?.setVisible?.(false);
+                            field.componentProps = fieldSchema['x-component-props'];
                             refresh();
+                            ctx?.setVisible?.(false);
                           },
                         };
                       },
@@ -214,7 +218,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
       useSchema() {
         const field = useField();
         const { t } = useTranslation();
-        const { refresh } = useEditableDesignable();
         const fieldSchema = useFieldSchema();
         const { getField } = useCollection_deprecated();
         const { getCollectionJoinField } = useCollectionManager_deprecated();
@@ -347,10 +350,8 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                               _.set(item, 'componentProps.service.params.sort', sortArr);
                             });
                             _.set(fieldSchema, 'x-component-props.service.params.sort', sortArr);
-                            // props?.onSubmitCallBack?.(sortArr);
                             field.componentProps = fieldSchema['x-component-props'];
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -372,9 +373,12 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
       name: 'quickCreate',
       useSchema() {
         const { t } = useTranslation();
-        const { refresh, insertAdjacent } = useEditableDesignable();
+        const api = useAPIClient();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
+        const eddn = useMemo(() => {
+          return createEditableDesignable({ t, api, current: fieldSchema, model: field });
+        }, [t, api, fieldSchema, field]);
         return {
           type: 'string',
           title: '{{t("Quick create")}}',
@@ -414,7 +418,7 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                       component: 'CreateRecordAction',
                     },
                   };
-                  insertAdjacent('afterBegin', addNewActionschema);
+                  eddn.insertAdjacent('afterBegin', addNewActionschema);
                 }
               }
               const schema = {
@@ -425,7 +429,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps = field.componentProps || {};
               field.componentProps.addMode = mode;
-              refresh();
             },
           },
         };
@@ -445,7 +448,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default:
@@ -466,7 +468,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
               field.componentProps.multiple = value;
 
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };
@@ -482,7 +483,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
       useSchema() {
         const { t } = useTranslation();
         const field = useField<Field>();
-        const { refresh } = useEditableDesignable();
         const options = useTitleFieldOptions();
         const { uiSchema, fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
         const schema = useFieldSchema();
@@ -533,7 +533,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
               field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
                 f.componentProps.fieldNames = fieldNames;
               });
-              refresh();
             },
           },
         };
@@ -548,7 +547,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           // title: '{{t("Enable link")}}',
@@ -564,7 +562,6 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
                 enableLink: flag,
               };
               field.componentProps['enableLink'] = flag;
-              refresh();
             },
           },
         };

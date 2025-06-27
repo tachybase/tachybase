@@ -56,7 +56,6 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
         const collectionInterface = dm.collectionFieldInterfaceManager.getFieldInterface(collectionField?.interface);
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         const compile = useCompile();
         const options =
           collectionInterface?.componentOptions
@@ -87,7 +86,6 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
               field.componentProps = componentProps;
               field.component = component;
               _.set(fieldSchema, 'x-component-props', componentProps);
-              refresh();
             },
           },
         };
@@ -103,7 +101,6 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'number',
           title: t('Edit Slider Max'),
@@ -116,7 +113,6 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
               if (min === undefined || min === null || number > min) {
                 fieldSchema['x-component-props']['max'] = number;
                 field.componentProps['max'] = number;
-                refresh();
               } else {
                 message.warning(t('Cannot be less than or equal to the minimum value'));
               }
@@ -135,7 +131,6 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'number',
           title: t('Edit Slider Min'),
@@ -148,7 +143,6 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
               if (max === undefined || max === null || number < max) {
                 fieldSchema['x-component-props']['min'] = number;
                 field.componentProps['min'] = number;
-                refresh();
               } else {
                 message.warning(t('Cannot be greater than or equal to the maximum value'));
               }
@@ -168,7 +162,6 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const fieldSchema = tableColumnSchema || schema;
         const field = useField();
-        const { refresh } = useEditableDesignable();
         const { t } = useTranslation();
         const { getCollectionJoinField } = useCollectionManager_deprecated();
         const collectionField = getCollectionJoinField(fieldSchema?.['x-collection-field']) || {};
@@ -320,7 +313,6 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
                               }
                             });
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },

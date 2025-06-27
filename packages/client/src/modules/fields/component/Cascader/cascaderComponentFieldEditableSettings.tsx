@@ -50,7 +50,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
         const fieldModeOptions = useFieldModeOptions({ fieldSchema: tableColumnSchema, collectionField });
         const isAddNewForm = useIsAddNewForm();
         const fieldMode = useFieldComponentName();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Field component")}}',
@@ -79,7 +78,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
                 field?.setInitialValue?.(null);
                 field?.setValue?.(null);
               }
-              refresh();
             },
           },
         };
@@ -108,7 +106,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
           getCollectionJoinField(fieldSchema['x-collection-field']);
         const variables = useVariables();
         const localVariables = useLocalVariables();
-        const { refresh } = useEditableDesignable();
         const { getFields } = useCollectionFilterOptionsV2(collectionField?.target);
         const dynamicComponent = (props: DynamicComponentProps) => {
           return (
@@ -204,7 +201,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
                               f.componentProps = componentProps;
                             });
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -225,7 +221,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
       },
       useSchema() {
         const field = useField();
-        const { refresh } = useEditableDesignable();
         const { t } = useTranslation();
         const currentSchema = useFieldSchema();
         const { getField } = useCollection_deprecated();
@@ -374,7 +369,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
                               f.componentProps = componentProps;
                             });
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -393,7 +387,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
       useSchema() {
         const { t } = useTranslation();
         const field = useField<Field>();
-        const { refresh } = useEditableDesignable();
         const options = useTitleFieldOptions();
         const { uiSchema, fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
         const schema = useFieldSchema();
@@ -444,7 +437,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
               field.form.query(`${path.concat(`*.` + fieldSchema.name)}`).forEach((f) => {
                 f.componentProps.fieldNames = newFieldNames;
               });
-              refresh();
             },
           },
         };
@@ -454,7 +446,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
       name: 'changeOnSelect',
       useVisible: useIsAssociationField,
       useSchema() {
-        const { refresh } = useEditableDesignable();
         const { t } = useTranslation();
         const { fieldSchema: tableColumnSchema, collectionField } = useColumnSchema();
         const field = useField<Field>();
@@ -473,7 +464,6 @@ export const cascaderComponentFieldEditableSettings = new EditableSchemaSettings
               field.componentProps = field.componentProps || {};
               fieldSchema['x-component-props']['changeOnSelect'] = value;
               field.componentProps.changeOnSelect = value;
-              refresh();
             },
           },
         };

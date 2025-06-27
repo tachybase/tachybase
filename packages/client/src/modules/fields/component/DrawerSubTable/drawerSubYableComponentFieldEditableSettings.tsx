@@ -26,7 +26,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
         const fieldModeOptions = useFieldModeOptions({ fieldSchema: tableColumnSchema, collectionField });
-        const { refresh } = useEditableDesignable();
         const isAddNewForm = useIsAddNewForm();
         const fieldMode = useFieldComponentName();
         return {
@@ -56,7 +55,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
                 field.setInitialValue(null);
                 field.setValue(null);
               }
-              refresh();
             },
           },
         };
@@ -73,7 +71,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default:
@@ -94,7 +91,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
               field.componentProps.multiple = value;
 
               schema['x-component-props'] = fieldSchema['x-component-props'];
-              refresh();
             },
           },
         };
@@ -111,7 +107,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
         const fieldSchema = tableColumnSchema || schema;
         const targetCollectionField = useCollectionField();
         const collectionField = tableColumnField || targetCollectionField;
-        const { refresh } = useEditableDesignable();
         const fieldNames =
           field?.componentProps?.fieldNames ||
           fieldSchema?.['x-component-props']?.['fieldNames'] ||
@@ -139,7 +134,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
               fieldSchema['x-component-props']['fieldNames'] = fieldNames;
               schema['x-component-props'] = fieldSchema['x-component-props'];
               field.componentProps.fieldNames = fieldSchema['x-component-props'].fieldNames;
-              refresh();
             },
           },
         };
@@ -157,7 +151,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const { refresh } = useEditableDesignable();
         return {
           type: 'string',
           title: '{{t("Popup size")}}',
@@ -177,7 +170,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
             onChange: (value) => {
               field.componentProps.openSize = value;
               fieldSchema['x-component-props'] = { ...fieldSchema['x-component-props'], openSize: value };
-              refresh();
             },
           },
         };

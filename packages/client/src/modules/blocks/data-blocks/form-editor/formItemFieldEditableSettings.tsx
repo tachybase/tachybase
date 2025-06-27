@@ -1,24 +1,35 @@
-import { useCallback, useMemo } from 'react';
-import { ArrayCollapse, FormLayout } from '@tachybase/components';
-import { createForm, Field, ISchema, Schema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ArrayCollapse, ArrayTable, FormLayout } from '@tachybase/components';
+import { createForm, Field, ISchema, Schema, uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
+import { Button, Modal, Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import { DefaultOptionType } from 'antd/lib/cascader';
-import _ from 'lodash';
+import _, { cloneDeep, omit, set } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { useAPIClient, useRequest } from '../../../../api-client';
 import { useApp, useSchemaToolbar } from '../../../../application';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
 import { useFormBlockContext, useTableBlockContext } from '../../../../block-provider';
-import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
-import { useCollectionFilterOptionsV2 } from '../../../../collection-manager/action-hooks';
+import {
+  IField,
+  useCollection_deprecated,
+  useCollectionManager_deprecated,
+  useResourceContext,
+} from '../../../../collection-manager';
+import { useCancelAction, useCollectionFilterOptionsV2 } from '../../../../collection-manager/action-hooks';
+import * as components from '../../../../collection-manager/Configuration/components';
+import useDialect from '../../../../collection-manager/hooks/useDialect';
 import { useContextConfigSetting } from '../../../../data-source';
 import { FlagProvider, useFlag } from '../../../../flag-provider';
 import { useRecord } from '../../../../record-provider';
 import {
+  ActionContextProvider,
   FormProvider,
   SchemaComponent,
   useActionContext,
+  useCompile,
   useDesignable,
   useValidateSchema,
 } from '../../../../schema-component';
@@ -116,7 +127,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default: fieldSchema['x-decorator-props']?.['showTitle'] ?? true,
@@ -129,7 +139,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
               fieldSchema['x-decorator-props'] = fieldSchema['x-decorator-props'] || {};
               fieldSchema['x-decorator-props']['showTitle'] = checked;
               field.decoratorProps.showTitle = checked;
-              refresh();
             },
           },
         };
@@ -192,7 +201,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         return {
           type: 'boolean',
           default: fieldSchema.required as boolean,
@@ -208,7 +216,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
               field.required = required;
               fieldSchema['required'] = required;
               schema['required'] = required;
-              refresh();
             },
           },
         };
@@ -235,7 +242,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
         const { t } = useTranslation();
         const actionCtx = useActionContext();
         let targetField;
-        const { refresh } = useEditableDesignable();
         const { getField } = useCollection_deprecated();
         const { getCollectionJoinField, getCollectionFields, getAllCollectionsInheritChain } =
           useCollectionManager_deprecated();
@@ -292,7 +298,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
             style: {
               width: '100%',
             },
-            form: modalForm,
           },
           properties: {
             modal: {
@@ -302,6 +307,7 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
               'x-decorator': 'FormV2',
               'x-decorator-props': {
                 componentType: 'div',
+                form: modalForm,
               },
               properties: {
                 default: {
@@ -403,7 +409,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
                             }
                             schema.default = defaultValue;
                             ctx?.setVisible?.(false);
-                            refresh();
                           },
                         };
                       },
@@ -420,7 +425,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
       name: 'layoutDirection',
       useSchema() {
         const { t } = useTranslation();
-        const { refresh } = useEditableDesignable();
         const field = useField();
         const fieldSchema = useFieldSchema();
         const { layoutDirection = 'column' } = useContextConfigSetting();
@@ -446,9 +450,13 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
                 flexDirection: directionVal,
                 alignItems: `${directionVal === 'row' ? 'baseline' : 'unset'}`,
               };
+              fieldSchema['x-decorator-props'] = {
+                ...(fieldSchema['x-decorator-props'] || {}),
+                style: newStyle,
+                layoutDirection: directionVal,
+              };
               _.set(field, 'decoratorProps.style', newStyle);
               _.set(field, 'decoratorProps.layoutDirection', directionVal);
-              refresh();
             },
           },
         };
@@ -465,7 +473,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         let readOnlyMode = 'editable';
         if (fieldSchema['x-disabled'] === true) {
           readOnlyMode = 'readonly';
@@ -522,7 +529,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
                   break;
                 }
               }
-              refresh();
             },
           },
         };
@@ -541,7 +547,6 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
         const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
-        const { refresh } = useEditableDesignable();
         const validateSchema = useValidateSchema();
         const { getCollectionJoinField } = useCollectionManager_deprecated();
         const { getField } = useCollection_deprecated();
@@ -690,7 +695,7 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
                             field.validator = concatValidator;
                             fieldSchema['x-validator'] = rules;
                             schema['x-validator'] = rules;
-                            refresh();
+                            ctx.setVisible(false);
                           },
                         };
                       },
