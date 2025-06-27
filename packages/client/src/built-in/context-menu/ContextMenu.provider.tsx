@@ -31,13 +31,20 @@ export const ContextMenuProvider = ({ children }) => {
   const contextItemsSorted = Object.values(contextItems).sort((a, b) => (a.sort || 0) - (b.sort || 0));
 
   contextItemsSorted.forEach((item) => {
-    const { actionProps, title, icon } = item.useLoadMethod({
+    const result = item.useLoadMethod({
       enable,
       setEnable,
       showScrollArea,
       setShowScrollArea,
       position,
     });
+
+    // 如果 useLoadMethod 返回 null，跳过该项
+    if (!result) {
+      return;
+    }
+
+    const { actionProps, title, icon } = result;
     items.push({
       label: title,
       key: title,
