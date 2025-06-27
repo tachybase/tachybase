@@ -18,6 +18,8 @@ import {
 } from '@tachybase/client';
 import { isArray } from '@tachybase/utils/client';
 
+import _ from 'lodash';
+
 import { lang } from '../../../../../locale';
 import { MInput } from '../Input';
 import { CreateRecordAction } from './CreateRecordAction';
@@ -35,9 +37,23 @@ export const AntdSelect = observer((props) => {
   const [fieldServiceFilter] = useFieldServiceFilter(service?.params);
   const [filter, setFilter] = useState({});
   const api = useAPIClient();
-  const [selectValue, setSelectValue] = useState(value);
   const fieldNamesLabel = fieldNames?.label || 'label';
   const fieldNamesValue = fieldNames?.value || 'value';
+
+  const initValue = useMemo(() => {
+    if (isArray(value)) {
+      return value.map((item) => item[fieldNamesValue]);
+    } else if (value && typeof value === 'object') {
+      return [value[fieldNamesValue]];
+    }
+    return [];
+  }, [value, fieldNamesValue]);
+
+  const [selectValue, setSelectValue] = useState([]);
+
+  const showOptions = useMemo(() => {
+    return options.filter((item) => item[fieldNamesLabel].includes(searchValue));
+  }, [options, searchValue]);
 
   const inputValue = useMemo(() => {
     if (isArray(value)) {
@@ -114,9 +130,33 @@ export const AntdSelect = observer((props) => {
     setPopupVisible(false);
   };
 
+  const handleSearch = (value) => setSearchValue(value);
+
+  const handleChange = (valueList) => {
+    setSelectValue(valueList);
+  };
+
+  const handleConfirm = () => {
+    const paramsFilter = { ...filter };
+    if (paramsFilter[fieldNamesLabel]) {
+      delete paramsFilter[fieldNamesLabel];
+    }
+
+    const selectedValueList = options.filter((item) => selectValue.includes(item.value));
+    onChange(selectedValueList);
+
+    setPopupVisible(false);
+    setSearchValue('');
+    setFilter(paramsFilter);
+  };
+
   useEffect(() => {
     checkedPopup();
   }, [filter, popupVisible]);
+
+  useEffect(() => {
+    setSelectValue(initValue);
+  }, [initValue]);
 
   return (
     <CollectionProvider name={collectionName || collection?.name}>
@@ -132,7 +172,7 @@ export const AntdSelect = observer((props) => {
           {value?.length || (value && !isArray(value)) ? (
             <MInput style={{ '--color': '#1e8bf1' }} value={inputValue} disabled={fieldSchema['x-disabled']} />
           ) : (
-            <Space>{fieldSchema['x-disabled'] ? '' : '请选择内容'}</Space>
+            <Space>{fieldSchema['x-disabled'] ? '' : lang('Please select content')}</Space>
           )}
         </div>
         <Popup
@@ -143,49 +183,26 @@ export const AntdSelect = observer((props) => {
           }}
         >
           <MobileProvider>
-            <SearchBar
-              placeholder={lang('Please enter search content')}
-              value={searchValue}
-              onChange={(value) => {
-                const paramsFilter = { ...filter };
-                paramsFilter[fieldNamesLabel] = { $includes: value };
-                setFilter(paramsFilter);
-                setSearchValue(value);
-              }}
-            />
+            <SearchBar placeholder={lang('Please enter search content')} value={searchValue} onChange={handleSearch} />
             {searchValue && addMode === 'quickAdd' ? (
               <Space justify="center" align="center" onClick={quickAdd}>
-                + 创建{searchValue}
+                + {lang('Add')} {searchValue}
               </Space>
             ) : null}
             <Divider />
             {multiple || mode === 'multiple' ? (
-              <CheckList
-                multiple
-                className={`${styles['checkListStyle']}`}
-                onChange={(value) => {
-                  if (!value.length) {
-                    setSelectValue(null);
-                    return;
-                  }
-                  const filterValue = options.filter((item) => value.includes(item.value));
-                  setSelectValue(filterValue);
-                }}
-              >
-                {options.map((item, index) => {
-                  return (
-                    <CheckList.Item key={index} value={item.value}>
-                      {item.label}
-                    </CheckList.Item>
-                  );
-                })}
+              <CheckList multiple className={`${styles['checkListStyle']}`} value={selectValue} onChange={handleChange}>
+                {showOptions.map((item, index) => (
+                  <CheckList.Item key={index} value={item.value}>
+                    {item.label}
+                  </CheckList.Item>
+                ))}
               </CheckList>
             ) : (
               <PickerView
-                columns={[options]}
+                columns={[showOptions]}
                 onChange={(value) => {
-                  const changeValue = options.find((item) => item['value'] === value[0]);
-                  setSelectValue(changeValue);
+                  setSelectValue(value);
                 }}
               />
             )}
@@ -214,17 +231,7 @@ export const AntdSelect = observer((props) => {
               >
                 {lang('Cancel')}
               </Button>
-              <Button
-                color="primary"
-                onClick={() => {
-                  onChange(selectValue);
-                  setPopupVisible(false);
-                  const paramsFilter = { ...filter };
-                  if (paramsFilter[fieldNamesLabel]) delete paramsFilter[fieldNamesLabel];
-                  setSearchValue('');
-                  setFilter(paramsFilter);
-                }}
-              >
+              <Button color="primary" onClick={handleConfirm}>
                 {lang('Confirm')}
               </Button>
             </Space>
