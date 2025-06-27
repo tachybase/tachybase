@@ -114,25 +114,25 @@ async function listWithPagination(ctx: Context) {
         const query = `
         WITH RECURSIVE tree1 AS (
             SELECT id, ${foreignKey}
-            FROM ${collection.name}
+            FROM ${collection.model.getTableName()}
             WHERE id = :dataId
 
               UNION ALL
 
               SELECT p.id, p.${foreignKey}
               FROM tree1 up
-              JOIN ${collection.name} p ON up.${foreignKey} = p.id
+              JOIN ${collection.model.getTableName()} p ON up.${foreignKey} = p.id
           ),
           tree2 AS (
               SELECT id, ${foreignKey}
-              FROM ${collection.name}
+              FROM ${collection.model.getTableName()}
               WHERE id = :dataId
 
               UNION ALL
 
             SELECT p.id, p.${foreignKey}
             FROM tree2 down
-            JOIN ${collection.name} p ON down.id = p.${foreignKey}
+            JOIN ${collection.model.getTableName()} p ON down.id = p.${foreignKey}
         )
         SELECT DISTINCT *
         FROM (
