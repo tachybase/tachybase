@@ -111,12 +111,12 @@ export const AntdSelect = observer((props) => {
     if (resData.status === 200) {
       Toast.show({
         icon: 'success',
-        content: '添加成功',
+        content: lang('Add success'),
       });
     } else {
       Toast.show({
         icon: 'fail',
-        content: '失败成功',
+        content: lang('Add failed'),
       });
     }
 
