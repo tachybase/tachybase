@@ -18,8 +18,6 @@ import {
 } from '@tachybase/client';
 import { isArray } from '@tachybase/utils/client';
 
-import _ from 'lodash';
-
 import { lang } from '../../../../../locale';
 import { MInput } from '../Input';
 import { CreateRecordAction } from './CreateRecordAction';
