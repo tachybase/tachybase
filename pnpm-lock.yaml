@@ -718,8 +718,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(react@18.3.1)
       react-hotkeys-hook:
-        specifier: ^3.4.7
-        version: 3.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^5.1.0
+        version: 5.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-i18next:
         specifier: ^15.2.0
         version: 15.2.0(i18next@23.16.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -5636,28 +5636,24 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@ast-grep/napi-linux-arm64-musl@0.37.0':
     resolution: {integrity: sha512-LF9sAvYy6es/OdyJDO3RwkX3I82Vkfsng1sqUBcoWC1jVb1wX5YVzHtpQox9JrEhGl+bNp7FYxB4Qba9OdA5GA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@ast-grep/napi-linux-x64-gnu@0.37.0':
     resolution: {integrity: sha512-TViz5/klqre6aSmJzswEIjApnGjJzstG/SE8VDWsrftMBMYt2PTu3MeluZVwzSqDao8doT/P+6U11dU05UOgxw==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@ast-grep/napi-linux-x64-musl@0.37.0':
     resolution: {integrity: sha512-/BcCH33S9E3ovOAEoxYngUNXgb+JLg991sdyiNP2bSoYd30a9RHrG7CYwW6fMgua3ijQ474eV6cq9yZO1bCpXg==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@ast-grep/napi-win32-arm64-msvc@0.37.0':
     resolution: {integrity: sha512-TjQA4cFoIEW2bgjLkaL9yqT4XWuuLa5MCNd0VCDhGRDMNQ9+rhwi9eLOWRaap3xzT7g+nlbcEHL3AkVCD2+b3A==}
@@ -7947,28 +7943,24 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@node-rs/bcrypt-linux-arm64-musl@1.10.4':
     resolution: {integrity: sha512-rLvSMW/gVUBd2k2gAqQfuOReHWd9+jvz58E3i1TbkRE3a5ChvjOFc9qKPEmXuXuD9Mdj7gUwcYwpq8MdB5MtNw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@node-rs/bcrypt-linux-x64-gnu@1.10.4':
     resolution: {integrity: sha512-I++6bh+BIp70X/D/crlSgCq8K0s9nGvzmvAGFkqSG4h3LBtjJx4RKbygnoWvcBV9ErK1rvcjfMyjwZt1ukueFA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@node-rs/bcrypt-linux-x64-musl@1.10.4':
     resolution: {integrity: sha512-f9RPl/5n2NS0mMJXB4IYbodKnq5HzOK5x1b9eKbcjsY0rw3mJC3K0XRFc8iaw1a5chA+xV1TPXz5mkykmr2CQQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@node-rs/bcrypt-wasm32-wasi@1.10.4':
     resolution: {integrity: sha512-VaDOf+wic0yoHFimMkC5VMa/33BNqg6ieD+C/ibb7Av3NnVW4/W9YpDpqAWMR2w3fA40uTLWZ7FZSrcFck27oA==}
@@ -8518,25 +8510,21 @@ packages:
     resolution: {integrity: sha512-QAS8AWKDcDeUe8mJaw/pF2D9+js8FbFTo75AiekZKNm9V6QAAiCkyvesmILD8RrStw9aV2D/apOD71vsfcDoGA==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@oxlint/linux-arm64-musl@1.3.0':
     resolution: {integrity: sha512-rAbz0KFkk5GPdERoFO4ZUZmVkECnHXjRG0O2MeT5zY7ddlyZUjEk1cWjw+HCtWVdKkqhZJeNFMuEiRLkpzBIIw==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@oxlint/linux-x64-gnu@1.3.0':
     resolution: {integrity: sha512-6uLO1WsJwCtVNGHtjXwg2TRvxQYttYJKMjSdv6RUXGWY1AI+/+yHzvu+phU/F40uNC7CFhFnqWDuPaSZ49hdAQ==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@oxlint/linux-x64-musl@1.3.0':
     resolution: {integrity: sha512-+vrmJUHgtJmgIo+L9eTP04NI/OQNCOZtQo6I49qGWc9cpr+0MnIh9KMcyAOxmzVTF5g+CF1I/1bUz4pk4I3LDw==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@oxlint/win32-arm64@1.3.0':
     resolution: {integrity: sha512-k+ETUVl+O3b8Rcd2PP5V3LqQ2QoN/TOX2f19XXHZEynbVLY3twLYPb3hLdXqoo7CKRq3RJdTfn1upHH48/qrZQ==}
@@ -9040,115 +9028,96 @@ packages:
     resolution: {integrity: sha512-0KXvIJQMOImLCVCz9uvvdPgfyWo93aHHp8ui3FrtOP57svqrF/roSSR5pjqL2hcMp0ljeGlU4q9o/rQaAQ3AYA==}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm-gnueabihf@4.34.7':
     resolution: {integrity: sha512-Z0TzhrsNqukTz3ISzrvyshQpFnFRfLunYiXxlCRvcrb3nvC5rVKI+ZXPFG/Aa4jhQa1gHgH3A0exHaRRN4VmdQ==}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.24.0':
     resolution: {integrity: sha512-it2BW6kKFVh8xk/BnHfakEeoLPv8STIISekpoF+nBgWM4d55CZKc7T4Dx1pEbTnYm/xEKMgy1MNtYuoA8RFIWw==}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm-musleabihf@4.34.7':
     resolution: {integrity: sha512-nkznpyXekFAbvFBKBy4nNppSgneB1wwG1yx/hujN3wRnhnkrYVugMTCBXED4+Ni6thoWfQuHNYbFjgGH0MBXtw==}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.24.0':
     resolution: {integrity: sha512-i0xTLXjqap2eRfulFVlSnM5dEbTVque/3Pi4g2y7cxrs7+a9De42z4XxKLYJ7+OhE3IgxvfQM7vQc43bwTgPwA==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-gnu@4.34.7':
     resolution: {integrity: sha512-KCjlUkcKs6PjOcxolqrXglBDcfCuUCTVlX5BgzgoJHw+1rWH1MCkETLkLe5iLLS9dP5gKC7mp3y6x8c1oGBUtA==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.24.0':
     resolution: {integrity: sha512-9E6MKUJhDuDh604Qco5yP/3qn3y7SLXYuiC0Rpr89aMScS2UAmK1wHP2b7KAa1nSjWJc/f/Lc0Wl1L47qjiyQw==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-musl@4.34.7':
     resolution: {integrity: sha512-uFLJFz6+utmpbR313TTx+NpPuAXbPz4BhTQzgaP0tozlLnGnQ6rCo6tLwaSa6b7l6gRErjLicXQ1iPiXzYotjw==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-loongarch64-gnu@4.34.7':
     resolution: {integrity: sha512-ws8pc68UcJJqCpneDFepnwlsMUFoWvPbWXT/XUrJ7rWUL9vLoIN3GAasgG+nCvq8xrE3pIrd+qLX/jotcLy0Qw==}
     cpu: [loong64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.24.0':
     resolution: {integrity: sha512-2XFFPJ2XMEiF5Zi2EBf4h73oR1V/lycirxZxHZNc93SqDN/IWhYYSYj8I9381ikUFXZrz2v7r2tOVk2NBwxrWw==}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-powerpc64le-gnu@4.34.7':
     resolution: {integrity: sha512-vrDk9JDa/BFkxcS2PbWpr0C/LiiSLxFbNOBgfbW6P8TBe9PPHx9Wqbvx2xgNi1TOAyQHQJ7RZFqBiEohm79r0w==}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.24.0':
     resolution: {integrity: sha512-M3Dg4hlwuntUCdzU7KjYqbbd+BLq3JMAOhCKdBE3TcMGMZbKkDdJ5ivNdehOssMCIokNHFOsv7DO4rlEOfyKpg==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-gnu@4.34.7':
     resolution: {integrity: sha512-rB+ejFyjtmSo+g/a4eovDD1lHWHVqizN8P0Hm0RElkINpS0XOdpaXloqM4FBkF9ZWEzg6bezymbpLmeMldfLTw==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-s390x-gnu@4.24.0':
     resolution: {integrity: sha512-mjBaoo4ocxJppTorZVKWFpy1bfFj9FeCMJqzlMQGjpNPY9JwQi7OuS1axzNIk0nMX6jSgy6ZURDZ2w0QW6D56g==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-s390x-gnu@4.34.7':
     resolution: {integrity: sha512-nNXNjo4As6dNqRn7OrsnHzwTgtypfRA3u3AKr0B3sOOo+HkedIbn8ZtFnB+4XyKJojIfqDKmbIzO1QydQ8c+Pw==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.24.0':
     resolution: {integrity: sha512-ZXFk7M72R0YYFN5q13niV0B7G8/5dcQ9JDp8keJSfr3GoZeXEoMHP/HlvqROA3OMbMdfr19IjCeNAnPUG93b6A==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.34.7':
     resolution: {integrity: sha512-9kPVf9ahnpOMSGlCxXGv980wXD0zRR3wyk8+33/MXQIpQEOpaNe7dEHm5LMfyRZRNt9lMEQuH0jUKj15MkM7QA==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.24.0':
     resolution: {integrity: sha512-w1i+L7kAXZNdYl+vFvzSZy8Y1arS7vMgIy8wusXJzRrPyof5LAb02KGr1PD2EkRcl73kHulIID0M501lN+vobQ==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-x64-musl@4.34.7':
     resolution: {integrity: sha512-7wJPXRWTTPtTFDFezA8sle/1sdgxDjuMoRXEKtx97ViRxGGkVQYovem+Q8Pr/2HxiHp74SSRG+o6R0Yq0shPwQ==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-win32-arm64-msvc@4.24.0':
     resolution: {integrity: sha512-VXBrnPWgBpVDCVY6XF3LEW0pOU51KbaHhccHw6AS6vBWIC60eqsH19DAeeObl+g8nKAz04QFdl/Cefta0xQtUQ==}
@@ -9243,25 +9212,21 @@ packages:
     resolution: {integrity: sha512-y29G+6/xg1ogNl3tMwE4DLskPJHD37AEFoIpvCB6mb5XbJxF3RIPtpRaMuDXfEz3tgJMiZv9gnhuZzf4tDgpTQ==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-arm64-musl@1.4.0-beta.1':
     resolution: {integrity: sha512-zJ6/F4KCiREVSeDC4/4x4CSRge7ymBeRG7S4zVR4EeYyWPBVVqzzextJhyozPPgeEat9eagUMYZRys3ON4DEVQ==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-linux-x64-gnu@1.4.0-beta.1':
     resolution: {integrity: sha512-xz3KMDWIdDuhpi0bBUeNN2xohCoIROFUSLK+6YoGgjScZ1S20vKBtu4+0ztGkZ8C5gI5lphQb5rtRh634BD4AQ==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rspack/binding-linux-x64-musl@1.4.0-beta.1':
     resolution: {integrity: sha512-9DTo9gGKuc19LSipkEUUklG2Bl0cvNuSUP1HV25fWN269tfrELy7uQ6HFytZxQob5c5q9eRgulvEmepeL7m8lg==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rspack/binding-wasm32-wasi@1.4.0-beta.1':
     resolution: {integrity: sha512-B1+gtkjvXnXcoUU5+ETO3NEiH4Zub3bFJu38sSNp4blsG9cRSbHtyNTpZ3M81LttltMJpcwlprXvfu42RSbfSA==}
@@ -10027,6 +9992,9 @@ packages:
 
   '@types/prop-types@15.7.14':
     resolution: {integrity: sha512-gNMvNH49DJ7OJYv+KAKn0Xp45p8PLl6zo2YnvDIbTd4J6MER2BmWN49TG7n9LvkyihINxeKW8+3bfS2yDC9dzQ==}
+
+  '@types/prop-types@15.7.15':
+    resolution: {integrity: sha512-F6bEyamV9jKGAFBEmlQnesRPGOQqS2+Uwi0Em15xenOxHaf2hv6L8YCVn3rPdPJOiJfPiCnLIRyvwVaqMY3MIw==}
 
   '@types/qrcode@1.5.5':
     resolution: {integrity: sha512-CdfBi/e3Qk+3Z/fXYShipBT13OJ2fDO2Q2w5CIP5anLTLIndQG9z6P1cnm+8zCWSpm5dnxMFd/uREtb0EXuQzg==}
@@ -11753,8 +11721,8 @@ packages:
     resolution: {integrity: sha512-AZL67abkUzIuvcHqk7c09cezpGNcxUxU4Ioi/05xHk4DQeTkWmGYftIE6ctU6AEt+Gn4n1lDStOtj7FKycP71A==}
     engines: {node: '>=8'}
 
-  cssstyle@4.5.0:
-    resolution: {integrity: sha512-/7gw8TGrvH/0g564EnhgFZogTMVe+lifpB7LWU+PEsiq5o83TUXR3fDbzTRXOJhoJwck5IS9ez3Em5LNMMO2aw==}
+  cssstyle@4.6.0:
+    resolution: {integrity: sha512-2z+rWdzbbSZv6/rhtvzvqeZQHrBaqgogqt85sqFNbabZOuFbCVFb8kPeEtZjiKkbrm395irpNKiYeFeLiQnFPg==}
     engines: {node: '>=18'}
 
   csstype@3.1.3:
@@ -12312,8 +12280,8 @@ packages:
     resolution: {integrity: sha512-OclLMSug+k2A0JKuf494im25ANRBVW8qsjmwbgX7lQ8P82H21PQ1PWkoYwb9y5yMBS69BPlwtzdIFClo3+7kOQ==}
     engines: {node: '>= 0.11.14'}
 
-  enhanced-resolve@5.18.1:
-    resolution: {integrity: sha512-ZSW3ma5GkcQBIpwZTSRAI8N71Uuwgs93IezB7mf7R60tC8ZbJideoDNKjHn2O9KIlx6rkGTTEk1xUCK2E1Y2Yg==}
+  enhanced-resolve@5.18.2:
+    resolution: {integrity: sha512-6Jw4sE1maoRJo3q8MsSIn2onJFbLTOjY9hlx4DZXmOKvLRd1Ok2kXmAGXaafL2+ijsJZ1ClYbl/pmqr9+k4iUQ==}
     engines: {node: '>=10.13.0'}
 
   enquirer@2.3.6:
@@ -13209,9 +13177,6 @@ packages:
     resolution: {integrity: sha512-Rw/B2DNQaPBICNXEm8balFz9a6WpZrkCGpcWFpy7nCj+NyhSdqXipmfvtmWt9xGfp0wZnBxB+iVpLmQMYt47Tw==}
     engines: {node: ^18.17.0 || >=20.5.0}
 
-  hotkeys-js@3.9.4:
-    resolution: {integrity: sha512-2zuLt85Ta+gIyvs4N88pCYskNrxf1TFv3LR9t5mdAZIX8BcgQQ48F2opUptvHa6m8zsy5v/a0i9mWzTrlNWU0Q==}
-
   hpagent@1.2.0:
     resolution: {integrity: sha512-A91dYTeIB6NoXG+PxTQpCCDDnfHsW9kc06Lvpu1TEe9gnd6ZFeiBoRO9JvzEv6xK7EX97/dUE8g/vBMTqTS3CA==}
     engines: {node: '>=14'}
@@ -14096,28 +14061,24 @@ packages:
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   lightningcss-linux-arm64-musl@1.26.0:
     resolution: {integrity: sha512-XxoEL++tTkyuvu+wq/QS8bwyTXZv2y5XYCMcWL45b8XwkiS8eEEEej9BkMGSRwxa5J4K+LDeIhLrS23CpQyfig==}
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   lightningcss-linux-x64-gnu@1.26.0:
     resolution: {integrity: sha512-1dkTfZQAYLj8MUSkd6L/+TWTG8V6Kfrzfa0T1fSlXCXQHrt1HC1/UepXHtKHDt/9yFwyoeayivxXAsApVxn6zA==}
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   lightningcss-linux-x64-musl@1.26.0:
     resolution: {integrity: sha512-yX3Rk9m00JGCUzuUhFEojY+jf/6zHs3XU8S8Vk+FRbnr4St7cjyMXdNjuA2LjiT8e7j8xHRCH8hyZ4H/btRE4A==}
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   lightningcss-win32-arm64-msvc@1.26.0:
     resolution: {integrity: sha512-X/597/cFnCogy9VItj/+7Tgu5VLbAtDF7KZDPdSw0MaL6FL940th1y3HiOzFIlziVvAtbo0RB3NAae1Oofr+Tw==}
@@ -16343,11 +16304,11 @@ packages:
     peerDependencies:
       react: '>=16.3.0'
 
-  react-hotkeys-hook@3.4.7:
-    resolution: {integrity: sha512-+bbPmhPAl6ns9VkXkNNyxlmCAIyDAcWbB76O4I0ntr3uWCRuIQf/aRLartUahe9chVMPj+OEzzfk3CQSjclUEQ==}
+  react-hotkeys-hook@5.1.0:
+    resolution: {integrity: sha512-GCNGXjBzV9buOS3REoQFmSmE4WTvBhYQ0YrAeeMZI83bhXg3dRWsLHXDutcVDdEjwJqJCxk5iewWYX5LtFUd7g==}
     peerDependencies:
-      react: '>=16.8.1'
-      react-dom: '>=16.8.1'
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
 
   react-i18next@15.1.4:
     resolution: {integrity: sha512-2tai71gmehbvl9ZIqPMqlCCkm/cbeV1G4STpmM3C8Uzo6T2l8jDvZxEVSsQKt8blP9X34iRFP/k1ROqG2296MQ==}
@@ -25029,6 +24990,9 @@ snapshots:
 
   '@types/prop-types@15.7.14': {}
 
+  '@types/prop-types@15.7.15':
+    optional: true
+
   '@types/qrcode@1.5.5':
     dependencies:
       '@types/node': 20.17.10
@@ -25070,7 +25034,7 @@ snapshots:
 
   '@types/react@18.3.23':
     dependencies:
-      '@types/prop-types': 15.7.14
+      '@types/prop-types': 15.7.15
       csstype: 3.1.3
     optional: true
 
@@ -27260,7 +27224,7 @@ snapshots:
     dependencies:
       cssom: 0.3.8
 
-  cssstyle@4.5.0:
+  cssstyle@4.6.0:
     dependencies:
       '@asamuzakjp/css-color': 3.2.0
       rrweb-cssom: 0.8.0
@@ -27786,7 +27750,7 @@ snapshots:
 
   end-or-error@1.0.1: {}
 
-  enhanced-resolve@5.18.1:
+  enhanced-resolve@5.18.2:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.2.2
@@ -29023,8 +28987,6 @@ snapshots:
     dependencies:
       lru-cache: 10.4.3
 
-  hotkeys-js@3.9.4: {}
-
   hpagent@1.2.0: {}
 
   hsl-to-hex@1.0.0:
@@ -29710,7 +29672,7 @@ snapshots:
 
   jsdom@24.1.1(canvas@2.11.2(encoding@0.1.13)):
     dependencies:
-      cssstyle: 4.5.0
+      cssstyle: 4.6.0
       data-urls: 5.0.0
       decimal.js: 10.5.0
       form-data: 4.0.3
@@ -32709,9 +32671,8 @@ snapshots:
       react-fast-compare: 3.2.2
       react-side-effect: 2.1.2(react@18.3.1)
 
-  react-hotkeys-hook@3.4.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-hotkeys-hook@5.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      hotkeys-js: 3.9.4
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
@@ -35229,7 +35190,7 @@ snapshots:
       acorn: 8.15.0
       browserslist: 4.25.0
       chrome-trace-event: 1.0.4
-      enhanced-resolve: 5.18.1
+      enhanced-resolve: 5.18.2
       es-module-lexer: 1.7.0
       eslint-scope: 5.1.1
       events: 3.3.0
