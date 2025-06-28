@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { observer, RecursionField, Schema, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { useEffect, useMemo, useState } from 'react';
+import { observer, useFieldSchema } from '@tachybase/schema';
 
-import { Button, CheckList, Divider, Modal, PickerView, Popup, SearchBar, Space, Tag, Toast } from 'antd-mobile';
+import { Button, CheckList, Divider, PickerView, Popup, SearchBar, Space, Toast } from 'antd-mobile';
 
 import './style';
 
@@ -12,15 +12,13 @@ import {
   SchemaComponent,
   useAPIClient,
   useCollection,
-  useCollectionField,
   useCollectionManager,
-  useDesignable,
   useFieldServiceFilter,
   useRequest,
 } from '@tachybase/client';
 import { isArray } from '@tachybase/utils/client';
 
-import { getMobileColor } from '../../../CustomColor';
+import { lang } from '../../../../../locale';
 import { MInput } from '../Input';
 import { CreateRecordAction } from './CreateRecordAction';
 import { useStyles } from './style';
@@ -37,17 +35,32 @@ export const AntdSelect = observer((props) => {
   const [fieldServiceFilter] = useFieldServiceFilter(service?.params);
   const [filter, setFilter] = useState({});
   const api = useAPIClient();
-  const [selectValue, setSelectValue] = useState(value);
   const fieldNamesLabel = fieldNames?.label || 'label';
   const fieldNamesValue = fieldNames?.value || 'value';
-  let inputValue = '';
-  if (isArray(value)) {
-    value.forEach((item, index) => {
-      inputValue += `${item[fieldNamesLabel]}${value.length - 1 === index ? '' : ', '}`;
-    });
-  } else if (value && typeof value === 'object') {
-    inputValue = value[fieldNamesLabel];
-  }
+
+  const initValue = useMemo(() => {
+    if (isArray(value)) {
+      return value.map((item) => item[fieldNamesValue]);
+    } else if (value && typeof value === 'object') {
+      return [value[fieldNamesValue]];
+    }
+    return [];
+  }, [value, fieldNamesValue]);
+
+  const [selectValue, setSelectValue] = useState([]);
+
+  const showOptions = useMemo(() => {
+    return options.filter((item) => item[fieldNamesLabel].includes(searchValue));
+  }, [options, searchValue]);
+
+  const inputValue = useMemo(() => {
+    if (isArray(value)) {
+      return value.map((item) => item[fieldNamesLabel]).join(', ');
+    } else if (value && typeof value === 'object') {
+      return value[fieldNamesLabel];
+    }
+    return '';
+  }, [value, fieldNamesLabel]);
 
   const { run } = useRequest(
     {
@@ -73,9 +86,6 @@ export const AntdSelect = observer((props) => {
       },
     },
   );
-  useEffect(() => {
-    checkedPopup();
-  }, [filter, popupVisible]);
 
   const checkedPopup = () => {
     if (collectionName) {
@@ -89,40 +99,63 @@ export const AntdSelect = observer((props) => {
     }
   };
 
-  const addData = (data) => {
-    data[fieldNamesLabel] = api
-      .request({
-        url: collectionName + ':create',
-        method: 'post',
-        data,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          Toast.show({
-            icon: 'success',
-            content: '添加成功',
-          });
-        } else {
-          Toast.show({
-            icon: 'fail',
-            content: '失败成功',
-          });
-        }
-        const paramsFilter = { ...filter };
-        delete paramsFilter[fieldNamesLabel];
-        setFilter(paramsFilter);
-        setSearchValue('');
-        setPopupVisible(false);
-      })
-      .catch(() => {
-        console.error;
+  const quickAdd = async () => {
+    const resData = await api.request({
+      url: collectionName + ':create',
+      method: 'post',
+      data: {
+        [fieldNamesLabel]: searchValue,
+      },
+    });
+
+    if (resData.status === 200) {
+      Toast.show({
+        icon: 'success',
+        content: lang('Add success'),
       });
+    } else {
+      Toast.show({
+        icon: 'fail',
+        content: lang('Add failed'),
+      });
+    }
+
+    const paramsFilter = { ...filter };
+    delete paramsFilter[fieldNamesLabel];
+
+    setFilter(paramsFilter);
+    setSearchValue('');
+    setPopupVisible(false);
   };
-  const quickAdd = () => {
-    const data = {};
-    data[fieldNamesLabel] = searchValue;
-    addData(data);
+
+  const handleSearch = (value) => setSearchValue(value);
+
+  const handleChange = (valueList) => {
+    setSelectValue(valueList);
   };
+
+  const handleConfirm = () => {
+    const paramsFilter = { ...filter };
+    if (paramsFilter[fieldNamesLabel]) {
+      delete paramsFilter[fieldNamesLabel];
+    }
+
+    const selectedValueList = options.filter((item) => selectValue.includes(item.value));
+    onChange(selectedValueList);
+
+    setPopupVisible(false);
+    setSearchValue('');
+    setFilter(paramsFilter);
+  };
+
+  useEffect(() => {
+    checkedPopup();
+  }, [filter, popupVisible]);
+
+  useEffect(() => {
+    setSelectValue(initValue);
+  }, [initValue]);
+
   return (
     <CollectionProvider name={collectionName || collection?.name}>
       <BlockItem>
@@ -137,7 +170,7 @@ export const AntdSelect = observer((props) => {
           {value?.length || (value && !isArray(value)) ? (
             <MInput style={{ '--color': '#1e8bf1' }} value={inputValue} disabled={fieldSchema['x-disabled']} />
           ) : (
-            <Space>{fieldSchema['x-disabled'] ? '' : '请选择内容'}</Space>
+            <Space>{fieldSchema['x-disabled'] ? '' : lang('Please select content')}</Space>
           )}
         </div>
         <Popup
@@ -148,49 +181,26 @@ export const AntdSelect = observer((props) => {
           }}
         >
           <MobileProvider>
-            <SearchBar
-              placeholder="请输入内容"
-              value={searchValue}
-              onChange={(value) => {
-                const paramsFilter = { ...filter };
-                paramsFilter[fieldNamesLabel] = { $includes: value };
-                setFilter(paramsFilter);
-                setSearchValue(value);
-              }}
-            />
+            <SearchBar placeholder={lang('Please enter search content')} value={searchValue} onChange={handleSearch} />
             {searchValue && addMode === 'quickAdd' ? (
               <Space justify="center" align="center" onClick={quickAdd}>
-                + 创建{searchValue}
+                + {lang('Add')} {searchValue}
               </Space>
             ) : null}
             <Divider />
             {multiple || mode === 'multiple' ? (
-              <CheckList
-                multiple
-                className={`${styles['checkListStyle']}`}
-                onChange={(value) => {
-                  if (!value.length) {
-                    setSelectValue(null);
-                    return;
-                  }
-                  const filterValue = options.filter((item) => value.includes(item.value));
-                  setSelectValue(filterValue);
-                }}
-              >
-                {options.map((item, index) => {
-                  return (
-                    <CheckList.Item key={index} value={item.value}>
-                      {item.label}
-                    </CheckList.Item>
-                  );
-                })}
+              <CheckList multiple className={`${styles['checkListStyle']}`} value={selectValue} onChange={handleChange}>
+                {showOptions.map((item, index) => (
+                  <CheckList.Item key={index} value={item.value}>
+                    {item.label}
+                  </CheckList.Item>
+                ))}
               </CheckList>
             ) : (
               <PickerView
-                columns={[options]}
+                columns={[showOptions]}
                 onChange={(value) => {
-                  const changeValue = options.find((item) => item['value'] === value[0]);
-                  setSelectValue(changeValue);
+                  setSelectValue(value);
                 }}
               />
             )}
@@ -217,20 +227,10 @@ export const AntdSelect = observer((props) => {
                   setFilter(paramsFilter);
                 }}
               >
-                取消
+                {lang('Cancel')}
               </Button>
-              <Button
-                color="primary"
-                onClick={() => {
-                  onChange(selectValue);
-                  setPopupVisible(false);
-                  const paramsFilter = { ...filter };
-                  if (paramsFilter[fieldNamesLabel]) delete paramsFilter[fieldNamesLabel];
-                  setSearchValue('');
-                  setFilter(paramsFilter);
-                }}
-              >
-                确定
+              <Button color="primary" onClick={handleConfirm}>
+                {lang('Confirm')}
               </Button>
             </Space>
           </MobileProvider>
