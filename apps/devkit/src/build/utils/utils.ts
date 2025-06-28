@@ -2,10 +2,10 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import chalk from 'chalk';
-import { register } from 'esbuild-register/dist/node';
 import fg from 'fast-glob';
 import fs from 'fs-extra';
 import { Options as TsupConfig } from 'tsup';
+import { require as tsxRequire } from 'tsx/cjs/api';
 import { InlineConfig as ViteConfig } from 'vite';
 
 import { NODE_MODULES } from '../constant';
@@ -44,14 +44,12 @@ export function getUserConfig(cwd: string) {
     modifyViteConfig: (config: ViteConfig) => config,
   });
 
-  const buildConfigs = fg.sync(['build.config.js', 'build.config.ts'], { cwd });
+  const buildConfigs = fg.sync(['./build.config.js', './build.config.ts'], { cwd });
   if (buildConfigs.length > 1) {
     throw new Error(`Multiple build configs found: ${buildConfigs.join(', ')}`);
   }
   if (buildConfigs.length === 1) {
-    const { unregister } = register({});
-    const userConfig = require(path.join(cwd, buildConfigs[0]));
-    unregister();
+    const userConfig = tsxRequire(buildConfigs[0], path.resolve(cwd, 'index.js'));
     Object.assign(config, userConfig.default || userConfig);
   }
   return config;

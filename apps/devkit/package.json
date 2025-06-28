@@ -35,8 +35,6 @@
     "chalk": "^5.4.1",
     "commander": "^12.1.0",
     "dotenv": "^16.5.0",
-    "esbuild-plugin-file-path-extensions": "2.1.4",
-    "esbuild-register": "^3.6.0",
     "execa": "^8.0.1",
     "fast-glob": "^3.3.3",
     "fs-extra": "^11.3.0",
@@ -68,6 +66,7 @@
     "@types/tar": "^6.1.13",
     "@types/update-notifier": "6.0.8",
     "cross-env": "^7.0.3",
+    "esbuild-plugin-file-path-extensions": "2.1.4",
     "rimraf": "6.0.1",
     "vite": "^5.4.19"
   }

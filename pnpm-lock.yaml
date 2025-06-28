@@ -182,12 +182,6 @@ importers:
       dotenv:
         specifier: ^16.5.0
         version: 16.5.0
-      esbuild-plugin-file-path-extensions:
-        specifier: 2.1.4
-        version: 2.1.4
-      esbuild-register:
-        specifier: ^3.6.0
-        version: 3.6.0(esbuild@0.24.0)
       execa:
         specifier: ^8.0.1
         version: 8.0.1
@@ -273,6 +267,9 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
+      esbuild-plugin-file-path-extensions:
+        specifier: 2.1.4
+        version: 2.1.4
       rimraf:
         specifier: 6.0.1
         version: 6.0.1
@@ -12334,11 +12331,6 @@ packages:
   esbuild-plugin-file-path-extensions@2.1.4:
     resolution: {integrity: sha512-lNjylaAsJMprYg28zjUyBivP3y0ms9b7RJZ5tdhDUFLa3sCbqZw4wDnbFUSmnyZYWhCYDPxxp7KkXM2TXGw3PQ==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
-
-  esbuild-register@3.6.0:
-    resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
-    peerDependencies:
-      esbuild: '>=0.12 <1'
 
   esbuild@0.12.15:
     resolution: {integrity: sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==}
@@ -27774,13 +27766,6 @@ snapshots:
       is-symbol: 1.1.1
 
   esbuild-plugin-file-path-extensions@2.1.4: {}
-
-  esbuild-register@3.6.0(esbuild@0.24.0):
-    dependencies:
-      debug: 4.4.0(supports-color@5.5.0)
-      esbuild: 0.24.0
-    transitivePeerDependencies:
-      - supports-color
 
   esbuild@0.12.15: {}
 
