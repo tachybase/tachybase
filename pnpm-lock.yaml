@@ -405,6 +405,9 @@ importers:
       tar:
         specifier: 7.4.3
         version: 7.4.3
+      tsx:
+        specifier: 4.20.3
+        version: 4.20.3
       umzug:
         specifier: 3.8.2
         version: 3.8.2

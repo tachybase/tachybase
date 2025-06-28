@@ -59,6 +59,7 @@
     "sequelize": "6.37.7",
     "sqlite3": "5.1.7",
     "tar": "7.4.3",
+    "tsx": "4.20.3",
     "umzug": "3.8.2",
     "winston": "3.17.0",
     "winston-daily-rotate-file": "^5.0.0"
