@@ -5,8 +5,6 @@ const { join } = require('node:path');
 const libEntry = join(__dirname, '../lib/index.js');
 const srcEntry = join(__dirname, '../src/index.ts');
 
-console.log(process.env);
-
 if (existsSync(libEntry)) {
   // ✅ 有构建产物，走正常入口
   console.log('---');
