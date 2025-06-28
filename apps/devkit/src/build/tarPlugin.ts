@@ -1,40 +1,26 @@
 import path from 'node:path';
 
-import fg from 'fast-glob';
+import Arborist from '@npmcli/arborist';
 import fs from 'fs-extra';
+import packlist from 'npm-packlist';
 import * as tar from 'tar';
 
-import { TAR_OUTPUT_DIR, tarIncludesFiles } from './constant';
+import { TAR_OUTPUT_DIR } from './constant';
 import { PkgLog } from './utils';
 
-export function tarPlugin(cwd: string, log: PkgLog) {
-  log('tar package');
-  const pkg = require(path.join(cwd, 'package.json'));
-  const npmIgnore = path.join(cwd, '.npmignore');
-  let files = pkg.files || [];
-  if (fs.existsSync(npmIgnore)) {
-    files = fs
-      .readFileSync(npmIgnore, 'utf-8')
-      .split('\n')
-      .filter((item) => item.trim())
-      .map((item) => `!${item}`);
-    files.push('**/*');
-  }
-
-  // 必须包含的文件
-  files.push(...tarIncludesFiles);
-
-  files = files.map((item: string) =>
-    item !== '**/*' &&
-    fs.existsSync(path.join(cwd, item.replace('!', ''))) &&
-    fs.statSync(path.join(cwd, item.replace('!', ''))).isDirectory()
-      ? `${item}/**/*`
-      : item,
-  );
-
+export async function tarPlugin(cwd: string, log: PkgLog) {
+  log('tar package', cwd);
+  const arborist = new Arborist({ path: cwd });
+  const node = await arborist.loadActual();
+  const files = await packlist(node);
+  const pkg = fs.readJsonSync(path.join(cwd, 'package.json'));
   const tarball = path.join(TAR_OUTPUT_DIR, `${pkg.name}-${pkg.version}.tgz`);
-  const tarFiles = fg.sync(files, { cwd });
-
-  fs.mkdirpSync(path.dirname(tarball));
-  return tar.c({ gzip: true, file: tarball, cwd }, tarFiles);
+  await tar.c(
+    {
+      gzip: true,
+      file: tarball,
+      cwd,
+    },
+    files,
+  );
 }
