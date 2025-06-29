@@ -3,6 +3,7 @@ import path from 'node:path';
 import Topo from '@hapi/topo';
 import { findWorkspacePackages, type Project } from '@pnpm/workspace.find-packages';
 import fg from 'fast-glob';
+import fs from 'fs-extra';
 
 import { ROOT_PATH } from '../constant';
 import { toUnixPath } from './utils';
@@ -10,8 +11,8 @@ import { toUnixPath } from './utils';
 /**
  * 获取构建包的绝对路径，支持项目路径和 npm 两种形式
  * @example
- * pnpm build packages/core/client @tachybase/acl => ['/home/xx/packages/core/client', '/home/xx/packages/core/acl']
- * pnpm build packages/plugins/* => ['/home/xx/packages/plugins/a', '/home/xx/packages/plugins/b']
+ * pnpm build packages/client @tachybase/acl => ['/home/xx/packages/client', '/home/xx/packages/acl']
+ * pnpm build packages/plugin-auth-* => ['/home/xx/packages/plugin-auth-a', '/home/xx/packages/plugin-auth-b']
  * pnpm build => all packages
  */
 function getPackagesPath(pkgs: string[]) {
@@ -26,13 +27,16 @@ function getPackagesPath(pkgs: string[]) {
   }
   const allPackageInfo = allPackageJson
     .map((packageJsonPath) => ({
-      name: require(packageJsonPath).name,
-      path: path.dirname(toUnixPath(packageJsonPath)),
+      name: fs.readJsonSync(packageJsonPath).name as string,
+      path: path.dirname(toUnixPath(packageJsonPath)) as string,
     }))
-    .reduce((acc, cur) => {
-      acc[cur.name] = cur.path;
-      return acc;
-    }, {});
+    .reduce(
+      (acc, cur) => {
+        acc[cur.name] = cur.path;
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
   const allPackagePaths: string[] = Object.values(allPackageInfo);
 
   const pkgNames = pkgs.filter((item) => allPackageInfo[item]);
@@ -66,7 +70,7 @@ export async function getPackages(pkgs: string[]) {
 export function sortPackages(packages: Project[]): Project[] {
   const sorter = new Topo.Sorter<Project>();
   for (const pkg of packages) {
-    const pkgJson = require(`${pkg.dir}/package.json`);
+    const pkgJson = fs.readJsonSync(`${pkg.dir}/package.json`);
     const after = Object.keys({ ...pkgJson.dependencies, ...pkgJson.devDependencies, ...pkgJson.peerDependencies });
     sorter.add(pkg, { after, group: pkg.manifest.name });
   }

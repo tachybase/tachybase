@@ -2,18 +2,25 @@ class TachybaseGlobal {
   // 私有静态实例
   private static instance: TachybaseGlobal;
 
+  #id = Date.now();
+
   // 私有数据存储 Map
   private dataMap: Map<string, any>;
 
   // 私有构造函数，防止外部 new
-  private constructor() {
+  private constructor(initData?: Record<string, any>) {
     this.dataMap = new Map();
+    if (initData) {
+      for (const [key, value] of Object.entries(initData)) {
+        this.dataMap.set(key, value);
+      }
+    }
   }
 
   // 获取单例实例
-  public static getInstance(): TachybaseGlobal {
+  public static getInstance(initData?: Record<string, any>): TachybaseGlobal {
     if (!TachybaseGlobal.instance) {
-      TachybaseGlobal.instance = new TachybaseGlobal();
+      TachybaseGlobal.instance = new TachybaseGlobal(initData);
     }
     return TachybaseGlobal.instance;
   }
@@ -41,6 +48,10 @@ class TachybaseGlobal {
   // 清空所有数据
   public clear(): void {
     this.dataMap.clear();
+  }
+
+  public toJSON(): Record<string, any> {
+    return { ...Object.fromEntries([...this.dataMap.entries()].filter(([key]) => key !== 'PRESETS')), id: this.#id };
   }
 }
 

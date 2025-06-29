@@ -1,4 +1,4 @@
-import { isMainThread } from 'worker_threads';
+import { isMainThread } from 'node:worker_threads';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import { NAMESPACE } from '../constants';

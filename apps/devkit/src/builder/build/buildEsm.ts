@@ -1,9 +1,12 @@
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import fg from 'fast-glob';
 import { build as viteBuild } from 'vite';
 
 import { PkgLog, UserConfig } from './utils';
+
+const require = createRequire(import.meta.url);
 
 export async function buildEsm(cwd: string, userConfig: UserConfig, sourcemap: boolean = false, log: PkgLog) {
   log('build esm');

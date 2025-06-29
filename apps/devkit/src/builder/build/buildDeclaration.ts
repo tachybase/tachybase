@@ -5,18 +5,11 @@ import fs from 'fs-extra';
 import ts from 'typescript';
 
 import { globExcludeFiles, ROOT_PATH } from './constant';
-import { signals } from './stats';
+import { PkgLog } from './utils';
 
-// 需要暂时忽略的错误写在这里
-const IgnoreErrors = new Set([
-  `Property 'body' does not exist on type 'Request'`,
-  `Property 'fromNow' does not exist on type 'Dayjs'`,
-  `Property 'body' does not exist on type 'Request'.`,
-  `Property 'fromNow' does not exist on type 'Dayjs'.`,
-]);
-
-export const buildDeclaration = (cwd: string, targetDir: string) => {
+export const buildDeclaration = (cwd: string, targetDir: string, log: PkgLog) => {
   return new Promise<{ exitCode: 1 | 0; messages: string[] }>((resolve, reject) => {
+    log('build declaration');
     const localTsConfigPath = path.join(cwd, 'tsconfig.json');
 
     // 读取 tsconfig.json 文件路径
@@ -46,23 +39,23 @@ export const buildDeclaration = (cwd: string, targetDir: string) => {
 
     // 处理编译错误
     const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics);
-    const messages = [];
+    const messages: any[] = [];
     allDiagnostics.forEach((diagnostic) => {
       if (diagnostic.file) {
-        const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start);
+        const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start!);
         const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
-        if (IgnoreErrors.has(message)) {
-          return;
-        }
-        signals.emit('build:errors', `${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
+        messages.push(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`);
         console.error(`${diagnostic.file.fileName}(${line + 1},${character + 1}): ${message}`);
       } else {
-        signals.emit('build:errors', ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
+        messages.push(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
         console.error(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'));
       }
     });
 
     const exitCode = emitResult.emitSkipped ? 1 : 0;
+    if (messages.length > 0) {
+      reject(messages.join('\n'));
+    }
     resolve({ exitCode, messages });
   });
 };

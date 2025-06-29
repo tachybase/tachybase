@@ -2,6 +2,7 @@ import path from 'node:path';
 
 import { pluginLess } from '@rsbuild/plugin-less';
 import { pluginReact } from '@rsbuild/plugin-react';
+import { build } from '@rslib/core';
 import fg from 'fast-glob';
 import { build as tsupBuild } from 'tsup';
 
@@ -33,7 +34,6 @@ async function buildClientEsm(
 ) {
   const entry = fg.globSync(['src/**', ...globExcludeFiles, '!src/**/*.json'], { cwd, absolute: true });
 
-  const { build } = await import('@rslib/core');
   await build({
     source: {
       entry: {

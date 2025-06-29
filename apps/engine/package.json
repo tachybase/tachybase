@@ -40,6 +40,7 @@
     "async-mutex": "0.3.0",
     "axios": "0.29.0",
     "cache-manager": "5.7.6",
+    "chalk": "^4.1.2",
     "commander": "^9.5.0",
     "dayjs": "1.11.13",
     "dotenv": "16.5.0",
@@ -59,6 +60,7 @@
     "sequelize": "6.37.7",
     "sqlite3": "5.1.7",
     "tar": "7.4.3",
+    "tsx": "4.20.3",
     "umzug": "3.8.2",
     "winston": "3.17.0",
     "winston-daily-rotate-file": "^5.0.0"
@@ -75,7 +77,6 @@
       "node22-macos-x64",
       "node22-macos-arm64",
       "node22-win-x64",
-      "node22-win-arm64",
       "node22-linux-x64",
       "node22-linux-arm64"
     ],

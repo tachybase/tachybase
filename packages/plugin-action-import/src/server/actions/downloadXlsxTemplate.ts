@@ -3,8 +3,8 @@ import { Context, Next } from '@tachybase/actions';
 import xlsx from 'node-xlsx';
 
 export async function downloadXlsxTemplate(ctx: Context, next: Next) {
-  let { columns } = ctx.request.body as any;
-  const { explain, title } = ctx.request.body as any;
+  let { columns } = (ctx.request as any).body as any;
+  const { explain, title } = (ctx.request as any).body as any;
   if (typeof columns === 'string') {
     columns = JSON.parse(columns);
   }

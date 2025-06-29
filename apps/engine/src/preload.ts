@@ -20,7 +20,6 @@ if (!process.env.NODE_MODULES_PATH) {
 }
 
 // 解析 process.env.NODE_MODULES_PATH
-// TODO 我们马上切换到配置文件的形式，而不是环境变量
 const paths = process.env.NODE_MODULES_PATH.split(',');
 TachybaseGlobal.getInstance().set('PLUGIN_PATHS', paths);
 
@@ -74,8 +73,8 @@ if (process.env.ENGINE_MODULES) {
 const lookingPaths = [appRoot, ...TachybaseGlobal.getInstance().get('PLUGIN_PATHS')];
 
 // 带给子进程加载路径
-process.env.TACHYBASE_WORKER_PATHS = lookingPaths.join(',');
-process.env.TACHYBASE_WORKER_MODULES = [...whitelists].join(',');
+TachybaseGlobal.getInstance().set('WORKER_PATHS', lookingPaths);
+TachybaseGlobal.getInstance().set('WORKER_MODULES', [...whitelists]);
 
 // 整个加载过程允许报错，保持和默认加载器一样的行为
 Module._load = defineLoader(whitelists, originalLoad, lookingPaths);

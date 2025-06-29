@@ -1,9 +1,12 @@
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import fs from 'fs-extra';
 
+const require = createRequire(import.meta.url);
+
 export function winPath(path: string) {
-  const isExtendedLengthPath = /^\\\\\?\\/.test(path);
+  const isExtendedLengthPath = path.startsWith('\\\\?\\');
   if (isExtendedLengthPath) {
     return path;
   }

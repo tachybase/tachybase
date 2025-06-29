@@ -1,5 +1,7 @@
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
+// @ts-ignore
 import ncc from '@vercel/ncc';
 import react from '@vitejs/plugin-react';
 import chalk from 'chalk';
@@ -9,8 +11,10 @@ import { build as tsupBuild } from 'tsup';
 import { build as viteBuild } from 'vite';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
-import { EsbuildSupportExts, globExcludeFiles } from './constant';
-import { getPackageJson, PkgLog, UserConfig } from './utils';
+import { buildDeclaration } from '../build/buildDeclaration';
+import { EsbuildSupportExts, globExcludeFiles } from '../build/constant';
+import { tarPlugin } from '../build/tarPlugin';
+import { getPackageJson, getPkgLog, getUserConfig, PkgLog, UserConfig } from '../build/utils';
 import {
   buildCheck,
   checkFileSize,
@@ -19,8 +23,11 @@ import {
   getIncludePackages,
   getPackagesFromFiles,
   getSourcePackages,
-} from './utils/buildPluginUtils';
-import { getDepPkgPath, getDepsConfig } from './utils/getDepsConfig';
+} from '../build/utils/buildPluginUtils';
+import { getDepPkgPath, getDepsConfig } from '../build/utils/getDepsConfig';
+import { IBuildablePackage, IBuildContext } from '../interfaces';
+
+const require = createRequire(import.meta.url);
 
 const validExts = ['.ts', '.tsx', '.js', '.jsx', '.mjs'];
 const serverGlobalFiles: string[] = ['src/**', '!src/client/**', ...globExcludeFiles];
@@ -151,9 +158,8 @@ export function writeExternalPackageVersion(cwd: string, log: PkgLog) {
       prev[packageName] = depPkg.version;
     } catch (error) {
       console.error(error);
-    } finally {
-      return prev;
     }
+    return prev;
   }, {});
   const externalVersionPath = path.join(cwd, target_dir, 'externalVersion.js');
   fs.writeFileSync(externalVersionPath, `module.exports = ${JSON.stringify(data, null, 2)};`);
@@ -358,8 +364,48 @@ export async function buildPluginClient(cwd: string, userConfig: UserConfig, sou
   checkFileSize(outDir, log);
 }
 
-export async function buildPlugin(cwd: string, userConfig: UserConfig, sourcemap: boolean, log: PkgLog) {
-  await buildPluginClient(cwd, userConfig, process.argv.includes('--client-sourcemap'), log);
-  await buildPluginServer(cwd, userConfig, sourcemap, log);
-  writeExternalPackageVersion(cwd, log);
+export async function buildPlugin(cwd: string, userConfig: UserConfig, sourcemap: boolean, log: PkgLog) {}
+
+export class PluginPackage implements IBuildablePackage {
+  static name = 'plugin';
+  name: string;
+  dir: string;
+  context: IBuildContext;
+
+  constructor(name: string, dir: string, context: IBuildContext) {
+    this.name = name;
+    this.dir = dir;
+    this.context = context;
+  }
+  async build() {
+    const log = getPkgLog(this.name);
+    if (this.context.onlyTar) {
+      return await tarPlugin(this.dir, log);
+    }
+
+    const userConfig = getUserConfig(this.dir);
+    if (userConfig.beforeBuild) {
+      log('beforeBuild');
+      await userConfig.beforeBuild(log);
+    }
+
+    await buildPluginClient(this.dir, userConfig, this.context.sourcemap, log);
+    await buildPluginServer(this.dir, userConfig, this.context.sourcemap, log);
+    writeExternalPackageVersion(this.dir, log);
+
+    if (this.context.dts) {
+      await buildDeclaration(this.dir, 'dist', log);
+    }
+
+    if (userConfig.afterBuild) {
+      log('afterBuild');
+      await userConfig.afterBuild(log);
+    }
+
+    if (this.context.tar) {
+      await tarPlugin(this.dir, log);
+    }
+
+    log('done');
+  }
 }
