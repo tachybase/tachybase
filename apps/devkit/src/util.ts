@@ -228,7 +228,7 @@ export async function updateJsonFile(target: string, fn: any) {
 }
 
 export function generateAppDir() {
-  const defaultServerRoot = join(process.cwd(), 'apps/engine');
+  const defaultServerRoot = join(process.cwd(), 'apps/tego');
   const defaultClientRoot = join(process.cwd(), 'apps/app-web');
   process.env.APP_SERVER_ROOT = process.env.APP_SERVER_ROOT || defaultServerRoot;
   process.env.APP_CLIENT_ROOT = process.env.APP_CLIENT_ROOT || defaultClientRoot;
