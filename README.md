@@ -3,7 +3,7 @@
         <a style="color:#36f" href="https://www.tachybase.com">
             <img src="https://tachybase-1321007335.cos.ap-shanghai.myqcloud.com/3733d6bd0a3376a93ba6180b32194369.png" width="80" />
             <br>
-            Tachybase
+            Tego
         </a>
     </div>
 </h1>
@@ -11,16 +11,16 @@
 <br>
 
 <p align="center">
-  Tachybase is a pluggable application framework., where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
+  Tego is a pluggable application framework., where developers can build complex application logic, while core developers focus on ensuring the stability of key modules and adapting to different environments. 
 </p>
 <p align="center">
-   <img alt="GitHub License" src="https://img.shields.io/github/license/tachybase/tachybase">
-   <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/tachybase/tachybase">
+   <img alt="GitHub License" src="https://img.shields.io/github/license/tegojs/tego">
+   <img alt="GitHub Issues or Pull Requests" src="https://img.shields.io/github/issues/tegojs/tego">
    <img alt="Static Badge" src="https://img.shields.io/badge/build-passing-brightgreen">
    <a href="./README.md"><img alt="Static Badge" src="https://img.shields.io/badge/English Version-red"></a>
    <a href="./README.ZH-CN.md"><img alt="Static Badge" src="https://img.shields.io/badge/中文版本-blue"></a>
    <a href="https://gitee.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/gitee-green"></a>
-   <a href="https://github.com/tachybase/tachybase"><img alt="Static Badge" src="https://img.shields.io/badge/Github-lightblack"></a>
+   <a href="https://github.com/tegojs/tego"><img alt="Static Badge" src="https://img.shields.io/badge/Github-lightblack"></a>
 </p>
 
 # Try
@@ -32,27 +32,27 @@ You can register an account and password by yourself and create sub-applications
 # Quick Start
 
 ```bash 
-# Create a new Tachybase application
-npx @tachybase/engine init my-app
+# Create a new Tego application
+npx tego init my-app
 # Change directory to the new application
 cd my-app
 # Start the application
-npx @tachybase/engine start --quickstart
+npx tego start --quickstart
 # Visit the application
 http://localhost:3000
 ```
 
 Default username：`tachybase`，password: `!Admin123.`
 The default database is `sqlite`, you can change it in .env file.
-Visit [tachybase.org](https://tachybase.org/en/) to discover more ways to use Tachybase.
+Visit [tachybase.org](https://tachybase.org/en/) to discover more ways to use Tego.
 
 # Upgrade From Previous Version
 
 ```bash
 # Sync latest packages
-npx @tachybase/engine sync
+npx tego sync
 # Start the application
-npx @tachybase/engine start --quickstart
+npx tego start --quickstart
 ```
 
 # License
