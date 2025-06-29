@@ -26,35 +26,42 @@ export class FieldSqlite extends FieldBase {
   }
 
   date(params: handleFieldParams): { [Op.and]: any[] } {
-    const { field, keyword, dateStr, timezone } = params;
+    const { field, keyword, dateStr, timezone, collectionName, collection } = params;
     return {
       [Op.and]: [
-        where(fn('strftime', dateStr, fn('datetime', col(field), convertTimezoneOffset(timezone))), {
-          [this.like]: `%${escapeLike(keyword)}%`,
-        }),
+        where(
+          fn(
+            'strftime',
+            dateStr,
+            fn('datetime', this.getCollectionField(field, collection, collectionName), convertTimezoneOffset(timezone)),
+          ),
+          {
+            [this.like]: `%${escapeLike(keyword)}%`,
+          },
+        ),
       ],
     };
   }
 
   json(params: handleFieldParams): { [Op.and]: any[] } {
-    const { field, keyword } = params;
+    const { field, keyword, collectionName, collection } = params;
     return {
       [Op.and]: [
-        where(literal(`json_extract(${field}, '$')`), {
+        where(literal(`json_extract(${this.getCollectionFieldColName(field, collection, collectionName)}, '$')`), {
           [this.like]: `%${escapeLike(keyword)}%`,
         }),
       ],
     };
   }
 
-  public getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
+  public getMultiSelectFilter(rawField: string, matchEnum: string[]): WhereOptions<any> {
     const matchList = matchEnum.map((value) => `'${value}'`).join(',');
     return {
       [Op.and]: [
         literal(`
         EXISTS (
           SELECT 1
-          FROM json_each(${col(field).col})
+          FROM json_each(${rawField})
           WHERE json_each.value IN (${matchList})
         )
       `),

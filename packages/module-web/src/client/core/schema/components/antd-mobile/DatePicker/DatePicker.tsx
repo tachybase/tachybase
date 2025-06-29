@@ -10,25 +10,25 @@ export const MDatePicker = connect(
     const { t } = useTranslation();
     const { value, onChange } = props;
     const [visible, setVisible] = useState(false);
-    const [dateValue, setDateValue] = useState(value);
 
-    const dateValueShow = dateValue ? dayjs(dateValue).format('YYYY-MM-DD') : t('please enter the date');
+    const dateValueShow = useMemo(() => {
+      return value ? dayjs(value).format('YYYY-MM-DD') : t('please enter the date');
+    }, [value]);
 
     const openPicker = () => setVisible(true);
     const closePicker = () => setVisible(false);
-    const selectDateValue = (value) => {
-      setDateValue(value);
-      onChange(value);
+    const selectDateValue = (selectedValue) => {
+      onChange(selectedValue);
       setVisible(false);
     };
 
     const validDate = useMemo(() => {
-      const dayjsDate = dayjs(dateValue);
+      const dayjsDate = dayjs(value);
       if (dayjsDate.isValid()) {
         const date = dayjsDate.toDate();
         return date;
       }
-    }, [dateValue]);
+    }, [value]);
 
     return (
       <>

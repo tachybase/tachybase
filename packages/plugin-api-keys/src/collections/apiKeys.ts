@@ -89,8 +89,9 @@ export default {
     },
     {
       name: 'token',
-      type: 'text',
+      type: 'string',
       hidden: true,
+      length: 512,
     },
     {
       name: 'accessToken',
