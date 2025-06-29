@@ -10,7 +10,7 @@
   "dependencies": {
     "@hapi/topo": "^6.0.2",
     "@koa/cors": "^5.0.0",
-    "@koa/multer": "^3.0.2",
+    "@koa/multer": "^4.0.0",
     "@tachybase/acl": "workspace:*",
     "@tachybase/actions": "workspace:*",
     "@tachybase/auth": "workspace:*",
