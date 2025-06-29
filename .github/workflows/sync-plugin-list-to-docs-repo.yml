@@ -54,7 +54,7 @@ jobs:
 
       - name: Clone Docs Repo
         run: |
-          git clone https://github.com/tego/docs.git docs-repo-temp
+          git clone https://github.com/tegojs/docs.git docs-repo-temp
 
       - name: Copy plugins-list.md
         run: |
