@@ -1,12 +1,12 @@
 {
-  "name": "@tachybase/engine",
+  "name": "tego",
   "version": "1.3.11",
   "description": "",
   "license": "Apache-2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "bin": {
-    "tachybase-engine": "./bin/tachybase-engine.js"
+    "tego": "./bin/tego.js"
   },
   "scripts": {
     "build": "pkg . --no-bytecode --public-packages \"*\" --public --compress Brotli",

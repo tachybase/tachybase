@@ -48,7 +48,6 @@
     "@ianvs/prettier-plugin-sort-imports": "4.4.2",
     "@inquirer/prompts": "7.5.3",
     "@tachybase/devkit": "workspace:*",
-    "@tachybase/engine": "workspace:*",
     "@tachybase/test": "workspace:*",
     "@types/node": "20.17.10",
     "@types/react": "^18.3.18",
@@ -64,6 +63,7 @@
     "pretty-quick": "4.2.2",
     "react": "18.3.1",
     "react-dom": "18.3.1",
+    "tego": "workspace:*",
     "tsx": "4.20.3",
     "vitest": "3.2.4"
   },

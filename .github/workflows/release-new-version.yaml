@@ -88,7 +88,7 @@ jobs:
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
           pnpm -r publish --provenance --access public --no-git-checks
       - name: Build with pkg
-        run: pnpm --filter '@tachybase/engine' run build
+        run: pnpm --filter tego run build
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
@@ -102,7 +102,7 @@ jobs:
             apps/engine/dist/engine-macos-arm64
             apps/engine/dist/engine-win-arm64.exe
 
-  tachybase-all:
+  tego-all:
     needs: [publish, release]
     runs-on: ubuntu-latest
     permissions:
@@ -122,20 +122,20 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build Tachybase All
+      - name: Build Tego All
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/tachybase-all/Dockerfile
+          file: docker/tego-all/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
-            TACHYBASE_VERSION=${{ needs.release.outputs.version }}
+            TEGO_VERSION=${{ needs.release.outputs.version }}
           tags: |
-            tachybase/tachybase-all:${{ needs.release.outputs.version }}
-            tachybase/tachybase-all:latest
+            tegojs/tego-all:${{ needs.release.outputs.version }}
+            tegojs/tego-all:latest
 
-  tachybase-engine:
+  tego:
     needs: [publish, release]
     runs-on: ubuntu-latest
     permissions:
@@ -155,18 +155,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build Tachybase Engine
+      - name: Build Tego Engine
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/tachybase-engine/Dockerfile
+          file: docker/tego/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           build-args: |
-            TACHYBASE_VERSION=${{ needs.release.outputs.version }}
+            TEGO_VERSION=${{ needs.release.outputs.version }}
           tags: |
-            tachybase/tachybase-engine:${{ needs.release.outputs.version }}
-            tachybase/tachybase-engine:latest
-            tachybase/tachybase:${{ needs.release.outputs.version }}
-            tachybase/tachybase:latest
+            tegojs/tego:${{ needs.release.outputs.version }}
+            tegojs/tego:latest
 

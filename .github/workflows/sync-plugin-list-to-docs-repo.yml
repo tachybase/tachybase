@@ -28,7 +28,7 @@ jobs:
   sync-doc:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout tachybase/tachybase Repo
+      - name: Checkout Repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -52,9 +52,9 @@ jobs:
           echo "✅ plugin-list.md generated successfully"
           echo "File size: $(wc -l < ./docs-dist/plugin-list.md) lines"
 
-      - name: Clone tachybase/docs Repo
+      - name: Clone Docs Repo
         run: |
-          git clone https://github.com/tachybase/docs.git docs-repo-temp
+          git clone https://github.com/tego/docs.git docs-repo-temp
 
       - name: Copy plugins-list.md
         run: |
@@ -81,12 +81,12 @@ jobs:
         with:
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
           path: ./docs-repo-temp
-          commit-message: "chore: sync plugins-list.md from tachybase/tachybase repo"
-          title: "chore: sync plugins-list.md from tachybase/tachybase repo ${{ github.event.inputs.branch && format('(branch: {0})', github.event.inputs.branch) || '' }}"
+          commit-message: "chore: sync plugins-list.md from tegojs/tego repo"
+          title: "chore: sync plugins-list.md from tegojs/tego repo ${{ github.event.inputs.branch && format('(branch: {0})', github.event.inputs.branch) || '' }}"
           body: |
             ## Plugin List Sync
 
-            This PR automatically syncs the latest plugin list from tachybase/tachybase repository.
+            This PR automatically syncs the latest plugin list from tegojs/tego repository.
 
             ### Changes
             - Updated `zh/plugins/plugin-list.md` file
@@ -96,8 +96,8 @@ jobs:
             ${{ github.event.inputs.reason && format('- Sync reason: {0}', github.event.inputs.reason) || '' }}
 
             ### Related Links
-            - Source repository: https://github.com/tachybase/tachybase
-            - Trigger commit: https://github.com/tachybase/tachybase/commit/${{ github.sha }}
+            - Source repository: https://github.com/tegojs/tego
+            - Trigger commit: https://github.com/tegojs/tego/commit/${{ github.sha }}
 
             ---
 
