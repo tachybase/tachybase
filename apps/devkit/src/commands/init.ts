@@ -13,7 +13,7 @@ export default (cli: Command) => {
     .allowUnknownOption()
     .action(async (name: string, options) => {
       console.error('❌ This command has been deprecated.');
-      console.log('✅ Please use: npx @tachybase/engine init <project-name>');
+      console.log('✅ Please use: npx tego init <project-name>');
       process.exit(1);
     });
 };

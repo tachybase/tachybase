@@ -20,4 +20,4 @@ output_file="/app/public/index.html"
     fi
 } > "$output_file"
 
-tachybase-engine start --quickstart
+tego-engine start --quickstart
