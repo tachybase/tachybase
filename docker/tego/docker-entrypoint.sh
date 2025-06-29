@@ -20,4 +20,4 @@ output_file="/app/public/index.html"
     fi
 } > "$output_file"
 
-tego-engine start --quickstart
+tego start --quickstart
