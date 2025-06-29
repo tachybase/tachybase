@@ -95,12 +95,11 @@ jobs:
         with:
           tag_name: ${{ needs.release.outputs.version }}
           files: |
-            apps/engine/dist/engine-linux-x64
-            apps/engine/dist/engine-macos-x64
-            apps/engine/dist/engine-win-x64.exe
-            apps/engine/dist/engine-linux-arm64
-            apps/engine/dist/engine-macos-arm64
-            apps/engine/dist/engine-win-arm64.exe
+            apps/tego/dist/tego-linux-x64
+            apps/tego/dist/tego-macos-x64
+            apps/tego/dist/tego-win-x64.exe
+            apps/tego/dist/tego-linux-arm64
+            apps/tego/dist/tego-macos-arm64
 
   tego-all:
     needs: [publish, release]
