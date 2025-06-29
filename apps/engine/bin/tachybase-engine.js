@@ -11,10 +11,10 @@ if (__dirname.startsWith('/snapshot/')) {
 }
 
 if (existsSync(libEntry)) {
-  require(libEntry);
+  require('../lib/index.js');
 } else {
   console.log(chalk.green('WAIT: ') + 'TypeScript compiling...');
   const tsx = require('tsx/cjs/api');
   tsx.register();
-  require(srcEntry);
+  require('../src/index.ts');
 }
