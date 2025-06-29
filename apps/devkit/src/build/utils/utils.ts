@@ -28,8 +28,8 @@ export function getPackageJson(cwd: string) {
 }
 
 export interface UserConfig {
-  modifyTsupConfig?: (config: TsupConfig) => TsupConfig;
-  modifyViteConfig?: (config: ViteConfig) => ViteConfig;
+  modifyTsupConfig: (config: TsupConfig) => TsupConfig;
+  modifyViteConfig: (config: ViteConfig) => ViteConfig;
   beforeBuild?: (log: PkgLog) => void | Promise<void>;
   afterBuild?: (log: PkgLog) => void | Promise<void>;
 }

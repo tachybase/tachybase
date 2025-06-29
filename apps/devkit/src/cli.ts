@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import { resolve } from 'node:path';
-
 import chalk from 'chalk';
 import { Command } from 'commander';
 import semver from 'semver';

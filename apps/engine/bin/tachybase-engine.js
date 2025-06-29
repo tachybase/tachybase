@@ -12,12 +12,9 @@ if (__dirname.startsWith('/snapshot/')) {
 
 if (existsSync(libEntry)) {
   require(libEntry);
-} else if (existsSync(srcEntry)) {
+} else {
   console.log(chalk.green('WAIT: ') + 'TypeScript compiling...');
   const tsx = require('tsx/cjs/api');
   tsx.register();
   require(srcEntry);
-} else {
-  // 打包后用相对路径
-  require('../lib');
 }

@@ -1,39 +1,32 @@
-import { resolve } from 'node:path';
-
 import { type Command } from 'commander';
 
-import { build } from '../build';
-import { isPackageValid, nodeCheck, run } from '../util';
+import { TachybaseBuilder } from '../builder';
+import { nodeCheck } from '../util';
 
 export default (cli: Command) => {
   cli
     .command('build')
     .allowUnknownOption()
     .argument('[packages...]')
-    .option('-v, --version', 'print version')
-    .option('-c, --compile', 'compile the @tachybase/build package')
     .option('-r, --retry', 'retry the last failed package')
-    .option('-w, --watch', 'watch compile the @tachybase/build package')
     .option('-s, --sourcemap', 'generate server sourcemap')
-    .option('--client-sourcemap', 'generate client sourcemap')
     .option('--no-dts', 'not generate dts')
+    .option('--tar', 'tar the package')
+    .option('--only-tar', 'only tar the package')
+    .option('--development', 'development mode')
     .action(async (pkgs, options) => {
       nodeCheck();
-      process.env['VITE_CJS_IGNORE_WARNING'] = 'true';
+      // process.env['VITE_CJS_IGNORE_WARNING'] = 'true';
 
-      await build(pkgs);
+      const tachybaseBuilder = new TachybaseBuilder({
+        dts: options.dts,
+        sourcemap: options.sourcemap,
+        retry: options.retry,
+        tar: options.tar,
+        onlyTar: options.onlyTar,
+        development: options.development,
+      });
 
-      // try {
-      //   await run('tachybase-build', [
-      //     ...pkgs,
-      //     options.version ? '--version' : '',
-      //     !options.dts ? '--no-dts' : '',
-      //     options.sourcemap ? '--sourcemap' : '',
-      //     options.retry ? '--retry' : '',
-      //   ]);
-      // } catch (error) {
-      //   // console.warn((error as Error).message);
-      //   process.exit(1);
-      // }
+      await tachybaseBuilder.build(pkgs);
     });
 };

@@ -59,44 +59,6 @@ export async function build(pkgs: string[]) {
     console.warn(chalk.yellow(`[@tachybase/build]: ${msg}`));
     return;
   }
-
-  const pluginPackages = getPluginPackages(packages);
-  const cjsPackages = getCjsPackages(packages);
-
-  // core/*
-  await buildPackages(cjsPackages, 'lib', buildCjs, messages);
-  const clientCore = packages.find((item) => item.dir === CORE_CLIENT);
-  if (clientCore) {
-    await buildPackage(clientCore, 'es', buildClient);
-  }
-  const esmPackages = cjsPackages.filter((pkg) => ESM_PACKAGES.includes(pkg.manifest.name));
-  await buildPackages(esmPackages, 'es', buildEsm, messages);
-
-  // plugins/*
-  await buildPackages(pluginPackages, 'dist', buildPlugin, messages);
-
-  // throw error before client build
-  if (messages.length > 0) {
-    console.log('❌ build errors:');
-    messages.forEach((message) => {
-      console.log('🐛 ', message);
-    });
-
-    throw new Error('build error.');
-  }
-
-  // core/app
-  const appClient = packages.find((item) => item.dir === CORE_APP);
-  if (appClient) {
-    const config = await loadConfig({
-      cwd: path.join(ROOT_PATH, 'apps/app-web'),
-    });
-    const rsbuild = await createRsbuild({
-      rsbuildConfig: config.content,
-      cwd: path.join(ROOT_PATH, 'apps/app-web'),
-    });
-    await rsbuild.build();
-  }
 }
 
 export async function buildPackages(
@@ -106,14 +68,7 @@ export async function buildPackages(
   errorMessage = [],
 ) {
   for await (const pkg of packages) {
-    if (errorMessage.length === 0) {
-      writeToCache(BUILD_ERROR, { pkg: pkg.manifest.name });
-    }
-    try {
-      await buildPackage(pkg, targetDir, doBuildPackage);
-    } catch (error) {
-      signals.emit('build:errors', error);
-    }
+    await buildPackage(pkg, targetDir, doBuildPackage);
   }
 }
 

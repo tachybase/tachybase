@@ -5,8 +5,9 @@ import { findWorkspacePackages, type Project } from '@pnpm/workspace.find-packag
 import fg from 'fast-glob';
 import fs from 'fs-extra';
 
-import { ROOT_PATH } from '../constant';
-import { toUnixPath } from './utils';
+import { ROOT_PATH } from '../build/constant';
+import { toUnixPath } from '../build/utils';
+import { IProject } from './interfaces';
 
 /**
  * 获取构建包的绝对路径，支持项目路径和 npm 两种形式
@@ -67,12 +68,13 @@ export async function getPackages(pkgs: string[]) {
 }
 
 // make sure the order of packages is correct
-export function sortPackages(packages: Project[]): Project[] {
-  const sorter = new Topo.Sorter<Project>();
+export function sortPackages(packages: Project[]): IProject[] {
+  const sorter = new Topo.Sorter<IProject>();
   for (const pkg of packages) {
     const pkgJson = fs.readJsonSync(`${pkg.dir}/package.json`);
     const after = Object.keys({ ...pkgJson.dependencies, ...pkgJson.devDependencies, ...pkgJson.peerDependencies });
-    sorter.add(pkg, { after, group: pkg.manifest.name });
+    // FIXME 理应在最初的时候转成 IProject，而不是排序的时候
+    sorter.add(pkg as IProject, { after, group: pkg.manifest.name });
   }
   return sorter.nodes;
 }
