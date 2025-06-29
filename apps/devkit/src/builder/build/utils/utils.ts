@@ -34,8 +34,8 @@ export interface UserConfig {
   afterBuild?: (log: PkgLog) => void | Promise<void>;
 }
 
-export function defineConfig(config: UserConfig): UserConfig {
-  return config;
+export function defineConfig(config: Partial<UserConfig>): UserConfig {
+  return config as UserConfig;
 }
 
 export function getUserConfig(cwd: string) {

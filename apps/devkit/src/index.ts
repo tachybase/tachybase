@@ -1,3 +1,3 @@
 export * from './plugin-generator';
 export { initEnv } from './util';
-export * from './build';
+export * from './builder/build';

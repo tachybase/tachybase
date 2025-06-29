@@ -11,8 +11,10 @@ import { build as tsupBuild } from 'tsup';
 import { build as viteBuild } from 'vite';
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
-import { EsbuildSupportExts, globExcludeFiles } from '../../build/constant';
-import { getPackageJson, getPkgLog, getUserConfig, PkgLog, UserConfig } from '../../build/utils';
+import { buildDeclaration } from '../build/buildDeclaration';
+import { EsbuildSupportExts, globExcludeFiles } from '../build/constant';
+import { tarPlugin } from '../build/tarPlugin';
+import { getPackageJson, getPkgLog, getUserConfig, PkgLog, UserConfig } from '../build/utils';
 import {
   buildCheck,
   checkFileSize,
@@ -21,8 +23,8 @@ import {
   getIncludePackages,
   getPackagesFromFiles,
   getSourcePackages,
-} from '../../build/utils/buildPluginUtils';
-import { getDepPkgPath, getDepsConfig } from '../../build/utils/getDepsConfig';
+} from '../build/utils/buildPluginUtils';
+import { getDepPkgPath, getDepsConfig } from '../build/utils/getDepsConfig';
 import { IBuildablePackage, IBuildContext } from '../interfaces';
 
 const require = createRequire(import.meta.url);
@@ -377,7 +379,9 @@ export class PluginPackage implements IBuildablePackage {
   }
   async build() {
     const log = getPkgLog(this.name);
-    log('building...');
+    if (this.context.onlyTar) {
+      return await tarPlugin(this.dir, log);
+    }
 
     const userConfig = getUserConfig(this.dir);
     if (userConfig.beforeBuild) {
@@ -389,9 +393,17 @@ export class PluginPackage implements IBuildablePackage {
     await buildPluginServer(this.dir, userConfig, this.context.sourcemap, log);
     writeExternalPackageVersion(this.dir, log);
 
+    if (this.context.dts) {
+      await buildDeclaration(this.dir, 'dist', log);
+    }
+
     if (userConfig.afterBuild) {
       log('afterBuild');
       await userConfig.afterBuild(log);
+    }
+
+    if (this.context.tar) {
+      await tarPlugin(this.dir, log);
     }
 
     log('done');

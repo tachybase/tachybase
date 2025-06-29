@@ -1,8 +1,10 @@
-import { buildCjs } from '../../build/buildCjs';
-import { buildClient } from '../../build/buildClient';
-import { buildEsm } from '../../build/buildEsm';
-import { CORE_CLIENT, ESM_PACKAGES } from '../../build/constant';
-import { getPkgLog, getUserConfig } from '../../build/utils';
+import { buildCjs } from '../build/buildCjs';
+import { buildClient } from '../build/buildClient';
+import { buildDeclaration } from '../build/buildDeclaration';
+import { buildEsm } from '../build/buildEsm';
+import { CORE_CLIENT, ESM_PACKAGES } from '../build/constant';
+import { tarPlugin } from '../build/tarPlugin';
+import { getPkgLog, getUserConfig } from '../build/utils';
 import { IBuildablePackage, IBuildContext } from '../interfaces';
 
 export class LibPackage implements IBuildablePackage {
@@ -23,7 +25,10 @@ export class LibPackage implements IBuildablePackage {
   }
   async build() {
     const log = getPkgLog(this.name);
-    log('building...');
+
+    if (this.context.onlyTar) {
+      return await tarPlugin(this.dir, log);
+    }
 
     const userConfig = getUserConfig(this.dir);
     if (userConfig.beforeBuild) {
@@ -34,17 +39,30 @@ export class LibPackage implements IBuildablePackage {
     if (!this.isClient) {
       // client should skip
       await buildCjs(this.dir, userConfig, this.context.sourcemap, log);
+      if (this.context.dts) {
+        await buildDeclaration(this.dir, 'lib', log);
+      }
     }
     if (this.isClient) {
       await buildClient(this.dir, userConfig, this.context.sourcemap, log);
+      if (this.context.dts) {
+        await buildDeclaration(this.dir, 'es', log);
+      }
     }
     if (this.isEsm) {
       await buildEsm(this.dir, userConfig, this.context.sourcemap, log);
+      if (this.context.dts) {
+        await buildDeclaration(this.dir, 'es', log);
+      }
     }
 
     if (userConfig.afterBuild) {
       log('afterBuild');
       await userConfig.afterBuild(log);
+    }
+
+    if (this.context.tar) {
+      await tarPlugin(this.dir, log);
     }
 
     log('done');

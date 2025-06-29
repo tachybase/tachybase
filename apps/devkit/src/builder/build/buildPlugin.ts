@@ -1,6 +1,7 @@
 import { createRequire } from 'node:module';
 import path from 'node:path';
 
+// @ts-ignore
 import ncc from '@vercel/ncc';
 import react from '@vitejs/plugin-react';
 import chalk from 'chalk';

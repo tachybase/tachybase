@@ -5,8 +5,8 @@ import { findWorkspacePackages, type Project } from '@pnpm/workspace.find-packag
 import fg from 'fast-glob';
 import fs from 'fs-extra';
 
-import { ROOT_PATH } from '../build/constant';
-import { toUnixPath } from '../build/utils';
+import { ROOT_PATH } from './build/constant';
+import { toUnixPath } from './build/utils';
 import { IProject } from './interfaces';
 
 /**

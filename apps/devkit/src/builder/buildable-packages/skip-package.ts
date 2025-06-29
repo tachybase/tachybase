@@ -1,4 +1,4 @@
-import { getPkgLog } from '../../build/utils';
+import { getPkgLog } from '../build/utils';
 import { IBuildablePackage, IBuildContext } from '../interfaces';
 
 export class SkipPackage implements IBuildablePackage {

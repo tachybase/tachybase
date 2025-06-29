@@ -1,7 +1,6 @@
 import { Options as TsupConfig } from 'tsup';
 import { InlineConfig as ViteConfig } from 'vite';
 
-export * from './build';
 export * from './utils';
 
 export type PkgLog = (msg: string, ...args: any[]) => void;

@@ -8,15 +8,23 @@ export interface IProject {
   };
 }
 
-export interface IBuildContext {
-  sourcemap: boolean;
-  dts: boolean;
-  retry: boolean;
-  development: boolean;
-  tar: boolean;
-  onlyTar: boolean;
-}
-
+export type IBuildContext =
+  | {
+      onlyTar: true;
+      sourcemap?: boolean;
+      dts?: boolean;
+      retry?: boolean;
+      development?: boolean;
+      tar?: boolean;
+    }
+  | {
+      onlyTar?: false | undefined;
+      sourcemap: boolean;
+      dts: boolean;
+      retry: boolean;
+      development: boolean;
+      tar: boolean;
+    };
 export interface IBuildablePackage {
   name: string;
   dir: string;

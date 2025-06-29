@@ -1,4 +1,5 @@
-import path from 'node:path';
+import { mkdir } from 'node:fs/promises';
+import path, { dirname } from 'node:path';
 
 import Arborist from '@npmcli/arborist';
 import fs from 'fs-extra';
@@ -15,6 +16,7 @@ export async function tarPlugin(cwd: string, log: PkgLog) {
   const files = await packlist(node);
   const pkg = fs.readJsonSync(path.join(cwd, 'package.json'));
   const tarball = path.join(TAR_OUTPUT_DIR, `${pkg.name}-${pkg.version}.tgz`);
+  await mkdir(dirname(tarball), { recursive: true });
   await tar.c(
     {
       gzip: true,

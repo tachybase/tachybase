@@ -1,5 +1,5 @@
-import fsPromises from 'fs/promises';
-import os from 'os';
+import fsPromises from 'node:fs/promises';
+import os from 'node:os';
 import { Context } from '@tachybase/actions';
 import { ResourceOptions } from '@tachybase/resourcer';
 import { koaMulter as multer, uid } from '@tachybase/utils';
@@ -74,7 +74,7 @@ export const collectionImportExportMeta: ResourceOptions = {
     },
     async importMeta(ctx: Context, next) {
       const { file } = ctx;
-      const category = (ctx.request.body as { category?: string })?.category;
+      const category = ((ctx.request as any).body as { category?: string })?.category;
       if (!file) {
         throw new Error('file not found');
       }

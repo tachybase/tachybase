@@ -1,4 +1,4 @@
-import { PLUGIN_PATTRN } from '../build/constant';
+import { PLUGIN_PATTRN } from './build/constant';
 import { AppWebPackage } from './buildable-packages/app-web-package';
 import { LibPackage } from './buildable-packages/lib-package';
 import { PluginPackage } from './buildable-packages/plugin-package';
@@ -26,16 +26,16 @@ export class TachybaseBuilder {
       try {
         await pkg.build();
       } catch (error) {
-        this.#messages.push(error);
+        this.#messages.push([pkg.name, error]);
       }
     }
     if (this.#messages.length > 0) {
-      console.log('❌ build errors:');
       this.#messages.forEach((message) => {
-        console.log('🐛 ', message);
+        console.log(`🐛 [${message[0]}]`);
+        console.error(message[1]);
       });
 
-      throw new Error('build error.');
+      console.log('build failed');
     }
   }
 }

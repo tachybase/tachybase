@@ -2,8 +2,9 @@ import path from 'node:path';
 
 import { createRsbuild, loadConfig } from '@rsbuild/core';
 
-import { ROOT_PATH } from '../../build/constant';
-import { getPkgLog } from '../../build/utils';
+import { ROOT_PATH } from '../build/constant';
+import { tarPlugin } from '../build/tarPlugin';
+import { getPkgLog } from '../build/utils';
 import { IBuildablePackage, IBuildContext } from '../interfaces';
 
 export class AppWebPackage implements IBuildablePackage {
@@ -20,6 +21,10 @@ export class AppWebPackage implements IBuildablePackage {
   async build() {
     const log = getPkgLog(this.name);
 
+    if (this.context.onlyTar) {
+      return await tarPlugin(this.dir, log);
+    }
+
     const config = await loadConfig({
       cwd: path.join(ROOT_PATH, 'apps/app-web'),
     });
@@ -28,6 +33,10 @@ export class AppWebPackage implements IBuildablePackage {
       cwd: path.join(ROOT_PATH, 'apps/app-web'),
     });
     await rsbuild.build();
+
+    if (this.context.tar) {
+      await tarPlugin(this.dir, log);
+    }
 
     log('done');
   }

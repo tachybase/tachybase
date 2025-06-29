@@ -1,18 +1,20 @@
-import { resolve } from 'node:path';
-
 import { Command } from 'commander';
 
-import { build } from '../build';
-import { isPackageValid, nodeCheck, run } from '../util';
+import { TachybaseBuilder } from '../builder';
+import { nodeCheck } from '../util';
 
 export default (cli: Command) => {
   cli
     .command('tar')
     .allowUnknownOption()
     .argument('[packages...]')
-    .action(async (pkgs, options) => {
+    .action(async (pkgs) => {
       nodeCheck();
-      build(pkgs);
-      await run('tachybase-build', [...pkgs, '--only-tar', options.version ? '--version' : '']);
+
+      const tachybaseBuilder = new TachybaseBuilder({
+        onlyTar: true,
+      });
+
+      await tachybaseBuilder.build(pkgs);
     });
 };

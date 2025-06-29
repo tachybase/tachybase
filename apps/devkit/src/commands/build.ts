@@ -16,7 +16,6 @@ export default (cli: Command) => {
     .option('--development', 'development mode')
     .action(async (pkgs, options) => {
       nodeCheck();
-      // process.env['VITE_CJS_IGNORE_WARNING'] = 'true';
 
       const tachybaseBuilder = new TachybaseBuilder({
         dts: options.dts,
