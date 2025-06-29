@@ -16,5 +16,5 @@ if (existsSync(libEntry)) {
   console.log(chalk.green('WAIT: ') + 'TypeScript compiling...');
   const tsx = require('tsx/cjs/api');
   tsx.register();
-  require('../src/index.js');
+  require('../src/index.ts');
 }

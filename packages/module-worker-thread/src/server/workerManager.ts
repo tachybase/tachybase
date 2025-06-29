@@ -109,9 +109,9 @@ export class WorkerManager {
         },
       });
     } else {
-      worker = new Worker(path.resolve(__dirname, '../../worker-starter.mjs'), {
+      worker = new Worker(path.resolve(__dirname, '../../worker-starter.js'), {
         workerData: {
-          scriptPath: pathToFileURL(path.resolve(__dirname, `${WORKER_FILE}.ts`)).href,
+          scriptPath: path.resolve(__dirname, `${WORKER_FILE}.ts`),
           appName: this.app.name,
           databaseOptions: this.databaseOptions,
           initData: TachybaseGlobal.getInstance().toJSON(),
