@@ -26,11 +26,11 @@ export class AppWebPackage implements IBuildablePackage {
     }
 
     const config = await loadConfig({
-      cwd: path.join(ROOT_PATH, 'apps/app-web'),
+      cwd: path.join(ROOT_PATH, 'apps/web'),
     });
     const rsbuild = await createRsbuild({
       rsbuildConfig: config.content,
-      cwd: path.join(ROOT_PATH, 'apps/app-web'),
+      cwd: path.join(ROOT_PATH, 'apps/web'),
     });
     await rsbuild.build();
 

@@ -1,6 +1,6 @@
 import path from 'node:path';
-import { defineConfig } from '@tachybase/devkit';
 
+import { defineConfig } from '@tego/devkit';
 import ncc from '@vercel/ncc';
 import fs from 'fs-extra';
 

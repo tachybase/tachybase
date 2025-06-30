@@ -53,11 +53,11 @@ export function createBuildablePackages(projects: IProject[], context: IBuildCon
       return new PluginPackage(name, dir, context);
     }
 
-    if (name === '@tachybase/app-web') {
+    if (name === '@tego/web') {
       return new AppWebPackage(name, dir, context);
     }
 
-    if (name === '@tachybase/devkit') {
+    if (name === '@tego/devkit') {
       return new SkipPackage(name, dir, context);
     }
 
