@@ -88,6 +88,27 @@ export class CollectionPlugin extends Plugin {
       key: DEFAULT_DATA_SOURCE_KEY,
       displayName: DEFAULT_DATA_SOURCE_TITLE,
     });
+
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('m2o', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('m2m', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('o2m', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('o2o', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('obo', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
   }
 
   addFieldInterfaceGroups() {

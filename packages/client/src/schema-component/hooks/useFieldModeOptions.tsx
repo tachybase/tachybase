@@ -4,6 +4,8 @@ import { useField, useFieldSchema, useForm } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
 
 import { useCollection_deprecated, useCollectionManager_deprecated } from '../../collection-manager';
+import { useDataSourceManager } from '../../data-source';
+import { useCompile } from './useCompile';
 
 export const useFieldModeOptions = (props?) => {
   const { t } = useTranslation();
@@ -13,13 +15,17 @@ export const useFieldModeOptions = (props?) => {
   const field = useField();
   const form = useForm();
   const isReadPretty = fieldSchema?.['x-read-pretty'] || field.readPretty || form.readPretty;
+  const dm = useDataSourceManager();
+
   const isTableField = props?.fieldSchema;
   const { getField } = useCollection_deprecated();
   const collectionField =
     props?.collectionField ||
     getField(fieldSchema['name']) ||
     getCollectionJoinField(fieldSchema['x-collection-field']);
+  const collectionInterface = dm.collectionFieldInterfaceManager.getFieldInterface(collectionField?.interface);
   const { label } = fieldSchema['x-component-props']?.fieldNames || {};
+  const compile = useCompile();
   const fieldModeOptions = useMemo(() => {
     if (!collectionField || !collectionField?.interface) {
       return;
@@ -100,7 +106,6 @@ export const useFieldModeOptions = (props?) => {
           ? [
               { label: t('Title'), value: 'Select' },
               { label: t('Tag'), value: 'Tag' },
-              { label: t('Custom Title'), value: 'CustomTitle' },
               !isTableField && { label: t('Sub-details'), value: 'Nester' },
             ]
           : [
@@ -110,7 +115,6 @@ export const useFieldModeOptions = (props?) => {
               { label: t('Subform: Popover'), value: 'PopoverNester' },
               { label: t('Subtable: Drawer'), value: 'DrawerSubTable' },
               { label: t('Cascader'), value: 'Cascader' },
-              { label: t('Custom Title'), value: 'CustomTitle' },
             ];
 
       default:
@@ -129,5 +133,15 @@ export const useFieldModeOptions = (props?) => {
             ];
     }
   }, [t, collectionField?.interface, label]);
+  collectionInterface?.componentOptions
+    ?.filter((item) => !item.useVisible || item.useVisible())
+    .forEach((item) => {
+      if (!fieldModeOptions.find((modeItem) => modeItem.value === item.value)) {
+        fieldModeOptions.push({
+          label: compile(item.label),
+          value: item.value,
+        });
+      }
+    });
   return (fieldModeOptions || []).filter(Boolean);
 };
