@@ -18,11 +18,19 @@ export const ActionContextProvider = (props: ActionContextProps & { value?: Acti
 };
 
 export type OpenSize = 'small' | 'middle' | 'large';
+
+export enum OpenMode {
+  DRAWER = 'drawer',
+  MODAL = 'modal',
+  PAGE = 'page',
+  SHEET = 'sheet',
+}
+
 export interface ActionContextProps {
   button?: any;
   visible?: boolean;
   setVisible?: (v: boolean) => void;
-  openMode?: 'drawer' | 'modal' | 'page' | 'sheet';
+  openMode?: OpenMode;
   snapshot?: boolean;
   openSize?: OpenSize;
   containerRefKey?: string;
