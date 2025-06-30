@@ -12,8 +12,11 @@ import { StablePopover, useActionContext } from '../..';
 import { useDesignable } from '../../';
 import { useApp } from '../../../application';
 import { withDynamicSchemaProps } from '../../../application/hoc/withDynamicSchemaProps';
+import { useIsMobile } from '../../../block-provider';
 import { useACLActionParamsContext } from '../../../built-in/acl';
 import { PathHandler } from '../../../built-in/dynamic-page/utils';
+import { PageStyle } from '../../../built-in/page-style/PageStyle.provider';
+import { usePageStyle } from '../../../built-in/page-style/usePageStyle';
 import { useCollection, useCollectionRecordData } from '../../../data-source';
 import { Icon } from '../../../icon';
 import { RecordProvider } from '../../../record-provider';
@@ -87,11 +90,35 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     const { getAriaLabel } = useGetAriaLabelOfAction(title);
     let actionTitle = title || compile(fieldSchema.title);
     actionTitle = lodash.isString(actionTitle) ? t(actionTitle) : actionTitle;
+    const collectionKey = collection.getPrimaryKey();
+    const pageStyle = usePageStyle();
+    const isMobile = useIsMobile();
 
-    // TODO: 增加上下文判断
-    // NOTE: 全局 pageMode 模式打开,或者当前是 openMode 明确声明为 page 的, 或者没有 openMode 的, 都走 page 模式
-    // page mode 在多标签页状态默认打开，在手机状态默认打开，全局的 page mode 作为调试能力来引入，方向是这样子的
-    const isPageMode = pageMode?.enable || openMode === OpenMode.PAGE || !openMode;
+    // NOTE:page mode 在多标签页状态默认打开，在手机状态默认打开，
+    const isPageMode = useMemo(() => {
+      // 全局的 Page mode 模式
+      if (pageMode?.enable) {
+        return true;
+      }
+      // 当前 Action 的 openMode 为默认模式,OpenMode.DRAWER 为兼容旧版, 旧版没有 DEFAULT 概念
+      if (!openMode || [OpenMode.DEFAULT, OpenMode.DRAWER].includes(openMode)) {
+        // 移动端模式下默认为 PAGE 模式
+        if (isMobile) {
+          return true;
+        }
+        // 多标签模式下默认为 PAGE 模式
+        if (pageStyle === PageStyle.TAB_STYLE) {
+          return true;
+        }
+        // 经典模式下默认为 DRAWER 模式
+        return false;
+      }
+      // 当前 Action 的 openMode 为 page 模式
+      if (openMode === OpenMode.PAGE) {
+        return true;
+      }
+      return false;
+    }, [pageMode, openMode]);
 
     useEffect(() => {
       field.stateOfLinkageRules = {};
@@ -110,31 +137,36 @@ export const Action: ComposedAction = withDynamicSchemaProps(
         });
     }, [field, linkageRules, localVariables, record, variables]);
 
+    const openModal = useCallback(() => {
+      setVisible(true);
+    }, []);
+
+    const openPage = useCallback(() => {
+      const containerSchema = fieldSchema.reduceProperties((buf, s) =>
+        s['x-component'] === 'Action.Container' ? s : buf,
+      );
+      const target = PathHandler.getInstance().toWildcardPath({
+        collection: collection.name,
+        filterByTk: record[collection.getPrimaryKey()],
+      });
+      navigate('./sub/' + containerSchema['x-uid'] + '/' + target);
+    }, [fieldSchema, record, collectionKey, collection.name]);
+
     const handleButtonClick = useCallback(
       (e: React.MouseEvent) => {
         if (isPortalInBody(e.target as Element)) {
           return;
         }
-
         e.preventDefault();
         e.stopPropagation();
 
         if (!disabled && aclCtx) {
           const onOk = () => {
             onClick?.(e);
-            // TODO: 这块需要验证下插件的设置有没有问题
-            const containerSchema = fieldSchema.reduceProperties((buf, s) =>
-              s['x-component'] === 'Action.Container' ? s : buf,
-            );
-
-            if (isPageMode && containerSchema) {
-              const target = PathHandler.getInstance().toWildcardPath({
-                collection: collection.name,
-                filterByTk: record[collection.getPrimaryKey()],
-              });
-              navigate('./sub/' + containerSchema['x-uid'] + '/' + target);
+            if (isPageMode) {
+              openPage();
             } else {
-              setVisible(true);
+              openModal();
             }
             run();
           };
