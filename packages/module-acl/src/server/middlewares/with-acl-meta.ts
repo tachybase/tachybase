@@ -111,7 +111,7 @@ function createWithACLMetaMiddleware() {
       if (collection.options.tree) {
         if (listData.length === 0) return [];
         const getAllNodeIds = (data) => [data[primaryKeyField], ...(data.children || []).flatMap(getAllNodeIds)];
-        return listData.map((tree) => getAllNodeIds(tree.toJSON())).flat();
+        return listData.map((tree) => getAllNodeIds(tree.toJSON ? tree.toJSON() : tree)).flat();
       }
 
       return listData.filter(Boolean).map((item) => item[primaryKeyField]);

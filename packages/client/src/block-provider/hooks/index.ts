@@ -185,7 +185,8 @@ export function useCollectValuesToSubmit() {
     if (addChild) {
       const treeParentField = getTreeParentField();
       values[treeParentField?.name ?? 'parent'] = omit(currentRecord?.__parent, ['children']);
-      values[treeParentField?.foreignKey ?? 'parentId'] = currentRecord?.__parent?.id;
+      values[treeParentField?.collection.model.rawAttributes[treeParentField?.foreignKey]?.field ?? 'parentId'] =
+        currentRecord?.__parent?.id;
     }
     return {
       ...values,
@@ -470,7 +471,8 @@ export const useAssociationCreateActionProps = () => {
       if (addChild) {
         const treeParentField = getTreeParentField();
         values[treeParentField?.name ?? 'parent'] = currentRecord;
-        values[treeParentField?.foreignKey ?? 'parentId'] = currentRecord.id;
+        values[treeParentField?.collection.model.rawAttributes[treeParentField?.foreignKey]?.field ?? 'parentId'] =
+          currentRecord.id;
       }
       actionField.data = field.data || {};
       actionField.data.loading = true;

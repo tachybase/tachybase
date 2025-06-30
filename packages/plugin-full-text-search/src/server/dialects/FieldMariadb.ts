@@ -26,11 +26,11 @@ export class FieldMariadb extends FieldBase {
   }
 
   public number(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword, collectionName } = params;
+    const { field, keyword, collectionName, collection } = params;
     return {
       [Op.and]: [
         where(
-          literal(`CAST(${this.getCollectionFieldColName(field, collectionName)} AS CHAR)`), // 确保不加引号，直接插入 SQL 表达式
+          literal(`CAST(${this.getCollectionFieldColName(field, collection, collectionName)} AS CHAR)`), // 确保不加引号，直接插入 SQL 表达式
           {
             [Op.like]: `%${escapeLike(keyword)}%`,
           },
@@ -40,13 +40,13 @@ export class FieldMariadb extends FieldBase {
   }
 
   date(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword, dateStr, timezone, collectionName } = params;
+    const { field, keyword, dateStr, timezone, collectionName, collection } = params;
     return {
       [Op.and]: [
         where(
           fn(
             'DATE_FORMAT',
-            fn('CONVERT_TZ', this.getCollectionField(field, collectionName), '+00:00', timezone),
+            fn('CONVERT_TZ', this.getCollectionField(field, collection, collectionName), '+00:00', timezone),
             dateStr,
           ),
           {
@@ -58,19 +58,24 @@ export class FieldMariadb extends FieldBase {
   }
 
   json(params: handleFieldParams): WhereOptions<any> {
-    const { field, keyword, collectionName } = params;
+    const { field, keyword, collection, collectionName } = params;
     return {
       [Op.and]: [
-        where(literal(`JSON_UNQUOTE(JSON_EXTRACT(${this.getCollectionFieldColName(field, collectionName)}, '$'))`), {
-          [Op.like]: `%${escapeLike(keyword)}%`,
-        }),
+        where(
+          literal(
+            `JSON_UNQUOTE(JSON_EXTRACT(${this.getCollectionFieldColName(field, collection, collectionName)}, '$'))`,
+          ),
+          {
+            [Op.like]: `%${escapeLike(keyword)}%`,
+          },
+        ),
       ],
     };
   }
 
-  public getMultiSelectFilter(field: string, matchEnum: string[]): WhereOptions<any> {
+  public getMultiSelectFilter(rawField: string, matchEnum: string[]): WhereOptions<any> {
     return {
-      [Op.and]: [literal(`JSON_CONTAINS(${this.getCollectionFieldColName(field)}, '${JSON.stringify(matchEnum)}')`)],
+      [Op.and]: [literal(`JSON_CONTAINS(${rawField}, '${JSON.stringify(matchEnum)}')`)],
     };
   }
 }
