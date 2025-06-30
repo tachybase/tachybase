@@ -416,12 +416,12 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
     }
     if (name === 'form') {
       children = [
-        ...children,
         {
           key: 'create-collection',
           label: t('Create collection'),
           children: collectionItems,
         },
+        ...children,
       ];
     }
     return [

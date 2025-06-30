@@ -42,6 +42,7 @@ import {
   Input,
   Layout,
   Menu,
+  message,
   Modal,
   Radio,
   Row,
@@ -183,7 +184,7 @@ function patchSchemaToolbars(schema: ISchema) {
 }
 
 const EditorHeader = ({ onCancel, schema }) => {
-  const { title: collectionTitle, key } = useCollection_deprecated();
+  const { title: collectionTitle, key, fields } = useCollection_deprecated();
   const { dn } = useDesignable();
   const api = useAPIClient();
   const { Header } = Layout;
@@ -200,6 +201,13 @@ const EditorHeader = ({ onCancel, schema }) => {
     setModalVisible(false);
   };
   const handleSave = async () => {
+    for (const field of fields || []) {
+      if (field.target === '__temp__') {
+        const fieldTitle = field?.uiSchema?.title || field.name;
+        message.warning(`字段「${fieldTitle}」的关联字段属性目标表未选择`);
+        return;
+      }
+    }
     if (title && title !== collectionTitle) {
       api.resource('collections').update({
         filterByTk: key,
@@ -207,11 +215,16 @@ const EditorHeader = ({ onCancel, schema }) => {
       });
     }
     patchSchemaToolbars(schema);
-    // const schemaPatches = addToolbar(schema);
-    // await dn.emit('batchPatch', { schemas: schemaPatches });
-    dn.insertAdjacent('beforeEnd', schema.toJSON());
-    dn.refresh();
-    // refresh();
+    const cardSchema = findSchema(schema, 'x-decorator', 'FormBlockProvider');
+    const currentSchema = dn.current;
+    if (cardSchema.name === currentSchema.name) {
+      const newSchema = cloneDeep(cardSchema.toJSON());
+      newSchema.name = newSchema['x-uid'];
+      await dn.insertAdjacent('afterEnd', newSchema);
+      await dn.remove(null);
+    } else {
+      dn.insertAdjacent('beforeEnd', schema.toJSON());
+    }
     await onCancel();
   };
 
