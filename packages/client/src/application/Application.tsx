@@ -109,10 +109,14 @@ export class Application {
 
   get adminUrl() {
     if (this.name === 'main') {
-      return '/admin/';
+      return `/${this.prefix}/`;
     } else {
-      return `/apps/${this.name}/admin/`;
+      return `/apps/${this.name}/${this.prefix}/`;
     }
+  }
+
+  get prefix() {
+    return 'dashboard';
   }
 
   constructor(protected options: ApplicationOptions = {}) {
