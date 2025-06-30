@@ -90,7 +90,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     const { getAriaLabel } = useGetAriaLabelOfAction(title);
     let actionTitle = title || compile(fieldSchema.title);
     actionTitle = lodash.isString(actionTitle) ? t(actionTitle) : actionTitle;
-    const collectionKey = collection.getPrimaryKey();
+    const collectionKey = collection?.getPrimaryKey();
     const pageStyle = usePageStyle();
     const isMobile = useIsMobile();
 
@@ -145,7 +145,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
         filterByTk: record[collectionKey],
       });
       navigate('./sub/' + containerSchema['x-uid'] + '/' + target);
-    }, [fieldSchema, record, collectionKey, collection.name, navigate]);
+    }, [fieldSchema, record, collectionKey, collection?.name, navigate]);
 
     const handleButtonClick = useCallback(
       (e: React.MouseEvent) => {
