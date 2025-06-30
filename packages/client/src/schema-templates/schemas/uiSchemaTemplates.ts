@@ -1,7 +1,6 @@
 import { ISchema, uid } from '@tachybase/schema';
 
 import { useBulkDestroyActionProps, useDestroyActionProps, useUpdateActionProps } from '../../block-provider/hooks';
-import { OpenMode } from '../../schema-component';
 import { uiSchemaTemplatesCollection } from '../collections/uiSchemaTemplates';
 import { useSchemaTemplateManager } from '../useSchemaTemplateManager';
 import { CollectionTitle } from './CollectionTitle';
@@ -112,7 +111,7 @@ export const uiSchemaTemplatesSchema: ISchema = {
                       'x-action': 'update',
                       'x-component': 'Action.Link',
                       'x-component-props': {
-                        openMode: OpenMode.DRAWER_MODE,
+                        openMode: 'drawer-mode',
                         icon: 'EditOutlined',
                       },
                       properties: {
