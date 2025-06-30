@@ -34,5 +34,5 @@ jobs:
           file: docker/tego/Dockerfile
           push: true
           tags: |
-            tachybase/tachybase:nightly-${{ github.event.inputs.docker_tag }}
-            tachybase/tachybase:nightly-latest
+            tegojs/tego-nightly:${{ github.event.inputs.docker_tag }}
+            tegojs/tego-nightly:latest
