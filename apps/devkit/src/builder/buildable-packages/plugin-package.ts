@@ -79,7 +79,6 @@ const external = [
   'koa',
   '@koa/cors',
   'multer',
-  '@koa/multer',
   'koa-bodyparser',
 
   // react
