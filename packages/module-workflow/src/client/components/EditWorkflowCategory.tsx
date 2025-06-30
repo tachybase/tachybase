@@ -19,7 +19,7 @@ import { useWorkflowCategory } from '../WorkflowCategoriesProvider';
 const useEditCategry = () => {
   const form = useForm();
   const ctx = useActionContext();
-  const refreshCategories = useWorkflowCategory();
+  const { refresh } = useWorkflowCategory();
   const api = useAPIClient();
   const { id } = useRecord();
   return {
@@ -34,7 +34,7 @@ const useEditCategry = () => {
       });
       ctx.setVisible(false);
       await form.reset();
-      refreshCategories();
+      refresh();
     },
   };
 };

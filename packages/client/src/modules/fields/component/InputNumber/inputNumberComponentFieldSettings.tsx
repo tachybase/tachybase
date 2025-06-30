@@ -17,7 +17,7 @@ export const inputNumberComponentFieldSettings = new SchemaSettings({
       type: 'modal',
       useVisible() {
         const fieldSchema = useFieldSchema();
-        return fieldSchema['x-component-props'].component === 'Slider';
+        return fieldSchema['x-component'] === 'Slider' || fieldSchema['x-component-props']?.component === 'Slider';
       },
       useComponentProps() {
         const { t } = useTranslation();
@@ -40,7 +40,7 @@ export const inputNumberComponentFieldSettings = new SchemaSettings({
             },
           } as ISchema,
           onSubmit(number) {
-            if (Number(number.maxNumber) > field.componentProps['min']) {
+            if (Number(number.maxNumber) > (field.componentProps['min'] || 0)) {
               fieldSchema['x-component-props']['max'] = Number(number.maxNumber);
               field.componentProps['max'] = Number(number.maxNumber);
               dn.emit('patch', {
@@ -61,7 +61,7 @@ export const inputNumberComponentFieldSettings = new SchemaSettings({
       type: 'modal',
       useVisible() {
         const fieldSchema = useFieldSchema();
-        return fieldSchema['x-component-props'].component === 'Slider';
+        return fieldSchema['x-component'] === 'Slider' || fieldSchema['x-component-props']?.component === 'Slider';
       },
       useComponentProps() {
         const { t } = useTranslation();
@@ -84,7 +84,7 @@ export const inputNumberComponentFieldSettings = new SchemaSettings({
             },
           } as ISchema,
           onSubmit(number) {
-            if (Number(number.minNumber) < field.componentProps['max']) {
+            if (Number(number.minNumber) < (field.componentProps['max'] || 0)) {
               fieldSchema['x-component-props']['min'] = Number(number.minNumber);
               field.componentProps['min'] = Number(number.minNumber);
               dn.emit('patch', {

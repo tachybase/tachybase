@@ -16,12 +16,21 @@ const _Input = (props: InputProps & { ellipsis?: any }) => {
   const prefixCls = usePrefixCls('description-input', props);
   const compile = useCompile();
   return (
-    <div className={cls(prefixCls, props.className)} style={props.style}>
-      {props.addonBefore}
-      {props.prefix}
+    <div
+      className={cls(prefixCls, props.className)}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        overflowWrap: 'break-word',
+        whiteSpace: 'normal',
+        ...props.style,
+      }}
+    >
+      {compile(props.addonBefore)}
+      {compile(props.prefix)}
       <EllipsisWithTooltip ellipsis={props.ellipsis}>{compile(props.value)}</EllipsisWithTooltip>
-      {props.suffix}
-      {props.addonAfter}
+      {compile(props.suffix)}
+      {compile(props.addonAfter)}
     </div>
   );
 };

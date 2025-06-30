@@ -47,7 +47,7 @@ const RED = {
       apiEnabled = true;
       server = httpServer;
     } else {
-      runtime.init(userSettings, httpServer);
+      runtime.init(userSettings, httpServer, api);
       apiEnabled = false;
       if (httpServer) {
         server = httpServer;
@@ -126,7 +126,7 @@ const RED = {
    * @see @node-red/util_events
    * @memberof node-red
    */
-  events: redUtil.events,
+  events: (redUtil as any).events,
 
   /**
    * Runtime hooks engine
@@ -202,7 +202,7 @@ const RED = {
    * @memberof node-red
    */
   get diagnostics() {
-    return api.diagnostics;
+    return (api as any).diagnostics;
   },
 };
 

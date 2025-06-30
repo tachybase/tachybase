@@ -59,7 +59,7 @@ export function onAfterStart(db: any) {
 
     app.setMaintainingMessage('starting sub applications...');
 
-    if (appSupervisor.runningMode == 'single') {
+    if (appSupervisor.runningMode === 'single') {
       Gateway.getInstance().addAppSelectorMiddleware((ctx) => (ctx.resolvedAppName = appSupervisor.singleAppName));
 
       // If the sub application is running in single mode, register the application automatically

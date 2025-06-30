@@ -6,7 +6,7 @@ import { ActionSheet, Button, Calendar, Divider, Grid, Input, Picker, Popup } fr
 import { DownOutline } from 'antd-mobile-icons';
 import type { Action } from 'antd-mobile/es/components/action-sheet';
 
-import { useTranslation } from '../../../../../../locale';
+import { lang, useTranslation } from '../../../../../../locale';
 import { convertFormat } from '../../utils';
 
 export const ISelect = (props) => {
@@ -126,11 +126,10 @@ export const IDatePicker = (props) => {
 
 export const IInput = (props) => {
   const { options, value, onChange } = props;
-  const { t } = useTranslation();
   return (
     <Grid.Item style={{ flex: 1 }} span={options.length > 1 ? 2 : 3}>
       <Input
-        placeholder={t('Please enter search content')}
+        placeholder={lang('Please enter search content')}
         value={value}
         onChange={onChange}
         style={{ '--font-size': '12px', marginLeft: '5px' }}

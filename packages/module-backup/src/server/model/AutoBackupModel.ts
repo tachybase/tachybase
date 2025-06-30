@@ -12,7 +12,7 @@ export class AutoBackupModel extends Model {
 
   declare allExecuted: number;
 
-  declare password: string;
+  // declare password: string;
   declare dumpRules: string;
   // 本地最多备份文件数量
   declare maxNumber: number;

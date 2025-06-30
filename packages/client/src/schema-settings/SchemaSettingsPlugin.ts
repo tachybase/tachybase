@@ -62,6 +62,7 @@ import { fileManagerComponentFieldSettings } from '../modules/fields/component/F
 import { uploadAttachmentComponentFieldEditableSettings } from '../modules/fields/component/FileManager/uploadAttachmentComponentFieldEditableSettings';
 import { uploadAttachmentComponentFieldSettings } from '../modules/fields/component/FileManager/uploadAttachmentComponentFieldSettings';
 import { inputNumberComponentFieldEditableSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldEditableSettings';
+import { inputComponentFieldSettings } from '../modules/fields/component/Input/inputComponentFieldsSettings';
 import { inputNumberComponentFieldSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldSettings';
 import { subformComponentFieldEditableSettings } from '../modules/fields/component/Nester/subformComponentFieldEditableSettings';
 import { subformComponentFieldSettings } from '../modules/fields/component/Nester/subformComponentFieldSettings';
@@ -135,6 +136,7 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(subTablePopoverComponentFieldSettings);
     this.schemaSettingsManager.add(datePickerComponentFieldSettings);
     this.schemaSettingsManager.add(unixTimestampComponentFieldSettings);
+    this.schemaSettingsManager.add(inputComponentFieldSettings);
     this.schemaSettingsManager.add(inputNumberComponentFieldSettings);
     this.schemaSettingsManager.add(checkboxComponentFieldSettings);
     this.schemaSettingsManager.add(radioComponentFieldSettings);

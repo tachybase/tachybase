@@ -1,8 +1,8 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { defineConfig } from '@tachybase/build';
+import { existsSync } from 'node:fs';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 
-const existsSync = require('fs').existsSync;
+import { defineConfig } from '@tego/devkit';
 
 const client = path.dirname(require.resolve('@tachybase/client/package.json'));
 const antd = require.resolve('antd');

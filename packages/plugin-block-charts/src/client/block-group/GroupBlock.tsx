@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAPIClient, useBlockRequestContext, useFilterBlock } from '@tachybase/client';
+import { filterByCleanedFields, useAPIClient, useBlockRequestContext, useFilterBlock } from '@tachybase/client';
 import { useField, useFieldSchema } from '@tachybase/schema';
 
 import { useAsyncEffect } from 'ahooks';
@@ -74,21 +74,20 @@ export const InternalGroupBlock = (props) => {
   const api = useAPIClient();
   if (!Object.values(service.params).length || service.params.length) {
     dataBlocks.forEach((block) => {
-      if (Object.values(block.defaultFilter).length) {
-        if (service.params?.[0]?.filter) {
-          const keys = Object.keys(block.defaultFilter);
-          keys.forEach((key) => {
-            const length = Object.values(service.params[0].filter?.[key] || {})?.length;
-            const filter = {};
-            filter[length] = block.defaultFilter[key];
-            service.params[0].filter[key] = {
-              ...service.params[0].filter?.[key],
-              ...filter,
-            };
-          });
-        } else {
-          service.params = { ...service.params, ...block.defaultFilter };
-        }
+      if (service.params?.[0]?.filter) {
+        const keys = Object.keys(block.defaultFilter);
+        keys.forEach((key) => {
+          const length = Object.values(service.params[0].filter?.[key] || {})?.length;
+          const filter = {};
+          filter[length] = block.defaultFilter[key];
+          service.params[0].filter[key] = {
+            ...service.params[0].filter?.[key],
+            ...block.service.params?.[0]?.filter?.[key],
+            ...filter,
+          };
+        });
+      } else {
+        service.params = { ...service.params, ...block.defaultFilter, ...block.service.params?.[0]?.filter };
       }
     });
   } else {
@@ -96,8 +95,13 @@ export const InternalGroupBlock = (props) => {
       service.params = dataBlocks[dataBlocks.length - 1].service.params[0].filter;
     }
   }
+
+  if (service.params?.[0]?.filter) {
+    service.params[0].filter = filterByCleanedFields(service.params[0].filter);
+  }
+
   useAsyncEffect(async () => {
-    const filter = service?.params[0] ? service.params[0].filter : service?.params;
+    const filter = service?.params[0] ? service.params[0].filter : service?.params || {};
     if (configItem.reqUrl) {
       setResult(
         (await api.request({
@@ -110,7 +114,7 @@ export const InternalGroupBlock = (props) => {
         })) ?? {},
       );
     }
-  }, [service.params, service.params[0]]);
+  }, [service.params?.[0]]);
   if (configItem.style === 'describe') {
     const item: DescriptionsProps['items'] = describeItem(configItem, result, service, params, api);
     return <Descriptions style={{ marginBottom: '10px' }} items={item} />;

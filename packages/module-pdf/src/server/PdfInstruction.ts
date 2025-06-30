@@ -54,7 +54,7 @@ export class PdfInstruction extends Instruction {
         filename: 'a.tsx',
         presets: [
           [
-            '@babel/preset-env',
+            require('@babel/preset-env'),
             {
               modules: 'commonjs',
               targets: {
@@ -62,8 +62,8 @@ export class PdfInstruction extends Instruction {
               },
             },
           ],
-          '@babel/preset-react',
-          '@babel/preset-typescript',
+          require('@babel/preset-react'),
+          require('@babel/preset-typescript'),
         ],
       }).code;
 

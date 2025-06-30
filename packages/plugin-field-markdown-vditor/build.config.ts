@@ -1,6 +1,7 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { defineConfig } from '@tachybase/build';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+import { defineConfig } from '@tego/devkit';
 
 const vditor = path.dirname(require.resolve('vditor'));
 

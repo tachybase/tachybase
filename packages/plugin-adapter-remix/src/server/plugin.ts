@@ -25,6 +25,10 @@ export class PluginAdapterRemixServer extends Plugin {
     const demoCode = 'demo2';
     const demoPath = path.join(remixPath, demoCode);
 
+    if (!fs.existsSync(demoPath)) {
+      throw new Error(`${this.name} plugin need ${demoPath} exists.`);
+    }
+
     // notice that the result of `remix vite:build` is "just a module"
     const build = await import(path.join(demoPath, 'server/index.js'));
     const router = express.Router();

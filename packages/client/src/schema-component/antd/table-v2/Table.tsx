@@ -218,6 +218,7 @@ const TableIndex = (props) => {
   );
 };
 
+const pageSizeOptions = [5, 10, 20, 50, 100, 200];
 const usePaginationProps = (pagination1, pagination2) => {
   const { t } = useTranslation();
   const showTotal = useCallback((total) => t('Total {{count}} items', { count: total }), [t]);
@@ -231,10 +232,11 @@ const usePaginationProps = (pagination1, pagination2) => {
   const result = {
     showTotal,
     showSizeChanger: true,
+    pageSizeOptions,
     ...pagination1,
     ...pagination2,
   };
-  return result.total <= result.pageSize ? false : result;
+  return result.total ? result : false;
 };
 
 export const Table: any = withDynamicSchemaProps(

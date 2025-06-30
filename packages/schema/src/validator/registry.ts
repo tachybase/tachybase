@@ -71,7 +71,7 @@ export const getValidateFormats = (key?: string) => (key ? registry.formats[key]
 export const getValidateRules = <T>(
   key?: T,
 ): T extends string ? ValidatorFunction : { [key: string]: ValidatorFunction } =>
-  key ? registry.rules[key as any] : registry.rules;
+  key ? registry.rules[key as any] : (registry.rules as any);
 
 export const registerValidateLocale = (locale: IRegistryLocales) => {
   registry.locales.messages = deepmerge(registry.locales.messages, locale);

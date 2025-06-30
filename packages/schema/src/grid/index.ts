@@ -19,7 +19,7 @@ export interface IGridOptions {
 
 const SpanRegExp = /span\s*(\d+)/;
 
-const isValid = (value: any) => value !== undefined && value !== null;
+const isValid = <T>(value: T): value is NonNullable<T> => value !== undefined && value !== null;
 
 const calcBreakpointIndex = (breakpoints: number[], width: number) => {
   if (Array.isArray(breakpoints)) {

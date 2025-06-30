@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 import { Cache } from '@tachybase/cache';
 import { lodash } from '@tachybase/utils';
 
@@ -93,6 +93,16 @@ export class Locale {
   getResources(lang: string) {
     const resources = {};
     const names = this.app.pm.getAliases();
+    if (process.env.APP_ENV !== 'production') {
+      const keys = Object.keys(require.cache);
+      // 这里假定路径名称都符合 plugin-、module- 的形式
+      const regex = new RegExp(`((plugin|module)-[a-zA-Z0-9\\-]+|client)/(dist|lib|src)/locale/${lang}`);
+      const matched = keys.filter((path) => regex.test(path));
+      if (matched.length > 0) {
+        this.app.logger.debug('clear locale resource cache', { submodule: 'locale', matched });
+      }
+      matched.forEach((key) => delete require.cache[key]);
+    }
     for (const name of names) {
       try {
         const p = this.app.pm.get(name);

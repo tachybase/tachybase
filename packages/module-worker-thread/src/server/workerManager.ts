@@ -1,6 +1,8 @@
-import { randomUUID } from 'crypto';
-import path from 'path';
-import { isMainThread, Worker } from 'worker_threads';
+import { randomUUID } from 'node:crypto';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { isMainThread, Worker } from 'node:worker_threads';
+import TachybaseGlobal from '@tachybase/globals';
 import { Application } from '@tachybase/server';
 import { fsExists } from '@tachybase/utils';
 
@@ -98,26 +100,26 @@ export class WorkerManager {
         workerData: {
           appName: this.app.name,
           databaseOptions: this.databaseOptions,
+          initData: TachybaseGlobal.getInstance().toJSON(),
         },
         env: {
           ...process.env,
-          ...{
-            NODE_OPTIONS: maxOldSpaceSize,
-          },
+
+          NODE_OPTIONS: maxOldSpaceSize,
         },
       });
     } else {
-      worker = new Worker(path.resolve(__dirname, '../../worker-starter.mjs'), {
+      worker = new Worker(path.resolve(__dirname, '../../worker-starter.js'), {
         workerData: {
           scriptPath: path.resolve(__dirname, `${WORKER_FILE}.ts`),
           appName: this.app.name,
           databaseOptions: this.databaseOptions,
+          initData: TachybaseGlobal.getInstance().toJSON(),
         },
         env: {
           ...process.env,
-          ...{
-            NODE_OPTIONS: maxOldSpaceSize,
-          },
+
+          NODE_OPTIONS: maxOldSpaceSize,
         },
       });
     }

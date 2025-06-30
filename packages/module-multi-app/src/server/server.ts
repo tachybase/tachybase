@@ -1,4 +1,4 @@
-import path from 'path';
+import path from 'node:path';
 import { Database, IDatabaseOptions, Transactionable } from '@tachybase/database';
 import Application, { AppSupervisor, Gateway, Plugin } from '@tachybase/server';
 

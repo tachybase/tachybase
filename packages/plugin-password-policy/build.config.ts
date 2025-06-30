@@ -1,7 +1,8 @@
-import { existsSync } from 'fs';
-import fs from 'fs/promises';
-import path from 'path';
-import { defineConfig } from '@tachybase/build';
+import { existsSync } from 'node:fs';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+import { defineConfig } from '@tego/devkit';
 
 export default defineConfig({
   afterBuild: async (log) => {

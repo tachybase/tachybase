@@ -57,7 +57,7 @@ export const CommentItem = observer(({ editing, setEditing, children }: any) => 
               <div className={`${componentCls}-item-title-left`}>
                 <span>{t('commented')}</span>
                 <Tooltip title={dayjs(field?.value?.createdAt).format('YYYY-MM-DD HH:mm:ss')}>
-                  <span>{dayjs(field?.value?.createdAt).fromNow()}</span>
+                  <span>{(dayjs(field?.value?.createdAt) as any).fromNow()}</span>
                 </Tooltip>
               </div>
               <div className={`${componentCls}-item-title-right`}>{children}</div>
@@ -82,10 +82,10 @@ export const CommentItem = observer(({ editing, setEditing, children }: any) => 
             <div className={`${componentCls}-item-editor-button-area`}>
               <Button
                 onClick={() => {
-                  field.form.setFieldState(`${field.address}.content`, (field) => {
+                  (field.form.setFieldState(`${field.address}.content`, (field) => {
                     field.pattern = 'readPretty';
                   }),
-                    setEditing(false);
+                    setEditing(false));
                 }}
               >
                 {t('Cancel')}

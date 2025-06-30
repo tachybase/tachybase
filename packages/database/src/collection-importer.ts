@@ -1,6 +1,6 @@
-import { existsSync } from 'fs';
-import { readdir } from 'fs/promises';
-import path from 'path';
+import { existsSync } from 'node:fs';
+import { readdir } from 'node:fs/promises';
+import path from 'node:path';
 import { importModule } from '@tachybase/utils';
 
 import { cloneDeep, isPlainObject } from 'lodash';

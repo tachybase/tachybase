@@ -1,11 +1,18 @@
-import { isMainThread, parentPort, workerData } from 'worker_threads';
-import { getLoggerLevel, getLoggerTransport } from '@tachybase/logger';
+import './intercept';
+
+import { isMainThread, parentPort, workerData } from 'node:worker_threads';
+import TachybaseGlobal from '@tachybase/globals';
+import { getLoggerTransport } from '@tachybase/logger';
 import CollectionManagerPlugin, { CollectionRepository } from '@tachybase/module-collection';
 import PluginUsersServer from '@tachybase/module-user';
 import { Application, ApplicationOptions, AppLoggerOptions } from '@tachybase/server';
 import { Container, uid } from '@tachybase/utils';
 
 import { WorkerEvent } from './workerTypes';
+
+if (!isMainThread) {
+  const globals = TachybaseGlobal.getInstance(workerData.initData);
+}
 
 const loggerOptions = {
   system: {

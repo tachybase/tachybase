@@ -114,6 +114,7 @@ export const useCustomizeRequestActionProps = () => {
           },
         })) as any;
 
+        const headerContentType = res.headers.getContentType();
         let filename = getFilenameFromHeader(res.headers['content-disposition']);
 
         if (resultValues?.length) {

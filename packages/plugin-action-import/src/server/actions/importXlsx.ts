@@ -38,7 +38,7 @@ class Importer {
 
   parseXlsx() {
     const rows = this.getRows();
-    let columns = (this.context.request.body as any).columns as any[];
+    let columns = ((this.context.request as any).body as any).columns as any[];
     if (typeof columns === 'string') {
       columns = JSON.parse(columns);
     }

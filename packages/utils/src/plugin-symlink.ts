@@ -23,8 +23,8 @@ async function getStoragePluginNames(target) {
 }
 
 export async function createStoragePluginSymLink(pluginName) {
-  const storagePluginsPath = resolve(process.cwd(), 'storage/plugins');
-  const nodeModulesPath = process.env.NODE_MODULES_PATH;
+  const storagePluginsPath = resolve(process.cwd(), 'storage', 'plugins');
+  const nodeModulesPath = resolve(process.cwd(), 'plugins', 'remote');
   try {
     if (pluginName.startsWith('@')) {
       const [orgName] = pluginName.split('/');
@@ -53,7 +53,7 @@ export async function createStoragePluginsSymlink() {
 
 export async function createDevPluginSymLink(pluginName: string) {
   const packagePluginsPath = resolve(process.cwd(), 'packages');
-  const nodeModulesPath = process.env.NODE_MODULES_PATH;
+  const nodeModulesPath = resolve(process.cwd(), 'plugins', 'dev');
   try {
     const packageJson = JSON.parse(
       readFileSync(join(packagePluginsPath, pluginName, 'package.json'), { encoding: 'utf-8' }),

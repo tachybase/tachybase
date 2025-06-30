@@ -1,5 +1,5 @@
 import { NAMESPACE, tval } from '../../locale';
-import { ApprovalStatusEnums } from '../../usage/pc/constants';
+import { approvalStatusEnums } from '../constants/approval-initiation-status-options';
 
 export const collectionApprovals = {
   title: `{{t("Approval applications", { ns: "${NAMESPACE}" })}}`,
@@ -57,7 +57,7 @@ export const collectionApprovals = {
         type: 'number',
         title: '{{t("Status", { ns: "workflow" })}}',
         'x-component': 'Select',
-        enum: ApprovalStatusEnums,
+        enum: approvalStatusEnums,
       },
     },
     {
@@ -66,7 +66,7 @@ export const collectionApprovals = {
       interface: 'createdAt',
       uiSchema: {
         type: 'datetime',
-        title: '{{t("Created at")}}',
+        title: tval('Launched time'),
         'x-component': 'DatePicker',
         'x-component-props': { showTime: true },
       },

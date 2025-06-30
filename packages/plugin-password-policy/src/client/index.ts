@@ -3,6 +3,7 @@ import { Plugin } from '@tachybase/client';
 
 import { IPFilterForm } from './IPFilterForm';
 import { tval } from './locale';
+import { ViewPasswordValidityPeriod } from './password-validity-period/ViewPasswordValidityPeriod';
 import { PasswordAttemptForm } from './PasswordAttemptForm';
 import PasswordStrengthSettingsPage from './PasswordStrengthSettingsForm';
 import { SignInFailsTable } from './SignInFailsTable';
@@ -43,6 +44,13 @@ export class PasswordPolicyClient extends Plugin {
       title: tval('Sign-in fails history'),
       Component: SignInFailsTable,
       aclSnippet: `pm.security.sign-in-fails`,
+    });
+
+    this.app.systemSettingsManager.add('security.password-validity-period', {
+      icon: 'LockOutlined',
+      title: tval('Password validity period'),
+      Component: ViewPasswordValidityPeriod,
+      aclSnippet: `pm.security.password-validity-period`,
     });
   }
 }

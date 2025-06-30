@@ -1,6 +1,4 @@
-import fs from 'fs';
 import http from 'http';
-import { Readable } from 'node:stream';
 import { Context, Next } from '@tachybase/actions';
 import { appendArrayColumn } from '@tachybase/evaluators';
 import { Gateway } from '@tachybase/server';
@@ -139,12 +137,16 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
     return template(variables);
   };
 
+  // 判断是否为外部请求, 支持外部请求
+  const { baseURL, url: axiosURL, isExternal } = extractBaseUrlAndPath(url);
+
   const axiosRequestConfig = {
-    baseURL: Gateway.getInstance().runAtLoop,
+    baseURL,
     ...options,
-    url: getParsedValue(url),
+    url: getParsedValue(axiosURL),
     headers: {
-      Authorization: 'Bearer ' + ctx.getBearerToken(),
+      // 外部请求自行处理权限问题
+      Authorization: isExternal ? undefined : 'Bearer ' + ctx.getBearerToken(),
       ...getHeaders(ctx.headers),
       ...omitNullAndUndefined(getParsedValue(arrayToObject(headers))),
     },
@@ -197,4 +199,27 @@ export async function send(this: CustomRequestPlugin, ctx: Context, next: Next) 
   }
 
   return next();
+}
+
+// utils
+function extractBaseUrlAndPath(url) {
+  const currentBaseURL = Gateway.getInstance().runAtLoop;
+  // 判断是否为完整 URL
+  if (/^https?:\/\//i.test(url)) {
+    const urlObj = new URL(url);
+    const baseURL = `${urlObj.protocol}//${urlObj.host}`;
+    const newUrl = urlObj.pathname + urlObj.search + urlObj.hash; // 保留查询和锚点
+    return {
+      baseURL,
+      url: newUrl,
+      isExternal: baseURL !== currentBaseURL,
+    };
+  } else {
+    // 已经是相对路径
+    return {
+      baseURL: Gateway.getInstance().runAtLoop,
+      url,
+      isExternal: false,
+    };
+  }
 }

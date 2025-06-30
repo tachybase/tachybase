@@ -7,7 +7,7 @@ import { viewTrackingLog } from './viewTrackingLog';
 export const schemaTrackingLog: ISchema = {
   type: 'void',
   properties: {
-    notificationconfig: {
+    trackingLogConfig: {
       type: 'void',
       'x-decorator': 'TableBlockProvider',
       'x-decorator-props': {

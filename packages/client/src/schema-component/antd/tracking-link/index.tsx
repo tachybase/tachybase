@@ -24,7 +24,7 @@ export const TrackingLink: React.FC<TrackedLinkProps> = ({
   const handleClick = () => {
     app.trackingManager.logEvent('click', trackingKey, {
       href,
-      UserId: currentUser?.id,
+      userId: currentUser?.id,
     });
   };
 

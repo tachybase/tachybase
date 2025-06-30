@@ -1,6 +1,6 @@
 services:
   app:
-    image: tachybase/tachybase-all:latest
+    image: tegojs/tego-all:latest
     environment:
       - APP_KEY=your-secret-key
     volumes:
