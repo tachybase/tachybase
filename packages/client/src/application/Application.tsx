@@ -99,7 +99,8 @@ export class Application {
   public name: string;
   public globalVars: Record<string, any> = {};
 
-  loading = true;
+  loading = false;
+  loaded = false;
   maintained = false;
   maintaining = false;
   error = null;
@@ -117,6 +118,10 @@ export class Application {
 
   get prefix() {
     return 'dashboard';
+  }
+
+  get indexSchema() {
+    return 'default-admin-menu';
   }
 
   constructor(protected options: ApplicationOptions = {}) {
@@ -316,6 +321,7 @@ export class Application {
     }
 
     this.loading = false;
+    this.loaded = true;
   }
 
   getComponent<T = any>(Component: ComponentTypeAndString<T>, isShowError = true): ComponentType<T> | undefined {
