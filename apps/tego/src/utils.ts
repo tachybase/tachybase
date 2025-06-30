@@ -100,11 +100,11 @@ export function parseEnvironment() {
 }
 
 export function guessServePath() {
-  const distPath = resolve('apps/app-web/dist/index.html');
+  const distPath = resolve('apps/web/dist/index.html');
   const clientPath = resolve('client/index.html');
 
   if (fs.existsSync(distPath)) {
-    return resolve('apps/app-web/dist');
+    return resolve('apps/web/dist');
   } else if (fs.existsSync(clientPath)) {
     return resolve('client');
   }

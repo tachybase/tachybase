@@ -47,8 +47,8 @@
     "@commitlint/prompt-cli": "19.8.1",
     "@ianvs/prettier-plugin-sort-imports": "4.4.2",
     "@inquirer/prompts": "7.5.3",
-    "@tachybase/devkit": "workspace:*",
     "@tachybase/test": "workspace:*",
+    "@tego/devkit": "workspace:*",
     "@types/node": "20.17.10",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
@@ -67,7 +67,7 @@
     "tsx": "4.20.3",
     "vitest": "3.2.4"
   },
-  "packageManager": "pnpm@10.12.3",
+  "packageManager": "pnpm@10.12.4",
   "engines": {
     "node": ">=20.18.0"
   },
