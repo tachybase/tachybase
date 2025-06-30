@@ -1,10 +1,10 @@
 import path from 'node:path';
-import { getUmiConfig, IndexGenerator } from '@tachybase/devtools/umiConfig';
 
 import { defineConfig } from '@rsbuild/core';
 import { pluginLess } from '@rsbuild/plugin-less';
 import { pluginNodePolyfill } from '@rsbuild/plugin-node-polyfill';
 import { pluginReact } from '@rsbuild/plugin-react';
+import { getUmiConfig, IndexGenerator } from '@tego/devkit';
 
 const config = getUmiConfig();
 

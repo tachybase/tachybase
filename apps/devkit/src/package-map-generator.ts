@@ -1,22 +1,13 @@
-import {
-  existsSync as _existsSync,
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  realpathSync,
-  rmSync,
-  watch,
-  writeFileSync,
-} from 'node:fs';
+import { existsSync as _existsSync, existsSync, mkdirSync, readFileSync, rmSync, watch, writeFileSync } from 'node:fs';
 import { dirname as _dirname, sep as _sep, join, relative, resolve, sep } from 'node:path';
 
 import { sync } from 'fast-glob';
 
-import { version } from './package.json';
+import { version } from '../package.json';
 
 const ProjectRoot = process.cwd();
 
-function getUmiConfig() {
+export function getUmiConfig() {
   const { APP_PORT, API_BASE_URL, APP_PUBLIC_PATH } = process.env;
   const API_BASE_PATH = process.env.API_BASE_PATH || '/api/';
   const EXTENSION_UI_BASE_PATH = process.env.EXTENSION_UI_BASE_PATH || '/adapters/';
@@ -110,7 +101,7 @@ function getPackagePaths() {
   return pkgs;
 }
 
-function resolveTachybasePackagesAlias(config) {
+export function resolveTachybasePackagesAlias(config) {
   const pkgs = getPackagePaths();
   for (const [pkg, dir] of pkgs) {
     config.module.rules.get('ts-in-node_modules').include.add(dir);
@@ -122,7 +113,7 @@ function getNodeModulesPath(packageDir) {
   const node_modules_dir = join(ProjectRoot, 'node_modules');
   return join(node_modules_dir, packageDir);
 }
-class IndexGenerator {
+export class IndexGenerator {
   tachybaseDir = getNodeModulesPath('@tachybase');
 
   constructor(outputPath, pluginsPath) {
@@ -250,10 +241,3 @@ export default function devDynamicImport(packageName: string): Promise<any> {
     return pluginInfos;
   }
 }
-
-const _getUmiConfig = getUmiConfig;
-export { _getUmiConfig as getUmiConfig };
-const _resolveTachybasePackagesAlias = resolveTachybasePackagesAlias;
-export { _resolveTachybasePackagesAlias as resolveTachybasePackagesAlias };
-const _IndexGenerator = IndexGenerator;
-export { _IndexGenerator as IndexGenerator };

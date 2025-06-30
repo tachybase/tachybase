@@ -11,7 +11,7 @@ const config = getUmiConfig();
 
 const pluginDirs = ['packages'].map((item) => path.join(process.cwd(), item));
 
-const outputPluginPath = path.resolve('apps/app-web/src/.plugins');
+const outputPluginPath = path.resolve('apps/web/src/.plugins');
 const indexGenerator = new IndexGenerator(outputPluginPath, pluginDirs);
 indexGenerator.generate();
 
@@ -24,24 +24,24 @@ export default defineConfig({
   html: {
     title: 'Tachybase',
     inject: 'body',
-    template: path.resolve('apps/app-web/src/assets/index.html'),
+    template: path.resolve('apps/web/src/assets/index.html'),
     meta: [{ viewport: 'initial-scale=0.1' }],
-    favicon: path.resolve('apps/app-web/src/assets/favicon.ico'),
+    favicon: path.resolve('apps/web/src/assets/favicon.ico'),
     appIcon: {
       name: 'Tachybase',
       icons: [
         {
-          src: path.resolve('apps/app-web/src/assets/apple-touch-icon.png'),
+          src: path.resolve('apps/web/src/assets/apple-touch-icon.png'),
           size: 180,
           target: 'apple-touch-icon',
         },
         {
-          src: path.resolve('apps/app-web/src/assets/android-chrome-192x192.png'),
+          src: path.resolve('apps/web/src/assets/android-chrome-192x192.png'),
           size: 192,
           target: 'web-app-manifest',
         },
         {
-          src: path.resolve('apps/app-web/src/assets/android-chrome-512x512.png'),
+          src: path.resolve('apps/web/src/assets/android-chrome-512x512.png'),
           size: 512,
           target: 'web-app-manifest',
         },
@@ -50,7 +50,7 @@ export default defineConfig({
   },
   source: {
     entry: {
-      index: path.resolve('apps/app-web/src/index.tsx'),
+      index: path.resolve('apps/web/src/index.tsx'),
     },
     define: {
       ...rsDefined,
@@ -80,7 +80,7 @@ export default defineConfig({
       ...config.proxy,
     },
     publicDir: {
-      name: path.resolve('apps/app-web/public'),
+      name: path.resolve('apps/web/public'),
     },
   },
   plugins: [pluginReact(), pluginLess(), pluginNodePolyfill()],
