@@ -37,11 +37,6 @@ const CustomThemeProvider = React.memo<{ children }>(({ children }) => {
   const { theme, setTheme } = useGlobalTheme();
   const { styles } = useStyles();
 
-  useEffect(() => {
-    // 在页面右上角中添加一个 Theme 菜单项
-    addMenuItem(themeItem, { before: 'divider_3' });
-  }, [addMenuItem, themeItem]);
-
   const contentStyle = useMemo(() => {
     return open
       ? { transform: 'rotate(0)', flexGrow: 1, width: 0, height: '100%' }
@@ -58,6 +53,11 @@ const CustomThemeProvider = React.memo<{ children }>(({ children }) => {
       ) : null}
     </div>
   );
+
+  useEffect(() => {
+    // 在页面右上角中添加一个 Theme 菜单项
+    addMenuItem(themeItem, { before: 'divider_3' });
+  }, [addMenuItem, themeItem]);
 
   if (!theme?.token?.motionUnit) {
     _.set(theme, 'token.motionUnit', defaultTheme.token.motionUnit);

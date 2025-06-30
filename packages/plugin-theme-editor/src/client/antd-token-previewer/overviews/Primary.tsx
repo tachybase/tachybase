@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Card, Space } from 'antd';
 
 import Button from '../component-demos/button/button-icon';

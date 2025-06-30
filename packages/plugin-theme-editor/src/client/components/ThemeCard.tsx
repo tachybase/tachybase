@@ -47,7 +47,7 @@ const Overview = ({ theme }: { theme: ThemeConfig }) => {
           size={0}
           align="start"
         >
-          <Primary />
+          <Primary key={theme.name} id={theme.name} />
         </Space>
       </div>
     </ConfigProvider>
@@ -302,7 +302,7 @@ const ThemeCard = (props: Props) => {
       headStyle={{ minHeight: 38 }}
       actions={actions}
     >
-      <Overview theme={item.config} />
+      <Overview key={item.id} theme={item.config} />
     </Card>
   );
 };
