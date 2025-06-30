@@ -56,7 +56,7 @@
     "lint-staged": "16.1.2",
     "oxlint": "1.3.0",
     "prettier": "3.6.0",
-    "prettier-plugin-packagejson": "2.5.15",
+    "prettier-plugin-packagejson": "2.5.17",
     "prettier-plugin-sort-json": "4.1.1",
     "prettier-plugin-sql": "0.19.1",
     "pretty-format": "30.0.2",
