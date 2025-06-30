@@ -31,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/tachybase/Dockerfile
+          file: docker/tego/Dockerfile
           push: true
           tags: |
             tachybase/tachybase:nightly-${{ github.event.inputs.docker_tag }}
