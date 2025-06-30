@@ -81,7 +81,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     const openMode = fieldSchema?.['x-component-props']?.['openMode'];
     const openSize = fieldSchema?.['x-component-props']?.['openSize'];
     const disabled = form.disabled || field.disabled || field.data?.disabled || propsDisabled;
-    const linkageRules = fieldSchema?.['x-linkage-rules'] || [];
+    const linkageRules = useMemo(() => fieldSchema?.['x-linkage-rules'] || [], [fieldSchema]);
     const { designable } = useDesignable();
     const tarComponent = useComponent(component) || component;
     const { modal } = App.useApp();
@@ -96,29 +96,24 @@ export const Action: ComposedAction = withDynamicSchemaProps(
 
     // NOTE:page mode 在多标签页状态默认打开，在手机状态默认打开，
     const isPageMode = useMemo(() => {
-      // 全局的 Page mode 模式
+      // 全局 Page mode 模式优先
       if (pageMode?.enable) {
         return true;
       }
-      // 当前 Action 的 openMode 为默认模式,OpenMode.DRAWER 为兼容旧版, 旧版没有 DEFAULT 概念
-      if (!openMode || [OpenMode.DEFAULT, OpenMode.DRAWER].includes(openMode)) {
-        // 移动端模式下默认为 PAGE 模式
-        if (isMobile) {
-          return true;
-        }
-        // 多标签模式下默认为 PAGE 模式
-        if (pageStyle === PageStyle.TAB_STYLE) {
-          return true;
-        }
-        // 经典模式下默认为 DRAWER 模式
-        return false;
-      }
-      // 当前 Action 的 openMode 为 page 模式
+
+      // 明确指定为 PAGE 模式
       if (openMode === OpenMode.PAGE) {
         return true;
       }
+
+      // 默认模式下的判断逻辑
+      if (!openMode || [OpenMode.DEFAULT, OpenMode.DRAWER].includes(openMode)) {
+        // 移动端或多标签页模式下默认为 PAGE 模式
+        return isMobile || pageStyle === PageStyle.TAB_STYLE;
+      }
+
       return false;
-    }, [pageMode, openMode]);
+    }, [pageMode?.enable, openMode, isMobile, pageStyle]);
 
     useEffect(() => {
       field.stateOfLinkageRules = {};
@@ -147,10 +142,10 @@ export const Action: ComposedAction = withDynamicSchemaProps(
       );
       const target = PathHandler.getInstance().toWildcardPath({
         collection: collection.name,
-        filterByTk: record[collection.getPrimaryKey()],
+        filterByTk: record[collectionKey],
       });
       navigate('./sub/' + containerSchema['x-uid'] + '/' + target);
-    }, [fieldSchema, record, collectionKey, collection.name]);
+    }, [fieldSchema, record, collectionKey, collection.name, navigate]);
 
     const handleButtonClick = useCallback(
       (e: React.MouseEvent) => {
@@ -181,7 +176,7 @@ export const Action: ComposedAction = withDynamicSchemaProps(
           }
         }
       },
-      [confirm, disabled, modal, onClick, run],
+      [confirm, disabled, modal, onClick, run, isPageMode, openPage, openModal, actionTitle, t],
     );
 
     const buttonStyle = useMemo(() => {
