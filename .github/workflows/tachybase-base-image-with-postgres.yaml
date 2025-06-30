@@ -34,8 +34,6 @@ jobs:
           file: docker/tego-node-pg/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
-          build-args: |
-            TACHYBASE_VERSION=${{ github.event.inputs.docker_tag }}
           tags: |
-            tachybase/tego-node-pg:${{ github.event.inputs.docker_tag }}
-            tachybase/tego-node-pg:latest
+            tegojs/tego-node-pg:${{ github.event.inputs.docker_tag }}
+            tegojs/tego-node-pg:latest
