@@ -127,7 +127,7 @@ export const ReadPrettyInternalTag: React.FC = observer(
               value={{
                 visible,
                 setVisible,
-                openMode: OpenMode.DRAWER,
+                openMode: OpenMode.DEFAULT,
                 snapshot: collectionField?.interface === 'snapshot',
               }}
             >

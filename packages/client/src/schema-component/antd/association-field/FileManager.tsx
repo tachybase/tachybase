@@ -165,7 +165,7 @@ const InternalFileManager = (props) => {
       />
       <ActionContextProvider
         value={{
-          openMode: OpenMode.DRAWER,
+          openMode: OpenMode.DEFAULT,
           visible: visibleSelector,
           setVisible: setVisibleSelector,
           modalProps: {

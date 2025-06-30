@@ -272,7 +272,7 @@ const Drawer: React.FunctionComponent<{
   return (
     <RecordPickerProvider {...recordPickerProps}>
       <CollectionProvider_deprecated allowNull name={collectionField?.target}>
-        <ActionContextProvider openMode={OpenMode.DRAWER} visible={visible} setVisible={setVisible}>
+        <ActionContextProvider openMode={OpenMode.DEFAULT} visible={visible} setVisible={setVisible}>
           <FormProvider>
             <TableSelectorParamsProvider params={{ filter: getFilter() }}>
               <SchemaComponentOptions scope={{ useTableSelectorProps, usePickActionProps }}>

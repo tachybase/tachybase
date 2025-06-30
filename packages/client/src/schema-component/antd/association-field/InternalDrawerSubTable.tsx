@@ -45,7 +45,14 @@ export const InternaDrawerSubTable = observer(
           </div>
           <EditOutlined style={{ display: 'inline-flex', marginLeft: '5px' }} />
         </span>
-        <ActionContextProvider value={{ ...ctx, visible, setVisible, openMode: OpenMode.DRAWER }}>
+        <ActionContextProvider
+          value={{
+            ...ctx,
+            visible,
+            setVisible,
+            openMode: OpenMode.DEFAULT,
+          }}
+        >
           <Drawer
             title={t(options?.uiSchema?.rawTitle)}
             open={visible}

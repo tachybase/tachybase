@@ -88,6 +88,11 @@ export const Action: ComposedAction = withDynamicSchemaProps(
     let actionTitle = title || compile(fieldSchema.title);
     actionTitle = lodash.isString(actionTitle) ? t(actionTitle) : actionTitle;
 
+    // TODO: 增加上下文判断
+    // NOTE: 全局 pageMode 模式打开,或者当前是 openMode 明确声明为 page 的, 或者没有 openMode 的, 都走 page 模式
+    // page mode 在多标签页状态默认打开，在手机状态默认打开，全局的 page mode 作为调试能力来引入，方向是这样子的
+    const isPageMode = pageMode?.enable || openMode === OpenMode.PAGE || !openMode;
+
     useEffect(() => {
       field.stateOfLinkageRules = {};
       linkageRules
@@ -121,9 +126,8 @@ export const Action: ComposedAction = withDynamicSchemaProps(
             const containerSchema = fieldSchema.reduceProperties((buf, s) =>
               s['x-component'] === 'Action.Container' ? s : buf,
             );
-            // TODO: 增加上下文判断
-            // NOTE: 全局 pageMode 模式打开,或者当前是 openMode 明确声明为 page 的, 或者没有 openMode 的, 都走 page 模式
-            if ((pageMode?.enable || openMode === OpenMode.PAGE || !openMode) && containerSchema) {
+
+            if (isPageMode && containerSchema) {
               const target = PathHandler.getInstance().toWildcardPath({
                 collection: collection.name,
                 filterByTk: record[collection.getPrimaryKey()],

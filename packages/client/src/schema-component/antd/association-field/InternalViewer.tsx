@@ -149,7 +149,7 @@ export const ReadPrettyInternalViewer = observer(
               value={{
                 visible,
                 setVisible,
-                openMode: OpenMode.DRAWER,
+                openMode: OpenMode.DEFAULT,
                 snapshot: collectionField?.interface === 'snapshot',
                 fieldSchema: fieldSchema,
               }}

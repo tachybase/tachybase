@@ -187,7 +187,7 @@ export const InternalPicker = observer(
         <ActionContextProvider
           value={{
             openSize: fieldSchema['x-component-props']?.['openSize'] || openSize,
-            openMode: OpenMode.DRAWER,
+            openMode: OpenMode.DEFAULT,
             visible: visibleSelector,
             setVisible: setVisibleSelector,
           }}

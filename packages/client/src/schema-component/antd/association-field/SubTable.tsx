@@ -236,7 +236,7 @@ export const SubTable: any = observer(
         <ActionContextProvider
           value={{
             openSize,
-            openMode: OpenMode.DRAWER,
+            openMode: OpenMode.DEFAULT,
             visible: visibleSelector,
             setVisible: setVisibleSelector,
           }}

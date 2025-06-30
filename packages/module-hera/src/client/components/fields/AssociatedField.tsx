@@ -129,7 +129,7 @@ const AssociatedFieldImplement = observer<any>((props) => {
         {record.name}
       </a>
       <CollectionProvider_deprecated name={collection}>
-        <ActionContextProvider value={{ visible, setVisible, openMode: OpenMode.DRAWER, snapshot: false }}>
+        <ActionContextProvider value={{ visible, setVisible, openMode: OpenMode.DEFAULT, snapshot: false }}>
           <RecordProvider record={record}>
             <FormProvider>
               <RecursionField
