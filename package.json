@@ -67,7 +67,7 @@
     "tsx": "4.20.3",
     "vitest": "3.2.4"
   },
-  "packageManager": "pnpm@10.12.3",
+  "packageManager": "pnpm@10.12.4",
   "engines": {
     "node": ">=20.18.0"
   },

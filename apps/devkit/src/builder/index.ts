@@ -49,10 +49,6 @@ export function createBuildablePackages(projects: IProject[], context: IBuildCon
       return new PluginPackage(name, dir, context);
     }
 
-    if (name.startsWith('@tachybase/plugin-') || name.startsWith('@tachybase/module-')) {
-      return new PluginPackage(name, dir, context);
-    }
-
     if (name === '@tego/web') {
       return new AppWebPackage(name, dir, context);
     }
