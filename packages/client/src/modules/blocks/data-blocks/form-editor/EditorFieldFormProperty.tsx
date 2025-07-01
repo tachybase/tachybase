@@ -157,7 +157,7 @@ const FieldPropertiesContent = ({ fieldComponentName }) => {
     [];
   const genericItems = app.editableSchemaSettingsManager.get('editableFieldSettings:FormItem')?.options?.items ?? [];
   const fieldsInterface =
-    app.editableSchemaSettingsManager.get('editableFieldSettings:Fields:Association')?.options?.items ?? [];
+    app.editableSchemaSettingsManager.get('editableFieldSettings:Fields:Infterface')?.options?.items ?? [];
   const items = [...fieldsInterface, ...genericItems, ...specificItems];
   const { handleUpdate, components: itemsComponents, fullSchema, itemStates, initialValues } = useEditableItems(items);
   form.setValues(initialValues);
