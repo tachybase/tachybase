@@ -1,9 +1,9 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAPIClient, useTranslation } from '@tachybase/client';
 import { ISchema, Schema, uid } from '@tachybase/schema';
 
 import { Layout, Modal } from 'antd';
-import _, { cloneDeep } from 'lodash';
+import _ from 'lodash';
 
 import { PageRefreshProvider } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import { CollectionContext, useCollectionManager } from '../../../../data-source';
@@ -70,6 +70,9 @@ export function createCreateFormEditUISchema(options: CreateFormBlockUISchemaOpt
   const resourceName = association || collectionName;
   if (!dataSource) {
     throw new Error('dataSource are required');
+  }
+  if (!resourceName) {
+    throw new Error('association or collectionName is required');
   }
   const schema: ISchema = {
     type: 'void',

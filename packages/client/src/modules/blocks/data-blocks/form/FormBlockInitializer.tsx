@@ -102,7 +102,6 @@ export const FormBlockInitializer = ({
 };
 
 export const useCreateFormBlock = () => {
-  const { insertAdjacent, remove } = useDesignable();
   const { insert } = useSchemaInitializer();
   const association = useAssociationName();
   const { isCusomeizeCreate: isCustomizeCreate } = useSchemaInitializerItem();
@@ -152,39 +151,6 @@ export const useCreateFormBlock = () => {
     return schema;
   };
 
-  // const createEditFormBlock = useCallback(
-  //   ({ item, fromOthersInPopup }) => {
-  //     return new Promise((resolve) => {
-  //       const insertPosition = 'beforeEnd';
-  //       const schema = fromOthersInPopup
-  //         ? createCreateFormEditUISchema({
-  //             collectionName: item.collectionName || item.name,
-  //             dataSource: item.dataSource,
-  //             isCusomeizeCreate: true,
-  //           })
-  //         : createCreateFormEditUISchema(
-  //             association
-  //               ? {
-  //                   association,
-  //                   dataSource: item.dataSource,
-  //                   isCusomeizeCreate: isCustomizeCreate,
-  //                 }
-  //               : {
-  //                   collectionName: item.collectionName || item.name,
-  //                   dataSource: item.dataSource,
-  //                   isCusomeizeCreate: isCustomizeCreate,
-  //                 },
-  //           );
-
-  //       insertAdjacent(insertPosition, gridRowColWrap(schema), {
-  //         onSuccess: (result) => {
-  //           resolve(result); // 往上层传递成功结果
-  //         },
-  //       });
-  //     });
-  //   },
-  //   [association, isCustomizeCreate],
-  // );
   const createEditFormBlock = ({ item, fromOthersInPopup }) => {
     const schema = fromOthersInPopup
       ? createCreateFormEditUISchema({

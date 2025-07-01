@@ -12,7 +12,6 @@ import {
   useTitleFieldOptions,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
-import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 
 export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSettings({
   name: 'editableFieldSettings:component:DrawerSubTable',
@@ -20,7 +19,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
     {
       name: 'fieldComponent',
       useSchema() {
-        const { t } = useTranslation();
         const field = useField<Field>();
         const { fieldSchema: tableColumnSchema, collectionField } = useColumnSchema();
         const schema = useFieldSchema();
@@ -68,7 +66,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
         return !isFieldReadPretty && ['hasMany', 'belongsToMany'].includes(collectionField?.type);
       },
       useSchema() {
-        const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
         return {
@@ -99,7 +96,6 @@ export const drawerSubTableComponentFieldEditableSettings = new EditableSchemaSe
     {
       name: 'titleField',
       useSchema() {
-        const { t } = useTranslation();
         const field = useField<Field>();
         const { uiSchema, fieldSchema: tableColumnSchema, collectionField: tableColumnField } = useColumnSchema();
         const options = useTitleFieldOptions();

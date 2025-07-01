@@ -1,21 +1,18 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ArrayTable } from '@tachybase/components';
-import { action, createForm, Field, Form, ISchema, uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { action, createForm, Field, ISchema, uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
-import { Button, Modal, Select, Spin } from 'antd';
-import _, { cloneDeep, omit, set } from 'lodash';
+import { Button } from 'antd';
+import _, { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { useAPIClient, useRequest } from '../../../../api-client';
+import { useAPIClient } from '../../../../api-client';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
 import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import {
-  IField,
   useCancelAction,
   useCollection_deprecated,
   useCollectionManager_deprecated,
-  useResourceActionContext,
-  useResourceContext,
 } from '../../../../collection-manager';
 import * as components from '../../../../collection-manager/Configuration/components';
 import useDialect from '../../../../collection-manager/hooks/useDialect';
@@ -29,7 +26,6 @@ import {
   useCompile,
   useIsAssociationField,
 } from '../../../../schema-component';
-import { useEditableDesignable } from './EditableDesignable';
 
 export const fieldInterfaceEditableSettings = new EditableSchemaSettings({
   name: 'editableFieldSettings:Fields:Association',
@@ -57,73 +53,6 @@ export const fieldInterfaceEditableSettings = new EditableSchemaSettings({
         return useIsAssociationField();
       },
     },
-    // {
-    //   name: 'setCollectionField',
-    //   useSchema() {
-    //     const { t } = useTranslation();
-    //     const fieldSchema = useFieldSchema();
-    //     const field = useField<Field>();
-    //     const { getCollection } = useCollectionManager_deprecated();
-    //     const { name } = useCollection_deprecated();
-    //     const collection = getCollection(name);
-    //     const record = collection.getField(fieldSchema.name);
-    //     const gird = getProperties(record.interface);
-    //     const form = createForm({
-    //       initialValues: record,
-    //     });
-    //     return {
-    //       type: 'object',
-    //       title: t('设置关联属性'),
-    //       'x-decorator': 'FormItem',
-    //       'x-component': 'Action',
-    //       'x-component-props': {
-    //         style: {
-    //           width: '100%',
-    //         },
-    //       },
-    //       properties: {
-    //         modal: {
-    //           type: 'void',
-    //           'x-component': 'Action.Modal',
-    //           title: t('设置关联属性'),
-    //           'x-decorator': 'FormV2',
-    //           'x-decorator-props': {
-    //             form,
-    //           },
-    //           properties: {
-    //             gird,
-    //             footer: {
-    //               'x-component': 'Action.Modal.Footer',
-    //               type: 'void',
-    //               properties: {
-    //                 cancel: {
-    //                   title: '{{t("Cancel")}}',
-    //                   'x-component': 'Action',
-    //                   'x-use-component-props': 'useCancelActionProps',
-    //                 },
-    //                 submit: {
-    //                   title: '{{t("Submit")}}',
-    //                   'x-component': 'Action',
-    //                   'x-use-component-props': () => {
-    //                     const form = useForm();
-    //                     const ctx = useActionContext();
-    //                     return {
-    //                       async onClick() {
-    //                       },
-    //                     };
-    //                   },
-    //                 },
-    //               },
-    //             },
-    //           },
-    //         },
-    //       },
-    //     }
-    //   },
-    //   useVisible() {
-    //     return useIsAssociationField()
-    //   }
-    // }
   ],
 });
 

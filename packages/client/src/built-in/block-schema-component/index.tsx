@@ -22,7 +22,6 @@ import { useDetailsDecoratorProps } from '../../modules/blocks/data-blocks/detai
 import { useDetailsProps } from '../../modules/blocks/data-blocks/details-single/hooks/useDetailsProps';
 import { EditableFormItemSchemaToolbar } from '../../modules/blocks/data-blocks/form-editor/EditableFormItemSchemaToolbar';
 import { EditableFormToolbar } from '../../modules/blocks/data-blocks/form-editor/EditableFormToolbar';
-import { EditableSelectedFieldProvider } from '../../modules/blocks/data-blocks/form-editor/EditableSelectedFieldContext';
 import { FormItemSchemaToolbar } from '../../modules/blocks/data-blocks/form/FormItemSchemaToolbar';
 import { useCreateFormBlockDecoratorProps } from '../../modules/blocks/data-blocks/form/hooks/useCreateFormBlockDecoratorProps';
 import { useCreateFormBlockProps } from '../../modules/blocks/data-blocks/form/hooks/useCreateFormBlockProps';

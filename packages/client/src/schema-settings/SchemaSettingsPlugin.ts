@@ -55,14 +55,14 @@ import { CustomTitleComponentFieldEditableSettings } from '../modules/fields/com
 import { CustomTitleComponentFieldSettings } from '../modules/fields/component/CustomTitle/customTitleComponentFieldSettings';
 import { datePickerComponentFieldEditableSettings } from '../modules/fields/component/DatePicker/datePickerComponentFieldEditableSettings';
 import { datePickerComponentFieldSettings } from '../modules/fields/component/DatePicker/datePickerComponentFieldSettings';
+import { drawerSubTableComponentFieldEditableSettings } from '../modules/fields/component/DrawerSubTable/drawerSubTableComponentFieldEditableSettings';
 import { drawerSubTableComponentFieldSettings } from '../modules/fields/component/DrawerSubTable/drawerSubTableComponentFieldSettings';
-import { drawerSubTableComponentFieldEditableSettings } from '../modules/fields/component/DrawerSubTable/drawerSubYableComponentFieldEditableSettings';
 import { fileManagerComponentFieldEditableSettings } from '../modules/fields/component/FileManager/fileManagerComponentFieldEditableSettings';
 import { fileManagerComponentFieldSettings } from '../modules/fields/component/FileManager/fileManagerComponentFieldSettings';
 import { uploadAttachmentComponentFieldEditableSettings } from '../modules/fields/component/FileManager/uploadAttachmentComponentFieldEditableSettings';
 import { uploadAttachmentComponentFieldSettings } from '../modules/fields/component/FileManager/uploadAttachmentComponentFieldSettings';
-import { inputNumberComponentFieldEditableSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldEditableSettings';
 import { inputComponentFieldSettings } from '../modules/fields/component/Input/inputComponentFieldsSettings';
+import { inputNumberComponentFieldEditableSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldEditableSettings';
 import { inputNumberComponentFieldSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldSettings';
 import { subformComponentFieldEditableSettings } from '../modules/fields/component/Nester/subformComponentFieldEditableSettings';
 import { subformComponentFieldSettings } from '../modules/fields/component/Nester/subformComponentFieldSettings';

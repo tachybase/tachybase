@@ -10,7 +10,7 @@ import { EditableSelectedFormProvider } from './EditableSelectedFormContent';
 import { FormSchemaEditor } from './FormSchemaEditor';
 
 export const SchemaSettingsEditablePage = (props) => {
-  const { name } = props;
+  const { collectionName } = props;
   const { t } = useTranslation();
   const [pendingOptions, setPendingOptions] = useState<any>(null);
   const schemaUID = pendingOptions?.schema['x-uid'] || null;
@@ -34,7 +34,7 @@ export const SchemaSettingsEditablePage = (props) => {
           setPendingOptions({
             schema: editableSchema,
             item: {
-              name: fieldSchema['x-decorator-props']?.collection || name,
+              name: fieldSchema['x-decorator-props']?.collection || collectionName,
             },
           });
           setVisible(true);
@@ -60,11 +60,11 @@ function unpatchSchemaToolbars(schema) {
     }
     if (node['x-component'] === 'CardItem' && node['x-toolbar'] === 'BlockSchemaToolbar') {
       node['x-toolbar'] = 'EditableFormToolbar';
-      delete node['x-settings'];
+      node['x-settings'] = undefined;
     }
     if (node['x-component'] === 'Grid') {
       node['x-component'] = 'EditableGrid';
-      delete node['x-initializer'];
+      node['x-initializer'] = undefined;
     }
     if (node['x-component'] === 'Grid.Col') {
       node['x-component'] = 'EditableGrid.Col';
@@ -73,7 +73,7 @@ function unpatchSchemaToolbars(schema) {
       node['x-component'] = 'EditableGrid.Row';
     }
     if (node['x-component'] === 'ActionBar' && node['x-initializer'] === 'createForm:configureActions') {
-      delete node['x-initializer'];
+      node['x-initializer'] = undefined;
     }
 
     if (node.properties) {

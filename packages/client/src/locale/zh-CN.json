@@ -658,6 +658,7 @@
   "One to one (has one)": "一对一（has one）",
   "One to one description": "用于创建一对一关系，比如一个用户会有一套个人资料。",
   "Only the selected fields will be used as the initialization data for the form": "仅选择的字段才会作为表单的初始化数据",
+  "Open editable page": "打开编辑页",
   "Open in<1><0>Modal</0><1>Drawer</1><2>Window</2></1>": "在 <1><0>对话框</0><1>抽屉</1><2>窗口</2></1> 内打开",
   "Open mode": "打开方式",
   "Operate on existing data": "对已有数据操作",

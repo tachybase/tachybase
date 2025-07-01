@@ -122,110 +122,33 @@ class EditableDesignable {
     return this.options.query;
   }
 
-  // loadAPIClientEvents() {
-  //   const { api, t = translate } = this.options;
-  //   if (!api) {
-  //     return;
-  //   }
-  //   const updateColumnSize = (parent: Schema) => {
-  //     if (!parent) {
-  //       return [];
-  //     }
-  //     const len = Object.values(parent.properties).length;
-  //     const schemas = [];
-  //     parent.mapProperties((s) => {
-  //       s['x-component-props'] = s['x-component-props'] || {};
-  //       s['x-component-props']['width'] = 100 / len;
-  //       if (s['x-uid']) {
-  //         schemas.push({
-  //           'x-uid': s['x-uid'],
-  //           'x-component-props': s['x-component-props'],
-  //         });
-  //       }
-  //     });
-  //     if (parent['x-uid'] && schemas.length) {
-  //       return schemas;
-  //     }
-  //     return [];
-  //   };
-  //   this.on('insertAdjacent', async ({ onSuccess, current, position, schema, wrap, wrapped, removed }) => {
-  //     let schemas = [];
-  //     if (wrapped?.['x-component'] === 'Grid.Col') {
-  //       schemas = schemas.concat(updateColumnSize(wrapped.parent));
-  //     }
-  //     if (removed?.['x-component'] === 'Grid.Col') {
-  //       schemas = schemas.concat(updateColumnSize(removed.parent));
-  //     }
-  //     this.refresh();
-  //     if (!current['x-uid']) {
-  //       return;
-  //     }
-  //     const res = await api.request({
-  //       url: `/uiSchemas:insertAdjacent/${current['x-uid']}?position=${position}`,
-  //       method: 'post',
-  //       data: {
-  //         schema,
-  //         wrap,
-  //       },
-  //     });
-  //     if (schemas.length) {
-  //       await api.request({
-  //         url: `/uiSchemas:batchPatch`,
-  //         method: 'post',
-  //         data: schemas,
-  //       });
-  //     }
-  //     if (removed?.['x-uid']) {
-  //       await api.request({
-  //         url: `/uiSchemas:remove/${removed['x-uid']}`,
-  //         method: 'post',
-  //       });
-  //     }
-  //     onSuccess?.(res?.data?.data);
-  //   });
-  //   this.on('patch', async ({ schema }) => {
-  //     this.refresh();
-  //     if (!schema?.['x-uid']) {
-  //       return;
-  //     }
-  //     await api.request({
-  //       url: `/uiSchemas:patch`,
-  //       method: 'post',
-  //       data: {
-  //         ...schema,
-  //       },
-  //     });
-  //   });
-  //   this.on('batchPatch', async ({ schemas }) => {
-  //     this.refresh();
-  //     await api.request({
-  //       url: `/uiSchemas:batchPatch`,
-  //       method: 'post',
-  //       data: schemas,
-  //     });
-  //   });
-  //   this.on('remove', async ({ removed }) => {
-  //     let schemas = [];
-  //     if (removed?.['x-component'] === 'Grid.Col') {
-  //       schemas = updateColumnSize(removed.parent);
-  //     }
-  //     this.refresh();
-  //     if (!removed?.['x-uid']) {
-  //       return;
-  //     }
-  //     await api.request({
-  //       url: `/uiSchemas:remove/${removed['x-uid']}`,
-  //       method: 'post',
-  //     });
-  //     if (schemas.length) {
-  //       await api.request({
-  //         url: `/uiSchemas:batchPatch`,
-  //         method: 'post',
-  //         data: schemas,
-  //       });
-  //     }
-  //   });
-  // }
+  loadClientSchemaEvents() {
+    const updateColumnSize = (parent: Schema) => {
+      if (!parent) return;
+      const len = Object.values(parent.properties).length;
+      parent.mapProperties((s) => {
+        s['x-component-props'] = s['x-component-props'] || {};
+        s['x-component-props']['width'] = 100 / len;
+      });
+    };
+
+    this.on('insertAdjacent', ({ current, position, schema, wrap, wrapped, removed }) => {
+      if (wrapped?.['x-component'] === 'Grid.Col') {
+        updateColumnSize(wrapped.parent);
+      }
+      if (removed?.['x-component'] === 'Grid.Col') {
+        updateColumnSize(removed.parent);
+      }
+      this.refresh();
+    });
+
+    this.on('remove', ({ removed }) => {
+      if (removed?.['x-component'] === 'Grid.Col') {
+        updateColumnSize(removed.parent);
+      }
+      this.refresh();
+    });
+  }
 
   prepareProperty(schema: ISchema) {
     if (!schema.type) {
@@ -244,20 +167,20 @@ class EditableDesignable {
     generateUid(schema);
   }
 
-  // on(name: 'insertAdjacent' | 'remove' | 'error' | 'patch' | 'batchPatch', listener: any) {
-  //   if (!this.events[name]) {
-  //     this.events[name] = [];
-  //   }
-  //   this.events[name].push(listener);
-  // }
+  on(name: 'insertAdjacent' | 'remove' | 'error' | 'patch' | 'batchPatch', listener: any) {
+    if (!this.events[name]) {
+      this.events[name] = [];
+    }
+    this.events[name].push(listener);
+  }
 
-  // async emit(name: 'insertAdjacent' | 'remove' | 'error' | 'patch' | 'batchPatch', ...args) {
-  //   if (!this.events[name]) {
-  //     return;
-  //   }
-  //   const [opts, ...others] = args;
-  //   return Promise.all(this.events[name].map((fn) => fn.bind(this)({ current: this.current, ...opts }, ...others)));
-  // }
+  async emit(name: 'insertAdjacent' | 'remove' | 'error' | 'patch' | 'batchPatch', ...args) {
+    if (!this.events[name]) {
+      return;
+    }
+    const [opts, ...others] = args;
+    return Promise.all(this.events[name].map((fn) => fn.bind(this)({ current: this.current, ...opts }, ...others)));
+  }
 
   parentsIn(schema: Schema) {
     if (!schema) {
@@ -361,8 +284,6 @@ class EditableDesignable {
         this.updateModel(replaceKeys[key], schema[key]);
       }
     });
-
-    // this.emit('patch', { schema });
     this.refresh();
   }
 

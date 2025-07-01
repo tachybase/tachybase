@@ -511,7 +511,7 @@ EditableGrid.Col = observer(
       </EditableGridColContext.Provider>
     );
   },
-  { displayName: 'EditableGrid.Row' },
+  { displayName: 'EditableGrid.Col' },
 );
 
 EditableGrid.wrap = (schema: ISchema) => {

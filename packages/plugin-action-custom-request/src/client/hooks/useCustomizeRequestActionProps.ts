@@ -126,7 +126,6 @@ export const useCustomizeRequestActionProps = () => {
           });
           form.setValues(reqFormValues);
         }
-        const headerContentType = res.headers?.getContentType();
         if (onSuccess?.down) {
           if (headerContentType === 'application/octet-stream') {
             const downTitle = onSuccess.downTitle;

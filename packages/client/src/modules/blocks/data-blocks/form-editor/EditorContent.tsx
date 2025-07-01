@@ -1,10 +1,9 @@
-import { Schema } from '@tachybase/schema';
+import { observer, Schema } from '@tachybase/schema';
 
 import { Layout } from 'antd';
-import _, { cloneDeep } from 'lodash';
+import _ from 'lodash';
 
-import { observer } from '../../../../../../schema/src/react';
-import { PageRefreshProvider, usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
+import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import { SchemaComponent } from '../../../../schema-component';
 import { EditableGrid } from './EditableGrid';
 

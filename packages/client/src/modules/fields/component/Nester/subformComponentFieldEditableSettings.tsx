@@ -12,7 +12,6 @@ import {
   useIsFieldReadPretty,
   useIsFormReadPretty,
 } from '../../../../schema-component/antd/form-item/FormItem.Settings';
-import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 
 export const subformComponentFieldEditableSettings = new EditableSchemaSettings({
   name: 'editableFieldSettings:component:Nester',
@@ -101,13 +100,11 @@ export const subformComponentFieldEditableSettings = new EditableSchemaSettings(
         return !useIsFormReadPretty() && type === 'update';
       },
       useSchema() {
-        const { t } = useTranslation();
         const field = useField<Field>();
         const fieldSchema = useFieldSchema();
         return {
           type: 'boolean',
-          default:
-            fieldSchema['x-component-props']?.multiple === undefined ? true : fieldSchema['x-component-props'].multiple,
+          default: fieldSchema['x-component-props']?.allowDissociate !== false,
           'x-decorator': 'FormItem',
           'x-component': 'Checkbox',
           'x-content': '{{t("Allow dissociate")}}',

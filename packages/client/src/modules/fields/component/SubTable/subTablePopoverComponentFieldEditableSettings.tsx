@@ -11,7 +11,6 @@ import { useCollectionManager } from '../../../../data-source';
 import { useActionContext, useCompile, useFieldModeOptions, useIsAddNewForm } from '../../../../schema-component';
 import { isSubMode } from '../../../../schema-component/antd/association-field/util';
 import { useIsAssociationField, useIsFieldReadPretty } from '../../../../schema-component/antd/form-item';
-import { useEditableDesignable } from '../../../blocks/data-blocks/form-editor/EditableDesignable';
 import { SecondLevelSelect } from './secondLevelSelect';
 
 export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaSettings({

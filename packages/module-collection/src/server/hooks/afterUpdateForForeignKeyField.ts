@@ -114,7 +114,7 @@ export function afterUpdateForForeignKeyField(db: Database) {
     } = model.get();
 
     if (source || !interfaceType) return;
-
+    if (newTarget === '__temp__') return;
     const { target: oldTarget, foreignKey: oldForeignKey, otherKey: oldOtherKey } = model.previous('options') || {};
 
     const fieldsRepo = db.getRepository('fields');
@@ -238,7 +238,7 @@ export function afterUpdateForForeignKeyField(db: Database) {
     try {
       await hook(model, options);
     } catch (error) {
-      /* empty */
+      console.error('Failed to update foreign key field:', error);
     }
   };
 }
