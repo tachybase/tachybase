@@ -1,4 +1,4 @@
-name: Tachybase Image Nightly
+name: Tegojs Image Nightly
 
 on:
   workflow_dispatch:
