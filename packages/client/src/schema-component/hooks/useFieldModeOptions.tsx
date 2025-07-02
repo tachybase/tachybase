@@ -16,7 +16,6 @@ export const useFieldModeOptions = (props?) => {
   const form = useForm();
   const isReadPretty = fieldSchema?.['x-read-pretty'] || field.readPretty || form.readPretty;
   const dm = useDataSourceManager();
-
   const isTableField = props?.fieldSchema;
   const { getField } = useCollection_deprecated();
   const collectionField =
@@ -28,7 +27,7 @@ export const useFieldModeOptions = (props?) => {
   const compile = useCompile();
   const fieldModeOptions = useMemo(() => {
     if (!collectionField || !collectionField?.interface) {
-      return;
+      return [];
     }
     if (
       !['o2o', 'oho', 'obo', 'o2m', 'linkTo', 'm2o', 'm2m', 'updatedBy', 'createdBy'].includes(
@@ -135,9 +134,9 @@ export const useFieldModeOptions = (props?) => {
   }, [t, collectionField?.interface, label]);
   collectionInterface?.componentOptions
     ?.filter((item) => !item.useVisible || item.useVisible())
-    .forEach((item) => {
-      if (!fieldModeOptions.find((modeItem) => modeItem.value === item.value)) {
-        fieldModeOptions.push({
+    ?.forEach((item) => {
+      if (!fieldModeOptions?.find((modeItem) => modeItem.value === item.value)) {
+        fieldModeOptions?.push({
           label: compile(item.label),
           value: item.value,
         });

@@ -53,6 +53,7 @@ import { uploadAttachmentComponentFieldSettings } from '../modules/fields/compon
 import { inputComponentFieldSettings } from '../modules/fields/component/Input/inputComponentFieldsSettings';
 import { inputNumberComponentFieldSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldSettings';
 import { inputPreviewComponentFieldSettings } from '../modules/fields/component/InputPreview/inputPreviewComponentFieldSettings';
+import { multipleComponentFieldSettings } from '../modules/fields/component/MultipleSelect/multipleSelectComponentFieldSettings';
 import { subformComponentFieldSettings } from '../modules/fields/component/Nester/subformComponentFieldSettings';
 import { recordPickerComponentFieldSettings } from '../modules/fields/component/Picker/recordPickerComponentFieldSettings';
 import { subformPopoverComponentFieldSettings } from '../modules/fields/component/PopoverNester/subformPopoverComponentFieldSettings';
@@ -128,5 +129,6 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(cascadeSelectComponentFieldSettings);
     this.schemaSettingsManager.add(uploadAttachmentComponentFieldSettings);
     this.schemaSettingsManager.add(cascaderComponentFieldSettings);
+    this.schemaSettingsManager.add(multipleComponentFieldSettings);
   }
 }

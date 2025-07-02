@@ -109,6 +109,22 @@ export class CollectionPlugin extends Plugin {
       label: '{{t("CustomTitle")}}',
       value: 'CustomTitle',
     });
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('select', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('checkbox', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('radioGroup', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
+    this.app.dataSourceManager.collectionFieldInterfaceManager.addFieldInterfaceComponentOption('multipleSelect', {
+      label: '{{t("CustomTitle")}}',
+      value: 'CustomTitle',
+    });
   }
 
   addFieldInterfaceGroups() {
