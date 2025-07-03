@@ -30,4 +30,9 @@ export const TextCopyButton = observer(
   },
 );
 
-export const TextCopyButtonNode = <TextCopyButton />;
+export const renderTextCopyButton = () => {
+  if (TextCopyButton) {
+    return <TextCopyButton />;
+  }
+  return null;
+};

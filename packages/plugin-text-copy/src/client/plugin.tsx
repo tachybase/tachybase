@@ -1,12 +1,16 @@
 import { Plugin } from '@tachybase/client';
 
 import { enableCopierSettingItem } from './enableCopierSettingItem';
-import { TextCopyButtonNode } from './TextCopyButton';
+import { renderTextCopyButton } from './TextCopyButton';
+import { ViewTextCopyWrapper } from './ViewTextCopyWrapper';
 
 class PluginTextCopyClient extends Plugin {
   async load() {
+    this.app.addComponents({
+      ViewTextCopyWrapper,
+    });
     this.app.addScopes({
-      TextCopyButtonNode,
+      renderTextCopyButton,
     });
 
     const settingList = ['fieldSettings:component:Input', 'fieldSettings:component:InputNumber'];
