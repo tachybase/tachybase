@@ -39,7 +39,7 @@
     "find-package-json": "^1.2.0",
     "fs-extra": "^11.2.0",
     "glob": "11.0.0",
-    "i18next": "23.16.8",
+    "i18next": "25.3.0",
     "ini": "^4.1.3",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
