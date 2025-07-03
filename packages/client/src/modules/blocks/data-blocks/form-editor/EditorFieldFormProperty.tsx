@@ -27,9 +27,9 @@ import * as components from '../../../../collection-manager/Configuration/compon
 import { CollectionFieldProvider } from '../../../../data-source';
 import { SchemaComponent, SchemaComponentContext, useSchemaComponentContext } from '../../../../schema-component';
 import { findSchema } from '../../../../schema-initializer/utils';
-import { useStyles } from '../form/styles';
 import { useEditableSelectedField } from './EditableSelectedFieldContext';
 import { useEditableSelectedForm } from './EditableSelectedFormContent';
+import { useStyles } from './styles';
 
 export const EditorFieldFormProperty = ({ schema, setSchemakey, eddn }) => {
   const { Sider } = Layout;
@@ -87,6 +87,7 @@ const EditorFieldProperty = ({ schema, setSchemakey }) => {
         justifyContent: 'center',
         color: '#999',
         fontSize: '14px',
+        marginTop: '20%',
       }}
     >
       {t('Click a field to start customizing its properties')}

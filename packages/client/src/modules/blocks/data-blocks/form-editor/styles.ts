@@ -57,11 +57,16 @@ export const useStyles = createStyles(({ css }) => {
       }
     `,
     fieldsBlock: css`
-      margin-top: 15px;
+      margin-top: 5px;
       margin-left: 8px;
       margin-right: 8px;
       .ant-btn-fields {
         width: 100%;
+        display: flex;
+        gap: 6px;
+        padding-left: 5px;
+        background-color: #f9fafc;
+        border-color: #e8ecf2;
       }
     `,
     previewDrawer: css`

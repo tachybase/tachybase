@@ -16,8 +16,8 @@ import {
   useSchemaComponentContext,
 } from '../../../../schema-component';
 import { findSchema } from '../../../../schema-initializer/utils';
-import { useStyles } from '../form/styles';
 import { EditableGrid } from './EditableGrid';
+import { useStyles } from './styles';
 
 export const EditorHeader = ({ onCancel, schema }) => {
   const { title: collectionTitle, key, fields } = useCollection_deprecated();

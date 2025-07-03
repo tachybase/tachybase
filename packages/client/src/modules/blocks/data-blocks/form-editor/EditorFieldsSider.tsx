@@ -3,7 +3,7 @@ import { RecordProvider, useCurrentAppInfo, useTranslation } from '@tachybase/cl
 import { action, createForm, FormContext, ISchema, Schema, uid, useForm } from '@tachybase/schema';
 
 import { FormOutlined } from '@ant-design/icons';
-import { Button, Col, Collapse, Layout, Row, Tabs } from 'antd';
+import { Button, Col, Collapse, Layout, Row, Tabs, Tooltip } from 'antd';
 import _, { cloneDeep } from 'lodash';
 
 import { SchemaInitializerItemType, useApp } from '../../../../application';
@@ -17,9 +17,10 @@ import {
   useResourceContext,
 } from '../../../../collection-manager';
 import { CollectionRecordContext, useExtendCollections } from '../../../../data-source';
+import { Icon } from '../../../../icon';
 import { useActionContext, useCompile } from '../../../../schema-component';
 import { findSchema, removeGridFormItem } from '../../../../schema-initializer/utils';
-import { useStyles } from '../form/styles';
+import { useStyles } from './styles';
 
 type EditorFieldsSiderProps = {
   schema: Schema;
@@ -91,7 +92,7 @@ export const EditorFieldsSider = ({ schema, setSchemakey, eddn }) => {
     },
   };
   return (
-    <Sider width={300} style={{ background: 'white', overflow: 'auto' }}>
+    <Sider width={250} style={{ background: 'white', overflow: 'auto' }}>
       <RecordProvider record={record}>
         <ResourceActionProvider {...resourceActionProps}>
           <FormContext.Provider value={form}>
@@ -139,12 +140,12 @@ const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, opti
 
   return (
     <div className={styles.fieldsBlock}>
-      <p style={{ fontWeight: 500 }}>{t('Display fields')}</p>
+      <p style={{ fontWeight: 400 }}>{t('Display fields')}</p>
       <FieldButtonGrid schema={schema} items={fieldsOptions} onInsert={handleInsert} />
 
       {fieldsParentOptions?.length > 0 && (
         <>
-          <p style={{ fontWeight: 500 }}>{t('Parent collection fields')}</p>
+          <p style={{ fontWeight: 400 }}>{t('Parent collection fields')}</p>
           <Collapse
             items={fieldsParentOptions.map((group, index) => ({
               key: String(index),
@@ -159,7 +160,7 @@ const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, opti
 
       {fieldsExtendOptions?.length > 0 && (
         <>
-          <p style={{ fontWeight: 500 }}>{t('Extend collections')}</p>
+          <p style={{ fontWeight: 400 }}>{t('Extend collections')}</p>
           <Collapse
             items={fieldsExtendOptions.map((group, index) => ({
               key: String(index),
@@ -174,7 +175,7 @@ const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, opti
 
       {associatedFormFieldsOptions?.length > 0 && (
         <>
-          <p style={{ fontWeight: 500, marginBottom: 0 }}>{t('Display association fields')}</p>
+          <p style={{ fontWeight: 400, marginBottom: 0 }}>{t('Display association fields')}</p>
           <Collapse
             items={associatedFormFieldsOptions.map((group, index) => ({
               key: String(index),
@@ -187,7 +188,7 @@ const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, opti
         </>
       )}
 
-      <p style={{ fontWeight: 500 }}>{t('Other fields')}</p>
+      <p style={{ fontWeight: 400 }}>{t('Other fields')}</p>
       <FieldButtonGrid
         schema={schema}
         items={extraItems.map((item) =>
@@ -219,7 +220,7 @@ const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, opti
 const FieldButtonGrid: React.FC<FieldButtonGridProps> = ({ schema, items, onInsert, span = 12 }) => {
   const compile = useCompile();
   return (
-    <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
+    <Row gutter={[8, 8]} style={{ marginBottom: '20px', rowGap: '12px' }}>
       {items.map((item, index) => {
         const s = item.schema;
         let exists = false;
@@ -228,21 +229,33 @@ const FieldButtonGrid: React.FC<FieldButtonGridProps> = ({ schema, items, onInse
         }
 
         return (
-          <Col span={span} key={item.name || index}>
-            <Button
-              className="ant-btn-fields"
-              color="default"
-              variant="filled"
-              onClick={() => {
-                if (exists) return;
-                item?.schemaInitialize?.(s);
-                onInsert(s);
-              }}
-              disabled={!!exists}
-              icon={item.name === 'addText' ? <FormOutlined /> : undefined}
-            >
-              {compile(item.title)}
-            </Button>
+          <Col span={span} key={item.name || index} style={{ paddingLeft: '8px', paddingRight: '8px' }}>
+            <Tooltip title={compile(item.title)} arrow={false} overlayInnerStyle={{ fontSize: 12 }}>
+              <Button
+                className="ant-btn-fields"
+                variant="filled"
+                style={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                onClick={() => {
+                  if (exists) return;
+                  item?.schemaInitialize?.(s);
+                  onInsert(s);
+                }}
+                disabled={!!exists}
+              >
+                <Icon type={item.icon || 'EditOutlined'} style={{ fontSize: 14 }} />
+                <span
+                  style={{
+                    flexShrink: 1,
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    fontSize: 12,
+                  }}
+                >
+                  {compile(item.title)}
+                </span>
+              </Button>
+            </Tooltip>
           </Col>
         );
       })}
@@ -330,6 +343,7 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
                 return {
                   label: compile(child.title),
                   title: compile(child.title),
+                  icon: child.icon,
                   key: child.name,
                   dataTargetScope: child.targetScope,
                 };
@@ -347,6 +361,7 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
               return {
                 label: compile(child.title),
                 title: compile(child.title),
+                icon: child.icon,
                 key: child.name,
                 dataTargetScope: child.targetScope,
               };
@@ -361,82 +376,98 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
       <div className={styles.fieldsBlock}>
         {items.map((group, index) => (
           <div key={index}>
-            <p style={{ fontWeight: 500 }}>{group.title}</p>
-            <Row gutter={[8, 8]} style={{ marginBottom: '20px' }}>
+            <p style={{ fontWeight: 400, fontSize: 14 }}>{group.title}</p>
+            <Row gutter={[8, 8]} style={{ marginBottom: '20px', rowGap: '12px' }}>
               {group.children.map((item, index) => (
-                <Col span={12} key={item.key || index}>
-                  <Button
-                    className="ant-btn-fields"
-                    color="default"
-                    variant="filled"
-                    onClick={async () => {
-                      const defaultSchema = getInterface(item.key);
-                      const initialValue: any = {
-                        name: `f_${uid()}`,
-                        ...cloneDeep(defaultSchema.default),
-                        interface: defaultSchema.name,
-                      };
-                      if (!initialValue.uiSchema) {
-                        initialValue.uiSchema = {};
-                      }
-                      const relationInterfaces = ['obo', 'oho', 'o2o', 'o2m', 'm2m', 'm2o'];
-                      if (relationInterfaces.includes(initialValue.interface)) {
-                        initialValue.target = '__temp__';
-                        initialValue.targetKey = 'id';
-                      }
-                      initialValue.uiSchema.title = item.title || compile('Unnamed');
-                      if (initialValue.reverseField) {
-                        initialValue.reverseField.name = `f_${uid()}`;
-                      }
-                      if (initialValue.autoCreateReverseField) {
-                        /* empty */
-                      } else {
-                        delete initialValue.reverseField;
-                      }
-                      delete initialValue.autoCreateReverseField;
-                      const interfaceConfig = getInterface(initialValue.interface);
-                      const targetCollection = getCollection(initialValue.target);
-                      const isFileCollection =
-                        initialValue?.target && getCollection(initialValue?.target)?.template === 'file';
-                      const isAssociationField = targetCollection;
-                      const fieldNames = initialValue?.uiSchema['x-component-props']?.['fieldNames'];
-                      const editableFieldSchema = {
-                        type: 'string',
-                        name: initialValue.name,
-                        'x-toolbar': 'EditableFormItemSchemaToolbar',
-                        'x-settings': 'fieldSettings:FormItem',
-                        'x-component': 'CollectionField',
-                        'x-decorator': 'FormItem',
-                        'x-collection-field': `${record.name}.${initialValue.name}`,
-                        'x-component-props': isFileCollection
-                          ? {
-                              fieldNames: {
-                                label: 'preview',
-                                value: 'id',
-                              },
-                            }
-                          : isAssociationField && fieldNames
+                <Col span={12} key={item.key || index} style={{ paddingLeft: '8px', paddingRight: '8px' }}>
+                  <Tooltip title={compile(item.title)} arrow={false} overlayInnerStyle={{ fontSize: 12 }}>
+                    <Button
+                      className="ant-btn-fields"
+                      variant="filled"
+                      style={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                      onClick={async () => {
+                        const defaultSchema = getInterface(item.key);
+                        const initialValue: any = {
+                          name: `f_${uid()}`,
+                          ...cloneDeep(defaultSchema.default),
+                          interface: defaultSchema.name,
+                        };
+                        if (!initialValue.uiSchema) {
+                          initialValue.uiSchema = {};
+                        }
+                        const relationInterfaces = ['obo', 'oho', 'o2o', 'o2m', 'm2m', 'm2o'];
+                        if (relationInterfaces.includes(initialValue.interface)) {
+                          initialValue.target = '__temp__';
+                          initialValue.targetKey = 'id';
+                        }
+                        initialValue.uiSchema.title = item.title || compile('Unnamed');
+                        if (initialValue.reverseField) {
+                          initialValue.reverseField.name = `f_${uid()}`;
+                        }
+                        if (initialValue.autoCreateReverseField) {
+                          /* empty */
+                        } else {
+                          delete initialValue.reverseField;
+                        }
+                        delete initialValue.autoCreateReverseField;
+                        const interfaceConfig = getInterface(initialValue.interface);
+                        const targetCollection = getCollection(initialValue.target);
+                        const isFileCollection =
+                          initialValue?.target && getCollection(initialValue?.target)?.template === 'file';
+                        const isAssociationField = targetCollection;
+                        const fieldNames = initialValue?.uiSchema['x-component-props']?.['fieldNames'];
+                        const editableFieldSchema = {
+                          type: 'string',
+                          name: initialValue.name,
+                          'x-toolbar': 'EditableFormItemSchemaToolbar',
+                          'x-settings': 'fieldSettings:FormItem',
+                          'x-component': 'CollectionField',
+                          'x-decorator': 'FormItem',
+                          'x-collection-field': `${record.name}.${initialValue.name}`,
+                          'x-component-props': isFileCollection
                             ? {
-                                fieldNames: { ...fieldNames, label: targetCollection?.titleField || fieldNames.label },
+                                fieldNames: {
+                                  label: 'preview',
+                                  value: 'id',
+                                },
                               }
-                            : {},
-                        'x-read-pretty': initialValue?.uiSchema?.['x-read-pretty'],
-                      };
-                      interfaceConfig?.schemaInitialize?.(editableFieldSchema, {
-                        field: initialValue,
-                        block: 'Form',
-                        readPretty: false,
-                        action,
-                        targetCollection,
-                      });
-                      await resource.create({ values: initialValue });
-                      refresh();
-                      await refreshCM();
-                      handleInsert(editableFieldSchema);
-                    }}
-                  >
-                    {compile(item.title)}
-                  </Button>
+                            : isAssociationField && fieldNames
+                              ? {
+                                  fieldNames: {
+                                    ...fieldNames,
+                                    label: targetCollection?.titleField || fieldNames.label,
+                                  },
+                                }
+                              : {},
+                          'x-read-pretty': initialValue?.uiSchema?.['x-read-pretty'],
+                        };
+                        interfaceConfig?.schemaInitialize?.(editableFieldSchema, {
+                          field: initialValue,
+                          block: 'Form',
+                          readPretty: false,
+                          action,
+                          targetCollection,
+                        });
+                        await resource.create({ values: initialValue });
+                        refresh();
+                        await refreshCM();
+                        handleInsert(editableFieldSchema);
+                      }}
+                    >
+                      <Icon type={item.icon || 'EditOutlined'} style={{ fontSize: 14 }} />
+                      <span
+                        style={{
+                          flexShrink: 1,
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          fontSize: 12,
+                        }}
+                      >
+                        {compile(item.title)}
+                      </span>
+                    </Button>
+                  </Tooltip>
                 </Col>
               ))}
             </Row>
@@ -591,6 +622,7 @@ const useFormFieldButtonWrappers = (options?: any) => {
       const resultItem = {
         type: 'item',
         name: field.name,
+        icon: interfaceConfig.icon || 'EditOutlined',
         title: field?.uiSchema?.title || field.name,
         Component: 'CollectionFieldInitializer',
         remove: removeGridFormItem,
@@ -662,6 +694,7 @@ const useFormParentCollectionFieldsButtonWrappers = (options?) => {
             name: field?.uiSchema?.title || field.name,
             type: 'item',
             title: field?.uiSchema?.title || field.name,
+            icon: interfaceConfig.icon || 'EditOutlined',
             Component: 'CollectionFieldInitializer',
             remove: removeGridFormItem,
             schemaInitialize: (s) => {
@@ -732,6 +765,7 @@ const useFormExtendCollectionFieldsButtonWrappers = (options?) => {
             type: 'item',
             name: field.name,
             title: field?.uiSchema?.title || field.name,
+            icon: interfaceConfig.icon || 'EditOutlined',
             Component: 'CollectionFieldInitializer',
             remove: removeGridFormItem,
             schemaInitialize: (s) => {
@@ -796,6 +830,7 @@ const useAssociatedFormFieldButtonWrappers = (options?: any) => {
           return {
             name: subField?.uiSchema?.title || subField.name,
             type: 'item',
+            icon: interfaceConfig.icon || 'EditOutlined',
             title: subField?.uiSchema?.title || subField.name,
             Component: 'CollectionFieldInitializer',
             remove: removeGridFormItem,

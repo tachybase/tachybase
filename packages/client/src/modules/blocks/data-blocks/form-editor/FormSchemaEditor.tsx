@@ -8,12 +8,12 @@ import _ from 'lodash';
 import { PageRefreshProvider } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import { CollectionContext, useCollectionManager } from '../../../../data-source';
 import { DndContext, useDesignable } from '../../../../schema-component';
-import { useStyles } from '../form/styles';
 import { createEditableDesignable } from './EditableDesignable';
 import { EditorContent } from './EditorContent';
 import { EditorFieldFormProperty } from './EditorFieldFormProperty';
 import { EditorFieldsSider } from './EditorFieldsSider';
 import { EditorHeader } from './EditorHeader';
+import { useStyles } from './styles';
 
 interface CreateFormBlockUISchemaOptions {
   dataSource: string;
