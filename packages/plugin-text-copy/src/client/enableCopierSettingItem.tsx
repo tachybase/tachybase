@@ -4,7 +4,6 @@ import { useField, useFieldSchema } from '@tachybase/schema';
 import _ from 'lodash';
 
 import { NAMESPACE } from '../constants';
-import { TextCopyButtonNode } from './TextCopyButton';
 
 export const enableCopierSettingItem = {
   name: 'enableCopier',
@@ -12,36 +11,45 @@ export const enableCopierSettingItem = {
   useComponentProps() {
     const { dn } = useDesignable();
     const { t } = useTranslation(NAMESPACE);
-
     const { fieldSchema: tableFieldSchema } = useColumnSchema();
     const fieldSchema = useFieldSchema();
     const field = useField();
-
     const schema = tableFieldSchema || fieldSchema;
 
     return {
       title: t('Display copy button'),
-      checked: !!schema['x-component-props']?.enableCopier,
+      checked: schema['x-component'] === 'ViewTextCopyWrapper',
       onChange: async (checked) => {
-        // TODO: Need to optimize, current implementation doesn't handle existing addonAfter cases
         if (checked) {
-          field.componentProps.addonAfter = TextCopyButtonNode;
-          _.set(schema, 'x-component-props.addonAfter', '{{TextCopyButtonNode}}');
-          _.set(schema, 'x-component-props.enableCopier', true);
-        } else {
-          field.componentProps.addonAfter = null;
-          _.unset(schema, 'x-component-props.addonAfter');
-          _.unset(schema, 'x-component-props.enableCopier');
-        }
+          if (schema['x-component']) {
+            const sourceComponentName = schema['x-component'];
+            _.set(schema, 'x-component-props.textCopyChildren', sourceComponentName);
+          }
 
-        await dn.emit('patch', {
-          schema: {
-            'x-uid': schema['x-uid'],
-            'x-component-props': {
-              ...schema['x-component-props'],
+          await dn.emit('patch', {
+            schema: {
+              'x-uid': schema['x-uid'],
+              'x-component': 'ViewTextCopyWrapper',
+              'x-component-props': {
+                ...schema['x-component-props'],
+              },
             },
-          },
-        });
+          });
+        } else {
+          _.set(schema, 'x-component', schema['x-component-props']?.['textCopyChildren']);
+          _.unset(schema, 'x-component-props.textCopyChildren');
+
+          await dn.emit('patch', {
+            schema: {
+              'x-uid': schema['x-uid'],
+              'x-component': schema['x-component-props']?.['textCopyChildren'],
+              'x-component-props': {
+                ...schema['x-component-props'],
+              },
+            },
+          });
+        }
+        dn.refresh();
       },
     };
   },
