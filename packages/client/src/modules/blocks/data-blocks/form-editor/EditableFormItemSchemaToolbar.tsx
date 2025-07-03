@@ -19,9 +19,9 @@ import {
   useSchemaOptionsContext,
 } from '../../../../schema-component';
 import { SchemaToolbarProps, useGetAriaLabelOfDesigner } from '../../../../schema-settings';
-import { useStyles } from '../../../../schema-settings/styles';
 import { useEditableDesignable } from './EditableDesignable';
 import { useEditableSelectedField } from './EditableSelectedFieldContext';
+import { useStyles } from './styles';
 
 export const EditableFormItemSchemaToolbar = (props) => {
   return <EditableSchemaToolbar showBorder={false} showBackground {...props} />;
@@ -70,6 +70,9 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
     return (
       <Popconfirm
         title={t('Delete field')}
+        description=""
+        icon={null}
+        okType="danger"
         okText={t('Delete')}
         cancelText={t('Cancel')}
         onConfirm={() => {
@@ -92,7 +95,7 @@ const EditableInternalSchemaToolbar: FC<SchemaToolbarProps> = (props) => {
           }
         }}
       >
-        <DeleteOutlined role="button" style={{ color: 'red', cursor: 'pointer' }} />
+        <DeleteOutlined role="button" style={{ cursor: 'pointer' }} />
       </Popconfirm>
     );
   }, []);
