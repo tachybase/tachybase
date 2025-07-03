@@ -2,14 +2,12 @@ import { isMainThread } from 'node:worker_threads';
 import { Context } from '@tachybase/actions';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
-import { MetricsController } from './actions/metrics-controller';
 import { TrackingController } from './actions/tracking-controller';
 import { handleOtherAction } from './hooks/afterAction';
 import { ServerTrackingFilter } from './ServerTrackingFilter';
-import { createUserMetricsMiddleware, initializeUserMetrics } from './user-metrics';
 
 @InjectedPlugin({
-  Controllers: [TrackingController, MetricsController],
+  Controllers: [TrackingController],
 })
 export class ModuleInstrumentationServer extends Plugin {
   serverTrackingFilter: ServerTrackingFilter = null;
@@ -48,21 +46,6 @@ export class ModuleInstrumentationServer extends Plugin {
       }
       this.serverTrackingFilter = new ServerTrackingFilter(this.db);
       await this.serverTrackingFilter.load();
-
-      // 初始化用户指标系统
-      try {
-        const { userMetrics, statsCollector } = await initializeUserMetrics(this.db, true);
-
-        // 添加用户指标中间件
-        this.app.use(createUserMetricsMiddleware(userMetrics), {
-          tag: 'userMetrics',
-          before: 'errorHandler',
-        });
-
-        console.log('[ModuleInstrumentation] 用户指标系统已启动');
-      } catch (error) {
-        console.error('[ModuleInstrumentation] 启动用户指标系统失败:', error);
-      }
     });
     this.app.use(
       async (ctx: Context, next) => {
@@ -85,7 +68,6 @@ export class ModuleInstrumentationServer extends Plugin {
     }
     this.app.acl.allow('instrumentation', 'create', 'public');
     this.app.acl.allow('instrumentation', ['list', 'query'], 'loggedIn');
-    this.app.acl.allow('instrumentation', ['getMetrics', 'getMetricsAsJSON', 'resetMetrics'], 'public');
     this.app.acl.registerSnippet({
       name: `pm.system-services.custom-instrumentation.clientTracking`,
       actions: ['trackingEvents:*'],

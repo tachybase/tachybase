@@ -3,7 +3,7 @@ import { Controller } from '@tachybase/utils';
 
 import { metricsUtils } from '../metrics';
 
-@Controller('instrumentation')
+@Controller('log-metrics')
 export class MetricsController {
   // 获取 Prometheus 格式的指标数据
   async getMetrics(ctx: Context, next: () => Promise<any>) {
