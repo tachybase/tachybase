@@ -47,6 +47,7 @@
     "package-json": "^10.0.1",
     "pm2": "^6.0.8",
     "portfinder": "^1.0.37",
+    "rimraf": "^6.0.1",
     "semver": "^7.7.2",
     "serve": "^14.2.4",
     "tar": "^7.4.3",
@@ -70,8 +71,6 @@
     "@types/semver": "^7.7.0",
     "@types/tar": "^6.1.13",
     "@types/update-notifier": "^6.0.8",
-    "cross-env": "^7.0.3",
-    "esbuild-plugin-file-path-extensions": "^2.1.4",
-    "rimraf": "^6.0.1"
+    "esbuild-plugin-file-path-extensions": "^2.1.4"
   }
 }
