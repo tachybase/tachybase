@@ -15,13 +15,12 @@
     "postinstall": "tachybase postinstall",
     "lint": "oxlint",
     "pm": "tachybase pm",
-    "pm2": "tachybase pm2",
     "prepare": "husky",
-    "start": "tachybase start",
+    "start": "tego start",
     "tachybase": "tachybase",
     "tb": "tachybase",
-    "tbi": "tachybase install",
-    "tbu": "tachybase upgrade",
+    "tbi": "tego install",
+    "tbu": "tego upgrade",
     "tc": "tachybase test:client",
     "tego": "tego",
     "test": "tachybase test",
@@ -69,7 +68,7 @@
   },
   "packageManager": "pnpm@10.12.4",
   "engines": {
-    "node": ">=20.18.0"
+    "node": ">=20.19.0"
   },
   "pnpm": {
     "neverBuiltDependencies": [
