@@ -57,14 +57,21 @@ export const EditorHeader = ({ onCancel, schema }) => {
     patchSchemaToolbars(schema);
     const cardSchema = findSchema(schema, 'x-decorator', 'FormBlockProvider');
     const currentSchema = dn.current;
-    if (cardSchema.name === currentSchema.name) {
-      const newSchema = cloneDeep(cardSchema.toJSON());
-      newSchema.name = newSchema['x-uid'];
-      await dn.insertAdjacent('afterEnd', newSchema);
-      await dn.remove(null);
-    } else {
-      dn.insertAdjacent('beforeEnd', schema.toJSON());
+    try {
+      if (cardSchema.name === currentSchema.name) {
+        const newSchema = cloneDeep(cardSchema.toJSON());
+        newSchema.name = newSchema['x-uid'];
+        await dn.insertAdjacent('afterEnd', newSchema);
+        await dn.remove(null);
+      } else {
+        dn.insertAdjacent('beforeEnd', schema.toJSON());
+      }
+    } catch (error) {
+      console.error('dn error:', error);
+      message.error(t('Save failed due to schema update error'));
+      return;
     }
+
     await onCancel();
   };
 
