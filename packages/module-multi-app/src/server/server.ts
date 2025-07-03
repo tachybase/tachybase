@@ -43,21 +43,26 @@ const defaultSubAppUpgradeHandle: SubAppUpgradeHandler = async (mainApp: Applica
     });
 
     console.log({ beforeSubAppStatus });
-    try {
-      mainApp.setMaintainingMessage(`upgrading sub app ${instance.name}...`);
-      console.log(`${instance.name}: upgrading...`);
 
-      await subApp.runAsCLI(['upgrade'], { from: 'user' });
-      if (!beforeSubAppStatus && AppSupervisor.getInstance().getAppStatus(instance.name) === 'initialized') {
-        await AppSupervisor.getInstance().removeApp(instance.name);
-      }
-    } catch (error) {
-      console.log(`${instance.name}: upgrade failed`);
-      mainApp.logger.error(error);
-      console.error(error);
-    }
+    setTimeout(() => upgradeSubApp(beforeSubAppStatus, mainApp, instance, subApp));
   }
 };
+
+async function upgradeSubApp(beforeSubAppStatus, mainApp, instance, subApp) {
+  try {
+    mainApp.setMaintainingMessage(`upgrading sub app ${instance.name}...`);
+    console.log(`${instance.name}: upgrading...`);
+
+    await subApp.runAsCLI(['upgrade'], { from: 'user' });
+    if (!beforeSubAppStatus && AppSupervisor.getInstance().getAppStatus(instance.name) === 'initialized') {
+      await AppSupervisor.getInstance().removeApp(instance.name);
+    }
+  } catch (error) {
+    console.log(`${instance.name}: upgrade failed`);
+    mainApp.logger.error(error);
+    console.error(error);
+  }
+}
 
 const defaultDbCreator = async (app: Application) => {
   const databaseOptions = app.options.database as any;
