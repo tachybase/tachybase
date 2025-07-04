@@ -159,7 +159,7 @@
   "Cascader": "级联选择",
   "Categories": "数据表类别",
   "Category name": "分类名称",
-  "Caution: Changing this will directly modify the collection name": "注意: 更改这里的名称会直接更改数据表名",
+  "Caution: Changing this will directly modify the collection name": "注意: 更改这里的名称会在保存时直接更改数据表名",
   "Center": "居中",
   "Chang on Parent": "选择父级",
   "Change password": "修改密码",

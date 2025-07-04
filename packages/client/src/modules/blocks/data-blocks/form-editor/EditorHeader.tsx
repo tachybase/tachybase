@@ -112,6 +112,7 @@ export const EditorHeader = ({ onCancel, schema }) => {
             mode="horizontal"
             overflowedIndicator={false}
             selectedKeys={['formEdit']}
+            style={{ minWidth: 100 }}
             items={[
               {
                 key: 'formEdit',
@@ -225,7 +226,7 @@ const PreviewDrawer = ({ open, onClose, schema }) => {
 const PCPreviewContent = ({ schema }) => {
   const designerCtx = useSchemaComponentContext();
   return (
-    <div style={{ width: '100%', maxWidth: '700px', height: '100%' }}>
+    <div style={{ width: '100%', maxWidth: '700px', height: '100%', marginTop: '10%' }}>
       <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
         <SchemaComponent schema={schema} components={{ EditableGrid }} />
       </SchemaComponentContext.Provider>

@@ -151,6 +151,7 @@ const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, opti
               key: String(index),
               label: compile(group.title),
               children: <FieldButtonGrid schema={schema} items={group.children} onInsert={handleInsert} />,
+              styles: { body: { padding: 0 } },
             }))}
             bordered={false}
             style={{ background: 'white' }}
@@ -166,6 +167,7 @@ const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, opti
               key: String(index),
               label: compile(group.title),
               children: <FieldButtonGrid schema={schema} items={group.children} onInsert={handleInsert} />,
+              styles: { body: { padding: 0 } },
             }))}
             bordered={false}
             style={{ background: 'white' }}
@@ -181,6 +183,7 @@ const EditorExistFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema, opti
               key: String(index),
               label: compile(group.title),
               children: <FieldButtonGrid schema={schema} items={group.children} onInsert={handleInsert} />,
+              styles: { body: { padding: 0 } },
             }))}
             bordered={false}
             style={{ background: 'white' }}
