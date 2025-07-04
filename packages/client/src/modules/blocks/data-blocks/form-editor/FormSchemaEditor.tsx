@@ -30,7 +30,7 @@ export const FormSchemaEditor = ({ open, onCancel, options }) => {
   const api = useAPIClient();
   const { t } = useTranslation();
   const { styles } = useStyles();
-  const collectionName = options?.item?.name || null;
+  const collectionName = options?.item?.collectionName || options?.item?.name || null;
   const collectionManager = useCollectionManager();
   const collection = collectionManager.getCollection(collectionName);
 
