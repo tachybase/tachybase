@@ -50,6 +50,50 @@ export const userMetrics = {
   }),
 };
 
+// 追踪相关指标
+export const trackingMetrics = {
+  // 操作执行次数（按配置分组）
+  actionExecutionCount: new client.Counter({
+    name: 'tachybase_action_execution_total',
+    help: '操作执行总次数',
+    labelNames: ['config_title', 'resource_name', 'action_name', 'status'],
+    registers: [register],
+  }),
+
+  // 操作执行时长（直方图）
+  actionExecutionDuration: new client.Histogram({
+    name: 'tachybase_action_execution_duration_seconds',
+    help: '操作执行时长（秒）',
+    labelNames: ['config_title', 'resource_name', 'action_name'],
+    buckets: [0.1, 0.5, 1, 2, 5, 10, 30, 60],
+    registers: [register],
+  }),
+
+  // 用户操作频率（按用户分组）
+  userActionFrequency: new client.Counter({
+    name: 'tachybase_user_action_total',
+    help: '用户操作总次数',
+    labelNames: ['user_id', 'config_title', 'resource_name', 'action_name'],
+    registers: [register],
+  }),
+
+  // 错误操作次数
+  errorActionCount: new client.Counter({
+    name: 'tachybase_action_error_total',
+    help: '操作错误总次数',
+    labelNames: ['config_title', 'resource_name', 'action_name', 'error_type'],
+    registers: [register],
+  }),
+
+  // 追踪配置数量
+  trackingConfigCount: new client.Gauge({
+    name: 'tachybase_tracking_config_total',
+    help: '追踪配置总数',
+    labelNames: ['status'],
+    registers: [register],
+  }),
+};
+
 // 工具函数
 export const metricsUtils = {
   // 记录登录成功
@@ -96,12 +140,114 @@ export const metricsUtils = {
   },
 };
 
+// 追踪指标工具类
+export class TrackingMetricsUtils {
+  private static instance: TrackingMetricsUtils;
+
+  static getInstance(): TrackingMetricsUtils {
+    if (!TrackingMetricsUtils.instance) {
+      TrackingMetricsUtils.instance = new TrackingMetricsUtils();
+    }
+    return TrackingMetricsUtils.instance;
+  }
+
+  // 更新追踪配置计数
+  updateTrackingConfigCount(enabledCount: number, totalCount: number) {
+    trackingMetrics.trackingConfigCount.set({ status: 'enabled' }, enabledCount);
+    trackingMetrics.trackingConfigCount.set({ status: 'total' }, totalCount);
+  }
+
+  // 记录操作执行
+  recordActionExecution(
+    config: any,
+    status: 'success' | 'error' = 'success',
+    duration?: number,
+    userId?: string,
+    errorType?: string,
+  ) {
+    const labels = {
+      config_title: config.title,
+      resource_name: config.resourceName,
+      action_name: config.action,
+      status,
+    };
+
+    // 记录执行次数
+    trackingMetrics.actionExecutionCount.inc(labels);
+
+    // 记录执行时长
+    if (duration !== undefined) {
+      trackingMetrics.actionExecutionDuration.observe(
+        {
+          config_title: config.title,
+          resource_name: config.resourceName,
+          action_name: config.action,
+        },
+        duration / 1000, // 转换为秒
+      );
+    }
+
+    // 记录用户操作
+    if (userId) {
+      trackingMetrics.userActionFrequency.inc({
+        user_id: userId,
+        config_title: config.title,
+        resource_name: config.resourceName,
+        action_name: config.action,
+      });
+    }
+
+    // 记录错误
+    if (status === 'error' && errorType) {
+      trackingMetrics.errorActionCount.inc({
+        config_title: config.title,
+        resource_name: config.resourceName,
+        action_name: config.action,
+        error_type: errorType,
+      });
+    }
+  }
+
+  // 记录批量操作
+  recordBatchAction(config: any, count: number, status: 'success' | 'error' = 'success') {
+    const labels = {
+      config_title: config.title,
+      resource_name: config.resourceName,
+      action_name: config.action,
+      status,
+    };
+
+    // 批量增加计数
+    trackingMetrics.actionExecutionCount.inc(labels, count);
+  }
+
+  // 获取所有追踪指标
+  async getTrackingMetrics(): Promise<string> {
+    return await register.metrics();
+  }
+
+  // 获取追踪指标的 JSON 格式
+  async getTrackingMetricsAsJSON(): Promise<any> {
+    return await register.getMetricsAsJSON();
+  }
+
+  // 重置追踪指标
+  resetTrackingMetrics(): void {
+    register.clear();
+  }
+}
+
+// 导出工具实例
+export const trackingMetricsUtils = TrackingMetricsUtils.getInstance();
+
 // 导出注册表
 export { register };
 
 // 默认导出
 export default {
   userMetrics,
+  trackingMetrics,
   metricsUtils,
+  trackingMetricsUtils,
   register,
 };

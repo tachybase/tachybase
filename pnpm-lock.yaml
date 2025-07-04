@@ -1832,9 +1832,6 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
-      prom-client:
-        specifier: ^15.1.3
-        version: 15.1.3
 
   packages/module-message:
     dependencies:
@@ -4094,6 +4091,22 @@ importers:
       react-i18next:
         specifier: ^15.2.0
         version: 15.2.0(i18next@25.1.2(typescript@5.8.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  packages/plugin-log-metrics:
+    dependencies:
+      '@tachybase/client':
+        specifier: workspace:*
+        version: link:../client
+      '@tachybase/server':
+        specifier: workspace:*
+        version: link:../server
+      '@tachybase/test':
+        specifier: workspace:*
+        version: link:../test
+    devDependencies:
+      prom-client:
+        specifier: ^15.1.3
+        version: 15.1.3
 
   packages/plugin-log-viewer:
     dependencies:
