@@ -11,6 +11,15 @@ export const designerMode = {
   useLoadMethod: () => {
     const { designable, setDesignable } = useDesignable() as any;
     const { t } = useTranslation();
+
+    // 检测是否在分享页面
+    const isSharePage = typeof window !== 'undefined' && window.location.pathname.includes('/share');
+
+    // 如果是分享页面，返回 null 表示不显示此选项
+    if (isSharePage) {
+      return null;
+    }
+
     return {
       title: t('Designer mode'),
       actionProps: {
