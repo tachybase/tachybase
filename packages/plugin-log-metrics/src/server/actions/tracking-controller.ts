@@ -1,16 +1,12 @@
 import { Context, Next } from '@tachybase/actions';
 import { Action, Controller } from '@tachybase/utils';
 
-import { trackingMetricsUtils } from '../metrics';
+import { contentType, trackingMetricsUtils } from '../metrics';
 import { TrackingFilter } from '../tracking-filter';
 
 @Controller('log-metrics')
 export class TrackingController {
   private trackingFilter: TrackingFilter;
-
-  constructor() {
-    // 控制器会在 load 时初始化
-  }
 
   setTrackingFilter(trackingFilter: TrackingFilter) {
     this.trackingFilter = trackingFilter;
@@ -19,19 +15,23 @@ export class TrackingController {
   @Action('getTrackingMetrics', { acl: 'public' })
   async getTrackingMetrics(ctx: Context, next: Next) {
     try {
+      console.log('[TrackingController] 开始获取追踪指标...');
       const metrics = await trackingMetricsUtils.getTrackingMetrics();
-      ctx.body = {
-        success: true,
-        data: metrics,
-        format: 'prometheus',
-      };
+      console.log('[TrackingController] 指标获取成功，长度:', metrics.length);
+      // 设置响应类型和内容
+
+      ctx.res.setHeader('Content-Type', 'text/plain; version=0.0.4; charset=utf-8');
+      ctx.res.end(metrics);
+
+      console.log('[TrackingController] text/plain 响应已设置');
+      // return next();
     } catch (error) {
-      ctx.body = {
-        success: false,
-        error: error.message,
-      };
+      console.error('[TrackingController] 获取指标失败:', error);
+      ctx.status = 500;
+      ctx.set('Content-Type', 'text/plain; charset=utf-8');
+      ctx.body = `# ERROR: ${error.message}`;
+      return next();
     }
-    return next();
   }
 
   @Action('getTrackingMetricsAsJSON', { acl: 'public' })
@@ -50,6 +50,37 @@ export class TrackingController {
       };
     }
     return next();
+  }
+
+  @Action('getTrackingMetricsForPrometheus', { acl: 'public' })
+  async getTrackingMetricsForPrometheus(ctx: Context, next: Next) {
+    try {
+      console.log('[TrackingController] 开始获取 Prometheus 格式指标...');
+      const metrics = await trackingMetricsUtils.getTrackingMetrics();
+      console.log('[TrackingController] Prometheus 指标获取成功，长度:', metrics.length);
+
+      // 返回 JSON 格式，包含 Prometheus 文本格式的数据
+      ctx.body = {
+        success: true,
+        data: metrics,
+        format: 'prometheus-text',
+        content_type: 'text/plain; charset=utf-8',
+        timestamp: new Date().toISOString(),
+      };
+
+      console.log('[TrackingController] Prometheus JSON 响应已设置');
+      return next();
+    } catch (error) {
+      console.error('[TrackingController] 获取 Prometheus 指标失败:', error);
+      ctx.status = 500;
+      ctx.body = {
+        success: false,
+        error: error.message,
+        format: 'error',
+        timestamp: new Date().toISOString(),
+      };
+      return next();
+    }
   }
 
   @Action('resetTrackingMetrics', { acl: 'private' })

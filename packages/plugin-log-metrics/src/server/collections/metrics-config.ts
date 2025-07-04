@@ -1,7 +1,13 @@
-import { Collection } from '@tachybase/database';
+import { CollectionOptions, defineCollection } from '@tachybase/database';
 
-export default {
+export default defineCollection({
+  dumpRules: {
+    group: 'log',
+  },
   name: 'metricsConfig',
+  createdAt: true,
+  updatedAt: true,
+  model: 'CollectionModel',
   fields: [
     {
       name: 'title',
@@ -29,23 +35,13 @@ export default {
     },
     {
       name: 'trackingOptions',
-      type: 'json',
+      type: 'jsonb',
       title: '追踪选项',
       defaultValue: {
         meta: [],
         payload: [],
         filter: {},
       },
-    },
-    {
-      name: 'createdAt',
-      type: 'date',
-      title: '创建时间',
-    },
-    {
-      name: 'updatedAt',
-      type: 'date',
-      title: '更新时间',
     },
   ],
   indexes: [
@@ -57,4 +53,4 @@ export default {
       fields: ['enabled'],
     },
   ],
-};
+} as CollectionOptions);

@@ -118,7 +118,67 @@ curl http://localhost:3000/api/log-metrics:getTrackingStats
 
 ## Prometheus 配置
 
-在 Prometheus 配置文件中添加：
+### 方案1：直接使用 JSON 端点（推荐）
+
+由于框架可能强制返回 JSON 格式，我们提供了专门的 JSON 端点：
+
+```yaml
+scrape_configs:
+  - job_name: 'tachybase-tracking'
+    static_configs:
+      - targets: ['localhost:3000']
+    metrics_path: '/api/log-metrics:getTrackingMetricsForPrometheus'
+    scrape_interval: 15s
+    honor_labels: true
+    scrape_protocol: 'http'
+    honor_timestamps: true
+    metric_relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: '(.+)'
+        replacement: '${1}'
+      - source_labels: [__name__]
+        target_label: job
+        regex: '(.+)'
+        replacement: 'tachybase-tracking'
+```
+
+### 方案2：使用转换脚本
+
+如果 Prometheus 无法直接处理 JSON 响应，可以使用转换脚本：
+
+1. **使用 Node.js 脚本**：
+   ```bash
+   # 直接运行转换脚本
+   node convert-metrics.js
+   
+   # 在 Prometheus 配置中使用
+   scrape_configs:
+     - job_name: 'tachybase-tracking'
+       static_configs:
+         - targets: ['localhost:3000']
+       metrics_path: '/tmp/prometheus_metrics.txt'
+       file_sd_configs:
+         - files:
+           - '/tmp/prometheus_metrics.txt'
+       scrape_interval: 15s
+   ```
+
+2. **使用 Shell 脚本**：
+   ```bash
+   # 给脚本执行权限
+   chmod +x convert-metrics.sh
+   
+   # 运行转换脚本
+   ./convert-metrics.sh
+   
+   # 设置定时任务更新指标文件
+   */15 * * * * /path/to/convert-metrics.sh > /tmp/prometheus_metrics.txt
+   ```
+
+### 方案3：传统文本格式端点
+
+如果您的环境支持，也可以使用传统的文本格式端点：
 
 ```yaml
 scrape_configs:
@@ -128,6 +188,11 @@ scrape_configs:
     metrics_path: '/api/log-metrics:getTrackingMetrics'
     scrape_interval: 15s
 ```
+
+**可用的端点**：
+- `/api/log-metrics:getTrackingMetricsForPrometheus` - 返回 JSON 格式的 Prometheus 指标（推荐）
+- `/api/log-metrics:getTrackingMetrics` - 返回文本格式的指标（可能被框架包装为 JSON）
+- `/api/log-metrics:getMetrics` - 返回基础指标
 
 ## Grafana 仪表板
 
@@ -177,8 +242,76 @@ tachybase_user_daily_active_users
    - 调整 Prometheus 抓取间隔
    - 定期重置指标
 
+4. **Prometheus Content-Type 错误**
+   - 错误信息: `Error scraping target: received unsupported Content-Type "application/json; charset=utf-8"`
+   - 原因: 框架强制返回 JSON 格式，但 Prometheus 期望 `text/plain` 格式
+   - 解决方案:
+     - **方案1**: 使用专门的 JSON 端点 `/api/log-metrics:getTrackingMetricsForPrometheus`
+     - **方案2**: 使用转换脚本 `node convert-metrics.js` 或 `./convert-metrics.sh`
+     - **方案3**: 配置 Prometheus 接受 JSON 响应（参考 `prometheus-config-examples.md`）
+   - 推荐使用方案1，因为它不需要修改框架代码
+
+5. **HTTP 503 Service Unavailable 错误**
+   - 错误信息: `Error scraping target: server returned HTTP status 503 Service Unavailable`
+   - 可能原因:
+     - 服务器未启动
+     - 插件未启用
+     - 端口配置错误
+     - 服务器正在维护或重启
+   - 解决方案:
+     - 检查服务器状态: `pnpm tachybase status`
+     - 启动服务器: `pnpm tachybase start`
+     - 检查插件状态: `pnpm tachybase pm list`
+     - 启用插件: `pnpm tachybase pm enable log-metrics`
+     - 运行诊断脚本: `node check-server.js`
+
+6. **HTTP Headers Sent 错误**
+   - 错误信息: `Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client`
+   - 原因: 响应头设置冲突
+   - 解决方案: 已修复，使用标准的 `ctx.type` 和 `ctx.body` 设置响应
+
 ### 日志调试
 启用详细日志：
 ```bash
 DEBUG=plugin-log-metrics:* npm start
-``` 
+```
+
+### 测试端点
+运行测试脚本验证端点是否正常工作：
+```bash
+node test-metrics-endpoint.js
+```
+
+这个脚本会测试两个端点：
+- `/api/log-metrics:getTrackingMetrics`
+- `/api/log-metrics:getMetrics`
+
+并验证它们返回正确的 Content-Type (`text/plain`)。
+
+### 服务器状态检查
+运行诊断脚本检查服务器状态：
+```bash
+node check-server.js
+```
+
+这个脚本会：
+- 检查服务器端口是否开放
+- 测试所有 metrics 端点
+- 验证响应状态和 Content-Type
+- 提供详细的诊断信息
+
+### 转换脚本测试
+测试 JSON 到 Prometheus 格式的转换：
+```bash
+# 测试 Node.js 转换脚本
+node test-conversion.js
+
+# 测试 Shell 转换脚本
+chmod +x convert-metrics.sh
+./convert-metrics.sh
+```
+
+这些脚本会：
+- 获取 JSON 格式的指标数据
+- 转换为 Prometheus 文本格式
+- 验证转换结果的正确性 
