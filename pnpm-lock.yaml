@@ -29,10 +29,10 @@ importers:
         version: 19.8.1(@types/node@20.17.10)(typescript@5.8.3)
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.4.2
-        version: 4.4.2(prettier@3.6.0)
+        version: 4.4.2(prettier@3.6.2)
       '@inquirer/prompts':
-        specifier: ^7.5.3
-        version: 7.5.3(@types/node@20.17.10)
+        specifier: ^7.6.0
+        version: 7.6.0(@types/node@20.17.10)
       '@tachybase/test':
         specifier: workspace:*
         version: link:packages/test
@@ -43,11 +43,11 @@ importers:
         specifier: 20.17.10
         version: 20.17.10
       '@types/react':
-        specifier: ~18.3.18
-        version: 18.3.18
+        specifier: ~18.3.23
+        version: 18.3.23
       '@types/react-dom':
-        specifier: ~18.3.5
-        version: 18.3.5(@types/react@18.3.18)
+        specifier: ~18.3.7
+        version: 18.3.7(@types/react@18.3.23)
       husky:
         specifier: ^9.1.7
         version: 9.1.7
@@ -55,26 +55,26 @@ importers:
         specifier: ^16.1.2
         version: 16.1.2
       oxlint:
-        specifier: ^1.3.0
-        version: 1.3.0
+        specifier: ^1.5.0
+        version: 1.5.0
       prettier:
-        specifier: ^3.6.0
-        version: 3.6.0
+        specifier: ^3.6.2
+        version: 3.6.2
       prettier-plugin-packagejson:
-        specifier: ^2.5.17
-        version: 2.5.17(prettier@3.6.0)
+        specifier: ^2.5.18
+        version: 2.5.18(prettier@3.6.2)
       prettier-plugin-sort-json:
         specifier: ^4.1.1
-        version: 4.1.1(prettier@3.6.0)
+        version: 4.1.1(prettier@3.6.2)
       prettier-plugin-sql:
         specifier: ^0.19.1
-        version: 0.19.1(prettier@3.6.0)
+        version: 0.19.1(prettier@3.6.2)
       pretty-format:
         specifier: ^30.0.2
         version: 30.0.2
       pretty-quick:
         specifier: ^4.2.2
-        version: 4.2.2(prettier@3.6.0)
+        version: 4.2.2(prettier@3.6.2)
       react:
         specifier: ~18.3.1
         version: 18.3.1
@@ -2776,7 +2776,7 @@ importers:
         version: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       antd-style:
         specifier: 3.7.1
-        version: 3.7.1(@types/react@18.3.18)(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 3.7.1(@types/react@18.3.23)(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
         specifier: 1.7.7
         version: 1.7.7
@@ -7089,8 +7089,8 @@ packages:
       '@vue/compiler-sfc':
         optional: true
 
-  '@inquirer/checkbox@4.1.8':
-    resolution: {integrity: sha512-d/QAsnwuHX2OPolxvYcgSj7A9DO9H6gVOy2DvBTx+P2LH2iRTo/RSGV3iwCzW024nP9hw98KIuDmdyhZQj1UQg==}
+  '@inquirer/checkbox@4.1.9':
+    resolution: {integrity: sha512-DBJBkzI5Wx4jFaYm221LHvAhpKYkhVS0k9plqHwaHhofGNxvYB7J3Bz8w+bFJ05zaMb0sZNHo4KdmENQFlNTuQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7098,8 +7098,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/confirm@5.1.12':
-    resolution: {integrity: sha512-dpq+ielV9/bqgXRUbNH//KsY6WEw9DrGPmipkpmgC1Y46cwuBTNx7PXFWTjc3MQ+urcc0QxoVHcMI0FW4Ok0hg==}
+  '@inquirer/confirm@5.1.13':
+    resolution: {integrity: sha512-EkCtvp67ICIVVzjsquUiVSd+V5HRGOGQfsqA4E4vMWhYnB7InUL0pa0TIWt1i+OfP16Gkds8CdIu6yGZwOM1Yw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7107,8 +7107,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/core@10.1.13':
-    resolution: {integrity: sha512-1viSxebkYN2nJULlzCxES6G9/stgHSepZ9LqqfdIGPHj5OHhiBUXVS0a6R0bEC2A+VL4D9w6QB66ebCr6HGllA==}
+  '@inquirer/core@10.1.14':
+    resolution: {integrity: sha512-Ma+ZpOJPewtIYl6HZHZckeX1STvDnHTCB2GVINNUlSEn2Am6LddWwfPkIGY0IUFVjUUrr/93XlBwTK6mfLjf0A==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7116,8 +7116,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/editor@4.2.13':
-    resolution: {integrity: sha512-WbicD9SUQt/K8O5Vyk9iC2ojq5RHoCLK6itpp2fHsWe44VxxcA9z3GTWlvjSTGmMQpZr+lbVmrxdHcumJoLbMA==}
+  '@inquirer/editor@4.2.14':
+    resolution: {integrity: sha512-yd2qtLl4QIIax9DTMZ1ZN2pFrrj+yL3kgIWxm34SS6uwCr0sIhsNyudUjAo5q3TqI03xx4SEBkUJqZuAInp9uA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7125,8 +7125,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/expand@4.0.15':
-    resolution: {integrity: sha512-4Y+pbr/U9Qcvf+N/goHzPEXiHH8680lM3Dr3Y9h9FFw4gHS+zVpbj8LfbKWIb/jayIB4aSO4pWiBTrBYWkvi5A==}
+  '@inquirer/expand@4.0.16':
+    resolution: {integrity: sha512-oiDqafWzMtofeJyyGkb1CTPaxUkjIcSxePHHQCfif8t3HV9pHcw1Kgdw3/uGpDvaFfeTluwQtWiqzPVjAqS3zA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7138,8 +7138,8 @@ packages:
     resolution: {integrity: sha512-MJttijd8rMFcKJC8NYmprWr6hD3r9Gd9qUC0XwPNwoEPWSMVJwA2MlXxF+nhZZNMY+HXsWa+o7KY2emWYIn0jQ==}
     engines: {node: '>=18'}
 
-  '@inquirer/input@4.1.12':
-    resolution: {integrity: sha512-xJ6PFZpDjC+tC1P8ImGprgcsrzQRsUh9aH3IZixm1lAZFK49UGHxM3ltFfuInN2kPYNfyoPRh+tU4ftsjPLKqQ==}
+  '@inquirer/input@4.2.0':
+    resolution: {integrity: sha512-opqpHPB1NjAmDISi3uvZOTrjEEU5CWVu/HBkDby8t93+6UxYX0Z7Ps0Ltjm5sZiEbWenjubwUkivAEYQmy9xHw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7147,8 +7147,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/number@3.0.15':
-    resolution: {integrity: sha512-xWg+iYfqdhRiM55MvqiTCleHzszpoigUpN5+t1OMcRkJrUrw7va3AzXaxvS+Ak7Gny0j2mFSTv2JJj8sMtbV2g==}
+  '@inquirer/number@3.0.16':
+    resolution: {integrity: sha512-kMrXAaKGavBEoBYUCgualbwA9jWUx2TjMA46ek+pEKy38+LFpL9QHlTd8PO2kWPUgI/KB+qi02o4y2rwXbzr3Q==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7156,8 +7156,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/password@4.0.15':
-    resolution: {integrity: sha512-75CT2p43DGEnfGTaqFpbDC2p2EEMrq0S+IRrf9iJvYreMy5mAWj087+mdKyLHapUEPLjN10mNvABpGbk8Wdraw==}
+  '@inquirer/password@4.0.16':
+    resolution: {integrity: sha512-g8BVNBj5Zeb5/Y3cSN+hDUL7CsIFDIuVxb9EPty3lkxBaYpjL5BNRKSYOF9yOLe+JOcKFd+TSVeADQ4iSY7rbg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7165,8 +7165,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/prompts@7.5.3':
-    resolution: {integrity: sha512-8YL0WiV7J86hVAxrh3fE5mDCzcTDe1670unmJRz6ArDgN+DBK1a0+rbnNWp4DUB5rPMwqD5ZP6YHl9KK1mbZRg==}
+  '@inquirer/prompts@7.6.0':
+    resolution: {integrity: sha512-jAhL7tyMxB3Gfwn4HIJ0yuJ5pvcB5maYUcouGcgd/ub79f9MqZ+aVnBtuFf+VC2GTkCBF+R+eo7Vi63w5VZlzw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7174,8 +7174,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/rawlist@4.1.3':
-    resolution: {integrity: sha512-7XrV//6kwYumNDSsvJIPeAqa8+p7GJh7H5kRuxirct2cgOcSWwwNGoXDRgpNFbY/MG2vQ4ccIWCi8+IXXyFMZA==}
+  '@inquirer/rawlist@4.1.4':
+    resolution: {integrity: sha512-5GGvxVpXXMmfZNtvWw4IsHpR7RzqAR624xtkPd1NxxlV5M+pShMqzL4oRddRkg8rVEOK9fKdJp1jjVML2Lr7TQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7183,8 +7183,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/search@3.0.15':
-    resolution: {integrity: sha512-YBMwPxYBrADqyvP4nNItpwkBnGGglAvCLVW8u4pRmmvOsHUtCAUIMbUrLX5B3tFL1/WsLGdQ2HNzkqswMs5Uaw==}
+  '@inquirer/search@3.0.16':
+    resolution: {integrity: sha512-POCmXo+j97kTGU6aeRjsPyuCpQQfKcMXdeTMw708ZMtWrj5aykZvlUxH4Qgz3+Y1L/cAVZsSpA+UgZCu2GMOMg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -7192,8 +7192,8 @@ packages:
       '@types/node':
         optional: true
 
-  '@inquirer/select@4.2.3':
-    resolution: {integrity: sha512-OAGhXU0Cvh0PhLz9xTF/kx6g6x+sP+PcyTiLvCrewI99P3BBeexD+VbuwkNDvqGkk3y2h5ZiWLeRP7BFlhkUDg==}
+  '@inquirer/select@4.2.4':
+    resolution: {integrity: sha512-unTppUcTjmnbl/q+h8XeQDhAqIOmwWYWNyiiP2e3orXrg6tOaa5DHXja9PChCSbChOsktyKgOieRZFnajzxoBg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@types/node': 20.17.10
@@ -8173,47 +8173,47 @@ packages:
     resolution: {integrity: sha512-uPtnRgP4+CAQjns7TXdhJf46WGRj8kESmBWvm+4aVpvqHGfU7c+f0yzMx8o04+LyXXkoOqYeq54X0grEFtVtdw==}
     engines: {node: '>=14'}
 
-  '@oxlint/darwin-arm64@1.3.0':
-    resolution: {integrity: sha512-TcCaETXYfiEfS+u/gZNND4WwEEtnJJjqg8BIC56WiCQDduYTvmmbQ0vxtqdNXlFzlvmRpZCSs7qaqXNy8/8FLA==}
+  '@oxlint/darwin-arm64@1.5.0':
+    resolution: {integrity: sha512-CxzOtmOwQfaXXwAAJzPInNHhzldMeFsga7oe9mUp5bYIa/mm/Aqs0lxyAP9RZXoxaUHJTbfJovSsl6PU6gbCHw==}
     cpu: [arm64]
     os: [darwin]
 
-  '@oxlint/darwin-x64@1.3.0':
-    resolution: {integrity: sha512-REgq9s1ZWuh++Vi+mUPNddLTp/D+iu+T8nLd3QM1dzQoBD/SZ7wRX3Mdv8QGT/m8dknmDBQuKAP6T47ox9HRSA==}
+  '@oxlint/darwin-x64@1.5.0':
+    resolution: {integrity: sha512-awD5yNGIRy2DrfzbrfeTSjZ+ITKr9+FGGvufquAB7kzfveFZNa621FpmCJ8MQY8hzXFD99iP7ClMNbaCzDfV/g==}
     cpu: [x64]
     os: [darwin]
 
-  '@oxlint/linux-arm64-gnu@1.3.0':
-    resolution: {integrity: sha512-QAS8AWKDcDeUe8mJaw/pF2D9+js8FbFTo75AiekZKNm9V6QAAiCkyvesmILD8RrStw9aV2D/apOD71vsfcDoGA==}
+  '@oxlint/linux-arm64-gnu@1.5.0':
+    resolution: {integrity: sha512-Nr8oUAEo20WIBo/qi76dBo5IGw2bQcl7d2YbaigOSQoAGfHR9xE9hAySYhIsnv7W0jtAZu1YTn0So7Tg0idExw==}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@oxlint/linux-arm64-musl@1.3.0':
-    resolution: {integrity: sha512-rAbz0KFkk5GPdERoFO4ZUZmVkECnHXjRG0O2MeT5zY7ddlyZUjEk1cWjw+HCtWVdKkqhZJeNFMuEiRLkpzBIIw==}
+  '@oxlint/linux-arm64-musl@1.5.0':
+    resolution: {integrity: sha512-H2MBL0LZnl3GP09r12tFfcv3Y2fvetMD1TYbf5cetYCQ7hG7aIYTsuOTENjZ0SDK+L9Id35YWFNP3YES+3tsgw==}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@oxlint/linux-x64-gnu@1.3.0':
-    resolution: {integrity: sha512-6uLO1WsJwCtVNGHtjXwg2TRvxQYttYJKMjSdv6RUXGWY1AI+/+yHzvu+phU/F40uNC7CFhFnqWDuPaSZ49hdAQ==}
+  '@oxlint/linux-x64-gnu@1.5.0':
+    resolution: {integrity: sha512-pRu77WJ+Uy0l6OkCjljnHuzOlSbMsN1mFDeAyzh8R69O44Mc2C7f1Fe+fbbW2kjgIwFQq8JkUffvPWr1MCMa+A==}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@oxlint/linux-x64-musl@1.3.0':
-    resolution: {integrity: sha512-+vrmJUHgtJmgIo+L9eTP04NI/OQNCOZtQo6I49qGWc9cpr+0MnIh9KMcyAOxmzVTF5g+CF1I/1bUz4pk4I3LDw==}
+  '@oxlint/linux-x64-musl@1.5.0':
+    resolution: {integrity: sha512-qHG2YR+06pEAF4Gfp3T8hSaiI/IchdbuditnnVYxy32pN43vNMVDO7fU5hnNzJpxh6HozAD3uRrskBNvxgeSrQ==}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@oxlint/win32-arm64@1.3.0':
-    resolution: {integrity: sha512-k+ETUVl+O3b8Rcd2PP5V3LqQ2QoN/TOX2f19XXHZEynbVLY3twLYPb3hLdXqoo7CKRq3RJdTfn1upHH48/qrZQ==}
+  '@oxlint/win32-arm64@1.5.0':
+    resolution: {integrity: sha512-/YRDPf1sPCF6B026buZTvh1vOF/pS+75aBDnxrDWIFhP1w3flqcI9v5QVjtq/sOZEWAoP2ee46CrxcxK5UuYag==}
     cpu: [arm64]
     os: [win32]
 
-  '@oxlint/win32-x64@1.3.0':
-    resolution: {integrity: sha512-nWSgK0fT02TQ/BiAUCd13BaobtHySkCDcQaL+NOmhgeb0tNWjtYiktuluahaIqFcYJPWczVlbs8DU/Eqo8vsug==}
+  '@oxlint/win32-x64@1.5.0':
+    resolution: {integrity: sha512-4HmkdYgDmejTxXESV1EBXd0zFLsoNJad+VrWZizzpTCmBnWEL5+tueEmEBBb4F55/sFZt8bdD//RbaTM9aOQJA==}
     cpu: [x64]
     os: [win32]
 
@@ -14939,8 +14939,8 @@ packages:
     resolution: {integrity: sha512-qFOyK5PjiWZd+QQIh+1jhdb9LpxTF0qs7Pm8o5QHYZ0M3vKqSqzsZaEB6oWlxZ+q2sJBMI/Ktgd2N5ZwQoRHfg==}
     engines: {node: '>= 0.4'}
 
-  oxlint@1.3.0:
-    resolution: {integrity: sha512-PzAOmPxnXYpVF1q6h9pkOPH6uJ/44XrtFWJ8JcEMpoEq9HISNelD3lXhACtOAW8CArjLy/qSlu2KkyPxnXgctA==}
+  oxlint@1.5.0:
+    resolution: {integrity: sha512-Oh48XZy6BY2jE9xKwN4DjwpK/l7LOUHfPJsZ/rUKudWN1RXHXBnJkubsgIHlfTwWJGYJU2LAlyXKZcE46mD4OQ==}
     engines: {node: '>=8.*'}
     hasBin: true
 
@@ -15407,8 +15407,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  prettier-plugin-packagejson@2.5.17:
-    resolution: {integrity: sha512-1WYvhTix+4EMYZQYSjAxb6+KTCULINuHUTBcxYa2ipoUS9Y2zJVjE3kuZ5I7ZWIFqyK8xpwYIunXqN5eiT7Hew==}
+  prettier-plugin-packagejson@2.5.18:
+    resolution: {integrity: sha512-NKznPGcGrcj4NPGxnh+w78JXPyfB6I4RQSCM0v+CAXwpDG7OEpJQ5zMyfC5NBgKH1k7Skwcj5ak5by2mrHvC5g==}
     peerDependencies:
       prettier: '>= 1.16.0'
     peerDependenciesMeta:
@@ -15437,8 +15437,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  prettier@3.6.0:
-    resolution: {integrity: sha512-ujSB9uXHJKzM/2GBuE0hBOUgC77CN3Bnpqa+g80bkv3T3A93wL/xlzDATHhnhkzifz/UE2SNOvmbTz5hSkDlHw==}
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -16925,8 +16925,8 @@ packages:
   sort-object-keys@1.1.3:
     resolution: {integrity: sha512-855pvK+VkU7PaKYPc+Jjnmt4EzejQHyhhF33q31qG8x7maDzkeFhAAThdCYay11CISO+qAMwjOBP+fPZe0IPyg==}
 
-  sort-package-json@3.3.1:
-    resolution: {integrity: sha512-awjhQR2Iy5UN3NuguAK5+RezcEuUg9Ra4O8y2Aj+DlJa7MywyHaipAPf9bu4qqFj0hsYHHoT9sS3aV7Ucu728g==}
+  sort-package-json@3.4.0:
+    resolution: {integrity: sha512-97oFRRMM2/Js4oEA9LJhjyMlde+2ewpZQf53pgue27UkbEXfHJnDzHlUxQ/DWUkzqmp7DFwJp8D+wi/TYeQhpA==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -21138,22 +21138,6 @@ snapshots:
 
   '@emotion/memoize@0.9.0': {}
 
-  '@emotion/react@11.11.4(@types/react@18.3.18)(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.27.6
-      '@emotion/babel-plugin': 11.13.5
-      '@emotion/cache': 11.14.0
-      '@emotion/serialize': 1.3.3
-      '@emotion/use-insertion-effect-with-fallbacks': 1.1.0(react@18.3.1)
-      '@emotion/utils': 1.4.2
-      '@emotion/weak-memoize': 0.3.1
-      hoist-non-react-statics: 3.3.2
-      react: 18.3.1
-    optionalDependencies:
-      '@types/react': 18.3.18
-    transitivePeerDependencies:
-      - supports-color
-
   '@emotion/react@11.11.4(@types/react@18.3.23)(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.27.6
@@ -21444,20 +21428,20 @@ snapshots:
     dependencies:
       '@hapi/hoek': 11.0.4
 
-  '@ianvs/prettier-plugin-sort-imports@4.4.2(prettier@3.6.0)':
+  '@ianvs/prettier-plugin-sort-imports@4.4.2(prettier@3.6.2)':
     dependencies:
       '@babel/generator': 7.27.5
       '@babel/parser': 7.27.5
       '@babel/traverse': 7.27.4(supports-color@5.5.0)
       '@babel/types': 7.27.6
-      prettier: 3.6.0
+      prettier: 3.6.2
       semver: 7.7.2
     transitivePeerDependencies:
       - supports-color
 
-  '@inquirer/checkbox@4.1.8(@types/node@20.17.10)':
+  '@inquirer/checkbox@4.1.9(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/figures': 1.0.12
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
       ansi-escapes: 4.3.2
@@ -21465,14 +21449,14 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/confirm@5.1.12(@types/node@20.17.10)':
+  '@inquirer/confirm@5.1.13(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/core@10.1.13(@types/node@20.17.10)':
+  '@inquirer/core@10.1.14(@types/node@20.17.10)':
     dependencies:
       '@inquirer/figures': 1.0.12
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
@@ -21485,17 +21469,17 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/editor@4.2.13(@types/node@20.17.10)':
+  '@inquirer/editor@4.2.14(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
       external-editor: 3.1.0
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/expand@4.0.15(@types/node@20.17.10)':
+  '@inquirer/expand@4.0.16(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
       yoctocolors-cjs: 2.1.2
     optionalDependencies:
@@ -21503,63 +21487,63 @@ snapshots:
 
   '@inquirer/figures@1.0.12': {}
 
-  '@inquirer/input@4.1.12(@types/node@20.17.10)':
+  '@inquirer/input@4.2.0(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/number@3.0.15(@types/node@20.17.10)':
+  '@inquirer/number@3.0.16(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/password@4.0.15(@types/node@20.17.10)':
+  '@inquirer/password@4.0.16(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
       ansi-escapes: 4.3.2
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/prompts@7.5.3(@types/node@20.17.10)':
+  '@inquirer/prompts@7.6.0(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/checkbox': 4.1.8(@types/node@20.17.10)
-      '@inquirer/confirm': 5.1.12(@types/node@20.17.10)
-      '@inquirer/editor': 4.2.13(@types/node@20.17.10)
-      '@inquirer/expand': 4.0.15(@types/node@20.17.10)
-      '@inquirer/input': 4.1.12(@types/node@20.17.10)
-      '@inquirer/number': 3.0.15(@types/node@20.17.10)
-      '@inquirer/password': 4.0.15(@types/node@20.17.10)
-      '@inquirer/rawlist': 4.1.3(@types/node@20.17.10)
-      '@inquirer/search': 3.0.15(@types/node@20.17.10)
-      '@inquirer/select': 4.2.3(@types/node@20.17.10)
+      '@inquirer/checkbox': 4.1.9(@types/node@20.17.10)
+      '@inquirer/confirm': 5.1.13(@types/node@20.17.10)
+      '@inquirer/editor': 4.2.14(@types/node@20.17.10)
+      '@inquirer/expand': 4.0.16(@types/node@20.17.10)
+      '@inquirer/input': 4.2.0(@types/node@20.17.10)
+      '@inquirer/number': 3.0.16(@types/node@20.17.10)
+      '@inquirer/password': 4.0.16(@types/node@20.17.10)
+      '@inquirer/rawlist': 4.1.4(@types/node@20.17.10)
+      '@inquirer/search': 3.0.16(@types/node@20.17.10)
+      '@inquirer/select': 4.2.4(@types/node@20.17.10)
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/rawlist@4.1.3(@types/node@20.17.10)':
+  '@inquirer/rawlist@4.1.4(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
       yoctocolors-cjs: 2.1.2
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/search@3.0.15(@types/node@20.17.10)':
+  '@inquirer/search@3.0.16(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/figures': 1.0.12
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
       yoctocolors-cjs: 2.1.2
     optionalDependencies:
       '@types/node': 20.17.10
 
-  '@inquirer/select@4.2.3(@types/node@20.17.10)':
+  '@inquirer/select@4.2.4(@types/node@20.17.10)':
     dependencies:
-      '@inquirer/core': 10.1.13(@types/node@20.17.10)
+      '@inquirer/core': 10.1.14(@types/node@20.17.10)
       '@inquirer/figures': 1.0.12
       '@inquirer/type': 3.0.7(@types/node@20.17.10)
       ansi-escapes: 4.3.2
@@ -22674,28 +22658,28 @@ snapshots:
       '@opentelemetry/api-logs': 0.52.1
       winston-transport: 4.9.0
 
-  '@oxlint/darwin-arm64@1.3.0':
+  '@oxlint/darwin-arm64@1.5.0':
     optional: true
 
-  '@oxlint/darwin-x64@1.3.0':
+  '@oxlint/darwin-x64@1.5.0':
     optional: true
 
-  '@oxlint/linux-arm64-gnu@1.3.0':
+  '@oxlint/linux-arm64-gnu@1.5.0':
     optional: true
 
-  '@oxlint/linux-arm64-musl@1.3.0':
+  '@oxlint/linux-arm64-musl@1.5.0':
     optional: true
 
-  '@oxlint/linux-x64-gnu@1.3.0':
+  '@oxlint/linux-x64-gnu@1.5.0':
     optional: true
 
-  '@oxlint/linux-x64-musl@1.3.0':
+  '@oxlint/linux-x64-musl@1.5.0':
     optional: true
 
-  '@oxlint/win32-arm64@1.3.0':
+  '@oxlint/win32-arm64@1.5.0':
     optional: true
 
-  '@oxlint/win32-x64@1.3.0':
+  '@oxlint/win32-x64@1.5.0':
     optional: true
 
   '@pkgjs/parseargs@0.11.0':
@@ -24499,7 +24483,7 @@ snapshots:
 
   '@types/hoist-non-react-statics@3.3.5':
     dependencies:
-      '@types/react': 18.3.18
+      '@types/react': 18.3.23
       hoist-non-react-statics: 3.3.2
 
   '@types/http-assert@1.5.5': {}
@@ -24728,8 +24712,7 @@ snapshots:
 
   '@types/prop-types@15.7.14': {}
 
-  '@types/prop-types@15.7.15':
-    optional: true
+  '@types/prop-types@15.7.15': {}
 
   '@types/qrcode@1.5.5':
     dependencies:
@@ -24747,7 +24730,7 @@ snapshots:
     dependencies:
       '@types/date-arithmetic': 4.1.4
       '@types/prop-types': 15.7.14
-      '@types/react': 18.3.18
+      '@types/react': 18.3.23
 
   '@types/react-dom@18.3.5(@types/react@18.3.18)':
     dependencies:
@@ -24756,12 +24739,11 @@ snapshots:
   '@types/react-dom@18.3.7(@types/react@18.3.23)':
     dependencies:
       '@types/react': 18.3.23
-    optional: true
 
   '@types/react-redux@7.1.33':
     dependencies:
       '@types/hoist-non-react-statics': 3.3.5
-      '@types/react': 18.3.18
+      '@types/react': 18.3.23
       hoist-non-react-statics: 3.3.2
       redux: 4.2.1
 
@@ -24774,7 +24756,6 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.7.15
       csstype: 3.1.3
-    optional: true
 
   '@types/readable-stream@4.0.15':
     dependencies:
@@ -25419,23 +25400,6 @@ snapshots:
       staged-components: 1.1.3(react@18.3.1)
       tslib: 2.8.1
       use-sync-external-store: 1.2.2(react@18.3.1)
-
-  antd-style@3.7.1(@types/react@18.3.18)(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@ant-design/cssinjs': 1.22.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@babel/runtime': 7.26.9
-      '@emotion/cache': 11.14.0
-      '@emotion/css': 11.13.5
-      '@emotion/react': 11.11.4(@types/react@18.3.18)(react@18.3.1)
-      '@emotion/serialize': 1.3.3
-      '@emotion/utils': 1.4.2
-      antd: 5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      use-merge-value: 1.2.0(react@18.3.1)
-    transitivePeerDependencies:
-      - '@types/react'
-      - react-dom
-      - supports-color
 
   antd-style@3.7.1(@types/react@18.3.23)(antd@5.22.5(date-fns@3.6.0)(luxon@3.5.0)(moment@2.30.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -30990,16 +30954,16 @@ snapshots:
       object-keys: 1.1.1
       safe-push-apply: 1.0.0
 
-  oxlint@1.3.0:
+  oxlint@1.5.0:
     optionalDependencies:
-      '@oxlint/darwin-arm64': 1.3.0
-      '@oxlint/darwin-x64': 1.3.0
-      '@oxlint/linux-arm64-gnu': 1.3.0
-      '@oxlint/linux-arm64-musl': 1.3.0
-      '@oxlint/linux-x64-gnu': 1.3.0
-      '@oxlint/linux-x64-musl': 1.3.0
-      '@oxlint/win32-arm64': 1.3.0
-      '@oxlint/win32-x64': 1.3.0
+      '@oxlint/darwin-arm64': 1.5.0
+      '@oxlint/darwin-x64': 1.5.0
+      '@oxlint/linux-arm64-gnu': 1.5.0
+      '@oxlint/linux-arm64-musl': 1.5.0
+      '@oxlint/linux-x64-gnu': 1.5.0
+      '@oxlint/linux-x64-musl': 1.5.0
+      '@oxlint/win32-arm64': 1.5.0
+      '@oxlint/win32-x64': 1.5.0
 
   p-all@3.0.0:
     dependencies:
@@ -31425,22 +31389,22 @@ snapshots:
       tar-fs: 2.1.1
       tunnel-agent: 0.6.0
 
-  prettier-plugin-packagejson@2.5.17(prettier@3.6.0):
+  prettier-plugin-packagejson@2.5.18(prettier@3.6.2):
     dependencies:
-      sort-package-json: 3.3.1
+      sort-package-json: 3.4.0
       synckit: 0.11.8
     optionalDependencies:
-      prettier: 3.6.0
+      prettier: 3.6.2
 
-  prettier-plugin-sort-json@4.1.1(prettier@3.6.0):
+  prettier-plugin-sort-json@4.1.1(prettier@3.6.2):
     dependencies:
-      prettier: 3.6.0
+      prettier: 3.6.2
 
-  prettier-plugin-sql@0.19.1(prettier@3.6.0):
+  prettier-plugin-sql@0.19.1(prettier@3.6.2):
     dependencies:
       jsox: 1.2.123
       node-sql-parser: 5.3.10
-      prettier: 3.6.0
+      prettier: 3.6.2
       sql-formatter: 15.6.5
       tslib: 2.8.1
 
@@ -31448,7 +31412,7 @@ snapshots:
 
   prettier@3.4.2: {}
 
-  prettier@3.6.0: {}
+  prettier@3.6.2: {}
 
   pretty-bytes@5.6.0: {}
 
@@ -31468,14 +31432,14 @@ snapshots:
     dependencies:
       parse-ms: 2.1.0
 
-  pretty-quick@4.2.2(prettier@3.6.0):
+  pretty-quick@4.2.2(prettier@3.6.2):
     dependencies:
       '@pkgr/core': 0.2.7
       ignore: 7.0.5
       mri: 1.2.0
       picocolors: 1.1.1
       picomatch: 4.0.2
-      prettier: 3.6.0
+      prettier: 3.6.2
       tinyexec: 0.3.2
       tslib: 2.8.1
 
@@ -33256,7 +33220,7 @@ snapshots:
 
   sort-object-keys@1.1.3: {}
 
-  sort-package-json@3.3.1:
+  sort-package-json@3.4.0:
     dependencies:
       detect-indent: 7.0.1
       detect-newline: 4.0.1
@@ -34090,7 +34054,7 @@ snapshots:
   uncontrollable@7.2.1(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.27.6
-      '@types/react': 18.3.18
+      '@types/react': 18.3.23
       invariant: 2.2.4
       react: 18.3.1
       react-lifecycles-compat: 3.0.4
