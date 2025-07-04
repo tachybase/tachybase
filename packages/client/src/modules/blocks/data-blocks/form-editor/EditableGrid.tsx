@@ -3,7 +3,6 @@ import { ISchema, observer, RecursionField, Schema, uid, useField, useFieldSchem
 
 import { TinyColor } from '@ctrl/tinycolor';
 import { useDndContext, useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core';
-// import cls from 'classnames';
 import _ from 'lodash';
 
 import { useSchemaInitializerRender } from '../../../../application';
