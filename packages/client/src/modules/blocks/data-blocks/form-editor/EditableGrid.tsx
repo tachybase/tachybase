@@ -3,7 +3,7 @@ import { ISchema, observer, RecursionField, Schema, uid, useField, useFieldSchem
 
 import { TinyColor } from '@ctrl/tinycolor';
 import { useDndContext, useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core';
-import cls from 'classnames';
+// import cls from 'classnames';
 import _ from 'lodash';
 
 import { useSchemaInitializerRender } from '../../../../application';
@@ -29,7 +29,7 @@ MemorizedRecursionField.displayName = 'MemorizedRecursionField';
 const ColDivider = (props) => {
   const { token } = useToken();
   const dragIdRef = useRef<string | null>(null);
-
+  const { cx } = useStyles();
   const { isOver, setNodeRef } = useDroppable({
     id: props.id,
     data: props.data,
@@ -159,7 +159,7 @@ const ColDivider = (props) => {
           dividerRef.current = el;
         }
       }}
-      className={cls('tb-col-divider', 'ColDivider')}
+      className={cx('tb-col-divider', 'ColDivider')}
       style={droppableStyle}
     >
       <div
@@ -179,7 +179,7 @@ const RowDivider = (props) => {
     id: props.id,
     data: props.data,
   });
-
+  const { cx } = useStyles();
   const [active, setActive] = useState(false);
 
   const droppableStyle = useMemo(() => {
@@ -231,7 +231,7 @@ const RowDivider = (props) => {
   });
 
   return (
-    <span ref={visible ? setNodeRef : null} className={cls('tb-row-divider', 'RowDivider')} style={droppableStyle} />
+    <span ref={visible ? setNodeRef : null} className={cx('tb-row-divider', 'RowDivider')} style={droppableStyle} />
   );
 };
 
@@ -319,7 +319,7 @@ export const EditableGrid: any = observer(
     const addr = field.address.toString();
     const rows = useRowProperties();
     const { setPrintContent } = useFormBlockContext();
-    const { wrapSSR, componentCls, hashId } = useStyles();
+    const { styles, cx } = useStyles();
     const distributedValue =
       distributed === undefined
         ? fieldSchema?.parent['x-component'] === 'Page' || fieldSchema?.parent['x-component'] === 'Tabs.TabPane'
@@ -329,11 +329,11 @@ export const EditableGrid: any = observer(
       gridRef.current && setPrintContent?.(gridRef.current);
     }, [gridRef.current]);
 
-    return wrapSSR(
+    return (
       <EditableGridContext.Provider
         value={{ ref: gridRef, fieldSchema, renderSchemaInitializer: render, InitializerComponent, showDivider }}
       >
-        <div className={`tb-grid ${componentCls} ${hashId}`} style={{ position: 'relative' }} ref={gridRef}>
+        <div className={cx('tb-grid', styles.editableGrid)} style={{ position: 'relative' }} ref={gridRef}>
           <DndWrapper dndContext={props.dndContext}>
             {showDivider ? (
               <RowDivider
@@ -375,7 +375,7 @@ export const EditableGrid: any = observer(
           </DndWrapper>
           {render()}
         </div>
-      </EditableGridContext.Provider>,
+      </EditableGridContext.Provider>
     );
   },
   { displayName: 'EditableGrid' },
@@ -389,11 +389,12 @@ EditableGrid.Row = observer(
     const cols = useColProperties();
     const { showDivider } = useEditableGridContext();
     const { type } = useFormBlockType();
+    const { cx } = useStyles();
 
     return (
       <EditableGridRowContext.Provider value={{ schema: fieldSchema, cols }}>
         <div
-          className={cls('tb-grid-row', 'CardRow', {
+          className={cx('tb-grid-row', 'CardRow', {
             showDivider,
           })}
         >
@@ -454,6 +455,7 @@ EditableGrid.Col = observer(
     const schema = useFieldSchema();
     const field = useField();
     const { token } = useToken();
+    const { cx } = useStyles();
 
     const style = useMemo(() => {
       let width = '';
@@ -505,7 +507,7 @@ EditableGrid.Col = observer(
 
     return (
       <EditableGridColContext.Provider value={{ cols, schema }}>
-        <div ref={setNodeRef} style={{ ...style, ...droppableStyle }} className={cls('tb-grid-col  CardCol')}>
+        <div ref={setNodeRef} style={{ ...style, ...droppableStyle }} className={cx('tb-grid-col', 'CardCol')}>
           {props.children}
         </div>
       </EditableGridColContext.Provider>
