@@ -142,7 +142,7 @@ async function processTracking(
 // 初始化默认追踪配置
 export async function initializeDefaultTrackingConfig(db: any) {
   try {
-    const SignInTracking = await db.getRepository('trackingConfig').findOne({
+    const SignInTracking = await db.getRepository('metricsConfig').findOne({
       filter: {
         title: 'sign-in',
         resourceName: 'auth',
@@ -151,7 +151,7 @@ export async function initializeDefaultTrackingConfig(db: any) {
     });
 
     if (!SignInTracking) {
-      await db.getRepository('trackingConfig').create({
+      await db.getRepository('metricsConfig').create({
         values: {
           title: 'sign-in',
           resourceName: 'auth',

@@ -25,7 +25,7 @@ export class TrackingFilter {
   // 从数据库加载追踪配置
   async load(transaction?: Transaction) {
     try {
-      const configs = await this.db.getRepository('trackingConfig').find({ transaction });
+      const configs = await this.db.getRepository('metricsConfig').find({ transaction });
       this.trackingConfigs = configs.map((config) => ({
         title: config.title,
         resourceName: config.resourceName,
@@ -44,10 +44,10 @@ export class TrackingFilter {
 
   // 添加配置更新监听器
   async addRefreshListener() {
-    this.db.on('trackingConfig.afterSave', async (model, options) => {
+    this.db.on('metricsConfig.afterSave', async (model, options) => {
       await this.load(options.transaction);
     });
-    this.db.on('trackingConfig.afterDestroy', async (model, options) => {
+    this.db.on('metricsConfig.afterDestroy', async (model, options) => {
       await this.load(options.transaction);
     });
   }

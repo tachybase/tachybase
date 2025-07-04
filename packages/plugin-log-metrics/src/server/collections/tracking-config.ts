@@ -1,7 +1,7 @@
 import { Collection } from '@tachybase/database';
 
 export default {
-  name: 'trackingConfig',
+  name: 'metricsConfig',
   fields: [
     {
       name: 'title',

@@ -134,7 +134,7 @@ export class TrackingController {
   async createTrackingConfig(ctx: Context, next: Next) {
     try {
       const { values } = ctx.action.params;
-      const repo = ctx.db.getRepository('trackingConfig');
+      const repo = ctx.db.getRepository('metricsConfig');
 
       const config = await repo.create({
         values: {
@@ -163,7 +163,7 @@ export class TrackingController {
   async updateTrackingConfig(ctx: Context, next: Next) {
     try {
       const { filter, values } = ctx.action.params;
-      const repo = ctx.db.getRepository('trackingConfig');
+      const repo = ctx.db.getRepository('metricsConfig');
 
       await repo.update({
         filter,
@@ -190,7 +190,7 @@ export class TrackingController {
   async deleteTrackingConfig(ctx: Context, next: Next) {
     try {
       const { filter } = ctx.action.params;
-      const repo = ctx.db.getRepository('trackingConfig');
+      const repo = ctx.db.getRepository('metricsConfig');
 
       await repo.destroy({
         filter,
