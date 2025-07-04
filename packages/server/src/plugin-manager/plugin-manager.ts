@@ -871,14 +871,7 @@ export class PluginManager {
     }
     const file = resolve(process.cwd(), 'storage/app-upgrading');
     await fs.writeFile(file, '', 'utf-8');
-    // await this.app.upgrade();
-    if (process.env.IS_DEV_CMD) {
-      await tsxRerunning();
-    } else {
-      await execa('pnpm', ['tachybase', 'pm2-restart'], {
-        env: process.env,
-      });
-    }
+    await this.app.upgrade();
   }
 
   /**
