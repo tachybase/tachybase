@@ -23,10 +23,12 @@ export class PluginLogMetricsServer extends Plugin {
     this.app.acl.allow('log-metrics', ['getMetrics', 'getMetricsAsJSON', 'resetMetrics'], 'public');
     this.app.acl.allow(
       'log-metrics',
+      ['getTrackingMetrics', 'getTrackingMetricsAsJSON', 'resetTrackingMetrics'],
+      'public',
+    );
+    this.app.acl.allow(
+      'log-metrics',
       [
-        'getTrackingMetrics',
-        'getTrackingMetricsAsJSON',
-        'resetTrackingMetrics',
         'getTrackingConfigs',
         'getTrackingStats',
         'createTrackingConfig',

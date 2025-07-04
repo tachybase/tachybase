@@ -19,12 +19,11 @@ export class TrackingController {
       const metrics = await trackingMetricsUtils.getTrackingMetrics();
       console.log('[TrackingController] 指标获取成功，长度:', metrics.length);
       // 设置响应类型和内容
+      ctx.withoutDataWrapping = true;
+      ctx.set('Content-Type', contentType);
+      ctx.body = metrics;
 
-      ctx.res.setHeader('Content-Type', 'text/plain; version=0.0.4; charset=utf-8');
-      ctx.res.end(metrics);
-
-      console.log('[TrackingController] text/plain 响应已设置');
-      // return next();
+      return next();
     } catch (error) {
       console.error('[TrackingController] 获取指标失败:', error);
       ctx.status = 500;
