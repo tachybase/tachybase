@@ -216,7 +216,16 @@ const PreviewDrawer = ({ open, onClose, schema }) => {
         </div>
       }
     >
-      <div style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingBottom: '5%',
+        }}
+      >
         {device === 'PC' ? <PCPreviewContent schema={schema} /> : <MobilePreviewContent schema={schema} />}
       </div>
     </Drawer>
@@ -226,7 +235,16 @@ const PreviewDrawer = ({ open, onClose, schema }) => {
 const PCPreviewContent = ({ schema }) => {
   const designerCtx = useSchemaComponentContext();
   return (
-    <div style={{ width: '100%', maxWidth: '700px', height: '100%', marginTop: '10%' }}>
+    <div
+      style={{
+        width: '100%',
+        maxWidth: '700px',
+        height: '100%',
+        marginTop: '10%',
+        overflow: 'auto',
+        marginBottom: '5%',
+      }}
+    >
       <SchemaComponentContext.Provider value={{ ...designerCtx, designable: false }}>
         <SchemaComponent schema={schema} components={{ EditableGrid }} />
       </SchemaComponentContext.Provider>
