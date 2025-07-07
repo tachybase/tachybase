@@ -439,7 +439,6 @@ export const selectComponentFieldSettings = new SchemaSettings({
   items: [
     {
       ...fieldComponent,
-      useVisible: useIsMuiltipleAble,
     },
     {
       ...setTheDataScope,
