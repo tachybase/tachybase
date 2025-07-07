@@ -19,7 +19,7 @@
     "antd": "5.22.5",
     "lodash": "4.17.21",
     "react-i18next": "^15.2.0",
-    "react-router-dom": "6.28.1"
+    "react-router-dom": "7.6.3"
   },
   "peerDependencies": {
     "@tachybase/client": "workspace:*",

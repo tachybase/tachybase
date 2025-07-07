@@ -16,7 +16,7 @@
     "@ant-design/icons": "~5.3.7",
     "antd": "5.22.5",
     "react-i18next": "^15.2.0",
-    "react-router-dom": "6.28.1"
+    "react-router-dom": "7.6.3"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
