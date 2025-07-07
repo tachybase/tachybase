@@ -44,7 +44,7 @@
     "file-saver": "^2.0.5",
     "flat": "^5.0.2",
     "i18next": "23.16.8",
-    "i18next-http-backend": "^2.7.1",
+    "i18next-http-backend": "^3.0.2",
     "lodash": "4.17.21",
     "lru-cache": "11.1.0",
     "markdown-it": "13.0.2",
