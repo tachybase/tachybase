@@ -59,6 +59,9 @@ export const FormBlockInitializer = ({
   const itemConfig = useSchemaInitializerItem();
   const { createFormBlock, templateWrap, createEditFormBlock } = useCreateFormBlock();
   const onCreateFormBlockSchema = useCallback((options) => {
+    if (createBlockSchema) {
+      return createBlockSchema(options);
+    }
     const schema = new Schema(createEditFormBlock(options));
     setPendingOptions({ schema, ...options });
     setVisible(true);
