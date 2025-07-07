@@ -14,7 +14,7 @@
   "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "~5.3.7",
-    "@ant-design/plots": "^2.3.2",
+    "@ant-design/plots": "^2.6.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
     "ahooks": "^3.8.4",
