@@ -311,6 +311,9 @@ export class APIClient {
     const target = {};
     const handler = {
       get: (_: any, actionName: string) => {
+        if (typeof actionName !== 'string') {
+          return null;
+        }
         let url = name.split('.').join(`/${of || '_'}/`);
         url += `:${actionName}`;
         const config: AxiosRequestConfig = { url };

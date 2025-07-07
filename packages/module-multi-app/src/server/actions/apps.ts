@@ -147,3 +147,12 @@ export async function stopAll(ctx: Context, next: Next) {
     all,
   };
 }
+
+/**
+ * 获取当前主应用的用户信息
+ * @param ctx
+ * @param next
+ */
+export async function getMainAppUserProfile(ctx: Context, next: Next) {
+  ctx.body = {};
+}
