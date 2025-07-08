@@ -30,6 +30,7 @@ export class Auth {
     token: 'TACHYBASE_TOKEN',
     authenticator: 'TACHYBASE_AUTH',
     theme: 'TACHYBASE_THEME',
+    mainToken: 'TACHYBASE_TOKEN',
   };
 
   protected options = {
@@ -84,6 +85,14 @@ export class Auth {
     this.setToken(value);
   }
 
+  get mainToken() {
+    return this.getMainToken();
+  }
+
+  set mainToken(value: string) {
+    this.setMainToken(value);
+  }
+
   get authenticator() {
     return this.getAuthenticator();
   }
@@ -129,6 +138,14 @@ export class Auth {
 
   setToken(token: string) {
     this.setOption('token', token);
+  }
+
+  getMainToken() {
+    return this.getOption('mainToken');
+  }
+
+  setMainToken(token: string) {
+    this.setOption('mainToken', token);
   }
 
   getAuthenticator() {

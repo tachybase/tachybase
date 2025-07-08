@@ -1,0 +1,11 @@
+{
+  "name": "@tego/plugin-auth-main-app",
+  "version": "1.3.17",
+  "main": "dist/server/index.js",
+  "dependencies": {},
+  "peerDependencies": {
+    "@tachybase/client": "workspace:*",
+    "@tachybase/server": "workspace:*",
+    "@tachybase/test": "workspace:*"
+  }
+}
