@@ -1,53 +1,27 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { ArrayCollapse, ArrayTable, FormLayout } from '@tachybase/components';
-import { createForm, Field, ISchema, Schema, uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
+import { useCallback, useMemo } from 'react';
+import { ArrayCollapse, FormLayout } from '@tachybase/components';
+import { createForm, Field, ISchema, Schema, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
-import { Button, Modal, Spin } from 'antd';
 import { createStyles } from 'antd-style';
 import { DefaultOptionType } from 'antd/lib/cascader';
-import _, { cloneDeep, omit, set } from 'lodash';
+import _ from 'lodash';
 import { useTranslation } from 'react-i18next';
 
-import { useAPIClient, useRequest } from '../../../../api-client';
 import { useApp, useSchemaToolbar } from '../../../../application';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
 import { useFormBlockContext, useTableBlockContext } from '../../../../block-provider';
-import {
-  IField,
-  useCollection_deprecated,
-  useCollectionManager_deprecated,
-  useResourceContext,
-} from '../../../../collection-manager';
-import { useCancelAction, useCollectionFilterOptionsV2 } from '../../../../collection-manager/action-hooks';
-import * as components from '../../../../collection-manager/Configuration/components';
-import useDialect from '../../../../collection-manager/hooks/useDialect';
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
+import { useCollectionFilterOptionsV2 } from '../../../../collection-manager/action-hooks';
 import { useContextConfigSetting } from '../../../../data-source';
 import { FlagProvider, useFlag } from '../../../../flag-provider';
 import { useRecord } from '../../../../record-provider';
-import {
-  ActionContextProvider,
-  FormProvider,
-  SchemaComponent,
-  useActionContext,
-  useCompile,
-  useDesignable,
-  useValidateSchema,
-} from '../../../../schema-component';
+import { FormProvider, SchemaComponent, useActionContext, useValidateSchema } from '../../../../schema-component';
 import { useIsFormReadPretty } from '../../../../schema-component/antd/form-item/FormItem.Settings';
 import { getTempFieldState } from '../../../../schema-component/antd/form-v2/utils';
-import {
-  findParentFieldSchema,
-  getFieldDefaultValue,
-  getShouldChange,
-  isPatternDisabled,
-  VariableInput,
-} from '../../../../schema-settings';
+import { findParentFieldSchema, getShouldChange, isPatternDisabled, VariableInput } from '../../../../schema-settings';
 import { ActionType } from '../../../../schema-settings/LinkageRules/type';
 import { formatVariableScop } from '../../../../schema-settings/VariableInput/utils/formatVariableScop';
 import { isVariable, useLocalVariables, useVariables } from '../../../../variables';
-import { useEditableDesignable } from './EditableDesignable';
-
-// import {  VariableInput } from './VariableInput/VariableInput';
 
 const useStyles = createStyles(({ css }) => {
   return {
@@ -314,7 +288,7 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
                   'x-decorator': 'FormItem',
                   'x-component': 'VariableInput',
                   'x-component-props': {
-                    ...(fieldSchema?.['x-component-props'] || {}),
+                    ...fieldSchema?.['x-component-props'],
                     collectionField,
                     contextCollectionName: isAllowContextVariable && tableCtx.collection,
                     schema: collectionField?.uiSchema,
@@ -355,7 +329,7 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
                       }
 
                       const schema = {
-                        ...(s || {}),
+                        ...s,
                         'x-decorator': 'FormItem',
                         'x-component-props': {
                           ...s['x-component-props'],
@@ -451,7 +425,7 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
                 alignItems: `${directionVal === 'row' ? 'baseline' : 'unset'}`,
               };
               fieldSchema['x-decorator-props'] = {
-                ...(fieldSchema['x-decorator-props'] || {}),
+                ...fieldSchema['x-decorator-props'],
                 style: newStyle,
                 layoutDirection: directionVal,
               };

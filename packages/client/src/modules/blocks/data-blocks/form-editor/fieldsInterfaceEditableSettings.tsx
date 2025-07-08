@@ -155,6 +155,7 @@ export const SetCollectionFieldModalWrapper = (props) => {
         <ActionContextProvider value={{ visible, setVisible }}>
           <Button
             style={{ width: '100%' }}
+            disabled={false}
             onClick={async () => {
               const { data } = await api.resource('collections.fields', record.collectionName).get({
                 filterByTk: record.name,
