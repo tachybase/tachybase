@@ -414,7 +414,7 @@ export const DataBlockInitializer = (props: DataBlockInitializerProps) => {
     } else {
       children = searchedChildren;
     }
-    if (name === 'form') {
+    if (name === 'form' && !onlyCurrentDataSource) {
       children = [
         {
           key: 'create-collection',

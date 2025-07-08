@@ -10,13 +10,7 @@ import { useCollection_deprecated, useLinkageCollectionFilterOptions } from '../
 import { FlagProvider } from '../../../../flag-provider';
 import { useRecord } from '../../../../record-provider';
 import { SchemaComponentContext, useActionContext } from '../../../../schema-component';
-import {
-  FormDataTemplates,
-  SchemaSettingsBlockTitleItem,
-  SchemaSettingsDataTemplates,
-  SchemaSettingsFormItemTemplate,
-  SchemaSettingsLinkageRules,
-} from '../../../../schema-settings';
+import { FormDataTemplates } from '../../../../schema-settings';
 import { FormLinkageRules } from '../../../../schema-settings/LinkageRules';
 import { useLinkageCollectionFieldOptions } from '../../../../schema-settings/LinkageRules/action-hooks';
 import { useSchemaTemplateManager } from '../../../../schema-templates';
@@ -247,7 +241,7 @@ export const createFormBlockEditableSettings = new EditableSchemaSettings({
                         return {
                           async onClick() {
                             let fieldReaction = form.values.fieldReaction;
-                            const data = { ...(formSchema['x-data-templates'] || {}), ...fieldReaction };
+                            const data = { ...formSchema['x-data-templates'], ...fieldReaction };
                             // 当 Tree 组件开启 checkStrictly 属性时，会导致 checkedKeys 的值是一个对象，而不是数组，所以这里需要转换一下以支持旧版本
                             data.items.forEach((item) => {
                               item.fields = Array.isArray(item.fields) ? item.fields : item.fields.checked;
