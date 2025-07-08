@@ -25,7 +25,7 @@
     "react-i18next": "^15.2.0",
     "tinycolor2": "^1.6.0",
     "use-debouncy": "^4.6.0",
-    "vanilla-jsoneditor": "^0.17.10"
+    "vanilla-jsoneditor": "^3.6.1"
   },
   "peerDependencies": {
     "@tachybase/actions": "workspace:*",
