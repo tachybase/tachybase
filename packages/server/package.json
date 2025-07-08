@@ -34,7 +34,7 @@
     "cronstrue": "^2.52.0",
     "dayjs": "1.11.13",
     "decompress": "4.2.1",
-    "execa": "^5.1.1",
+    "execa": "^9.6.0",
     "fast-glob": "^3.3.2",
     "find-package-json": "^1.2.0",
     "fs-extra": "^11.2.0",
