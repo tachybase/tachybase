@@ -229,7 +229,6 @@ export const Form: React.FC<FormProps> & {
     const { form, disabled, ...others } = useProps(props);
 
     const formDisabled = disabled || field.disabled;
-    console.log('%c Line:232 🚀 formDisabled', 'font-size:18px;color:#33a5ff;background:#fca650', formDisabled);
     return (
       <ConfigProvider componentDisabled={formDisabled}>
         <form onSubmit={(e) => e.preventDefault()} className={styles.container}>
