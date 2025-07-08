@@ -34,7 +34,7 @@
     "@formulajs/formulajs": "4.4.8",
     "@tachybase/utils": "workspace:*",
     "lodash": "4.17.21",
-    "mathjs": "^10.6.4"
+    "mathjs": "^14.5.3"
   },
   "devDependencies": {
     "@types/node": "20.17.10"
