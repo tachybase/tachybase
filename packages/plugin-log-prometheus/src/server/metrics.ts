@@ -2,13 +2,12 @@ import client from 'prom-client';
 
 // 创建 Prometheus 注册表
 const register = new client.Registry();
-
-export const contentType = client.register.contentType;
-
 // 添加默认指标收集器
 client.collectDefaultMetrics({
   register,
 });
+
+export const contentType = client.register.contentType;
 
 // 用户登录相关指标
 export const userMetrics = {
