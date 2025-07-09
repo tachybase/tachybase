@@ -2,7 +2,9 @@ import { Context } from '@tachybase/actions';
 import { AppSupervisor } from '@tachybase/server';
 import { Action, Controller } from '@tachybase/utils';
 
-@Controller('auth-main-app')
+import { COLLECTION_AUTH_MAIN_APP_CONFIG } from '../../constants';
+
+@Controller('authMainAppConfig')
 export class AuthMainAppController {
   @Action('getMainUser', { acl: 'public' })
   async getMainUser(ctx: Context, next: () => Promise<any>) {
@@ -79,5 +81,38 @@ export class AuthMainAppController {
     ctx.body = {
       token: newToken,
     };
+  }
+
+  @Action('get', { acl: 'public' })
+  async get(ctx: Context, next: () => Promise<any>) {
+    const repo = ctx.db.getRepository(COLLECTION_AUTH_MAIN_APP_CONFIG);
+    const existOne = await repo.findOne();
+    ctx.body = existOne;
+    return next();
+  }
+
+  @Action('set', { acl: 'public' })
+  async set(ctx: Context, next: () => Promise<any>) {
+    const { selfSignIn, authMainApp } = ctx.action.params.values;
+    const repo = ctx.db.getRepository(COLLECTION_AUTH_MAIN_APP_CONFIG);
+    const existOne = await repo.findOne();
+    if (!existOne) {
+      await repo.create({
+        values: {
+          selfSignIn,
+          authMainApp,
+        },
+      });
+    } else {
+      await repo.update({
+        filterByTk: existOne.id,
+        values: {
+          selfSignIn,
+          authMainApp,
+        },
+      });
+    }
+    ctx.body = 'ok';
+    return next();
   }
 }
