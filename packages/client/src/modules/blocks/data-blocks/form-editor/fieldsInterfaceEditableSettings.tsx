@@ -17,16 +17,8 @@ import {
 } from '../../../../collection-manager';
 import * as components from '../../../../collection-manager/Configuration/components';
 import useDialect from '../../../../collection-manager/hooks/useDialect';
-// import { useCollectionField } from '../../../../data-source';
 import { RecordProvider, useRecord } from '../../../../record-provider';
-import {
-  ActionContextProvider,
-  SchemaComponent,
-  useActionContext,
-  useColumnSchema,
-  useCompile,
-  useIsAssociationField,
-} from '../../../../schema-component';
+import { ActionContextProvider, SchemaComponent, useActionContext, useCompile } from '../../../../schema-component';
 import { getProperties, isSpecialInterrface } from './interfaceSchemaOptions';
 
 export const fieldInterfaceEditableSettings = new EditableSchemaSettings({
@@ -50,10 +42,6 @@ export const fieldInterfaceEditableSettings = new EditableSchemaSettings({
             field,
           },
         };
-      },
-      useVisible() {
-        const record = useRecord();
-        return isSpecialInterrface(record?.interface);
       },
     },
   ],
@@ -229,6 +217,13 @@ const getSchema = (defaultValues, record): ISchema => {
           form,
         },
         properties: {
+          'uiSchema.title': {
+            type: 'string',
+            title: '{{t("Title")}}',
+            description: '{{t("Caution: Changing this will directly modify the name in collection")}}',
+            'x-decorator': 'FormItem',
+            'x-component': 'Input',
+          },
           ...gird,
           footer: {
             'x-component': 'Action.Modal.Footer',
