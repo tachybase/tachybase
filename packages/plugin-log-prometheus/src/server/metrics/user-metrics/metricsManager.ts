@@ -1,4 +1,6 @@
-import { metricsUtils } from '../utils/metrics-utils';
+import { convertUTCToLocal } from '@tachybase/utils';
+
+import { metricsUtils } from './metricsUtils';
 
 /**
  * 用户登录指标管理类
@@ -41,12 +43,12 @@ export class UserLoginMetrics {
 
   /**
    * 更新每日活跃用户数
-   * @param count 活跃用户数
+   * @param userId 活跃用户ID
    */
-  async updateDailyActiveUsers(count: number) {
+  async updateDailyActiveUsers(userId: string) {
     try {
-      metricsUtils.setDailyActiveUsers(count);
-      console.log(`[UserMetrics] 更新每日活跃用户数: ${count}`);
+      metricsUtils.updateDailyActiveUsersCount(userId);
+      console.log(`[UserMetrics] 更新每日活跃用户数: ${userId}`);
     } catch (error) {
       console.error('[UserMetrics] 更新每日活跃用户数失败:', error);
     }
@@ -175,7 +177,7 @@ export class UserStatsCollector {
       const totalRegisteredUsers = await this.userMetrics.getTotalRegisteredUsersFromDB();
 
       // 更新指标
-      await this.userMetrics.updateDailyActiveUsers(dailyActiveUsers);
+      await this.userMetrics.updateDailyActiveUsers();
       await this.userMetrics.updateTotalRegisteredUsers(totalRegisteredUsers);
 
       console.log(

@@ -1,7 +1,7 @@
 import { Context } from '@tachybase/actions';
 
-import { TrackingFilter } from '../metrics/tracking-filter';
-import { trackingMetricsUtils } from '../utils/TrackingMetricsUtils';
+import { TrackingFilter } from '../metrics/trackingFilter';
+import { trackingMetricsUtils } from '../utils/tracking-metrics-utils';
 
 // 数据过滤工具函数
 function filterMatch(data: any, filter: Record<string, any>): boolean {

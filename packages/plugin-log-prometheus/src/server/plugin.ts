@@ -1,10 +1,10 @@
 import { isMainThread } from 'node:worker_threads';
 import { InjectedPlugin, Plugin } from '@tachybase/server';
 
-import { MetricsController } from './actions/metrics-controller';
-import { TrackingController } from './actions/tracking-controller';
-import { TrackingFilter } from './metrics/tracking-filter';
-import { createUserMetricsMiddleware, initializeUserMetrics } from './metrics/user-metrics';
+import { MetricsController } from './controllers/metricsController';
+import { TrackingController } from './controllers/trackingController';
+import { TrackingFilter } from './metrics/trackingFilter';
+import { createUserMetricsMiddleware, initializeUserMetrics } from './metrics/user-metrics/metricsManager';
 import { createTrackingMiddleware, initializeDefaultTrackingConfig } from './middlewares/tracking-middleware';
 
 // 注册控制器
@@ -44,14 +44,15 @@ export class PluginLogMetricsServer extends Plugin {
       actions: ['log-metrics:*'],
     });
 
-    // 只在主线程初始化追踪功能
+    // 1. 初始化追踪功能
+    // 只在主线程初始化
     if (isMainThread) {
       await this.initializeTrackingSystem();
     }
 
-    // 初始化用户指标系统
+    // 2. 初始化用户指标系统
     try {
-      const { userMetrics, statsCollector } = await initializeUserMetrics(this.db, true);
+      const { userMetrics } = await initializeUserMetrics(this.db, true);
 
       // 添加用户指标中间件
       this.app.use(createUserMetricsMiddleware(userMetrics), {

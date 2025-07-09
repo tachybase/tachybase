@@ -3,8 +3,8 @@ import { Action, Controller } from '@tachybase/utils';
 
 import { contentType } from 'prom-client';
 
-import { TrackingFilter } from '../metrics/tracking-filter';
-import { trackingMetricsUtils } from '../utils/TrackingMetricsUtils';
+import { TrackingFilter } from '../metrics/trackingFilter';
+import { trackingMetricsUtils } from '../utils/tracking-metrics-utils';
 
 @Controller('log-metrics')
 export class TrackingController {

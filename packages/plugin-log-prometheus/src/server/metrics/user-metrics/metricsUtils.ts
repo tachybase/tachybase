@@ -1,29 +1,38 @@
-import { register } from '../metrics/register';
-import { userMetrics } from '../metrics/userMetrics';
+import { formatDateTime } from '@tachybase/utils';
+
+import { register } from '../register';
+import { userMetrics } from './userMetrics';
 
 // 工具函数
-
 export const metricsUtils = {
   // 记录登录成功
   recordLoginSuccess(userId: string, method: string = 'password') {
-    userMetrics.loginSuccessCount.inc({ user_id: userId, method });
+    userMetrics.loginSuccessCount.inc({
+      user_id: userId,
+      method,
+    });
     this.updateDailyLoginCount();
   },
 
   // 记录登录失败
   recordLoginFailure(reason: string, method: string = 'password') {
-    userMetrics.loginFailureCount.inc({ reason, method });
+    userMetrics.loginFailureCount.inc({
+      reason,
+      method,
+    });
   },
 
   // 更新每日登录人次
   updateDailyLoginCount() {
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 格式
-    userMetrics.dailyLoginCount.inc({ date: today });
+    const today = formatDateTime(new Date(), 'YYYY-MM-DD');
+    userMetrics.dailyLoginCount.inc({
+      date: today,
+    });
   },
 
-  // 设置每日活跃用户数
+  // 设置每日有效登录用户数
   setDailyActiveUsers(count: number) {
-    const today = new Date().toISOString().split('T')[0];
+    const today = formatDateTime(new Date(), 'YYYY-MM-DD');
     userMetrics.dailyActiveUsers.set({ date: today }, count);
   },
 

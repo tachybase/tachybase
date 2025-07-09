@@ -16,7 +16,8 @@
   "peerDependencies": {
     "@tachybase/client": "workspace:*",
     "@tachybase/server": "workspace:*",
-    "@tachybase/test": "workspace:*"
+    "@tachybase/test": "workspace:*",
+    "@tachybase/utils": "workspace:*"
   },
   "description.zh-CN": "埋点模块，用于 Prometheus 的指标收集",
   "displayName.zh-CN": "埋点追踪-Prometheus"
