@@ -25,7 +25,7 @@
     "react": "^18.3.1",
     "react-big-calendar": "^1.17.1",
     "react-i18next": "^15.2.0",
-    "react-js-cron": "^3.2.0",
+    "react-js-cron": "^5.2.0",
     "solarlunar-es": "^1.0.9"
   },
   "peerDependencies": {
