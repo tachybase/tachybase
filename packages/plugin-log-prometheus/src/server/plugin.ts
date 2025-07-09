@@ -3,9 +3,9 @@ import { InjectedPlugin, Plugin } from '@tachybase/server';
 
 import { MetricsController } from './actions/metrics-controller';
 import { TrackingController } from './actions/tracking-controller';
-import { TrackingFilter } from './tracking-filter';
-import { createTrackingMiddleware, initializeDefaultTrackingConfig } from './tracking-middleware';
-import { createUserMetricsMiddleware, initializeUserMetrics } from './user-metrics';
+import { TrackingFilter } from './metrics/tracking-filter';
+import { createUserMetricsMiddleware, initializeUserMetrics } from './metrics/user-metrics';
+import { createTrackingMiddleware, initializeDefaultTrackingConfig } from './middlewares/tracking-middleware';
 
 // 注册控制器
 @InjectedPlugin({
@@ -63,6 +63,7 @@ export class PluginLogMetricsServer extends Plugin {
     }
   }
 
+  // 初始化追踪系统
   async initializeTrackingSystem() {
     try {
       console.log('[PluginLogMetrics] 初始化追踪系统...');

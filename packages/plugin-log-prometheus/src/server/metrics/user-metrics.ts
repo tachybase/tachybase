@@ -1,4 +1,4 @@
-import { metricsUtils } from './metrics';
+import { metricsUtils } from '../utils/metrics-utils';
 
 /**
  * 用户登录指标管理类

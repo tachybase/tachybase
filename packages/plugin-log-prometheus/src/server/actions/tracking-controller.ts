@@ -1,8 +1,10 @@
 import { Context, Next } from '@tachybase/actions';
 import { Action, Controller } from '@tachybase/utils';
 
-import { contentType, trackingMetricsUtils } from '../metrics';
-import { TrackingFilter } from '../tracking-filter';
+import { contentType } from 'prom-client';
+
+import { TrackingFilter } from '../metrics/tracking-filter';
+import { trackingMetricsUtils } from '../utils/TrackingMetricsUtils';
 
 @Controller('log-metrics')
 export class TrackingController {

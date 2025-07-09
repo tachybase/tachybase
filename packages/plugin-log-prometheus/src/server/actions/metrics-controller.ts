@@ -1,7 +1,7 @@
 import { Context, Next } from '@tachybase/actions';
 import { Action, Controller } from '@tachybase/utils';
 
-import { metricsUtils } from '../metrics';
+import { metricsUtils } from '../utils/metrics-utils';
 
 @Controller('log-metrics')
 export class MetricsController {

@@ -11,7 +11,7 @@ export type TrackingConfig = {
   };
   enabled: boolean;
 };
-
+// 追踪过滤器
 export class TrackingFilter {
   db: Database;
   trackingConfigs: TrackingConfig[] = [];
