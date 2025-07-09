@@ -31,7 +31,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: docker/tego/Dockerfile
+          file: docker/tego-nightly/Dockerfile
           push: true
           tags: |
             tegojs/tego-nightly:${{ github.event.inputs.docker_tag }}
