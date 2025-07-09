@@ -14,7 +14,7 @@
   "dependencies": {},
   "devDependencies": {
     "@alicloud/dysmsapi20170525": "2.0.24",
-    "@alicloud/openapi-client": "0.4.12",
+    "@alicloud/openapi-client": "0.4.15",
     "@alicloud/tea-util": "1.4.9",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
