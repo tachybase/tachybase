@@ -128,9 +128,12 @@ export function afterUpdateForForeignKeyField(db: Database) {
     collection?.updateField(model.get('name'), model.get());
     const field = collection?.getField(model.get('name'));
     if (!needUpdate) return;
-
-    field.bind();
-
+    try {
+      field?.unbind?.();
+      field.bind();
+    } catch (e) {
+      throw e;
+    }
     async function removeOldForeignKeyField(collection: string, fkName: string) {
       if (!collection || !fkName) return;
 
@@ -171,7 +174,6 @@ export function afterUpdateForForeignKeyField(db: Database) {
     // 2. foreign key 在 source collection
     else if (['obo', 'm2o'].includes(interfaceType)) {
       await removeOldForeignKeyField(collectionName, oldForeignKey);
-
       const values = generateFkOptions(collectionName, newForeignKey);
       await createFieldIfNotExists({
         values: {
@@ -232,6 +234,11 @@ export function afterUpdateForForeignKeyField(db: Database) {
         transaction,
       });
     }
+
+    await model.migrate({
+      isNew: true,
+      transaction,
+    });
   };
 
   return async (model, options) => {

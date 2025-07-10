@@ -75,6 +75,9 @@ export const unixTimestampComponentFieldEditableSettings = new EditableSchemaSet
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Date display format'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
@@ -185,7 +188,7 @@ export const unixTimestampComponentFieldEditableSettings = new EditableSchemaSet
                             };
                             schema['x-component-props'] = fieldSchema['x-component-props'] || {};
                             fieldSchema['x-component-props'] = {
-                              ...(fieldSchema['x-component-props'] || {}),
+                              ...fieldSchema['x-component-props'],
                               ...data,
                             };
                             schema['x-component-props'] = fieldSchema['x-component-props'];

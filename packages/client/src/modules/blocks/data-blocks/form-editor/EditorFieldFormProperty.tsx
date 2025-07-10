@@ -217,7 +217,7 @@ const useEditableItems = (items: any[]) => {
   }
 
   const formId = useMemo(() => uid(), []);
-  const editableForm = createForm({ disabled: false });
+  const editableForm = useMemo(() => createForm(), []);
   const editableSchema = {
     type: 'void',
     properties: {
@@ -225,7 +225,6 @@ const useEditableItems = (items: any[]) => {
         type: 'void',
         'x-component': 'FormV2',
         'x-component-props': {
-          // disabled: false,
           form: editableForm,
         },
         properties: fieldSchemas,

@@ -145,6 +145,9 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Set the data scope'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
@@ -253,6 +256,9 @@ export const selectComponentFieldEditableSettings = new EditableSchemaSettings({
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Set default sorting rules'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {

@@ -166,6 +166,9 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Set default sorting rules'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
@@ -342,6 +345,9 @@ export const subTablePopoverComponentFieldEditableSettings = new EditableSchemaS
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Quick create'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
