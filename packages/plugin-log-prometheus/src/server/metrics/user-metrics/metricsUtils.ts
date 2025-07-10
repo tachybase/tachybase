@@ -41,58 +41,45 @@ export const metricsUtils = {
     userMetrics.totalRegisteredUsers.set(count);
   },
 
-  // ===== 新增留存率相关工具函数 =====
+  // ===== 留存率原始数据记录 =====
 
-  // 记录用户注册
+  // 记录用户注册事件
   recordUserRegistration(userId: string, registrationDate: Date) {
-    const timestamp = registrationDate.getTime() / 1000; // 转换为秒
-    userMetrics.userRegistrationDate.set({ user_id: userId }, timestamp);
-
-    // 记录新增用户数
     const date = formatDateTime(registrationDate, 'YYYY-MM-DD');
-    userMetrics.newUsersCount.inc({ date });
-
-    console.log(`[UserMetrics] 记录用户注册: ${userId}, 日期: ${date}`);
-  },
-
-  // 记录用户每日活跃状态
-  recordUserDailyActivity(userId: string, date: string, isActive: boolean) {
-    const value = isActive ? 1 : 0;
-    userMetrics.userDailyActivity.set({ user_id: userId, date }, value);
-  },
-
-  // 记录用户核心功能操作
-  recordUserCoreAction(userId: string, actionType: string) {
-    const today = formatDateTime(new Date(), 'YYYY-MM-DD');
-    userMetrics.userCoreActionCount.inc({
+    userMetrics.userRegistration.inc({
       user_id: userId,
-      action_type: actionType,
-      date: today,
+      registration_date: date,
+    });
+
+    console.log(`[UserMetrics] 记录用户注册事件: ${userId}, 日期: ${date}`);
+  },
+
+  // 记录用户每日活跃事件
+  recordUserDailyActivity(userId: string, activityDate: Date) {
+    const date = formatDateTime(activityDate, 'YYYY-MM-DD');
+    userMetrics.userDailyActivity.inc({
+      user_id: userId,
+      activity_date: date,
     });
   },
 
-  // 计算并更新留存率
-  updateRetentionRates(date: string) {
-    // 这里需要从数据库获取数据来计算留存率
-    // 实际实现需要在 metricsManager 中完成
-    console.log(`[UserMetrics] 更新留存率: ${date}`);
+  // 记录用户核心功能操作事件
+  recordUserCoreAction(userId: string, actionType: string, actionDate?: Date) {
+    const date = actionDate ? formatDateTime(actionDate, 'YYYY-MM-DD') : formatDateTime(new Date(), 'YYYY-MM-DD');
+    userMetrics.userCoreAction.inc({
+      user_id: userId,
+      action_type: actionType,
+      action_date: date,
+    });
   },
 
-  // 设置留存率指标
-  setRetentionRate(retentionType: 'next_day' | '7_day' | '30_day', date: string, rate: number) {
-    const metric =
-      retentionType === 'next_day'
-        ? userMetrics.retentionNextDay
-        : retentionType === '7_day'
-          ? userMetrics.retention7Day
-          : userMetrics.retention30Day;
-
-    metric.set({ date }, rate);
-  },
-
-  // 设置留存用户数
-  setRetainedUsersCount(retentionType: 'next_day' | '7_day' | '30_day', date: string, count: number) {
-    userMetrics.retainedUsersCount.set({ retention_type: retentionType, date }, count);
+  // 记录用户登录事件
+  recordUserLoginEvent(userId: string, loginDate?: Date) {
+    const date = loginDate ? formatDateTime(loginDate, 'YYYY-MM-DD') : formatDateTime(new Date(), 'YYYY-MM-DD');
+    userMetrics.userLogin.inc({
+      user_id: userId,
+      login_date: date,
+    });
   },
 
   // 获取指标数据

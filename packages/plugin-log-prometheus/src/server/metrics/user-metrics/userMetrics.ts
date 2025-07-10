@@ -49,69 +49,37 @@ export const userMetrics = {
     registers: [register],
   }),
 
-  // ===== 新增留存率相关指标 =====
+  // ===== 留存率原始数据指标 =====
 
-  // 用户注册日期记录（用于计算留存率）
-  userRegistrationDate: new client.Gauge({
-    name: 'tego_user_registration_timestamp',
-    help: '用户注册时间戳',
-    labelNames: ['user_id'],
+  // 用户注册事件（用于计算留存率）
+  userRegistration: new client.Counter({
+    name: 'tego_user_registration_total',
+    help: '用户注册总次数',
+    labelNames: ['user_id', 'registration_date'],
     registers: [register],
   }),
 
-  // 用户每日活跃状态（用于计算留存率）
-  userDailyActivity: new client.Gauge({
-    name: 'tego_user_daily_activity',
-    help: '用户每日活跃状态（1=活跃，0=不活跃）',
-    labelNames: ['user_id', 'date'],
+  // 用户每日活跃事件（用于计算留存率）
+  userDailyActivity: new client.Counter({
+    name: 'tego_user_daily_activity_total',
+    help: '用户每日活跃事件总次数',
+    labelNames: ['user_id', 'activity_date'],
     registers: [register],
   }),
 
-  // 用户核心功能操作记录
-  userCoreActionCount: new client.Counter({
+  // 用户核心功能操作事件
+  userCoreAction: new client.Counter({
     name: 'tego_user_core_action_total',
     help: '用户核心功能操作总次数',
-    labelNames: ['user_id', 'action_type', 'date'],
+    labelNames: ['user_id', 'action_type', 'action_date'],
     registers: [register],
   }),
 
-  // 留存率计算指标 - 次日留存
-  retentionNextDay: new client.Gauge({
-    name: 'tego_user_retention_next_day',
-    help: '次日留存率（百分比）',
-    labelNames: ['date'],
-    registers: [register],
-  }),
-
-  // 留存率计算指标 - 7日留存
-  retention7Day: new client.Gauge({
-    name: 'tego_user_retention_7_day',
-    help: '7日留存率（百分比）',
-    labelNames: ['date'],
-    registers: [register],
-  }),
-
-  // 留存率计算指标 - 30日留存
-  retention30Day: new client.Gauge({
-    name: 'tego_user_retention_30_day',
-    help: '30日留存率（百分比）',
-    labelNames: ['date'],
-    registers: [register],
-  }),
-
-  // 新增用户数（用于计算留存率分母）
-  newUsersCount: new client.Gauge({
-    name: 'tego_user_new_users_count',
-    help: '每日新增用户数',
-    labelNames: ['date'],
-    registers: [register],
-  }),
-
-  // 留存用户数（用于计算留存率分子）
-  retainedUsersCount: new client.Gauge({
-    name: 'tego_user_retained_users_count',
-    help: '留存用户数',
-    labelNames: ['retention_type', 'date'], // retention_type: next_day, 7_day, 30_day
+  // 用户登录事件（用于计算留存率）
+  userLogin: new client.Counter({
+    name: 'tego_user_login_event_total',
+    help: '用户登录事件总次数',
+    labelNames: ['user_id', 'login_date'],
     registers: [register],
   }),
 };
