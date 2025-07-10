@@ -1,6 +1,32 @@
-import { convertUTCToLocal } from '@tachybase/utils';
-
 import { metricsUtils } from './metricsUtils';
+
+/**
+ * 初始化用户指标系统
+ * @param db 数据库实例
+ * @param autoStart 是否自动启动统计数据收集
+ */
+export async function initializeUserMetrics(db?: any, autoStart: boolean = true) {
+  try {
+    console.log('[UserMetrics] Initializing user metrics system...');
+
+    const userMetrics = new UserLoginMetrics(db);
+    const statsCollector = new UserStatsCollector(userMetrics);
+
+    if (autoStart) {
+      statsCollector.start();
+    }
+
+    console.log('[UserMetrics] User metrics system initialized successfully');
+
+    return {
+      userMetrics,
+      statsCollector,
+    };
+  } catch (error) {
+    console.error('[UserMetrics] Failed to initialize user metrics system:', error);
+    throw error;
+  }
+}
 
 /**
  * 用户登录指标管理类
@@ -21,9 +47,9 @@ export class UserLoginMetrics {
   async recordUserLogin(userId: string, method: string = 'password') {
     try {
       metricsUtils.recordLoginSuccess(userId, method);
-      console.log(`[UserMetrics] 用户登录成功: ${userId}, 方式: ${method}`);
+      console.log(`[UserMetrics] User login successful: ${userId}, method: ${method}`);
     } catch (error) {
-      console.error('[UserMetrics] 记录用户登录失败:', error);
+      console.error('[UserMetrics] Failed to record user login:', error);
     }
   }
 
@@ -45,10 +71,10 @@ export class UserLoginMetrics {
    * 更新每日活跃用户数
    * @param userId 活跃用户ID
    */
-  async updateDailyActiveUsers(userId: string) {
+  async updateDailyActiveUsers(count: number) {
     try {
-      metricsUtils.updateDailyActiveUsersCount(userId);
-      console.log(`[UserMetrics] 更新每日活跃用户数: ${userId}`);
+      metricsUtils.setDailyActiveUsers(count);
+      console.log(`[UserMetrics] 更新每日活跃用户数: ${count}`);
     } catch (error) {
       console.error('[UserMetrics] 更新每日活跃用户数失败:', error);
     }
@@ -91,6 +117,8 @@ export class UserLoginMetrics {
           },
         },
       });
+
+      console.log('%c Line:87 🍏 activeUsers', 'font-size:18px;color:#33a5ff;background:#465975', activeUsers);
 
       return activeUsers;
     } catch (error) {
@@ -177,7 +205,7 @@ export class UserStatsCollector {
       const totalRegisteredUsers = await this.userMetrics.getTotalRegisteredUsersFromDB();
 
       // 更新指标
-      await this.userMetrics.updateDailyActiveUsers();
+      await this.userMetrics.updateDailyActiveUsers(dailyActiveUsers);
       await this.userMetrics.updateTotalRegisteredUsers(totalRegisteredUsers);
 
       console.log(
@@ -195,74 +223,3 @@ export class UserStatsCollector {
     return this.isRunning;
   }
 }
-
-/**
- * 创建用户指标中间件
- * 自动检测登录请求并记录相关指标
- */
-export function createUserMetricsMiddleware(userMetrics: UserLoginMetrics) {
-  return async (ctx: any, next: () => Promise<any>) => {
-    const startTime = Date.now();
-
-    try {
-      await next();
-
-      const duration = (Date.now() - startTime) / 1000; // 转换为秒
-
-      // 检测登录相关的请求
-      if (ctx.action && ctx.action.actionName === 'signIn') {
-        if (ctx.status === 200 || !ctx.body?.errors) {
-          // 登录成功
-          const userId = ctx.auth?.user?.id || ctx.action.params?.values?.account || 'unknown';
-          await userMetrics.recordUserLogin(userId, 'password');
-        } else {
-          // 登录失败
-          const reason = ctx.body?.errors?.[0]?.message || 'server_error';
-          await userMetrics.recordUserLoginFailure(reason, 'password');
-        }
-      }
-
-      // 记录请求日志（可选）
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`[HTTP] ${ctx.action?.actionName || 'unknown'} - ${ctx.status || 200} (${duration.toFixed(2)}s)`);
-      }
-    } catch (error) {
-      // 如果登录失败，记录错误
-      if (ctx.action && ctx.action.actionName === 'signIn') {
-        await userMetrics.recordUserLoginFailure('server_error', 'password');
-      }
-      throw error;
-    }
-  };
-}
-
-/**
- * 初始化用户指标系统
- * @param db 数据库实例
- * @param autoStart 是否自动启动统计数据收集
- */
-export async function initializeUserMetrics(db?: any, autoStart: boolean = true) {
-  try {
-    console.log('[UserMetrics] 初始化用户指标系统...');
-
-    const userMetrics = new UserLoginMetrics(db);
-    const statsCollector = new UserStatsCollector(userMetrics);
-
-    if (autoStart) {
-      statsCollector.start();
-    }
-
-    console.log('[UserMetrics] 用户指标系统初始化完成');
-
-    return {
-      userMetrics,
-      statsCollector,
-    };
-  } catch (error) {
-    console.error('[UserMetrics] 初始化用户指标系统失败:', error);
-    throw error;
-  }
-}
-
-// 导出主要功能
-export const userLoginMetrics = new UserLoginMetrics();

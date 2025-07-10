@@ -4,8 +4,9 @@ import { InjectedPlugin, Plugin } from '@tachybase/server';
 import { MetricsController } from './controllers/metricsController';
 import { TrackingController } from './controllers/trackingController';
 import { TrackingFilter } from './metrics/trackingFilter';
-import { createUserMetricsMiddleware, initializeUserMetrics } from './metrics/user-metrics/metricsManager';
+import { initializeUserMetrics } from './metrics/user-metrics/metricsManager';
 import { createTrackingMiddleware, initializeDefaultTrackingConfig } from './middlewares/tracking-middleware';
+import { createUserMetricsMiddleware } from './middlewares/user-middlewares';
 
 // 注册控制器
 @InjectedPlugin({
@@ -53,14 +54,13 @@ export class PluginLogMetricsServer extends Plugin {
     // 2. 初始化用户指标系统
     try {
       const { userMetrics } = await initializeUserMetrics(this.db, true);
-
       // 添加用户指标中间件
       this.app.use(createUserMetricsMiddleware(userMetrics), {
         tag: 'userMetrics',
         before: 'errorHandler',
       });
     } catch (error) {
-      console.error('[PluginLogMetrics] 启动用户指标系统失败:', error);
+      console.error('[PluginLogMetrics] Failed to start user metrics system:', error);
     }
   }
 
