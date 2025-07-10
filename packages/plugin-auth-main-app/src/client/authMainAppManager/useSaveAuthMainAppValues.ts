@@ -14,17 +14,12 @@ export const useSaveAuthMainAppValues = () => {
   return {
     async run() {
       await form.submit();
-      try {
-        await api.request({
-          url: `${COLLECTION_AUTH_MAIN_APP_CONFIG}:set`,
-          method: 'post',
-          data: form.values,
-        });
-        message.success(t('Saved successfully'));
-      } catch (error) {
-        message.error(t('Failed to save settings'));
-        throw error;
-      }
+      await api.request({
+        url: `${COLLECTION_AUTH_MAIN_APP_CONFIG}:set`,
+        method: 'post',
+        data: form.values,
+      });
+      message.success(t('Saved successfully'));
     },
   };
 };

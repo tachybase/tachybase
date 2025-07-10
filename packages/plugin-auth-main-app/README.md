@@ -1,1 +1,1 @@
-# @tego/plugin-auth-main-app
+# @tachybase/plugin-auth-main-app

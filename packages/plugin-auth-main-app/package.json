@@ -1,5 +1,5 @@
 {
-  "name": "@tego/plugin-auth-main-app",
+  "name": "@tachybase/plugin-auth-main-app",
   "displayName": "Single Sign-On on multi app (SSO)",
   "version": "1.3.17",
   "description": "Users log in via the main application; sub-applications can disable their standalone login.",

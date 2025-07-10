@@ -2,7 +2,7 @@ import { Context } from '@tachybase/actions';
 import { AppSupervisor } from '@tachybase/server';
 import { Action, Controller } from '@tachybase/utils';
 
-import { COLLECTION_AUTH_MAIN_APP_CONFIG } from '../../constants';
+import { COLLECTION_AUTH_MAIN_APP_CONFIG, NAMESPACE } from '../../constants';
 
 @Controller('authMainAppConfig')
 export class AuthMainAppController {
@@ -94,6 +94,9 @@ export class AuthMainAppController {
   @Action('set', { acl: 'public' })
   async set(ctx: Context, next: () => Promise<any>) {
     const { selfSignIn, authMainApp } = ctx.action.params.values;
+    if (ctx.app.name === 'main' && !selfSignIn) {
+      ctx.throw(400, ctx.t('Unable to disable all authenticators in the main application.', { ns: NAMESPACE }));
+    }
     const repo = ctx.db.getRepository(COLLECTION_AUTH_MAIN_APP_CONFIG);
     const existOne = await repo.findOne();
     if (!existOne) {
