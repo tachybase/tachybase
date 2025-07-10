@@ -16,8 +16,8 @@ export class TrackingFilter {
   db: Database;
   trackingConfigs: TrackingConfig[] = [];
 
-  constructor(database: Database) {
-    this.db = database;
+  constructor(db: Database) {
+    this.db = db;
     this.load().catch(console.error);
     this.addRefreshListener().catch(console.error);
   }

@@ -10,6 +10,7 @@ export function createUserMetricsMiddleware(userMetrics: UserLoginMetrics) {
     try {
       await next();
       const duration = (Date.now() - startTime) / 1000; // 转换为秒
+
       // 检测登录相关的请求
       if (ctx.action && ctx.action.actionName === 'signIn') {
         if (ctx.status === 200 || !ctx.body?.errors) {
@@ -20,6 +21,42 @@ export function createUserMetricsMiddleware(userMetrics: UserLoginMetrics) {
           // 登录失败
           const reason = ctx.body?.errors?.[0]?.message || 'server_error';
           await userMetrics.recordUserLoginFailure(reason, 'password');
+        }
+      }
+
+      // 检测用户注册请求
+      if (ctx.action && ctx.action.actionName === 'create' && ctx.action.resourceName === 'users') {
+        if (ctx.status === 200 || !ctx.body?.errors) {
+          // 注册成功
+          const userId = ctx.body?.data?.id || 'unknown';
+          const registrationDate = new Date();
+          await userMetrics.recordUserRegistration(userId, registrationDate);
+        }
+      }
+
+      // 检测核心功能操作
+      if (ctx.auth?.user?.id && ctx.status === 200) {
+        const userId = ctx.auth.user.id;
+        const actionName = ctx.action?.actionName;
+        const resourceName = ctx.action?.resourceName;
+
+        // 定义核心功能操作类型
+        const coreActions = [
+          'create',
+          'update',
+          'delete', // 部分基础CRUD操作
+          'export',
+          'import', // 数据导入导出
+          'workflow',
+          'approval', // 工作流相关
+          'upload',
+          'download', // 文件操作
+        ];
+
+        // 检查是否为核心功能操作
+        if (actionName && coreActions.includes(actionName)) {
+          const actionType = `${resourceName}_${actionName}`;
+          await userMetrics.recordUserCoreAction(userId, actionType);
         }
       }
 

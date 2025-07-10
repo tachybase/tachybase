@@ -3,7 +3,6 @@ import client from 'prom-client';
 import { register } from './register';
 
 // 追踪相关指标
-
 export const trackingMetrics = {
   // 操作执行次数（按配置分组）
   actionExecutionCount: new client.Counter({
