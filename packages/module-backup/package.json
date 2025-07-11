@@ -34,7 +34,7 @@
     "react-i18next": "^15.2.0",
     "react-js-cron": "^3.2.0",
     "semver": "7.7.2",
-    "tar": "^6.2.1",
+    "tar": "^7.4.3",
     "yauzl": "^3.2.0"
   },
   "peerDependencies": {
