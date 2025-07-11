@@ -398,10 +398,12 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
                         if (!initialValue.uiSchema) {
                           initialValue.uiSchema = {};
                         }
-                        const relationInterfaces = ['obo', 'oho', 'o2o', 'o2m', 'm2m', 'm2o'];
+                        const relationInterfaces = ['oho', 'o2o', 'obo', 'o2m', 'm2m', 'm2o'];
                         if (relationInterfaces.includes(initialValue.interface)) {
                           initialValue.target = '__temp__';
-                          initialValue.targetKey = 'id';
+                          if (!['oho', 'o2o'].includes(initialValue.interface)) {
+                            initialValue.targetKey = 'id';
+                          }
                         }
                         initialValue.uiSchema.title = item.title || compile('Unnamed');
                         if (initialValue.reverseField) {

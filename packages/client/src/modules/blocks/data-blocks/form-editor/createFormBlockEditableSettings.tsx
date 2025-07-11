@@ -104,6 +104,9 @@ export const createFormBlockEditableSettings = new EditableSchemaSettings({
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Linkage rules'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
@@ -203,6 +206,9 @@ export const createFormBlockEditableSettings = new EditableSchemaSettings({
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Form data templates'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {

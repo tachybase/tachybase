@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import { Icon } from '../../../../icon';
+import { AddFieldsIcon } from '../../../../icon/svgImage';
 import { SchemaComponent } from '../../../../schema-component';
 import { findSchema } from '../../../../schema-initializer/utils';
 import { EditableGrid } from './EditableGrid';
@@ -31,7 +32,7 @@ export const EditorContent = observer<EditorContentProps>(({ schema }) => {
             paddingBottom: '10%',
           }}
         >
-          <Icon type="addFields" />
+          <AddFieldsIcon style={{ width: '200px', height: '100%' }} />
         </div>
       ) : (
         <SchemaComponent schema={schema} components={{ EditableGrid }} />

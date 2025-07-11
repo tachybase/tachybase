@@ -74,6 +74,9 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Date display format'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
@@ -184,7 +187,7 @@ export const datePickerComponentFieldEditableSettings = new EditableSchemaSettin
                             };
                             schema['x-component-props'] = fieldSchema['x-component-props'] || {};
                             fieldSchema['x-component-props'] = {
-                              ...(fieldSchema['x-component-props'] || {}),
+                              ...fieldSchema['x-component-props'],
                               ...data,
                             };
                             schema['x-component-props'] = fieldSchema['x-component-props'];

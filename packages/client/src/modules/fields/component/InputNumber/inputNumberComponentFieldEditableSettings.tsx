@@ -81,7 +81,7 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
               const componentOptions = options.find((item) => item.value === component);
               const componentProps = {
                 component,
-                ...(componentOptions?.useProps?.() || {}),
+                ...componentOptions?.useProps?.(),
               };
               field.componentProps = componentProps;
               field.component = component;
@@ -192,6 +192,9 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Format'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
@@ -298,7 +301,7 @@ export const inputNumberComponentFieldEditableSettings = new EditableSchemaSetti
                             };
                             schema['x-component-props'] = fieldSchema['x-component-props'] || {};
                             fieldSchema['x-component-props'] = {
-                              ...(fieldSchema['x-component-props'] || {}),
+                              ...fieldSchema['x-component-props'],
                               ...data,
                             };
                             schema['x-component-props'] = fieldSchema['x-component-props'];

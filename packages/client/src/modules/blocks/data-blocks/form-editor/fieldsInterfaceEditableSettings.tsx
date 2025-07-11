@@ -1,13 +1,15 @@
 import { useContext, useMemo, useState } from 'react';
-import { ArrayTable } from '@tachybase/components';
+import { ArrayTable, FormItem } from '@tachybase/components';
 import { action, createForm, Field, ISchema, uid, useField, useFieldSchema, useForm } from '@tachybase/schema';
 
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import _, { cloneDeep } from 'lodash';
 import { useTranslation } from 'react-i18next';
 
+import { ContextCleaner, SchemaOptionsContext } from '../../../../../../schema/src/react';
 import { useAPIClient } from '../../../../api-client';
 import { EditableSchemaSettings } from '../../../../application/schema-settings-editable';
+import { useCancelActionProps } from '../../../../block-provider';
 import { usePageRefresh } from '../../../../built-in/dynamic-page/PageRefreshContext';
 import {
   DataSourceContext_deprecated,
@@ -18,7 +20,16 @@ import {
 import * as components from '../../../../collection-manager/Configuration/components';
 import useDialect from '../../../../collection-manager/hooks/useDialect';
 import { RecordProvider, useRecord } from '../../../../record-provider';
-import { ActionContextProvider, SchemaComponent, useActionContext, useCompile } from '../../../../schema-component';
+import {
+  ActionContextProvider,
+  FormV2,
+  SchemaComponent,
+  SchemaComponentContext,
+  SchemaComponentProvider,
+  useActionContext,
+  useCompile,
+} from '../../../../schema-component';
+
 import { getProperties, isSpecialInterrface } from './interfaceSchemaOptions';
 
 export const fieldInterfaceEditableSettings = new EditableSchemaSettings({
@@ -55,6 +66,7 @@ export const SetCollectionFieldModalWrapper = (props) => {
   const [schema, setSchema] = useState({});
   const [visible, setVisible] = useState(false);
   const [targetScope, setTargetScope] = useState({});
+  const { components } = useContext(SchemaOptionsContext);
   const api = useAPIClient();
   const [data, setData] = useState<any>({});
   const { isDialect } = useDialect();
@@ -139,48 +151,52 @@ export const SetCollectionFieldModalWrapper = (props) => {
 
   return (
     <>
-      <RecordProvider record={record}>
-        <ActionContextProvider value={{ visible, setVisible }}>
-          <Button
-            style={{ width: '100%' }}
-            disabled={false}
-            onClick={async () => {
-              const { data } = await api.resource('collections.fields', record.collectionName).get({
-                filterByTk: record.name,
-                appends: ['reverseField'],
-              });
-              setData(data?.data);
-              // const interfaceConf = getInterface(record.interface);
-              const defaultValues: any = cloneDeep(data?.data) || {};
-              const schema = getSchema(defaultValues, record);
-              if (schema) {
-                setSchema(schema);
-                setVisible(true);
-              }
-            }}
-          >
-            {t('Set default properties')}
-          </Button>
-          <SchemaComponent
-            schema={schema}
-            components={{ ...components, ArrayTable }}
-            scope={{
-              useUpdateCollectionField,
-              useCancelAction,
-              showReverseFieldConfig: !data?.reverseField,
-              collections: currentCollections,
-              isDialect,
-              disabledJSONB: true,
-              scopeKeyOptions,
-              targetScope,
-              createMainOnly: true,
-              useAsyncDataSource,
-              loadCollections,
-              useCurrentFields,
-            }}
-          />
-        </ActionContextProvider>
-      </RecordProvider>
+      <ContextCleaner>
+        <RecordProvider record={record}>
+          <ActionContextProvider value={{ visible, setVisible }}>
+            <Button
+              style={{ width: '100%' }}
+              disabled={false}
+              onClick={async () => {
+                const { data } = await api.resource('collections.fields', record.collectionName).get({
+                  filterByTk: record.name,
+                  appends: ['reverseField'],
+                });
+                setData(data?.data);
+                const defaultValues: any = cloneDeep(data?.data) || {};
+                const schema = getSchema(defaultValues, record);
+                if (schema) {
+                  setSchema(schema);
+                  setVisible(true);
+                }
+              }}
+            >
+              {t('Set default properties')}
+            </Button>
+            <SchemaComponentProvider components={components}>
+              <SchemaComponent
+                schema={schema}
+                components={{ ...components, ArrayTable }}
+                scope={{
+                  useUpdateCollectionField,
+                  useCancelAction,
+                  useCancelActionProps,
+                  showReverseFieldConfig: !data?.reverseField,
+                  collections: currentCollections,
+                  isDialect,
+                  disabledJSONB: true,
+                  scopeKeyOptions,
+                  targetScope,
+                  createMainOnly: true,
+                  useAsyncDataSource,
+                  loadCollections,
+                  useCurrentFields,
+                }}
+              />
+            </SchemaComponentProvider>
+          </ActionContextProvider>
+        </RecordProvider>
+      </ContextCleaner>
     </>
   );
 };
@@ -189,9 +205,7 @@ const useCurrentFields = () => {
   const record = useRecord();
   const { getCollectionFields } = useCollectionManager_deprecated();
 
-  // 仅当当前字段为子表单时，从DataSourceContext中获取已配置的字段列表
   if (record.__parent && record.__parent.interface === 'subTable') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const ctx = useContext(DataSourceContext_deprecated);
     return ctx.dataSource;
   }
@@ -211,6 +225,9 @@ const getSchema = (defaultValues, record): ISchema => {
       [uid()]: {
         type: 'void',
         'x-component': 'Action.Modal',
+        'x-component-props': {
+          fullScreenButton: false,
+        },
         title: '{{ t("Set default properties") }}',
         'x-decorator': 'FormV2',
         'x-decorator-props': {

@@ -277,6 +277,9 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Set default value'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
@@ -543,6 +546,9 @@ export const formItemFieldEditableSettings = new EditableSchemaSettings({
             modal: {
               type: 'void',
               'x-component': 'Action.Modal',
+              'x-component-props': {
+                fullScreenButton: false,
+              },
               title: t('Set validation rules'),
               'x-decorator': 'FormV2',
               'x-decorator-props': {
