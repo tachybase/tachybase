@@ -28,7 +28,7 @@
     "@tachybase/components": "workspace:*",
     "@types/babel__core": "7.20.5",
     "@types/babel__traverse": "7.20.7",
-    "ahooks": "3.8.4",
+    "ahooks": "3.9.0",
     "antd": "5.22.5",
     "bytemd": "1.21.0",
     "exceljs": "^4.4.0",

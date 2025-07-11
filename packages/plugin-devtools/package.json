@@ -13,7 +13,7 @@
   "dependencies": {},
   "devDependencies": {
     "@ant-design/icons": "^5.5.2",
-    "ahooks": "^3.8.4",
+    "ahooks": "^3.9.0",
     "antd": "5.22.5",
     "react-i18next": "^15.2.0",
     "swagger-ui-dist": "^5.18.2"
