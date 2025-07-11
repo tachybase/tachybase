@@ -1,6 +1,8 @@
 {
   "Allow sign in": "允许登录",
-  "Enable Single Sign-On (SSO)": "允许统一登录",
+  "Enable Single Sign-On (SSO)": "允许统一登录(SSO)",
+  "Main app signIn": "主应用登录",
+  "Please log in to the main application first": "请先登录主应用",
   "Single Sign-On (SSO) between applications": "跨应用的单点登录（SSO）",
   "Unable to disable all authenticators in the main application.": "无法在主应用禁用所有认证器"
 }

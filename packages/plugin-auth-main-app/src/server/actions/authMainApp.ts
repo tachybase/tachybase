@@ -15,43 +15,21 @@ export class AuthMainAppController {
     const { token } = ctx.action.params.values;
     // 走主程序换取用户信息
     const mainApp = await AppSupervisor.getInstance().getApp('main');
-    try {
-      const jwt = mainApp.authManager.jwt;
-      const user = await jwt.decode(token);
-      const repo = mainApp.db.getRepository('users');
-      const userInfo = await repo.findOne({
-        fields: ['username', 'nickname', 'phone'],
-        filter: {
-          id: user.id,
-        },
-      });
-      ctx.body = userInfo;
-    } catch (err) {
-      ctx.app.logger.erorr(err);
-      ctx.body = {};
-    }
-    return next();
-  }
-
-  @Action('getMainToken', { acl: 'public' })
-  async getMainToken(ctx: Context, next: () => Promise<any>) {
-    if (ctx.app.name === 'main') {
-      ctx.body = {};
-    }
-    const { token } = ctx.action.params.values;
-    // 走主程序换取用户信息
-    const mainApp = await AppSupervisor.getInstance().getApp('main');
-
     const jwt = mainApp.authManager.jwt;
-    // TODO: 如果报错怎么办
-    const jwtUser = await jwt.decode(token);
+
+    let user;
+    try {
+      user = await jwt.decode(token);
+    } catch (err) {
+      ctx.throw(401, ctx.t('Please log in to the main application first', { ns: NAMESPACE }));
+    }
 
     // 拥有管理权限
     const multiAppRepo = mainApp.db.getRepository('applications');
     const multiApp = await multiAppRepo.findOne({
       filter: {
         name: ctx.app.name,
-        createdById: jwtUser.id,
+        createdById: user.userId,
       },
     });
     if (!multiApp) {
@@ -64,7 +42,7 @@ export class AuthMainAppController {
         specialRole: 'root',
       },
     });
-    const tokenInfo = await mainApp.tokenController.add({ userId: root.id });
+    const tokenInfo = await mainApp.authManager.tokenController.add({ userId: root.id });
     const expiresIn = Math.floor((await mainApp.authManager.tokenController.getConfig()).tokenExpirationTime / 1000);
     const newToken = ctx.app.authManager.jwt.sign(
       {
@@ -78,9 +56,19 @@ export class AuthMainAppController {
         expiresIn,
       },
     );
+    const mainUserRepo = mainApp.db.getRepository('users');
+    const userInfo = await mainUserRepo.findOne({
+      fields: ['username', 'nickname', 'phone'],
+      filter: {
+        id: user.userId,
+      },
+      raw: true,
+    });
     ctx.body = {
+      ...userInfo,
       token: newToken,
     };
+    return next();
   }
 
   @Action('get', { acl: 'public' })

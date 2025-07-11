@@ -21,6 +21,7 @@ export const authMainAppManagerSchema = {
           title: tval('Enable Single Sign-On (SSO)'),
           'x-decorator': 'FormItem',
           'x-component': 'Checkbox',
+          'x-hidden': '{{ isMainApp }}',
         },
         footer: {
           type: 'void',

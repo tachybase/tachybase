@@ -3,7 +3,7 @@ import Database from '@tachybase/database';
 import { Application, Logger } from '@tachybase/server';
 import { App, Db, InjectLog, Service } from '@tachybase/utils';
 
-import { COLLECTION_AUTH_MAIN_APP_CONFIG } from '../../constants';
+import { COLLECTION_AUTH_MAIN_APP_CONFIG, NAMESPACE } from '../../constants';
 
 @Service()
 export class AuthMainAppService {
@@ -24,6 +24,7 @@ export class AuthMainAppService {
     this.addMiddleWare();
 
     this.app.on('afterStart', async () => {
+      await this.checkInstall();
       const config = await this.db.getRepository(COLLECTION_AUTH_MAIN_APP_CONFIG).findOne();
       if (config) {
         this.selfSignIn = config.selfSignIn;
@@ -37,7 +38,7 @@ export class AuthMainAppService {
     });
   }
 
-  async install() {
+  async checkInstall() {
     const repo = this.db.getRepository(COLLECTION_AUTH_MAIN_APP_CONFIG);
     const existOne = await repo.findOne();
     if (!existOne) {
@@ -53,10 +54,21 @@ export class AuthMainAppService {
   addMiddleWare() {
     this.app.resourcer.use(
       async (ctx: Context, next: Next) => {
+        if (ctx.app.name === 'main') {
+          return next();
+        }
         const { resourceName, actionName } = ctx.action.params;
         await next();
-        if (resourceName === 'authenticators' && actionName === 'publicList' && !this.selfSignIn) {
-          ctx.body = [];
+        if (resourceName === 'authenticators' && actionName === 'publicList') {
+          if (!this.selfSignIn) {
+            ctx.body = [];
+          } else {
+            ctx.body.unshift({
+              name: ctx.t('Main app signIn', { ns: NAMESPACE }),
+              authType: 'mainApp',
+              authTypeTitle: 'main app',
+            });
+          }
         }
       },
       {
