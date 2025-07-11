@@ -398,7 +398,7 @@ const EditorAddFieldsSider: React.FC<EditorFieldsSiderProps> = ({ schema: gridSc
                         if (!initialValue.uiSchema) {
                           initialValue.uiSchema = {};
                         }
-                        const relationInterfaces = ['obo', 'o2m', 'm2m', 'm2o'];
+                        const relationInterfaces = ['oho', 'o2o', 'obo', 'o2m', 'm2m', 'm2o'];
                         if (relationInterfaces.includes(initialValue.interface)) {
                           initialValue.target = '__temp__';
                           if (!['oho', 'o2o'].includes(initialValue.interface)) {

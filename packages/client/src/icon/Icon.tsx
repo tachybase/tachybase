@@ -4,7 +4,7 @@ import * as antIcons from '@ant-design/icons';
 import AntdIcon, { createFromIconfontCN } from '@ant-design/icons';
 
 import * as preloaded from './preloaded';
-import * as customIcons from './svg';
+import * as customIcons from './svgIcon';
 
 let IconFont: any;
 

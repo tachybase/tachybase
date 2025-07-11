@@ -1,4 +1,3 @@
-export { default as addFields } from './addFields';
 export { default as checkboxField } from './checkboxField';
 export { default as attachmentField } from './attachmentField';
 export { default as chinaRegionField } from './chinaRagionField';
