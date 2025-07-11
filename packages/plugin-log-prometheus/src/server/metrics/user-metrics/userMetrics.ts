@@ -49,9 +49,15 @@ export const userMetrics = {
     registers: [register],
   }),
 
-  // ===== 留存率原始数据指标 =====
+  // 用户访问事件
+  userVisit: new client.Counter({
+    name: 'tego_user_visit_total',
+    help: '用户访问总次数',
+    labelNames: ['session_id', 'visit_date', 'page_type'],
+    registers: [register],
+  }),
 
-  // 用户注册事件（用于计算留存率）
+  // 用户注册事件
   userRegistration: new client.Counter({
     name: 'tego_user_registration_total',
     help: '用户注册总次数',
@@ -59,7 +65,23 @@ export const userMetrics = {
     registers: [register],
   }),
 
-  // 用户每日活跃事件（用于计算留存率）
+  // 注册流程步骤事件
+  registrationStep: new client.Counter({
+    name: 'tego_user_registration_step_total',
+    help: '注册流程步骤总次数',
+    labelNames: ['session_id', 'step_name', 'step_date', 'status'],
+    registers: [register],
+  }),
+
+  // 注册流程放弃事件
+  registrationAbandon: new client.Counter({
+    name: 'tego_user_registration_abandon_total',
+    help: '用户放弃注册总次数',
+    labelNames: ['session_id', 'abandon_step', 'abandon_date', 'reason'],
+    registers: [register],
+  }),
+
+  // 用户每日活跃事件
   userDailyActivity: new client.Counter({
     name: 'tego_user_daily_activity_total',
     help: '用户每日活跃事件总次数',
@@ -71,11 +93,11 @@ export const userMetrics = {
   userCoreAction: new client.Counter({
     name: 'tego_user_core_action_total',
     help: '用户核心功能操作总次数',
-    labelNames: ['user_id', 'action_type', 'action_date'],
+    labelNames: ['user_id', 'action_date', 'action_type'],
     registers: [register],
   }),
 
-  // 用户登录事件（用于计算留存率）
+  // 用户登录事件
   userLogin: new client.Counter({
     name: 'tego_user_login_event_total',
     help: '用户登录事件总次数',

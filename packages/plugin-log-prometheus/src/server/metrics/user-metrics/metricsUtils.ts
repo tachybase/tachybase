@@ -41,7 +41,15 @@ export const metricsUtils = {
     userMetrics.totalRegisteredUsers.set(count);
   },
 
-  // ===== 留存率原始数据记录 =====
+  // 记录用户访问事件
+  recordUserVisit(sessionId: string, pageType: string, visitDate?: Date) {
+    const date = visitDate ? formatDateTime(visitDate, 'YYYY-MM-DD') : formatDateTime(new Date(), 'YYYY-MM-DD');
+    userMetrics.userVisit.inc({
+      session_id: sessionId,
+      visit_date: date,
+      page_type: pageType,
+    });
+  },
 
   // 记录用户注册事件
   recordUserRegistration(userId: string, registrationDate: Date) {
@@ -52,6 +60,28 @@ export const metricsUtils = {
     });
 
     console.log(`[UserMetrics] 记录用户注册事件: ${userId}, 日期: ${date}`);
+  },
+
+  // 记录注册流程步骤
+  recordRegistrationStep(sessionId: string, stepName: string, status: 'start' | 'complete' | 'error', stepDate?: Date) {
+    const date = stepDate ? formatDateTime(stepDate, 'YYYY-MM-DD') : formatDateTime(new Date(), 'YYYY-MM-DD');
+    userMetrics.registrationStep.inc({
+      session_id: sessionId,
+      step_name: stepName,
+      step_date: date,
+      status,
+    });
+  },
+
+  // 记录注册流程放弃
+  recordRegistrationAbandon(sessionId: string, abandonStep: string, reason: string, abandonDate?: Date) {
+    const date = abandonDate ? formatDateTime(abandonDate, 'YYYY-MM-DD') : formatDateTime(new Date(), 'YYYY-MM-DD');
+    userMetrics.registrationAbandon.inc({
+      session_id: sessionId,
+      abandon_step: abandonStep,
+      abandon_date: date,
+      reason,
+    });
   },
 
   // 记录用户每日活跃事件
