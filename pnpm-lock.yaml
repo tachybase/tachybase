@@ -631,8 +631,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5
       flat:
-        specifier: ^5.0.2
-        version: 5.0.2
+        specifier: ^6.0.1
+        version: 6.0.1
       i18next:
         specifier: 23.16.8
         version: 23.16.8
@@ -907,8 +907,8 @@ importers:
         specifier: ^3.1.1
         version: 3.1.1
       flat:
-        specifier: ^5.0.2
-        version: 5.0.2
+        specifier: ^6.0.1
+        version: 6.0.1
       glob:
         specifier: 11.0.0
         version: 11.0.0
@@ -12707,8 +12707,9 @@ packages:
   flat-to-nested@1.1.1:
     resolution: {integrity: sha512-Sym5oik6BO9JnsDEjv9Q9hPTCexG2ttk0UiM2mgLEiCiiUOQr8acBd33r8ixnoSGR0HAxPoP8WtLAL5oV46IhQ==}
 
-  flat@5.0.2:
-    resolution: {integrity: sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==}
+  flat@6.0.1:
+    resolution: {integrity: sha512-/3FfIa8mbrg3xE7+wAhWeV+bd7L2Mof+xtZb5dRDKZ+wDvYJK4WDYeIOuOhre5Yv5aQObZrlbRmk3RTSiuQBtw==}
+    engines: {node: '>=18'}
     hasBin: true
 
   flru@1.0.2:
@@ -13937,6 +13938,7 @@ packages:
   koa-router@13.0.1:
     resolution: {integrity: sha512-4/sijXdSxocIe2wv7RFFSxvo2ic1pDzPSmy11yCGztng1hx408qfw1wVmN3aqhQaU7U6nJ039JKC8ObE73Ohgw==}
     engines: {node: '>= 18'}
+    deprecated: Please use @koa/router instead of koa-router. This is the same package maintained by the same people, but under the Koa team's control on GitHub. Versioning is identical and it is a drop-in replacement. Maintenance is supported by Forward Email @ https://forwardemail.net
 
   koa-send@5.0.1:
     resolution: {integrity: sha512-tmcyQ/wXXuxpDxyNXv5yNNkdAMdFRqwtegBXUaowiQzUKqJehttS0x2j0eOZDQAyloAth5w6wwBImnFzkUz3pQ==}
@@ -28408,7 +28410,7 @@ snapshots:
 
   flat-to-nested@1.1.1: {}
 
-  flat@5.0.2: {}
+  flat@6.0.1: {}
 
   flru@1.0.2: {}
 
