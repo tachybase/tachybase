@@ -17,7 +17,7 @@
     "@ant-design/plots": "^2.6.0",
     "@tachybase/components": "workspace:*",
     "@tachybase/schema": "workspace:*",
-    "ahooks": "^3.8.4",
+    "ahooks": "^3.9.0",
     "antd": "5.22.5",
     "dayjs": "1.11.13",
     "deepmerge": "^4.3.1",
