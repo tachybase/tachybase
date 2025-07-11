@@ -70,5 +70,29 @@ export const collectionMultiApp = {
         'x-component': 'Checkbox',
       },
     },
+    {
+      interface: 'm2m',
+      type: 'belongsToMany',
+      name: 'partners',
+      target: 'users',
+      through: 'applicationsPartners',
+      foreignKey: 'applicationName',
+      otherKey: 'userId',
+      collectionName: 'applications',
+      targetKey: 'id',
+      sourceKey: 'name',
+      uiSchema: {
+        type: 'array',
+        title: '{{t("Partners")}}',
+        'x-component': 'RecordPicker',
+        'x-component-props': {
+          multiple: true,
+          fieldNames: {
+            label: 'nickname',
+            value: 'id',
+          },
+        },
+      },
+    },
   ],
 };
