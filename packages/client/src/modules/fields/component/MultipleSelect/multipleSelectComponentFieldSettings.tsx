@@ -3,13 +3,13 @@ import { Field, useField, useFieldSchema } from '@tachybase/schema';
 import { useTranslation } from 'react-i18next';
 
 import { SchemaSettings } from '../../../../application/schema-settings/SchemaSettings';
-import { useCollectionManager_deprecated } from '../../../../collection-manager';
+import { useCollection_deprecated, useCollectionManager_deprecated } from '../../../../collection-manager';
 import { useDataSourceManager } from '../../../../data-source';
 import { useCompile, useDesignable } from '../../../../schema-component';
 import { useColumnSchema } from '../../../../schema-component/antd/table-v2/Table.Column.Decorator';
 
-export const radioComponentFieldSettings = new SchemaSettings({
-  name: 'fieldSettings:component:Radio group',
+export const multipleComponentFieldSettings = new SchemaSettings({
+  name: 'fieldSettings:component:multiple',
   items: [
     {
       name: 'fieldComponent',
@@ -18,18 +18,14 @@ export const radioComponentFieldSettings = new SchemaSettings({
         const { t } = useTranslation();
         const field = useField<Field>();
         const { fieldSchema: tableColumnSchema } = useColumnSchema();
+        const { getCollectionJoinField } = useCollectionManager_deprecated();
+        const dm = useDataSourceManager();
         const schema = useFieldSchema();
         const fieldSchema = tableColumnSchema || schema;
-        const fieldModeOptions = [
-          { label: t('Checkbox'), value: 'Checkbox' },
-          { label: t('Radio group'), value: 'Radio group' },
-        ];
-        const dm = useDataSourceManager();
-        const { getCollectionJoinField } = useCollectionManager_deprecated();
         const collectionField = getCollectionJoinField(fieldSchema['x-collection-field']);
         const collectionInterface = dm.collectionFieldInterfaceManager.getFieldInterface(collectionField?.interface);
         const compile = useCompile();
-        const { dn } = useDesignable();
+        const fieldModeOptions = [{ label: t('Select'), value: 'multiple' }];
         collectionInterface?.componentOptions
           ?.filter((item) => !item.useVisible || item.useVisible())
           ?.forEach((item) => {
@@ -40,19 +36,23 @@ export const radioComponentFieldSettings = new SchemaSettings({
               });
             }
           });
+        const { dn } = useDesignable();
+
         return {
           title: t('Field component'),
           options: fieldModeOptions,
-          value: fieldSchema['x-component-props']?.mode || 'Radio group',
+          value: fieldSchema['x-component-props']?.mode || 'multiple',
           onChange(mode) {
             const schema = {
               ['x-uid']: fieldSchema['x-uid'],
             };
             fieldSchema['x-component-props'] = fieldSchema['x-component-props'] || {};
             fieldSchema['x-component-props']['mode'] = mode;
+            fieldSchema['x-component-props']['multiple'] = true;
             schema['x-component-props'] = fieldSchema['x-component-props'];
             field.componentProps = field.componentProps || {};
             field.componentProps.mode = mode;
+            field.componentProps.multiple = true;
 
             void dn.emit('patch', {
               schema,

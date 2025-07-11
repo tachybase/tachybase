@@ -64,6 +64,8 @@ import { uploadAttachmentComponentFieldSettings } from '../modules/fields/compon
 import { inputComponentFieldSettings } from '../modules/fields/component/Input/inputComponentFieldsSettings';
 import { inputNumberComponentFieldEditableSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldEditableSettings';
 import { inputNumberComponentFieldSettings } from '../modules/fields/component/InputNumber/inputNumberComponentFieldSettings';
+import { inputPreviewComponentFieldSettings } from '../modules/fields/component/InputPreview/inputPreviewComponentFieldSettings';
+import { multipleComponentFieldSettings } from '../modules/fields/component/MultipleSelect/multipleSelectComponentFieldSettings';
 import { subformComponentFieldEditableSettings } from '../modules/fields/component/Nester/subformComponentFieldEditableSettings';
 import { subformComponentFieldSettings } from '../modules/fields/component/Nester/subformComponentFieldSettings';
 import { recordPickerComponentFieldEditableSettings } from '../modules/fields/component/Picker/recordPickerComponentFieldEditableSettings';
@@ -137,6 +139,7 @@ export class SchemaSettingsPlugin extends Plugin {
     this.schemaSettingsManager.add(datePickerComponentFieldSettings);
     this.schemaSettingsManager.add(unixTimestampComponentFieldSettings);
     this.schemaSettingsManager.add(inputComponentFieldSettings);
+    this.schemaSettingsManager.add(inputPreviewComponentFieldSettings);
     this.schemaSettingsManager.add(inputNumberComponentFieldSettings);
     this.schemaSettingsManager.add(checkboxComponentFieldSettings);
     this.schemaSettingsManager.add(radioComponentFieldSettings);
@@ -170,5 +173,6 @@ export class SchemaSettingsPlugin extends Plugin {
     this.app.editableSchemaSettingsManager.add(fileManagerComponentFieldEditableSettings);
     this.app.editableSchemaSettingsManager.add(tagComponentFieldEditableSettings);
     this.app.editableSchemaSettingsManager.add(cascadeSelectComponentFieldEditableSettings);
+    this.schemaSettingsManager.add(multipleComponentFieldSettings);
   }
 }
