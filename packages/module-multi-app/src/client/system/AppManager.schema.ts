@@ -19,7 +19,7 @@ export const schemaAppManager: ISchema = {
         params: {
           pageSize: 20,
           sort: ['-createdAt'],
-          appends: [],
+          appends: ['partners'],
           filter: {
             createdById: '{{ admin ? undefined : userId }}',
           },

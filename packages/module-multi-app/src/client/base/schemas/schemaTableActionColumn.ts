@@ -1,6 +1,6 @@
 import { ISchema } from '@tachybase/schema';
 
-import { formSchema } from './schemaForm.js';
+import { formSchema, shareForm } from './schemaForm.js';
 
 export const tableActionColumnSchema: ISchema = {
   properties: {
@@ -61,6 +61,45 @@ export const tableActionColumnSchema: ISchema = {
         confirm: {
           title: "{{t('Delete')}}",
           content: "{{t('Are you sure you want to delete it?')}}",
+        },
+      },
+    },
+    share: {
+      type: 'void',
+      title: '{{t("Share")}}',
+      'x-component': 'Action.Link',
+      properties: {
+        drawer: {
+          type: 'void',
+          'x-component': 'Action.Drawer',
+          'x-decorator': 'Form',
+          'x-decorator-props': {
+            useValues: '{{ cm.useValuesFromRecord }}',
+          },
+          title: '{{t("Share")}}',
+          properties: {
+            shareForm,
+            footer: {
+              type: 'void',
+              'x-component': 'Action.Drawer.Footer',
+              properties: {
+                cancel: {
+                  title: '{{t("Cancel")}}',
+                  'x-component': 'Action',
+                  'x-use-component-props': 'useCancelActionProps',
+                },
+                submit: {
+                  title: '{{t("Submit")}}',
+                  'x-action': 'submit',
+                  'x-component': 'Action',
+                  'x-use-component-props': 'useMultiAppUpdateAction',
+                  'x-component-props': {
+                    type: 'primary',
+                  },
+                },
+              },
+            },
+          },
         },
       },
     },
